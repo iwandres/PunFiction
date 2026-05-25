@@ -607,10 +607,6 @@ input:focus {
 
 @media (max-width: 767px) {
     /* Keyboard Focused Compact Layout for Mobile Web Typing */
-    body.keyboard-focused .game-title-section {
-        display: none !important;
-    }
-
     body.keyboard-focused .puzzle-card {
         margin-top: 10px !important;
         padding: 12px 15px !important;
@@ -637,10 +633,6 @@ input:focus {
 
     body.keyboard-focused .guess-slots-container {
         margin-bottom: 15px !important;
-    }
-
-    body.keyboard-focused #btn-toggle-challenge {
-        display: none !important;
     }
 }
 
