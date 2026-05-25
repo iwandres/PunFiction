@@ -294,8 +294,8 @@ function loadLevel() {
     // Hook up quote Display to Boss Parody Quote (the punned quote!)
     ui.quoteDisplay.innerText = activeChallenge.boss_punned_quote ? `"${activeChallenge.boss_punned_quote}"` : '"Quote Text Missing"';
     
-    // Hook up pitch Display to Comedic Plot Pitch
-    ui.pitchDisplay.innerText = activeChallenge.boss_pitch || 'Plot details unavailable.';
+    // Hook up pitch Display to Comedic Plot Pitch with Hint #1 prefix
+    ui.pitchDisplay.innerText = `Hint #1: Parody Movie Plotline: ${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
 
     // Setup input maxLength based on letters count in answer
     const letterCount = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
@@ -317,14 +317,12 @@ function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
     ui.pitchDisplay.classList.remove('hidden'); // Reveal Comedic Parody Plot Pitch
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
-    showToast("Parody plot pitch revealed! Hint 2 unlocked.");
 }
 
 function revealHint2() {
     ui.btnShowHint2.classList.add('hidden');
     ui.hint2Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
     ui.btnShowHint3.classList.remove('hidden'); // Unlock Hint 3 button
-    showToast("Original movie revealed! Hint 3 unlocked.");
 }
 
 function revealHint3() {
@@ -334,7 +332,6 @@ function revealHint3() {
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
     }
-    showToast("First letters blank clues revealed!");
 }
 
 function generateFirstLetterBlanks(str) {
