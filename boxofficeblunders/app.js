@@ -314,6 +314,12 @@ function loadLevel() {
         ui.challengeHeader.innerText = `Challenge #${activeChallenge.puzzle_number}`;
     }
 
+    // Reset progressive hints container expand state
+    const hintContainer = document.querySelector('.hint-container');
+    if (hintContainer) {
+        hintContainer.classList.remove('collapsed');
+    }
+
     // Reset progressive hints
     ui.btnShowHint1.classList.remove('hidden');
     ui.btnShowHint2.classList.add('hidden');
@@ -406,6 +412,12 @@ function revealHint2() {
 function revealHint3() {
     ui.btnShowHint3.classList.add('hidden');
     ui.hint3Reveal.classList.remove('hidden'); // Reveal First Letters blanks Pill
+    
+    // Gracefully collapse the progressive hint buttons container since all buttons are now hidden
+    const hintContainer = document.querySelector('.hint-container');
+    if (hintContainer) {
+        hintContainer.classList.add('collapsed');
+    }
     
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
@@ -811,6 +823,21 @@ styleSheet.innerText = `
     text-transform: uppercase;
     letter-spacing: 0.5px;
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.hint-container {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 100px;
+    opacity: 1;
+    overflow: hidden;
+}
+.hint-container.collapsed {
+    max-height: 0 !important;
+    min-height: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    opacity: 0 !important;
 }
 .rhyme-word {
     transition: color 0.3s ease, font-weight 0.3s ease;
