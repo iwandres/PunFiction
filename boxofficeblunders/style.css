@@ -595,8 +595,9 @@ input:focus {
 
 #guess-input {
     position: absolute;
-    left: -9999px;
-    top: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 200px;
     height: 44px;
     font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
@@ -607,20 +608,26 @@ input:focus {
 
 @media (max-width: 767px) {
     /* Keyboard Focused Compact Layout for Mobile Web Typing */
+    body.keyboard-focused .game-title-section {
+        display: none !important;
+    }
+
     body.keyboard-focused .puzzle-card {
-        margin-top: 10px !important;
+        margin-top: 5px !important;
         padding: 12px 15px !important;
     }
 
     body.keyboard-focused .quote {
-        font-size: 1.25rem !important;
+        font-size: 1.2rem !important;
         margin-bottom: 8px !important;
     }
 
     body.keyboard-focused .pitch {
-        padding: 8px 12px !important;
-        font-size: 0.82rem !important;
-        margin-bottom: 10px !important;
+        display: none !important;
+    }
+
+    body.keyboard-focused .hint-pill {
+        display: none !important;
     }
 
     body.keyboard-focused .hint-container {
@@ -632,7 +639,7 @@ input:focus {
     }
 
     body.keyboard-focused .guess-slots-container {
-        margin-bottom: 15px !important;
+        margin-bottom: 12px !important;
     }
 }
 

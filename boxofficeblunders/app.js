@@ -110,11 +110,16 @@ window.onload = async () => {
     ui.guessInput.oninput = handleGuessInput;
     ui.guessInput.addEventListener('focus', () => {
         document.body.classList.add('keyboard-focused');
-        setTimeout(() => {
+        
+        // Multi-stage scrolling to handle different keyboard animation speeds across mobile devices
+        const scrollSlots = () => {
             if (ui.guessSlotsContainer) {
                 ui.guessSlotsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-        }, 150);
+        };
+        setTimeout(scrollSlots, 100);
+        setTimeout(scrollSlots, 300);
+        setTimeout(scrollSlots, 500);
     });
     ui.guessInput.addEventListener('blur', () => {
         document.body.classList.remove('keyboard-focused');
