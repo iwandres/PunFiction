@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PunFiction: Box Office Blunders</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.8">
+    <link rel="stylesheet" href="style.css?v=1.9">
 </head>
 <body>
     <div id="app">
@@ -41,9 +41,15 @@
                 </div>
                 
                 <!-- hint reveals pills -->
-                <div style="display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; margin-bottom: 15px;">
-                    <div id="hint2-reveal" class="hint-pill hidden" style="background: var(--text-secondary);">Original movie: <span id="movie-hint">Movie Title</span></div>
-                    <div id="hint3-reveal" class="hint-pill hidden" style="background: var(--text-secondary);">First Letters: <span id="letters-hint">Hint 3</span></div>
+                <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%; margin-bottom: 15px;">
+                    <div id="hint2-reveal" class="hint-pill hidden">
+                        <span class="hint-label">Original Movie</span>
+                        <span id="movie-hint" class="hint-value">Movie Title</span>
+                    </div>
+                    <div id="hint3-reveal" class="hint-pill hidden">
+                        <span class="hint-label">First Letters</span>
+                        <span id="letters-hint" class="hint-value" style="font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: 1px;">Hint 3</span>
+                    </div>
                 </div>
                 
                 <!-- Playable Interactive Blanks -->
@@ -129,6 +135,6 @@
         <img id="modal-poster-img" src="" alt="Enlarged Poster">
     </div>
 
-    <script src="app.js?v=1.8"></script>
+    <script src="app.js?v=1.9"></script>
 </body>
 </html>
