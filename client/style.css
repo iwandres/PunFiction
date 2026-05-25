@@ -459,6 +459,13 @@ body {
     color: var(--accent-main);
 }
 
+.guess-letter-slot.prefilled {
+    background: #f0ebfa !important;
+    color: var(--text-secondary) !important;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
 .guess-letter-slot.active {
     border-color: var(--accent-main);
     box-shadow: 2px 2px 0px var(--accent-main);

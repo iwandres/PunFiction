@@ -7,6 +7,7 @@ let puzzles = [];
 let todayChallenge = null;
 let yesterdayChallenge = null;
 let activeChallenge = null; // Currently playing challenge
+let hint3Active = false; // Flag for Hint 3 (first letters populated)
 
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
 let inventory = []; // accumulated target words
@@ -228,6 +229,7 @@ function showLobby() {
 function startGame(challenge) {
     if (!challenge) return;
     activeChallenge = challenge;
+    hint3Active = false;
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
 
@@ -262,6 +264,7 @@ function getCorrectPosterUrl(urlPath) {
 }
 
 function loadLevel() {
+    hint3Active = false;
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
     ui.feedbackMsg.className = 'feedback';
@@ -332,6 +335,25 @@ function revealHint3() {
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
     }
+
+    // Activate prefilled first-letters mode
+    hint3Active = true;
+
+    // Recalculate input maxLength based on remaining letters to type
+    const firstLetterIndices = getFirstLetterIndices(activeChallenge.boss_pun_title);
+    const totalLetters = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
+    ui.guessInput.maxLength = totalLetters - firstLetterIndices.length;
+
+    // Clear input to allow fresh typing of remaining letters
+    ui.guessInput.value = '';
+
+    // Render slots immediately with prefilled letters in correct positions
+    renderGuessSlots();
+
+    // Auto-focus input
+    setTimeout(() => {
+        ui.guessInput.focus();
+    }, 100);
 }
 
 function generateFirstLetterBlanks(str) {
@@ -355,6 +377,55 @@ function handleGuessInput() {
     renderGuessSlots();
 }
 
+function getFirstLetterIndices(title) {
+    const indices = [];
+    let letterIdx = 0;
+    let inWord = false;
+    
+    for (let i = 0; i < title.length; i++) {
+        const char = title[i];
+        if (/[a-zA-Z]/.test(char)) {
+            if (!inWord) {
+                indices.push(letterIdx);
+                inWord = true;
+            }
+            letterIdx++;
+        } else {
+            if (char === ' ' || char === '-' || char === ':') {
+                inWord = false;
+            }
+        }
+    }
+    return indices;
+}
+
+function getCompleteGuessString() {
+    if (!activeChallenge) return '';
+    const title = activeChallenge.boss_pun_title;
+    const currentGuess = ui.guessInput.value;
+    const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
+    
+    let completeStr = '';
+    let letterIdx = 0;
+    let typedIdx = 0;
+    
+    for (let i = 0; i < title.length; i++) {
+        const char = title[i];
+        if (/[a-zA-Z]/.test(char)) {
+            if (firstLetterIndices.includes(letterIdx)) {
+                completeStr += char;
+            } else {
+                completeStr += currentGuess[typedIdx] || '';
+                if (currentGuess[typedIdx]) typedIdx++;
+            }
+            letterIdx++;
+        } else {
+            completeStr += char;
+        }
+    }
+    return completeStr;
+}
+
 function renderGuessSlots() {
     if (!activeChallenge) return;
     const title = activeChallenge.boss_pun_title;
@@ -362,26 +433,49 @@ function renderGuessSlots() {
     
     if (!ui.guessSlotsContainer) return;
     
-    let guessCharIndex = 0;
     let html = '';
     let activeHighlighted = false;
+    
+    // Get first letter indices if Hint 3 is active
+    const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
+    
+    let letterIdx = 0; // index in the letter sequence of the title
+    let typedIdx = 0;  // index in the user's typed guessInput string
     
     for (let i = 0; i < title.length; i++) {
         const char = title[i];
         if (/[a-zA-Z]/.test(char)) {
-            const typedChar = currentGuess[guessCharIndex] || '';
-            const isFilled = typedChar !== '';
+            // Check if this letter is a prefilled first letter
+            const isPrefilled = firstLetterIndices.includes(letterIdx);
+            
+            let displayChar = '';
+            let isFilled = false;
+            let isPrefilledStyle = false;
+            
+            if (isPrefilled) {
+                displayChar = char; // display the actual letter from the title
+                isFilled = true;
+                isPrefilledStyle = true;
+            } else {
+                displayChar = currentGuess[typedIdx] || '';
+                if (displayChar !== '') {
+                    isFilled = true;
+                    typedIdx++;
+                }
+            }
+            
             const isLetterActive = !isFilled && !activeHighlighted;
             
             let classes = 'guess-letter-slot';
             if (isFilled) classes += ' filled';
+            if (isPrefilledStyle) classes += ' prefilled';
             if (isLetterActive) {
                 classes += ' active';
                 activeHighlighted = true;
             }
             
-            html += `<span class="${classes}">${typedChar || '&nbsp;'}</span>`;
-            guessCharIndex++;
+            html += `<span class="${classes}">${displayChar || '&nbsp;'}</span>`;
+            letterIdx++;
         } else {
             if (char === ' ') {
                 html += `<span class="guess-separator-space">&nbsp;</span>`;
@@ -402,10 +496,11 @@ const sanitizeText = (str) => {
 
 function handleGuessSubmit() {
     if (!activeChallenge) return;
-    const guess = ui.guessInput.value.trim();
-    if (!guess) return;
+    
+    const completeGuess = getCompleteGuessString();
+    if (!completeGuess.trim()) return;
 
-    const cleanGuess = sanitizeText(guess);
+    const cleanGuess = sanitizeText(completeGuess);
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
     if (cleanGuess === cleanBossAnswer) {
