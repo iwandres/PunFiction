@@ -504,19 +504,8 @@ function handleGuessSubmit() {
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
     if (cleanGuess === cleanBossAnswer) {
-        // Success! Reveal the sharp poster
-        ui.bossPosterImg.className = "boss-poster-img sharp";
-        ui.mysteryBanner.classList.add('hidden');
-        ui.bossPosterWrapper.classList.remove('hidden');
-
-        ui.feedbackMsg.innerText = "🎉 CHAMPION! THE CHALLENGE HAS BEEN SOLVED!";
-        ui.feedbackMsg.className = "feedback success";
-
         savePuzzleSolved(activeChallenge.puzzle_number);
-
-        setTimeout(() => {
-            triggerVictory();
-        }, 1800);
+        triggerVictory();
     } else {
         ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
         ui.feedbackMsg.className = "feedback error";
