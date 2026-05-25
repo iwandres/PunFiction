@@ -1,5 +1,6 @@
 // Core Constants & CDN Paths
 const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/main/backend";
+const BACKEND_API_URL = "https://punfiction.onrender.com";
 const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
 // Game State
@@ -673,29 +674,33 @@ async function triggerVictory() {
     let stats = null;
     
     try {
-        let telemetryUrl;
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            telemetryUrl = `/api/telemetry?puzzle_number=${puzzleNum}`;
-        } else {
-            telemetryUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
-        }
+        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? `/api/telemetry?puzzle_number=${puzzleNum}`
+            : `${BACKEND_API_URL}/api/telemetry?puzzle_number=${puzzleNum}`;
             
         const response = await fetch(telemetryUrl);
         if (response.ok) {
             const rawStats = await response.json();
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                if (rawStats.start > 0) {
-                    stats = rawStats;
-                }
-            } else {
+            if (rawStats.start > 0) {
+                stats = rawStats;
+            }
+        }
+    } catch (e) {
+        console.log("Primary telemetry API fetch failed, trying static fallback...", e);
+        // Fallback to static GitHub JSON file (highly resilient!)
+        try {
+            const staticUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
+            const response = await fetch(staticUrl);
+            if (response.ok) {
+                const rawStats = await response.json();
                 const puzzleStats = rawStats[puzzleNum];
                 if (puzzleStats && puzzleStats.start > 0) {
                     stats = puzzleStats;
                 }
             }
+        } catch (staticE) {
+            console.log("Static telemetry fallback fetch failed.", staticE);
         }
-    } catch (e) {
-        console.log("Telemetry fetch failed: using deterministic mock metrics fallback.", e);
     }
     
     if (!stats) {
@@ -1071,11 +1076,6 @@ async function sendTelemetryEvent(event, hints = 0) {
     const puzzleNum = activeChallenge ? activeChallenge.puzzle_number : null;
     if (!puzzleNum) return;
     
-    // Only post telemetry if running locally (localhost / 127.0.0.1)
-    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        return; // Silent bypass in production Pages
-    }
-    
     const payload = {
         event: event,
         puzzle_number: puzzleNum,
@@ -1083,7 +1083,9 @@ async function sendTelemetryEvent(event, hints = 0) {
     };
     
     try {
-        const telemetryUrl = '/api/telemetry';
+        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? '/api/telemetry'
+            : `${BACKEND_API_URL}/api/telemetry`;
         
         await fetch(telemetryUrl, {
             method: 'POST',
@@ -1091,6 +1093,6 @@ async function sendTelemetryEvent(event, hints = 0) {
             body: JSON.stringify(payload)
         });
     } catch (e) {
-        console.log("Telemetry post failed locally.", e);
+        console.log("Telemetry post failed.", e);
     }
 }
