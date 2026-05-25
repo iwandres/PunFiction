@@ -275,12 +275,12 @@ function loadLevel() {
     // --- PUZZLE DIRECT PLAY ---
     ui.questionLabel.innerText = "Guess the fictional movie title!";
     
-    // Render mystery poster silhouette with Neobrutalist bold blurred overlay
+    // Prepare poster image but keep it hidden during active play
     const posterUrl = getCorrectPosterUrl(activeChallenge.boss_poster_url);
     ui.bossPosterImg.src = posterUrl;
-    ui.bossPosterImg.className = "boss-poster-img blurred";
-    ui.bossPosterWrapper.classList.remove('hidden');
-    ui.mysteryBanner.classList.remove('hidden');
+    ui.bossPosterImg.className = "boss-poster-img sharp";
+    ui.bossPosterWrapper.classList.add('hidden');
+    ui.mysteryBanner.classList.add('hidden');
 
     ui.movieHint.innerText = activeChallenge.boss_original_title || "Unknown";
     
@@ -403,9 +403,10 @@ function handleGuessSubmit() {
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
     if (cleanGuess === cleanBossAnswer) {
-        // Success! Fully sharpen poster
+        // Success! Reveal the sharp poster
         ui.bossPosterImg.className = "boss-poster-img sharp";
         ui.mysteryBanner.classList.add('hidden');
+        ui.bossPosterWrapper.classList.remove('hidden');
 
         ui.feedbackMsg.innerText = "🎉 CHAMPION! THE CHALLENGE HAS BEEN SOLVED!";
         ui.feedbackMsg.className = "feedback success";

@@ -250,7 +250,7 @@ body {
     justify-content: flex-start;
     padding-top: 30px;
     gap: 15px;
-    overflow-y: auto;
+    overflow: hidden;
     height: 100%;
 }
 
@@ -584,7 +584,7 @@ input:focus {
 /* ================= VICTORY SCREEN COVERS ================= */
 #victory-screen {
     gap: 15px;
-    overflow-y: auto;
+    overflow: hidden;
     height: 100%;
     justify-content: flex-start;
     padding-top: 35px;
