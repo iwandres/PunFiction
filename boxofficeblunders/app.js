@@ -91,6 +91,9 @@ const ui = {
 // ================= INITIALIZATION & SCHEDULING =================
  
 window.onload = async () => {
+    // 0. Wake up the Render container in the background as early as possible
+    prewarmBackend();
+
     // 1. Setup UI bindings
     document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
     document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
@@ -625,7 +628,10 @@ function handleGuessSubmit() {
     if (!activeChallenge) return;
     
     const completeGuess = getCompleteGuessString();
-    if (!completeGuess.trim()) return;
+    if (!completeGuess.trim()) {
+        shakeInput();
+        return;
+    }
 
     const cleanGuess = sanitizeText(completeGuess);
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
@@ -727,29 +733,42 @@ function triggerVictory() {
 async function loadAndRenderGlobalStats(puzzleNum) {
     let stats = null;
     
+    const solveRateBadge = document.getElementById('solve-rate-badge');
+    if (solveRateBadge) {
+        solveRateBadge.innerText = "⚡ RETRIEVING LIVE BOX OFFICE METRICS...";
+    }
+    
+    const funnelContainer = document.querySelector('.funnel-container');
+    if (funnelContainer) {
+        funnelContainer.classList.add('loading');
+    }
+    
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? `/api/telemetry?puzzle_number=${puzzleNum}`
             : `${BACKEND_API_URL}/api/telemetry?puzzle_number=${puzzleNum}`;
             
-        const response = await fetch(telemetryUrl);
+        // Timeout after 3.5 seconds to bypass slow/sleeping Render cold starts Snappily!
+        const response = await fetchWithTimeout(telemetryUrl, { timeout: 3500 });
         if (response.ok) {
             const rawStats = await response.json();
             if (rawStats.start > 0) {
                 stats = rawStats;
+                console.log("Telemetry stats successfully loaded from live Render backend!");
             }
         }
     } catch (e) {
-        console.log("Primary telemetry API fetch failed, trying static fallback...", e);
+        console.log("Primary telemetry API fetch failed or timed out, trying static fallback...", e);
         // Fallback to static GitHub JSON file (highly resilient!)
         try {
             const staticUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
-            const response = await fetch(staticUrl);
+            const response = await fetchWithTimeout(staticUrl, { timeout: 3500 });
             if (response.ok) {
                 const rawStats = await response.json();
                 const puzzleStats = rawStats[puzzleNum];
                 if (puzzleStats && puzzleStats.start > 0) {
                     stats = puzzleStats;
+                    console.log("Telemetry stats successfully loaded from static raw CDN!");
                 }
             }
         } catch (staticE) {
@@ -757,8 +776,13 @@ async function loadAndRenderGlobalStats(puzzleNum) {
         }
     }
     
+    if (funnelContainer) {
+        funnelContainer.classList.remove('loading');
+    }
+    
     if (!stats) {
         stats = getDeterministicMockMetrics(puzzleNum);
+        console.log("Using deterministic high-fidelity mock metrics as fallback.");
     }
     
     // Calculate percentages
