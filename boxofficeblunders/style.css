@@ -565,6 +565,18 @@ input:focus {
     background: #fff9db;
 }
 
+#guess-input {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    width: 200px;
+    height: 44px;
+    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
 .feedback {
     margin-top: 15px;
     font-size: 0.95rem;

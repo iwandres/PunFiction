@@ -58,7 +58,14 @@ window.onload = async () => {
     document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
-    ui.guessInput.onkeypress = (e) => { if (e.key === 'Enter') handleGuessSubmit(); };
+    ui.guessInput.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+            handleGuessSubmit();
+        } else if (e.key === 'Backspace') {
+            // Snappy rendering fallback on backspace
+            setTimeout(renderGuessSlots, 0);
+        }
+    };
     ui.guessInput.oninput = handleGuessInput;
     if (ui.guessSlotsContainer) {
         ui.guessSlotsContainer.onclick = () => ui.guessInput.focus();
@@ -536,6 +543,11 @@ function handleGuessSubmit() {
         ui.guessInput.value = '';
         renderGuessSlots();
         shakeInput();
+        
+        // Auto-refocus on mobile so the software keyboard doesn't collapse
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
     }
 }
 

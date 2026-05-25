@@ -1141,10 +1141,7 @@
     "id": "quote_126",
     "rhyme1": "failure",
     "rhyme2": "option",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Adoption"
-    ]
+    "rhyme1_candidates": []
   },
   {
     "movie": "Babe",
@@ -1302,11 +1299,6 @@
     "id": "quote_132",
     "rhyme1": "mister",
     "rhyme2": "anderson",
-    "rhyme1_candidates": [
-      "Sister",
-      "Transistor",
-      "Mr"
-    ],
     "rhyme2_candidates": [
       "Andersen"
     ]
@@ -1423,25 +1415,7 @@
     "original_quote": "What is this? A center for ants?!",
     "id": "quote_136",
     "rhyme1": "center",
-    "rhyme2": "ants",
-    "rhyme1_candidates": [
-      "Tenor",
-      "Centre",
-      "Experimenter",
-      "Inventor",
-      "Brenner",
-      "Enter",
-      "Mentor"
-    ],
-    "rhyme2_candidates": [
-      "Pants",
-      "Chants",
-      "Plants",
-      "Transplants",
-      "Implants",
-      "Aunts",
-      "Grants"
-    ]
+    "rhyme2": "ants"
   },
   {
     "movie": "The Lord of the Rings: The Two Towers",
@@ -1461,51 +1435,7 @@
     "original_quote": "You sit on a throne of lies.",
     "id": "quote_138",
     "rhyme1": "throne",
-    "rhyme2": "lies",
-    "rhyme1_candidates": [
-      "Moan",
-      "Groan",
-      "Cornerstone",
-      "Tone",
-      "Stone",
-      "Unknown",
-      "Cyclone",
-      "Bone",
-      "Backbone",
-      "Milestone",
-      "Zone",
-      "Lone",
-      "Own",
-      "Alone",
-      "Cone",
-      "Blown",
-      "Known",
-      "Clone",
-      "Microphone",
-      "Mon"
-    ],
-    "rhyme2_candidates": [
-      "Surmise",
-      "Emphasize",
-      "Recognize",
-      "Analyze",
-      "Comprise",
-      "Likewise",
-      "Demise",
-      "Rise",
-      "Despise",
-      "Devise",
-      "Optimize",
-      "Utilize",
-      "Exemplifies",
-      "Arise",
-      "Advise",
-      "Realize",
-      "Jeopardize",
-      "Materialize",
-      "Wise",
-      "Criticize"
-    ]
+    "rhyme2": "lies"
   },
   {
     "movie": "Anchorman: The Legend of Ron Burgundy",
@@ -1536,15 +1466,6 @@
       "Defy",
       "Specify",
       "Eye"
-    ],
-    "rhyme2_candidates": [
-      "Tramp",
-      "Camp",
-      "Damp",
-      "Clamp",
-      "Stamp",
-      "Ramp",
-      "Amp"
     ]
   },
   {
@@ -1566,28 +1487,6 @@
     "id": "quote_141",
     "rhyme1": "vote",
     "rhyme2": "pedro",
-    "rhyme1_candidates": [
-      "Promote",
-      "Float",
-      "Denote",
-      "Scapegoat",
-      "Note",
-      "Anecdote",
-      "Remote",
-      "Throat",
-      "Rote",
-      "Afloat",
-      "Devote",
-      "Goat",
-      "Moat",
-      "Antidote",
-      "Boat",
-      "Quote",
-      "Overcoat",
-      "Footnote",
-      "Steamboat",
-      "Wrote"
-    ],
     "rhyme2_candidates": []
   },
   {
@@ -1597,26 +1496,7 @@
     "original_quote": "What's the most you ever lost on a coin toss?",
     "id": "quote_142",
     "rhyme1": "coin",
-    "rhyme2": "toss",
-    "rhyme1_candidates": [
-      "Groin",
-      "Join",
-      "Goin"
-    ],
-    "rhyme2_candidates": [
-      "Cross",
-      "Gloss",
-      "Pos",
-      "Moss",
-      "Loss",
-      "Sauce",
-      "Across",
-      "Ross",
-      "Os",
-      "Dos",
-      "Cos",
-      "Las"
-    ]
+    "rhyme2": "toss"
   },
   {
     "movie": "Taken",
