@@ -84,7 +84,7 @@ body {
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow: 2px 2px 0px #ffffff;
-    transform: rotate(2deg);
+    transform: none;
     display: inline-block;
 }
 
@@ -690,7 +690,7 @@ input:focus {
     border: 3px solid var(--border-color);
     box-shadow: 4px 4px 0px var(--border-color);
     border-radius: 8px;
-    transform: rotate(-2deg);
+    transform: none;
     margin-bottom: 5px;
     letter-spacing: 1px;
 }
@@ -884,7 +884,7 @@ input:focus {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 18px;
-    transform: rotate(-1deg);
+    transform: none;
 }
 
 .funnel-container {
