@@ -1,6 +1,56 @@
 [
   {
     "puzzle_number": "001",
+    "puzzle_id": "puz_quote_004_1778165104108",
+    "boss_id": "boss_quote_004_1778165104108",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Thaws",
+    "boss_pitch": "A giant, aggressively fashionable great white shark terrorizes a winter resort town by freezing the water and judging people's flimsy outerwear.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger coat.",
+    "boss_poster_url": "/assets/posters/thaws_poster_1778767697067.png",
+    "boss_hint2": "T____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "002",
     "puzzle_id": "puz_quote_002_1778164883718",
     "boss_id": "boss_quote_002_1778164883718",
     "boss_original_title": "The Godfather",
@@ -50,7 +100,7 @@
     ]
   },
   {
-    "puzzle_number": "002",
+    "puzzle_number": "003",
     "puzzle_id": "puz_quote_001_1778164818182",
     "boss_id": "boss_quote_001_1778164818182",
     "boss_original_title": "Dirty Harry",
@@ -100,7 +150,7 @@
     ]
   },
   {
-    "puzzle_number": "003",
+    "puzzle_number": "004",
     "puzzle_id": "puz_quote_006_1778210473628",
     "boss_id": "boss_quote_006_1778210473628",
     "boss_original_title": "Network",
@@ -150,7 +200,7 @@
     ]
   },
   {
-    "puzzle_number": "004",
+    "puzzle_number": "005",
     "puzzle_id": "puz_quote_007_1778210506905",
     "boss_id": "boss_quote_007_1778210506905",
     "boss_original_title": "Star Wars: A New Hope",
@@ -161,56 +211,6 @@
     "boss_poster_url": "/assets/posters/tartar_wars_poster_1778767657793.png",
     "boss_hint2": "T_____ W___: A N__ S____",
     "answer": "______ ____: _ ___ _____",
-    "difficulty_tier": 2,
-    "status": "approved",
-    "puzzles": [
-      {
-        "step": 1,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      },
-      {
-        "step": 2,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      },
-      {
-        "step": 3,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      }
-    ]
-  },
-  {
-    "puzzle_number": "005",
-    "puzzle_id": "puz_quote_004_1778165104108",
-    "boss_id": "boss_quote_004_1778165104108",
-    "boss_original_title": "Jaws",
-    "boss_pun_title": "Thaws",
-    "boss_pitch": "A giant, aggressively fashionable great white shark terrorizes a winter resort town by freezing the water and judging people's flimsy outerwear.",
-    "boss_original_quote": "You're gonna need a bigger boat.",
-    "boss_punned_quote": "You're gonna need a bigger coat.",
-    "boss_poster_url": "/assets/posters/thaws_poster_1778767697067.png",
-    "boss_hint2": "T____",
-    "answer": "_____",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [
@@ -2511,6 +2511,56 @@
     "boss_poster_url": "/assets/posters/forrest_thump_poster_1778882384.jpg",
     "boss_hint2": "F______ T____",
     "answer": "_______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_025_1778212163164",
+    "boss_id": "boss_quote_025_1778212163164",
+    "boss_original_title": "A Few Good Men",
+    "boss_pun_title": "A Few Good Lumens",
+    "boss_pitch": "During a tense corporate tribunal, a rookie lawyer grills a hardened Yankee Candle executive about an illegal double-wicking cover-up.",
+    "boss_original_quote": "You can't handle the truth!",
+    "boss_punned_quote": "You can't candle the truth!",
+    "boss_poster_url": "/assets/posters/a_few_good_lumens_poster_1779598571.jpg",
+    "boss_hint2": "A F__ G___ L_____",
+    "answer": "_ ___ ____ ______",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [
