@@ -28,7 +28,7 @@ const ui = {
     mysteryBanner: document.getElementById('mystery-banner'),
     quoteDisplay: document.getElementById('quote-display'),
     pitchDisplay: document.getElementById('pitch-display'),
-    parodyTitleHint: document.getElementById('parody-title-hint'),
+    guessSlotsContainer: document.getElementById('guess-slots-container'),
     guessInput: document.getElementById('guess-input'),
     feedbackMsg: document.getElementById('feedback-msg'),
     debugAnswer: document.getElementById('debug-answer'),
@@ -46,9 +46,9 @@ const ui = {
     finalBossMovie: document.getElementById('final-boss-movie'),
     finalBossPitch: document.getElementById('final-boss-pitch')
 };
-
+ 
 // ================= INITIALIZATION & SCHEDULING =================
-
+ 
 window.onload = async () => {
     // 1. Setup UI bindings
     document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
@@ -56,9 +56,13 @@ window.onload = async () => {
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
     ui.guessInput.onkeypress = (e) => { if (e.key === 'Enter') handleGuessSubmit(); };
+    ui.guessInput.oninput = handleGuessInput;
+    if (ui.guessSlotsContainer) {
+        ui.guessSlotsContainer.onclick = () => ui.guessInput.focus();
+    }
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
-
+ 
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
 };
@@ -269,7 +273,7 @@ function loadLevel() {
     ui.hint2Reveal.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
-    ui.questionLabel.innerText = "Guess the Parody Movie Title!";
+    ui.questionLabel.innerText = "Guess the fictional movie title!";
     
     // Render mystery poster silhouette with Neobrutalist bold blurred overlay
     const posterUrl = getCorrectPosterUrl(activeChallenge.boss_poster_url);
@@ -286,12 +290,20 @@ function loadLevel() {
     // Hook up pitch Display to Comedic Plot Pitch
     ui.pitchDisplay.innerText = activeChallenge.boss_pitch || 'Plot details unavailable.';
 
-    // Generate blanks where letters are blanked out in the title
-    const bossBlanks = activeChallenge.boss_pun_title.replace(/[a-zA-Z]/g, '_');
-    ui.parodyTitleHint.innerText = bossBlanks.split('').join(' ');
+    // Setup input maxLength based on letters count in answer
+    const letterCount = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
+    ui.guessInput.maxLength = letterCount;
+
+    // Render interactive blank slots
+    renderGuessSlots();
 
     // Debug fallback
     ui.debugAnswer.innerText = `(Debug Answer: ${activeChallenge.boss_pun_title})`;
+
+    // Automatically focus input so player can type immediately
+    setTimeout(() => {
+        ui.guessInput.focus();
+    }, 100);
 }
 
 function revealHint1() {
@@ -326,13 +338,64 @@ function generateFirstLetterBlanks(str) {
     }).join(' ');
 }
 
+// ================= INTERACTIVE CHAR-SLOT PUZZLE LOGIC =================
+
+function handleGuessInput() {
+    const origVal = ui.guessInput.value;
+    const sanitizedVal = origVal.replace(/[^a-zA-Z]/g, '');
+    if (origVal !== sanitizedVal) {
+        ui.guessInput.value = sanitizedVal;
+    }
+    renderGuessSlots();
+}
+
+function renderGuessSlots() {
+    if (!activeChallenge) return;
+    const title = activeChallenge.boss_pun_title;
+    const currentGuess = ui.guessInput.value;
+    
+    if (!ui.guessSlotsContainer) return;
+    
+    let guessCharIndex = 0;
+    let html = '';
+    let activeHighlighted = false;
+    
+    for (let i = 0; i < title.length; i++) {
+        const char = title[i];
+        if (/[a-zA-Z]/.test(char)) {
+            const typedChar = currentGuess[guessCharIndex] || '';
+            const isFilled = typedChar !== '';
+            const isLetterActive = !isFilled && !activeHighlighted;
+            
+            let classes = 'guess-letter-slot';
+            if (isFilled) classes += ' filled';
+            if (isLetterActive) {
+                classes += ' active';
+                activeHighlighted = true;
+            }
+            
+            html += `<span class="${classes}">${typedChar || '&nbsp;'}</span>`;
+            guessCharIndex++;
+        } else {
+            if (char === ' ') {
+                html += `<span class="guess-separator-space">&nbsp;</span>`;
+            } else {
+                html += `<span class="guess-separator-char">${char}</span>`;
+            }
+        }
+    }
+    
+    ui.guessSlotsContainer.innerHTML = html;
+}
+
 // Clean guesses to ignore minor editorial punctuation
 const sanitizeText = (str) => {
     if (!str) return "";
-    return str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?!'"]/g,"").replace(/\s{2,}/g," ").trim().toLowerCase();
+    return str.toLowerCase().replace(/[^a-z]/g, '');
 };
 
 function handleGuessSubmit() {
+    if (!activeChallenge) return;
     const guess = ui.guessInput.value.trim();
     if (!guess) return;
 
@@ -403,9 +466,11 @@ function shareSolvedScore() {
 // ================= DYNAMIC UI EFFECTS =================
 
 function shakeInput() {
-    ui.guessInput.style.animation = 'none';
-    ui.guessInput.offsetHeight; /* trigger reflow */
-    ui.guessInput.style.animation = 'shake 0.3s ease-in-out';
+    if (ui.guessSlotsContainer) {
+        ui.guessSlotsContainer.style.animation = 'none';
+        ui.guessSlotsContainer.offsetHeight; /* trigger reflow */
+        ui.guessSlotsContainer.style.animation = 'shake 0.3s ease-in-out';
+    }
 }
 
 // Inject Keyframe animations dynamically to keep client lightweight

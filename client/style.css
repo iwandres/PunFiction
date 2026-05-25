@@ -257,20 +257,27 @@ body {
 .game-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    background: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
-    border-radius: 12px;
-    padding: 10px 15px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 5px;
 }
 
 .level-indicator {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     color: #2d3436;
+    background: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 3px 3px 0px var(--border-color);
+    border-radius: 8px;
+    padding: 6px 15px;
     letter-spacing: 0.5px;
+    display: inline-block;
+    text-transform: uppercase;
 }
 
 .inventory-container {
@@ -323,18 +330,16 @@ body {
 }
 
 .question-text {
-    font-size: 0.85rem;
-    font-weight: 900;
-    color: #5f27cd;
-    background: #fff275;
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
-    padding: 4px 12px;
-    border-radius: 5px;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0px #ffffff;
+    letter-spacing: 1px;
     margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transform: rotate(-1deg);
+    transform: rotate(-1.5deg);
+    display: inline-block;
 }
 
 .hint-container {
@@ -403,23 +408,68 @@ body {
     font-weight: 700;
 }
 
-/* ================= PLAYABLE HINT BLANKS ================= */
-.title-hint-container {
-    background: #f5f6fa;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+/* ================= PLAYABLE INTERACTIVE SLOTS ================= */
+.guess-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 6px;
     width: 100%;
-    border: 2px dashed var(--border-color);
+    margin-bottom: 25px;
+    padding: 5px;
+    cursor: text;
 }
 
-.parody-title-hint {
-    font-family: monospace;
-    font-size: 1.2rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    color: #ff4757;
-    word-break: break-all;
+.guess-letter-slot {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    width: 32px;
+    height: 42px;
+    border: 3px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    border-radius: 6px;
+    background: #ffffff;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+.guess-letter-slot.filled {
+    background: #fff9db;
+    border-color: var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px var(--border-color);
+    color: var(--accent-main);
+}
+
+.guess-letter-slot.active {
+    border-color: var(--accent-main);
+    box-shadow: 2px 2px 0px var(--accent-main);
+    animation: pulseActive 0.8s infinite alternate;
+}
+
+.guess-separator-space {
+    width: 14px;
+    display: inline-block;
+}
+
+.guess-separator-char {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px;
+}
+
+@keyframes pulseActive {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.06); }
 }
 
 /* ================= MOVIE POSTER STYLING ================= */

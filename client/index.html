@@ -42,13 +42,13 @@
         <!-- Game Screen -->
         <div id="game-screen" class="screen active">
             <!-- Header Status -->
-            <div class="game-header" style="justify-content: center;">
-                <div class="level-indicator" id="challenge-header" style="font-size: 1.5rem; letter-spacing: 0.5px;">Challenge #???</div>
+            <div class="game-header">
+                <div class="level-indicator" id="challenge-header">Challenge #???</div>
             </div>
 
             <!-- Puzzle Content (Neobrutalist Comic Card) -->
             <div class="puzzle-card">
-                <p id="question-label" class="question-text">Guess the Parody Movie Title!</p>
+                <h2 id="question-label" class="question-text">Guess the fictional movie title!</h2>
                 
                 <!-- Boss Level Mystery Poster Silhouette Wrapper -->
                 <div class="boss-poster-frame hidden" id="boss-poster-wrapper">
@@ -67,15 +67,13 @@
                 <h2 id="quote-display" class="quote">"This is a placeholder quote."</h2>
                 <div id="pitch-display" class="pitch">This is a placeholder comedic pitch.</div>
                 
-                <!-- Playable Title Blanks -->
-                <div class="title-hint-container">
-                    <div id="parody-title-hint" class="parody-title-hint"></div>
-                </div>
+                <!-- Playable Interactive Blanks -->
+                <div class="guess-slots-container" id="guess-slots-container"></div>
                 
                 <!-- User Input Section -->
-                <div class="input-section">
-                    <input type="text" id="guess-input" placeholder="Enter your guess..." autocomplete="off" autofocus>
-                    <button id="btn-submit" class="btn primary-btn" style="padding: 10px 20px;">Submit</button>
+                <div class="input-section" style="justify-content: center;">
+                    <input type="text" id="guess-input" style="position: absolute; opacity: 0; z-index: -1; width: 1px; height: 1px;" autocomplete="off">
+                    <button id="btn-submit" class="btn primary-btn" style="padding: 12px 30px;">Submit Guess</button>
                 </div>
                 
                 <div id="feedback-msg" class="feedback"></div>
