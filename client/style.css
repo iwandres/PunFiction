@@ -414,11 +414,19 @@ body {
 }
 
 .pitch {
-    font-size: 0.95rem;
-    color: #57606f;
-    margin-bottom: 20px;
+    background: #ffffff;
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin: 0 auto 15px auto;
     line-height: 1.45;
     font-weight: 700;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
 }
 
 /* ================= PLAYABLE INTERACTIVE SLOTS ================= */
