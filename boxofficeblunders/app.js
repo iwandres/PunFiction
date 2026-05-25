@@ -673,15 +673,25 @@ async function triggerVictory() {
     let stats = null;
     
     try {
-        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? `/api/telemetry?puzzle_number=${puzzleNum}`
-            : `http://localhost:8000/api/telemetry?puzzle_number=${puzzleNum}`;
+        let telemetryUrl;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            telemetryUrl = `/api/telemetry?puzzle_number=${puzzleNum}`;
+        } else {
+            telemetryUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
+        }
             
         const response = await fetch(telemetryUrl);
         if (response.ok) {
             const rawStats = await response.json();
-            if (rawStats.start > 0) {
-                stats = rawStats;
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                if (rawStats.start > 0) {
+                    stats = rawStats;
+                }
+            } else {
+                const puzzleStats = rawStats[puzzleNum];
+                if (puzzleStats && puzzleStats.start > 0) {
+                    stats = puzzleStats;
+                }
             }
         }
     } catch (e) {
@@ -1061,6 +1071,11 @@ async function sendTelemetryEvent(event, hints = 0) {
     const puzzleNum = activeChallenge ? activeChallenge.puzzle_number : null;
     if (!puzzleNum) return;
     
+    // Only post telemetry if running locally (localhost / 127.0.0.1)
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        return; // Silent bypass in production Pages
+    }
+    
     const payload = {
         event: event,
         puzzle_number: puzzleNum,
@@ -1068,9 +1083,7 @@ async function sendTelemetryEvent(event, hints = 0) {
     };
     
     try {
-        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/api/telemetry'
-            : 'http://localhost:8000/api/telemetry';
+        const telemetryUrl = '/api/telemetry';
         
         await fetch(telemetryUrl, {
             method: 'POST',
@@ -1078,6 +1091,6 @@ async function sendTelemetryEvent(event, hints = 0) {
             body: JSON.stringify(payload)
         });
     } catch (e) {
-        console.log("Telemetry post silented: Server offline or running serverless Pages fallback.", e);
+        console.log("Telemetry post failed locally.", e);
     }
 }
