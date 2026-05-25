@@ -69,6 +69,34 @@ window.onload = async () => {
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
  
+    // Fullscreen Poster Modal bindings
+    const posterModal = document.getElementById('poster-modal');
+    const modalPosterImg = document.getElementById('modal-poster-img');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+
+    if (ui.victoryPosterImg) {
+        ui.victoryPosterImg.onclick = () => {
+            if (ui.victoryPosterImg.src) {
+                modalPosterImg.src = ui.victoryPosterImg.src;
+                posterModal.classList.add('active');
+            }
+        };
+    }
+
+    if (btnCloseModal) {
+        btnCloseModal.onclick = () => {
+            posterModal.classList.remove('active');
+        };
+    }
+
+    if (posterModal) {
+        posterModal.onclick = (e) => {
+            if (e.target === posterModal) {
+                posterModal.classList.remove('active');
+            }
+        };
+    }
+
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
 };

@@ -638,22 +638,99 @@ input:focus {
 }
 
 .victory-poster-wrapper {
-    width: 160px;
-    height: 240px;
+    width: 240px;
+    height: 360px;
     background: #090c15;
     border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    box-shadow: none; /* completely flat! */
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: zoom-in;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.victory-poster-wrapper:hover {
+    transform: scale(1.03);
 }
 
 .victory-poster-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+
+/* ================= FULLSCREEN POSTER OVERLAY ================= */
+.poster-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(9, 12, 21, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.poster-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#modal-poster-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 4px solid var(--border-color);
+    box-shadow: 10px 10px 0px var(--border-color);
+    border-radius: 12px;
+    background: #090c15;
+    transform: scale(0.9);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.poster-modal.active #modal-poster-img {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 46px;
+    height: 46px;
+    background: #ff4757;
+    color: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.1s ease;
+    line-height: 1;
+    padding: 0;
+}
+
+.modal-close-btn:hover {
+    background: #ff6b81;
+}
+
+.modal-close-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0px var(--border-color);
 }
 
 .victory-meta-box {
