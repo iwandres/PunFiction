@@ -3,6 +3,43 @@ const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/m
 const BACKEND_API_URL = "https://punfiction.onrender.com";
 const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
+// Pre-warm the backend Render service in the background as early as possible
+function prewarmBackend() {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocal) return;
+    
+    console.log("Initiating asynchronous backend pre-warm ping...");
+    fetch(`${BACKEND_API_URL}/api/telemetry?puzzle_number=001`, { mode: 'cors' })
+        .then(res => {
+            if (res.ok) {
+                console.log("Render backend container warmed up and awake!");
+            }
+        })
+        .catch(err => {
+            console.log("Render backend pre-warm ping sent, warming up in background.");
+        });
+}
+
+// Fetch utility wrapper supporting customized millisecond execution timeout
+async function fetchWithTimeout(resource, options = {}) {
+    const { timeout = 3500 } = options;
+    
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    
+    try {
+        const response = await fetch(resource, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(id);
+        return response;
+    } catch (error) {
+        clearTimeout(id);
+        throw error;
+    }
+}
+
 // Game State
 let puzzles = [];
 let todayChallenge = null;
@@ -623,10 +660,10 @@ function handleToggleChallenge() {
     }
 }
 
-async function triggerVictory() {
+function triggerVictory() {
     currentLevel = 5;
 
-    // Render theatrical movie poster frame
+    // Render theatrical movie poster frame immediately
     ui.victoryPosterImg.src = getCorrectPosterUrl(activeChallenge.boss_poster_url);
     ui.finalBossTitle.innerText = activeChallenge.boss_pun_title;
     ui.finalBossMovie.innerText = `Original Movie: ${activeChallenge.boss_original_title}`;
@@ -668,8 +705,26 @@ async function triggerVictory() {
         }
     }
 
-    // Fetch and render global metrics stats funnel
-    const puzzleNum = activeChallenge.puzzle_number;
+    // Set up victory lobby button dynamically
+    const lobbyBtn = document.getElementById('btn-victory-lobby');
+    if (lobbyBtn) {
+        if (activeChallenge === yesterdayChallenge) {
+            lobbyBtn.innerHTML = "🎯 PLAY TODAY'S CHALLENGE";
+            lobbyBtn.classList.remove('hidden');
+        } else {
+            // Hide the button when today's challenge is completed (nothing next to play)
+            lobbyBtn.classList.add('hidden');
+        }
+    }
+
+    // Switch screen to Victory instantly!
+    switchScreen('victory');
+
+    // Run the telemetry fetching and rendering asynchronously in the background
+    loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+}
+
+async function loadAndRenderGlobalStats(puzzleNum) {
     let stats = null;
     
     try {
@@ -777,8 +832,6 @@ async function triggerVictory() {
         if (pct2Label) pct2Label.innerText = `${pct2}%`;
         if (pct3Label) pct3Label.innerText = `${pct3}%`;
     }, 200);
-
-    switchScreen('victory');
 }
 
 // Share score streak via clipboard copy

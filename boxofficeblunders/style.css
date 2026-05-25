@@ -942,4 +942,33 @@ input:focus {
     text-align: right;
 }
 
+/* ================= TELEMETRY LOADING STATE SHIMMER & PULSE ================= */
+
+@keyframes stats-pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+@keyframes stats-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.funnel-container.loading {
+    animation: stats-pulse 1.5s infinite ease-in-out;
+}
+
+.funnel-container.loading .funnel-bar-track {
+    background: linear-gradient(90deg, #f1f2f6 25%, #e2e8f0 50%, #f1f2f6 75%);
+    background-size: 200% 100%;
+    animation: stats-shimmer 1.5s infinite linear;
+    border-color: #cbd5e1;
+}
+
+.funnel-container.loading .funnel-bar-fill {
+    opacity: 0.3;
+}
+
+
 
