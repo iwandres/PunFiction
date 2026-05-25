@@ -10,24 +10,24 @@
 <body>
     <div id="app">
         <!-- Start Screen (Comic Lobby) -->
-        <div id="start-screen" class="screen">
+        <div id="start-screen" class="screen active">
             <h1 class="title">Pun<span class="accent">Fiction</span></h1>
             <p class="subtitle">Box Office Blunders</p>
             
             <div class="challenge-deck-container">
-                <!-- Today's Challenge Comic Issue Cover -->
-                <div class="comic-card today" id="today-issue-card">
-                    <span class="issue-tag">TODAY'S ISSUE</span>
-                    <span class="issue-badge-solved hidden" id="today-solved-badge">🌟 SOLVED</span>
-                    <h3 class="issue-title" id="today-issue-title">Issue #???</h3>
-                    <p class="issue-meta" id="today-issue-meta">Original: ???</p>
+                <!-- Today's Challenge Comic Cover -->
+                <div class="comic-card today" id="today-challenge-card">
+                    <span class="challenge-tag">TODAY'S CHALLENGE</span>
+                    <span class="challenge-badge-solved hidden" id="today-solved-badge">🌟 SOLVED</span>
+                    <h3 class="challenge-title" id="today-challenge-title">Challenge #???</h3>
+                    <p class="challenge-meta" id="today-challenge-meta">Original: ???</p>
                     <button id="btn-play-today" class="btn primary-btn" style="width: 100%;">🎯 PLAY NOW</button>
                 </div>
 
             </div>
             
             <p style="font-size:10px; font-weight:900; color:rgba(0,0,0,0.3); text-transform:uppercase; letter-spacing:0.5px; text-align:center; margin-top:10px;">
-                * Issues update every day at 2:00 AM Pacific Time
+                * Challenges update every day at 2:00 AM Pacific Time
             </p>
 
             <!-- Link to Yesterday's Challenge at the bottom -->
@@ -37,7 +37,7 @@
         </div>
 
         <!-- Game Screen -->
-        <div id="game-screen" class="screen active">
+        <div id="game-screen" class="screen">
             <!-- Game Title Section (Centered) -->
             <div class="game-title-section">
                 <h2 id="question-label" class="question-text">Guess the parody movie title!</h2>
@@ -80,7 +80,6 @@
                 </div>
                 
                 <div id="feedback-msg" class="feedback"></div>
-                <div id="debug-answer" class="debug-answer"></div>
             </div>
             
             <button class="btn outline-btn" id="btn-toggle-challenge" style="padding: 8px 16px; font-size: 13px; align-self: center;">⏮️ PLAY YESTERDAY'S CHALLENGE</button>

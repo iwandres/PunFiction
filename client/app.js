@@ -33,7 +33,6 @@ const ui = {
     guessSlotsContainer: document.getElementById('guess-slots-container'),
     guessInput: document.getElementById('guess-input'),
     feedbackMsg: document.getElementById('feedback-msg'),
-    debugAnswer: document.getElementById('debug-answer'),
     
     // Progressive hints
     btnShowHint1: document.getElementById('btn-show-hint1'),
@@ -57,7 +56,8 @@ const ui = {
 window.onload = async () => {
     // 1. Setup UI bindings
     document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
-    document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
+    document.getElementById('btn-play-today').onclick = () => startGame(todayChallenge);
+    document.getElementById('btn-victory-lobby').onclick = showLobby;
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
     ui.guessInput.onkeypress = (e) => { if (e.key === 'Enter') handleGuessSubmit(); };
@@ -164,27 +164,37 @@ async function loadPuzzleDatabase() {
 
     // Calculate current scheduling indexes based on elapsed days since launch (updates at 2am PT)
     const daysElapsed = getDaysElapsedSinceStart();
-    const todayIssueStr = padPuzzleNumber(daysElapsed + 1);
-    const yesterdayIssueStr = padPuzzleNumber(daysElapsed);
-
-    // Map challenges
-    todayChallenge = approvedChallenges.find(p => p.puzzle_number === todayIssueStr) || approvedChallenges[approvedChallenges.length - 1];
-    yesterdayChallenge = approvedChallenges.find(p => p.puzzle_number === yesterdayIssueStr) || null;
+    let currentDayIndex = daysElapsed + 1;
 
     // Check if player URL overrides day (e.g. ?day=001) for diagnostic playtesting
     const urlParams = new URLSearchParams(window.location.search);
     const dayOverride = urlParams.get('day') || urlParams.get('challenge');
+    let matchedOverride = null;
+
     if (dayOverride) {
-        const matchedOverride = approvedChallenges.find(p => p.puzzle_number === padPuzzleNumber(dayOverride));
+        matchedOverride = approvedChallenges.find(p => p.puzzle_number === padPuzzleNumber(dayOverride));
         if (matchedOverride) {
-            console.log(`URL Parameter Override: Playing Issue #${dayOverride}`);
-            startGame(matchedOverride);
-            return;
+            const parsedOverride = parseInt(dayOverride);
+            if (!isNaN(parsedOverride) && parsedOverride > 0) {
+                currentDayIndex = parsedOverride;
+            }
         }
     }
 
-    // Otherwise, start Today's challenge automatically on load!
-    startGame(todayChallenge);
+    const todayChallengeStr = padPuzzleNumber(currentDayIndex);
+    const yesterdayChallengeStr = padPuzzleNumber(currentDayIndex - 1);
+
+    // Map challenges
+    todayChallenge = approvedChallenges.find(p => p.puzzle_number === todayChallengeStr) || approvedChallenges[approvedChallenges.length - 1];
+    yesterdayChallenge = approvedChallenges.find(p => p.puzzle_number === yesterdayChallengeStr) || null;
+
+    if (matchedOverride) {
+        console.log(`URL Parameter Override: Playing Challenge #${dayOverride}`);
+        startGame(matchedOverride);
+    } else {
+        // Otherwise, show the Lobby homepage!
+        showLobby();
+    }
 }
 
 function renderLobbyCovers() {
@@ -193,11 +203,11 @@ function renderLobbyCovers() {
     // 1. Populate Today's Card
     if (todayChallenge) {
         const isSolved = solvedPuzzles.has(todayChallenge.puzzle_number);
-        document.getElementById('today-issue-title').innerText = `Issue #${todayChallenge.puzzle_number}: ${todayChallenge.boss_pun_title}`;
-        document.getElementById('today-issue-meta').innerText = `Original Movie: ${todayChallenge.boss_original_title}`;
-        document.getElementById('today-solved-badge').className = isSolved ? "issue-badge-solved" : "issue-badge-solved hidden";
+        document.getElementById('today-challenge-title').innerText = `Challenge #${todayChallenge.puzzle_number}: ${todayChallenge.boss_pun_title}`;
+        document.getElementById('today-challenge-meta').innerText = `Original Movie: ${todayChallenge.boss_original_title}`;
+        document.getElementById('today-solved-badge').className = isSolved ? "challenge-badge-solved" : "challenge-badge-solved hidden";
         if (isSolved) {
-            document.getElementById('btn-play-today').innerText = "⭐ REPLAY ISSUE";
+            document.getElementById('btn-play-today').innerText = "⭐ REPLAY CHALLENGE";
         } else {
             document.getElementById('btn-play-today').innerText = "🎯 PLAY NOW";
         }
@@ -212,7 +222,7 @@ function renderLobbyCovers() {
             yesterdayLinkContainer.classList.remove('hidden');
             const isYesterdaySolved = solvedPuzzles.has(yesterdayChallenge.puzzle_number);
             btnPlayYesterdayLink.innerText = isYesterdaySolved 
-                ? `⏮️ REPLAY YESTERDAY'S ISSUE (#${yesterdayChallenge.puzzle_number})` 
+                ? `⏮️ REPLAY YESTERDAY'S CHALLENGE (#${yesterdayChallenge.puzzle_number})` 
                 : `⏮️ PLAY YESTERDAY'S CHALLENGE (#${yesterdayChallenge.puzzle_number})`;
             btnPlayYesterdayLink.onclick = () => startGame(yesterdayChallenge);
         }
@@ -363,9 +373,6 @@ function loadLevel() {
 
     // Render interactive blank slots
     renderGuessSlots();
-
-    // Debug fallback
-    ui.debugAnswer.innerText = `(Debug Answer: ${activeChallenge.boss_pun_title})`;
 
     // Automatically focus input so player can type immediately
     setTimeout(() => {
@@ -621,11 +628,11 @@ function shareSolvedScore() {
     // Add hint count to the share text
     const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/3 hints used 💡`;
 
-    const copyText = `PunFiction Daily Issue #${activeChallenge.puzzle_number} 🎬\n` + 
+    const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
                      `💡 Stats: ${hintText}\n` +
-                     `🌟 Complete Streak: ${streak} solved issue(s)!\n` +
-                     `Play daily challenges at: https://iwandres.github.io/PunFiction`;
+                     `🌟 Complete Streak: ${streak} solved challenge(s)!\n` +
+                     `Play daily challenges at: https://iwandres.github.io/PunFiction/client/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");

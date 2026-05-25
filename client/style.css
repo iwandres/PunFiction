@@ -129,7 +129,7 @@ body {
     background: #f1f2f6;
 }
 
-.issue-tag {
+.challenge-tag {
     position: absolute;
     top: -12px;
     left: 20px;
@@ -143,11 +143,11 @@ body {
     transform: rotate(-2deg);
 }
 
-.comic-card.yesterday .issue-tag {
+.comic-card.yesterday .challenge-tag {
     background: #5f27cd;
 }
 
-.issue-badge-solved {
+.challenge-badge-solved {
     position: absolute;
     top: -12px;
     right: 20px;
@@ -162,7 +162,7 @@ body {
     transform: rotate(3deg);
 }
 
-.issue-title {
+.challenge-title {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--text-primary);
@@ -170,7 +170,7 @@ body {
     margin-bottom: 5px;
 }
 
-.issue-meta {
+.challenge-meta {
     font-size: 12px;
     font-weight: 800;
     color: var(--text-secondary);
@@ -601,13 +601,7 @@ input:focus {
     box-shadow: 2px 2px 0px var(--border-color);
 }
 
-.debug-answer {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.25);
-    font-style: italic;
-    font-weight: 800;
-}
+
 
 /* ================= VICTORY SCREEN COVERS ================= */
 #victory-screen {

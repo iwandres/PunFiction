@@ -1145,8 +1145,8 @@
         let puzzles = [];
         let savedPunsIds = new Set();
 
-        // Timezone robust today issue string helper
-        function getTodayIssueStr() {
+        // Timezone robust today challenge string helper
+        function getTodayChallengeStr() {
             const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00");
             const now = new Date();
             const nowInPT = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
@@ -1569,7 +1569,7 @@
             const punnedText = originalText.replace(regex, candidateWord);
 
             if (punnedText === originalText) {
-                showToast("Regex boundary issue, failed to replace word.", true);
+                showToast("Regex boundary error, failed to replace word.", true);
                 return;
             }
 
@@ -2223,8 +2223,8 @@
         function syncPuzzleBlock(gameIdx, key, val) {
             const p = puzzles[gameIdx];
             if (p && p.puzzle_number) {
-                const todayIssueStr = getTodayIssueStr();
-                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                const todayChallengeStr = getTodayChallengeStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayChallengeStr)) {
                     showToast("Cannot edit a historical puzzle!", "error");
                     return;
                 }
@@ -2267,8 +2267,8 @@
         function updateBossTitle(gameIdx, val) {
             const p = puzzles[gameIdx];
             if (p && p.puzzle_number) {
-                const todayIssueStr = getTodayIssueStr();
-                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                const todayChallengeStr = getTodayChallengeStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayChallengeStr)) {
                     showToast("Cannot edit a historical puzzle!", "error");
                     return;
                 }
@@ -2286,8 +2286,8 @@
             if (!p) return;
 
             if (p.puzzle_number) {
-                const todayIssueStr = getTodayIssueStr();
-                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                const todayChallengeStr = getTodayChallengeStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayChallengeStr)) {
                     showToast("Cannot delete a historical puzzle!", "error");
                     return;
                 }
@@ -2362,7 +2362,7 @@
             const backlogListEl = document.getElementById('approved-puzzles-backlog-list');
 
             const approvedChallenges = puzzles.filter(item => item.status === 'approved');
-            const todayIssueStr = getTodayIssueStr();
+            const todayChallengeStr = getTodayChallengeStr();
 
             // Partition into Active and Backlog
             // Active challenges are those with non-empty puzzle_number
@@ -2429,8 +2429,8 @@
                             }
                         }
 
-                        const isToday = p.puzzle_number === todayIssueStr;
-                        const isPrevious = parseInt(p.puzzle_number) < parseInt(todayIssueStr);
+                        const isToday = p.puzzle_number === todayChallengeStr;
+                        const isPrevious = parseInt(p.puzzle_number) < parseInt(todayChallengeStr);
 
                         const warningBadge = isDuplicateMovie ? `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(220, 53, 69, 0.15); color: #ff7684; font-weight:700; margin-left: 8px;">⚠️ CLUMPED MOVIE</span>` : '';
 
@@ -2517,10 +2517,10 @@
                 const isBacklog = p.puzzle_number === "";
 
                 // Timezone robust date/time math for today's puzzle calculation
-                const todayIssueStr = getTodayIssueStr();
+                const todayChallengeStr = getTodayChallengeStr();
 
-                const isToday = !isBacklog && p.puzzle_number === todayIssueStr;
-                const isPrevious = !isBacklog && parseInt(p.puzzle_number) < parseInt(todayIssueStr);
+                const isToday = !isBacklog && p.puzzle_number === todayChallengeStr;
+                const isPrevious = !isBacklog && parseInt(p.puzzle_number) < parseInt(todayChallengeStr);
 
                 // Dynamically build premium card styles based on schedule status
                 let cardStyle = '';
@@ -2555,7 +2555,7 @@
                                     <input type="number" min="1" max="5" value="${p.difficulty_tier || 2}" style="width:50px; padding:3px 8px; font-size:12px;" onchange="syncPuzzleBlock(${challengeIdx}, 'difficulty_tier', parseInt(this.value) || 2)" ${disabledAttr}>
                                 </div>
                                 <span style="font-size:11px; padding:3px 8px; border-radius:12px; font-weight:700; ${isBacklog ? 'background:rgba(220, 53, 69, 0.15); color:#ff7684;' : (isToday ? 'background:rgba(0, 245, 212, 0.2); color:var(--emerald); border: 1px solid var(--emerald);' : 'background:rgba(0,0,0,0.08); color:var(--text-muted);')}">
-                                    ${isBacklog ? '📦 BACKLOG' : (isToday ? '🎯 TODAY\'S CHALLENGE' : '🔒 HISTORICAL ISSUE')}
+                                    ${isBacklog ? '📦 BACKLOG' : (isToday ? '🎯 TODAY\'S CHALLENGE' : '🔒 HISTORICAL CHALLENGE')}
                                 </span>
                             </div>
                         </div>
@@ -2629,9 +2629,9 @@
         }
 
         function updateChallengeNumber(puzzleIdx, val) {
-            const todayIssueStr = getTodayIssueStr();
+            const todayChallengeStr = getTodayChallengeStr();
             const currentPuzzle = puzzles[puzzleIdx];
-            if (currentPuzzle && currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayIssueStr)) {
+            if (currentPuzzle && currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayChallengeStr)) {
                 showToast("Cannot edit a historical puzzle!", "error");
                 renderApprovedPuzzlesTab();
                 return;
@@ -2641,8 +2641,8 @@
             if (val === "" || isNaN(parsed)) {
                 puzzles[puzzleIdx].puzzle_number = "";
             } else {
-                if (parsed < parseInt(todayIssueStr)) {
-                    showToast(`Cannot schedule a puzzle for a historical day (before ${todayIssueStr})!`, "error");
+                if (parsed < parseInt(todayChallengeStr)) {
+                    showToast(`Cannot schedule a puzzle for a historical day (before ${todayChallengeStr})!`, "error");
                     renderApprovedPuzzlesTab();
                     return;
                 }
@@ -2661,13 +2661,13 @@
             const targetIdx = idx + dir;
             if (targetIdx < 0 || targetIdx >= activeChallenges.length) return; // boundary check
 
-            const todayIssueStr = getTodayIssueStr();
+            const todayChallengeStr = getTodayChallengeStr();
             const currentPuzzle = activeChallenges[idx];
             const targetPuzzle = activeChallenges[targetIdx];
 
             if (
-                (currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayIssueStr)) ||
-                (targetPuzzle.puzzle_number && parseInt(targetPuzzle.puzzle_number) < parseInt(todayIssueStr))
+                (currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayChallengeStr)) ||
+                (targetPuzzle.puzzle_number && parseInt(targetPuzzle.puzzle_number) < parseInt(todayChallengeStr))
             ) {
                 showToast("Cannot move historical puzzles as they are fixed in position!", "error");
                 return;
@@ -2776,8 +2776,8 @@
             );
 
             if (existingActive) {
-                const todayIssueStr = getTodayIssueStr();
-                if (parseInt(existingActive.puzzle_number) < parseInt(todayIssueStr)) {
+                const todayChallengeStr = getTodayChallengeStr();
+                if (parseInt(existingActive.puzzle_number) < parseInt(todayChallengeStr)) {
                     showToast(`Cannot unschedule historical puzzle for "${movie}"!`, "error");
                     return;
                 }
@@ -2786,11 +2786,11 @@
             }
 
             // Move to active schedule at the end
-            const todayIssueStr = getTodayIssueStr();
+            const todayChallengeStr = getTodayChallengeStr();
             const activePuzzles = puzzles.filter(item => item.status === 'approved' && item.puzzle_number !== "");
             const puzzleNumbers = activePuzzles.map(item => parseInt(item.puzzle_number)).filter(num => !isNaN(num));
             const maxNumber = puzzleNumbers.length > 0 ? Math.max(...puzzleNumbers) : 0;
-            const nextNumber = Math.max(parseInt(todayIssueStr), maxNumber + 1);
+            const nextNumber = Math.max(parseInt(todayChallengeStr), maxNumber + 1);
             p.puzzle_number = padPuzzleNumber(nextNumber);
 
             showToast(`Scheduled "${p.boss_pun_title}" to active daily challenges.`);

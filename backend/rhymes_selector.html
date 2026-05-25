@@ -135,7 +135,7 @@
         
         // Check if replace actually worked (sometimes punctuation might trick \b)
         if (punnedText === originalText) {
-            showToast("Failed to replace word (regex boundary issue).", true);
+            showToast("Failed to replace word (regex boundary error).", true);
             return;
         }
         
