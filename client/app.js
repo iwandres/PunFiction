@@ -21,12 +21,7 @@ const screens = {
 };
 
 const ui = {
-    currentLevel: document.getElementById('current-level'),
-    inventorySlots: [
-        document.getElementById('slot-1'),
-        document.getElementById('slot-2'),
-        document.getElementById('slot-3')
-    ],
+    challengeHeader: document.getElementById('challenge-header'),
     questionLabel: document.getElementById('question-label'),
     bossPosterWrapper: document.getElementById('boss-poster-wrapper'),
     bossPosterImg: document.getElementById('boss-poster-img'),
@@ -40,6 +35,9 @@ const ui = {
     btnShowHint1: document.getElementById('btn-show-hint1'),
     hint1Reveal: document.getElementById('hint1-reveal'),
     movieHint: document.getElementById('movie-hint'),
+    btnShowHint2: document.getElementById('btn-show-hint2'),
+    hint2Reveal: document.getElementById('hint2-reveal'),
+    lettersHint: document.getElementById('letters-hint'),
     btnSubmit: document.getElementById('btn-submit'),
     
     // Victory elements
@@ -53,14 +51,13 @@ const ui = {
 
 window.onload = async () => {
     // 1. Setup UI bindings
-    document.getElementById('btn-play-today').onclick = () => startGame(todayChallenge);
-    document.getElementById('btn-play-yesterday').onclick = () => startGame(yesterdayChallenge);
-    document.getElementById('btn-back-lobby').onclick = showLobby;
-    document.getElementById('btn-victory-lobby').onclick = showLobby;
+    document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
+    document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
     ui.guessInput.onkeypress = (e) => { if (e.key === 'Enter') handleGuessSubmit(); };
     ui.btnShowHint1.onclick = revealHint1;
+    ui.btnShowHint2.onclick = revealHint2;
 
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
@@ -148,8 +145,8 @@ async function loadPuzzleDatabase() {
         }
     }
 
-    // Render Start Screen Issue Covers
-    renderLobbyCovers();
+    // Otherwise, start Today's challenge automatically on load!
+    startGame(todayChallenge);
 }
 
 function renderLobbyCovers() {
@@ -223,17 +220,27 @@ function showLobby() {
 function startGame(challenge) {
     if (!challenge) return;
     activeChallenge = challenge;
-    currentLevel = 1;
+    currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
-
-    // Reset slot styling
-    ui.inventorySlots.forEach(slot => {
-        slot.innerText = '';
-        slot.className = 'inventory-slot';
-    });
 
     switchScreen('game');
     loadLevel();
+
+    // Set up toggle button text dynamically
+    const toggleBtn = document.getElementById('btn-toggle-challenge');
+    if (toggleBtn) {
+        if (challenge === todayChallenge) {
+            if (yesterdayChallenge) {
+                toggleBtn.innerText = "⏮️ PLAY YESTERDAY'S CHALLENGE";
+                toggleBtn.classList.remove('hidden');
+            } else {
+                toggleBtn.classList.add('hidden');
+            }
+        } else {
+            toggleBtn.innerText = "🎯 PLAY TODAY'S CHALLENGE";
+            toggleBtn.classList.remove('hidden');
+        }
+    }
 }
 
 function getCorrectPosterUrl(urlPath) {
@@ -250,66 +257,73 @@ function loadLevel() {
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
     ui.feedbackMsg.className = 'feedback';
-    ui.currentLevel.innerText = currentLevel;
+
+    if (ui.challengeHeader) {
+        ui.challengeHeader.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+    }
 
     // Reset hints
     ui.btnShowHint1.classList.remove('hidden');
     ui.hint1Reveal.classList.add('hidden');
+    ui.btnShowHint2.classList.add('hidden');
+    ui.hint2Reveal.classList.add('hidden');
 
-    if (currentLevel <= 3) {
-        // --- LEVEL 1-3: THEMATIC PUZZLES ---
-        ui.questionLabel.innerText = "What fictional movie is this quote from?";
-        ui.bossPosterWrapper.classList.add('hidden');
+    // --- PUZZLE DIRECT PLAY ---
+    ui.questionLabel.innerText = "Guess the Parody Movie Title!";
+    
+    // Render mystery poster silhouette with Neobrutalist bold blurred overlay
+    const posterUrl = getCorrectPosterUrl(activeChallenge.boss_poster_url);
+    ui.bossPosterImg.src = posterUrl;
+    ui.bossPosterImg.className = "boss-poster-img blurred";
+    ui.bossPosterWrapper.classList.remove('hidden');
+    ui.mysteryBanner.classList.remove('hidden');
 
-        const puzzle = activeChallenge.puzzles[currentLevel - 1];
+    ui.movieHint.innerText = activeChallenge.boss_original_title || "Unknown";
+    
+    // Hook up quote Display to Boss Parody Quote (the punned quote!)
+    ui.quoteDisplay.innerText = activeChallenge.boss_punned_quote ? `"${activeChallenge.boss_punned_quote}"` : '"Quote Text Missing"';
+    
+    // Hook up pitch Display to Comedic Plot Pitch
+    ui.pitchDisplay.innerText = activeChallenge.boss_pitch || 'Plot details unavailable.';
 
-        ui.movieHint.innerText = puzzle.base_movie || "Unknown";
-        ui.quoteDisplay.innerText = puzzle.punned_quote ? `"${puzzle.punned_quote}"` : '"Quote Text Missing"';
-        ui.pitchDisplay.innerText = puzzle.parody_pitch || 'Plot details unavailable.';
+    // Generate blanks where letters are blanked out in the title
+    const bossBlanks = activeChallenge.boss_pun_title.replace(/[a-zA-Z]/g, '_');
+    ui.parodyTitleHint.innerText = bossBlanks.split('').join(' ');
 
-        // Generate blank slots matching clean letters/spacing
-        const titleHint = (puzzle.parody_title || '').replace(/[a-zA-Z]/g, '_');
-        ui.parodyTitleHint.innerText = titleHint.split('').join(' ');
-
-        // Debug fallback
-        ui.debugAnswer.innerText = `(Debug Answer: ${puzzle.parody_title})`;
-    } else if (currentLevel === 4) {
-        // --- LEVEL 4: FINAL BOSS COMBINATION ---
-        ui.questionLabel.innerText = "Construct the final parody movie title!";
-        
-        // Render mystery poster silhouette with Neobrutalist bold blurred overlay
-        const posterUrl = getCorrectPosterUrl(activeChallenge.boss_poster_url);
-        ui.bossPosterImg.src = posterUrl;
-        ui.bossPosterImg.className = "boss-poster-img blurred";
-        ui.bossPosterWrapper.classList.remove('hidden');
-        ui.mysteryBanner.classList.remove('hidden');
-
-        ui.movieHint.innerText = activeChallenge.boss_original_title || "Unknown";
-        ui.quoteDisplay.innerText = activeChallenge.boss_pitch ? `"${activeChallenge.boss_pitch}"` : 'Description missing.';
-        ui.pitchDisplay.innerText = "Use your accumulated inventory words to construct the final parody movie title!";
-
-        // Generate blanks where earned inventory words are blanked out in the title
-        let bossBlanks = activeChallenge.boss_pun_title;
-        inventory.forEach(word => {
-            const regex = new RegExp(`\\b${word}\\b`, 'ig');
-            bossBlanks = bossBlanks.replace(regex, word.split('').map(() => '_').join(''));
-        });
-        ui.parodyTitleHint.innerText = bossBlanks.split('').join(' ');
-
-        // Debug fallback
-        ui.debugAnswer.innerText = `(Debug Answer: ${activeChallenge.boss_pun_title})`;
-    }
+    // Debug fallback
+    ui.debugAnswer.innerText = `(Debug Answer: ${activeChallenge.boss_pun_title})`;
 }
 
 function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
     ui.hint1Reveal.classList.remove('hidden');
+    ui.btnShowHint2.classList.remove('hidden'); // Reveal Hint #2 button!
+    ui.bossPosterImg.className = "boss-poster-img part-blurred"; // De-blur partially (blur(8px))
+    showToast("Original movie revealed! Hint 2 unlocked.");
+}
 
-    if (currentLevel === 4) {
-        // Incrementally de-blur the poster illustration (part-blurred)
-        ui.bossPosterImg.className = "boss-poster-img part-blurred";
-        showToast("Visual clue partially de-blurred!");
+function revealHint2() {
+    ui.btnShowHint2.classList.add('hidden');
+    ui.hint2Reveal.classList.remove('hidden');
+    
+    // Populate first-letters blanks dynamically
+    if (ui.lettersHint) {
+        ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
     }
+    
+    ui.bossPosterImg.className = "boss-poster-img sharp"; // Sharpen fully (blur(0px))
+    ui.mysteryBanner.classList.add('hidden');
+    showToast("Visual clue fully sharpened!");
+}
+
+function generateFirstLetterBlanks(str) {
+    if (!str) return "";
+    return str.split(' ').map(word => {
+        if (word.length === 0) return "";
+        const firstLetter = word[0];
+        const rest = word.slice(1).replace(/[a-zA-Z]/g, "_");
+        return firstLetter + rest;
+    }).join(' ');
 }
 
 // Clean guesses to ignore minor editorial punctuation
@@ -323,57 +337,37 @@ function handleGuessSubmit() {
     if (!guess) return;
 
     const cleanGuess = sanitizeText(guess);
+    const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
-    if (currentLevel <= 3) {
-        // Verify Thematic Guess
-        const puzzle = activeChallenge.puzzles[currentLevel - 1];
-        const cleanAnswer = sanitizeText(puzzle.parody_title);
+    if (cleanGuess === cleanBossAnswer) {
+        // Success! Fully sharpen poster
+        ui.bossPosterImg.className = "boss-poster-img sharp";
+        ui.mysteryBanner.classList.add('hidden');
 
-        if (cleanGuess === cleanAnswer) {
-            // Earn word for inventory
-            const targetWord = puzzle.target_word || "word";
-            inventory.push(targetWord);
+        ui.feedbackMsg.innerText = "🎉 CHAMPION! THE CHALLENGE HAS BEEN SOLVED!";
+        ui.feedbackMsg.className = "feedback success";
 
-            // Pop active inventory slot
-            const slotIndex = currentLevel - 1;
-            ui.inventorySlots[slotIndex].innerText = targetWord;
-            ui.inventorySlots[slotIndex].classList.add('filled');
+        savePuzzleSolved(activeChallenge.puzzle_number);
 
-            ui.feedbackMsg.innerText = "⭐ CORRECT! WORD EXTRACTED TO INVENTORY!";
-            ui.feedbackMsg.className = "feedback success";
+        setTimeout(() => {
+            triggerVictory();
+        }, 1800);
+    } else {
+        ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
+        ui.feedbackMsg.className = "feedback error";
+        shakeInput();
+    }
+}
 
-            setTimeout(() => {
-                currentLevel++;
-                loadLevel();
-            }, 1800);
+function handleToggleChallenge() {
+    if (activeChallenge === todayChallenge) {
+        if (yesterdayChallenge) {
+            startGame(yesterdayChallenge);
         } else {
-            ui.feedbackMsg.innerText = "❌ INCORRECT! TRY AGAIN!";
-            ui.feedbackMsg.className = "feedback error";
-            shakeInput();
+            showToast("No yesterday's challenge available.");
         }
-    } else if (currentLevel === 4) {
-        // Verify Boss Guess
-        const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
-
-        if (cleanGuess === cleanBossAnswer) {
-            // Defeat boss! Fully un-blur poster illustration
-            ui.bossPosterImg.className = "boss-poster-img sharp";
-            ui.mysteryBanner.classList.add('hidden');
-
-            ui.feedbackMsg.innerText = "🎉 CHAMPION! THE BOSS HAS BEEN DEFEATED!";
-            ui.feedbackMsg.className = "feedback success";
-
-            savePuzzleSolved(activeChallenge.puzzle_number);
-
-            setTimeout(() => {
-                triggerVictory();
-            }, 1800);
-        } else {
-            // Incorrect guess, but let's give a visual reward: fully sharpen poster if guess gets close or as feedback!
-            ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! THE BOSS STANDS DEFEATED!";
-            ui.feedbackMsg.className = "feedback error";
-            shakeInput();
-        }
+    } else {
+        startGame(todayChallenge);
     }
 }
 

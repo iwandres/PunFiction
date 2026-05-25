@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         <!-- Start Screen (Comic Lobby) -->
-        <div id="start-screen" class="screen active">
+        <div id="start-screen" class="screen">
             <h1 class="title">Pun<span class="accent">Fiction</span></h1>
             <p class="subtitle">Box Office Blunders</p>
             
@@ -40,20 +40,15 @@
         </div>
 
         <!-- Game Screen -->
-        <div id="game-screen" class="screen">
-            <!-- Header Inventory & Status -->
-            <div class="game-header">
-                <div class="level-indicator">Level <span id="current-level">1</span>/4</div>
-                <div class="inventory-container">
-                    <div class="inventory-slot" id="slot-1" title="Slot 1"></div>
-                    <div class="inventory-slot" id="slot-2" title="Slot 2"></div>
-                    <div class="inventory-slot" id="slot-3" title="Slot 3"></div>
-                </div>
+        <div id="game-screen" class="screen active">
+            <!-- Header Status -->
+            <div class="game-header" style="justify-content: center;">
+                <div class="level-indicator" id="challenge-header" style="font-size: 1.5rem; letter-spacing: 0.5px;">Challenge #???</div>
             </div>
 
             <!-- Puzzle Content (Neobrutalist Comic Card) -->
             <div class="puzzle-card">
-                <p id="question-label" class="question-text">What fictional movie is this quote from?</p>
+                <p id="question-label" class="question-text">Guess the Parody Movie Title!</p>
                 
                 <!-- Boss Level Mystery Poster Silhouette Wrapper -->
                 <div class="boss-poster-frame hidden" id="boss-poster-wrapper">
@@ -61,9 +56,12 @@
                     <img src="" class="boss-poster-img blurred" id="boss-poster-img" alt="Absurd Parody Poster">
                 </div>
 
-                <div class="hint-container">
-                    <button id="btn-show-hint1" class="btn small-btn">Show Hint #1</button>
+                <!-- progressive hint system container -->
+                <div class="hint-container" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 15px;">
+                    <button id="btn-show-hint1" class="btn small-btn">🎬 SHOW HINT #1</button>
+                    <button id="btn-show-hint2" class="btn small-btn hidden">🔤 SHOW HINT #2</button>
                     <div id="hint1-reveal" class="hint-pill hidden">Original Movie: <span id="movie-hint">Movie Title</span></div>
+                    <div id="hint2-reveal" class="hint-pill hidden">First Letters: <span id="letters-hint">Hint 2</span></div>
                 </div>
                 
                 <h2 id="quote-display" class="quote">"This is a placeholder quote."</h2>
@@ -84,7 +82,7 @@
                 <div id="debug-answer" class="debug-answer"></div>
             </div>
             
-            <button class="btn outline-btn" id="btn-back-lobby" style="padding: 8px 16px; font-size: 13px; align-self: center;">🏠 Back to Lobby</button>
+            <button class="btn outline-btn" id="btn-toggle-challenge" style="padding: 8px 16px; font-size: 13px; align-self: center;">⏮️ PLAY YESTERDAY'S CHALLENGE</button>
         </div>
 
         <!-- Victory Screen -->
@@ -107,7 +105,7 @@
             <!-- Victory Actions -->
             <div class="victory-actions">
                 <button class="btn secondary-btn" id="btn-share-score">📢 Share Score</button>
-                <button class="btn outline-btn" id="btn-victory-lobby">🏠 Lobby</button>
+                <button class="btn outline-btn" id="btn-victory-lobby">🎯 PLAY TODAY</button>
             </div>
         </div>
     </div>
