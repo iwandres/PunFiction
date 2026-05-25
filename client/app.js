@@ -32,11 +32,14 @@ const ui = {
     guessInput: document.getElementById('guess-input'),
     feedbackMsg: document.getElementById('feedback-msg'),
     debugAnswer: document.getElementById('debug-answer'),
+    
+    // Progressive hints
     btnShowHint1: document.getElementById('btn-show-hint1'),
-    hint1Reveal: document.getElementById('hint1-reveal'),
-    movieHint: document.getElementById('movie-hint'),
     btnShowHint2: document.getElementById('btn-show-hint2'),
+    btnShowHint3: document.getElementById('btn-show-hint3'),
     hint2Reveal: document.getElementById('hint2-reveal'),
+    movieHint: document.getElementById('movie-hint'),
+    hint3Reveal: document.getElementById('hint3-reveal'),
     lettersHint: document.getElementById('letters-hint'),
     btnSubmit: document.getElementById('btn-submit'),
     
@@ -62,6 +65,7 @@ window.onload = async () => {
     }
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
+    ui.btnShowHint3.onclick = revealHint3;
  
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
@@ -266,11 +270,14 @@ function loadLevel() {
         ui.challengeHeader.innerText = `Challenge #${activeChallenge.puzzle_number}`;
     }
 
-    // Reset hints
+    // Reset progressive hints
     ui.btnShowHint1.classList.remove('hidden');
-    ui.hint1Reveal.classList.add('hidden');
     ui.btnShowHint2.classList.add('hidden');
+    ui.btnShowHint3.classList.add('hidden');
+
+    ui.pitchDisplay.classList.add('hidden');
     ui.hint2Reveal.classList.add('hidden');
+    ui.hint3Reveal.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
     ui.questionLabel.innerText = "Guess the parody movie title!";
@@ -308,24 +315,26 @@ function loadLevel() {
 
 function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
-    ui.hint1Reveal.classList.remove('hidden');
-    ui.btnShowHint2.classList.remove('hidden'); // Reveal Hint #2 button!
-    ui.bossPosterImg.className = "boss-poster-img part-blurred"; // De-blur partially (blur(8px))
-    showToast("Original movie revealed! Hint 2 unlocked.");
+    ui.pitchDisplay.classList.remove('hidden'); // Reveal Comedic Parody Plot Pitch
+    ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
+    showToast("Parody plot pitch revealed! Hint 2 unlocked.");
 }
 
 function revealHint2() {
     ui.btnShowHint2.classList.add('hidden');
-    ui.hint2Reveal.classList.remove('hidden');
+    ui.hint2Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
+    ui.btnShowHint3.classList.remove('hidden'); // Unlock Hint 3 button
+    showToast("Original movie revealed! Hint 3 unlocked.");
+}
+
+function revealHint3() {
+    ui.btnShowHint3.classList.add('hidden');
+    ui.hint3Reveal.classList.remove('hidden'); // Reveal First Letters blanks Pill
     
-    // Populate first-letters blanks dynamically
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
     }
-    
-    ui.bossPosterImg.className = "boss-poster-img sharp"; // Sharpen fully (blur(0px))
-    ui.mysteryBanner.classList.add('hidden');
-    showToast("Visual clue fully sharpened!");
+    showToast("First letters blank clues revealed!");
 }
 
 function generateFirstLetterBlanks(str) {
