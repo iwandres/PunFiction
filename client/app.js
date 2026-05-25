@@ -17,7 +17,6 @@ let activeFetchedFromCDN = false; // flag to trace assets loading
 
 // DOM Elements Mapping
 const screens = {
-    start: document.getElementById('start-screen'),
     game: document.getElementById('game-screen'),
     victory: document.getElementById('victory-screen')
 };
@@ -56,8 +55,7 @@ const ui = {
 window.onload = async () => {
     // 1. Setup UI bindings
     document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
-    document.getElementById('btn-play-today').onclick = () => startGame(todayChallenge);
-    document.getElementById('btn-victory-lobby').onclick = showLobby;
+    document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
     ui.guessInput.onkeypress = (e) => { if (e.key === 'Enter') handleGuessSubmit(); };
@@ -192,46 +190,12 @@ async function loadPuzzleDatabase() {
         console.log(`URL Parameter Override: Playing Challenge #${dayOverride}`);
         startGame(matchedOverride);
     } else {
-        // Otherwise, show the Lobby homepage!
-        showLobby();
+        // Otherwise, start Today's challenge automatically on load!
+        startGame(todayChallenge);
     }
 }
 
-function renderLobbyCovers() {
-    const solvedPuzzles = getSolvedPuzzlesList();
 
-    // 1. Populate Today's Card
-    if (todayChallenge) {
-        const isSolved = solvedPuzzles.has(todayChallenge.puzzle_number);
-        document.getElementById('today-challenge-title').innerText = `Challenge #${todayChallenge.puzzle_number}: ${todayChallenge.boss_pun_title}`;
-        document.getElementById('today-challenge-meta').innerText = `Original Movie: ${todayChallenge.boss_original_title}`;
-        document.getElementById('today-solved-badge').className = isSolved ? "challenge-badge-solved" : "challenge-badge-solved hidden";
-        if (isSolved) {
-            document.getElementById('btn-play-today').innerText = "⭐ REPLAY CHALLENGE";
-        } else {
-            document.getElementById('btn-play-today').innerText = "🎯 PLAY NOW";
-        }
-    }
-
-    // 2. Populate Yesterday's Link
-    const yesterdayLinkContainer = document.getElementById('yesterday-link-container');
-    const btnPlayYesterdayLink = document.getElementById('btn-play-yesterday-link');
-
-    if (yesterdayChallenge) {
-        if (yesterdayLinkContainer && btnPlayYesterdayLink) {
-            yesterdayLinkContainer.classList.remove('hidden');
-            const isYesterdaySolved = solvedPuzzles.has(yesterdayChallenge.puzzle_number);
-            btnPlayYesterdayLink.innerText = isYesterdaySolved 
-                ? `⏮️ REPLAY YESTERDAY'S CHALLENGE (#${yesterdayChallenge.puzzle_number})` 
-                : `⏮️ PLAY YESTERDAY'S CHALLENGE (#${yesterdayChallenge.puzzle_number})`;
-            btnPlayYesterdayLink.onclick = () => startGame(yesterdayChallenge);
-        }
-    } else {
-        if (yesterdayLinkContainer) {
-            yesterdayLinkContainer.classList.add('hidden');
-        }
-    }
-}
 
 // ================= LOCAL STORAGE PROGRESS TRACKING =================
 
@@ -261,16 +225,7 @@ function switchScreen(screenName) {
     screens[screenName].classList.add('active');
 }
 
-function showLobby() {
-    // Clear URL day parameters if active so it doesn't loop
-    const url = new URL(window.location);
-    url.searchParams.delete('day');
-    url.searchParams.delete('challenge');
-    window.history.pushState({}, '', url);
 
-    renderLobbyCovers();
-    switchScreen('start');
-}
 
 function startGame(challenge) {
     if (!challenge) return;

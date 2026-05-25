@@ -9,39 +9,13 @@
 </head>
 <body>
     <div id="app">
-        <!-- Start Screen (Comic Lobby) -->
-        <div id="start-screen" class="screen active">
-            <h1 class="title">Pun<span class="accent">Fiction</span></h1>
-            <p class="subtitle">Box Office Blunders</p>
-            
-            <div class="challenge-deck-container">
-                <!-- Today's Challenge Comic Cover -->
-                <div class="comic-card today" id="today-challenge-card">
-                    <span class="challenge-tag">TODAY'S CHALLENGE</span>
-                    <span class="challenge-badge-solved hidden" id="today-solved-badge">🌟 SOLVED</span>
-                    <h3 class="challenge-title" id="today-challenge-title">Challenge #???</h3>
-                    <p class="challenge-meta" id="today-challenge-meta">Original: ???</p>
-                    <button id="btn-play-today" class="btn primary-btn" style="width: 100%;">🎯 PLAY NOW</button>
-                </div>
-
-            </div>
-            
-            <p style="font-size:10px; font-weight:900; color:rgba(0,0,0,0.3); text-transform:uppercase; letter-spacing:0.5px; text-align:center; margin-top:10px;">
-                * Challenges update every day at 2:00 AM Pacific Time
-            </p>
-
-            <!-- Link to Yesterday's Challenge at the bottom -->
-            <div id="yesterday-link-container" class="hidden" style="margin-top: 15px; text-align: center; width: 100%;">
-                <button id="btn-play-yesterday-link" class="btn outline-btn" style="padding: 8px 20px; font-size: 13px; transform: rotate(-1deg); width: 80%; max-width: 280px; margin: 0 auto; display: block;">⏮️ PLAY YESTERDAY'S CHALLENGE</button>
-            </div>
-        </div>
-
         <!-- Game Screen -->
-        <div id="game-screen" class="screen">
+        <div id="game-screen" class="screen active">
             <!-- Game Title Section (Centered) -->
             <div class="game-title-section">
-                <h2 id="question-label" class="question-text">Guess the parody movie title!</h2>
-                <p class="question-subtext">from this fictional quote</p>
+                <h1 class="title" style="margin-top: 15px;">Pun<span class="accent">Fiction</span></h1>
+                <p class="subtitle" style="margin-bottom: 25px;">Box Office Blunders</p>
+                <h2 id="question-label" class="question-text" style="display: none;">Guess the parody movie title!</h2>
             </div>
 
             <!-- Puzzle Content (Neobrutalist Comic Card) -->
