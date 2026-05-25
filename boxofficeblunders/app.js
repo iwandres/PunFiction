@@ -643,7 +643,6 @@ async function triggerVictory() {
         
         if (hintsUsed === 0) {
             bannerEl.innerText = "HOLY MOVIE GODS! 🏆";
-            bannerEl.classList.add('exuberant-perfect');
         } else if (hintsUsed === 1) {
             bannerEl.innerText = "BRILLIANT DIRECTING! 🎬";
         } else if (hintsUsed === 2) {

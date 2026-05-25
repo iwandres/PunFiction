@@ -950,17 +950,4 @@ input:focus {
     text-align: right;
 }
 
-/* Perfect score exuberance custom animation classes */
-@keyframes goldBlink {
-    0%, 100% { color: #f39c12; text-shadow: 2px 2px 0px #ffffff, 0 0 10px rgba(241, 196, 15, 0.6); }
-    50% { color: #2ecc71; text-shadow: 2px 2px 0px #ffffff, 0 0 15px rgba(46, 204, 113, 0.8); }
-}
 
-@keyframes hyperBounce {
-    0%, 100% { transform: scale(1) rotate(-2deg); }
-    50% { transform: scale(1.08) rotate(3deg) translateY(-8px); }
-}
-
-.exuberant-perfect {
-    animation: goldBlink 1.5s infinite alternate, hyperBounce 0.4s infinite alternate ease-in-out !important;
-}
