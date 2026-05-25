@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import json
 import os
+import database
 
 PORT = 8000
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -46,26 +47,35 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             
-            telemetry_data = {}
-            telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
-            if os.path.exists(telemetry_file):
-                try:
-                    with open(telemetry_file, 'r', encoding='utf-8') as f:
-                        telemetry_data = json.load(f)
-                except Exception as e:
-                    print(f"Error reading telemetry file: {e}")
-            
-            if puzzle_number:
-                puzzle_stats = telemetry_data.get(puzzle_number, {
-                    "start": 0,
-                    "solve_0": 0,
-                    "solve_1": 0,
-                    "solve_2": 0,
-                    "solve_3": 0
-                })
-                self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
-            else:
-                self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
+            try:
+                if puzzle_number:
+                    puzzle_stats = database.get_telemetry_stats(puzzle_number)
+                    self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
+                else:
+                    telemetry_data = database.get_telemetry_stats()
+                    # Keep local telemetry.json in sync
+                    telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+                    with open(telemetry_file, 'w', encoding='utf-8') as f:
+                        json.dump(telemetry_data, f, indent=2)
+                    self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
+            except Exception as e:
+                print(f"Error querying telemetry from MongoDB: {e}")
+                # Fallback to local file
+                telemetry_data = {}
+                telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+                if os.path.exists(telemetry_file):
+                    try:
+                        with open(telemetry_file, 'r', encoding='utf-8') as f:
+                            telemetry_data = json.load(f)
+                    except:
+                        pass
+                if puzzle_number:
+                    puzzle_stats = telemetry_data.get(puzzle_number, {
+                        "start": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0
+                    })
+                    self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
+                else:
+                    self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
         elif req_path == '/quotes':
             self.send_response(302)
             self.send_header('Location', '/#quotes')
@@ -183,37 +193,21 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 payload = json.loads(post_data.decode('utf-8'))
                 event = payload.get('event')
                 puzzle_number = payload.get('puzzle_number')
+                hints_used = int(payload.get('hints_used', 0))
                 
                 if not puzzle_number:
                     raise ValueError("puzzle_number is required")
                 
-                telemetry_data = {}
-                if os.path.exists(telemetry_file):
-                    try:
-                        with open(telemetry_file, 'r', encoding='utf-8') as f:
-                            telemetry_data = json.load(f)
-                    except Exception as e:
-                        print(f"Error reading telemetry file: {e}")
+                # Write event to MongoDB
+                database.record_telemetry_event(puzzle_number, event, hints_used)
                 
-                if puzzle_number not in telemetry_data:
-                    telemetry_data[puzzle_number] = {
-                        "start": 0,
-                        "solve_0": 0,
-                        "solve_1": 0,
-                        "solve_2": 0,
-                        "solve_3": 0
-                    }
-                
-                if event == 'start':
-                    telemetry_data[puzzle_number]['start'] += 1
-                elif event == 'solve':
-                    hints_used = int(payload.get('hints_used', 0))
-                    hints_used = max(0, min(3, hints_used))
-                    key = f"solve_{hints_used}"
-                    telemetry_data[puzzle_number][key] += 1
-                
-                with open(telemetry_file, 'w', encoding='utf-8') as f:
-                    json.dump(telemetry_data, f, indent=2)
+                # Sync: update local telemetry.json copies with full db state
+                try:
+                    all_stats = database.get_telemetry_stats()
+                    with open(telemetry_file, 'w', encoding='utf-8') as f:
+                        json.dump(all_stats, f, indent=2)
+                except Exception as sync_e:
+                    print(f"Error syncing local telemetry copy from MongoDB: {sync_e}")
                 
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')

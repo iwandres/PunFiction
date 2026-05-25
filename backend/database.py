@@ -10,7 +10,7 @@ client = MongoClient(mongo_uri)
 db = client["movie_puzzle_db"]
 production_pool = db["boss_puzzle_sets"]
 staging_pool = db["raw_combinator_pool"]
-telemetry_pool = db["telemetry_events"]
+telemetry_pool = db["PunFiction"]
 
 def get_next_boss_puzzle():
     """Fetches a pristine, approved puzzle from staging."""
@@ -81,3 +81,54 @@ def flag_puzzle_format_error(original_doc_id):
         {"_id": original_doc_id},
         {"$set": {"status": "requires_custom_format"}}
     )
+
+def record_telemetry_event(puzzle_number, event_type, hints_used=0):
+    """Records a telemetry event in the MongoDB collection using atomic increments."""
+    update_query = {}
+    if event_type == 'start':
+        update_query = {"$inc": {"start": 1}}
+    elif event_type == 'solve':
+        hints_used = max(0, min(3, int(hints_used)))
+        update_query = {"$inc": {f"solve_{hints_used}": 1}}
+        
+    if update_query:
+        telemetry_pool.update_one(
+            {"_id": puzzle_number},
+            update_query,
+            upsert=True
+        )
+
+def get_telemetry_stats(puzzle_number=None):
+    """Fetches aggregated telemetry stats from MongoDB."""
+    if puzzle_number:
+        doc = telemetry_pool.find_one({"_id": puzzle_number})
+        if doc:
+            return {
+                "start": doc.get("start", 0),
+                "solve_0": doc.get("solve_0", 0),
+                "solve_1": doc.get("solve_1", 0),
+                "solve_2": doc.get("solve_2", 0),
+                "solve_3": doc.get("solve_3", 0)
+            }
+        else:
+            return {
+                "start": 0,
+                "solve_0": 0,
+                "solve_1": 0,
+                "solve_2": 0,
+                "solve_3": 0
+            }
+    else:
+        # Fetch all stats and build mapped dictionary
+        all_docs = telemetry_pool.find({})
+        stats_map = {}
+        for doc in all_docs:
+            p_num = doc["_id"]
+            stats_map[p_num] = {
+                "start": doc.get("start", 0),
+                "solve_0": doc.get("solve_0", 0),
+                "solve_1": doc.get("solve_1", 0),
+                "solve_2": doc.get("solve_2", 0),
+                "solve_3": doc.get("solve_3", 0)
+            }
+        return stats_map
