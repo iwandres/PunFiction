@@ -825,7 +825,6 @@ async function loadAndRenderGlobalStats(puzzleNum) {
     }
     
     // Render Stats
-    const solveRateBadge = document.getElementById('solve-rate-badge');
     if (solveRateBadge) {
         solveRateBadge.innerText = `${solveRate}% OF PLAYERS CRACKED THIS CHALLENGE!`;
     }
