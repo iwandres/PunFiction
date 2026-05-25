@@ -293,6 +293,26 @@ function getCorrectPosterUrl(urlPath) {
     return urlPath;
 }
 
+function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
+    if (!punnedQuote) return '"Quote Text Missing"';
+    if (!originalQuote) return `"${punnedQuote}"`;
+
+    const clean = (word) => word.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    const pWords = punnedQuote.split(' ');
+    const oWords = originalQuote.split(' ');
+
+    const highlighted = pWords.map((word, idx) => {
+        const oWord = oWords[idx] || '';
+        if (clean(word) !== clean(oWord)) {
+            return `<span style="color: var(--text-secondary); font-weight: 800;">${word}</span>`;
+        }
+        return word;
+    }).join(' ');
+
+    return `"${highlighted}"`;
+}
+
 function loadLevel() {
     hint3Active = false;
     hintsUsed = 0;
@@ -325,8 +345,8 @@ function loadLevel() {
 
     ui.movieHint.innerText = activeChallenge.boss_original_title || "Unknown";
     
-    // Hook up quote Display to Boss Parody Quote (the punned quote!)
-    ui.quoteDisplay.innerText = activeChallenge.boss_punned_quote ? `"${activeChallenge.boss_punned_quote}"` : '"Quote Text Missing"';
+    // Hook up quote Display to Boss Parody Quote with dynamic rhyming word purple highlight!
+    ui.quoteDisplay.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
     
     // Hook up pitch Display to Comedic Plot Pitch with Hint #1 prefix (purple accent block header)
     ui.pitchDisplay.innerHTML = `<span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">Hint #1: Parody Movie Plotline</span>${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
