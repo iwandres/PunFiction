@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster Review Dashboard</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px; position: sticky; top: 0; background: white; z-index: 100; padding-top: 15px; }
+        h1 { margin: 0; font-size: 24px; }
+        
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button.primary { background: #007bff; color: white; }
+        button.primary:hover { background: #0056b3; }
+        button.success { background: #28a745; color: white; }
+        button.success:hover { background: #218838; }
+        button.danger { background: #dc3545; color: white; }
+        button.danger:hover { background: #c82333; }
+        
+        .card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin-bottom: 20px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        .grid-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
+        .col { background: #f8f9fa; padding: 15px; border-radius: 6px; }
+        
+        .poster-preview { width: 100%; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        
+        .label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 5px; }
+        .title { font-size: 20px; font-weight: bold; margin-bottom: 10px; color: #222; }
+        .parody-title { color: #007bff; }
+        
+        .pitch { background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; font-size: 14px; margin-top: 15px; border: 1px solid #ffeeba; }
+        .prompt { background: #e2e3e5; color: #383d41; padding: 12px; border-radius: 6px; font-size: 13px; font-family: monospace; margin-top: 15px; white-space: pre-wrap; }
+        
+        .actions { display: flex; gap: 10px; margin-top: 15px; justify-content: flex-end; padding-top: 15px; border-top: 1px solid #eee; }
+        
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
+        #toast.show { opacity: 1; }
+        #toast.error { background: #dc3545; }
+        
+        .empty-state { text-align: center; padding: 50px; color: #666; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div>
+            <h1><span id="headerTitle">Poster Review Inbox</span> (<span id="count">0</span> remaining)</h1>
+            <div style="font-size:14px; color:#666; margin-top:4px;">Review and approve generated movie posters. Rejections queue the poster for regeneration.</div>
+        </div>
+        <div>
+            <button class="primary" id="viewToggle" onclick="toggleView()" style="margin-right: 10px; background: #6c757d;">View Approved</button>
+            <button class="primary" onclick="saveDecisions()">💾 Save Decisions</button>
+        </div>
+    </div>
+    
+    <div id="app">
+        <div class="empty-state">Loading...</div>
+    </div>
+</div>
+
+<div id="toast">Saved Successfully!</div>
+
+<script>
+    let postersState = [];
+    let reviewedParodies = [];
+    let queue = [];
+    let currentView = 'pending';
+
+    const appEl = document.getElementById('app');
+    const toastEl = document.getElementById('toast');
+    const countEl = document.getElementById('count');
+
+    function toggleView() {
+        currentView = currentView === 'pending' ? 'approved' : 'pending';
+        document.getElementById('viewToggle').innerText = currentView === 'pending' ? 'View Approved' : 'View Pending';
+        document.getElementById('headerTitle').innerText = currentView === 'pending' ? 'Poster Review Inbox' : 'Approved Posters';
+        buildQueue();
+        renderQueue();
+    }
+
+    async function loadData() {
+        try {
+            const cacheBuster = '?t=' + Date.now();
+            const [postersRes, reviewedRes] = await Promise.all([
+                fetch('/api/posters_state' + cacheBuster),
+                fetch('/api/reviewed_parodies' + cacheBuster)
+            ]);
+            postersState = await postersRes.json();
+            reviewedParodies = await reviewedRes.json();
+            
+            if (!Array.isArray(postersState)) postersState = [];
+            if (!Array.isArray(reviewedParodies)) reviewedParodies = [];
+            
+            buildQueue();
+            renderQueue();
+        } catch (e) {
+            appEl.innerHTML = `<div class="empty-state" style="color:red">Error loading data: ${e.message}</div>`;
+        }
+    }
+
+    function buildQueue() {
+        queue = [];
+        
+        if (currentView === 'pending') {
+            queue = postersState.filter(p => p.generated === true && p.status !== 'approved' && p.status !== 'rejected');
+        } else {
+            queue = postersState.filter(p => p.status === 'approved');
+        }
+    }
+
+    function handleDecision(punId, decision) {
+        const itemIndex = postersState.findIndex(p => p.pun_id === punId);
+        if (itemIndex === -1) return;
+        
+        if (decision === 'approved') {
+            postersState[itemIndex].status = 'approved';
+        } else if (decision === 'rejected') {
+            // Option A: queue the image to be regenerated by clearing 'generated' and keeping title
+            postersState[itemIndex].status = 'rejected';
+            postersState[itemIndex].generated = false;
+            postersState[itemIndex].image_path = null;
+        }
+        
+        buildQueue();
+        renderQueue();
+    }
+
+    async function saveDecisions() {
+        try {
+            const res = await fetch('/api/posters_state', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postersState)
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast("Decisions Saved Successfully!");
+            } else {
+                showToast("Error: " + data.error, true);
+            }
+        } catch (e) {
+            showToast("Network Error", true);
+        }
+    }
+
+    function showToast(msg, isError = false) {
+        toastEl.innerText = msg;
+        toastEl.className = isError ? 'error show' : 'show';
+        setTimeout(() => toastEl.className = '', 3000);
+    }
+
+    function renderQueue() {
+        countEl.innerText = queue.length;
+        
+        if (queue.length === 0) {
+            appEl.innerHTML = '<div class="empty-state">🎉 Inbox Zero! No new posters to review.</div>';
+            return;
+        }
+        
+        let html = '';
+        
+        queue.forEach(p => {
+            const reviewItem = reviewedParodies.find(r => r.pun_id === p.pun_id);
+            const quoteText = reviewItem && reviewItem.data ? reviewItem.data.text : '';
+
+            html += `
+                <div class="card" id="card-${p.pun_id}">
+                    <div style="font-family: monospace; font-size: 11px; color: #aaa; margin-bottom: 10px;">ID: ${p.pun_id} | Style: ${p.style_key}</div>
+                    
+                    <div class="grid-layout">
+                        <div class="col" style="padding: 0; background: none;">
+                            <a href="${p.image_path}" target="_blank">
+                                <img src="${p.image_path}" class="poster-preview" alt="Generated Poster" onerror="this.onerror=null; this.src=''; this.alt='Image not found';">
+                            </a>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="label">Parody Movie</div>
+                            <div class="title parody-title">🍿 ${p.parody_title}</div>
+                            
+                            ${quoteText ? `<div class="label" style="margin-top: 10px;">Punned Quote</div><div style="font-style: italic; border-left: 3px solid #007bff; padding-left: 10px; margin-bottom: 15px;">"${quoteText}"</div>` : ''}
+
+                            <div class="label">Original Movie</div>
+                            <div class="title">${p.original_movie}</div>
+                            
+                            <div class="label" style="margin-top: 15px;">Image Generator Prompt</div>
+                            <div class="prompt">${p.prompt}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        ${currentView === 'pending' ? `
+                            <button class="danger" onclick="handleDecision('${p.pun_id}', 'rejected')">🔄 Reject & Regenerate</button>
+                            <button class="success" onclick="handleDecision('${p.pun_id}', 'approved')">✅ Approve Poster</button>
+                        ` : `
+                            <button class="danger" onclick="handleDecision('${p.pun_id}', 'rejected')">🔄 Reject & Regenerate</button>
+                        `}
+                    </div>
+                </div>
+            `;
+        });
+        
+        appEl.innerHTML = html;
+    }
+
+    // Init
+    window.onload = loadData;
+</script>
+</body>
+</html>

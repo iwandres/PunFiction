@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2 Quotes QA Admin</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px; position: sticky; top: 0; background: white; z-index: 100; padding-top: 15px; }
+        h1 { margin: 0; font-size: 24px; }
+        
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button.primary { background: #007bff; color: white; }
+        button.primary:hover { background: #0056b3; }
+        button.danger { background: #dc3545; color: white; padding: 4px 8px; font-size: 12px; }
+        button.danger:hover { background: #a71d2a; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 65px; z-index: 90; }
+        
+        input[type="text"], input[type="number"], textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
+        input:focus, textarea:focus { border-color: #007bff; outline: none; box-shadow: 0 0 0 2px rgba(0,123,255,.25); }
+        textarea { resize: vertical; min-height: 40px; }
+        
+        .id-col { width: 80px; font-family: monospace; font-size: 12px; color: #888; }
+        .movie-col { width: 200px; }
+        .year-col { width: 80px; }
+        .char-col { width: 150px; }
+        .rhyme-col { width: 120px; }
+        .action-col { width: 60px; text-align: center; }
+        
+        .clickable-word { cursor: pointer; padding: 2px 4px; margin: 0 1px; border-radius: 3px; display: inline-block; transition: background 0.1s; background: #e9ecef; }
+        .clickable-word:hover { background: #007bff; color: white; }
+        .quote-container { margin-bottom: 8px; line-height: 1.5; }
+        
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
+        #toast.show { opacity: 1; }
+        #toast.error { background: #dc3545; }
+        
+        .empty-state { text-align: center; padding: 50px; color: #666; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Phase 2 Quotes Quality Check (<span id="count">0</span> quotes)</h1>
+        <button class="primary" onclick="saveQuotes()">💾 Save All Changes</button>
+    </div>
+    
+    <div id="app">
+        <div class="empty-state">Loading Quotes...</div>
+    </div>
+</div>
+
+<div id="toast">Saved Successfully!</div>
+
+<script>
+    let quotes = [];
+    const appEl = document.getElementById('app');
+    const toastEl = document.getElementById('toast');
+    const countEl = document.getElementById('count');
+
+    async function loadQuotes() {
+        try {
+            const res = await fetch('/api/quotes');
+            quotes = await res.json();
+            renderTable();
+        } catch (e) {
+            appEl.innerHTML = `<div class="empty-state" style="color:red">Error loading quotes: ${e.message}</div>`;
+        }
+    }
+
+    async function saveQuotes() {
+        try {
+            // Write DOM changes back to array
+            syncTableToArray();
+            
+            const res = await fetch('/api/quotes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(quotes)
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast("Saved Successfully!");
+                renderTable(); // Re-render to clean up
+            } else {
+                showToast("Error: " + data.error, true);
+            }
+        } catch (e) {
+            showToast("Network Error", true);
+        }
+    }
+
+    function showToast(msg, isError = false) {
+        toastEl.innerText = msg;
+        toastEl.className = isError ? 'error show' : 'show';
+        setTimeout(() => toastEl.className = '', 3000);
+    }
+
+    function syncTableToArray() {
+        quotes.forEach((q, i) => {
+            if(!document.getElementById(`m_${i}`)) return; // Skip if deleted
+            q.movie = document.getElementById(`m_${i}`).value;
+            q.year = parseInt(document.getElementById(`y_${i}`).value) || q.year;
+            q.character = document.getElementById(`c_${i}`).value;
+            q.original_quote = document.getElementById(`q_${i}`).value;
+            q.rhyme1 = document.getElementById(`r1_${i}`).value;
+            q.rhyme2 = document.getElementById(`r2_${i}`).value;
+        });
+    }
+
+    function deleteQuote(index) {
+        if(confirm("Delete this quote entirely?")) {
+            syncTableToArray(); // save whatever edits exist
+            quotes.splice(index, 1);
+            renderTable();
+            showToast("Quote removed (remember to Save).");
+        }
+    }
+
+    function selectWord(index, rawWord) {
+        const cleanWord = rawWord.replace(/[^\w\s-]/g, '').toLowerCase();
+        const r1 = document.getElementById(`r1_${index}`);
+        const r2 = document.getElementById(`r2_${index}`);
+        
+        if (!r1.value) {
+            r1.value = cleanWord;
+        } else if (!r2.value) {
+            r2.value = cleanWord;
+        } else {
+            r1.value = cleanWord;
+            r2.value = "";
+        }
+        
+        quotes[index].rhyme1 = r1.value;
+        quotes[index].rhyme2 = r2.value;
+    }
+
+    function generateClickableQuote(text, index) {
+        return text.split(' ').map(word => {
+            const safeWord = word.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            return `<span class="clickable-word" onclick="selectWord(${index}, '${safeWord}')">${word}</span>`;
+        }).join(' ');
+    }
+
+    function renderTable() {
+        countEl.innerText = quotes.length;
+        
+        if(quotes.length === 0) {
+            appEl.innerHTML = '<div class="empty-state">No quotes remaining.</div>';
+            return;
+        }
+        
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th class="id-col">ID</th>
+                        <th class="movie-col">Movie</th>
+                        <th class="year-col">Year</th>
+                        <th class="char-col">Character</th>
+                        <th>Original Quote</th>
+                        <th class="rhyme-col">Rhyme 1</th>
+                        <th class="rhyme-col">Rhyme 2</th>
+                        <th class="action-col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        quotes.forEach((q, i) => {
+            html += `
+                <tr>
+                    <td class="id-col">${q.id || 'N/A'}</td>
+                    <td class="movie-col"><input type="text" id="m_${i}" value="${q.movie.replace(/"/g, '&quot;')}"></td>
+                    <td class="year-col"><input type="number" id="y_${i}" value="${q.year}"></td>
+                    <td class="char-col"><input type="text" id="c_${i}" value="${q.character.replace(/"/g, '&quot;')}"></td>
+                    <td>
+                        <div class="quote-container">
+                            ${generateClickableQuote(q.original_quote, i)}
+                        </div>
+                        <textarea id="q_${i}" style="height:30px; min-height:30px; font-size:11px; color:#666;" placeholder="Edit original text...">${q.original_quote}</textarea>
+                    </td>
+                    <td class="rhyme-col"><input type="text" id="r1_${i}" value="${(q.rhyme1 || '').replace(/"/g, '&quot;')}"></td>
+                    <td class="rhyme-col"><input type="text" id="r2_${i}" value="${(q.rhyme2 || '').replace(/"/g, '&quot;')}"></td>
+                    <td class="action-col"><button class="danger" onclick="deleteQuote(${i})">🗑️</button></td>
+                </tr>
+            `;
+        });
+
+        html += `
+                </tbody>
+            </table>
+        `;
+        
+        appEl.innerHTML = html;
+    }
+
+    // Init
+    window.onload = loadQuotes;
+</script>
+</body>
+</html>

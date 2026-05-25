@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2 Pun Generation</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px; position: sticky; top: 0; background: white; z-index: 100; padding-top: 15px; }
+        h1 { margin: 0; font-size: 24px; }
+        
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button.primary { background: #007bff; color: white; }
+        button.primary:hover { background: #0056b3; }
+        button.danger { background: #dc3545; color: white; border-radius: 3px; border: none; cursor: pointer; }
+        button.danger:hover { background: #c82333; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 65px; z-index: 90; }
+        
+        .id-col { width: 80px; font-family: monospace; font-size: 12px; color: #888; }
+        .quote-col { width: 400px; }
+        .rhyme-col { width: 300px; }
+        
+        .quote-container { margin-bottom: 8px; line-height: 1.5; font-style: italic; font-size: 16px; }
+        .quote-word { display: inline-block; padding: 2px 4px; margin: 0 1px; border-radius: 3px; }
+        .quote-word.clickable { cursor: pointer; background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+        .quote-word.clickable:hover { background: #d6d8db; }
+        .quote-word.selected { background: #007bff; color: white; border-color: #007bff; }
+        
+        .chip { display: inline-block; padding: 4px 8px; margin: 2px; border-radius: 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: #fff; user-select: none; transition: 0.1s; }
+        .chip:hover { background: #e9ecef; }
+        
+        .target-word { font-weight: bold; color: #555; margin-bottom: 4px; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chip-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+        
+        .puns-container { margin-top: 15px; padding: 12px; background: #eef2f5; border-radius: 6px; border-left: 4px solid #007bff; }
+        .puns-title { font-size: 12px; font-weight: bold; text-transform: uppercase; color: #007bff; margin-bottom: 8px; }
+        .pun-item { margin-bottom: 6px; font-size: 14px; display: flex; justify-content: space-between; align-items: flex-start; background: white; padding: 8px; border-radius: 4px; border: 1px solid #dcdcdc; }
+        .pun-text { flex-grow: 1; padding-right: 10px; font-style: italic; }
+        .pun-meta { font-size: 11px; color: #888; display: block; margin-top: 4px; font-style: normal; }
+        
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
+        #toast.show { opacity: 1; }
+        #toast.error { background: #dc3545; }
+        
+        .empty-state { text-align: center; padding: 50px; color: #666; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>Phase 2 Pun Generation</h1>
+            <div style="font-size:14px; color:#666; margin-top:4px;">Click a highlighted word in the quote, then click a candidate to generate a pun.</div>
+        </div>
+        <button class="primary" onclick="saveData()">💾 Save All Puns & Cleanup</button>
+    </div>
+    
+    <div id="app">
+        <div class="empty-state">Loading Quotes...</div>
+    </div>
+</div>
+
+<div id="toast">Saved Successfully!</div>
+
+<script>
+    let quotes = [];
+    let punnedQuotes = [];
+    let activeSelection = null; // { quoteIndex, wordToReplace }
+
+    const appEl = document.getElementById('app');
+    const toastEl = document.getElementById('toast');
+
+    async function loadData() {
+        try {
+            const [quotesRes, punsRes] = await Promise.all([
+                fetch('/api/quotes'),
+                fetch('/api/punned_quotes')
+            ]);
+            quotes = await quotesRes.json();
+            punnedQuotes = await punsRes.json();
+            
+            // Ensure punnedQuotes is an array
+            if (!Array.isArray(punnedQuotes)) punnedQuotes = [];
+            
+            renderTable();
+        } catch (e) {
+            appEl.innerHTML = `<div class="empty-state" style="color:red">Error loading data: ${e.message}</div>`;
+        }
+    }
+
+    function selectQuoteWord(quoteIndex, wordToReplace) {
+        if (activeSelection && activeSelection.quoteIndex === quoteIndex && activeSelection.wordToReplace === wordToReplace) {
+            // Toggle off
+            activeSelection = null;
+        } else {
+            activeSelection = { quoteIndex, wordToReplace };
+        }
+        renderTable();
+    }
+
+    function promptManualRhyme(quoteIndex) {
+        if (!activeSelection || activeSelection.quoteIndex !== quoteIndex) {
+            showToast("Please click a highlighted word in the quote first!", true);
+            return;
+        }
+        
+        const targetWord = activeSelection.wordToReplace;
+        setTimeout(() => {
+            const manualWord = prompt(`Enter a manual rhyme for '${targetWord}':`);
+            if (manualWord && manualWord.trim() !== '') {
+                selectCandidate(quoteIndex, manualWord.trim());
+            }
+        }, 50); // slight delay to allow renderTable to show highlighting before prompt blocks thread
+    }
+
+    function selectCandidate(quoteIndex, candidateWord) {
+        if (!activeSelection || activeSelection.quoteIndex !== quoteIndex) {
+            showToast("Please click a highlighted word in the quote first!", true);
+            return;
+        }
+        
+        const q = quotes[quoteIndex];
+        const originalText = q.original_quote;
+        const targetWord = activeSelection.wordToReplace;
+        
+        // Replace target word with candidate, preserving punctuation
+        // Create regex that matches the word exactly, ignoring case
+        const regex = new RegExp(`\\b${targetWord}\\b`, 'i');
+        const punnedText = originalText.replace(regex, candidateWord);
+        
+        // Check if replace actually worked (sometimes punctuation might trick \b)
+        if (punnedText === originalText) {
+            showToast("Failed to replace word (regex boundary issue).", true);
+            return;
+        }
+        
+        // Track rhyme3 if a non-predefined word is used
+        const r1 = stripPunctuation(q.rhyme1 || '');
+        const r2 = stripPunctuation(q.rhyme2 || '');
+        if (targetWord !== r1 && targetWord !== r2) {
+            q.rhyme3 = targetWord;
+        }
+
+        const newPun = {
+            pun_id: q.id + "_" + Date.now(),
+            quote_id: q.id,
+            text: punnedText,
+            replaced_word: targetWord,
+            rhyme_used: candidateWord
+        };
+        
+        punnedQuotes.push(newPun);
+        activeSelection = null; // reset selection after generating
+        renderTable();
+    }
+    
+    function deletePun(punId) {
+        punnedQuotes = punnedQuotes.filter(p => p.pun_id !== punId);
+        renderTable();
+    }
+
+    async function saveData() {
+        try {
+            // Delete unselected candidates ONLY for words that have a generated pun
+            const quotesToSave = JSON.parse(JSON.stringify(quotes)); 
+            quotesToSave.forEach(q => {
+                const hasPun1 = punnedQuotes.some(p => p.quote_id === q.id && p.replaced_word === q.rhyme1);
+                if (hasPun1) {
+                    delete q.rhyme1_candidates;
+                }
+                
+                const hasPun2 = punnedQuotes.some(p => p.quote_id === q.id && p.replaced_word === q.rhyme2);
+                if (hasPun2) {
+                    delete q.rhyme2_candidates;
+                }
+            });
+            
+            const [quotesRes, punsRes] = await Promise.all([
+                fetch('/api/quotes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(quotesToSave)
+                }),
+                fetch('/api/punned_quotes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(punnedQuotes)
+                })
+            ]);
+            
+            const qData = await quotesRes.json();
+            const pData = await punsRes.json();
+            
+            if (qData.success && pData.success) {
+                showToast("Saved Puns and Cleaned Quotes Successfully!");
+                quotes = quotesToSave;
+                activeSelection = null;
+                renderTable(); 
+            } else {
+                showToast("Error saving data.", true);
+            }
+        } catch (e) {
+            showToast("Network Error", true);
+        }
+    }
+
+    function showToast(msg, isError = false) {
+        toastEl.innerText = msg;
+        toastEl.className = isError ? 'error show' : 'show';
+        setTimeout(() => toastEl.className = '', 3000);
+    }
+    
+    function stripPunctuation(str) {
+        // Strip leading and trailing non-alphanumeric characters, preserving internal apostrophes
+        return str.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim().toLowerCase();
+    }
+
+    function renderInteractiveQuote(quoteIndex, q) {
+        const words = q.original_quote.split(' ');
+        const r1 = stripPunctuation(q.rhyme1 || '');
+        const r2 = stripPunctuation(q.rhyme2 || '');
+        
+        const htmlWords = words.map(rawWord => {
+            const cleanWord = stripPunctuation(rawWord);
+            const isClickable = cleanWord !== '';
+            
+            let classes = 'quote-word';
+            if (isClickable) {
+                classes += ' clickable';
+                // Highlight predefined targets with a subtle underline or bold
+                if (cleanWord === r1 || cleanWord === r2) {
+                    classes += ' predefined-target';
+                }
+                
+                // Check if it's currently selected
+                if (activeSelection && activeSelection.quoteIndex === quoteIndex && activeSelection.wordToReplace.toLowerCase() === cleanWord) {
+                    classes += ' selected';
+                }
+                const safeWordForJS = cleanWord.replace(/'/g, "\\'");
+                return `<span class="${classes}" style="${(cleanWord===r1 || cleanWord===r2) ? 'border-bottom: 2px solid #007bff;' : ''}" onclick="selectQuoteWord(${quoteIndex}, '${safeWordForJS}')">${rawWord}</span>`;
+            } else {
+                return `<span class="${classes}">${rawWord}</span>`;
+            }
+        });
+        
+        return `
+            <div class="quote-container">${htmlWords.join(' ')}</div>
+            <div style="margin-bottom: 8px;">
+                <button class="primary" style="padding: 4px 8px; font-size: 11px; display: inline-flex; align-items: center;" onclick="promptManualRhyme(${quoteIndex})">✏️ Enter Manual Rhyme</button>
+                <span style="font-size: 11px; color: #888; margin-left: 8px;">(Click any word above first)</span>
+            </div>
+        `;
+    }
+
+    function renderPuns(quoteId) {
+        const puns = punnedQuotes.filter(p => p.quote_id === quoteId);
+        if (puns.length === 0) return '';
+        
+        let html = `
+            <div class="puns-container">
+                <div class="puns-title">Generated Puns (${puns.length})</div>
+        `;
+        
+        puns.forEach(p => {
+            html += `
+                <div class="pun-item">
+                    <div class="pun-text">
+                        "${p.text}"
+                        <span class="pun-meta">[ Replaced '${p.replaced_word}' with '${p.rhyme_used}' ]</span>
+                    </div>
+                    <button class="danger" style="padding: 4px 8px; font-size: 12px;" onclick="deletePun('${p.pun_id}')">🗑️</button>
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+        return html;
+    }
+
+    function renderChips(quoteIndex, targetWord, candidates) {
+        if (!targetWord) return '';
+        
+        let html = `<span class="target-word">Target: ${targetWord}</span>`;
+        
+        if (candidates && candidates.length > 0) {
+            html += `<div class="chip-container">`;
+            candidates.forEach(word => {
+                html += `<span class="chip" onclick="selectCandidate(${quoteIndex}, '${word.replace(/'/g, "\\'")}')">${word}</span>`;
+            });
+            html += `</div>`;
+        } else {
+            html += `<div style="font-size: 12px; color: #888; margin-top: 4px;">No auto-candidates found.</div>`;
+        }
+        return html;
+    }
+
+    function renderTable() {
+        const quotesToRender = quotes.filter(q => {
+            const num = parseInt(q.id.replace('quote_', ''));
+            return isNaN(num) || num > 88;
+        });
+
+        if(quotesToRender.length === 0) {
+            appEl.innerHTML = '<div class="empty-state">No quotes remaining.</div>';
+            return;
+        }
+        
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th class="id-col">ID</th>
+                        <th class="quote-col">Interactive Quote & Puns</th>
+                        <th class="rhyme-col">Rhyme Candidates</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        quotesToRender.forEach((q) => {
+            // Find the actual index in the original quotes array so selectCandidate works correctly
+            const originalIndex = quotes.findIndex(orig => orig.id === q.id);
+            html += `
+                <tr>
+                    <td class="id-col">${q.id || 'N/A'}</td>
+                    <td class="quote-col">
+                        <div style="font-weight:bold; margin-bottom:4px; font-size: 13px;">${q.movie} (${q.year}) - ${q.character}</div>
+                        ${renderInteractiveQuote(originalIndex, q)}
+                        ${renderPuns(q.id)}
+                    </td>
+                    <td class="rhyme-col">
+                        <div style="margin-bottom: 12px;">${renderChips(originalIndex, q.rhyme1, q.rhyme1_candidates)}</div>
+                        <div>${renderChips(originalIndex, q.rhyme2, q.rhyme2_candidates)}</div>
+                    </td>
+                </tr>
+            `;
+        });
+
+        html += `
+                </tbody>
+            </table>
+        `;
+        
+        appEl.innerHTML = html;
+    }
+
+    // Init
+    window.onload = loadData;
+</script>
+</body>
+</html>

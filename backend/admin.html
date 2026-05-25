@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PunFiction: Pipeline Curation Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bangers&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #080c14;
+            --bg-card: #111625;
+            --bg-input: #1b2030;
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --border-base: rgba(255, 255, 255, 0.05);
+            
+            --cyan: #00f2fe;
+            --purple: #7f00ff;
+            --pink: #ff007f;
+            --emerald: #00f5d4;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #20273a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #303b54;
+        }
+
+        /* Typography & Branding */
+        .brand {
+            font-family: 'Bangers', cursive;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+        .brand span {
+            color: var(--cyan);
+        }
+
+        /* Top Header */
+        header {
+            background: rgba(17, 22, 37, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-base);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Pipeline Steps Navigation */
+        .pipeline-nav {
+            display: flex;
+            gap: 10px;
+            background: rgba(8, 12, 20, 0.6);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+        }
+
+        .pipeline-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pipeline-btn .badge {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        /* Tab Specific Active States */
+        .pipeline-btn.active[data-tab="rhymes"] {
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+        }
+        .pipeline-btn.active[data-tab="rhymes"] .badge {
+            background: var(--cyan);
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="parody"] {
+            background: rgba(127, 0, 255, 0.12);
+            color: #b066ff;
+            box-shadow: 0 0 15px rgba(127, 0, 255, 0.1);
+            border: 1px solid rgba(127, 0, 255, 0.25);
+        }
+        .pipeline-btn.active[data-tab="parody"] .badge {
+            background: #b066ff;
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="posters"] {
+            background: rgba(255, 0, 127, 0.12);
+            color: #ff55a3;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
+            border: 1px solid rgba(255, 0, 127, 0.25);
+        }
+        .pipeline-btn.active[data-tab="posters"] .badge {
+            background: #ff55a3;
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="puzzles"] {
+            background: rgba(0, 245, 212, 0.12);
+            color: var(--emerald);
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
+            border: 1px solid rgba(0, 245, 212, 0.25);
+        }
+        .pipeline-btn.active[data-tab="puzzles"] .badge {
+            background: var(--emerald);
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="approved-puzzles"] {
+            background: rgba(255, 159, 67, 0.12);
+            color: #ff9f43;
+            box-shadow: 0 0 15px rgba(255, 159, 67, 0.1);
+            border: 1px solid rgba(255, 159, 67, 0.25);
+        }
+        .pipeline-btn.active[data-tab="approved-puzzles"] .badge {
+            background: #ff9f43;
+            color: var(--bg-main);
+        }
+
+        /* Container & Tabs Layout */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shared Buttons & Form Elements */
+        button.btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+        button.btn-primary {
+            background: var(--cyan);
+            color: var(--bg-main);
+        }
+        button.btn-primary:hover {
+            background: #00d9e5;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
+            transform: translateY(-1px);
+        }
+        button.btn-purple {
+            background: var(--purple);
+            color: white;
+        }
+        button.btn-purple:hover {
+            background: #6a00d8;
+            box-shadow: 0 0 12px rgba(127, 0, 255, 0.35);
+            transform: translateY(-1px);
+        }
+        button.btn-pink {
+            background: var(--pink);
+            color: white;
+        }
+        button.btn-pink:hover {
+            background: #e60072;
+            box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
+            transform: translateY(-1px);
+        }
+        button.btn-emerald {
+            background: var(--emerald);
+            color: var(--bg-main);
+        }
+        button.btn-emerald:hover {
+            background: #00ddbf;
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.35);
+            transform: translateY(-1px);
+        }
+        button.btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-primary);
+            border: 1px solid var(--border-base);
+        }
+        button.btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        button.btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        button.btn-danger:hover {
+            background: #bb2d3b;
+            box-shadow: 0 0 12px rgba(220, 53, 69, 0.3);
+        }
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-base);
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.15);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Phase 1 Layout: Rhyme Selector */
+        .rhymes-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+            height: calc(100vh - 160px);
+        }
+        .sidebar-list {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-base);
+            background: rgba(255,255,255,0.02);
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .list-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-base);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .list-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        .list-item.active {
+            background: rgba(0, 242, 254, 0.05);
+            border-left: 4px solid var(--cyan);
+        }
+        .list-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .list-item-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .workspace-panel {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .panel-section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Interactive Quote Word Selector */
+        .interactive-quote-box {
+            background: var(--bg-input);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-base);
+            line-height: 1.8;
+            font-size: 18px;
+            font-style: italic;
+        }
+        .q-word {
+            display: inline-block;
+            padding: 2px 6px;
+            margin: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .q-word:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .q-word.target-1, .q-word.target-2 {
+            border-bottom: 3px solid var(--cyan);
+            font-weight: 600;
+        }
+        .q-word.selected {
+            background: var(--cyan);
+            color: var(--bg-main);
+            border-color: var(--cyan);
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+
+        /* Rhyme Chips */
+        .chip-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .rhyme-chip {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-base);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        .rhyme-chip:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 242, 254, 0.05);
+            color: var(--cyan);
+            transform: translateY(-1px);
+        }
+
+        /* Puns Subpanel */
+        .pun-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .pun-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-base);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pun-card-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .pun-card-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Review Dashboards (Phase 2 & 3) */
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+        }
+        .view-toggles {
+            display: flex;
+            gap: 10px;
+        }
+        .view-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-base);
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .view-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-main);
+            border-color: var(--text-primary);
+        }
+
+        .cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        .review-card-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-base);
+            padding-bottom: 12px;
+            font-family: monospace;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .review-col {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-base);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pitch-banner {
+            background: rgba(255, 193, 7, 0.05);
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid var(--border-base);
+            padding-top: 15px;
+        }
+
+        /* Posters Grid Layout (Phase 3) */
+        .posters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+        .poster-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        }
+        .poster-preview-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #090c15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-base);
+        }
+        .poster-preview-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .poster-preview-wrapper:hover .poster-preview-img {
+            transform: scale(1.03);
+        }
+        .poster-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .prompt-box {
+            font-family: monospace;
+            font-size: 11px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-base);
+            max-height: 80px;
+            overflow-y: auto;
+            color: var(--text-secondary);
+        }
+
+        /* Game Assembler (Phase 4) */
+        .puzzles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .puzzle-set-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .puzzle-set-card.approved {
+            border-color: rgba(0, 245, 212, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 245, 212, 0.05);
+        }
+
+        .step-block {
+            border: 1px dashed var(--border-base);
+            border-radius: 8px;
+            padding: 15px;
+            background: rgba(255,255,255,0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-base);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            animation: modalSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes modalSlide {
+            from { transform: translateY(30px); }
+            to { transform: translateY(0); }
+        }
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-base);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--border-base);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* General Toast Notifications */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e293b;
+            color: var(--text-primary);
+            padding: 14px 24px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #toast.success {
+            border-color: var(--emerald);
+            background: rgba(0, 245, 212, 0.08);
+            color: #55ffd4;
+        }
+        #toast.error {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.08);
+            color: #ff7684;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Pipeline Controller Panel Styles */
+        .pipeline-controller-panel {
+            background: linear-gradient(135deg, rgba(17, 22, 37, 0.9) 0%, rgba(8, 12, 20, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-base);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .panel-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-icon {
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        .panel-title {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .controller-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .controller-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .action-card {
+            background: rgba(27, 32, 48, 0.4);
+            border: 1px solid var(--border-base);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .action-card:hover {
+            border-color: rgba(0, 242, 254, 0.2);
+            background: rgba(27, 32, 48, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .action-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .action-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .action-status {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-count {
+            font-weight: 700;
+            color: var(--cyan);
+            background: rgba(0, 242, 254, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .action-card button {
+            white-space: nowrap;
+            height: 40px;
+            padding: 0 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
+            to { text-shadow: 0 0 15px rgba(0, 242, 254, 0.6); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Pun<span>Fiction</span> Pipeline</div>
+        <nav class="pipeline-nav">
+            <button class="pipeline-btn active" data-tab="rhymes">
+                🔍 Rhyme Selector <span class="badge" id="badge-rhymes">0</span>
+            </button>
+            <button class="pipeline-btn" data-tab="parody">
+                🍿 Parody Review <span class="badge" id="badge-parody">0</span>
+            </button>
+            <button class="pipeline-btn" data-tab="posters">
+                🎨 Poster Review <span class="badge" id="badge-posters">0</span>
+            </button>
+            <button class="pipeline-btn" data-tab="puzzles">
+                🧩 Game Assembler <span class="badge" id="badge-puzzles">0</span>
+            </button>
+            <button class="pipeline-btn" data-tab="approved-puzzles">
+                📚 Approved Puzzles <span class="badge" id="badge-approved-puzzles">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- ================= PIPELINE CONTROLLER ================= -->
+        <div class="pipeline-controller-panel">
+            <div class="panel-title-wrapper">
+                <span class="panel-icon">⚡</span>
+                <span class="panel-title">Pipeline Control Room</span>
+            </div>
+            
+            <div class="controller-actions">
+                <!-- Action 1: Parody Title Generator -->
+                <div class="action-card">
+                    <div class="action-info">
+                        <div class="action-label">Parody Movie Titles & Pitches</div>
+                        <div class="action-status" id="parody-generator-status">
+                            <span class="status-count" id="count-pending-parodies">0</span> pending puns ready
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="btn-run-parody-gen" onclick="triggerParodyGeneration()">
+                        🚀 Run Generator
+                    </button>
+                </div>
+
+                <!-- Action 2: Poster Prompt Prep & Poster Generator -->
+                <div class="action-card">
+                    <div class="action-info">
+                        <div class="action-label">Parody Poster Illustrations</div>
+                        <div class="action-status" id="poster-generator-status">
+                            <span class="status-count" id="count-pending-posters">0</span> approved parodies ready
+                        </div>
+                    </div>
+                    <button class="btn btn-emerald" id="btn-run-poster-gen" onclick="triggerPosterGeneration()">
+                        🎨 Run Poster Gen
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ================= PHASE 1: RHYME SELECTOR ================= -->
+        <div id="tab-rhymes" class="tab-content active">
+            <div class="rhymes-layout">
+                <div class="sidebar-list">
+                    <div class="sidebar-header">Pending Quotes</div>
+                    <div id="rhyme-quotes-list" style="flex-grow: 1; overflow-y: auto;">
+                        <!-- JS populated -->
+                    </div>
+                </div>
+                <div class="workspace-panel" id="rhyme-workspace">
+                    <div class="empty-state">
+                        <div style="font-size: 40px;">🔍</div>
+                        <h3>Select a Quote to Begin</h3>
+                        <p style="color: var(--text-secondary); max-width: 400px; margin-top: 8px;">Select a quote from the sidebar list to inspect the text, fetch rhyme candidates, and build new puns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PHASE 2: PARODY REVIEW ================= -->
+        <div id="tab-parody" class="tab-content">
+            <div class="filter-header">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700;">🍿 Parody Review Queue</h2>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Review and approve generated parody movie titles and plots.</p>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="view-toggles">
+                        <button class="view-btn active" id="btn-parody-pending" onclick="setParodyView('pending')">Pending</button>
+                        <button class="view-btn" id="btn-parody-approved" onclick="setParodyView('approved')">Approved</button>
+                    </div>
+                    <button class="btn btn-purple" onclick="saveParodyDecisions()">💾 Save Decisions</button>
+                </div>
+            </div>
+            <div class="cards-grid" id="parody-review-list">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+        <!-- ================= PHASE 3: POSTER REVIEW ================= -->
+        <div id="tab-posters" class="tab-content">
+            <div class="filter-header">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700;">🎨 Poster Generation Queue</h2>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Review posters or mark rejected posters for regeneration.</p>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="view-toggles">
+                        <button class="view-btn active" id="btn-poster-pending" onclick="setPosterView('pending')">Pending Review</button>
+                        <button class="view-btn" id="btn-poster-approved" onclick="setPosterView('approved')">Approved Posters</button>
+                    </div>
+                    <button class="btn btn-pink" onclick="savePosterDecisions()">💾 Save Poster Decisions</button>
+                </div>
+            </div>
+            <div class="posters-grid" id="posters-review-grid">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+        <!-- ================= PHASE 4: GAME ASSEMBLER ================= -->
+        <div id="tab-puzzles" class="tab-content">
+            <div class="filter-header">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700;">🧩 Production Game Assembler</h2>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Compile individual parodies and posters into the final daily game pipeline.</p>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-emerald" onclick="savePuzzlesData()">💾 Save All Puzzles</button>
+                </div>
+            </div>
+            <div class="puzzles-grid" id="puzzles-list-grid">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+        <!-- ================= PHASE 5: APPROVED DAILY CHALLENGES ================= -->
+        <div id="tab-approved-puzzles" class="tab-content">
+            <div class="filter-header">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700;">📚 Approved Daily Challenges</h2>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Manage compiled challenges that have been approved and saved to production.</p>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-emerald" onclick="savePuzzlesData()">💾 Save All Puzzles</button>
+                </div>
+            </div>
+            <!-- Split Side-by-Side Curation Layout -->
+            <div class="approved-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 15px; align-items: start;">
+                
+                <!-- Left Side: Challenge Schedule & Sort Order -->
+                <div class="pipeline-controller-panel" style="background: rgba(17, 22, 37, 0.4); border-color: rgba(0, 242, 254, 0.1); margin-top: 0; margin-bottom: 0; padding: 20px; height: calc(100vh - 200px); display: flex; flex-direction: column;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                        <div class="panel-title-wrapper">
+                            <span class="panel-icon">🗓️</span>
+                            <span class="panel-title">Schedule & Backlog</span>
+                        </div>
+                    </div>
+                    <p style="font-size:11px; color:var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                        Clumped original movies are automatically moved to the **Holding - Backlog** area at the bottom. Adjust sequence using 🔼 / 🔽.
+                    </p>
+                    <div style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; padding-right: 4px;">
+                        
+                        <!-- Active Schedule Section -->
+                        <div>
+                            <div style="font-size: 11px; font-weight:700; color:var(--cyan); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                                <span>🟢 Active Schedule</span> 
+                                <span style="font-size:10px; background:rgba(0, 242, 254, 0.12); padding:1px 6px; border-radius:4px; border:1px solid rgba(0, 242, 254, 0.2); font-weight:700;" id="count-active-schedule">0</span>
+                            </div>
+                            <div style="border: 1px solid var(--border-base); border-radius: 8px; background: rgba(8,12,20,0.5); overflow: hidden;">
+                                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid var(--border-base); background: rgba(0,0,0,0.2); color: var(--text-muted); font-weight:700;">
+                                            <th style="padding: 8px; width: 40px;">#</th>
+                                            <th style="padding: 8px; width: 60px;">Ch #</th>
+                                            <th style="padding: 8px;">Title</th>
+                                            <th style="padding: 8px;">Original Movie</th>
+                                            <th style="padding: 8px; width: 90px; text-align: center;">Move</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="approved-puzzles-sort-list">
+                                        <!-- JS Populated -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Holding Backlog Section -->
+                        <div>
+                            <div style="font-size: 11px; font-weight:700; color:#ff7684; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                                <span>📦 Holding - Backlog</span> 
+                                <span style="font-size:10px; background:rgba(220, 53, 69, 0.15); padding:1px 6px; border-radius:4px; border:1px solid rgba(220, 53, 69, 0.2); color:#ff7684; font-weight:700;" id="count-backlog">0</span>
+                            </div>
+                            <div style="border: 1px solid var(--border-base); border-radius: 8px; background: rgba(8,12,20,0.5); overflow: hidden;">
+                                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid var(--border-base); background: rgba(0,0,0,0.2); color: var(--text-muted); font-weight:700;">
+                                            <th style="padding: 8px; width: 40px;">Idx</th>
+                                            <th style="padding: 8px;">Title</th>
+                                            <th style="padding: 8px;">Original Movie</th>
+                                            <th style="padding: 8px; width: 90px; text-align: center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="approved-puzzles-backlog-list">
+                                        <!-- JS Populated -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Side: Main Approved Daily Challenges List -->
+                <div style="height: calc(100vh - 200px); overflow-y: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 15px;" id="approved-puzzles-list-grid">
+                    <!-- JS Populated cards -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= RHYME MODAL ================= -->
+    <div id="modal-manual-rhyme" class="modal">
+        <div class="modal-wrapper" style="max-width: 450px;">
+            <div class="modal-header">
+                <h3 style="font-size: 16px; font-weight: 700;">✏️ Custom Rhyme Input</h3>
+                <button onclick="closeModal('modal-manual-rhyme')" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 18px;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">Target Word</label>
+                    <input type="text" id="manual-target-display" disabled style="opacity: 0.5;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">Enter Rhyme Word</label>
+                    <input type="text" id="manual-rhyme-input" placeholder="e.g. Kentucky..." autocomplete="off">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-manual-rhyme')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitManualRhyme()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= NEW DAILY GAME MODAL ================= -->
+    <div id="modal-new-game" class="modal">
+        <div class="modal-wrapper">
+            <div class="modal-header">
+                <h3 style="font-size: 16px; font-weight: 700;">➕ Create New Daily Challenge</h3>
+                <button onclick="closeModal('modal-new-game')" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 18px;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="grid-2">
+                    <div>
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Select Boss Poster (Phase 3 Approved)</label>
+                        <select id="modal-boss-select" onchange="onBossSelected(this.value)">
+                            <option value="">-- Select approved boss poster --</option>
+                        </select>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Puzzle #</label>
+                            <input type="text" id="modal-puzzle-num" placeholder="e.g. 001">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Puzzle ID</label>
+                            <input type="text" id="modal-puzzle-id" placeholder="e.g. puz_001">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid var(--border-base); padding-top: 15px;">
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--cyan);">Boss Movie Information</h4>
+                    <div class="grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Original Title</label>
+                            <input type="text" id="modal-boss-original-title" disabled style="opacity: 0.7;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Pun Title</label>
+                            <input type="text" id="modal-boss-pun-title" disabled style="opacity: 0.7;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Boss Pitch</label>
+                        <textarea id="modal-boss-pitch" disabled style="opacity: 0.7; min-height: 50px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-new-game')">Cancel</button>
+                <button class="btn btn-emerald" onclick="submitNewGame()">Create Challenge</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Saved Successfully!</div>
+
+    <!-- ================= FRONTEND JAVASCRIPT ================= -->
+    <script>
+        // Core State
+        let quotes = [];
+        let punnedQuotes = [];
+        let reviewedParodies = [];
+        let postersState = [];
+        let puzzles = [];
+        let savedPunsIds = new Set();
+
+        // UI State
+        let activeQuoteId = null;
+        let activeSelectionWord = null;
+        let activeQuoteIndex = null;
+        let parodyView = 'pending';
+        let posterView = 'pending';
+
+        // Load all data sets from the server APIs
+        async function loadAllData() {
+            try {
+                const t = Date.now();
+                const [quotesRes, punsRes, reviewedRes, postersRes, puzzlesRes] = await Promise.all([
+                    fetch('/api/quotes?t=' + t),
+                    fetch('/api/punned_quotes?t=' + t),
+                    fetch('/api/reviewed_parodies?t=' + t),
+                    fetch('/api/posters_state?t=' + t),
+                    fetch('/api/puzzles?t=' + t)
+                ]);
+
+                quotes = await quotesRes.json();
+                punnedQuotes = await punsRes.json();
+                reviewedParodies = await reviewedRes.json();
+                postersState = await postersRes.json();
+                puzzles = await puzzlesRes.json();
+
+                // Ensure data sets are arrays
+                if (!Array.isArray(quotes)) quotes = [];
+                if (!Array.isArray(punnedQuotes)) punnedQuotes = [];
+                if (!Array.isArray(reviewedParodies)) reviewedParodies = [];
+                if (!Array.isArray(postersState)) postersState = [];
+                if (!Array.isArray(puzzles)) puzzles = [];
+
+                savedPunsIds = new Set(punnedQuotes.map(p => p.quote_id));
+
+                autoStitchPuzzlesMetadata();
+                autoProcessCurationSchedule(); // Auto de-clump and sequence on initial load
+
+                updateBadges();
+                renderAll();
+            } catch (e) {
+                console.error("Error fetching pipeline datasets:", e);
+                showToast("Network Error loading data", true);
+            }
+        }
+
+        function autoStitchPuzzlesMetadata() {
+            const approvedParodies = reviewedParodies.filter(r => r.status === 'approved' && r.data);
+            const quoteLookup = {};
+            quotes.forEach(q => quoteLookup[q.id] = q);
+            
+            puzzles.forEach(p => {
+                // Ensure puzzle_id is set
+                if (!p.puzzle_id) {
+                    p.puzzle_id = p.boss_id ? p.boss_id.replace("boss_", "puz_") : "puz_" + Math.random().toString(36).substr(2, 9);
+                }
+
+                // Ensure answer and boss_hint2 are set
+                if (p.boss_pun_title) {
+                    p.answer = p.boss_pun_title.replace(/[a-zA-Z]/g, "_");
+                    if (!p.boss_hint2) {
+                        p.boss_hint2 = generateFirstLetterBlanks(p.boss_pun_title);
+                    }
+                }
+
+                // Stitch Boss level if missing details
+                if (p.boss_pun_title && (!p.boss_original_quote || !p.boss_punned_quote || !p.boss_original_title || !p.boss_pitch)) {
+                    const bossPunId = p.boss_id ? p.boss_id.replace("boss_", "") : "";
+                    let bossMatch = approvedParodies.find(r => r.pun_id === bossPunId);
+                    if (!bossMatch) {
+                        bossMatch = approvedParodies.find(r => r.data.parody_title.toLowerCase() === p.boss_pun_title.toLowerCase());
+                    }
+                    if (bossMatch && bossMatch.data) {
+                        const q = quoteLookup[bossMatch.data.quote_id];
+                        if (!p.boss_original_title) p.boss_original_title = q ? q.movie : '';
+                        if (!p.boss_original_quote) p.boss_original_quote = q ? q.original_quote : '';
+                        if (!p.boss_punned_quote) p.boss_punned_quote = bossMatch.data.text;
+                        if (!p.boss_pitch) p.boss_pitch = bossMatch.data.parody_pitch;
+                    }
+                }
+
+                // Sync boss poster URL to the matching approved poster in postersState
+                const bossPunIdForPoster = p.boss_id ? p.boss_id.replace("boss_", "") : (p.puzzle_id ? p.puzzle_id.replace("puz_", "") : "");
+                const matchingPoster = postersState.find(post => {
+                    if (post.status !== 'approved') return false;
+                    if (bossPunIdForPoster && post.pun_id) return bossPunIdForPoster === post.pun_id;
+                    return p.boss_pun_title && post.parody_title && p.boss_pun_title.toLowerCase() === post.parody_title.toLowerCase();
+                });
+                if (matchingPoster && p.boss_poster_url !== matchingPoster.image_path) {
+                    p.boss_poster_url = matchingPoster.image_path;
+                }
+
+                p.puzzles.forEach(tp => {
+                    if (tp.parody_title && (!tp.original_quote || !tp.base_movie || !tp.punned_quote)) {
+                        const match = approvedParodies.find(r => r.data.parody_title.toLowerCase() === tp.parody_title.toLowerCase());
+                        if (match && match.data) {
+                            const q = quoteLookup[match.data.quote_id];
+                            if (!tp.base_movie) tp.base_movie = q ? q.movie : '';
+                            if (!tp.original_quote) tp.original_quote = q ? q.original_quote : '';
+                            if (!tp.punned_quote) tp.punned_quote = match.data.text;
+                            if (!tp.parody_pitch) tp.parody_pitch = match.data.parody_pitch;
+                            if (!tp.target_word) tp.target_word = (match.data.target_guess_words || [match.data.rhyme_used])[0];
+                            if (!tp.hint1) tp.hint1 = q ? q.movie : '';
+                        }
+                    }
+                });
+            });
+        }
+
+        function updateBadges() {
+            // Rhymes: count quotes with ID > 88 that DO NOT have saved puns
+            const pendingRhymes = quotes.filter(q => {
+                const num = parseInt(q.id.replace('quote_', ''));
+                const isNotCompleted = isNaN(num) || num > 88;
+                return isNotCompleted && !savedPunsIds.has(q.id);
+            }).length;
+            document.getElementById('badge-rhymes').innerText = pendingRhymes;
+
+            // Parodies: pending parodies to review
+            const reviewedIds = new Set(reviewedParodies.map(r => r.pun_id));
+            const pendingParodies = punnedQuotes.filter(p => p.parody_title && !reviewedIds.has(p.pun_id)).length;
+            document.getElementById('badge-parody').innerText = pendingParodies;
+
+            // Posters: pending generated posters to review
+            const pendingPosters = postersState.filter(p => p.generated === true && p.status !== 'approved' && p.status !== 'rejected').length;
+            document.getElementById('badge-posters').innerText = pendingPosters;
+
+            // Compiled puzzles count for Game Assembler (unapproved/pending)
+            const approvedPuzzleIdsSet = new Set(
+                puzzles.filter(item => item.status === 'approved')
+                       .map(item => {
+                           if (item.puzzle_id && item.puzzle_id.startsWith('puz_')) {
+                               return item.puzzle_id.replace('puz_', '');
+                           }
+                           if (item.boss_id && item.boss_id.startsWith('boss_')) {
+                               return item.boss_id.replace('boss_', '');
+                           }
+                           return '';
+                       })
+                       .filter(id => id !== '')
+            );
+            const approvedPuzzlesSet = new Set(puzzles.filter(item => item.status === 'approved').map(item => item.boss_poster_url));
+            const approvedPuzzlesTitlesSet = new Set(puzzles.filter(item => item.status === 'approved').map(item => item.boss_pun_title.toLowerCase()));
+
+            const approvedPosters = postersState.filter(p => p.status === 'approved');
+            const pendingAssemblerCount = approvedPosters.filter(poster => {
+                if (approvedPuzzleIdsSet.has(poster.pun_id)) {
+                    return false;
+                }
+                const hasApprovedUrl = approvedPuzzlesSet.has(poster.image_path);
+                const hasApprovedTitle = approvedPuzzlesTitlesSet.has(poster.parody_title.toLowerCase());
+                return !hasApprovedUrl && !hasApprovedTitle;
+            }).length;
+            document.getElementById('badge-puzzles').innerText = pendingAssemblerCount;
+
+            // Approved daily challenges count (5th tab)
+            const approvedChallengesCount = puzzles.filter(p => p.status === 'approved').length;
+            document.getElementById('badge-approved-puzzles').innerText = approvedChallengesCount;
+
+            // Pipeline Control Room: Pending counts
+            const pendingParodyGen = punnedQuotes.filter(p => !p.parody_title || !p.parody_pitch).length;
+            document.getElementById('count-pending-parodies').innerText = pendingParodyGen;
+
+            const approvedParodies = reviewedParodies.filter(r => r.status === 'approved');
+            const generatedPosterIds = new Set(postersState.filter(p => p.generated === true).map(p => p.pun_id));
+            const pendingPosterGen = approvedParodies.filter(r => !generatedPosterIds.has(r.pun_id)).length;
+            document.getElementById('count-pending-posters').innerText = pendingPosterGen;
+        }
+
+        async function triggerParodyGeneration() {
+            const btn = document.getElementById('btn-run-parody-gen');
+            const origText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = "⏳ Running...";
+            showToast("Kicking off Parody Title Generator on backend...");
+            try {
+                const res = await fetch('/api/generate_parodies', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("Generator started successfully! Generating titles in background.");
+                } else {
+                    showToast("Error starting generator: " + data.error, true);
+                }
+            } catch (e) {
+                showToast("Network error trying to kick off generator", true);
+            } finally {
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = origText;
+                    loadAllData(); // reload dashboard after a brief delay
+                }, 4000);
+            }
+        }
+
+        async function triggerPosterGeneration() {
+            const btn = document.getElementById('btn-run-poster-gen');
+            const origText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = "⏳ Running...";
+            showToast("Compiling prompts and starting Poster Generator on backend...");
+            try {
+                const res = await fetch('/api/generate_posters', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("Poster generator started successfully in background!");
+                } else {
+                    showToast("Error starting poster generator: " + data.error, true);
+                }
+            } catch (e) {
+                showToast("Network error trying to kick off poster generator", true);
+            } finally {
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = origText;
+                    loadAllData(); // reload dashboard after a brief delay
+                }, 4000);
+            }
+        }
+
+        function renderAll() {
+            renderRhymeTab();
+            renderParodyTab();
+            renderPosterTab();
+            renderPuzzlesTab();
+            renderApprovedPuzzlesTab();
+        }
+
+        // ================= SPA TAB NAVIGATION =================
+        document.querySelectorAll('.pipeline-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                
+                // Toggle active buttons
+                document.querySelectorAll('.pipeline-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Toggle active screens
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tab}`).classList.add('active');
+
+                // Update URL Hash securely
+                window.location.hash = tab;
+            });
+        });
+
+        // Parse URL Hash on Load
+        function selectTabFromHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                const targetBtn = document.querySelector(`.pipeline-btn[data-tab="${hash}"]`);
+                if (targetBtn) targetBtn.click();
+            }
+        }
+
+        // ================= PHASE 1: RHYME SELECTOR =================
+        function renderRhymeTab() {
+            const listEl = document.getElementById('rhyme-quotes-list');
+            const pendingQuotes = quotes.filter(q => {
+                const num = parseInt(q.id.replace('quote_', ''));
+                const isNotCompleted = isNaN(num) || num > 88;
+                return isNotCompleted && !savedPunsIds.has(q.id);
+            });
+
+            if (pendingQuotes.length === 0) {
+                listEl.innerHTML = '<div style="padding:20px; text-align:center; color:var(--text-muted);">All quotes completed!</div>';
+                return;
+            }
+
+            listEl.innerHTML = pendingQuotes.map(q => {
+                const isActive = q.id === activeQuoteId;
+                return `
+                    <div class="list-item ${isActive ? 'active' : ''}" onclick="selectRhymeQuote('${q.id}')">
+                        <div class="list-item-title">${q.movie} (${q.year})</div>
+                        <div class="list-item-subtitle">${q.id} | Replaced: ${q.rhyme1 || 'None'}, ${q.rhyme2 || 'None'}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Render Active Workspace
+            const workspaceEl = document.getElementById('rhyme-workspace');
+            if (!activeQuoteId) {
+                workspaceEl.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 40px;">🔍</div>
+                        <h3>Select a Quote to Begin</h3>
+                        <p style="color: var(--text-secondary); max-width: 400px; margin-top: 8px;">Select a quote from the sidebar list to inspect the text, fetch rhyme candidates, and build new puns.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quotes.find(item => item.id === activeQuoteId);
+            activeQuoteIndex = quotes.findIndex(item => item.id === activeQuoteId);
+
+            if (!q) return;
+
+            // Generate word selector buttons
+            const words = q.original_quote.split(' ');
+            const r1 = stripPunctuation(q.rhyme1 || '');
+            const r2 = stripPunctuation(q.rhyme2 || '');
+
+            const wordsHtml = words.map(rawWord => {
+                const cleanWord = stripPunctuation(rawWord);
+                if (cleanWord === '') return `<span>${rawWord}</span>`;
+
+                let classes = 'q-word';
+                if (cleanWord === r1) classes += ' target-1';
+                if (cleanWord === r2) classes += ' target-2';
+                if (activeSelectionWord && activeSelectionWord.toLowerCase() === cleanWord) classes += ' selected';
+
+                const safeWord = cleanWord.replace(/'/g, "\\'");
+                return `<span class="${classes}" onclick="selectWordToReplace('${safeWord}')">${rawWord}</span>`;
+            }).join(' ');
+
+            // Subpanel: Puns generated for this quote
+            const quotePuns = punnedQuotes.filter(p => p.quote_id === q.id);
+            let punsHtml = '';
+            if (quotePuns.length > 0) {
+                punsHtml = `
+                    <div style="margin-top: 20px;">
+                        <div class="panel-section-title">Generated Puns (${quotePuns.length})</div>
+                        <div class="pun-list">
+                            ${quotePuns.map(p => `
+                                <div class="pun-card" style="gap:15px; width:100%;">
+                                    <div style="flex-grow:1; display:flex; flex-direction:column; gap:6px;">
+                                        <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Punned Quote Text (Editable)</label>
+                                        <input type="text" value="${p.text.replace(/"/g, '&quot;')}" onchange="updateGeneratedPunText('${p.pun_id}', this.value)" style="padding:6px 12px; font-size:14px;">
+                                        <div class="pun-card-meta">[ Replaced '${p.replaced_word}' with '${p.rhyme_used}' ]</div>
+                                    </div>
+                                    <button class="btn btn-danger" style="padding: 6px 10px;" onclick="deletePun('${p.pun_id}')">🗑️</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render the workspace content
+            workspaceEl.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-base); padding-bottom: 15px;">
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 700;">${q.movie} (${q.year})</h2>
+                        <p style="color:var(--text-secondary); font-size:13px; margin-top:4px;">Character: ${q.character} | ID: ${q.id}</p>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-danger" onclick="deleteRhymeQuote('${q.id}')">🗑️ Delete Quote</button>
+                        <button class="btn btn-primary" onclick="saveRhymesData()">💾 Save All Puns & Cleanup</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="panel-section-title">Interactive Quote Word Selector</div>
+                    <div class="interactive-quote-box">${wordsHtml}</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 12px;">
+                        <span style="font-size: 12px; color: var(--text-muted);">(Click a word above to show matching rhyme candidates)</span>
+                        <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 11px;" onclick="openManualRhymeModal()">✏️ Enter Manual Rhyme</button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <div class="panel-section-title">Candidates for R1: "${q.rhyme1 || ''}"</div>
+                        <div class="chip-container">
+                            ${renderRhymeChips(q.rhyme1, q.rhyme1_candidates)}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="panel-section-title">Candidates for R2: "${q.rhyme2 || ''}"</div>
+                        <div class="chip-container">
+                            ${renderRhymeChips(q.rhyme2, q.rhyme2_candidates)}
+                        </div>
+                    </div>
+                </div>
+
+                ${punsHtml}
+            `;
+        }
+
+        function selectRhymeQuote(id) {
+            activeQuoteId = id;
+            activeSelectionWord = null;
+            renderRhymeTab();
+        }
+
+        function selectWordToReplace(word) {
+            activeSelectionWord = word;
+            renderRhymeTab();
+        }
+
+        function renderRhymeChips(target, candidates) {
+            if (!target) return '<div style="font-size:12px; color:var(--text-muted);">No primary target defined.</div>';
+            if (!candidates || candidates.length === 0) return '<div style="font-size:12px; color:var(--text-muted);">No candidate words found.</div>';
+
+            return candidates.map(word => {
+                const safeWord = word.replace(/'/g, "\\'");
+                return `<span class="rhyme-chip" onclick="applyRhymeWord('${safeWord}')">${word}</span>`;
+            }).join('');
+        }
+
+        function applyRhymeWord(candidateWord) {
+            if (!activeSelectionWord) {
+                showToast("Please click a word in the interactive quote first!", true);
+                return;
+            }
+
+            const q = quotes[activeQuoteIndex];
+            const originalText = q.original_quote;
+            const targetWord = activeSelectionWord;
+
+            // Replace exact word preserving case and punctuation
+            const regex = new RegExp(`\\b${targetWord}\\b`, 'i');
+            const punnedText = originalText.replace(regex, candidateWord);
+
+            if (punnedText === originalText) {
+                showToast("Regex boundary issue, failed to replace word.", true);
+                return;
+            }
+
+            // Track third rhyme if a custom word is selected
+            const r1 = stripPunctuation(q.rhyme1 || '');
+            const r2 = stripPunctuation(q.rhyme2 || '');
+            if (targetWord !== r1 && targetWord !== r2) {
+                q.rhyme3 = targetWord;
+            }
+
+            const newPun = {
+                pun_id: q.id + "_" + Date.now(),
+                quote_id: q.id,
+                text: punnedText,
+                replaced_word: targetWord,
+                rhyme_used: candidateWord
+            };
+
+            punnedQuotes.push(newPun);
+            activeSelectionWord = null;
+            updateBadges();
+            renderRhymeTab();
+            showToast("Pun generated successfully!");
+        }
+
+        function deletePun(punId) {
+            punnedQuotes = punnedQuotes.filter(p => p.pun_id !== punId);
+            updateBadges();
+            renderRhymeTab();
+            showToast("Pun removed.");
+        }
+
+        function updateGeneratedPunText(punId, newText) {
+            const pIndex = punnedQuotes.findIndex(p => p.pun_id === punId);
+            if (pIndex !== -1) {
+                punnedQuotes[pIndex].text = newText.trim();
+                showToast("Pun quote updated in active memory!");
+            }
+        }
+
+        function openManualRhymeModal() {
+            if (!activeSelectionWord) {
+                showToast("Click a word in the quote first!", true);
+                return;
+            }
+            document.getElementById('manual-target-display').value = activeSelectionWord;
+            document.getElementById('manual-rhyme-input').value = '';
+            openModal('modal-manual-rhyme');
+            setTimeout(() => document.getElementById('manual-rhyme-input').focus(), 150);
+        }
+
+        function submitManualRhyme() {
+            const val = document.getElementById('manual-rhyme-input').value.trim();
+            if (val) {
+                closeModal('modal-manual-rhyme');
+                applyRhymeWord(val);
+            }
+        }
+
+        async function saveRhymesData() {
+            try {
+                // Pre-clean quotes: remove candidates for words that have a generated pun
+                const quotesToSave = JSON.parse(JSON.stringify(quotes));
+                quotesToSave.forEach(q => {
+                    const hasPun1 = punnedQuotes.some(p => p.quote_id === q.id && p.replaced_word === q.rhyme1);
+                    if (hasPun1) delete q.rhyme1_candidates;
+
+                    const hasPun2 = punnedQuotes.some(p => p.quote_id === q.id && p.replaced_word === q.rhyme2);
+                    if (hasPun2) delete q.rhyme2_candidates;
+                });
+
+                const [qRes, pRes] = await Promise.all([
+                    fetch('/api/quotes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(quotesToSave)
+                    }),
+                    fetch('/api/punned_quotes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(punnedQuotes)
+                    })
+                ]);
+
+                const qData = await qRes.json();
+                const pData = await pRes.json();
+
+                if (qData.success && pData.success) {
+                    showToast("Puns saved successfully!");
+                    quotes = quotesToSave;
+                    
+                    // Update saved puns state to trigger sidebar removal
+                    savedPunsIds = new Set(punnedQuotes.map(p => p.quote_id));
+                    
+                    // Reset selected quote if it has been saved and completed
+                    if (activeQuoteId && savedPunsIds.has(activeQuoteId)) {
+                        activeQuoteId = null;
+                    }
+                    
+                    renderRhymeTab();
+                    updateBadges();
+                } else {
+                    showToast("Error saving rhyme data", true);
+                }
+            } catch (e) {
+                showToast("Network Error saving rhymes", true);
+            }
+        }
+
+        async function deleteRhymeQuote(quoteId) {
+            const q = quotes.find(item => item.id === quoteId);
+            if (!q) return;
+
+            if (!confirm(`Are you sure you want to delete the quote for "${q.movie}"? This will permanently remove the quote and all its generated puns from the database.`)) {
+                return;
+            }
+
+            const quoteIdx = quotes.findIndex(item => item.id === quoteId);
+            if (quoteIdx !== -1) {
+                quotes.splice(quoteIdx, 1);
+            }
+
+            punnedQuotes = punnedQuotes.filter(p => p.quote_id !== quoteId);
+
+            showToast("Deleting quote and saving...");
+            try {
+                const [qRes, pRes] = await Promise.all([
+                    fetch('/api/quotes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(quotes)
+                    }),
+                    fetch('/api/punned_quotes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(punnedQuotes)
+                    })
+                ]);
+
+                const qData = await qRes.json();
+                const pData = await pRes.json();
+
+                if (qData.success && pData.success) {
+                    showToast("Quote deleted successfully!");
+                    activeQuoteId = null;
+                    savedPunsIds = new Set(punnedQuotes.map(p => p.quote_id));
+                    renderRhymeTab();
+                    updateBadges();
+                } else {
+                    showToast("Error updating database files", true);
+                }
+            } catch (e) {
+                showToast("Network Error deleting quote", true);
+                console.error(e);
+            }
+        }
+
+        // ================= PHASE 2: PARODY REVIEW =================
+        function setParodyView(view) {
+            parodyView = view;
+            document.getElementById('btn-parody-pending').className = view === 'pending' ? 'view-btn active' : 'view-btn';
+            document.getElementById('btn-parody-approved').className = view === 'approved' ? 'view-btn active' : 'view-btn';
+            renderParodyTab();
+        }
+
+        function renderParodyTab() {
+            const listEl = document.getElementById('parody-review-list');
+            const reviewedIds = new Set(reviewedParodies.map(r => r.pun_id));
+            const quoteLookup = {};
+            quotes.forEach(q => quoteLookup[q.id] = q);
+
+            let queue = [];
+            if (parodyView === 'pending') {
+                punnedQuotes.forEach(pun => {
+                    if (pun.parody_title && !reviewedIds.has(pun.pun_id)) {
+                        const q = quoteLookup[pun.quote_id];
+                        if (q) queue.push({ pun, original: q });
+                    }
+                });
+            } else {
+                reviewedParodies.forEach(r => {
+                    if (r.status === 'approved' && r.data) {
+                        const q = quoteLookup[r.data.quote_id];
+                        if (q) queue.push({ pun: r.data, original: q });
+                    }
+                });
+            }
+
+            if (queue.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:40px;">🎉</div>
+                        <h3>Inbox Zero!</h3>
+                        <p style="color:var(--text-secondary); margin-top:8px;">No parody titles to review in this category.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = queue.map(item => {
+                const p = item.pun;
+                const q = item.original;
+
+                return `
+                    <div class="review-card" id="parody-card-${p.pun_id}">
+                        <div class="review-card-header">
+                            <div>ID: ${p.pun_id}</div>
+                            <div>Targets: ${(p.target_guess_words || [p.rhyme_used]).join(', ')}</div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="review-col">
+                                <div class="panel-section-title">Original Movie Details</div>
+                                <h3 style="font-size:16px; font-weight:700;">${q.movie} (${q.year})</h3>
+                                <p style="font-size:13px; color:var(--text-secondary); font-style:italic;">"${q.original_quote}"</p>
+                            </div>
+                            <div class="review-col">
+                                <div class="panel-section-title">Parody Details (Editable)</div>
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Parody Title</label>
+                                    <input type="text" id="p-title-${p.pun_id}" value="${p.parody_title.replace(/"/g, '&quot;')}" onchange="syncParodyField('${p.pun_id}', 'title')">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+                                    <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Punned Quote</label>
+                                    <input type="text" id="p-quote-${p.pun_id}" value="${p.text.replace(/"/g, '&quot;')}" onchange="syncParodyField('${p.pun_id}', 'quote')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pitch-banner">
+                            <strong>absurd plot pitch:</strong> ${p.parody_pitch}
+                        </div>
+
+                        <div class="card-actions">
+                            ${parodyView === 'pending' ? `
+                                <button class="btn btn-danger" onclick="decideParody('${p.pun_id}', 'rejected')">🗑️ Reject</button>
+                                <button class="btn btn-emerald" onclick="decideParody('${p.pun_id}', 'approved')">✅ Approve</button>
+                            ` : `
+                                <button class="btn btn-danger" onclick="decideParody('${p.pun_id}', 'rejected')">🗑️ Move to Rejected</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function syncParodyField(punId, field) {
+            const val = document.getElementById(field === 'title' ? `p-title-${punId}` : `p-quote-${punId}`).value.trim();
+            if (!val) return;
+
+            // Sync to punnedQuotes
+            const pIndex = punnedQuotes.findIndex(p => p.pun_id === punId);
+            if (pIndex !== -1) {
+                if (field === 'title') punnedQuotes[pIndex].parody_title = val;
+                else punnedQuotes[pIndex].text = val;
+            }
+
+            // Sync to reviewedParodies if active
+            const rIndex = reviewedParodies.findIndex(r => r.pun_id === punId);
+            if (rIndex !== -1 && reviewedParodies[rIndex].data) {
+                if (field === 'title') reviewedParodies[rIndex].data.parody_title = val;
+                else reviewedParodies[rIndex].data.text = val;
+            }
+        }
+
+        function decideParody(punId, status) {
+            if (parodyView === 'pending') {
+                const item = punnedQuotes.find(p => p.pun_id === punId);
+                if (!item) return;
+
+                reviewedParodies.push({
+                    pun_id: punId,
+                    status: status,
+                    data: status === 'approved' ? item : null,
+                    reviewed_at: Date.now()
+                });
+            } else {
+                if (status === 'rejected') {
+                    const rIndex = reviewedParodies.findIndex(r => r.pun_id === punId);
+                    if (rIndex !== -1) {
+                        reviewedParodies[rIndex].status = 'rejected';
+                        reviewedParodies[rIndex].data = null;
+                    }
+                }
+            }
+
+            updateBadges();
+            renderParodyTab();
+            showToast(status === 'approved' ? "Parody approved!" : "Parody rejected!");
+        }
+
+        async function saveParodyDecisions() {
+            try {
+                const res = await fetch('/api/reviewed_parodies', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(reviewedParodies)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("Parody decisions saved successfully!");
+                    loadAllData();
+                } else {
+                    showToast("Error saving decisions", true);
+                }
+            } catch (e) {
+                showToast("Network Error", true);
+            }
+        }
+
+        // ================= PHASE 3: POSTER REVIEW =================
+        function setPosterView(view) {
+            posterView = view;
+            document.getElementById('btn-poster-pending').className = view === 'pending' ? 'view-btn active' : 'view-btn';
+            document.getElementById('btn-poster-approved').className = view === 'approved' ? 'view-btn active' : 'view-btn';
+            renderPosterTab();
+        }
+
+        function renderPosterTab() {
+            const gridEl = document.getElementById('posters-review-grid');
+            
+            let queue = [];
+            if (posterView === 'pending') {
+                queue = postersState.filter(p => p.generated === true && p.status !== 'approved' && p.status !== 'rejected');
+            } else {
+                queue = postersState.filter(p => p.status === 'approved');
+            }
+
+            if (queue.length === 0) {
+                gridEl.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div style="font-size:40px;">🎨</div>
+                        <h3>No Posters Available</h3>
+                        <p style="color:var(--text-secondary); margin-top:8px;">No generated posters match your active filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            gridEl.innerHTML = queue.map(p => {
+                const reviewItem = reviewedParodies.find(r => r.pun_id === p.pun_id);
+                const quoteText = reviewItem && reviewItem.data ? reviewItem.data.text : '';
+
+                return `
+                    <div class="poster-card" id="poster-card-${p.pun_id}">
+                        <div class="poster-preview-wrapper">
+                            <img src="${p.image_path}" class="poster-preview-img" alt="Generated Poster" onerror="this.src='https://placehold.co/300x450/111625/f8fafc?text=No+Poster+Found';">
+                        </div>
+                        <div class="poster-details">
+                            <div style="font-family:monospace; font-size:11px; color:var(--text-muted);">ID: ${p.pun_id} | Style: ${p.style_key}</div>
+                            <h3 style="font-size:16px; font-weight:700; color:var(--cyan);">🍿 ${p.parody_title}</h3>
+                            <p style="font-size:12px; color:var(--text-muted); font-style:italic;">Original: ${p.original_movie}</p>
+                            ${quoteText ? `<div style="font-size:12px; color:var(--text-secondary); background:rgba(255,255,255,0.02); padding:8px; border-radius:4px; border-left:3px solid var(--purple);">"${quoteText}"</div>` : ''}
+                            <div class="panel-section-title" style="margin-top:5px; margin-bottom:0;">Generator Prompt</div>
+                                      <div class="card-actions" style="margin-top:auto; padding-top:10px; display:flex; flex-direction:column; gap:8px;">
+                                <div style="display:flex; gap:8px; width:100%;">
+                                    ${posterView === 'pending' ? `
+                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'rejected')">🔄 Reject</button>
+                                        <button class="btn btn-emerald" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'approved')">✅ Approve</button>
+                                    ` : `
+                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'rejected')">🔄 Reject & Redo</button>
+                                    `}
+                                </div>
+                                <button class="btn btn-danger" style="width:100%; justify-content:center; padding:6px 12px; margin-top:2px;" onclick="deletePosterEntirely('${p.pun_id}')">🗑️ Delete Entirely</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function decidePoster(punId, decision) {
+            const index = postersState.findIndex(p => p.pun_id === punId);
+            if (index === -1) return;
+
+            if (decision === 'approved') {
+                postersState[index].status = 'approved';
+            } else if (decision === 'rejected') {
+                postersState[index].status = 'rejected';
+                postersState[index].generated = false;
+                postersState[index].image_path = null;
+            }
+
+            updateBadges();
+            renderPosterTab();
+            showToast(decision === 'approved' ? "Poster approved!" : "Poster sent to regeneration!");
+        }
+
+        async function deletePosterEntirely(punId) {
+            const p = postersState.find(post => post.pun_id === punId);
+            if (!p) return;
+
+            if (!confirm(`Are you sure you want to permanently delete the poster and parody quote for "${p.parody_title}"? This will reject the parody quote, delete the generated poster asset, and completely remove it from the pipeline.`)) {
+                return;
+            }
+
+            // 1. Remove/Reject from reviewedParodies
+            const parodyIdx = reviewedParodies.findIndex(r => r.pun_id === punId);
+            if (parodyIdx !== -1) {
+                reviewedParodies[parodyIdx].status = 'rejected';
+                reviewedParodies[parodyIdx].data = null;
+            }
+
+            // 2. Reject/Remove poster from postersState
+            const posterIdx = postersState.findIndex(post => post.pun_id === punId);
+            if (posterIdx !== -1) {
+                postersState[posterIdx].status = 'rejected';
+                postersState[posterIdx].generated = false;
+                postersState[posterIdx].image_path = null;
+            }
+
+            // 3. Check if it exists in puzzles list and remove it
+            const puzzleIdx = puzzles.findIndex(puzzle => {
+                const bossId = puzzle.boss_id ? puzzle.boss_id.replace("boss_", "") : "";
+                return bossId === punId;
+            });
+            if (puzzleIdx !== -1) {
+                puzzles.splice(puzzleIdx, 1);
+            }
+
+            showToast("Deleting poster and quote...");
+            try {
+                const [puzzlesRes, parodyRes, posterRes] = await Promise.all([
+                    fetch('/api/puzzles', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(puzzles.filter(item => item.puzzle_number !== "" || item.status === "approved"))
+                    }),
+                    fetch('/api/reviewed_parodies', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(reviewedParodies)
+                    }),
+                    fetch('/api/posters_state', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(postersState)
+                    })
+                ]);
+
+                const [pData, paData, poData] = await Promise.all([
+                    puzzlesRes.json(),
+                    parodyRes.json(),
+                    posterRes.json()
+                ]);
+
+                if (pData.success && paData.success && poData.success) {
+                    showToast("Poster and quote deleted successfully!");
+                    loadAllData();
+                } else {
+                    showToast("Error saving deletions", true);
+                }
+            } catch (e) {
+                showToast("Network Error", true);
+            }
+        }
+
+        async function savePosterDecisions() {
+            try {
+                const res = await fetch('/api/posters_state', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(postersState)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("Poster states saved successfully!");
+                    loadAllData();
+                } else {
+                    showToast("Error saving poster data", true);
+                }
+            } catch (e) {
+                showToast("Network Error", true);
+            }
+        }
+
+        // ================= PHASE 4: GAME ASSEMBLER =================
+        function renderPuzzlesTab() {
+            const gridEl = document.getElementById('puzzles-list-grid');
+
+            const approvedPosters = postersState.filter(post => post.status === 'approved');
+
+            // Filter out posters whose puzzles have been approved using unique ID checks
+            const approvedPuzzleIds = new Set(
+                puzzles.filter(item => item.status === 'approved')
+                       .map(item => {
+                           if (item.puzzle_id && item.puzzle_id.startsWith('puz_')) {
+                               return item.puzzle_id.replace('puz_', '');
+                           }
+                           if (item.boss_id && item.boss_id.startsWith('boss_')) {
+                               return item.boss_id.replace('boss_', '');
+                           }
+                           return '';
+                       })
+                       .filter(id => id !== '')
+            );
+            const approvedPuzzlesUrls = new Set(puzzles.filter(item => item.status === 'approved').map(item => item.boss_poster_url));
+            const approvedPuzzlesTitles = new Set(puzzles.filter(item => item.status === 'approved').map(item => item.boss_pun_title.toLowerCase()));
+
+            const pendingPosters = approvedPosters.filter(poster => {
+                if (approvedPuzzleIds.has(poster.pun_id)) {
+                    return false;
+                }
+                // Fallback for legacy items that don't have IDs
+                const hasApprovedPosterUrl = approvedPuzzlesUrls.has(poster.image_path);
+                const hasApprovedParodyTitle = approvedPuzzlesTitles.has(poster.parody_title.toLowerCase());
+                return !hasApprovedPosterUrl && !hasApprovedParodyTitle;
+            });
+
+            if (pendingPosters.length === 0) {
+                gridEl.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div style="font-size:40px;">🧩</div>
+                        <h3>Game Assembler Empty</h3>
+                        <p style="color:var(--text-secondary); margin-top:8px;">All daily challenges for approved posters have been approved! Check the "Approved Puzzles" tab.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const approvedParodies = reviewedParodies.filter(r => r.status === 'approved' && r.data);
+
+            gridEl.innerHTML = pendingPosters.map((poster, idx) => {
+                // Find or instantiate a matching daily puzzle set in memory by unique ID primarily
+                let p = puzzles.find(item => {
+                    const itemPunId = item.puzzle_id ? item.puzzle_id.replace('puz_', '') : (item.boss_id ? item.boss_id.replace('boss_', '') : '');
+                    if (itemPunId && poster.pun_id) {
+                        return itemPunId === poster.pun_id;
+                    }
+                    return item.boss_poster_url === poster.image_path || item.boss_pun_title === poster.parody_title;
+                });
+                
+                if (!p) {
+                    const rItem = reviewedParodies.find(r => r.pun_id === poster.pun_id);
+                    const bossPitch = (rItem && rItem.data ? rItem.data.parody_pitch : "");
+                    const q = (rItem && rItem.data) ? quotes.find(item => item.id === rItem.data.quote_id) : null;
+                    p = {
+                        puzzle_number: "",
+                        puzzle_id: "puz_" + poster.pun_id,
+                        boss_id: "boss_" + poster.pun_id,
+                        boss_original_title: poster.original_movie,
+                        boss_pun_title: poster.parody_title,
+                        boss_pitch: bossPitch,
+                        boss_original_quote: q ? q.original_quote : "",
+                        boss_punned_quote: (rItem && rItem.data) ? rItem.data.text : "",
+                        boss_poster_url: poster.image_path,
+                        boss_hint2: generateFirstLetterBlanks(poster.parody_title),
+                        answer: poster.parody_title.replace(/[a-zA-Z]/g, "_"),
+                        difficulty_tier: 2,
+                        status: "pending",
+                        puzzles: [
+                            { step: 1, base_movie: "", original_quote: "", punned_quote: "", parody_pitch: "", parody_title: "", target_word: "", hint1: "", hint2: "" },
+                            { step: 2, base_movie: "", original_quote: "", punned_quote: "", parody_pitch: "", parody_title: "", target_word: "", hint1: "", hint2: "" },
+                            { step: 3, base_movie: "", original_quote: "", punned_quote: "", parody_pitch: "", parody_title: "", target_word: "", hint1: "", hint2: "" }
+                        ]
+                    };
+                    puzzles.push(p);
+                }
+
+                const challengeIdx = puzzles.indexOf(p);
+                const isApproved = p.status === 'approved';
+                const isAssembled = !!p.puzzle_number;
+
+                return `
+                    <div class="puzzle-set-card ${isApproved ? 'approved' : ''}" id="puzzle-set-${idx}">
+                        <!-- Title & Status Header -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-base); padding-bottom:12px; margin-bottom:12px;">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Challenge #</span>
+                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:13px;" onchange="syncPuzzleBlock(${challengeIdx}, 'puzzle_number', padPuzzleNumber(this.value))">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Puzzle ID</span>
+                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puz_001" style="width:130px; padding:3px 6px; font-size:13px;" onchange="syncPuzzleBlock(${challengeIdx}, 'puzzle_id', this.value.trim())">
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Tier:</span>
+                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 2}" style="width:50px; padding:3px 8px; font-size:12px;" onchange="syncPuzzleBlock(${challengeIdx}, 'difficulty_tier', parseInt(this.value) || 2)">
+                                </div>
+                                <span style="font-size:11px; padding:3px 8px; border-radius:12px; font-weight:700; ${isApproved ? 'background:rgba(0, 245, 212, 0.15); color:var(--emerald);' : (isAssembled ? 'background:rgba(255, 193, 7, 0.15); color:#ffc107;' : 'background:rgba(255,255,255,0.06); color:var(--text-muted);')}">
+                                    ${isApproved ? 'APPROVED' : (isAssembled ? 'ASSEMBLED / PENDING' : 'UN-ASSEMBLED')}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Boss Poster & Main Fields Layout -->
+                        <div style="display:grid; grid-template-columns: 140px 1fr; gap:15px; margin-bottom:15px;">
+                            <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+                                <div style="width: 140px; height: 210px; background: #090c15; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-base);">
+                                    <img src="${poster.image_path}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://placehold.co/140x210/111625/f8fafc?text=No+Poster';">
+                                </div>
+                                <a href="${poster.image_path}" target="_blank" style="font-size:11px; color:var(--cyan); text-decoration:none;">👁️ Open Poster</a>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:10px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Parody Title</label>
+                                    <input type="text" value="${p.boss_pun_title.replace(/"/g, '&quot;')}" onchange="updateBossTitle(${challengeIdx}, this.value)">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Answer Blanks (Auto-Sync)</label>
+                                    <input type="text" value="${(p.answer || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'answer', this.value)" placeholder="e.g. ______ _____">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Pitch</label>
+                                    <textarea style="min-height:130px; line-height:1.45;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_pitch', this.value)">${p.boss_pitch}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boss Level Details & Hints -->
+                        <div class="step-block" style="border-color: rgba(0, 245, 212, 0.3); background: rgba(0, 245, 212, 0.015); margin-bottom: 10px;">
+                            <div style="font-weight:700; font-size:11px; color:var(--emerald); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Level 4: Boss Quotes, Hints & Clues</div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 2 (First Letters blanks - Auto-Sync)</label>
+                                    <input type="text" value="${(p.boss_hint2 || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_hint2', this.value)" placeholder="e.g. S_____ H____">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 3 (Original Movie)</label>
+                                    <input type="text" value="${(p.boss_original_title || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_title', this.value)">
+                                </div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:10px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Boss Parody Quote (Punned Quote - Challenges Player)</label>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_punned_quote', this.value)">${p.boss_punned_quote || ''}</textarea>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Original Quote</label>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_quote', this.value)">${p.boss_original_quote || ''}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-actions" style="margin-top:auto; display:flex; justify-content:space-between; gap:10px;">
+                            <button class="btn btn-danger" style="padding:6px 12px;" onclick="deleteEntirePuzzle(${challengeIdx})">🗑️ Delete Puzzle</button>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'status', 'pending')">Review Pending</button>
+                                <button class="btn btn-emerald" onclick="syncPuzzleBlock(${challengeIdx}, 'status', 'approved')">✅ Approve challenge</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Assembler State Sync Methods
+        function syncPuzzleBlock(gameIdx, key, val) {
+            if (key === 'status' && val === 'approved') {
+                if (!puzzles[gameIdx].puzzle_number || puzzles[gameIdx].puzzle_number.trim() === "") {
+                    let maxNum = 0;
+                    puzzles.forEach(p => {
+                        if (p.puzzle_number) {
+                            const parsed = parseInt(p.puzzle_number);
+                            if (!isNaN(parsed) && parsed > maxNum) {
+                                maxNum = parsed;
+                            }
+                        }
+                    });
+                    const nextNum = padPuzzleNumber(maxNum + 1);
+                    puzzles[gameIdx].puzzle_number = nextNum;
+                    showToast(`Auto-assigned Challenge #${nextNum} to approved puzzle!`);
+                }
+            }
+            if (key === 'status' && val === 'pending') {
+                puzzles[gameIdx].puzzle_number = "";
+            }
+            puzzles[gameIdx][key] = val;
+
+            // Only re-render DOM and badges for structural/scheduling key changes (status, puzzle_number, difficulty_tier)
+            if (key === 'status' || key === 'puzzle_number' || key === 'difficulty_tier') {
+                if (key === 'status' || key === 'puzzle_number') {
+                    autoProcessCurationSchedule();
+                    renderPuzzlesTab();
+                } else {
+                    renderPuzzlesTab();
+                    renderApprovedPuzzlesTab();
+                    updateBadges();
+                }
+            }
+        }
+
+        function updateBossTitle(gameIdx, val) {
+            puzzles[gameIdx]['boss_pun_title'] = val;
+            puzzles[gameIdx]['answer'] = val.replace(/[a-zA-Z]/g, "_");
+            puzzles[gameIdx]['boss_hint2'] = generateFirstLetterBlanks(val);
+            renderPuzzlesTab();
+            renderApprovedPuzzlesTab();
+            updateBadges();
+        }
+
+        async function deleteEntirePuzzle(gameIdx) {
+            const p = puzzles[gameIdx];
+            if (!p) return;
+
+            if (!confirm(`Are you sure you want to delete the entire puzzle for "${p.boss_pun_title}"? This will reject the parody poster, reject the parody quote, and completely remove the daily challenge puzzle set.`)) {
+                return;
+            }
+
+            const bossPunId = p.boss_id ? p.boss_id.replace("boss_", "") : "";
+
+            // 1. Remove/Reject from reviewedParodies
+            const parodyIdx = reviewedParodies.findIndex(r => r.pun_id === bossPunId);
+            if (parodyIdx !== -1) {
+                reviewedParodies[parodyIdx].status = 'rejected';
+                reviewedParodies[parodyIdx].data = null;
+            }
+
+            // 2. Reject/Remove poster from postersState
+            const posterIdx = postersState.findIndex(post => post.pun_id === bossPunId);
+            if (posterIdx !== -1) {
+                postersState[posterIdx].status = 'rejected';
+                postersState[posterIdx].generated = false;
+                postersState[posterIdx].image_path = null;
+            }
+
+            // 3. Remove puzzle set from puzzles
+            puzzles.splice(gameIdx, 1);
+
+            // 4. Save everything to backend to persist the deletion!
+            showToast("Deleting puzzle and updating states...");
+            try {
+                const [puzzlesRes, parodyRes, posterRes] = await Promise.all([
+                    fetch('/api/puzzles', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(puzzles.filter(item => item.puzzle_number !== "" || item.status === "approved"))
+                    }),
+                    fetch('/api/reviewed_parodies', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(reviewedParodies)
+                    }),
+                    fetch('/api/posters_state', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(postersState)
+                    })
+                ]);
+
+                const [pData, paData, poData] = await Promise.all([
+                    puzzlesRes.json(),
+                    parodyRes.json(),
+                    posterRes.json()
+                ]);
+
+                if (pData.success && paData.success && poData.success) {
+                    showToast("Entire puzzle deleted successfully!");
+                    loadAllData();
+                } else {
+                    showToast("Error updating database files", true);
+                }
+            } catch (e) {
+                showToast("Network Error deleting puzzle", true);
+                console.error(e);
+            }
+        }
+
+        function renderApprovedPuzzlesTab() {
+            const gridEl = document.getElementById('approved-puzzles-list-grid');
+            const sortListEl = document.getElementById('approved-puzzles-sort-list');
+            const backlogListEl = document.getElementById('approved-puzzles-backlog-list');
+
+            const approvedChallenges = puzzles.filter(item => item.status === 'approved');
+
+            // Partition into Active and Backlog
+            // Active challenges are those with non-empty puzzle_number
+            // Backlog challenges are those with empty puzzle_number
+            const activeChallenges = approvedChallenges.filter(p => p.puzzle_number !== "");
+            const backlogChallenges = approvedChallenges.filter(p => p.puzzle_number === "");
+
+            // Sort active challenges by puzzle_number ascending
+            activeChallenges.sort((a, b) => {
+                return (parseInt(a.puzzle_number) || 999) - (parseInt(b.puzzle_number) || 999);
+            });
+
+            // Update badge counters
+            const countActiveEl = document.getElementById('count-active-schedule');
+            const countBacklogEl = document.getElementById('count-backlog');
+            if (countActiveEl) countActiveEl.innerText = activeChallenges.length;
+            if (countBacklogEl) countBacklogEl.innerText = backlogChallenges.length;
+
+            if (approvedChallenges.length === 0) {
+                if (sortListEl) {
+                    sortListEl.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">No active scheduled puzzles.</td>
+                        </tr>
+                    `;
+                }
+                if (backlogListEl) {
+                    backlogListEl.innerHTML = `
+                        <tr>
+                            <td colspan="4" style="padding: 20px; text-align: center; color: var(--text-muted);">No backlog puzzles.</td>
+                        </tr>
+                    `;
+                }
+                gridEl.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div style="font-size:40px;">📚</div>
+                        <h3>No Approved Challenges Yet</h3>
+                        <p style="color:var(--text-secondary); margin-top:8px;">Approve Daily Challenges inside the "Game Assembler" tab to see them listed here.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Populate Active Schedule Table Rows!
+            if (sortListEl) {
+                if (activeChallenges.length === 0) {
+                    sortListEl.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">No active scheduled puzzles.</td>
+                        </tr>
+                    `;
+                } else {
+                    sortListEl.innerHTML = activeChallenges.map((p, idx) => {
+                        const puzzleIdx = puzzles.indexOf(p);
+                        const originalMovie = p.boss_original_title || p.movie || "Unknown";
+
+                        // Dual check for clumped movie (should be impossible in activeChallenges, but keep as safety warning)
+                        let isDuplicateMovie = false;
+                        for (let k = 0; k < idx; k++) {
+                            const prevMovie = activeChallenges[k].boss_original_title || activeChallenges[k].movie || "";
+                            if (prevMovie === originalMovie) {
+                                isDuplicateMovie = true;
+                                break;
+                            }
+                        }
+
+                        const rowBg = isDuplicateMovie ? 'background: rgba(220, 53, 69, 0.06); border-left: 3px solid #ff7684;' : '';
+                        const warningBadge = isDuplicateMovie ? `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(220, 53, 69, 0.15); color: #ff7684; font-weight:700; margin-left: 8px;">⚠️ CLUMPED MOVIE</span>` : '';
+
+                        return `
+                            <tr style="border-bottom: 1px solid var(--border-base); ${rowBg} vertical-align: middle;">
+                                <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+                                <td style="padding: 10px;">
+                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:12px;" onchange="updateChallengeNumber(${puzzleIdx}, this.value)">
+                                </td>
+                                <td style="padding: 10px; font-weight:600; color:var(--cyan);">${p.boss_pun_title}</td>
+                                <td style="padding: 10px;">🍿 ${originalMovie} ${warningBadge}</td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right:4px;" onclick="moveApprovedPuzzle(${idx}, -1)">🔼</button>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="moveApprovedPuzzle(${idx}, 1)">🔽</button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // Populate Holding - Backlog Table Rows!
+            if (backlogListEl) {
+                if (backlogChallenges.length === 0) {
+                    backlogListEl.innerHTML = `
+                        <tr>
+                            <td colspan="4" style="padding: 20px; text-align: center; color: var(--text-muted);">No puzzles currently in holding.</td>
+                        </tr>
+                    `;
+                } else {
+                    backlogListEl.innerHTML = backlogChallenges.map((p, idx) => {
+                        const puzzleIdx = puzzles.indexOf(p);
+                        const originalMovie = p.boss_original_title || p.movie || "Unknown";
+
+                        return `
+                            <tr style="border-bottom: 1px solid var(--border-base); vertical-align: middle; background: rgba(255, 255, 255, 0.015);">
+                                <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+                                <td style="padding: 10px; font-weight:600; color:#ff7684;">${p.boss_pun_title}</td>
+                                <td style="padding: 10px;">🍿 ${originalMovie}</td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button class="btn btn-emerald" style="padding: 4px 8px; font-size: 11px; font-weight:700;" onclick="scheduleBacklogPuzzle(${puzzleIdx})">➕ Schedule</button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // Combine both lists for the right-hand side detail cards (Active first, then Backlog)
+            const combinedChallenges = [...activeChallenges, ...backlogChallenges];
+
+            gridEl.innerHTML = combinedChallenges.map((p, idx) => {
+                const poster = postersState.find(item => item.pun_id === (p.boss_id ? p.boss_id.replace("boss_", "") : "") || item.parody_title === p.boss_pun_title);
+                const posterImg = poster ? poster.image_path : p.boss_poster_url;
+                const challengeIdx = puzzles.indexOf(p);
+                const isBacklog = p.puzzle_number === "";
+
+                return `
+                    <div class="puzzle-set-card approved ${isBacklog ? 'backlog-card' : ''}" id="approved-set-${idx}" style="${isBacklog ? 'border-left: 4px solid #ff7684; background: rgba(220,53,69,0.01);' : ''}">
+                        <!-- Title & Status Header -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-base); padding-bottom:12px; margin-bottom:12px;">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Challenge #</span>
+                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="Backlog" style="width:65px; padding:3px 6px; font-size:13px; text-align:center; font-weight:700; ${isBacklog ? 'color:#ff7684; background:rgba(220,53,69,0.1); border-color:#ff7684;' : ''}" onchange="updateChallengeNumber(${challengeIdx}, this.value)">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Puzzle ID</span>
+                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puz_001" style="width:130px; padding:3px 6px; font-size:13px;" onchange="syncPuzzleBlock(${challengeIdx}, 'puzzle_id', this.value.trim())">
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Tier:</span>
+                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 2}" style="width:50px; padding:3px 8px; font-size:12px;" onchange="syncPuzzleBlock(${challengeIdx}, 'difficulty_tier', parseInt(this.value) || 2)">
+                                </div>
+                                <span style="font-size:11px; padding:3px 8px; border-radius:12px; font-weight:700; ${isBacklog ? 'background:rgba(220, 53, 69, 0.15); color:#ff7684;' : 'background:rgba(0, 245, 212, 0.15); color:var(--emerald);'}">
+                                    ${isBacklog ? '📦 BACKLOG' : '🟢 ACTIVE'}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Boss Poster & Main Fields Layout -->
+                        <div style="display:grid; grid-template-columns: 140px 1fr; gap:15px; margin-bottom:15px;">
+                            <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+                                <div style="width: 140px; height: 210px; background: #090c15; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-base);">
+                                    <img src="${posterImg}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://placehold.co/140x210/111625/f8fafc?text=No+Poster';">
+                                </div>
+                                <a href="${posterImg}" target="_blank" style="font-size:11px; color:var(--cyan); text-decoration:none;">👁️ Open Poster</a>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:10px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Parody Title</label>
+                                    <input type="text" value="${p.boss_pun_title.replace(/"/g, '&quot;')}" onchange="updateBossTitle(${challengeIdx}, this.value)">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Answer Blanks (Auto-Sync)</label>
+                                    <input type="text" value="${(p.answer || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'answer', this.value)" placeholder="e.g. ______ _____">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Pitch</label>
+                                    <textarea style="min-height:130px; line-height:1.45;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_pitch', this.value)">${p.boss_pitch}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boss Level Details & Hints -->
+                        <div class="step-block" style="border-color: ${isBacklog ? 'rgba(220, 53, 69, 0.3)' : 'rgba(0, 245, 212, 0.3)'}; background: ${isBacklog ? 'rgba(220, 53, 69, 0.005)' : 'rgba(0, 245, 212, 0.015)'}; margin-bottom: 10px;">
+                            <div style="font-weight:700; font-size:11px; color:${isBacklog ? '#ff7684' : 'var(--emerald)'}; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Level 4: Boss Quotes, Hints & Clues</div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 2 (First Letters blanks - Auto-Sync)</label>
+                                    <input type="text" value="${(p.boss_hint2 || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_hint2', this.value)" placeholder="e.g. S_____ H____">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 3 (Original Movie)</label>
+                                    <input type="text" value="${(p.boss_original_title || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_title', this.value)">
+                                </div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:10px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Boss Parody Quote (Punned Quote - Challenges Player)</label>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_punned_quote', this.value)">${p.boss_punned_quote || ''}</textarea>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Original Quote</label>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_quote', this.value)">${p.boss_original_quote || ''}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-actions" style="margin-top:auto; display:flex; justify-content:space-between; gap:10px;">
+                            <button class="btn btn-danger" style="padding:6px 12px;" onclick="deleteEntirePuzzle(${challengeIdx})">🗑️ Delete Puzzle</button>
+                            <div style="display:flex; gap:8px;">
+                                ${isBacklog ? `<button class="btn btn-emerald" onclick="scheduleBacklogPuzzle(${challengeIdx})">➕ Schedule</button>` : `<button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'puzzle_number', '')">📦 Move to Backlog</button>`}
+                                <button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'status', 'pending')">Review Pending</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateChallengeNumber(puzzleIdx, val) {
+            const parsed = parseInt(val);
+            if (val === "" || isNaN(parsed)) {
+                puzzles[puzzleIdx].puzzle_number = "";
+            } else {
+                puzzles[puzzleIdx].puzzle_number = padPuzzleNumber(parsed);
+            }
+            autoProcessCurationSchedule();
+        }
+
+        function moveApprovedPuzzle(idx, dir) {
+            const approvedChallenges = puzzles.filter(item => item.status === 'approved');
+            const activeChallenges = approvedChallenges.filter(p => p.puzzle_number !== "");
+            
+            // Sort by current sequential order
+            activeChallenges.sort((a, b) => (parseInt(a.puzzle_number) || 999) - (parseInt(b.puzzle_number) || 999));
+
+            const targetIdx = idx + dir;
+            if (targetIdx < 0 || targetIdx >= activeChallenges.length) return; // boundary check
+
+            // Swap the two puzzles in the active challenges list
+            const temp = activeChallenges[idx];
+            activeChallenges[idx] = activeChallenges[targetIdx];
+            activeChallenges[targetIdx] = temp;
+
+            // Build custom order list: swapped active challenges first, followed by backlog
+            const backlogChallenges = approvedChallenges.filter(p => p.puzzle_number === "");
+            const customOrder = [...activeChallenges, ...backlogChallenges];
+
+            autoProcessCurationSchedule(customOrder);
+            showToast("Daily challenge schedule order updated!");
+        }
+
+        function autoProcessCurationSchedule(customOrderPuzzles = null) {
+            const approved = puzzles.filter(p => p.status === 'approved');
+
+            if (customOrderPuzzles) {
+                approved.sort((a, b) => {
+                    const idxA = customOrderPuzzles.indexOf(a);
+                    const idxB = customOrderPuzzles.indexOf(b);
+                    const posA = idxA !== -1 ? idxA : 999999;
+                    const posB = idxB !== -1 ? idxB : 999999;
+                    return posA - posB;
+                });
+            } else {
+                approved.sort((a, b) => {
+                    const numA = a.puzzle_number ? parseInt(a.puzzle_number) : 999999;
+                    const numB = b.puzzle_number ? parseInt(b.puzzle_number) : 999999;
+                    if (numA !== numB) return numA - numB;
+                    return (a.boss_id || "").localeCompare(b.boss_id || "");
+                });
+            }
+
+            const active = [];
+            const backlog = [];
+            const seenMovies = new Set();
+            let modified = false;
+
+            approved.forEach(p => {
+                const movie = p.boss_original_title || p.movie || "Unknown";
+                if (seenMovies.has(movie)) {
+                    if (p.puzzle_number !== "") {
+                        p.puzzle_number = "";
+                        modified = true;
+                    }
+                    backlog.push(p);
+                } else {
+                    seenMovies.add(movie);
+                    active.push(p);
+                }
+            });
+
+            active.forEach((p, index) => {
+                const expectedNum = padPuzzleNumber(index + 1);
+                if (p.puzzle_number !== expectedNum) {
+                    p.puzzle_number = expectedNum;
+                    modified = true;
+                }
+            });
+
+            // Save the updated schedule silently in the background
+            savePuzzlesDataSilently();
+
+            // Re-render the tab DOM
+            renderApprovedPuzzlesTab();
+        }
+
+        async function savePuzzlesDataSilently() {
+            try {
+                const compiledPuzzles = puzzles.filter(p => p.puzzle_number !== "" || p.status === "approved");
+                compiledPuzzles.sort((a, b) => {
+                    const numA = a.puzzle_number ? parseInt(a.puzzle_number) : 999999;
+                    const numB = b.puzzle_number ? parseInt(b.puzzle_number) : 999999;
+                    return numA - numB;
+                });
+
+                await fetch('/api/puzzles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(compiledPuzzles)
+                });
+                
+                updateBadges();
+            } catch (e) {
+                console.error("Silent save error:", e);
+            }
+        }
+
+        function scheduleBacklogPuzzle(puzzleIdx) {
+            const p = puzzles[puzzleIdx];
+            if (!p) return;
+
+            const movie = p.boss_original_title || p.movie || "Unknown";
+
+            // Unschedule any existing active challenge for this same movie
+            const existingActive = puzzles.find(item => 
+                item.status === 'approved' && 
+                item.puzzle_number !== "" && 
+                (item.boss_original_title || item.movie || "Unknown") === movie &&
+                item !== p
+            );
+
+            if (existingActive) {
+                existingActive.puzzle_number = "";
+                showToast(`Moved active challenge for "${movie}" to backlog to avoid clumping.`);
+            }
+
+            // Move to active schedule at the end
+            const approved = puzzles.filter(item => item.status === 'approved');
+            const activeCount = approved.filter(item => item.puzzle_number !== "").length;
+            p.puzzle_number = padPuzzleNumber(activeCount + 1);
+
+            showToast(`Scheduled "${p.boss_pun_title}" to active daily challenges.`);
+            
+            // Run process scheduling to re-sequence and save!
+            autoProcessCurationSchedule();
+        }
+
+        function generateFirstLetterBlanks(str) {
+            if (!str) return "";
+            return str.split(' ').map(word => {
+                if (word.length === 0) return "";
+                const firstLetter = word[0];
+                const rest = word.slice(1).replace(/[a-zA-Z]/g, "_");
+                return firstLetter + rest;
+            }).join(' ');
+        }
+
+        function syncThematicBlock(gameIdx, stepIdx, key, val) {
+            puzzles[gameIdx].puzzles[stepIdx][key] = val;
+            renderPuzzlesTab();
+        }
+
+        function updateThematicLevel(gameIdx, stepIdx, punId) {
+            if (!punId) {
+                puzzles[gameIdx].puzzles[stepIdx] = { step: stepIdx + 1, base_movie: "", original_quote: "", punned_quote: "", parody_pitch: "", parody_title: "", target_word: "", hint1: "", hint2: "" };
+                renderPuzzlesTab();
+                return;
+            }
+            const rItem = reviewedParodies.find(r => r.pun_id === punId);
+            const q = quotes.find(item => item.id === rItem.data.quote_id);
+            if (rItem && rItem.data) {
+                puzzles[gameIdx].puzzles[stepIdx] = {
+                    step: stepIdx + 1,
+                    base_movie: q ? q.movie : 'Unknown',
+                    original_quote: q ? q.original_quote : '',
+                    punned_quote: rItem.data.text,
+                    parody_pitch: rItem.data.parody_pitch,
+                    parody_title: rItem.data.parody_title,
+                    target_word: (rItem.data.target_guess_words || [rItem.data.rhyme_used])[0],
+                    hint1: q ? q.movie : '',
+                    hint2: ""
+                };
+                renderPuzzlesTab();
+            }
+        }
+
+        async function savePuzzlesData() {
+            try {
+                // Save both active challenges and approved backlog challenges
+                const compiledPuzzles = puzzles.filter(p => p.puzzle_number !== "" || p.status === "approved");
+
+                // Sort by puzzle number securely putting backlog at the end
+                compiledPuzzles.sort((a, b) => {
+                    const numA = a.puzzle_number ? parseInt(a.puzzle_number) : 999999;
+                    const numB = b.puzzle_number ? parseInt(b.puzzle_number) : 999999;
+                    return numA - numB;
+                });
+
+                const res = await fetch('/api/puzzles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(compiledPuzzles)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("All daily challenge puzzle sets saved successfully!");
+                    loadAllData();
+                } else {
+                    showToast("Error saving puzzle sets", true);
+                }
+            } catch (e) {
+                showToast("Network Error", true);
+            }
+        }
+
+        // ================= CREATION MODAL LOGIC =================
+        function openNewGameModal() {
+            // Populate poster select with approved posters
+            const selectEl = document.getElementById('modal-boss-select');
+            const approvedPosters = postersState.filter(p => p.status === 'approved');
+
+            selectEl.innerHTML = '<option value="">-- Select approved boss poster --</option>' + 
+                approvedPosters.map(p => `<option value="${p.pun_id}">${p.parody_title} (Original: ${p.original_movie})</option>`).join('');
+
+            // Set next puzzle number
+            document.getElementById('modal-puzzle-num').value = padPuzzleNumber(puzzles.length + 1);
+            document.getElementById('modal-puzzle-id').value = '';
+
+            openModal('modal-new-game');
+        }
+
+        function onBossSelected(punId) {
+            if (!punId) {
+                document.getElementById('modal-boss-original-title').value = '';
+                document.getElementById('modal-boss-pun-title').value = '';
+                document.getElementById('modal-boss-pitch').value = '';
+                document.getElementById('modal-puzzle-id').value = '';
+                return;
+            }
+
+            const p = postersState.find(item => item.pun_id === punId);
+            const rItem = reviewedParodies.find(r => r.pun_id === punId);
+
+            if (p) {
+                document.getElementById('modal-boss-original-title').value = p.original_movie;
+                document.getElementById('modal-boss-pun-title').value = p.parody_title;
+                document.getElementById('modal-boss-pitch').value = (rItem && rItem.data ? rItem.data.parody_pitch : '');
+                document.getElementById('modal-puzzle-id').value = "puz_" + punId;
+            }
+        }
+
+        function submitNewGame() {
+            const bossPunId = document.getElementById('modal-boss-select').value;
+            const inputNum = document.getElementById('modal-puzzle-num').value;
+            const puzzleNum = padPuzzleNumber(inputNum || (puzzles.length + 1));
+            
+            const puzzleIdInput = document.getElementById('modal-puzzle-id').value.trim();
+            const puzzleId = puzzleIdInput || ("puz_" + bossPunId);
+
+            const bossPoster = postersState.find(p => p.pun_id === bossPunId);
+            const bossParody = reviewedParodies.find(r => r.pun_id === bossPunId);
+
+            if (!bossPoster || !bossParody) {
+                showToast("Please select a valid Boss Poster!", true);
+                return;
+            }
+
+            // Helper to get matching quote details
+            const quoteMap = {};
+            quotes.forEach(q => quoteMap[q.id] = q);
+
+            const qBoss = quoteMap[bossParody.data.quote_id];
+
+            const newChallenge = {
+                puzzle_number: puzzleNum,
+                puzzle_id: puzzleId,
+                boss_id: "boss_" + bossPunId,
+                boss_original_title: bossPoster.original_movie,
+                boss_pun_title: bossPoster.parody_title,
+                boss_pitch: bossParody.data.parody_pitch,
+                boss_original_quote: qBoss ? qBoss.original_quote : "",
+                boss_punned_quote: bossParody.data.text,
+                boss_poster_url: bossPoster.image_path,
+                boss_hint2: generateFirstLetterBlanks(bossPoster.parody_title), // Custom Hint 2
+                answer: bossPoster.parody_title.replace(/[a-zA-Z]/g, "_"),
+                difficulty_tier: 2,
+                status: "pending",
+                puzzles: []
+            };
+
+            puzzles.push(newChallenge);
+            // Sort puzzles securely
+            puzzles.sort((a, b) => parseInt(a.puzzle_number) - parseInt(b.puzzle_number));
+
+            closeModal('modal-new-game');
+            updateBadges();
+            renderPuzzlesTab();
+            showToast("Challenge compiled successfully! Save changes to persist.");
+        }
+
+        // ================= GENERAL UTILS & MODALS =================
+        function padPuzzleNumber(num) {
+            if (!num) return "";
+            let n = parseInt(num);
+            if (isNaN(n)) return String(num).trim();
+            return String(n).padStart(3, '0');
+        }
+
+        function stripPunctuation(str) {
+            return str.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim().toLowerCase();
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        function showToast(msg, isError = false) {
+            const toastEl = document.getElementById('toast');
+            toastEl.innerText = msg;
+            toastEl.className = isError ? 'error show' : 'success show';
+            setTimeout(() => toastEl.className = '', 3000);
+        }
+
+        // Initial Data Load
+        window.onload = async () => {
+            await loadAllData();
+            selectTabFromHash();
+        };
+
+        // Re-check hash on back/forward navigation
+        window.onhashchange = selectTabFromHash;
+    </script>
+</body>
+</html>

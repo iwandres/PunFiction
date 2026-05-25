@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PunFiction: Box Office Blunders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Start Screen (Comic Lobby) -->
+        <div id="start-screen" class="screen active">
+            <h1 class="title">Pun<span class="accent">Fiction</span></h1>
+            <p class="subtitle">Box Office Blunders</p>
+            
+            <div class="challenge-deck-container">
+                <!-- Today's Challenge Comic Issue Cover -->
+                <div class="comic-card today" id="today-issue-card">
+                    <span class="issue-tag">TODAY'S ISSUE</span>
+                    <span class="issue-badge-solved hidden" id="today-solved-badge">🌟 SOLVED</span>
+                    <h3 class="issue-title" id="today-issue-title">Issue #???</h3>
+                    <p class="issue-meta" id="today-issue-meta">Original: ???</p>
+                    <button id="btn-play-today" class="btn primary-btn" style="width: 100%;">🎯 PLAY NOW</button>
+                </div>
+
+                <!-- Yesterday's Challenge Comic Issue Cover -->
+                <div class="comic-card yesterday hidden" id="yesterday-issue-card">
+                    <span class="issue-tag">YESTERDAY'S ISSUE</span>
+                    <span class="issue-badge-solved hidden" id="yesterday-solved-badge">🌟 SOLVED</span>
+                    <h3 class="issue-title" id="yesterday-issue-title">Issue #???</h3>
+                    <p class="issue-meta" id="yesterday-issue-meta">Original: ???</p>
+                    <button id="btn-play-yesterday" class="btn outline-btn" style="width: 100%;">⏮️ REPLAY ISSUE</button>
+                </div>
+            </div>
+            
+            <p style="font-size:10px; font-weight:900; color:rgba(0,0,0,0.3); text-transform:uppercase; letter-spacing:0.5px; text-align:center; margin-top:10px;">
+                * Issues update every day at 2:00 AM Pacific Time
+            </p>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Header Inventory & Status -->
+            <div class="game-header">
+                <div class="level-indicator">Level <span id="current-level">1</span>/4</div>
+                <div class="inventory-container">
+                    <div class="inventory-slot" id="slot-1" title="Slot 1"></div>
+                    <div class="inventory-slot" id="slot-2" title="Slot 2"></div>
+                    <div class="inventory-slot" id="slot-3" title="Slot 3"></div>
+                </div>
+            </div>
+
+            <!-- Puzzle Content (Neobrutalist Comic Card) -->
+            <div class="puzzle-card">
+                <p id="question-label" class="question-text">What fictional movie is this quote from?</p>
+                
+                <!-- Boss Level Mystery Poster Silhouette Wrapper -->
+                <div class="boss-poster-frame hidden" id="boss-poster-wrapper">
+                    <div class="mystery-banner" id="mystery-banner">MYSTERY POSTER</div>
+                    <img src="" class="boss-poster-img blurred" id="boss-poster-img" alt="Absurd Parody Poster">
+                </div>
+
+                <div class="hint-container">
+                    <button id="btn-show-hint1" class="btn small-btn">Show Hint #1</button>
+                    <div id="hint1-reveal" class="hint-pill hidden">Original Movie: <span id="movie-hint">Movie Title</span></div>
+                </div>
+                
+                <h2 id="quote-display" class="quote">"This is a placeholder quote."</h2>
+                <div id="pitch-display" class="pitch">This is a placeholder comedic pitch.</div>
+                
+                <!-- Playable Title Blanks -->
+                <div class="title-hint-container">
+                    <div id="parody-title-hint" class="parody-title-hint"></div>
+                </div>
+                
+                <!-- User Input Section -->
+                <div class="input-section">
+                    <input type="text" id="guess-input" placeholder="Enter your guess..." autocomplete="off" autofocus>
+                    <button id="btn-submit" class="btn primary-btn" style="padding: 10px 20px;">Submit</button>
+                </div>
+                
+                <div id="feedback-msg" class="feedback"></div>
+                <div id="debug-answer" class="debug-answer"></div>
+            </div>
+            
+            <button class="btn outline-btn" id="btn-back-lobby" style="padding: 8px 16px; font-size: 13px; align-self: center;">🏠 Back to Lobby</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen">
+            <h1 class="victory-banner">DIRECTOR'S CUT!</h1>
+            <p class="subtitle" style="margin-bottom: 20px; font-size: 1.5rem; text-shadow: 2px 2px 0px #ffffff;">Challenge Solved successfully!</p>
+            
+            <!-- Comic-Strip Theatrical Frame Box -->
+            <div class="theatrical-frame">
+                <div class="victory-poster-wrapper">
+                    <img src="" class="victory-poster-img" id="victory-poster-img" alt="Parody Poster Illustration">
+                </div>
+                <div class="victory-meta-box">
+                    <h3 id="final-boss-title" class="victory-parody-title">Ffake Movie Title</h3>
+                    <p id="final-boss-movie" class="victory-original-movie">Original Movie: The Godfather</p>
+                    <div id="final-boss-pitch" class="victory-pitch-box">Comedic movie plot pitch description goes here...</div>
+                </div>
+            </div>
+            
+            <!-- Victory Actions -->
+            <div class="victory-actions">
+                <button class="btn secondary-btn" id="btn-share-score">📢 Share Score</button>
+                <button class="btn outline-btn" id="btn-victory-lobby">🏠 Lobby</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

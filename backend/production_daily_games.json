@@ -1,0 +1,2552 @@
+[
+  {
+    "puzzle_number": "001",
+    "puzzle_id": "puz_quote_002_1778164883718",
+    "boss_id": "boss_quote_002_1778164883718",
+    "boss_original_title": "The Godfather",
+    "boss_pun_title": "The Guffawther",
+    "boss_pitch": "A ruthless mafia don tries to monopolize the local stand-up comedy scene by forcing rival club owners to sit through his mob enforcers' notoriously terrible open-mic routines until they surrender.",
+    "boss_original_quote": "I'm gonna make him an offer he can't refuse.",
+    "boss_punned_quote": "I'm gonna make him an offer he can't amuse.",
+    "boss_poster_url": "/assets/posters/the_guffawther_poster_new_1778767400964.png",
+    "boss_hint2": "T__ G_________",
+    "answer": "___ __________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "002",
+    "puzzle_id": "puz_quote_001_1778164818182",
+    "boss_id": "boss_quote_001_1778164818182",
+    "boss_original_title": "Dirty Harry",
+    "boss_pun_title": "Sherry Harry",
+    "boss_pitch": "Armed with a .44 Magnum breathalyzer, a rogue vice detective aggressively interrogates inebriated bar patrons to enforce the city's strict last-call laws.",
+    "boss_original_quote": "You've gotta ask yourself one question: 'Do I feel lucky?' Well, do ya, punk?",
+    "boss_punned_quote": "You've gotta ask yourself one question: 'Do I feel lucky?' Well, do ya, drunk?",
+    "boss_poster_url": "/assets/posters/sherry_harry_poster_new_1778767381365.png",
+    "boss_hint2": "S_____ H____",
+    "answer": "______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "003",
+    "puzzle_id": "puz_quote_006_1778210473628",
+    "boss_id": "boss_quote_006_1778210473628",
+    "boss_original_title": "Network",
+    "boss_pun_title": "Temp-work",
+    "boss_pitch": "A disgruntled temp vendor  hijacks the corporate intercom system to furiously denounce the Human Resources department and their abysmal lack of dental benefits.",
+    "boss_original_quote": "I'm as mad as hell, and I'm not going to take this anymore!",
+    "boss_punned_quote": "I'm as mad as personnel, and I'm not going to take this anymore!",
+    "boss_poster_url": "/assets/posters/temp_work_poster_new_1778767429843.png",
+    "boss_hint2": "T___-w___",
+    "answer": "____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "004",
+    "puzzle_id": "puz_quote_007_1778210506905",
+    "boss_id": "boss_quote_007_1778210506905",
+    "boss_original_title": "Star Wars: A New Hope",
+    "boss_pun_title": "Tartar Wars: A New Scope",
+    "boss_pitch": "A brave group of rebel space-dentists battles an evil, sugar-obsessed Empire to stop the dreaded Death Cavity from bringing ultimate tooth rot to the galaxy.",
+    "boss_original_quote": "May the Force be with you.",
+    "boss_punned_quote": "Decay the Force be with you.",
+    "boss_poster_url": "/assets/posters/tartar_wars_poster_1778767657793.png",
+    "boss_hint2": "T_____ W___: A N__ S____",
+    "answer": "______ ____: _ ___ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "005",
+    "puzzle_id": "puz_quote_004_1778165104108",
+    "boss_id": "boss_quote_004_1778165104108",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Thaws",
+    "boss_pitch": "A giant, aggressively fashionable great white shark terrorizes a winter resort town by freezing the water and judging people's flimsy outerwear.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger coat.",
+    "boss_poster_url": "/assets/posters/thaws_poster_1778767697067.png",
+    "boss_hint2": "T____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "006",
+    "puzzle_id": "puz_quote_005_1778210369173",
+    "boss_id": "boss_quote_005_1778210369173",
+    "boss_original_title": "Taxi Driver",
+    "boss_pun_title": "Trashy Diver",
+    "boss_pitch": "An insomniac dumpster scavenger descends into madness as he patrols the gritty city streets, convinced that the piles of scattered rubbish are striking up conversations with him.",
+    "boss_original_quote": "You talkin' to me?",
+    "boss_punned_quote": "You talkin' to debris?",
+    "boss_poster_url": "/assets/posters/trashy_diver_propaganda_poster_1778683675917.png",
+    "boss_hint2": "T_____ D____",
+    "answer": "______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "007",
+    "puzzle_id": "puz_quote_008_1778210636112",
+    "boss_id": "boss_quote_008_1778210636112",
+    "boss_original_title": "Apocalypse Now",
+    "boss_pun_title": "An Ellipse Now",
+    "boss_pitch": "A crazed geometry teacher drafted into the Vietnam War becomes obsessed with mapping out the exact, non-intersecting mathematical trajectories of airstrikes.",
+    "boss_original_quote": "I love the smell of napalm in the morning.",
+    "boss_punned_quote": "I love parallel of napalm in the morning.",
+    "boss_poster_url": "/assets/posters/an_ellipse_now_poster_1778766622666.png",
+    "boss_hint2": "A_ E______ N__",
+    "answer": "__ _______ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "008",
+    "puzzle_id": "puz_quote_009_1778210716130",
+    "boss_id": "boss_quote_009_1778210716130",
+    "boss_original_title": "The Shining",
+    "boss_pun_title": "The Dining",
+    "boss_pitch": "A winter caretaker slowly goes mad from cabin fever and transforms into an aggressively hospitable Italian chef who violently chops down bathroom doors just to serve his terrified family artisanal pasta.",
+    "boss_original_quote": "Heeere's Johnny!",
+    "boss_punned_quote": "Heeere's Giovanni!",
+    "boss_poster_url": "/assets/posters/the_dining_poster_1778767847409.png",
+    "boss_hint2": "T__ D_____",
+    "answer": "___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "009",
+    "puzzle_id": "puz_quote_010_1778211045400",
+    "boss_id": "boss_quote_010_1778211045400",
+    "boss_original_title": "Star Wars: The Empire Strikes Back",
+    "boss_pun_title": "Star Boars: The Ham-pire Slices Back",
+    "boss_pitch": "In a galaxy far, far away, a young farm boy discovers the horrifying truth that the dark lord ruling the universe is actually a sentient, honey-baked pork product.",
+    "boss_original_quote": "No, I am your father.",
+    "boss_punned_quote": "No, I ham your father.",
+    "boss_poster_url": "/assets/posters/star_boars_the_hampire_slices_back_poster_1778880270.jpg",
+    "boss_hint2": "S___ B____: T__ H__-____ S_____ B___",
+    "answer": "____ _____: ___ ___-____ ______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "010",
+    "puzzle_id": "puz_quote_012_1778211280003",
+    "boss_id": "boss_quote_012_1778211280003",
+    "boss_original_title": "E.T. the Extra-Terrestrial",
+    "boss_pun_title": "E.T. the Extra-Residential",
+    "boss_pitch": "A stranded alien tries to build a communication array in a suburban backyard, but faces his greatest challenge yet: navigating strict local zoning laws and getting approval from the Homeowners Association.",
+    "boss_original_quote": "E.T. phone home.",
+    "boss_punned_quote": "E.T. zone home.",
+    "boss_poster_url": "/assets/posters/et_the_extraresidential_poster_1778880437.jpg",
+    "boss_hint2": "E._. t__ E____-R__________",
+    "answer": "_._. ___ _____-___________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "011",
+    "puzzle_id": "puz_quote_013_1778211371642",
+    "boss_id": "boss_quote_013_1778211371642",
+    "boss_original_title": "Scarface",
+    "boss_pun_title": "Scar-pace",
+    "boss_pitch": "A ruthless Miami crime lord violently takes over the city's classical music scene, aggressively forcing his rivals to keep time with his tiny, pocket-sized metronome.",
+    "boss_original_quote": "Say hello to my little friend!",
+    "boss_punned_quote": "Say tempo to my little friend!",
+    "boss_poster_url": "/assets/posters/scarpace_poster_1778880498.jpg",
+    "boss_hint2": "S___-p___",
+    "answer": "____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "012",
+    "puzzle_id": "puz_quote_015_1778211509916",
+    "boss_id": "boss_quote_015_1778211509916",
+    "boss_original_title": "Back to the Future",
+    "boss_pun_title": "Track to the Future",
+    "boss_pitch": "Doc Brown and Marty travel through time in a steam-powered locomotive, quickly realizing that the space-time continuum has zero need for train tracks.",
+    "boss_original_quote": "Roads? Where we're going, we don't need roads.",
+    "boss_punned_quote": "Railroads? Where we're going, we don't need railroads.",
+    "boss_poster_url": "/assets/posters/track_to_the_future_poster_1778881788.jpg",
+    "boss_hint2": "T____ t_ t__ F_____",
+    "answer": "_____ __ ___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "013",
+    "puzzle_id": "puz_quote_016_1778211589098",
+    "boss_id": "boss_quote_016_1778211589098",
+    "boss_original_title": "Aliens",
+    "boss_pun_title": "Mammalians",
+    "boss_pitch": "A fierce space zoologist battles a terrifying swarm of hairless, cold-blooded extraterrestrial reptiles to protect her remarkably fluffy, warm-blooded galactic pet from being violently shaved.",
+    "boss_original_quote": "Get away from her, you bitch!",
+    "boss_punned_quote": "Get away from fur, you bitch!",
+    "boss_poster_url": "/assets/posters/mammalians_poster_1778881865.jpg",
+    "boss_hint2": "M_________",
+    "answer": "__________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "014",
+    "puzzle_id": "puz_quote_017_1778211668918",
+    "boss_id": "boss_quote_017_1778211668918",
+    "boss_original_title": "Top Gun",
+    "boss_pun_title": "Crop Gun",
+    "boss_pitch": "When an elite academy of stoner aviators gets drafted to fly supersonic jets, they must battle extreme G-forces to deliver a high-velocity harvest of premium sativa.",
+    "boss_original_quote": "I feel the need\u2014the need for speed!",
+    "boss_punned_quote": "I feel the weed\u2014the weed for speed!",
+    "boss_poster_url": "/assets/posters/crop_gun_poster_1778881908.jpg",
+    "boss_hint2": "C___ G__",
+    "answer": "____ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "015",
+    "puzzle_id": "puz_quote_018_1778211781181",
+    "boss_id": "boss_quote_018_1778211781181",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Prentice Guide",
+    "boss_pitch": "A swashbuckling fantasy epic where a vengeful swordsman tracks down the rogue labor boss who forcibly unionized his father into the local tradesman collective.",
+    "boss_original_quote": "Hello. My name is Inigo Montoya. You killed my father. Prepare to die.",
+    "boss_punned_quote": "Hello. My name is Inigo Montoya. You guild my father. Prepare to die.",
+    "boss_poster_url": "/assets/posters/the_prentice_guide_poster_1778882008.jpg",
+    "boss_hint2": "T__ P_______ G____",
+    "answer": "___ ________ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "016",
+    "puzzle_id": "puz_quote_020_1778211828204",
+    "boss_id": "boss_quote_020_1778211828204",
+    "boss_original_title": "Die Hard",
+    "boss_pun_title": "Die Yard",
+    "boss_pitch": "When heavily armed rogue 18-wheeler drivers take over a massive commercial freight depot, an off-duty cop must use his CB radio and barefoot pedal-shifting skills to save the convoy.",
+    "boss_original_quote": "Yippee-ki-yay, motherfucker.",
+    "boss_punned_quote": "Yippee-ki-yay, mother trucker.",
+    "boss_poster_url": "/assets/posters/die_yard_poster_1778882087.jpg",
+    "boss_hint2": "D__ Y___",
+    "answer": "___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "017",
+    "puzzle_id": "puz_quote_022_1778211937072",
+    "boss_id": "boss_quote_022_1778211937072",
+    "boss_original_title": "Field of Dreams",
+    "boss_pun_title": "Field of Themes",
+    "boss_pitch": "An Iowa farmer is compelled by mysterious whispers to plow over his corn crop and build a massive gazebo so the ghosts of a legendary barbershop quartet can return to aggressively hum in perfect harmony.",
+    "boss_original_quote": "If you build it, he will come.",
+    "boss_punned_quote": "If you build it, he will hum.",
+    "boss_poster_url": "/assets/posters/field_of_themes_poster_1778882164.jpg",
+    "boss_hint2": "F____ o_ T_____",
+    "answer": "_____ __ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "018",
+    "puzzle_id": "puz_quote_024_1778212035034",
+    "boss_id": "boss_quote_024_1778212035034",
+    "boss_original_title": "The Silence of the Lambs",
+    "boss_pun_title": "The Silence of the Dams",
+    "boss_pitch": "A brilliant but extremely thirsty serial killer terrorizes the countryside by slurping entire major waterways dry, leaving nothing behind but quiet reservoirs and confused beavers.",
+    "boss_original_quote": "I ate his liver with some fava beans and a nice Chianti.",
+    "boss_punned_quote": "I ate his river with some fava beans and a nice Chianti.",
+    "boss_poster_url": "/assets/posters/the_silence_of_the_dams_poster_1778882245.jpg",
+    "boss_hint2": "T__ S______ o_ t__ D___",
+    "answer": "___ _______ __ ___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "019",
+    "puzzle_id": "puz_quote_025_1778212167777",
+    "boss_id": "boss_quote_025_1778212167777",
+    "boss_original_title": "A Few Good Men",
+    "boss_pun_title": "A Few Good Playpens",
+    "boss_pitch": "A hardened military colonel takes over a chaotic toddler daycare and quickly realizes his intense interrogation tactics are entirely useless against hyperactive three-year-olds.",
+    "boss_original_quote": "You can't handle the truth!",
+    "boss_punned_quote": "You can't handle the youth!",
+    "boss_poster_url": "/assets/posters/a_few_good_playpens_poster_1778882283.jpg",
+    "boss_hint2": "A F__ G___ P_______",
+    "answer": "_ ___ ____ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "020",
+    "puzzle_id": "puz_quote_026_1778212230151",
+    "boss_id": "boss_quote_026_1778212230151",
+    "boss_original_title": "Forrest Gump",
+    "boss_pun_title": "Forrest Bump",
+    "boss_pitch": "A slow-witted but profoundly endearing Southern man inadvertently becomes the most sought-after obstetrician in American history, marveling at the unpredictability of delivering babies while offering assorted truffles to women in labor.",
+    "boss_original_quote": "My mama always said life was like a box of chocolates. You never know what you're gonna get.",
+    "boss_punned_quote": "My mama always said midwife was like a box of chocolates. You never know what you're gonna get.",
+    "boss_poster_url": "/assets/posters/forrest_bump_poster_1778882322.jpg",
+    "boss_hint2": "F______ B___",
+    "answer": "_______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "021",
+    "puzzle_id": "puz_quote_014_1778211399121",
+    "boss_id": "boss_quote_014_1778211399121",
+    "boss_original_title": "The Terminator",
+    "boss_pun_title": "The Procrastinator",
+    "boss_pitch": "A lethal cyborg sent from the future to destroy humanity gets a remote office job instead, abandoning his mission to spend his days endlessly updating his chat status and avoiding real work.",
+    "boss_original_quote": "I'll be back.",
+    "boss_punned_quote": "I'll be slack.",
+    "boss_poster_url": "/assets/posters/the_procrastinator_poster_1778881534.jpg",
+    "boss_hint2": "T__ P_____________",
+    "answer": "___ ______________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_002_1778164889440",
+    "boss_id": "boss_quote_002_1778164889440",
+    "boss_original_title": "The Godfather",
+    "boss_pun_title": "The Podfather",
+    "boss_pitch": "An aging mob boss pivots his crime syndicate into a multi-level marketing empire for essential oils, ruthlessly intimidating retail rivals with weaponized aromatherapy pods.",
+    "boss_original_quote": "I'm gonna make him an offer he can't refuse.",
+    "boss_punned_quote": "I'm gonna make him an offer he can't diffuse.",
+    "boss_poster_url": "/assets/posters/the_podfather_poster_new_1778767418432.png",
+    "boss_hint2": "T__ P________",
+    "answer": "___ _________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_002_1778164896310",
+    "boss_id": "boss_quote_002_1778164896310",
+    "boss_original_title": "The Godfather",
+    "boss_pun_title": "The Yacht-father",
+    "boss_pitch": "A maritime mob boss conducts his ruthless organized crime strictly from a luxury mega-boat, eliminating rivals by forcing them to go on all-inclusive tropical vacations they are completely unable to decline.",
+    "boss_original_quote": "I'm gonna make him an offer he can't refuse.",
+    "boss_punned_quote": "I'm gonna make him an offer he can't cruise.",
+    "boss_poster_url": "/assets/posters/the_yacht_father_poster_1778767670342.png",
+    "boss_hint2": "T__ Y____-f_____",
+    "answer": "___ _____-______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_003_1778165036630",
+    "boss_id": "boss_quote_003_1778165036630",
+    "boss_original_title": "The Godfather",
+    "boss_pun_title": "The Guardfather",
+    "boss_pitch": "When a ruthless mafia don decides to rig the Stanley Cup, his enforcers bypass assassination entirely and just kidnap the rival team's star netminder.",
+    "boss_original_quote": "Leave the gun. Take the cannoli.",
+    "boss_punned_quote": "Leave the gun. Take the goalie.",
+    "boss_poster_url": "/assets/posters/the_guardfather_poster_1778767682951.png",
+    "boss_hint2": "T__ G__________",
+    "answer": "___ ___________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210177650",
+    "boss_id": "boss_quote_004_1778210177650",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Draws",
+    "boss_pitch": "A giant, gun-toting great white shark challenges the local beach town sheriff to a high-noon shootout at sea, prompting the crew to wrangle a custom western-style vessel.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a trigger boat.",
+    "boss_poster_url": "/assets/posters/draws_poster_1778767710126.png",
+    "boss_hint2": "D____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210236740",
+    "boss_id": "boss_quote_004_1778210236740",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Clause",
+    "boss_pitch": "A terrifyingly pedantic great white shark terrorizes a coastal town's newspaper staff for their terrible grammar and lack of citations, forcing the editor-in-chief to realize their current punctuation standards aren't enough to survive.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger quote.",
+    "boss_poster_url": "/assets/posters/clause_poster_with_text_1778683377400.png",
+    "boss_hint2": "C_____",
+    "answer": "______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210240455",
+    "boss_id": "boss_quote_004_1778210240455",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Flaws",
+    "boss_pitch": "When a massive, PR-disaster of a shark starts eating tourists, Amity Island's incompetent politicians desperately grasp at straws to find an innocent bystander to take the blame for their gross negligence.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger scapegoat.",
+    "boss_poster_url": "/assets/posters/flaws_poster_1778767770493.png",
+    "boss_hint2": "F____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210251143",
+    "boss_id": "boss_quote_004_1778210251143",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Straws",
+    "boss_pitch": "A gigantic, carnivorous root beer float threatens to drown a 1950s diner in sticky sweetness, forcing the local soda jerk to upgrade his beverage-drinking arsenal.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger float.",
+    "boss_poster_url": "/assets/posters/straws_ghibli_poster_1778683632821.png",
+    "boss_hint2": "S_____",
+    "answer": "______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210255396",
+    "boss_id": "boss_quote_004_1778210255396",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Gnaws",
+    "boss_pitch": "When a sleepy farming community is terrorized by a massive, sentient patch of man-eating kudzu, the local sheriff realizes their standard petting-zoo livestock won't be enough to graze it into submission.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger goat.",
+    "boss_poster_url": "/assets/posters/gnaws_grindhouse_poster_1778683648312.png",
+    "boss_hint2": "G____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_004_1778210265498",
+    "boss_id": "boss_quote_004_1778210265498",
+    "boss_original_title": "Jaws",
+    "boss_pun_title": "Pause",
+    "boss_pitch": "A giant, sentient television set terrorizes a small beach community by broadcasting endless horrible reality shows, forcing the local sheriff to realize they need a massive clicker to change the channel.",
+    "boss_original_quote": "You're gonna need a bigger boat.",
+    "boss_punned_quote": "You're gonna need a bigger remote.",
+    "boss_poster_url": "/assets/posters/pause_art_deco_poster_1778683662602.png",
+    "boss_hint2": "P____",
+    "answer": "_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_005_1778210372604",
+    "boss_id": "boss_quote_005_1778210372604",
+    "boss_original_title": "Taxi Driver",
+    "boss_pun_title": "Taxi Scriber",
+    "boss_pitch": "An unhinged, insomniac notary roams the gritty city streets, violently drafting new legislation and confronting anyone who disobeys his freshly stamped executive orders.",
+    "boss_original_quote": "You talkin' to me?",
+    "boss_punned_quote": "You talkin' to decree?",
+    "boss_poster_url": "/assets/posters/taxi_scriber_poster_1778684765170.png",
+    "boss_hint2": "T___ S______",
+    "answer": "____ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_006_1778210452077",
+    "boss_id": "boss_quote_006_1778210452077",
+    "boss_original_title": "Network",
+    "boss_pun_title": "Nyetwork",
+    "boss_pitch": "An unhinged 1970s news anchor sparks a televised communist uprising when he begins aggressively demanding the proletariat seize the means of broadcast production.",
+    "boss_original_quote": "I'm as mad as hell, and I'm not going to take this anymore!",
+    "boss_punned_quote": "I'm comrade as hell, and I'm not going to take this anymore!",
+    "boss_poster_url": "/assets/posters/nyetwork_poster_1778684789717.png",
+    "boss_hint2": "N_______",
+    "answer": "________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_006_1778210455814",
+    "boss_id": "boss_quote_006_1778210455814",
+    "boss_original_title": "Network",
+    "boss_pun_title": "Net Worth",
+    "boss_pitch": "An unhinged financial television anchor goes rogue on live TV, inciting a massive retail investor rebellion against a powerful Wall Street hedge fund.",
+    "boss_original_quote": "I'm as mad as hell, and I'm not going to take this anymore!",
+    "boss_punned_quote": "I'm as mad as Citadel, and I'm not going to take this anymore!",
+    "boss_poster_url": "/assets/posters/net_worth_poster_1778684802082.png",
+    "boss_hint2": "N__ W____",
+    "answer": "___ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_007_1778210513330",
+    "boss_id": "boss_quote_007_1778210513330",
+    "boss_original_title": "Star Wars: A New Hope",
+    "boss_pun_title": "Star Cores: A Queue Hope",
+    "boss_pitch": "A band of rebel IT technicians battles the Galactic Empire's terrible server bandwidth by downloading the universe's mystical energy field into their browser's temporary files.",
+    "boss_original_quote": "May the Force be with you.",
+    "boss_punned_quote": "Cache the Force be with you.",
+    "boss_poster_url": "/assets/posters/star_cores_poster_1778684820083.png",
+    "boss_hint2": "S___ C____: A Q____ H___",
+    "answer": "____ _____: _ _____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_007_1778210515364",
+    "boss_id": "boss_quote_007_1778210515364",
+    "boss_original_title": "Star Wars: A New Hope",
+    "boss_pun_title": "Scarf Wars: A New Rope",
+    "boss_pitch": "A farm boy must learn the ancient ways of cosmic knitting to stop a dark empire from unraveling the literal fabric of the universe.",
+    "boss_original_quote": "May the Force be with you.",
+    "boss_punned_quote": "Fray the Force be with you.",
+    "boss_poster_url": "/assets/posters/scarf_wars_poster_retry2_1778766715499.png",
+    "boss_hint2": "S____ W___: A N__ R___",
+    "answer": "_____ ____: _ ___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_007_1778210578468",
+    "boss_id": "boss_quote_007_1778210578468",
+    "boss_original_title": "Star Wars: A New Hope",
+    "boss_pun_title": "Star Fours: A New Slope",
+    "boss_pitch": "A sci-fi epic where mathematically obsessed space rebels must use geometry and exact fractions to defeat the evil Galactic Calculus Empire.",
+    "boss_original_quote": "May the Force be with you.",
+    "boss_punned_quote": "May the Fourths be with you.",
+    "boss_poster_url": "/assets/posters/star_fours_poster_1778766589722.png",
+    "boss_hint2": "S___ F____: A N__ S____",
+    "answer": "____ _____: _ ___ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_007_1778210583071",
+    "boss_id": "boss_quote_007_1778210583071",
+    "boss_original_title": "Star Wars: A New Hope",
+    "boss_pun_title": "Star Oars: A New Trope",
+    "boss_pitch": "A farm boy must save the galaxy from an evil empire by learning the ancient ways of space-Vikings, rowing a cosmic longship to the Death Star, and trusting in the power of Odin.",
+    "boss_original_quote": "May the Force be with you.",
+    "boss_punned_quote": "May the Norse be with you.",
+    "boss_poster_url": "/assets/posters/star_oars_poster_retry_1778766684489.png",
+    "boss_hint2": "S___ O___: A N__ T____",
+    "answer": "____ ____: _ ___ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_008_1778210644714",
+    "boss_id": "boss_quote_008_1778210644714",
+    "boss_original_title": "Apocalypse Now",
+    "boss_pun_title": "Narcolypse Now",
+    "boss_pitch": "A rogue military commander travels deep into the jungle to negotiate with a ruthless crime syndicate that has cornered the illicit market on morning-delivered weaponized incendiary jelly.",
+    "boss_original_quote": "I love the smell of napalm in the morning.",
+    "boss_punned_quote": "I love the cartel of napalm in the morning.",
+    "boss_poster_url": "/assets/posters/narcolypse_now_poster_1778767814577.png",
+    "boss_hint2": "N_________ N__",
+    "answer": "__________ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_008_1778210646604",
+    "boss_id": "boss_quote_008_1778210646604",
+    "boss_original_title": "Apocalypse Now",
+    "boss_pun_title": "A-frock-a-lypse Now",
+    "boss_pitch": "A gritty war epic where a platoon's deadliest mission is escorting a parasol-twirling Southern debutante who uses incendiary bombs as atmospheric lighting for her jungle debutante ball.",
+    "boss_original_quote": "I love the smell of napalm in the morning.",
+    "boss_punned_quote": "I love the belle of napalm in the morning.",
+    "boss_poster_url": "/assets/posters/afrockalypse_now_poster_1778767830413.png",
+    "boss_hint2": "A-_____-_-_____ N__",
+    "answer": "_-_____-_-_____ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_011_1778211161929",
+    "boss_id": "boss_quote_011_1778211161929",
+    "boss_original_title": "Star Wars: The Empire Strikes Back",
+    "boss_pun_title": "Star Chords: The Amplifier Strikes Back",
+    "boss_pitch": "Instead of Jedi training, Luke Skywalker travels to a swamp planet to learn the mystical art of sound engineering from a tiny green record producer who strictly forbids the use of cheap volume-boosting effects.",
+    "boss_original_quote": "Do. Or do not. There is no try.",
+    "boss_punned_quote": "Do. Or do not. There is no amplify.",
+    "boss_poster_url": "/assets/posters/star_chords_the_amplifier_strikes_back_poster_1778880313.jpg",
+    "boss_hint2": "S___ C_____: T__ A________ S______ B___",
+    "answer": "____ ______: ___ _________ _______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_011_1778211203918",
+    "boss_id": "boss_quote_011_1778211203918",
+    "boss_original_title": "Star Wars: The Empire Strikes Back",
+    "boss_pun_title": "Star Drawers: The Empire Strikes Tacks",
+    "boss_pitch": "An ancient green master teaches an impatient farm boy the mystic arts of assembling confusing Swedish flat-pack furniture without stripping the hardware.",
+    "boss_original_quote": "Do. Or do not. There is no try.",
+    "boss_punned_quote": "Screw. Or screw not. There is no try.",
+    "boss_poster_url": "/assets/posters/star_drawers_the_empire_strikes_tacks_poster_1778880375.jpg",
+    "boss_hint2": "S___ D______: T__ E_____ S______ T____",
+    "answer": "____ _______: ___ ______ _______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_012_1778211286142",
+    "boss_id": "boss_quote_012_1778211286142",
+    "boss_original_title": "E.T. the Extra-Terrestrial",
+    "boss_pun_title": "Eat the Extra-Cholesterol",
+    "boss_pitch": "After developing a severe addiction to Earth's frozen dairy treats, a stranded alien builds an interstellar intercom to demand a waffle-wrapped dessert delivery to his suburban hideout.",
+    "boss_original_quote": "E.T. phone home.",
+    "boss_punned_quote": "Ice cream cone home.",
+    "boss_poster_url": "/assets/posters/eat_the_extracholesterol_poster_1778880457.jpg",
+    "boss_hint2": "E__ t__ E____-C__________",
+    "answer": "___ ___ _____-___________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_015_1778211516250",
+    "boss_id": "boss_quote_015_1778211516250",
+    "boss_original_title": "Back to the Future",
+    "boss_pun_title": "Back to the Pasture",
+    "boss_pitch": "A wild-eyed inventor and his teenage farmhand build a plutonium-powered combine harvester to travel back in time and plant heirloom seeds before a greedy agribusiness can pave over their land.",
+    "boss_original_quote": "Roads? Where we're going, we don't need roads.",
+    "boss_punned_quote": "Roads? Where we're sowing, we don't need roads.",
+    "boss_poster_url": "/assets/posters/back_to_the_pasture_poster_1778881808.jpg",
+    "boss_hint2": "B___ t_ t__ P______",
+    "answer": "____ __ ___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_015_1778211520216",
+    "boss_id": "boss_quote_015_1778211520216",
+    "boss_original_title": "Back to the Future",
+    "boss_pun_title": "Slacks to the Future",
+    "boss_pitch": "A time-traveling tailor uses a heavily modified, steam-powered sewing machine to speed through time, desperately stitching up ripped space-time continuums and historical fashion faux pas.",
+    "boss_original_quote": "Roads? Where we're going, we don't need roads.",
+    "boss_punned_quote": "Pants? Where we're sewing, we don't need pants.",
+    "boss_poster_url": "/assets/posters/slacks_to_the_future_poster_1778881848.jpg",
+    "boss_hint2": "S_____ t_ t__ F_____",
+    "answer": "______ __ ___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_017_1778211752844",
+    "boss_id": "boss_quote_017_1778211752844",
+    "boss_original_title": "Top Gun",
+    "boss_pun_title": "Top Fund",
+    "boss_pitch": "Elite Wall Street stockbrokers attend a high-octane aviation academy where they dogfight in fighter jets over hostile takeovers and offshore accounts to see who can hoard the most cash.",
+    "boss_original_quote": "I feel the need\u2014the need for speed!",
+    "boss_punned_quote": "I feel the need\u2014the need for greed!",
+    "boss_poster_url": "/assets/posters/top_fund_poster_1778881928.jpg",
+    "boss_hint2": "T__ F___",
+    "answer": "___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_018_1778211799394",
+    "boss_id": "boss_quote_018_1778211799394",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Process Guide",
+    "boss_pitch": "A swashbuckling revenge tale where a passionate swordsman tracks down the six-fingered man who killed his father, only to force him into a lifetime of strict corporate obedience and adherence to the employee handbook.",
+    "boss_original_quote": "Hello. My name is Inigo Montoya. You killed my father. Prepare to die.",
+    "boss_punned_quote": "Hello. My name is Inigo Montoya. You killed my father. Prepare to comply.",
+    "boss_poster_url": "/assets/posters/the_process_guide_poster_1778882027.jpg",
+    "boss_hint2": "T__ P______ G____",
+    "answer": "___ _______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_019_1778211812679",
+    "boss_id": "boss_quote_019_1778211812679",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Prawncess Tide",
+    "boss_pitch": "A lovestruck farm boy tries to win the heart of a demanding mermaid by embarking on an epic, swashbuckling quest to fetch her the ocean's most obnoxious, self-centered crustaceans.",
+    "boss_original_quote": "As you wish.",
+    "boss_punned_quote": "As you shellfish.",
+    "boss_poster_url": "/assets/posters/the_prawncess_tide_poster_1778882069.jpg",
+    "boss_hint2": "T__ P________ T___",
+    "answer": "___ _________ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_022_1778211954286",
+    "boss_id": "boss_quote_022_1778211954286",
+    "boss_original_title": "Field of Dreams",
+    "boss_pun_title": "Peeled of Dreams",
+    "boss_pitch": "After hearing mysterious whispers, an Iowa farmer builds a massive fruit-paring station in his cornfield, convinced it will summon the ghost of a legendary giant plum.",
+    "boss_original_quote": "If you build it, he will come.",
+    "boss_punned_quote": "If you build it, he will plum.",
+    "boss_poster_url": "/assets/posters/peeled_of_dreams_poster_1778882182.jpg",
+    "boss_hint2": "P_____ o_ D_____",
+    "answer": "______ __ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_027_1778212302924",
+    "boss_id": "boss_quote_027_1778212302924",
+    "boss_original_title": "Forrest Gump",
+    "boss_pun_title": "Florist Gump",
+    "boss_pitch": "A slow-witted but incredibly dedicated botanist realizes his prize-winning fern is dying of shade, forcing him to desperately sprint across town chasing moving patches of sunlight to keep it alive.",
+    "boss_original_quote": "Run, Forrest, run!",
+    "boss_punned_quote": "Sun, Forrest, sun!",
+    "boss_poster_url": "/assets/posters/florist_gump_poster_1778882342.jpg",
+    "boss_hint2": "F______ G___",
+    "answer": "_______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_013_1778211377869",
+    "boss_id": "boss_quote_013_1778211377869",
+    "boss_original_title": "Scarface",
+    "boss_pun_title": "Scarf-lace",
+    "boss_pitch": "A ruthless but fabulous Cuban refugee violently takes over the Miami textile underworld, aggressively pushing his favorite blue-purple fabrics onto rival fashion designers.",
+    "boss_original_quote": "Say hello to my little friend!",
+    "boss_punned_quote": "Say indigo to my little friend!",
+    "boss_poster_url": "/assets/posters/scarflace_poster_1778881477.jpg",
+    "boss_hint2": "S____-l___",
+    "answer": "_____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_027_1778212314573",
+    "boss_id": "boss_quote_027_1778212314573",
+    "boss_original_title": "Forrest Gump",
+    "boss_pun_title": "Forrest Thump",
+    "boss_pitch": "After accidentally disrespecting the Mother Superior, a slow-witted but lovable man spends decades sprinting across American history to escape a relentless, ruler-wielding sisterhood.",
+    "boss_original_quote": "Run, Forrest, run!",
+    "boss_punned_quote": "Nun, Forrest, nun!",
+    "boss_poster_url": "/assets/posters/forrest_thump_poster_1778882384.jpg",
+    "boss_hint2": "F______ T____",
+    "answer": "_______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  }
+]

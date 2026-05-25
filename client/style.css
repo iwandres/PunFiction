@@ -1,0 +1,629 @@
+:root {
+    --bg-color: #ffde59;
+    --bg-gradient-end: #ff914d;
+    --card-bg: #ffffff;
+    --text-primary: #2d3436;
+    --text-secondary: #5f27cd;
+    --accent-main: #ff4757;
+    --accent-dark: #ff6b81;
+    --border-color: #2d3436;
+    --error: #ee5253;
+    --success: #10ac84;
+    --font-heading: 'Bangers', cursive;
+    --font-body: 'Nunito', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at top, var(--bg-color) 0%, var(--bg-gradient-end) 100%);
+}
+
+#app {
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    position: relative;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ================= LOBBY & START SCREEN ================= */
+#start-screen {
+    justify-content: center;
+    gap: 15px;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: normal;
+    margin-bottom: 2px;
+    letter-spacing: 3px;
+    color: #2d3436;
+    text-shadow: 4px 4px 0px #ffffff;
+    transform: rotate(-3deg);
+    display: inline-block;
+}
+
+.title .accent {
+    color: var(--accent-main);
+    text-shadow: 4px 4px 0px #ffffff;
+}
+
+.subtitle {
+    font-family: var(--font-heading);
+    color: #2d3436;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px #ffffff;
+    transform: rotate(2deg);
+    display: inline-block;
+}
+
+.challenge-deck-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.comic-card {
+    background: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0px var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.comic-card.today {
+    background: #fff9db;
+    border-color: var(--border-color);
+}
+
+.comic-card.yesterday {
+    background: #f1f2f6;
+}
+
+.issue-tag {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: #ff4757;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    padding: 2px 12px;
+    border: 2px solid var(--border-color);
+    transform: rotate(-2deg);
+}
+
+.comic-card.yesterday .issue-tag {
+    background: #5f27cd;
+}
+
+.issue-badge-solved {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #ffde59;
+    color: #2d3436;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 2px 2px 0px var(--border-color);
+    transform: rotate(3deg);
+}
+
+.issue-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.issue-meta {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+/* ================= NEOBRUTALIST BUTTONS ================= */
+.btn {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    border: 3px solid var(--border-color);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.1s, box-shadow 0.1s;
+    outline: none;
+}
+
+.primary-btn {
+    background: #ff4757;
+    color: #ffffff;
+    box-shadow: 4px 4px 0px var(--border-color);
+}
+
+.primary-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-color);
+}
+
+.primary-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px var(--border-color);
+}
+
+.secondary-btn {
+    background: #5f27cd;
+    color: #ffffff;
+    box-shadow: 4px 4px 0px var(--border-color);
+}
+
+.secondary-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-color);
+}
+
+.secondary-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px var(--border-color);
+}
+
+.outline-btn {
+    background: #ffffff;
+    color: #2d3436;
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.outline-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--border-color);
+}
+
+.outline-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px var(--border-color);
+}
+
+/* ================= GAME SCREEN LAYOUT ================= */
+#game-screen {
+    justify-content: flex-start;
+    padding-top: 30px;
+    gap: 15px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 12px;
+    padding: 10px 15px;
+}
+
+.level-indicator {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #2d3436;
+    letter-spacing: 0.5px;
+}
+
+.inventory-container {
+    display: flex;
+    gap: 8px;
+}
+
+.inventory-slot {
+    width: 75px;
+    height: 32px;
+    border: 2px dashed #b2bec3;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #b2bec3;
+    background: rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.inventory-slot.filled {
+    border: 2px solid var(--border-color);
+    background: #ffde59;
+    color: #2d3436;
+    box-shadow: 2px 2px 0px var(--border-color);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.6); }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* ================= PLAY CARD (NEOBRUTALIST SHEET) ================= */
+.puzzle-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0px var(--border-color);
+    border-radius: 16px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.question-text {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #5f27cd;
+    background: #fff275;
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    padding: 4px 12px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transform: rotate(-1deg);
+}
+
+.hint-container {
+    margin-bottom: 15px;
+    min-height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.small-btn {
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: #f1f2f6;
+    color: #2d3436;
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    text-transform: none;
+    transition: all 0.1s;
+}
+
+.small-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.small-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--border-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.hint-pill {
+    background: #ff4757;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.quote {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    line-height: 1.25;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.pitch {
+    font-size: 0.95rem;
+    color: #57606f;
+    margin-bottom: 20px;
+    line-height: 1.45;
+    font-weight: 700;
+}
+
+/* ================= PLAYABLE HINT BLANKS ================= */
+.title-hint-container {
+    background: #f5f6fa;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 2px dashed var(--border-color);
+}
+
+.parody-title-hint {
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ff4757;
+    word-break: break-all;
+}
+
+/* ================= MOVIE POSTER STYLING ================= */
+.boss-poster-frame {
+    width: 140px;
+    height: 210px;
+    background: #090c15;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.boss-poster-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: filter 0.5s ease-in-out;
+}
+
+.boss-poster-img.blurred {
+    filter: blur(25px);
+}
+
+.boss-poster-img.part-blurred {
+    filter: blur(8px);
+}
+
+.boss-poster-img.sharp {
+    filter: blur(0px);
+}
+
+.mystery-banner {
+    position: absolute;
+    background: #ff4757;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    padding: 2px 10px;
+    border: 2px solid var(--border-color);
+    transform: rotate(-5deg);
+    box-shadow: 2px 2px 0px var(--border-color);
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+/* ================= INPUT SYSTEM ================= */
+.input-section {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+}
+
+input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 3px solid var(--border-color);
+    background: #ffffff;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 800;
+    font-family: var(--font-body);
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+input:focus {
+    outline: none;
+    background: #fff9db;
+}
+
+.feedback {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    min-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.feedback.error {
+    color: #ffffff;
+    background: var(--error);
+    border: 2px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.feedback.success {
+    color: #ffffff;
+    background: var(--success);
+    border: 2px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.debug-answer {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.25);
+    font-style: italic;
+    font-weight: 800;
+}
+
+/* ================= VICTORY SCREEN COVERS ================= */
+#victory-screen {
+    gap: 15px;
+    overflow-y: auto;
+    height: 100%;
+    justify-content: flex-start;
+    padding-top: 35px;
+}
+
+.victory-banner {
+    background: #2ed573;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    padding: 5px 25px;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 8px;
+    transform: rotate(-2deg);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.theatrical-frame {
+    background: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0px var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.victory-poster-wrapper {
+    width: 160px;
+    height: 240px;
+    background: #090c15;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.victory-poster-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.victory-meta-box {
+    text-align: center;
+    width: 100%;
+}
+
+.victory-parody-title {
+    font-family: var(--font-heading);
+    font-size: 2.1rem;
+    color: var(--accent-main);
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.victory-original-movie {
+    font-size: 11px;
+    font-weight: 800;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.victory-pitch-box {
+    font-size: 0.95rem;
+    color: #2d3436;
+    line-height: 1.45;
+    font-weight: 700;
+    background: #f5f6fa;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px dashed #b2bec3;
+}
+
+.victory-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
