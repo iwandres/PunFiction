@@ -8,6 +8,7 @@ let todayChallenge = null;
 let yesterdayChallenge = null;
 let activeChallenge = null; // Currently playing challenge
 let hint3Active = false; // Flag for Hint 3 (first letters populated)
+let hintsUsed = 0; // Number of progressive hints used
 
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
 let inventory = []; // accumulated target words
@@ -230,6 +231,7 @@ function startGame(challenge) {
     if (!challenge) return;
     activeChallenge = challenge;
     hint3Active = false;
+    hintsUsed = 0;
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
 
@@ -265,6 +267,7 @@ function getCorrectPosterUrl(urlPath) {
 
 function loadLevel() {
     hint3Active = false;
+    hintsUsed = 0;
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
     ui.feedbackMsg.className = 'feedback';
@@ -320,12 +323,14 @@ function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
     ui.pitchDisplay.classList.remove('hidden'); // Reveal Comedic Parody Plot Pitch
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
+    hintsUsed = 1;
 }
 
 function revealHint2() {
     ui.btnShowHint2.classList.add('hidden');
     ui.hint2Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
     ui.btnShowHint3.classList.remove('hidden'); // Unlock Hint 3 button
+    hintsUsed = 2;
 }
 
 function revealHint3() {
@@ -335,6 +340,8 @@ function revealHint3() {
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
     }
+
+    hintsUsed = 3;
 
     // Activate prefilled first-letters mode
     hint3Active = true;
@@ -536,6 +543,18 @@ function triggerVictory() {
     ui.finalBossMovie.innerText = `Original Movie: ${activeChallenge.boss_original_title}`;
     ui.finalBossPitch.innerText = activeChallenge.boss_pitch;
 
+    // Display how many hints were used dynamically with theme-tailored styled colors
+    const subtitleEl = document.getElementById('victory-subtitle');
+    if (subtitleEl) {
+        if (hintsUsed === 0) {
+            subtitleEl.innerHTML = `Solved with <span style="color: #10ac84; font-weight: 800;">NO HINTS</span> used! 🌟`;
+        } else if (hintsUsed === 1) {
+            subtitleEl.innerHTML = `Solved using <span style="color: #ff914d; font-weight: 800;">1 Hint</span>!`;
+        } else {
+            subtitleEl.innerHTML = `Solved using <span style="color: var(--accent-main); font-weight: 800;">${hintsUsed} Hints</span>!`;
+        }
+    }
+
     switchScreen('victory');
 }
 
@@ -544,8 +563,12 @@ function shareSolvedScore() {
     const solvedList = getSolvedPuzzlesList();
     const streak = solvedList.size;
 
+    // Add hint count to the share text
+    const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/3 hints used 💡`;
+
     const copyText = `PunFiction Daily Issue #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
+                     `💡 Stats: ${hintText}\n` +
                      `🌟 Complete Streak: ${streak} solved issue(s)!\n` +
                      `Play daily challenges at: https://iwandres.github.io/PunFiction`;
 
