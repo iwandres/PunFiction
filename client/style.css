@@ -254,30 +254,43 @@ body {
     height: 100%;
 }
 
-.game-header {
+.game-title-section {
+    text-align: center;
     width: 100%;
+    margin-bottom: 25px;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
     align-items: center;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    margin-bottom: 5px;
+    gap: 6px;
+}
+
+.question-subtext {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
 }
 
 .level-indicator {
+    position: absolute;
+    top: -16px;
+    left: 20px;
     font-family: var(--font-heading);
     font-size: 1.1rem;
-    color: #2d3436;
-    background: #ffffff;
+    color: #ffffff;
+    background: #5f27cd;
     border: 3px solid var(--border-color);
     box-shadow: 3px 3px 0px var(--border-color);
-    border-radius: 8px;
-    padding: 6px 15px;
+    border-radius: 6px;
+    padding: 4px 14px;
     letter-spacing: 0.5px;
+    transform: rotate(-2deg);
     display: inline-block;
     text-transform: uppercase;
+    z-index: 5;
 }
 
 .inventory-container {

@@ -273,7 +273,7 @@ function loadLevel() {
     ui.hint2Reveal.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
-    ui.questionLabel.innerText = "Guess the fictional movie title!";
+    ui.questionLabel.innerText = "Guess the parody movie title!";
     
     // Prepare poster image but keep it hidden during active play
     const posterUrl = getCorrectPosterUrl(activeChallenge.boss_poster_url);
