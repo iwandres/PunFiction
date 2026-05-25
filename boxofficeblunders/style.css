@@ -421,6 +421,18 @@ body {
 }
 
 /* ================= PLAYABLE INTERACTIVE SLOTS ================= */
+.guess-slots-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--accent-main);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    width: 100%;
+    text-align: center;
+}
+
 .guess-slots-container {
     display: flex;
     flex-wrap: wrap;
@@ -601,6 +613,10 @@ input:focus {
 
     body.keyboard-focused .hint-container {
         display: none !important;
+    }
+
+    body.keyboard-focused .guess-slots-label {
+        margin-bottom: 6px !important;
     }
 
     body.keyboard-focused .guess-slots-container {
