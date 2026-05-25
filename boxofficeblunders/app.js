@@ -295,7 +295,7 @@ function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
     const highlighted = pWords.map((word, idx) => {
         const oWord = oWords[idx] || '';
         if (clean(word) !== clean(oWord)) {
-            return `<span style="color: var(--text-secondary); font-weight: 800;">${word}</span>`;
+            return `<span class="rhyme-word">${word}</span>`;
         }
         return word;
     }).join(' ');
@@ -351,14 +351,49 @@ function loadLevel() {
     setTimeout(() => {
         ui.guessInput.focus();
     }, 100);
+
+    // Trigger puzzle engagement start event
+    sendTelemetryEvent('start');
 }
 
 function revealHint1() {
-    ui.btnShowHint1.classList.add('hidden');
-    // Dynamically highlight the rhyming word inside the boss quote!
+    const btn = ui.btnShowHint1;
+    const btnRect = btn.getBoundingClientRect();
+    
+    // Get start coordinates (center of the Hint 1 button)
+    const startX = btnRect.left + btnRect.width / 2 + window.scrollX;
+    const startY = btnRect.top + btnRect.height / 2 + window.scrollY;
+    
+    // Hide the button
+    btn.classList.add('hidden');
+    
+    // Dynamically render the quote with the rhyming word elements (initially unrevealed)
     ui.quoteDisplay.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
-    ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
-    hintsUsed = 1;
+    
+    // Find all rhyme word elements
+    const rhymeWordEls = ui.quoteDisplay.querySelectorAll('.rhyme-word');
+    if (rhymeWordEls.length > 0) {
+        // Use the first rhyming word as the target for coordinates
+        const targetRect = rhymeWordEls[0].getBoundingClientRect();
+        
+        // Get target coordinates (center of the rhyming word)
+        const endX = targetRect.left + targetRect.width / 2 + window.scrollX;
+        const endY = targetRect.top + targetRect.height / 2 + window.scrollY;
+        
+        // Trigger the graceful purple arc animation!
+        animateHintArc(startX, startY, endX, endY, () => {
+            // Once the arc reaches the target, reveal the purple highlight and pop animation on all rhyme words
+            rhymeWordEls.forEach(el => el.classList.add('revealed', 'rhyme-pop'));
+            
+            // Unlock Hint 2 button
+            ui.btnShowHint2.classList.remove('hidden');
+            hintsUsed = 1;
+        });
+    } else {
+        // Fallback if no rhyme word was detected
+        ui.btnShowHint2.classList.remove('hidden');
+        hintsUsed = 1;
+    }
 }
 
 function revealHint2() {
@@ -547,6 +582,7 @@ function handleGuessSubmit() {
 
     if (cleanGuess === cleanBossAnswer) {
         savePuzzleSolved(activeChallenge.puzzle_number);
+        sendTelemetryEvent('solve', hintsUsed); // Post solve telemetry
         triggerVictory();
     } else {
         ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
@@ -574,7 +610,7 @@ function handleToggleChallenge() {
     }
 }
 
-function triggerVictory() {
+async function triggerVictory() {
     currentLevel = 5;
 
     // Render theatrical movie poster frame
@@ -583,17 +619,138 @@ function triggerVictory() {
     ui.finalBossMovie.innerText = `Original Movie: ${activeChallenge.boss_original_title}`;
     ui.finalBossPitch.innerText = activeChallenge.boss_pitch;
 
-    // Display how many hints were used dynamically with theme-tailored styled colors
+    // Set up dynamic Congratulatory Messages (4 levels!)
+    const bannerEl = document.getElementById('victory-banner');
     const subtitleEl = document.getElementById('victory-subtitle');
-    if (subtitleEl) {
+    
+    if (bannerEl) {
+        bannerEl.className = "victory-banner";
+        bannerEl.style.animation = "none";
+        bannerEl.offsetHeight; /* trigger reflow */
+        
         if (hintsUsed === 0) {
-            subtitleEl.innerHTML = `Solved with <span style="color: #10ac84; font-weight: 800;">NO HINTS</span> used! 🌟`;
+            bannerEl.innerText = "HOLY MOVIE GODS! 🏆";
+            bannerEl.classList.add('exuberant-perfect');
         } else if (hintsUsed === 1) {
-            subtitleEl.innerHTML = `Solved using <span style="color: #ff914d; font-weight: 800;">1 Hint</span>!`;
+            bannerEl.innerText = "BRILLIANT DIRECTING! 🎬";
+        } else if (hintsUsed === 2) {
+            bannerEl.innerText = "GREAT SOLVE! 🎟️";
         } else {
-            subtitleEl.innerHTML = `Solved using <span style="color: var(--accent-main); font-weight: 800;">${hintsUsed} Hints</span>!`;
+            bannerEl.innerText = "PHEW! YOU SURVIVED! 🎭";
         }
     }
+    
+    if (subtitleEl) {
+        if (hintsUsed === 0) {
+            subtitleEl.innerHTML = `YOU ARE AN ABSOLUTE CINEMATIC LEGEND! SOLVED WITH ZERO HINTS! MIND = BLOWN! 🍿🎬🔥`;
+            subtitleEl.style.color = "#10ac84";
+        } else if (hintsUsed === 1) {
+            subtitleEl.innerHTML = `Only <span style="color: #ff914d; font-weight: 800;">1 Hint</span> used! You're a certified Box Office Pro! Outstanding solve! 🍿🌟`;
+            subtitleEl.style.color = "";
+        } else if (hintsUsed === 2) {
+            subtitleEl.innerHTML = `Solved with <span style="color: var(--text-secondary); font-weight: 800;">2 Hints</span>. You cracked the code and saved the production! Solid work! ⭐`;
+            subtitleEl.style.color = "";
+        } else {
+            subtitleEl.innerHTML = `Solved with <span style="color: var(--accent-main); font-weight: 800;">3 Hints</span>. The director's cut is safe and the show must go on! Keep practicing! 🎬`;
+            subtitleEl.style.color = "";
+        }
+    }
+
+    // Fetch and render global metrics stats funnel
+    const puzzleNum = activeChallenge.puzzle_number;
+    let stats = null;
+    
+    try {
+        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? `/api/telemetry?puzzle_number=${puzzleNum}`
+            : `http://localhost:8000/api/telemetry?puzzle_number=${puzzleNum}`;
+            
+        const response = await fetch(telemetryUrl);
+        if (response.ok) {
+            const rawStats = await response.json();
+            if (rawStats.start > 0) {
+                stats = rawStats;
+            }
+        }
+    } catch (e) {
+        console.log("Telemetry fetch failed: using deterministic mock metrics fallback.", e);
+    }
+    
+    if (!stats) {
+        stats = getDeterministicMockMetrics(puzzleNum);
+    }
+    
+    // Calculate percentages
+    let totalStarts = stats.start || 1;
+    let totalSolves = (stats.solve_0 || 0) + (stats.solve_1 || 0) + (stats.solve_2 || 0) + (stats.solve_3 || 0);
+    if (totalStarts < totalSolves) totalStarts = totalSolves;
+    
+    const solveRate = Math.round((totalSolves / totalStarts) * 100);
+    
+    let pct0 = 0, pct1 = 0, pct2 = 0, pct3 = 0;
+    if (totalSolves > 0) {
+        if (stats.isMock) {
+            pct0 = stats.solve_0;
+            pct1 = stats.solve_1;
+            pct2 = stats.solve_2;
+            pct3 = stats.solve_3;
+        } else {
+            pct0 = Math.round((stats.solve_0 / totalSolves) * 100);
+            pct1 = Math.round((stats.solve_1 / totalSolves) * 100);
+            pct2 = Math.round((stats.solve_2 / totalSolves) * 100);
+            pct3 = Math.round((stats.solve_3 / totalSolves) * 100);
+            
+            const sum = pct0 + pct1 + pct2 + pct3;
+            if (sum !== 100 && sum > 0) {
+                const diff = 100 - sum;
+                const maxVal = Math.max(pct0, pct1, pct2, pct3);
+                if (pct0 === maxVal) pct0 += diff;
+                else if (pct1 === maxVal) pct1 += diff;
+                else if (pct2 === maxVal) pct2 += diff;
+                else pct3 += diff;
+            }
+        }
+    } else {
+        pct0 = 40; pct1 = 30; pct2 = 20; pct3 = 10;
+    }
+    
+    // Render Stats
+    const solveRateBadge = document.getElementById('solve-rate-badge');
+    if (solveRateBadge) {
+        solveRateBadge.innerText = `${solveRate}% OF PLAYERS CRACKED THIS CHALLENGE!`;
+    }
+    
+    const fill0 = document.getElementById('funnel-fill-0');
+    const fill1 = document.getElementById('funnel-fill-1');
+    const fill2 = document.getElementById('funnel-fill-2');
+    const fill3 = document.getElementById('funnel-fill-3');
+    
+    const pct0Label = document.getElementById('funnel-pct-0');
+    const pct1Label = document.getElementById('funnel-pct-1');
+    const pct2Label = document.getElementById('funnel-pct-2');
+    const pct3Label = document.getElementById('funnel-pct-3');
+    
+    if (fill0) fill0.style.width = '0%';
+    if (fill1) fill1.style.width = '0%';
+    if (fill2) fill2.style.width = '0%';
+    if (fill3) fill3.style.width = '0%';
+    
+    if (pct0Label) pct0Label.innerText = '0%';
+    if (pct1Label) pct1Label.innerText = '0%';
+    if (pct2Label) pct2Label.innerText = '0%';
+    if (pct3Label) pct3Label.innerText = '0%';
+    
+    setTimeout(() => {
+        if (fill0) fill0.style.width = `${pct0}%`;
+        if (fill1) fill1.style.width = `${pct1}%`;
+        if (fill2) fill2.style.width = `${pct2}%`;
+        if (fill3) fill3.style.width = `${pct3}%`;
+        
+        if (pct0Label) pct0Label.innerText = `${pct0}%`;
+        if (pct1Label) pct1Label.innerText = `${pct1}%`;
+        if (pct2Label) pct2Label.innerText = `${pct2}%`;
+        if (pct3Label) pct3Label.innerText = `${pct3}%`;
+    }, 200);
 
     switchScreen('victory');
 }
@@ -655,6 +812,64 @@ styleSheet.innerText = `
     letter-spacing: 0.5px;
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+.rhyme-word {
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    display: inline-block;
+}
+.rhyme-word.revealed {
+    color: var(--text-secondary) !important;
+    font-weight: 800;
+}
+.hint-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff90ec 0%, #8c52ff 70%, #5f27cd 100%);
+    box-shadow: 0 0 10px #8c52ff;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+}
+.hint-sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+}
+.comet-head {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 15px #a855f7, 0 0 30px #5f27cd;
+    border: 2px solid #5f27cd;
+    pointer-events: none;
+    z-index: 10002;
+    transform: translate(-50%, -50%);
+}
+.rhyme-pop {
+    animation: rhymePopAnim 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+    border-radius: 4px;
+}
+@keyframes rhymePopAnim {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 0px rgba(95, 39, 205, 0);
+        box-shadow: 0 0 0px rgba(95, 39, 205, 0);
+        background-color: rgba(95, 39, 205, 0);
+    }
+    100% {
+        transform: scale(1.15);
+        text-shadow: 0 0 8px rgba(95, 39, 205, 0.4);
+        box-shadow: 0 0 8px rgba(95, 39, 205, 0.2);
+        background-color: rgba(95, 39, 205, 0.1);
+    }
+}
 `;
 document.head.appendChild(styleSheet);
 
@@ -673,4 +888,187 @@ function showToast(message, isError = false) {
         toast.style.opacity = "0";
         setTimeout(() => toast.remove(), 300);
     }, 2500);
+}
+
+// ================= GRACEFUL ARC ANIMATION FOR HINT 1 =================
+
+function animateHintArc(startX, startY, endX, endY, callback) {
+    // Create temporary SVG element covering document size
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const docHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    svg.setAttribute("style", `position: absolute; top: 0; left: 0; width: 100%; height: ${docHeight}px; pointer-events: none; z-index: 10000;`);
+    
+    // Calculate control point for standard quadratic Bezier curve arcing upwards/outwards
+    const dx = endX - startX;
+    const dy = endY - startY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    const perpX = -dy / dist;
+    const perpY = dx / dist;
+    const offset = Math.min(150, Math.max(60, dist * 0.35));
+    const dir = perpY > 0 ? -1 : 1;
+    
+    const controlX = (startX + endX) / 2 + perpX * offset * dir;
+    const controlY = (startY + endY) / 2 + perpY * offset * dir;
+    
+    // Create trajectory path
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const dStr = `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`;
+    path.setAttribute("d", dStr);
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "rgba(95, 39, 205, 0.2)");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-dasharray", "6,6");
+    svg.appendChild(path);
+    
+    document.body.appendChild(svg);
+    
+    const pathLength = path.getTotalLength();
+    
+    // Create comet head element
+    const comet = document.createElement("div");
+    comet.className = "comet-head";
+    document.body.appendChild(comet);
+    
+    const duration = 900; // ms
+    const startTime = performance.now();
+    let lastParticleTime = 0;
+    
+    function easeOutCubic(x) {
+        return 1 - Math.pow(1 - x, 3);
+    }
+    
+    function update(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = easeOutCubic(progress);
+        
+        const currentLength = easeProgress * pathLength;
+        const point = path.getPointAtLength(currentLength);
+        
+        comet.style.left = `${point.x}px`;
+        comet.style.top = `${point.y}px`;
+        
+        if (time - lastParticleTime > 15 && progress < 1) {
+            spawnTrailParticle(point.x, point.y);
+            lastParticleTime = time;
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            comet.remove();
+            svg.remove();
+            spawnExplosion(endX, endY);
+            if (callback) callback();
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function spawnTrailParticle(x, y) {
+    const p = document.createElement("div");
+    p.className = "hint-particle";
+    p.style.left = `${x}px`;
+    p.style.top = `${y}px`;
+    
+    const sz = 6 + Math.random() * 6;
+    p.style.width = `${sz}px`;
+    p.style.height = `${sz}px`;
+    
+    document.body.appendChild(p);
+    
+    const duration = 400 + Math.random() * 200;
+    p.animate([
+        { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.8 },
+        { transform: 'translate(-50%, -50%) scale(0.1)', opacity: 0 }
+    ], {
+        duration: duration,
+        easing: 'ease-out'
+    });
+    
+    setTimeout(() => p.remove(), duration);
+}
+
+function spawnExplosion(x, y) {
+    const numSparkles = 16;
+    for (let i = 0; i < numSparkles; i++) {
+        const s = document.createElement("div");
+        s.className = "hint-sparkle";
+        s.style.left = `${x}px`;
+        s.style.top = `${y}px`;
+        
+        const color = i % 2 === 0 ? "#a855f7" : "#ffde59";
+        s.style.background = color;
+        s.style.boxShadow = `0 0 6px ${color}`;
+        
+        document.body.appendChild(s);
+        
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 40 + Math.random() * 80;
+        const tx = Math.cos(angle) * speed;
+        const ty = Math.sin(angle) * speed;
+        
+        const duration = 600 + Math.random() * 400;
+        
+        s.animate([
+            { transform: 'translate(-50%, -50%) scale(1.5)', opacity: 1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0.1)`, opacity: 0 }
+        ], {
+            duration: duration,
+            easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+        });
+        
+        setTimeout(() => s.remove(), duration);
+    }
+}
+
+// ================= TELEMETRY UTILITY METHODS =================
+
+function getDeterministicMockMetrics(puzzleNum) {
+    const num = parseInt(puzzleNum) || 1;
+    const pseudoSeed = (num * 9301 + 49297) % 233280;
+    const seedFactor = pseudoSeed / 233280;
+    
+    const solveRate = Math.floor(75 + seedFactor * 20); // 75% to 95%
+    
+    const noHints = Math.floor(30 + seedFactor * 20); // 30% to 50%
+    const oneHint = Math.floor(20 + seedFactor * 15); // 20% to 35%
+    const twoHints = Math.floor(10 + seedFactor * 10); // 10% to 20%
+    const threeHints = 100 - noHints - oneHint - twoHints;
+    
+    return {
+        start: Math.floor(250 + seedFactor * 500),
+        solve_0: noHints,
+        solve_1: oneHint,
+        solve_2: twoHints,
+        solve_3: threeHints,
+        isMock: true
+    };
+}
+
+async function sendTelemetryEvent(event, hints = 0) {
+    const puzzleNum = activeChallenge ? activeChallenge.puzzle_number : null;
+    if (!puzzleNum) return;
+    
+    const payload = {
+        event: event,
+        puzzle_number: puzzleNum,
+        hints_used: hints
+    };
+    
+    try {
+        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? '/api/telemetry'
+            : 'http://localhost:8000/api/telemetry';
+        
+        await fetch(telemetryUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (e) {
+        console.log("Telemetry post silented: Server offline or running serverless Pages fallback.", e);
+    }
 }

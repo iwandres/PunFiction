@@ -9,6 +9,16 @@ DATA_FILE = os.path.join(DIR_PATH, 'production_daily_games.json')
 HTML_FILE = os.path.join(DIR_PATH, 'admin.html')
 
 class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        super().end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.end_headers()
+
     def do_GET(self):
         req_path = self.path.split('?')[0]
         if req_path == '/':
@@ -26,6 +36,36 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(f.read())
             else:
                 self.wfile.write(b'[]')
+        elif req_path == '/api/telemetry':
+            import urllib.parse
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            puzzle_number = query_params.get('puzzle_number', [None])[0]
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            
+            telemetry_data = {}
+            telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+            if os.path.exists(telemetry_file):
+                try:
+                    with open(telemetry_file, 'r', encoding='utf-8') as f:
+                        telemetry_data = json.load(f)
+                except Exception as e:
+                    print(f"Error reading telemetry file: {e}")
+            
+            if puzzle_number:
+                puzzle_stats = telemetry_data.get(puzzle_number, {
+                    "start": 0,
+                    "solve_0": 0,
+                    "solve_1": 0,
+                    "solve_2": 0,
+                    "solve_3": 0
+                })
+                self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
+            else:
+                self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
         elif req_path == '/quotes':
             self.send_response(302)
             self.send_header('Location', '/#quotes')
@@ -131,6 +171,56 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
             except Exception as e:
                 print(f"Error saving puzzles: {e}")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+        elif self.path == '/api/telemetry':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+            try:
+                payload = json.loads(post_data.decode('utf-8'))
+                event = payload.get('event')
+                puzzle_number = payload.get('puzzle_number')
+                
+                if not puzzle_number:
+                    raise ValueError("puzzle_number is required")
+                
+                telemetry_data = {}
+                if os.path.exists(telemetry_file):
+                    try:
+                        with open(telemetry_file, 'r', encoding='utf-8') as f:
+                            telemetry_data = json.load(f)
+                    except Exception as e:
+                        print(f"Error reading telemetry file: {e}")
+                
+                if puzzle_number not in telemetry_data:
+                    telemetry_data[puzzle_number] = {
+                        "start": 0,
+                        "solve_0": 0,
+                        "solve_1": 0,
+                        "solve_2": 0,
+                        "solve_3": 0
+                    }
+                
+                if event == 'start':
+                    telemetry_data[puzzle_number]['start'] += 1
+                elif event == 'solve':
+                    hints_used = int(payload.get('hints_used', 0))
+                    hints_used = max(0, min(3, hints_used))
+                    key = f"solve_{hints_used}"
+                    telemetry_data[puzzle_number][key] += 1
+                
+                with open(telemetry_file, 'w', encoding='utf-8') as f:
+                    json.dump(telemetry_data, f, indent=2)
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+            except Exception as e:
+                print(f"Error handling telemetry: {e}")
                 self.send_response(400)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
