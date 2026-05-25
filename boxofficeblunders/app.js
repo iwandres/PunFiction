@@ -587,7 +587,7 @@ function shareSolvedScore() {
                      `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
                      `💡 Stats: ${hintText}\n` +
                      `🌟 Complete Streak: ${streak} solved challenge(s)!\n` +
-                     `Play daily challenges at: https://iwandres.github.io/PunFiction/client/`;
+                     `Play daily challenges at: https://iwandres.github.io/PunFiction/boxofficeblunders/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
