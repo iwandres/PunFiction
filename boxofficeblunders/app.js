@@ -382,8 +382,8 @@ function revealHint1() {
         
         // Trigger the graceful purple arc animation!
         animateHintArc(startX, startY, endX, endY, () => {
-            // Once the arc reaches the target, reveal the purple highlight and pop animation on all rhyme words
-            rhymeWordEls.forEach(el => el.classList.add('revealed', 'rhyme-pop'));
+            // Once the arc reaches the target, reveal the purple highlight on all rhyme words
+            rhymeWordEls.forEach(el => el.classList.add('revealed'));
             
             // Unlock Hint 2 button
             ui.btnShowHint2.classList.remove('hidden');
@@ -851,24 +851,6 @@ styleSheet.innerText = `
     pointer-events: none;
     z-index: 10002;
     transform: translate(-50%, -50%);
-}
-.rhyme-pop {
-    animation: rhymePopAnim 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
-    border-radius: 4px;
-}
-@keyframes rhymePopAnim {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 0px rgba(95, 39, 205, 0);
-        box-shadow: 0 0 0px rgba(95, 39, 205, 0);
-        background-color: rgba(95, 39, 205, 0);
-    }
-    100% {
-        transform: scale(1.15);
-        text-shadow: 0 0 8px rgba(95, 39, 205, 0.4);
-        box-shadow: 0 0 8px rgba(95, 39, 205, 0.2);
-        background-color: rgba(95, 39, 205, 0.1);
-    }
 }
 `;
 document.head.appendChild(styleSheet);
