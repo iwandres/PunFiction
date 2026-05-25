@@ -1145,6 +1145,17 @@
         let puzzles = [];
         let savedPunsIds = new Set();
 
+        // Timezone robust today issue string helper
+        function getTodayIssueStr() {
+            const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00");
+            const now = new Date();
+            const nowInPT = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+            const startInPT = new Date(START_DATE_PT.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+            const diffMs = nowInPT.getTime() - startInPT.getTime();
+            const daysElapsed = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+            return String(Math.max(0, daysElapsed) + 1).padStart(3, '0');
+        }
+
         // UI State
         let activeQuoteId = null;
         let activeSelectionWord = null;
@@ -2210,6 +2221,15 @@
 
         // Assembler State Sync Methods
         function syncPuzzleBlock(gameIdx, key, val) {
+            const p = puzzles[gameIdx];
+            if (p && p.puzzle_number) {
+                const todayIssueStr = getTodayIssueStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                    showToast("Cannot edit a historical puzzle!", "error");
+                    return;
+                }
+            }
+
             if (key === 'status' && val === 'approved') {
                 if (!puzzles[gameIdx].puzzle_number || puzzles[gameIdx].puzzle_number.trim() === "") {
                     let maxNum = 0;
@@ -2245,6 +2265,14 @@
         }
 
         function updateBossTitle(gameIdx, val) {
+            const p = puzzles[gameIdx];
+            if (p && p.puzzle_number) {
+                const todayIssueStr = getTodayIssueStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                    showToast("Cannot edit a historical puzzle!", "error");
+                    return;
+                }
+            }
             puzzles[gameIdx]['boss_pun_title'] = val;
             puzzles[gameIdx]['answer'] = val.replace(/[a-zA-Z]/g, "_");
             puzzles[gameIdx]['boss_hint2'] = generateFirstLetterBlanks(val);
@@ -2256,6 +2284,14 @@
         async function deleteEntirePuzzle(gameIdx) {
             const p = puzzles[gameIdx];
             if (!p) return;
+
+            if (p.puzzle_number) {
+                const todayIssueStr = getTodayIssueStr();
+                if (parseInt(p.puzzle_number) < parseInt(todayIssueStr)) {
+                    showToast("Cannot delete a historical puzzle!", "error");
+                    return;
+                }
+            }
 
             if (!confirm(`Are you sure you want to delete the entire puzzle for "${p.boss_pun_title}"? This will reject the parody poster, reject the parody quote, and completely remove the daily challenge puzzle set.`)) {
                 return;
@@ -2326,6 +2362,7 @@
             const backlogListEl = document.getElementById('approved-puzzles-backlog-list');
 
             const approvedChallenges = puzzles.filter(item => item.status === 'approved');
+            const todayIssueStr = getTodayIssueStr();
 
             // Partition into Active and Backlog
             // Active challenges are those with non-empty puzzle_number
@@ -2392,20 +2429,50 @@
                             }
                         }
 
-                        const rowBg = isDuplicateMovie ? 'background: rgba(220, 53, 69, 0.06); border-left: 3px solid #ff7684;' : '';
+                        const isToday = p.puzzle_number === todayIssueStr;
+                        const isPrevious = parseInt(p.puzzle_number) < parseInt(todayIssueStr);
+
                         const warningBadge = isDuplicateMovie ? `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(220, 53, 69, 0.15); color: #ff7684; font-weight:700; margin-left: 8px;">⚠️ CLUMPED MOVIE</span>` : '';
 
+                        let rowStyles = 'border-bottom: 1px solid var(--border-base); vertical-align: middle;';
+                        let badgeHtml = '';
+                        let inputHtml = '';
+                        let actionsHtml = '';
+
+                        if (isPrevious) {
+                            rowStyles += ' background: rgba(0, 0, 0, 0.02); opacity: 0.8; border-left: 4px solid var(--text-muted);';
+                            badgeHtml = `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); color: var(--text-muted); font-weight:700; margin-left: 8px;">🔒 LOCKED</span>`;
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:12px; opacity: 0.6; text-align: center; font-weight: 700;" disabled>`;
+                            actionsHtml = `<span style="font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing:0.5px;">🔒 FIXED</span>`;
+                        } else if (isToday) {
+                            rowStyles += ' background: rgba(0, 245, 212, 0.08); border-left: 4px solid var(--emerald); box-shadow: inset 0 0 10px rgba(0, 245, 212, 0.15);';
+                            badgeHtml = `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(0, 245, 212, 0.2); color: var(--emerald); font-weight:700; margin-left: 8px;">⭐ TODAY</span>`;
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:12px; text-align: center; font-weight: 800; border: 2px solid var(--emerald); border-radius: 4px;" onchange="updateChallengeNumber(${puzzleIdx}, this.value)">`;
+                            actionsHtml = `
+                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right:4px;" onclick="moveApprovedPuzzle(${idx}, -1)">🔼</button>
+                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="moveApprovedPuzzle(${idx}, 1)">🔽</button>
+                            `;
+                        } else {
+                            if (isDuplicateMovie) {
+                                rowStyles += ' background: rgba(220, 53, 69, 0.06); border-left: 3px solid #ff7684;';
+                            }
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:12px; text-align: center;" onchange="updateChallengeNumber(${puzzleIdx}, this.value)">`;
+                            actionsHtml = `
+                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right:4px;" onclick="moveApprovedPuzzle(${idx}, -1)">🔼</button>
+                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="moveApprovedPuzzle(${idx}, 1)">🔽</button>
+                            `;
+                        }
+
                         return `
-                            <tr style="border-bottom: 1px solid var(--border-base); ${rowBg} vertical-align: middle;">
+                            <tr style="${rowStyles}">
                                 <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
                                 <td style="padding: 10px;">
-                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width:55px; padding:3px 6px; font-size:12px;" onchange="updateChallengeNumber(${puzzleIdx}, this.value)">
+                                    ${inputHtml}
                                 </td>
                                 <td style="padding: 10px; font-weight:600; color:var(--cyan);">${p.boss_pun_title}</td>
-                                <td style="padding: 10px;">🍿 ${originalMovie} ${warningBadge}</td>
+                                <td style="padding: 10px;">🍿 ${originalMovie} ${badgeHtml} ${warningBadge}</td>
                                 <td style="padding: 10px; text-align: center;">
-                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right:4px;" onclick="moveApprovedPuzzle(${idx}, -1)">🔼</button>
-                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="moveApprovedPuzzle(${idx}, 1)">🔽</button>
+                                    ${actionsHtml}
                                 </td>
                             </tr>
                         `;
@@ -2449,27 +2516,46 @@
                 const challengeIdx = puzzles.indexOf(p);
                 const isBacklog = p.puzzle_number === "";
 
+                // Timezone robust date/time math for today's puzzle calculation
+                const todayIssueStr = getTodayIssueStr();
+
+                const isToday = !isBacklog && p.puzzle_number === todayIssueStr;
+                const isPrevious = !isBacklog && parseInt(p.puzzle_number) < parseInt(todayIssueStr);
+
+                // Dynamically build premium card styles based on schedule status
+                let cardStyle = '';
+                if (isBacklog) {
+                    cardStyle = 'border-left: 4px solid #ff7684; background: rgba(220,53,69,0.01);';
+                } else if (isToday) {
+                    cardStyle = 'border: 3px solid var(--emerald); background: rgba(0, 245, 212, 0.035); box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);';
+                } else if (isPrevious) {
+                    cardStyle = 'border-left: 4px solid var(--text-muted); background: rgba(0, 0, 0, 0.015); opacity: 0.85;';
+                }
+
+                // If historical puzzle, disable all inputs
+                const disabledAttr = isPrevious ? 'disabled' : '';
+
                 return `
-                    <div class="puzzle-set-card approved ${isBacklog ? 'backlog-card' : ''}" id="approved-set-${idx}" style="${isBacklog ? 'border-left: 4px solid #ff7684; background: rgba(220,53,69,0.01);' : ''}">
+                    <div class="puzzle-set-card approved ${isBacklog ? 'backlog-card' : ''}" id="approved-set-${idx}" style="${cardStyle}">
                         <!-- Title & Status Header -->
                         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-base); padding-bottom:12px; margin-bottom:12px;">
                             <div style="display:flex; align-items:center; gap:12px;">
                                 <div style="display:flex; align-items:center; gap:6px;">
                                     <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Challenge #</span>
-                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="Backlog" style="width:65px; padding:3px 6px; font-size:13px; text-align:center; font-weight:700; ${isBacklog ? 'color:#ff7684; background:rgba(220,53,69,0.1); border-color:#ff7684;' : ''}" onchange="updateChallengeNumber(${challengeIdx}, this.value)">
+                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="Backlog" style="width:65px; padding:3px 6px; font-size:13px; text-align:center; font-weight:700; ${isBacklog ? 'color:#ff7684; background:rgba(220,53,69,0.1); border-color:#ff7684;' : ''}" onchange="updateChallengeNumber(${challengeIdx}, this.value)" ${disabledAttr}>
                                 </div>
                                 <div style="display:flex; align-items:center; gap:6px;">
                                     <span style="font-size:14px; font-weight:700; color:var(--text-secondary);">Puzzle ID</span>
-                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puz_001" style="width:130px; padding:3px 6px; font-size:13px;" onchange="syncPuzzleBlock(${challengeIdx}, 'puzzle_id', this.value.trim())">
+                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puz_001" style="width:130px; padding:3px 6px; font-size:13px;" onchange="syncPuzzleBlock(${challengeIdx}, 'puzzle_id', this.value.trim())" ${disabledAttr}>
                                 </div>
                             </div>
                             <div style="display:flex; align-items:center; gap:12px;">
                                 <div style="display:flex; align-items:center; gap:6px;">
                                     <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Tier:</span>
-                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 2}" style="width:50px; padding:3px 8px; font-size:12px;" onchange="syncPuzzleBlock(${challengeIdx}, 'difficulty_tier', parseInt(this.value) || 2)">
+                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 2}" style="width:50px; padding:3px 8px; font-size:12px;" onchange="syncPuzzleBlock(${challengeIdx}, 'difficulty_tier', parseInt(this.value) || 2)" ${disabledAttr}>
                                 </div>
-                                <span style="font-size:11px; padding:3px 8px; border-radius:12px; font-weight:700; ${isBacklog ? 'background:rgba(220, 53, 69, 0.15); color:#ff7684;' : 'background:rgba(0, 245, 212, 0.15); color:var(--emerald);'}">
-                                    ${isBacklog ? '📦 BACKLOG' : '🟢 ACTIVE'}
+                                <span style="font-size:11px; padding:3px 8px; border-radius:12px; font-weight:700; ${isBacklog ? 'background:rgba(220, 53, 69, 0.15); color:#ff7684;' : (isToday ? 'background:rgba(0, 245, 212, 0.2); color:var(--emerald); border: 1px solid var(--emerald);' : 'background:rgba(0,0,0,0.08); color:var(--text-muted);')}">
+                                    ${isBacklog ? '📦 BACKLOG' : (isToday ? '🎯 TODAY\'S CHALLENGE' : '🔒 HISTORICAL ISSUE')}
                                 </span>
                             </div>
                         </div>
@@ -2485,50 +2571,57 @@
                             <div style="display:flex; flex-direction:column; gap:10px;">
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Parody Title</label>
-                                    <input type="text" value="${p.boss_pun_title.replace(/"/g, '&quot;')}" onchange="updateBossTitle(${challengeIdx}, this.value)">
+                                    <input type="text" value="${p.boss_pun_title.replace(/"/g, '&quot;')}" onchange="updateBossTitle(${challengeIdx}, this.value)" ${disabledAttr}>
                                 </div>
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Answer Blanks (Auto-Sync)</label>
-                                    <input type="text" value="${(p.answer || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'answer', this.value)" placeholder="e.g. ______ _____">
+                                    <input type="text" value="${(p.answer || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'answer', this.value)" placeholder="e.g. ______ _____" ${disabledAttr}>
                                 </div>
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Boss Pitch</label>
-                                    <textarea style="min-height:130px; line-height:1.45;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_pitch', this.value)">${p.boss_pitch}</textarea>
+                                    <textarea style="min-height:130px; line-height:1.45;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_pitch', this.value)" ${disabledAttr}>${p.boss_pitch}</textarea>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Boss Level Details & Hints -->
-                        <div class="step-block" style="border-color: ${isBacklog ? 'rgba(220, 53, 69, 0.3)' : 'rgba(0, 245, 212, 0.3)'}; background: ${isBacklog ? 'rgba(220, 53, 69, 0.005)' : 'rgba(0, 245, 212, 0.015)'}; margin-bottom: 10px;">
-                            <div style="font-weight:700; font-size:11px; color:${isBacklog ? '#ff7684' : 'var(--emerald)'}; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Level 4: Boss Quotes, Hints & Clues</div>
+                        <div class="step-block" style="border-color: ${isBacklog ? 'rgba(220, 53, 69, 0.3)' : (isToday ? 'rgba(0, 245, 212, 0.4)' : 'rgba(0,0,0,0.1)')}; background: ${isBacklog ? 'rgba(220, 53, 69, 0.005)' : (isToday ? 'rgba(0, 245, 212, 0.02)' : 'rgba(0,0,0,0.005)')}; margin-bottom: 10px;">
+                            <div style="font-weight:700; font-size:11px; color:${isBacklog ? '#ff7684' : (isToday ? 'var(--emerald)' : 'var(--text-muted)')}; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;">Level 4: Boss Quotes, Hints & Clues</div>
                             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 2 (Original Movie)</label>
-                                    <input type="text" value="${(p.boss_original_title || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_title', this.value)">
+                                    <input type="text" value="${(p.boss_original_title || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_title', this.value)" ${disabledAttr}>
                                 </div>
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Hint 3 (First Letters blanks - Auto-Sync)</label>
-                                    <input type="text" value="${(p.boss_hint2 || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_hint2', this.value)" placeholder="e.g. S_____ H____">
+                                    <input type="text" value="${(p.boss_hint2 || '').replace(/"/g, '&quot;')}" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_hint2', this.value)" placeholder="e.g. S_____ H____" ${disabledAttr}>
                                 </div>
                             </div>
                             <div style="display:flex; flex-direction:column; gap:10px;">
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Boss Parody Quote (Punned Quote - Challenges Player)</label>
-                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_punned_quote', this.value)">${p.boss_punned_quote || ''}</textarea>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_punned_quote', this.value)" ${disabledAttr}>${p.boss_punned_quote || ''}</textarea>
                                 </div>
                                 <div style="display:flex; flex-direction:column; gap:4px;">
                                     <label style="font-size:10px; color:var(--text-muted); font-weight:600;">Original Quote</label>
-                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_quote', this.value)">${p.boss_original_quote || ''}</textarea>
+                                    <textarea style="min-height:85px; padding:6px 10px; line-height:1.4;" onchange="syncPuzzleBlock(${challengeIdx}, 'boss_original_quote', this.value)" ${disabledAttr}>${p.boss_original_quote || ''}</textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-actions" style="margin-top:auto; display:flex; justify-content:space-between; gap:10px;">
-                            <button class="btn btn-danger" style="padding:6px 12px;" onclick="deleteEntirePuzzle(${challengeIdx})">🗑️ Delete Puzzle</button>
-                            <div style="display:flex; gap:8px;">
-                                ${isBacklog ? `<button class="btn btn-emerald" onclick="scheduleBacklogPuzzle(${challengeIdx})">➕ Schedule</button>` : `<button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'puzzle_number', '')">📦 Move to Backlog</button>`}
-                                <button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'status', 'pending')">Review Pending</button>
-                            </div>
+                        <div class="card-actions" style="margin-top:auto; display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                            ${isPrevious ? `
+                                <div style="font-size:11px; font-weight:700; color:var(--text-muted); display:flex; align-items:center; gap:6px; letter-spacing:0.5px;">
+                                    🔒 HISTORICAL PUZZLE (LOCKED & FIXED IN POSITION)
+                                </div>
+                                <div></div>
+                            ` : `
+                                <button class="btn btn-danger" style="padding:6px 12px;" onclick="deleteEntirePuzzle(${challengeIdx})">🗑️ Delete Puzzle</button>
+                                <div style="display:flex; gap:8px;">
+                                    ${isBacklog ? `<button class="btn btn-emerald" onclick="scheduleBacklogPuzzle(${challengeIdx})">➕ Schedule</button>` : `<button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'puzzle_number', '')">📦 Move to Backlog</button>`}
+                                    <button class="btn btn-secondary" onclick="syncPuzzleBlock(${challengeIdx}, 'status', 'pending')">Review Pending</button>
+                                </div>
+                            `}
                         </div>
                     </div>
                 `;
@@ -2536,10 +2629,23 @@
         }
 
         function updateChallengeNumber(puzzleIdx, val) {
+            const todayIssueStr = getTodayIssueStr();
+            const currentPuzzle = puzzles[puzzleIdx];
+            if (currentPuzzle && currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayIssueStr)) {
+                showToast("Cannot edit a historical puzzle!", "error");
+                renderApprovedPuzzlesTab();
+                return;
+            }
+
             const parsed = parseInt(val);
             if (val === "" || isNaN(parsed)) {
                 puzzles[puzzleIdx].puzzle_number = "";
             } else {
+                if (parsed < parseInt(todayIssueStr)) {
+                    showToast(`Cannot schedule a puzzle for a historical day (before ${todayIssueStr})!`, "error");
+                    renderApprovedPuzzlesTab();
+                    return;
+                }
                 puzzles[puzzleIdx].puzzle_number = padPuzzleNumber(parsed);
             }
             autoProcessCurationSchedule();
@@ -2554,6 +2660,18 @@
 
             const targetIdx = idx + dir;
             if (targetIdx < 0 || targetIdx >= activeChallenges.length) return; // boundary check
+
+            const todayIssueStr = getTodayIssueStr();
+            const currentPuzzle = activeChallenges[idx];
+            const targetPuzzle = activeChallenges[targetIdx];
+
+            if (
+                (currentPuzzle.puzzle_number && parseInt(currentPuzzle.puzzle_number) < parseInt(todayIssueStr)) ||
+                (targetPuzzle.puzzle_number && parseInt(targetPuzzle.puzzle_number) < parseInt(todayIssueStr))
+            ) {
+                showToast("Cannot move historical puzzles as they are fixed in position!", "error");
+                return;
+            }
 
             // Swap the two puzzles in the active challenges list
             const temp = activeChallenges[idx];
@@ -2658,14 +2776,22 @@
             );
 
             if (existingActive) {
+                const todayIssueStr = getTodayIssueStr();
+                if (parseInt(existingActive.puzzle_number) < parseInt(todayIssueStr)) {
+                    showToast(`Cannot unschedule historical puzzle for "${movie}"!`, "error");
+                    return;
+                }
                 existingActive.puzzle_number = "";
                 showToast(`Moved active challenge for "${movie}" to backlog to avoid clumping.`);
             }
 
             // Move to active schedule at the end
-            const approved = puzzles.filter(item => item.status === 'approved');
-            const activeCount = approved.filter(item => item.puzzle_number !== "").length;
-            p.puzzle_number = padPuzzleNumber(activeCount + 1);
+            const todayIssueStr = getTodayIssueStr();
+            const activePuzzles = puzzles.filter(item => item.status === 'approved' && item.puzzle_number !== "");
+            const puzzleNumbers = activePuzzles.map(item => parseInt(item.puzzle_number)).filter(num => !isNaN(num));
+            const maxNumber = puzzleNumbers.length > 0 ? Math.max(...puzzleNumbers) : 0;
+            const nextNumber = Math.max(parseInt(todayIssueStr), maxNumber + 1);
+            p.puzzle_number = padPuzzleNumber(nextNumber);
 
             showToast(`Scheduled "${p.boss_pun_title}" to active daily challenges.`);
             
