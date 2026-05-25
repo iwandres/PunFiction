@@ -24,19 +24,16 @@
                     <button id="btn-play-today" class="btn primary-btn" style="width: 100%;">🎯 PLAY NOW</button>
                 </div>
 
-                <!-- Yesterday's Challenge Comic Issue Cover -->
-                <div class="comic-card yesterday hidden" id="yesterday-issue-card">
-                    <span class="issue-tag">YESTERDAY'S ISSUE</span>
-                    <span class="issue-badge-solved hidden" id="yesterday-solved-badge">🌟 SOLVED</span>
-                    <h3 class="issue-title" id="yesterday-issue-title">Issue #???</h3>
-                    <p class="issue-meta" id="yesterday-issue-meta">Original: ???</p>
-                    <button id="btn-play-yesterday" class="btn outline-btn" style="width: 100%;">⏮️ REPLAY ISSUE</button>
-                </div>
             </div>
             
             <p style="font-size:10px; font-weight:900; color:rgba(0,0,0,0.3); text-transform:uppercase; letter-spacing:0.5px; text-align:center; margin-top:10px;">
                 * Issues update every day at 2:00 AM Pacific Time
             </p>
+
+            <!-- Link to Yesterday's Challenge at the bottom -->
+            <div id="yesterday-link-container" class="hidden" style="margin-top: 15px; text-align: center; width: 100%;">
+                <button id="btn-play-yesterday-link" class="btn outline-btn" style="padding: 8px 20px; font-size: 13px; transform: rotate(-1deg); width: 80%; max-width: 280px; margin: 0 auto; display: block;">⏮️ PLAY YESTERDAY'S CHALLENGE</button>
+            </div>
         </div>
 
         <!-- Game Screen -->

@@ -203,16 +203,23 @@ function renderLobbyCovers() {
         }
     }
 
-    // 2. Populate Yesterday's Card
-    const yesterdayCard = document.getElementById('yesterday-issue-card');
+    // 2. Populate Yesterday's Link
+    const yesterdayLinkContainer = document.getElementById('yesterday-link-container');
+    const btnPlayYesterdayLink = document.getElementById('btn-play-yesterday-link');
+
     if (yesterdayChallenge) {
-        const isSolved = solvedPuzzles.has(yesterdayChallenge.puzzle_number);
-        yesterdayCard.classList.remove('hidden');
-        document.getElementById('yesterday-issue-title').innerText = `Issue #${yesterdayChallenge.puzzle_number}: ${yesterdayChallenge.boss_pun_title}`;
-        document.getElementById('yesterday-issue-meta').innerText = `Original Movie: ${yesterdayChallenge.boss_original_title}`;
-        document.getElementById('yesterday-solved-badge').className = isSolved ? "issue-badge-solved" : "issue-badge-solved hidden";
+        if (yesterdayLinkContainer && btnPlayYesterdayLink) {
+            yesterdayLinkContainer.classList.remove('hidden');
+            const isYesterdaySolved = solvedPuzzles.has(yesterdayChallenge.puzzle_number);
+            btnPlayYesterdayLink.innerText = isYesterdaySolved 
+                ? `⏮️ REPLAY YESTERDAY'S ISSUE (#${yesterdayChallenge.puzzle_number})` 
+                : `⏮️ PLAY YESTERDAY'S CHALLENGE (#${yesterdayChallenge.puzzle_number})`;
+            btnPlayYesterdayLink.onclick = () => startGame(yesterdayChallenge);
+        }
     } else {
-        yesterdayCard.classList.add('hidden');
+        if (yesterdayLinkContainer) {
+            yesterdayLinkContainer.classList.add('hidden');
+        }
     }
 }
 
