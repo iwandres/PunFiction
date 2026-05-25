@@ -577,6 +577,42 @@ input:focus {
     z-index: -1;
 }
 
+@media (max-width: 767px) {
+    /* Keyboard Focused Compact Layout for Mobile Web Typing */
+    body.keyboard-focused .game-title-section {
+        display: none !important;
+    }
+
+    body.keyboard-focused .puzzle-card {
+        margin-top: 10px !important;
+        padding: 12px 15px !important;
+    }
+
+    body.keyboard-focused .quote {
+        font-size: 1.25rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    body.keyboard-focused .pitch {
+        padding: 8px 12px !important;
+        font-size: 0.82rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    body.keyboard-focused .hint-container {
+        display: none !important;
+    }
+
+    body.keyboard-focused .guess-slots-container {
+        margin-bottom: 15px !important;
+    }
+
+    body.keyboard-focused #btn-toggle-challenge {
+        display: none !important;
+    }
+}
+
+
 .feedback {
     margin-top: 15px;
     font-size: 0.95rem;

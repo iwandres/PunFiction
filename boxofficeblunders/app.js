@@ -67,6 +67,17 @@ window.onload = async () => {
         }
     };
     ui.guessInput.oninput = handleGuessInput;
+    ui.guessInput.addEventListener('focus', () => {
+        document.body.classList.add('keyboard-focused');
+        setTimeout(() => {
+            if (ui.guessSlotsContainer) {
+                ui.guessSlotsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 150);
+    });
+    ui.guessInput.addEventListener('blur', () => {
+        document.body.classList.remove('keyboard-focused');
+    });
     if (ui.guessSlotsContainer) {
         ui.guessSlotsContainer.onclick = () => ui.guessInput.focus();
     }
