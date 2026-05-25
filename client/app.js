@@ -294,8 +294,8 @@ function loadLevel() {
     // Hook up quote Display to Boss Parody Quote (the punned quote!)
     ui.quoteDisplay.innerText = activeChallenge.boss_punned_quote ? `"${activeChallenge.boss_punned_quote}"` : '"Quote Text Missing"';
     
-    // Hook up pitch Display to Comedic Plot Pitch with Hint #1 prefix
-    ui.pitchDisplay.innerText = `Hint #1: Parody Movie Plotline: ${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
+    // Hook up pitch Display to Comedic Plot Pitch with Hint #1 prefix (purple accent)
+    ui.pitchDisplay.innerHTML = `<span style="color: var(--text-secondary);">Hint #1: Parody Movie Plotline:</span> ${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
 
     // Setup input maxLength based on letters count in answer
     const letterCount = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
