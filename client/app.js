@@ -428,6 +428,8 @@ function handleGuessSubmit() {
     } else {
         ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
         ui.feedbackMsg.className = "feedback error";
+        ui.guessInput.value = '';
+        renderGuessSlots();
         shakeInput();
     }
 }
