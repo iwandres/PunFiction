@@ -1,6 +1,13 @@
 {
   "002": {
-    "start": 2,
+    "start": 3,
+    "solve_0": 0,
+    "solve_1": 0,
+    "solve_2": 0,
+    "solve_3": 0
+  },
+  "001": {
+    "start": 1,
     "solve_0": 0,
     "solve_1": 0,
     "solve_2": 0,
