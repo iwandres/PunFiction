@@ -1,5 +1,5 @@
 // Core Constants & CDN Paths
-const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iandres/PunFiction/main/backend";
+const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/main/backend";
 const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
 // Game State
@@ -397,7 +397,7 @@ function shareSolvedScore() {
     const copyText = `PunFiction Daily Issue #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
                      `🌟 Complete Streak: ${streak} solved issue(s)!\n` +
-                     `Play daily challenges at: https://iandres.github.io/PunFiction`;
+                     `Play daily challenges at: https://iwandres.github.io/PunFiction`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
