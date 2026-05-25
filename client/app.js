@@ -329,7 +329,6 @@ function loadLevel() {
     ui.btnShowHint2.classList.add('hidden');
     ui.btnShowHint3.classList.add('hidden');
 
-    ui.pitchDisplay.classList.add('hidden');
     ui.hint2Reveal.classList.add('hidden');
     ui.hint3Reveal.classList.add('hidden');
 
@@ -345,11 +344,11 @@ function loadLevel() {
 
     ui.movieHint.innerText = activeChallenge.boss_original_title || "Unknown";
     
-    // Hook up quote Display to Boss Parody Quote with dynamic rhyming word purple highlight!
-    ui.quoteDisplay.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
+    // Hook up quote Display to Boss Parody Quote (unhighlighted plain text on load!)
+    ui.quoteDisplay.innerText = activeChallenge.boss_punned_quote ? `"${activeChallenge.boss_punned_quote}"` : '"Quote Text Missing"';
     
-    // Hook up pitch Display to Comedic Plot Pitch with Hint #1 prefix (purple accent block header)
-    ui.pitchDisplay.innerHTML = `<span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">Hint #1: Parody Movie Plotline</span>${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
+    // Hook up pitch Display to Comedic Plot Pitch with simple title (always visible on load!)
+    ui.pitchDisplay.innerHTML = `<span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">Parody Movie Plotline</span>${activeChallenge.boss_pitch || 'Plot details unavailable.'}`;
 
     // Setup input maxLength based on letters count in answer
     const letterCount = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
@@ -369,7 +368,8 @@ function loadLevel() {
 
 function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
-    ui.pitchDisplay.classList.remove('hidden'); // Reveal Comedic Parody Plot Pitch
+    // Dynamically highlight the rhyming word inside the boss quote!
+    ui.quoteDisplay.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
     hintsUsed = 1;
 }
