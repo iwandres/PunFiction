@@ -935,7 +935,7 @@ input:focus {
 .rhyme-tag {
     color: #5f27cd;
     font-size: 0.72rem;
-    font-weight: 900;
+    font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background: #eae3f7;
