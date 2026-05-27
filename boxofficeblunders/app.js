@@ -76,9 +76,11 @@ const ui = {
     btnShowHint1: document.getElementById('btn-show-hint1'),
     btnShowHint2: document.getElementById('btn-show-hint2'),
     btnShowHint3: document.getElementById('btn-show-hint3'),
-    hint1Reveal: document.getElementById('hint1-reveal'),
+    btnShowHint4: document.getElementById('btn-show-hint4'),
+    hintDisplayBox: document.getElementById('hint-display-box'),
     movieHint: document.getElementById('movie-hint'),
-    hint3Reveal: document.getElementById('hint3-reveal'),
+    hintLettersSection: document.getElementById('section-hint-letters'),
+    hintVowelsSection: document.getElementById('section-hint-vowels'),
     lettersHint: document.getElementById('letters-hint'),
     btnSubmit: document.getElementById('btn-submit'),
     
@@ -405,9 +407,9 @@ function loadLevel() {
     ui.btnShowHint3.classList.add('hidden');
     ui.btnShowHint4.classList.add('hidden');
 
-    ui.hint1Reveal.classList.add('hidden');
-    ui.hint3Reveal.classList.add('hidden');
-    ui.hint4Reveal.classList.add('hidden');
+    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.add('hidden');
+    if (ui.hintLettersSection) ui.hintLettersSection.classList.add('hidden');
+    if (ui.hintVowelsSection) ui.hintVowelsSection.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
     ui.questionLabel.innerText = "Guess the parody movie title!";
@@ -445,7 +447,7 @@ function loadLevel() {
 
 function revealHint1() {
     ui.btnShowHint1.classList.add('hidden');
-    ui.hint1Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
+    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden'); // Reveal unified Hint Box
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
     hintsUsed = 1;
 }
@@ -492,7 +494,8 @@ function revealHint2() {
 
 function revealHint3() {
     ui.btnShowHint3.classList.add('hidden');
-    ui.hint3Reveal.classList.remove('hidden'); // Reveal First Letters blanks Pill
+    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
+    if (ui.hintLettersSection) ui.hintLettersSection.classList.remove('hidden'); // Reveal First Letters section inside box
     
     // Unlock Hint 4 button (Vowel Rush!)
     ui.btnShowHint4.classList.remove('hidden');
@@ -525,7 +528,8 @@ function revealHint3() {
 
 function revealHint4() {
     ui.btnShowHint4.classList.add('hidden');
-    ui.hint4Reveal.classList.remove('hidden'); // Reveal Vowel Rush Pill
+    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
+    if (ui.hintVowelsSection) ui.hintVowelsSection.classList.remove('hidden'); // Reveal Vowel Rush section inside box
     
     // Gracefully collapse the progressive hint buttons container since all buttons are now hidden
     const hintContainer = document.querySelector('.hint-container');

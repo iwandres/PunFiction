@@ -44,17 +44,21 @@
                 
                 <!-- hint reveals pills -->
                 <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%; margin-bottom: 15px;">
-                    <div id="hint1-reveal" class="hint-pill hidden">
-                        <span class="hint-label">Original Movie</span>
-                        <span id="movie-hint" class="hint-value">Movie Title</span>
-                    </div>
-                    <div id="hint3-reveal" class="hint-pill hidden">
-                        <span class="hint-label">First Letters</span>
-                        <span id="letters-hint" class="hint-value" style="font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: 1px;">Hint 3</span>
-                    </div>
-                    <div id="hint4-reveal" class="hint-pill hidden">
-                        <span class="hint-label">Vowel Rush Active</span>
-                        <span class="hint-value">All vowels have been filled in! 🅰️</span>
+                    <div id="hint-display-box" class="hint-pill hidden">
+                        <div class="hint-section" id="section-hint-movie">
+                            <span class="hint-label">Original Movie</span>
+                            <span id="movie-hint" class="hint-value">Movie Title</span>
+                        </div>
+                        
+                        <div class="hint-section hidden" id="section-hint-letters" style="margin-top: 10px; border-top: 2px dashed #cbd5e1; padding-top: 10px; width: 100%;">
+                            <span class="hint-label">First Letters</span>
+                            <span id="letters-hint" class="hint-value" style="font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: 1px;">Hint 3</span>
+                        </div>
+                        
+                        <div class="hint-section hidden" id="section-hint-vowels" style="margin-top: 10px; border-top: 2px dashed #cbd5e1; padding-top: 10px; width: 100%;">
+                            <span class="hint-label">Vowel Rush Active</span>
+                            <span class="hint-value" style="color: #ff4757; font-weight: 900; font-size: 0.95rem;">All vowels have been filled in! 🅰️</span>
+                        </div>
                     </div>
                 </div>
                 
