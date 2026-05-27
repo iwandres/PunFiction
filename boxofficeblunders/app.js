@@ -75,7 +75,7 @@ const ui = {
     btnShowHint1: document.getElementById('btn-show-hint1'),
     btnShowHint2: document.getElementById('btn-show-hint2'),
     btnShowHint3: document.getElementById('btn-show-hint3'),
-    hint2Reveal: document.getElementById('hint2-reveal'),
+    hint1Reveal: document.getElementById('hint1-reveal'),
     movieHint: document.getElementById('movie-hint'),
     hint3Reveal: document.getElementById('hint3-reveal'),
     lettersHint: document.getElementById('letters-hint'),
@@ -371,7 +371,7 @@ function loadLevel() {
     ui.btnShowHint2.classList.add('hidden');
     ui.btnShowHint3.classList.add('hidden');
 
-    ui.hint2Reveal.classList.add('hidden');
+    ui.hint1Reveal.classList.add('hidden');
     ui.hint3Reveal.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
@@ -409,10 +409,17 @@ function loadLevel() {
 }
 
 function revealHint1() {
-    const btn = ui.btnShowHint1;
+    ui.btnShowHint1.classList.add('hidden');
+    ui.hint1Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
+    ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
+    hintsUsed = 1;
+}
+
+function revealHint2() {
+    const btn = ui.btnShowHint2;
     const btnRect = btn.getBoundingClientRect();
     
-    // Get start coordinates (center of the Hint 1 button)
+    // Get start coordinates (center of the Hint 2 button)
     const startX = btnRect.left + btnRect.width / 2 + window.scrollX;
     const startY = btnRect.top + btnRect.height / 2 + window.scrollY;
     
@@ -437,22 +444,15 @@ function revealHint1() {
             // Once the arc reaches the target, reveal the purple highlight on all rhyme words
             rhymeWordEls.forEach(el => el.classList.add('revealed'));
             
-            // Unlock Hint 2 button
-            ui.btnShowHint2.classList.remove('hidden');
-            hintsUsed = 1;
+            // Unlock Hint 3 button
+            ui.btnShowHint3.classList.remove('hidden');
+            hintsUsed = 2;
         });
     } else {
         // Fallback if no rhyme word was detected
-        ui.btnShowHint2.classList.remove('hidden');
-        hintsUsed = 1;
+        ui.btnShowHint3.classList.remove('hidden');
+        hintsUsed = 2;
     }
-}
-
-function revealHint2() {
-    ui.btnShowHint2.classList.add('hidden');
-    ui.hint2Reveal.classList.remove('hidden'); // Reveal Original Movie Title Pill
-    ui.btnShowHint3.classList.remove('hidden'); // Unlock Hint 3 button
-    hintsUsed = 2;
 }
 
 function revealHint3() {
