@@ -46,6 +46,7 @@ let todayChallenge = null;
 let yesterdayChallenge = null;
 let activeChallenge = null; // Currently playing challenge
 let hint3Active = false; // Flag for Hint 3 (first letters populated)
+let hint4Active = false; // Flag for Hint 4 (vowels populated)
 let hintsUsed = 0; // Number of progressive hints used
 
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
@@ -130,6 +131,7 @@ window.onload = async () => {
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
+    ui.btnShowHint4.onclick = revealHint4;
  
     // Fullscreen Poster Modal bindings
     const posterModal = document.getElementById('poster-modal');
@@ -295,6 +297,7 @@ function startGame(challenge) {
     if (!challenge) return;
     activeChallenge = challenge;
     hint3Active = false;
+    hint4Active = false;
     hintsUsed = 0;
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
@@ -351,6 +354,7 @@ function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
 
 function loadLevel() {
     hint3Active = false;
+    hint4Active = false;
     hintsUsed = 0;
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
@@ -370,9 +374,11 @@ function loadLevel() {
     ui.btnShowHint1.classList.remove('hidden');
     ui.btnShowHint2.classList.add('hidden');
     ui.btnShowHint3.classList.add('hidden');
+    ui.btnShowHint4.classList.add('hidden');
 
     ui.hint1Reveal.classList.add('hidden');
     ui.hint3Reveal.classList.add('hidden');
+    ui.hint4Reveal.classList.add('hidden');
 
     // --- PUZZLE DIRECT PLAY ---
     ui.questionLabel.innerText = "Guess the parody movie title!";
@@ -459,11 +465,8 @@ function revealHint3() {
     ui.btnShowHint3.classList.add('hidden');
     ui.hint3Reveal.classList.remove('hidden'); // Reveal First Letters blanks Pill
     
-    // Gracefully collapse the progressive hint buttons container since all buttons are now hidden
-    const hintContainer = document.querySelector('.hint-container');
-    if (hintContainer) {
-        hintContainer.classList.add('collapsed');
-    }
+    // Unlock Hint 4 button (Vowel Rush!)
+    ui.btnShowHint4.classList.remove('hidden');
     
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
@@ -483,6 +486,36 @@ function revealHint3() {
     ui.guessInput.value = '';
 
     // Render slots immediately with prefilled letters in correct positions
+    renderGuessSlots();
+
+    // Auto-focus input
+    setTimeout(() => {
+        ui.guessInput.focus();
+    }, 100);
+}
+
+function revealHint4() {
+    ui.btnShowHint4.classList.add('hidden');
+    ui.hint4Reveal.classList.remove('hidden'); // Reveal Vowel Rush Pill
+    
+    // Gracefully collapse the progressive hint buttons container since all buttons are now hidden
+    const hintContainer = document.querySelector('.hint-container');
+    if (hintContainer) {
+        hintContainer.classList.add('collapsed');
+    }
+    
+    hintsUsed = 4;
+    hint4Active = true;
+
+    // Recalculate input maxLength based on remaining letters to type
+    const totalLetters = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
+    const prefilledIndices = getPrefilledIndices(activeChallenge.boss_pun_title);
+    ui.guessInput.maxLength = totalLetters - prefilledIndices.length;
+
+    // Clear input to allow fresh typing of remaining letters
+    ui.guessInput.value = '';
+
+    // Render slots immediately with prefilled letters & vowels in correct positions
     renderGuessSlots();
 
     // Auto-focus input
@@ -534,11 +567,31 @@ function getFirstLetterIndices(title) {
     return indices;
 }
 
+function getPrefilledIndices(title) {
+    const indices = [];
+    let letterIdx = 0;
+    
+    const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
+    
+    for (let i = 0; i < title.length; i++) {
+        const char = title[i];
+        if (/[a-zA-Z]/.test(char)) {
+            const isFirstLetter = firstLetterIndices.includes(letterIdx);
+            const isVowelChar = hint4Active && /[aeiouAEIOU]/.test(char);
+            if (isFirstLetter || isVowelChar) {
+                indices.push(letterIdx);
+            }
+            letterIdx++;
+        }
+    }
+    return indices;
+}
+
 function getCompleteGuessString() {
     if (!activeChallenge) return '';
     const title = activeChallenge.boss_pun_title;
     const currentGuess = ui.guessInput.value;
-    const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
+    const prefilledIndices = getPrefilledIndices(title);
     
     let completeStr = '';
     let letterIdx = 0;
@@ -547,7 +600,7 @@ function getCompleteGuessString() {
     for (let i = 0; i < title.length; i++) {
         const char = title[i];
         if (/[a-zA-Z]/.test(char)) {
-            if (firstLetterIndices.includes(letterIdx)) {
+            if (prefilledIndices.includes(letterIdx)) {
                 completeStr += char;
             } else {
                 completeStr += currentGuess[typedIdx] || '';
@@ -571,7 +624,7 @@ function renderGuessSlots() {
     let html = '';
     let activeHighlighted = false;
     
-    // Get first letter indices if Hint 3 is active
+    const prefilledIndices = getPrefilledIndices(title);
     const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
     
     let letterIdx = 0; // index in the letter sequence of the title
@@ -603,7 +656,7 @@ function renderGuessSlots() {
             for (let j = 0; j < wordChars.length; j++) {
                 const wChar = wordChars[j];
                 if (/[a-zA-Z]/.test(wChar)) {
-                    const isPrefilled = firstLetterIndices.includes(letterIdx);
+                    const isPrefilled = prefilledIndices.includes(letterIdx);
                     let displayChar = '';
                     let isFilled = false;
                     let isPrefilledStyle = false;
@@ -628,6 +681,12 @@ function renderGuessSlots() {
                     if (isLetterActive) {
                         classes += ' active';
                         activeHighlighted = true;
+                    }
+                    
+                    // Highlight Hint 4 newly-revealed vowels with the vowel-rush class for animation
+                    const isVowelReveal = hint4Active && isPrefilled && /[aeiouAEIOU]/.test(wChar) && !firstLetterIndices.includes(letterIdx);
+                    if (isVowelReveal) {
+                        classes += ' vowel-rush';
                     }
                     
                     wordHtml += `<span class="${classes}">${displayChar || '&nbsp;'}</span>`;
@@ -717,6 +776,8 @@ function triggerVictory() {
             bannerEl.innerText = "BRILLIANT DIRECTING! 🎬";
         } else if (hintsUsed === 2) {
             bannerEl.innerText = "GREAT SOLVE! 🎟️";
+        } else if (hintsUsed === 3) {
+            bannerEl.innerText = "YOU CRACKED IT! 🍿";
         } else {
             bannerEl.innerText = "PHEW! YOU SURVIVED! 🎭";
         }
@@ -732,8 +793,11 @@ function triggerVictory() {
         } else if (hintsUsed === 2) {
             subtitleEl.innerHTML = `Solved with <span style="color: var(--text-secondary); font-weight: 800;">2 Hints</span>. You cracked the code and saved the production! Solid work! ⭐`;
             subtitleEl.style.color = "";
-        } else {
+        } else if (hintsUsed === 3) {
             subtitleEl.innerHTML = `Solved with <span style="color: var(--accent-main); font-weight: 800;">3 Hints</span>. The director's cut is safe and the show must go on! Keep practicing! 🎬`;
+            subtitleEl.style.color = "";
+        } else {
+            subtitleEl.innerHTML = `Solved with <span style="color: #ff4757; font-weight: 800;">4 Hints (Vowel Rush!)</span>. You made it across the finish line! Keep on playin'! 🌟`;
             subtitleEl.style.color = "";
         }
     }
@@ -890,7 +954,7 @@ function shareSolvedScore() {
     const streak = solvedList.size;
 
     // Add hint count to the share text
-    const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/3 hints used 💡`;
+    const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/4 hints used 💡`;
 
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
