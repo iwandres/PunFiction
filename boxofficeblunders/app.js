@@ -79,6 +79,7 @@ const ui = {
     btnShowHint4: document.getElementById('btn-show-hint4'),
     hintDisplayBox: document.getElementById('hint-display-box'),
     movieHint: document.getElementById('movie-hint'),
+    hintRhymeSection: document.getElementById('section-hint-rhyme'),
     hintLettersSection: document.getElementById('section-hint-letters'),
     hintVowelsSection: document.getElementById('section-hint-vowels'),
     lettersHint: document.getElementById('letters-hint'),
@@ -408,6 +409,7 @@ function loadLevel() {
     ui.btnShowHint4.classList.add('hidden');
 
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.add('hidden');
+    if (ui.hintRhymeSection) ui.hintRhymeSection.classList.add('hidden');
     if (ui.hintLettersSection) ui.hintLettersSection.classList.add('hidden');
     if (ui.hintVowelsSection) ui.hintVowelsSection.classList.add('hidden');
 
@@ -462,6 +464,10 @@ function revealHint2() {
     
     // Hide the button
     btn.classList.add('hidden');
+    
+    // Reveal Hint 2 section in consolidated Hint Box below Original Movie
+    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
+    if (ui.hintRhymeSection) ui.hintRhymeSection.classList.remove('hidden');
     
     // Dynamically render the quote with the rhyming word elements (initially unrevealed)
     ui.quoteDisplay.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
