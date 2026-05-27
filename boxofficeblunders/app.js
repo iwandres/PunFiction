@@ -161,6 +161,35 @@ window.onload = async () => {
         };
     }
 
+    // How to Play Modal bindings
+    const howToPlayModal = document.getElementById('how-to-play-modal');
+    const btnHowToPlay = document.getElementById('btn-how-to-play');
+    const btnCloseHowToPlay = document.getElementById('btn-close-how-to-play');
+
+    if (btnHowToPlay) {
+        btnHowToPlay.onclick = () => {
+            if (howToPlayModal) {
+                howToPlayModal.classList.add('active');
+            }
+        };
+    }
+
+    if (btnCloseHowToPlay) {
+        btnCloseHowToPlay.onclick = () => {
+            if (howToPlayModal) {
+                howToPlayModal.classList.remove('active');
+            }
+        };
+    }
+
+    if (howToPlayModal) {
+        howToPlayModal.onclick = (e) => {
+            if (e.target === howToPlayModal) {
+                howToPlayModal.classList.remove('active');
+            }
+        };
+    }
+
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
 };

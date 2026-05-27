@@ -21,6 +21,7 @@
             <!-- Puzzle Content (Neobrutalist Comic Card) -->
             <div class="puzzle-card">
                 <span class="level-indicator" id="challenge-header">Challenge #???</span>
+                <button id="btn-how-to-play" class="how-to-play-btn" title="How to Play">❓</button>
                 
                 <p class="question-subtext" style="font-weight: 900; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; margin-top: 10px; letter-spacing: 0.5px; opacity: 0.85; width: 100%; text-align: center;">Guess the movie based on the fictional quote</p>
                 
@@ -138,6 +139,34 @@
     <div id="poster-modal" class="poster-modal">
         <button id="btn-close-modal" class="modal-close-btn">&times;</button>
         <img id="modal-poster-img" src="" alt="Enlarged Poster">
+    </div>
+
+    <!-- How to Play Modal -->
+    <div id="how-to-play-modal" class="poster-modal">
+        <div class="how-to-play-card">
+            <button id="btn-close-how-to-play" class="modal-close-btn">&times;</button>
+            <h2 class="how-to-play-title">🎬 HOW TO PLAY</h2>
+            <div class="how-to-play-content">
+                <p style="margin-top: 0; line-height: 1.5; font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">In <strong>PunFiction: Box Office Blunders</strong>, your goal is to guess a hilarious <strong>parody movie title</strong> based on its comedic plot and a punned movie quote!</p>
+                
+                <div class="example-box">
+                    <h3 class="example-header">🍿 THE "JAWS" EXAMPLE:</h3>
+                    <p style="margin: 4px 0; font-size: 0.88rem; font-weight: 700; color: var(--text-primary);"><strong>Original Movie:</strong> Jaws</p>
+                    <p style="margin: 4px 0; font-size: 0.88rem; font-weight: 700; color: var(--text-primary);"><strong>Original Quote:</strong> "You're gonna need a bigger <em>boat</em>."</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <p style="margin: 4px 0; font-size: 0.88rem; font-weight: 700; color: var(--text-primary); line-height: 1.4;"><strong>Comedic Plot:</strong> A giantGreat White shark terrorizes a ski resort town by freezing the water and judging people's outerwear.</p>
+                    <p style="margin: 4px 0; font-size: 0.88rem; font-weight: 700; color: var(--text-primary);"><strong>Parody Quote:</strong> "You're gonna need a bigger <strong>coat</strong>!" <span class="rhyme-tag">(Rhymes with boat!)</span></p>
+                    
+                    <div class="divider"></div>
+                    
+                    <p class="final-answer-line" style="margin: 10px 0 0 0;"><strong>Parody Answer:</strong> <span>THAWS</span> <span class="rhyme-tag">(Rhymes with Jaws!)</span></p>
+                </div>
+                
+                <p class="how-to-play-tip">💡 <strong>Pro Tip:</strong> Use the progressive hints at the bottom if you get stuck! They show the original movie title, highlight the pun, and even fill in letters and vowels!</p>
+            </div>
+        </div>
     </div>
 
     <script src="app.js?v=1.19"></script>

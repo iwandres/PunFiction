@@ -811,6 +811,148 @@ input:focus {
     box-shadow: 1px 1px 0px var(--border-color);
 }
 
+/* ================= HOW TO PLAY OVERLAY STYLING ================= */
+
+.how-to-play-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.1s ease;
+    padding: 0;
+}
+
+.how-to-play-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.how-to-play-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--border-color);
+}
+
+.how-to-play-card {
+    background: #ffffff;
+    border: 4px solid var(--border-color);
+    box-shadow: 8px 8px 0px var(--border-color);
+    border-radius: 16px;
+    padding: 30px 25px;
+    width: 90vw;
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    text-align: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.how-to-play-card .modal-close-btn {
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.how-to-play-card .modal-close-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--border-color);
+}
+
+.how-to-play-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.how-to-play-content p {
+    margin-bottom: 12px;
+}
+
+.example-box {
+    background: #f8f6ff;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px rgba(95, 39, 205, 0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+}
+
+.example-header {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: #5f27cd;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.example-box .divider {
+    border-top: 2px dashed #b2bec3;
+    margin: 12px 0;
+    width: 100%;
+}
+
+.final-answer-line {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.final-answer-line span {
+    color: #ff4757;
+    background: #fff9db;
+    border: 2px solid var(--border-color);
+    padding: 2px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 2px 2px 0px var(--border-color);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.rhyme-tag {
+    color: #5f27cd;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #eae3f7;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    display: inline-block;
+}
+
+.how-to-play-tip {
+    background: #fffde5;
+    border: 2px solid var(--border-color);
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
 .victory-meta-box {
     text-align: center;
     width: 100%;
