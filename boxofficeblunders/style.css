@@ -460,6 +460,12 @@ body {
     cursor: text;
 }
 
+.guess-word {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+
 .guess-letter-slot {
     font-family: var(--font-heading);
     font-size: 1.6rem;

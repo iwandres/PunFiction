@@ -577,46 +577,68 @@ function renderGuessSlots() {
     let letterIdx = 0; // index in the letter sequence of the title
     let typedIdx = 0;  // index in the user's typed guessInput string
     
-    for (let i = 0; i < title.length; i++) {
+    const separators = [' ', '-', ':', '.', ',', ';'];
+    let i = 0;
+    
+    while (i < title.length) {
         const char = title[i];
-        if (/[a-zA-Z]/.test(char)) {
-            // Check if this letter is a prefilled first letter
-            const isPrefilled = firstLetterIndices.includes(letterIdx);
-            
-            let displayChar = '';
-            let isFilled = false;
-            let isPrefilledStyle = false;
-            
-            if (isPrefilled) {
-                displayChar = char; // display the actual letter from the title
-                isFilled = true;
-                isPrefilledStyle = true;
-            } else {
-                displayChar = currentGuess[typedIdx] || '';
-                if (displayChar !== '') {
-                    isFilled = true;
-                    typedIdx++;
-                }
-            }
-            
-            const isLetterActive = !isFilled && !activeHighlighted;
-            
-            let classes = 'guess-letter-slot';
-            if (isFilled) classes += ' filled';
-            if (isPrefilledStyle) classes += ' prefilled';
-            if (isLetterActive) {
-                classes += ' active';
-                activeHighlighted = true;
-            }
-            
-            html += `<span class="${classes}">${displayChar || '&nbsp;'}</span>`;
-            letterIdx++;
-        } else {
+        
+        if (separators.includes(char)) {
+            // Render separators outside of word containers to allow wrapping at separator boundaries
             if (char === ' ') {
                 html += `<span class="guess-separator-space">&nbsp;</span>`;
             } else {
                 html += `<span class="guess-separator-char">${char}</span>`;
             }
+            i++;
+        } else {
+            // Collect all contiguous non-separator characters to form a word container
+            let wordChars = '';
+            while (i < title.length && !separators.includes(title[i])) {
+                wordChars += title[i];
+                i++;
+            }
+            
+            let wordHtml = '';
+            for (let j = 0; j < wordChars.length; j++) {
+                const wChar = wordChars[j];
+                if (/[a-zA-Z]/.test(wChar)) {
+                    const isPrefilled = firstLetterIndices.includes(letterIdx);
+                    let displayChar = '';
+                    let isFilled = false;
+                    let isPrefilledStyle = false;
+                    
+                    if (isPrefilled) {
+                        displayChar = wChar; // display the actual letter from the title
+                        isFilled = true;
+                        isPrefilledStyle = true;
+                    } else {
+                        displayChar = currentGuess[typedIdx] || '';
+                        if (displayChar !== '') {
+                            isFilled = true;
+                            typedIdx++;
+                        }
+                    }
+                    
+                    const isLetterActive = !isFilled && !activeHighlighted;
+                    
+                    let classes = 'guess-letter-slot';
+                    if (isFilled) classes += ' filled';
+                    if (isPrefilledStyle) classes += ' prefilled';
+                    if (isLetterActive) {
+                        classes += ' active';
+                        activeHighlighted = true;
+                    }
+                    
+                    wordHtml += `<span class="${classes}">${displayChar || '&nbsp;'}</span>`;
+                    letterIdx++;
+                } else {
+                    // Non-letter characters within a word (e.g. apostrophes) are rendered inside the word container
+                    wordHtml += `<span class="guess-separator-char">${wChar}</span>`;
+                }
+            }
+            
+            html += `<span class="guess-word">${wordHtml}</span>`;
         }
     }
     
