@@ -833,6 +833,21 @@
             from { text-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
             to { text-shadow: 0 0 15px rgba(0, 242, 254, 0.6); }
         }
+
+        /* Approved List Row Clickable Hovers */
+        #approved-puzzles-sort-list tr, 
+        #approved-puzzles-backlog-list tr {
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        #approved-puzzles-sort-list tr:hover {
+            background: rgba(0, 242, 254, 0.04) !important;
+            transform: translateX(4px);
+        }
+        #approved-puzzles-backlog-list tr:hover {
+            background: rgba(255, 118, 132, 0.04) !important;
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
@@ -2464,7 +2479,7 @@
                         }
 
                         return `
-                            <tr style="${rowStyles}">
+                            <tr style="${rowStyles}" onclick="if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') scrollToPuzzleCard(${idx})">
                                 <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
                                 <td style="padding: 10px;">
                                     ${inputHtml}
@@ -2494,7 +2509,7 @@
                         const originalMovie = p.boss_original_title || p.movie || "Unknown";
 
                         return `
-                            <tr style="border-bottom: 1px solid var(--border-base); vertical-align: middle; background: rgba(255, 255, 255, 0.015);">
+                            <tr style="border-bottom: 1px solid var(--border-base); vertical-align: middle; background: rgba(255, 255, 255, 0.015);" onclick="if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') scrollToPuzzleCard(${activeChallenges.length + idx})">
                                 <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
                                 <td style="padding: 10px; font-weight:600; color:#ff7684;">${p.boss_pun_title}</td>
                                 <td style="padding: 10px;">🍿 ${originalMovie}</td>
@@ -2807,6 +2822,27 @@
                 const rest = word.slice(1).replace(/[a-zA-Z]/g, "_");
                 return firstLetter + rest;
             }).join(' ');
+        }
+
+        function scrollToPuzzleCard(pIndex) {
+            const el = document.getElementById(`approved-set-${pIndex}`);
+            if (el) {
+                // Smooth scroll to the matching metadata card on the right-hand panel
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Add a temporary glowing border & shadow highlight to guide the user's focus
+                el.style.transition = 'all 0.3s ease';
+                const originalBorder = el.style.borderColor || '';
+                const originalShadow = el.style.boxShadow || '';
+                
+                el.style.borderColor = '#00f2fe';
+                el.style.boxShadow = '0 0 20px rgba(0, 242, 254, 0.45)';
+                
+                setTimeout(() => {
+                    el.style.borderColor = originalBorder;
+                    el.style.boxShadow = originalShadow;
+                }, 1500);
+            }
         }
 
         function syncThematicBlock(gameIdx, stepIdx, key, val) {
