@@ -71,15 +71,24 @@ def main():
     We have an existing square (1:1) parody movie poster for a film called '{parody_title}'.
     We want to reformat it as a standard vertical movie poster (2:3 aspect ratio).
     
-    Analyze the attached image in detail:
+    Analyze the attached image in detail, paying special attention to:
     1. Visual Style: Specifically the style characteristics of style category '{style_key}'.
     2. Color Scheme: The exact color palette used in the image.
-    3. Composition: The central figure(s) and artistic elements.
-    4. Typography: The exact placement, font style, and scaling of the movie title text "{parody_title}".
+    3. Composition: The central figure(s), layout, and artistic elements.
+    4. Text and Typography: 
+       - Identify the exact movie title text "{parody_title}" and its stylistic rendering.
+       - Locate, transcribe, and list ALL other text elements, taglines, credits, custom badges, or emblems present on the poster (e.g., taglines like "COMING SOON TO A THEATRE NEAR YOU", "A GOLDFISH PRODUCTION", custom badges/emblems like "WPA" shield).
     
-    Generate a highly detailed, professional prompt for an image generator (Imagen 3) to replicate this exact poster look and feel, composition, character layout, color palette, and typography, but optimized for a vertical 2:3 movie poster format.
+    Generate a highly detailed, professional prompt for an image generator (like Imagen 4) to replicate this exact poster look and feel, composition, character layout, color palette, and all textual elements, but optimized for a vertical 2:3 movie poster format.
     
-    The prompt must end with this instruction: 'CRITICAL INSTRUCTION: You must prominently feature the exact text "{parody_title}" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any studio shields, globes, or branding.'
+    In your generated prompt, you must explicitly describe where to place and how to render every single text string found in the original, including the title, taglines, studio credits, and badges, to ensure they are not dropped.
+    
+    The prompt must end with a CRITICAL INSTRUCTION listing the exact texts to be rendered, structured exactly like this:
+    'CRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:
+    1. "{parody_title}" as the main movie title.
+    2. [Insert other found text strings, e.g. "COMING SOON TO A THEATRE NEAR YOU"] positioned near the bottom center in a clean, matching font.
+    3. [Insert any other text strings or badges, e.g. "A GOLDFISH PRODUCTION", "WPA"] in their original styles.
+    Ensure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.'
     
     Return only the optimized prompt string. Do not include markdown code block formatting.
     """
