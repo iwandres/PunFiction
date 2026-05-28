@@ -44,9 +44,9 @@
     "parody_title": "Temp-work",
     "original_movie": "Network",
     "style_key": "saul_bass",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Temp-work' (Parodying a famous classic film). Create this entirely in the style of: 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism, stark contrasting colors (heavy red, black, and white). It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A disgruntled temporary employee hijacks the corporate intercom system to furiously denounce the Human Resources department and their abysmal lack of dental benefits.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Temp-work\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster, 1960s Saul Bass minimalist paper-cutout style. Flat colors: crimson red, stark black, pure white. Top: Large, jagged block text \"TEMP-WORK\" on a red background. Mid-left: Stylized, angular angry man in a black suit yelling into a microphone. Center: Red megaphone blasting jagged red sound waves. Bottom right: Abstract, chaotic tumbling cutout figures in black and red, some labeled \"HR\" and \"MANAGEMENT\", with downward arrows and a broken white tooth icon. Solid, contrasting geometric background shapes. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Temp-work\" as the movie title on the poster in a stylized, bold, paper-cutout font. Do not include any studio shields, globes, or branding.",
     "generated": true,
-    "image_path": "/assets/posters/temp_work_poster_new_1778767429843.png",
+    "image_path": "/assets/posters/temp_work_poster_vertical_1779940282.png",
     "status": "approved"
   },
   {
