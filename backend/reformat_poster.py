@@ -2,6 +2,7 @@ import os
 import json
 import time
 import io
+import argparse
 from PIL import Image
 from google import genai
 from google.genai import types
@@ -12,10 +13,12 @@ def main():
     posters_state_file = os.path.join(backend_dir, 'poster_prompts_state.json')
     assets_dir = os.path.join(backend_dir, 'assets', 'posters')
     
-    # Target poster details
-    pun_id = "quote_006_1778210473628"
-    original_filename = "temp_work_poster_new_1778767429843.png"
-    original_filepath = os.path.join(assets_dir, original_filename)
+    # Setup argument parser
+    parser = argparse.ArgumentParser(description="Reformat a parody movie poster to vertical aspect ratio.")
+    parser.add_argument("--pun_id", type=str, default="quote_006_1778210473628", help="Target pun_id")
+    args = parser.parse_args()
+    
+    pun_id = args.pun_id
     
     # Initialize Gemini API Client
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -25,6 +28,35 @@ def main():
         
     client = genai.Client(api_key=api_key)
     
+    # Load poster_prompts_state.json to find original_filename and details
+    if not os.path.exists(posters_state_file):
+        print(f"CRITICAL ERROR: {posters_state_file} not found.")
+        return
+        
+    with open(posters_state_file, 'r', encoding='utf-8') as f:
+        state_data = json.load(f)
+        
+    target_entry = None
+    for entry in state_data:
+        if entry.get('pun_id') == pun_id:
+            target_entry = entry
+            break
+            
+    if not target_entry:
+        print(f"CRITICAL ERROR: pun_id '{pun_id}' not found in {posters_state_file}.")
+        return
+        
+    image_path = target_entry.get('image_path', '')
+    if not image_path:
+        print(f"CRITICAL ERROR: No image_path found for pun_id '{pun_id}'.")
+        return
+        
+    original_filename = os.path.basename(image_path)
+    original_filepath = os.path.join(assets_dir, original_filename)
+    
+    parody_title = target_entry.get('parody_title', 'movie')
+    style_key = target_entry.get('style_key', 'style')
+    
     if not os.path.exists(original_filepath):
         print(f"CRITICAL ERROR: Original poster not found at {original_filepath}")
         return
@@ -33,21 +65,21 @@ def main():
     original_image = Image.open(original_filepath)
     
     # Stage 1: Analyze existing poster using Gemini 3.1 Pro
-    print("\nStep 2: Sending original image to Gemini 3.1 Pro for style & layout analysis...")
-    analysis_prompt = """
+    print(f"\nStep 2: Sending original image to Gemini 3.1 Pro for style & layout analysis (Title: '{parody_title}', Style: '{style_key}')...")
+    analysis_prompt = f"""
     You are a master graphic designer and professional movie poster illustrator.
-    We have an existing square (1:1) parody movie poster for a film called 'Temp-work'.
+    We have an existing square (1:1) parody movie poster for a film called '{parody_title}'.
     We want to reformat it as a standard vertical movie poster (2:3 aspect ratio).
     
     Analyze the attached image in detail:
-    1. Visual Style: Specifically the 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism.
-    2. Color Scheme: The exact color palette (contrasting red, black, and white).
-    3. Composition: The central figure (disgruntled temporary employee) and corporate elements (intercom/microphone/speakers).
-    4. Typography: The exact placement, font style, and scaling of the movie title text "Temp-work".
+    1. Visual Style: Specifically the style characteristics of style category '{style_key}'.
+    2. Color Scheme: The exact color palette used in the image.
+    3. Composition: The central figure(s) and artistic elements.
+    4. Typography: The exact placement, font style, and scaling of the movie title text "{parody_title}".
     
     Generate a highly detailed, professional prompt for an image generator (Imagen 3) to replicate this exact poster look and feel, composition, character layout, color palette, and typography, but optimized for a vertical 2:3 movie poster format.
     
-    The prompt must end with this instruction: 'CRITICAL INSTRUCTION: You must prominently feature the exact text "Temp-work" as the movie title on the poster in a stylized, bold, paper-cutout font. Do not include any studio shields, globes, or branding.'
+    The prompt must end with this instruction: 'CRITICAL INSTRUCTION: You must prominently feature the exact text "{parody_title}" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any studio shields, globes, or branding.'
     
     Return only the optimized prompt string. Do not include markdown code block formatting.
     """
@@ -65,12 +97,11 @@ def main():
         print(f"Error during Gemini 3.1 Pro image analysis: {e}")
         print("Falling back to pre-defined prompt...")
         refined_prompt = (
-            "Generate a vertical movie poster illustration for a spoof movie called 'Temp-work' (Parodying a famous classic film). "
-            "Create this entirely in the style of: 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism, "
-            "stark contrasting colors (heavy red, black, and white). It must look like an illustration, NOT a photograph or a cinematic movie still. "
-            "The central focus should be: A disgruntled temporary employee hijacks the corporate intercom system to furiously denounce the Human Resources department. "
-            "CRITICAL INSTRUCTION: You must prominently feature the exact text \"Temp-work\" as the movie title on the poster in a stylized, bold, "
-            "paper-cutout font. Do not include any studio shields, globes, or branding."
+            f"Generate a vertical movie poster illustration for a spoof movie called '{parody_title}' (Parodying a famous classic film). "
+            f"Create this entirely in the style of style key {style_key}, "
+            "using stark contrasting colors from the original. It must look like an illustration, NOT a photograph or a cinematic movie still. "
+            f"CRITICAL INSTRUCTION: You must prominently feature the exact text \"{parody_title}\" as the movie title on the poster in a stylized, bold "
+            "font matching the artwork. Do not include any studio shields, globes, or branding."
         )
 
     # Stage 2: Generate reformatted vertical poster using Imagen 4
@@ -116,7 +147,8 @@ def main():
 
     # Stage 3: Save generated image and update JSON database
     if result_image:
-        new_filename = f"temp_work_poster_vertical_{int(time.time())}.png"
+        clean_title = "".join([c if c.isalnum() else "_" for c in parody_title.lower()])
+        new_filename = f"{clean_title}_poster_vertical_{int(time.time())}.png"
         new_filepath = os.path.join(assets_dir, new_filename)
         
         print(f"\nStep 4: Saving generated image to {new_filepath}")
@@ -146,11 +178,20 @@ def main():
             with open(prod_games_file, 'r', encoding='utf-8') as f:
                 prod_data = json.load(f)
                 
+            updated = False
             for item in prod_data:
                 if item.get('puzzle_id') == f"puz_{pun_id}" or item.get('boss_id') == f"boss_{pun_id}":
                     item['boss_poster_url'] = f"/assets/posters/{new_filename}"
                     print(f"Production Daily Games entry updated successfully to: {item['boss_poster_url']}")
+                    updated = True
                     break
+            
+            if not updated:
+                for item in prod_data:
+                    if pun_id in item.get('puzzle_id', '') or pun_id in item.get('boss_id', ''):
+                        item['boss_poster_url'] = f"/assets/posters/{new_filename}"
+                        print(f"Production Daily Games entry updated successfully via sub-match to: {item['boss_poster_url']}")
+                        break
                     
             with open(prod_games_file, 'w', encoding='utf-8') as f:
                 json.dump(prod_data, f, indent=2)

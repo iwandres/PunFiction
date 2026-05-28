@@ -84,9 +84,9 @@
     "parody_title": "Thaws",
     "original_movie": "Jaws",
     "style_key": "wpa_poster",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Thaws' (Parodying a famous classic film). Create this entirely in the style of: 1930s WPA National Park poster style, muted earthy colors, flat vector shapes, screen-printed texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A giant, aggressively fashionable great white shark terrorizes a winter resort town by freezing the water and judging people's flimsy outerwear.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Thaws\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in vintage WPA silkscreen style with halftone textures. Limited palette of muted teal, rust orange, cream, and olive green. Center: a giant angry great white shark bursting through a frozen lake, wearing a brown fedora and scarf. It points a fin, with a thought bubble showing a thumbs-down to a winter jacket. Foreground: tiny terrified people fleeing on the ice, including one shivering in a bright green coat. Background: snowy mountains, pine trees, and small cabins. Top: large title \"THAWS\" in heavy, bold dark blue letters, capped with snow and hanging icicles. CRITICAL INSTRUCTION: You must prominently feature the exact text \"THAWS\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any studio shields, globes, or branding.",
     "generated": true,
-    "image_path": "/assets/posters/thaws_poster_1778767697067.png",
+    "image_path": "/assets/posters/thaws_poster_vertical_1779940476.png",
     "status": "approved"
   },
   {
