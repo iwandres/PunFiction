@@ -47,6 +47,7 @@ let yesterdayChallenge = null;
 let activeChallenge = null; // Currently playing challenge
 let hint3Active = false; // Flag for Hint 3 (first letters populated)
 let hint4Active = false; // Flag for Hint 4 (vowels populated)
+let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on reveal
 let hintsUsed = 0; // Number of progressive hints used
 
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
@@ -330,6 +331,7 @@ function startGame(challenge) {
     activeChallenge = challenge;
     hint3Active = false;
     hint4Active = false;
+    animateVowelRush = false;
     hintsUsed = 0;
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
@@ -387,6 +389,7 @@ function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
 function loadLevel() {
     hint3Active = false;
     hint4Active = false;
+    animateVowelRush = false;
     hintsUsed = 0;
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
@@ -545,6 +548,7 @@ function revealHint4() {
     
     hintsUsed = 4;
     hint4Active = true;
+    animateVowelRush = true;
 
     // Recalculate input maxLength based on remaining letters to type
     const totalLetters = (activeChallenge.boss_pun_title.match(/[a-zA-Z]/g) || []).length;
@@ -722,8 +726,8 @@ function renderGuessSlots() {
                         activeHighlighted = true;
                     }
                     
-                    // Highlight Hint 4 newly-revealed vowels with the vowel-rush class for animation
-                    const isVowelReveal = hint4Active && isPrefilled && /[aeiouAEIOU]/.test(wChar) && !firstLetterIndices.includes(letterIdx);
+                    // Highlight Hint 4 newly-revealed vowels with the vowel-rush class for animation (only once on reveal!)
+                    const isVowelReveal = animateVowelRush && isPrefilled && /[aeiouAEIOU]/.test(wChar) && !firstLetterIndices.includes(letterIdx);
                     if (isVowelReveal) {
                         classes += ' vowel-rush';
                     }
@@ -741,6 +745,9 @@ function renderGuessSlots() {
     }
     
     ui.guessSlotsContainer.innerHTML = html;
+    
+    // Reset vowel rush animation trigger so subsequent input/rendering does not repeat the animation
+    animateVowelRush = false;
 }
 
 // Clean guesses to ignore minor editorial punctuation
