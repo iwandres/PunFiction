@@ -36,7 +36,7 @@ def get_usable_rhymes(target_word):
         return []
 
 def main():
-    quotes_file = r'c:\Users\iwand\.antigravity\Projects\PunFiction\backend\phase2_quotes.json'
+    quotes_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'backend', 'phase2_quotes.json')
     
     with open(quotes_file, 'r', encoding='utf-8') as f:
         quotes = json.load(f)
