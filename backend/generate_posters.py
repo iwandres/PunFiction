@@ -1,7 +1,10 @@
 import os
 import json
 import time
-import google.generativeai as genai
+import io
+from PIL import Image
+from google import genai
+from google.genai import types
 
 def sanitize_prompt(prompt):
     # Automatically rewrite highly-blocked trademark terms and copyrighted character names
@@ -51,7 +54,8 @@ def sanitize_prompt(prompt):
     return p
 
 def main():
-    backend_dir = r'c:\Users\iwand\.antigravity\Projects\PunFiction\backend'
+    # Setup dynamic, robust directories
+    backend_dir = os.path.dirname(os.path.realpath(__file__))
     posters_state_file = os.path.join(backend_dir, 'poster_prompts_state.json')
     assets_dir = os.path.join(backend_dir, 'assets', 'posters')
     os.makedirs(assets_dir, exist_ok=True)
@@ -61,12 +65,9 @@ def main():
         print("CRITICAL: GEMINI_API_KEY not set.")
         return
 
-    genai.configure(api_key=gemini_key)
+    # Initialize GenAI Client
+    client = genai.Client(api_key=gemini_key)
     
-    # Define primary premium model (Gemini 3 Pro Image) and robust fallback model
-    model_primary = genai.GenerativeModel('models/gemini-3-pro-image-preview')
-    model_fallback = genai.GenerativeModel('models/nano-banana-pro-preview')
-
     if not os.path.exists(posters_state_file):
         print(f"File not found: {posters_state_file}")
         return
@@ -79,70 +80,88 @@ def main():
 
     count = 0
     for item in to_process:
-        print(f"Generating poster for '{item['parody_title']}' ({item['pun_id']})...")
+        print(f"\nGenerating poster for '{item['parody_title']}' ({item['pun_id']})...")
         image_saved = False
-        cleaned_prompt = sanitize_prompt(item['prompt'])
         
-        # 1. Try primary Gemini 3.1 Flash Image model first
+        # Enforce vertical movie poster layout in the prompt
+        cleaned_prompt = "Vertical 3:4 movie poster. " + sanitize_prompt(item['prompt'])
+        
+        # 1. Try modern Imagen 4 model with 3:4 aspect ratio
         try:
-            response = model_primary.generate_content(cleaned_prompt)
-            if response.parts and len(response.parts) > 0:
-                for part in response.parts:
-                    if part.inline_data:
-                        mime_type = part.inline_data.mime_type
-                        extension = 'png' if 'png' in mime_type else 'jpg'
-                        clean_title = "".join(c for c in item['parody_title'] if c.isalnum() or c in (' ', '_')).replace(' ', '_').lower()
-                        filename = f"{clean_title}_poster_{int(time.time())}.{extension}"
-                        filepath = os.path.join(assets_dir, filename)
-                        
-                        with open(filepath, 'wb') as f:
-                            f.write(part.inline_data.data)
-                            
-                        item['generated'] = True
-                        item['image_path'] = f"/assets/posters/{filename}"
-                        image_saved = True
-                        count += 1
-                        print(f"Success using gemini-3-pro-image-preview! Saved to {item['image_path']}")
-                        break
+            print("Generating 3:4 vertical poster using models/imagen-4.0-generate-001...")
+            response = client.models.generate_images(
+                model='models/imagen-4.0-generate-001',
+                prompt=cleaned_prompt,
+                config=types.GenerateImagesConfig(
+                    number_of_images=1,
+                    output_mime_type='image/png',
+                    aspect_ratio='3:4',
+                )
+            )
+            
+            if response.generated_images:
+                result_image = response.generated_images[0]
+                
+                clean_title = "".join(c for c in item['parody_title'] if c.isalnum() or c in (' ', '_')).replace(' ', '_').lower()
+                filename = f"{clean_title}_poster_vertical_{int(time.time())}.png"
+                filepath = os.path.join(assets_dir, filename)
+                
+                # Save generated image using PIL
+                image_bytes = Image.open(io.BytesIO(result_image.image.image_bytes))
+                image_bytes.save(filepath)
+                
+                item['generated'] = True
+                item['image_path'] = f"/assets/posters/{filename}"
+                image_saved = True
+                count += 1
+                print(f"[SUCCESS] Saved vertical 3:4 poster to: {item['image_path']}")
+                
         except Exception as e:
-            print(f"Primary model call error for {item['pun_id']}: {e}")
+            print(f"Imagen 4 vertical 3:4 call error for {item['pun_id']}: {e}")
 
-        # 2. Try robust fallback model if primary model got safety-blocked (returned 0 parts) or failed
+        # 2. Try modern Imagen 4 model with 1:1 aspect ratio fallback if 3:4 fails
         if not image_saved:
-            print(f"Primary model blocked/failed. Trying fallback model 'nano-banana-pro-preview'...")
+            print("Vertical generation failed. Attempting fallback generation with 1:1 aspect ratio...")
             try:
-                response = model_fallback.generate_content(cleaned_prompt)
-                if response.parts and len(response.parts) > 0:
-                    for part in response.parts:
-                        if part.inline_data:
-                            mime_type = part.inline_data.mime_type
-                            extension = 'png' if 'png' in mime_type else 'jpg'
-                            clean_title = "".join(c for c in item['parody_title'] if c.isalnum() or c in (' ', '_')).replace(' ', '_').lower()
-                            filename = f"{clean_title}_poster_{int(time.time())}.{extension}"
-                            filepath = os.path.join(assets_dir, filename)
-                            
-                            with open(filepath, 'wb') as f:
-                                f.write(part.inline_data.data)
-                                
-                            item['generated'] = True
-                            item['image_path'] = f"/assets/posters/{filename}"
-                            image_saved = True
-                            count += 1
-                            print(f"Success using fallback 'nano-banana-pro-preview'! Saved to {item['image_path']}")
-                            break
+                response = client.models.generate_images(
+                    model='models/imagen-4.0-generate-001',
+                    prompt=cleaned_prompt,
+                    config=types.GenerateImagesConfig(
+                        number_of_images=1,
+                        output_mime_type='image/png',
+                        aspect_ratio='1:1',
+                    )
+                )
+                
+                if response.generated_images:
+                    result_image = response.generated_images[0]
+                    
+                    clean_title = "".join(c for c in item['parody_title'] if c.isalnum() or c in (' ', '_')).replace(' ', '_').lower()
+                    filename = f"{clean_title}_poster_fallback_{int(time.time())}.png"
+                    filepath = os.path.join(assets_dir, filename)
+                    
+                    image_bytes = Image.open(io.BytesIO(result_image.image.image_bytes))
+                    image_bytes.save(filepath)
+                    
+                    item['generated'] = True
+                    item['image_path'] = f"/assets/posters/{filename}"
+                    image_saved = True
+                    count += 1
+                    print(f"[SUCCESS] Saved fallback 1:1 poster to: {item['image_path']}")
+                    
             except Exception as e:
-                print(f"Fallback model error for {item['pun_id']}: {e}")
+                print(f"Fallback 1:1 generation failed for {item['pun_id']}: {e}")
 
         if image_saved:
             # Periodically write state to file to prevent loss if execution is aborted mid-loop
             with open(posters_state_file, 'w', encoding='utf-8') as f:
                 json.dump(prompts, f, indent=2)
         else:
-            print(f"CRITICAL: Failed to generate image data using all models for {item['pun_id']}")
+            print(f"CRITICAL ERROR: Failed to generate image data using all models for {item['pun_id']}")
 
-        time.sleep(1) # Small delay to be polite to the API
+        time.sleep(2) # Small delay to be polite to the API rate limit
 
-    print(f"Finished generating {count} posters.")
+    print(f"\nFinished generating {count} posters.")
 
 if __name__ == "__main__":
     main()

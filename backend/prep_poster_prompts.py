@@ -58,7 +58,7 @@ def assign_style(pitch, used_styles_for_movie):
     return sorted_styles[0][0]
 
 def main():
-    backend_dir = r'c:\Users\iwand\.antigravity\Projects\PunFiction\backend'
+    backend_dir = os.path.dirname(os.path.realpath(__file__))
     parodies_file = os.path.join(backend_dir, 'reviewed_parodies.json')
     quotes_file = os.path.join(backend_dir, 'phase2_quotes.json')
     output_file = os.path.join(backend_dir, 'poster_prompts_state.json')
@@ -138,13 +138,13 @@ def main():
             extra_constraints = "CRITICALLY IMPORTANT: Absolutely DO NOT use the film likenesses of Frodo, Gandalf, Gollum, or Sauron. All fantasy characters must look like generic, highly exaggerated cartoon/comic illustrations. "
             
         full_prompt = (
-            f"Generate a movie poster illustration for a spoof movie called '{parody_title}' "
+            f"Generate a vertical 3:4 movie poster illustration for a spoof movie called '{parody_title}' "
             f"(Parodying a famous classic film). "
             f"Create this entirely in the style of: {style_prompt}. It must look like an illustration, NOT a photograph or a cinematic movie still. "
             f"The central focus should be: {pitch}. "
             f"Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. {extra_constraints}"
-            f"CRITICAL INSTRUCTION: You must prominently feature the exact text \"{parody_title}\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. "
-            f"Do not include any studio shields, globes, or branding."
+            f"CRITICAL INSTRUCTION: You must prominently feature the exact text \"{parody_title}\" as the movie title on the poster in a stylized, bold font matching the artwork. "
+            f"Do not include any generic studio shields, globes, or branding."
         )
         
         prompts_state.append({
