@@ -307,7 +307,8 @@ async function loadPuzzleDatabase() {
 
     // Calculate current scheduling indexes based on elapsed days since launch (updates at 2am PT)
     const daysElapsed = getDaysElapsedSinceStart();
-    let currentDayIndex = daysElapsed + 1;
+    const naturalTodayIndex = daysElapsed + 1;
+    let currentDayIndex = naturalTodayIndex;
 
     // Check if player URL overrides day (e.g. ?day=001) for diagnostic playtesting
     const urlParams = new URLSearchParams(window.location.search);
@@ -315,12 +316,17 @@ async function loadPuzzleDatabase() {
     let matchedOverride = null;
 
     if (dayOverride) {
-        matchedOverride = approvedChallenges.find(p => p.puzzle_number === padPuzzleNumber(dayOverride));
-        if (matchedOverride) {
-            const parsedOverride = parseInt(dayOverride);
-            if (!isNaN(parsedOverride) && parsedOverride > 0) {
+        const parsedOverride = parseInt(dayOverride);
+        // Security constraint: only allow loading historical or today's active challenges (<= naturalTodayIndex)
+        if (!isNaN(parsedOverride) && parsedOverride > 0 && parsedOverride <= naturalTodayIndex) {
+            matchedOverride = approvedChallenges.find(p => p.puzzle_number === padPuzzleNumber(dayOverride));
+            if (matchedOverride) {
                 currentDayIndex = parsedOverride;
             }
+        } else {
+            console.warn("Attempted to access locked future challenge: ", dayOverride);
+            // Clean up the URL parameter to prevent spoofing
+            history.replaceState(null, "", window.location.pathname);
         }
     }
 
