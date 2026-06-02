@@ -865,6 +865,12 @@ function handleToggleChallenge() {
 function getApprovedChallenges() {
     const approved = puzzles.filter(p => p.status === 'approved' && p.puzzle_number);
     approved.sort((a, b) => parseInt(a.puzzle_number) - parseInt(b.puzzle_number));
+    
+    // Stop at the current active challenge (todayChallenge)
+    if (todayChallenge) {
+        const todayNum = parseInt(todayChallenge.puzzle_number);
+        return approved.filter(p => parseInt(p.puzzle_number) <= todayNum);
+    }
     return approved;
 }
 
