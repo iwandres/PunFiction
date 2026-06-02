@@ -136,6 +136,11 @@ window.onload = async () => {
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
     ui.btnShowHint4.onclick = revealHint4;
+
+    const prevBtn = document.getElementById('btn-prev-challenge');
+    if (prevBtn) prevBtn.onclick = () => navigateChallenge(-1);
+    const nextBtn = document.getElementById('btn-next-challenge');
+    if (nextBtn) nextBtn.onclick = () => navigateChallenge(1);
  
     // Fullscreen Poster Modal bindings
     const posterModal = document.getElementById('poster-modal');
@@ -338,6 +343,9 @@ function startGame(challenge) {
 
     switchScreen('game');
     loadLevel();
+
+    // Update challenge navigation buttons
+    updateChallengeNavButtons();
 
     // Set up toggle button text dynamically
     const toggleBtn = document.getElementById('btn-toggle-challenge');
@@ -790,12 +798,53 @@ function handleToggleChallenge() {
     if (activeChallenge === todayChallenge) {
         if (yesterdayChallenge) {
             startGame(yesterdayChallenge);
+            history.replaceState(null, "", `?challenge=${yesterdayChallenge.puzzle_number}`);
         } else {
             showToast("No yesterday's challenge available.");
         }
     } else {
         startGame(todayChallenge);
+        history.replaceState(null, "", `?challenge=${todayChallenge.puzzle_number}`);
     }
+}
+
+function getApprovedChallenges() {
+    const approved = puzzles.filter(p => p.status === 'approved' && p.puzzle_number);
+    approved.sort((a, b) => parseInt(a.puzzle_number) - parseInt(b.puzzle_number));
+    return approved;
+}
+
+function navigateChallenge(direction) {
+    const approved = getApprovedChallenges();
+    if (approved.length === 0 || !activeChallenge) return;
+
+    const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
+    if (currentIndex === -1) return;
+
+    const newIndex = currentIndex + direction;
+    if (newIndex >= 0 && newIndex < approved.length) {
+        startGame(approved[newIndex]);
+        history.replaceState(null, "", `?challenge=${approved[newIndex].puzzle_number}`);
+    }
+}
+
+function updateChallengeNavButtons() {
+    const approved = getApprovedChallenges();
+    const prevBtn = document.getElementById('btn-prev-challenge');
+    const nextBtn = document.getElementById('btn-next-challenge');
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    if (approved.length === 0 || !activeChallenge) {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+    }
+    
+    const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
+    
+    prevBtn.disabled = (currentIndex <= 0);
+    nextBtn.disabled = (currentIndex >= approved.length - 1);
 }
 
 function triggerVictory() {
@@ -851,11 +900,18 @@ function triggerVictory() {
     // Set up victory lobby button dynamically
     const lobbyBtn = document.getElementById('btn-victory-lobby');
     if (lobbyBtn) {
-        if (activeChallenge === yesterdayChallenge) {
-            lobbyBtn.innerHTML = "🎯 PLAY TODAY'S CHALLENGE";
+        const approved = getApprovedChallenges();
+        const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
+        
+        if (currentIndex !== -1 && currentIndex < approved.length - 1) {
+            const nextChallenge = approved[currentIndex + 1];
+            lobbyBtn.innerHTML = `⏭️ PLAY CHALLENGE #${nextChallenge.puzzle_number}`;
             lobbyBtn.classList.remove('hidden');
+            lobbyBtn.onclick = () => {
+                startGame(nextChallenge);
+                history.replaceState(null, "", `?challenge=${nextChallenge.puzzle_number}`);
+            };
         } else {
-            // Hide the button when today's challenge is completed (nothing next to play)
             lobbyBtn.classList.add('hidden');
         }
     }

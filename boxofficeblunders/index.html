@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PunFiction: Box Office Blunders</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.28">
+    <link rel="stylesheet" href="style.css?v=1.29">
 </head>
 <body>
     <div id="app">
@@ -20,7 +20,11 @@
 
             <!-- Puzzle Content (Neobrutalist Comic Card) -->
             <div class="puzzle-card">
-                <span class="level-indicator" id="challenge-header">Challenge #???</span>
+                <div class="challenge-navigation">
+                    <button id="btn-prev-challenge" class="challenge-nav-btn" title="Previous Challenge">◀</button>
+                    <span class="level-indicator" id="challenge-header">Challenge #???</span>
+                    <button id="btn-next-challenge" class="challenge-nav-btn" title="Next Challenge">▶</button>
+                </div>
                 <button id="btn-how-to-play" class="how-to-play-btn" title="How to Play">?</button>
                 
                 <p class="question-subtext" style="font-weight: 900; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; margin-top: 10px; letter-spacing: 0.5px; opacity: 0.85; width: 100%; text-align: center;">Guess the movie based on the fictional quote</p>
@@ -180,6 +184,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=1.28"></script>
+    <script src="app.js?v=1.29"></script>
 </body>
 </html>
