@@ -49,6 +49,10 @@ let hint3Active = false; // Flag for Hint 3 (first letters populated)
 let hint4Active = false; // Flag for Hint 4 (vowels populated)
 let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on reveal
 let hintsUsed = 0; // Number of progressive hints used
+let adRevealedWordIndices = [];
+let adRevealedLetterIndices = [];
+let activeRewardedEvent = null;
+let rewardedSlot = null;
 
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
 let inventory = []; // accumulated target words
@@ -85,6 +89,7 @@ const ui = {
     hintVowelsSection: document.getElementById('section-hint-vowels'),
     lettersHint: document.getElementById('letters-hint'),
     btnSubmit: document.getElementById('btn-submit'),
+    btnWatchAd: document.getElementById('btn-watch-ad'),
     
     // Victory elements
     victoryPosterImg: document.getElementById('victory-poster-img'),
@@ -136,6 +141,43 @@ window.onload = async () => {
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
     ui.btnShowHint4.onclick = revealHint4;
+
+    if (ui.btnWatchAd) {
+        ui.btnWatchAd.onclick = () => {
+            if (activeRewardedEvent) {
+                activeRewardedEvent.makeRewardedVisible();
+            } else {
+                console.log("No active rewarded event. Triggering offline fallback word reveal!");
+                grantAdWordReward();
+            }
+        };
+    }
+
+    // Google Publisher Tag (GPT) setup and event listeners
+    window.googletag = window.googletag || { cmd: [] };
+    googletag.cmd.push(() => {
+        googletag.pubads().addEventListener('rewardedSlotReady', (event) => {
+            console.log("Rewarded slot is ready.");
+            activeRewardedEvent = event;
+            updateAdButtonState(true);
+        });
+
+        googletag.pubads().addEventListener('rewardedSlotGranted', (event) => {
+            console.log("Rewarded slot reward granted.");
+            grantAdWordReward();
+        });
+
+        googletag.pubads().addEventListener('rewardedSlotClosed', (event) => {
+            console.log("Rewarded slot closed.");
+            if (rewardedSlot) {
+                googletag.destroySlots([rewardedSlot]);
+                rewardedSlot = null;
+            }
+            activeRewardedEvent = null;
+            updateAdButtonState(false);
+            requestNextRewardedAd();
+        });
+    });
 
     const prevBtn = document.getElementById('btn-prev-challenge');
     if (prevBtn) prevBtn.onclick = () => navigateChallenge(-1);
@@ -399,6 +441,14 @@ function loadLevel() {
     hint4Active = false;
     animateVowelRush = false;
     hintsUsed = 0;
+    adRevealedWordIndices = [];
+    adRevealedLetterIndices = [];
+    activeRewardedEvent = null;
+    if (ui.btnWatchAd) {
+        ui.btnWatchAd.classList.add('hidden');
+    }
+    requestNextRewardedAd();
+
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
     ui.feedbackMsg.className = 'feedback';
@@ -573,6 +623,9 @@ function revealHint4() {
     setTimeout(() => {
         ui.guessInput.focus();
     }, 100);
+
+    // Update ad button visibility state
+    updateAdButtonState(activeRewardedEvent !== null || typeof googletag === 'undefined');
 }
 
 function generateFirstLetterBlanks(str) {
@@ -629,7 +682,8 @@ function getPrefilledIndices(title) {
         if (/[a-zA-Z]/.test(char)) {
             const isFirstLetter = firstLetterIndices.includes(letterIdx);
             const isVowelChar = hint4Active && /[aeiouAEIOU]/.test(char);
-            if (isFirstLetter || isVowelChar) {
+            const isAdRevealed = adRevealedLetterIndices.includes(letterIdx);
+            if (isFirstLetter || isVowelChar || isAdRevealed) {
                 indices.push(letterIdx);
             }
             letterIdx++;
@@ -1363,4 +1417,150 @@ async function sendTelemetryEvent(event, hints = 0) {
     } catch (e) {
         console.log("Telemetry post failed.", e);
     }
+}
+
+// ================= REWARDED AD LOGIC (GOOGLE PUBLISHER TAG) =================
+
+function getWordsWithLetterIndices(title) {
+    const words = [];
+    const separators = [' ', '-', ':', '.', ',', ';'];
+    let letterIdx = 0;
+    let i = 0;
+    
+    while (i < title.length) {
+        const char = title[i];
+        if (separators.includes(char)) {
+            i++;
+        } else {
+            let wordText = '';
+            const absoluteLetterIndices = [];
+            while (i < title.length && !separators.includes(title[i])) {
+                const wChar = title[i];
+                if (/[a-zA-Z]/.test(wChar)) {
+                    wordText += wChar;
+                    absoluteLetterIndices.push(letterIdx);
+                    letterIdx++;
+                } else {
+                    wordText += wChar;
+                }
+                i++;
+            }
+            if (absoluteLetterIndices.length > 0) {
+                words.push({
+                    text: wordText,
+                    indices: absoluteLetterIndices
+                });
+            }
+        }
+    }
+    return words;
+}
+
+function getFirstUnrevealedWordIndex(title) {
+    const words = getWordsWithLetterIndices(title);
+    const prefilled = getPrefilledIndices(title);
+    for (let wordIdx = 0; wordIdx < words.length; wordIdx++) {
+        const word = words[wordIdx];
+        // Check if any letter in this word is NOT prefilled
+        const hasUnrevealedLetters = word.indices.some(idx => !prefilled.includes(idx));
+        if (hasUnrevealedLetters) {
+            return wordIdx;
+        }
+    }
+    return -1;
+}
+
+function updateAdButtonState(ready) {
+    if (!ui.btnWatchAd) return;
+    if (!activeChallenge) return;
+    
+    const title = activeChallenge.boss_pun_title;
+    const firstUnrevealedWordIdx = getFirstUnrevealedWordIndex(title);
+    const hasUnrevealedWords = firstUnrevealedWordIdx !== -1;
+    
+    // Show only if all 4 hints are exhausted, ad is ready (or offline fallback), and words remain
+    const shouldShow = (hintsUsed >= 4) && ready && hasUnrevealedWords;
+    
+    const hintContainer = document.querySelector('.hint-container');
+    if (shouldShow) {
+        ui.btnWatchAd.classList.remove('hidden');
+        if (hintContainer) {
+            hintContainer.classList.remove('collapsed');
+        }
+    } else {
+        ui.btnWatchAd.classList.add('hidden');
+        if (hintContainer && hintsUsed >= 4) {
+            hintContainer.classList.add('collapsed');
+        }
+    }
+}
+
+function grantAdWordReward() {
+    if (!activeChallenge) return;
+    const title = activeChallenge.boss_pun_title;
+    const words = getWordsWithLetterIndices(title);
+    const firstUnrevealedWordIdx = getFirstUnrevealedWordIndex(title);
+    
+    if (firstUnrevealedWordIdx !== -1) {
+        const wordToReveal = words[firstUnrevealedWordIdx];
+        
+        // Add all letter indices of this word to the adRevealedLetterIndices array
+        wordToReveal.indices.forEach(idx => {
+            if (!adRevealedLetterIndices.includes(idx)) {
+                adRevealedLetterIndices.push(idx);
+            }
+        });
+        
+        // Clear typed guess input value to prevent overflow and keep styling perfect
+        ui.guessInput.value = '';
+        
+        // Recalculate input maxLength based on remaining letters to type
+        const totalLetters = (title.match(/[a-zA-Z]/g) || []).length;
+        const prefilledIndices = getPrefilledIndices(title);
+        ui.guessInput.maxLength = totalLetters - prefilledIndices.length;
+        
+        // Render slots immediately
+        renderGuessSlots();
+        showToast(`🎬 REWARD GRANTED: WORD "${wordToReveal.text.toUpperCase()}" REVEALED!`);
+        
+        // Check if there are still any unrevealed words, and update button state accordingly
+        updateAdButtonState(activeRewardedEvent !== null || typeof googletag === 'undefined');
+        
+        // Focus the input box automatically
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
+    }
+}
+
+function requestNextRewardedAd() {
+    if (typeof googletag === 'undefined') {
+        console.warn("googletag is not defined. Offline fallback active.");
+        // Under offline environments, trigger ad visibility instantly for developer testing
+        setTimeout(() => {
+            updateAdButtonState(true);
+        }, 1000);
+        return;
+    }
+    
+    googletag.cmd.push(() => {
+        if (rewardedSlot) {
+            console.log("Ad slot already exists and is preloading.");
+            return;
+        }
+        
+        console.log("Requesting next GPT rewarded slot...");
+        rewardedSlot = googletag.defineOutOfPageSlot(
+            '/22651053533/rewarded',
+            googletag.enums.OutOfPageFormat.REWARDED
+        );
+        
+        if (rewardedSlot) {
+            rewardedSlot.addService(googletag.pubads());
+            googletag.display(rewardedSlot);
+        } else {
+            console.warn("Failed to create Out-Of-Page rewarded slot. Fallback button enabled.");
+            updateAdButtonState(true);
+        }
+    });
 }
