@@ -105,7 +105,6 @@ window.onload = async () => {
     prewarmBackend();
 
     // 1. Setup UI bindings
-    document.getElementById('btn-toggle-challenge').onclick = handleToggleChallenge;
     document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.btnSubmit.onclick = handleGuessSubmit;
@@ -389,21 +388,6 @@ function startGame(challenge) {
     // Update challenge navigation buttons
     updateChallengeNavButtons();
 
-    // Set up toggle button text dynamically
-    const toggleBtn = document.getElementById('btn-toggle-challenge');
-    if (toggleBtn) {
-        if (challenge === todayChallenge) {
-            if (yesterdayChallenge) {
-                toggleBtn.innerText = "⏮️ PLAY YESTERDAY'S CHALLENGE";
-                toggleBtn.classList.remove('hidden');
-            } else {
-                toggleBtn.classList.add('hidden');
-            }
-        } else {
-            toggleBtn.innerText = "🎯 PLAY TODAY'S CHALLENGE";
-            toggleBtn.classList.remove('hidden');
-        }
-    }
 }
 
 function getCorrectPosterUrl(urlPath) {
@@ -848,19 +832,6 @@ function handleGuessSubmit() {
     }
 }
 
-function handleToggleChallenge() {
-    if (activeChallenge === todayChallenge) {
-        if (yesterdayChallenge) {
-            startGame(yesterdayChallenge);
-            history.replaceState(null, "", `?challenge=${yesterdayChallenge.puzzle_number}`);
-        } else {
-            showToast("No yesterday's challenge available.");
-        }
-    } else {
-        startGame(todayChallenge);
-        history.replaceState(null, "", `?challenge=${todayChallenge.puzzle_number}`);
-    }
-}
 
 function getApprovedChallenges() {
     const approved = puzzles.filter(p => p.status === 'approved' && p.puzzle_number);
