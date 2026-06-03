@@ -174,14 +174,12 @@ window.onload = async () => {
         });
 
         googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-            if (event.slot === rewardedSlot) {
-                console.log("Rewarded slot render ended.", {
-                    isEmpty: event.isEmpty,
-                    creativeId: event.creativeId,
-                    lineItemId: event.lineItemId,
-                    advertiserId: event.advertiserId
-                });
-            }
+            console.log("Slot render ended:", event.slot.getAdUnitPath(), {
+                isEmpty: event.isEmpty,
+                creativeId: event.creativeId,
+                lineItemId: event.lineItemId,
+                advertiserId: event.advertiserId
+            });
         });
 
         googletag.enableServices();
@@ -1425,6 +1423,7 @@ function requestNextRewardedAd() {
         if (rewardedSlot) {
             rewardedSlot.addService(googletag.pubads());
             googletag.display(rewardedSlot);
+            googletag.pubads().refresh([rewardedSlot]);
         } else {
             console.warn("Failed to create Out-Of-Page rewarded slot.");
         }
