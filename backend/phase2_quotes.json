@@ -6,7 +6,22 @@
     "original_quote": "You've gotta ask yourself one question: 'Do I feel lucky?' Well, do ya, punk?",
     "id": "quote_001",
     "rhyme1": "lucky",
-    "rhyme2": "punk"
+    "rhyme2": "punk",
+    "rhyme1_candidates": [
+      "Unlucky",
+      "Kentucky"
+    ],
+    "rhyme2_candidates": [
+      "Bunk",
+      "Funk",
+      "Junk",
+      "Trunk",
+      "Monk",
+      "Shrunk",
+      "Sunk",
+      "Chunk",
+      "Drunk"
+    ]
   },
   {
     "movie": "The Godfather",
@@ -16,7 +31,29 @@
     "id": "quote_002",
     "rhyme1": "offer",
     "rhyme2": "refuse",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Abuse",
+      "Diffuse",
+      "Fuse",
+      "Excuse",
+      "Misuse",
+      "Amuse",
+      "News",
+      "Confuse",
+      "Hues",
+      "Reuse",
+      "Choose",
+      "Cruise",
+      "Residues",
+      "Accuse",
+      "Tissues",
+      "Lose",
+      "Blues",
+      "Shoes",
+      "Whose",
+      "Dues"
+    ]
   },
   {
     "movie": "The Godfather",
@@ -25,7 +62,30 @@
     "original_quote": "Leave the gun. Take the cannoli.",
     "id": "quote_003",
     "rhyme1": "gun",
-    "rhyme2": "cannoli"
+    "rhyme2": "cannoli",
+    "rhyme1_candidates": [
+      "Run",
+      "Shun",
+      "One",
+      "Sun",
+      "Dun",
+      "Fun",
+      "Done",
+      "Overrun",
+      "Undone",
+      "Everyone",
+      "None",
+      "Ton",
+      "Someone",
+      "Won",
+      "Nun",
+      "Shotgun",
+      "Been",
+      "Spun",
+      "Anyone",
+      "Un"
+    ],
+    "rhyme2_candidates": []
   },
   {
     "movie": "Jaws",
@@ -34,7 +94,34 @@
     "original_quote": "You're gonna need a bigger boat.",
     "id": "quote_004",
     "rhyme1": "bigger",
-    "rhyme2": "boat"
+    "rhyme2": "boat",
+    "rhyme1_candidates": [
+      "Vigor",
+      "Rigor",
+      "Trigger"
+    ],
+    "rhyme2_candidates": [
+      "Promote",
+      "Float",
+      "Denote",
+      "Scapegoat",
+      "Note",
+      "Anecdote",
+      "Remote",
+      "Throat",
+      "Rote",
+      "Afloat",
+      "Devote",
+      "Goat",
+      "Moat",
+      "Antidote",
+      "Quote",
+      "Overcoat",
+      "Footnote",
+      "Steamboat",
+      "Wrote",
+      "Oat"
+    ]
   },
   {
     "movie": "Taxi Driver",
@@ -43,7 +130,32 @@
     "original_quote": "You talkin' to me?",
     "id": "quote_005",
     "rhyme1": "talkin",
-    "rhyme2": "me"
+    "rhyme2": "me",
+    "rhyme1_candidates": [
+      "Moroccan"
+    ],
+    "rhyme2_candidates": [
+      "Free",
+      "Devotee",
+      "See",
+      "Key",
+      "Glee",
+      "Sensuality",
+      "Esprit",
+      "Weighty",
+      "Decree",
+      "Guarantee",
+      "Jubilee",
+      "Debris",
+      "Plea",
+      "Flee",
+      "Foresee",
+      "Thee",
+      "Bourgeoisie",
+      "Tree",
+      "Oversee",
+      "Actuality"
+    ]
   },
   {
     "movie": "Network",
@@ -52,7 +164,46 @@
     "original_quote": "I'm as mad as hell, and I'm not going to take this anymore!",
     "id": "quote_006",
     "rhyme1": "mad",
-    "rhyme2": "hell"
+    "rhyme2": "hell",
+    "rhyme1_candidates": [
+      "Sad",
+      "Bad",
+      "Cad",
+      "Comrade",
+      "Clad",
+      "Glad",
+      "Pad",
+      "Add",
+      "Lad",
+      "Dad",
+      "Brad",
+      "Had",
+      "Ad",
+      "Chad",
+      "Fad"
+    ],
+    "rhyme2_candidates": [
+      "Compel",
+      "Citadel",
+      "Swell",
+      "Tell",
+      "Dwell",
+      "Shell",
+      "Cell",
+      "Expel",
+      "Parallel",
+      "Well",
+      "Spell",
+      "Rebel",
+      "Yell",
+      "Repel",
+      "Personnel",
+      "Smell",
+      "Sell",
+      "Cartel",
+      "Dell",
+      "Belle"
+    ]
   },
   {
     "movie": "Star Wars: Episode IV - A New Hope",
@@ -61,7 +212,46 @@
     "original_quote": "May the Force be with you.",
     "id": "quote_007",
     "rhyme1": "may",
-    "rhyme2": "force"
+    "rhyme2": "force",
+    "rhyme1_candidates": [
+      "Convey",
+      "Display",
+      "Dismay",
+      "Gay",
+      "Decay",
+      "Play",
+      "Portray",
+      "Cache",
+      "Fray",
+      "Array",
+      "Prey",
+      "Survey",
+      "Tray",
+      "Stray",
+      "Bay",
+      "Lay",
+      "Fay",
+      "Betray",
+      "Interplay",
+      "Relay"
+    ],
+    "rhyme2_candidates": [
+      "Remorse",
+      "Coarse",
+      "Endorse",
+      "Source",
+      "Enforce",
+      "Course",
+      "Hoarse",
+      "Horse",
+      "Reinforce",
+      "Divorce",
+      "Workforce",
+      "Morse",
+      "Fourths",
+      "Intercourse",
+      "Norse"
+    ]
   },
   {
     "movie": "Apocalypse Now",
@@ -71,7 +261,29 @@
     "id": "quote_008",
     "rhyme1": "smell",
     "rhyme2": "napalm",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Compel",
+      "Citadel",
+      "Swell",
+      "Tell",
+      "Dwell",
+      "Shell",
+      "Cell",
+      "Expel",
+      "Parallel",
+      "Well",
+      "Spell",
+      "Rebel",
+      "Yell",
+      "Repel",
+      "Personnel",
+      "Hell",
+      "Sell",
+      "Cartel",
+      "Dell",
+      "Belle"
+    ]
   },
   {
     "movie": "The Shining",
@@ -81,7 +293,13 @@
     "id": "quote_009",
     "rhyme1": "johnny",
     "rhyme2": "heeeres",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Connie",
+      "Ronnie",
+      "Bonnie",
+      "Giovanni"
+    ]
   },
   {
     "movie": "Star Wars: Episode V - The Empire Strikes Back",
@@ -90,7 +308,34 @@
     "original_quote": "No, I am your father.",
     "id": "quote_010",
     "rhyme1": "am",
-    "rhyme2": "father"
+    "rhyme2": "father",
+    "rhyme1_candidates": [
+      "Sham",
+      "Damn",
+      "Program",
+      "Slam",
+      "Ram",
+      "Dam",
+      "Jam",
+      "Lam",
+      "Lamb",
+      "Ham",
+      "Tram",
+      "Diagram",
+      "Cam",
+      "Diaphragm",
+      "Kilogram",
+      "Pam",
+      "Programme",
+      "Tam",
+      "Abram",
+      "Gram"
+    ],
+    "rhyme2_candidates": [
+      "Bother",
+      "Grandfather",
+      "Stepfather"
+    ]
   },
   {
     "movie": "Star Wars: Episode V - The Empire Strikes Back",
@@ -99,7 +344,51 @@
     "original_quote": "Do. Or do not. There is no try.",
     "id": "quote_011",
     "rhyme1": "do",
-    "rhyme2": "try"
+    "rhyme2": "try",
+    "rhyme1_candidates": [
+      "Blue",
+      "Slew",
+      "Subdue",
+      "Pursue",
+      "True",
+      "View",
+      "Hitherto",
+      "Taboo",
+      "Rendezvous",
+      "Through",
+      "Guru",
+      "Overview",
+      "New",
+      "Review",
+      "Accrue",
+      "Breakthrough",
+      "Debut",
+      "Lew",
+      "Screw",
+      "Undue"
+    ],
+    "rhyme2_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Die",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye"
+    ]
   },
   {
     "movie": "E.T. the Extra-Terrestrial",
@@ -108,7 +397,43 @@
     "original_quote": "E.T. phone home.",
     "id": "quote_012",
     "rhyme1": "phone",
-    "rhyme2": "home"
+    "rhyme2": "home",
+    "rhyme1_candidates": [
+      "Moan",
+      "Groan",
+      "Cornerstone",
+      "Tone",
+      "Stone",
+      "Unknown",
+      "Cyclone",
+      "Bone",
+      "Backbone",
+      "Milestone",
+      "Zone",
+      "Lone",
+      "Own",
+      "Throne",
+      "Alone",
+      "Cone",
+      "Blown",
+      "Known",
+      "Clone",
+      "Microphone"
+    ],
+    "rhyme2_candidates": [
+      "Roam",
+      "Comb",
+      "Loam",
+      "Syndrome",
+      "Foam",
+      "Rome",
+      "Genome",
+      "Chromosome",
+      "Chrome",
+      "Dome",
+      "Guillaume",
+      "Jerome"
+    ]
   },
   {
     "movie": "Scarface",
@@ -117,7 +442,51 @@
     "original_quote": "Say hello to my little friend!",
     "id": "quote_013",
     "rhyme1": "hello",
-    "rhyme2": "friend"
+    "rhyme2": "friend",
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ],
+    "rhyme2_candidates": [
+      "Contend",
+      "Comprehend",
+      "Apprehend",
+      "Transcend",
+      "Commend",
+      "Attend",
+      "Mend",
+      "Extend",
+      "Bend",
+      "Descend",
+      "Ascend",
+      "Defend",
+      "Intend",
+      "End",
+      "Lend",
+      "Send",
+      "Tend",
+      "Girlfriend",
+      "Blend",
+      "Pretend"
+    ]
   },
   {
     "movie": "The Terminator",
@@ -127,7 +496,29 @@
     "id": "quote_014",
     "rhyme1": "back",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Crack",
+      "Slack",
+      "Black",
+      "Track",
+      "Hack",
+      "Rack",
+      "Setback",
+      "Attack",
+      "Feedback",
+      "Tack",
+      "Drawback",
+      "Jack",
+      "Sack",
+      "Shack",
+      "Stack",
+      "Pack",
+      "Mack",
+      "Almanac",
+      "Aback",
+      "Kodak"
+    ]
   },
   {
     "movie": "Back to the Future",
@@ -136,7 +527,29 @@
     "original_quote": "Roads? Where we're going, we don't need roads.",
     "id": "quote_015",
     "rhyme1": "roads",
-    "rhyme2": "going"
+    "rhyme2": "going",
+    "rhyme1_candidates": [
+      "Crossroads",
+      "Loads",
+      "Nodes",
+      "Inroads",
+      "Codes",
+      "Diodes",
+      "Episodes",
+      "Modes",
+      "Railroads",
+      "Rhodes"
+    ],
+    "rhyme2_candidates": [
+      "Knowing",
+      "Showing",
+      "Bowing",
+      "Owing",
+      "Sowing",
+      "Rowing",
+      "Sewing",
+      "Boeing"
+    ]
   },
   {
     "movie": "Aliens",
@@ -145,7 +558,44 @@
     "original_quote": "Get away from her, you bitch!",
     "id": "quote_016",
     "rhyme1": "her",
-    "rhyme2": "bitch"
+    "rhyme2": "bitch",
+    "rhyme1_candidates": [
+      "Infer",
+      "Concur",
+      "Stir",
+      "Defer",
+      "Incur",
+      "Transfer",
+      "Spur",
+      "Burr",
+      "Amateur",
+      "Occur",
+      "Refer",
+      "Blur",
+      "Recur",
+      "Monsieur",
+      "Entrepreneur",
+      "Prefer",
+      "Were",
+      "Fur",
+      "Ter",
+      "Pere"
+    ],
+    "rhyme2_candidates": [
+      "Pitch",
+      "Rich",
+      "Hitch",
+      "Witch",
+      "Which",
+      "Enrich",
+      "Switch",
+      "Stitch",
+      "Ditch",
+      "Mitch",
+      "Greenwich",
+      "Ich",
+      "Niche"
+    ]
   },
   {
     "movie": "Top Gun",
@@ -154,7 +604,51 @@
     "original_quote": "I feel the need\u2014the need for speed!",
     "id": "quote_017",
     "rhyme1": "need",
-    "rhyme2": "speed"
+    "rhyme2": "speed",
+    "rhyme1_candidates": [
+      "Concede",
+      "Impede",
+      "Lead",
+      "Heed",
+      "Precede",
+      "Seed",
+      "Succeed",
+      "Greed",
+      "Proceed",
+      "Reed",
+      "Breed",
+      "Read",
+      "Indeed",
+      "Tweed",
+      "Weed",
+      "Bleed",
+      "Exceed",
+      "Deed",
+      "Bead",
+      "Speed"
+    ],
+    "rhyme2_candidates": [
+      "Concede",
+      "Impede",
+      "Lead",
+      "Heed",
+      "Precede",
+      "Need",
+      "Seed",
+      "Succeed",
+      "Greed",
+      "Proceed",
+      "Reed",
+      "Breed",
+      "Read",
+      "Indeed",
+      "Tweed",
+      "Weed",
+      "Bleed",
+      "Exceed",
+      "Deed",
+      "Bead"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -163,7 +657,47 @@
     "original_quote": "Hello. My name is Inigo Montoya. You killed my father. Prepare to die.",
     "id": "quote_018",
     "rhyme1": "killed",
-    "rhyme2": "die"
+    "rhyme2": "die",
+    "rhyme1_candidates": [
+      "Thrilled",
+      "Skilled",
+      "Build",
+      "Unskilled",
+      "Fulfilled",
+      "Filled",
+      "Instilled",
+      "Chilled",
+      "Rebuild",
+      "Unfulfilled",
+      "Spilled",
+      "Distilled",
+      "Billed",
+      "Drilled",
+      "Willed",
+      "Guild"
+    ],
+    "rhyme2_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye",
+      "Occupy"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -173,7 +707,11 @@
     "id": "quote_019",
     "rhyme1": "wish",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Dish",
+      "Shellfish"
+    ]
   },
   {
     "movie": "Die Hard",
@@ -183,7 +721,10 @@
     "id": "quote_020",
     "rhyme1": "motherfucker",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tucker"
+    ]
   },
   {
     "movie": "When Harry Met Sally...",
@@ -192,7 +733,9 @@
     "original_quote": "I'll have what she's having.",
     "id": "quote_021",
     "rhyme1": "have",
-    "rhyme2": "having"
+    "rhyme2": "having",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": []
   },
   {
     "movie": "Field of Dreams",
@@ -201,7 +744,46 @@
     "original_quote": "If you build it, he will come.",
     "id": "quote_022",
     "rhyme1": "build",
-    "rhyme2": "come"
+    "rhyme2": "come",
+    "rhyme1_candidates": [
+      "Thrilled",
+      "Skilled",
+      "Unskilled",
+      "Fulfilled",
+      "Filled",
+      "Killed",
+      "Instilled",
+      "Chilled",
+      "Rebuild",
+      "Unfulfilled",
+      "Spilled",
+      "Distilled",
+      "Billed",
+      "Drilled",
+      "Willed",
+      "Guild"
+    ],
+    "rhyme2_candidates": [
+      "Bum",
+      "Succumb",
+      "Hum",
+      "Outcome",
+      "Overcome",
+      "Numb",
+      "Plum",
+      "Dumb",
+      "Thumb",
+      "Slum",
+      "Gum",
+      "Rum",
+      "Income",
+      "Some",
+      "Cum",
+      "Mum",
+      "Drum",
+      "From",
+      "Become"
+    ]
   },
   {
     "movie": "Terminator 2: Judgment Day",
@@ -210,7 +792,11 @@
     "original_quote": "Hasta la vista, baby.",
     "id": "quote_023",
     "rhyme1": "baby",
-    "rhyme2": "vista"
+    "rhyme2": "vista",
+    "rhyme1_candidates": [
+      "Maybe"
+    ],
+    "rhyme2_candidates": []
   },
   {
     "movie": "The Silence of the Lambs",
@@ -219,7 +805,21 @@
     "original_quote": "I ate his liver with some fava beans and a nice Chianti.",
     "id": "quote_024",
     "rhyme1": "chianti",
-    "rhyme2": "liver"
+    "rhyme2": "liver",
+    "rhyme1_candidates": [
+      "Scanty",
+      "Ante",
+      "Auntie",
+      "Anti"
+    ],
+    "rhyme2_candidates": [
+      "Quiver",
+      "Deliver",
+      "Caregiver",
+      "River",
+      "Giver",
+      "Shiver"
+    ]
   },
   {
     "movie": "A Few Good Men",
@@ -228,7 +828,19 @@
     "original_quote": "You can't handle the truth!",
     "id": "quote_025",
     "rhyme1": "handle",
-    "rhyme2": "truth"
+    "rhyme2": "truth",
+    "rhyme1_candidates": [
+      "Candle",
+      "Handel",
+      "Randall",
+      "Scandal"
+    ],
+    "rhyme2_candidates": [
+      "Youth",
+      "Tooth",
+      "Booth",
+      "Ruth"
+    ]
   },
   {
     "movie": "Forrest Gump",
@@ -237,7 +849,16 @@
     "original_quote": "My mama always said life was like a box of chocolates. You never know what you're gonna get.",
     "id": "quote_026",
     "rhyme1": "chocolates",
-    "rhyme2": "life"
+    "rhyme2": "life",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Strife",
+      "Knife",
+      "Wife",
+      "Midwife",
+      "Wildlife",
+      "Housewife"
+    ]
   },
   {
     "movie": "Forrest Gump",
@@ -246,7 +867,32 @@
     "original_quote": "Run, Forrest, run!",
     "id": "quote_027",
     "rhyme1": "run",
-    "rhyme2": "forrest"
+    "rhyme2": "forrest",
+    "rhyme1_candidates": [
+      "Shun",
+      "One",
+      "Sun",
+      "Dun",
+      "Gun",
+      "Fun",
+      "Done",
+      "Overrun",
+      "Undone",
+      "Everyone",
+      "None",
+      "Ton",
+      "Someone",
+      "Won",
+      "Nun",
+      "Shotgun",
+      "Been",
+      "Spun",
+      "Anyone",
+      "Un"
+    ],
+    "rhyme2_candidates": [
+      "Forest"
+    ]
   },
   {
     "movie": "Pulp Fiction",
@@ -255,7 +901,45 @@
     "original_quote": "Say 'what' again. Say 'what' again, I dare you, I double dare you motherfucker, say what one more Goddamn time!",
     "id": "quote_028",
     "rhyme1": "what",
-    "rhyme2": "dare"
+    "rhyme2": "dare",
+    "rhyme1_candidates": [
+      "Butt",
+      "Cut",
+      "That",
+      "Nut",
+      "Chestnut",
+      "Somewhat",
+      "Robot",
+      "But",
+      "Undercut",
+      "Shut",
+      "Gut",
+      "Shortcut",
+      "Peanut",
+      "Hut"
+    ],
+    "rhyme2_candidates": [
+      "Despair",
+      "Glare",
+      "Bare",
+      "Declare",
+      "Affair",
+      "Flare",
+      "Fair",
+      "Welfare",
+      "Aware",
+      "Air",
+      "Square",
+      "Fare",
+      "Unaware",
+      "Flair",
+      "Rare",
+      "Snare",
+      "Spare",
+      "Impair",
+      "Prepare",
+      "Repair"
+    ]
   },
   {
     "movie": "The Shawshank Redemption",
@@ -264,7 +948,20 @@
     "original_quote": "Get busy living, or get busy dying.",
     "id": "quote_029",
     "rhyme1": "living",
-    "rhyme2": "dying"
+    "rhyme2": "dying",
+    "rhyme1_candidates": [
+      "Giving",
+      "Forgiving",
+      "Thanksgiving",
+      "Caregiving"
+    ],
+    "rhyme2_candidates": [
+      "Lying",
+      "Buying",
+      "Sighing",
+      "Tying",
+      "Dyeing"
+    ]
   },
   {
     "movie": "Apollo 13",
@@ -273,7 +970,9 @@
     "original_quote": "Houston, we have a problem.",
     "id": "quote_030",
     "rhyme1": "houston",
-    "rhyme2": "problem"
+    "rhyme2": "problem",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": []
   },
   {
     "movie": "Toy Story",
@@ -282,7 +981,30 @@
     "original_quote": "To infinity... and beyond!",
     "id": "quote_031",
     "rhyme1": "infinity",
-    "rhyme2": "beyond"
+    "rhyme2": "beyond",
+    "rhyme1_candidates": [
+      "Affinity",
+      "Divinity",
+      "Vicinity",
+      "Virginity",
+      "Femininity",
+      "Masculinity",
+      "Salinity",
+      "Trinity"
+    ],
+    "rhyme2_candidates": [
+      "Fond",
+      "Respond",
+      "Spawned",
+      "Blonde",
+      "Correspond",
+      "Wand",
+      "Monde",
+      "Dawned",
+      "Blond",
+      "Bond",
+      "Pond"
+    ]
   },
   {
     "movie": "Jerry Maguire",
@@ -291,7 +1013,36 @@
     "original_quote": "Show me the money!",
     "id": "quote_032",
     "rhyme1": "show",
-    "rhyme2": "money"
+    "rhyme2": "money",
+    "rhyme1_candidates": [
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe",
+      "Grow"
+    ],
+    "rhyme2_candidates": [
+      "Honey",
+      "Funny",
+      "Bunny",
+      "Sonny",
+      "Sunny"
+    ]
   },
   {
     "movie": "Jerry Maguire",
@@ -301,7 +1052,29 @@
     "id": "quote_033",
     "rhyme1": "hello",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "Titanic",
@@ -310,7 +1083,35 @@
     "original_quote": "I'm the king of the world!",
     "id": "quote_034",
     "rhyme1": "king",
-    "rhyme2": "world"
+    "rhyme2": "world",
+    "rhyme1_candidates": [
+      "Ring",
+      "Spring",
+      "Fling",
+      "Sting",
+      "Thing",
+      "String",
+      "Swing",
+      "Offspring",
+      "Ching",
+      "Wing",
+      "Bring",
+      "Cling",
+      "Ming",
+      "Sling",
+      "Everything",
+      "Anything",
+      "Sing",
+      "Ding",
+      "Ping",
+      "Ling"
+    ],
+    "rhyme2_candidates": [
+      "Hurled",
+      "Whirled",
+      "Underworld",
+      "Curled"
+    ]
   },
   {
     "movie": "Fight Club",
@@ -319,7 +1120,46 @@
     "original_quote": "The first rule of Fight Club is: you do not talk about Fight Club.",
     "id": "quote_035",
     "rhyme1": "rule",
-    "rhyme2": "talk"
+    "rhyme2": "talk",
+    "rhyme1_candidates": [
+      "Cool",
+      "Vestibule",
+      "Tool",
+      "Ridicule",
+      "Fool",
+      "Cruel",
+      "Jewel",
+      "Pool",
+      "Dual",
+      "School",
+      "Stool",
+      "Fuel",
+      "Molecule",
+      "Preschool",
+      "Liverpool"
+    ],
+    "rhyme2_candidates": [
+      "Stock",
+      "Cock",
+      "Stalk",
+      "Shock",
+      "Block",
+      "Mock",
+      "Knock",
+      "Hawk",
+      "Flock",
+      "Deadlock",
+      "Clock",
+      "Dock",
+      "Bedrock",
+      "Livestock",
+      "Walk",
+      "Doc",
+      "Peacock",
+      "Sidewalk",
+      "Bach",
+      "Brock"
+    ]
   },
   {
     "movie": "The Sixth Sense",
@@ -328,7 +1168,33 @@
     "original_quote": "I see dead people.",
     "id": "quote_036",
     "rhyme1": "dead",
-    "rhyme2": "people"
+    "rhyme2": "people",
+    "rhyme1_candidates": [
+      "Dread",
+      "Lead",
+      "Head",
+      "Tread",
+      "Bloodshed",
+      "Aforesaid",
+      "Godhead",
+      "Thread",
+      "Shed",
+      "Read",
+      "Bed",
+      "Ahead",
+      "Overhead",
+      "Watershed",
+      "Sped",
+      "Widespread",
+      "Ted",
+      "Instead",
+      "Fled",
+      "Fed"
+    ],
+    "rhyme2_candidates": [
+      "Townspeople",
+      "Salespeople"
+    ]
   },
   {
     "movie": "The Matrix",
@@ -337,7 +1203,51 @@
     "original_quote": "There is no spoon.",
     "id": "quote_037",
     "rhyme1": "there",
-    "rhyme2": "spoon"
+    "rhyme2": "spoon",
+    "rhyme1_candidates": [
+      "Despair",
+      "Glare",
+      "Bare",
+      "Declare",
+      "Affair",
+      "Flare",
+      "Fair",
+      "Welfare",
+      "Aware",
+      "Air",
+      "Square",
+      "Fare",
+      "Unaware",
+      "Flair",
+      "Rare",
+      "Snare",
+      "Spare",
+      "Impair",
+      "Prepare",
+      "Repair"
+    ],
+    "rhyme2_candidates": [
+      "Lagoon",
+      "Moon",
+      "Commune",
+      "Saloon",
+      "Strewn",
+      "Platoon",
+      "Tune",
+      "Balloon",
+      "Monsoon",
+      "Soon",
+      "Immune",
+      "Dune",
+      "Afternoon",
+      "Cartoon",
+      "Teaspoon",
+      "Tablespoon",
+      "Honeymoon",
+      "Boon",
+      "Boone",
+      "Calhoun"
+    ]
   },
   {
     "movie": "Gladiator",
@@ -346,7 +1256,51 @@
     "original_quote": "Are you not entertained?",
     "id": "quote_038",
     "rhyme1": "are",
-    "rhyme2": "entertained"
+    "rhyme2": "entertained",
+    "rhyme1_candidates": [
+      "Char",
+      "Bar",
+      "Reservoir",
+      "Bizarre",
+      "Seminar",
+      "Repertoire",
+      "Tar",
+      "Star",
+      "Registrar",
+      "Memoir",
+      "Car",
+      "Bazaar",
+      "Par",
+      "Scar",
+      "Lumbar",
+      "Cigar",
+      "Afar",
+      "Tsar",
+      "Jar",
+      "Radar"
+    ],
+    "rhyme2_candidates": [
+      "Restrained",
+      "Constrained",
+      "Strained",
+      "Ascertained",
+      "Unrestrained",
+      "Ordained",
+      "Explained",
+      "Obtained",
+      "Drained",
+      "Attained",
+      "Ingrained",
+      "Maintained",
+      "Remained",
+      "Sustained",
+      "Retained",
+      "Pained",
+      "Trained",
+      "Gained",
+      "Refrained",
+      "Stained"
+    ]
   },
   {
     "movie": "The Lord of the Rings: The Fellowship of the Ring",
@@ -355,7 +1309,48 @@
     "original_quote": "You shall not pass!",
     "id": "quote_039",
     "rhyme1": "shall",
-    "rhyme2": "pass"
+    "rhyme2": "pass",
+    "rhyme1_candidates": [
+      "Rationale",
+      "Corral",
+      "Gal",
+      "Sal",
+      "Locale",
+      "Morale",
+      "Mal",
+      "Cal",
+      "Val",
+      "Al",
+      "Bal",
+      "Canal",
+      "Dal",
+      "Hal",
+      "Halle",
+      "Lal",
+      "Pal",
+      "Pascal"
+    ],
+    "rhyme2_candidates": [
+      "Ass",
+      "Impasse",
+      "Brass",
+      "Mass",
+      "Class",
+      "Surpass",
+      "Alas",
+      "Last",
+      "Glass",
+      "Bypass",
+      "Trespass",
+      "Bass",
+      "Grass",
+      "Gas",
+      "Cas",
+      "Contrasts",
+      "Sas",
+      "Masse",
+      "Dass"
+    ]
   },
   {
     "movie": "The Lord of the Rings: The Two Towers",
@@ -364,7 +1359,30 @@
     "original_quote": "My precious.",
     "id": "quote_040",
     "rhyme1": "my",
-    "rhyme2": "precious"
+    "rhyme2": "precious",
+    "rhyme1_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Die",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye"
+    ],
+    "rhyme2_candidates": []
   },
   {
     "movie": "Spider-Man",
@@ -373,7 +1391,44 @@
     "original_quote": "With great power comes great responsibility.",
     "id": "quote_041",
     "rhyme1": "power",
-    "rhyme2": "responsibility"
+    "rhyme2": "responsibility",
+    "rhyme1_candidates": [
+      "Empower",
+      "Bower",
+      "Sour",
+      "Tower",
+      "Devour",
+      "Shower",
+      "Flower",
+      "Manpower",
+      "Hour",
+      "Flour",
+      "Horsepower",
+      "Our",
+      "Bauer"
+    ],
+    "rhyme2_candidates": [
+      "Capability",
+      "Hostility",
+      "Humility",
+      "Futility",
+      "Volatility",
+      "Liability",
+      "Susceptibility",
+      "Facility",
+      "Sensibility",
+      "Vulnerability",
+      "Stability",
+      "Ability",
+      "Utility",
+      "Nobility",
+      "Accessibility",
+      "Civility",
+      "Versatility",
+      "Flexibility",
+      "Possibility",
+      "Credibility"
+    ]
   },
   {
     "movie": "Mean Girls",
@@ -382,7 +1437,45 @@
     "original_quote": "On Wednesdays we wear pink.",
     "id": "quote_042",
     "rhyme1": "wear",
-    "rhyme2": "pink"
+    "rhyme2": "pink",
+    "rhyme1_candidates": [
+      "Despair",
+      "Glare",
+      "Bare",
+      "Declare",
+      "Affair",
+      "Flare",
+      "Fair",
+      "Welfare",
+      "Aware",
+      "Air",
+      "Square",
+      "Fare",
+      "Unaware",
+      "Flair",
+      "Rare",
+      "Snare",
+      "Spare",
+      "Impair",
+      "Prepare",
+      "Repair"
+    ],
+    "rhyme2_candidates": [
+      "Link",
+      "Shrink",
+      "Blink",
+      "Think",
+      "Brink",
+      "Fink",
+      "Drink",
+      "Precinct",
+      "Sink",
+      "Ink",
+      "Sync",
+      "Zinc",
+      "Inc",
+      "Wink"
+    ]
   },
   {
     "movie": "300",
@@ -392,7 +1485,11 @@
     "id": "quote_043",
     "rhyme1": "sparta",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Jakarta",
+      "Marta"
+    ]
   },
   {
     "movie": "There Will Be Blood",
@@ -401,7 +1498,44 @@
     "original_quote": "I drink your milkshake!",
     "id": "quote_044",
     "rhyme1": "drink",
-    "rhyme2": "milkshake"
+    "rhyme2": "milkshake",
+    "rhyme1_candidates": [
+      "Link",
+      "Shrink",
+      "Blink",
+      "Think",
+      "Pink",
+      "Brink",
+      "Fink",
+      "Precinct",
+      "Sink",
+      "Ink",
+      "Sync",
+      "Zinc",
+      "Inc"
+    ],
+    "rhyme2_candidates": [
+      "Break",
+      "Opaque",
+      "Forsake",
+      "Ache",
+      "Take",
+      "Make",
+      "Undertake",
+      "Shake",
+      "Fake",
+      "Wake",
+      "Cake",
+      "Stake",
+      "Partake",
+      "Flake",
+      "Uptake",
+      "Brake",
+      "Outbreak",
+      "Mistake",
+      "Intake",
+      "Overtake"
+    ]
   },
   {
     "movie": "The Dark Knight",
@@ -410,7 +1544,33 @@
     "original_quote": "Why so serious?",
     "id": "quote_045",
     "rhyme1": "why",
-    "rhyme2": "serious"
+    "rhyme2": "serious",
+    "rhyme1_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Die",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye"
+    ],
+    "rhyme2_candidates": [
+      "Mysterious",
+      "Deleterious"
+    ]
   },
   {
     "movie": "The Dark Knight",
@@ -419,7 +1579,18 @@
     "original_quote": "You either die a hero, or you live long enough to see yourself become the villain.",
     "id": "quote_046",
     "rhyme1": "hero",
-    "rhyme2": "villain"
+    "rhyme2": "villain",
+    "rhyme1_candidates": [
+      "Zero",
+      "Nero",
+      "Shapiro"
+    ],
+    "rhyme2_candidates": [
+      "Penicillin",
+      "Dillon",
+      "Dylan",
+      "Macmillan"
+    ]
   },
   {
     "movie": "The Social Network",
@@ -428,7 +1599,28 @@
     "original_quote": "A million dollars isn't cool. You know what's cool? A billion dollars.",
     "id": "quote_047",
     "rhyme1": "cool",
-    "rhyme2": "dollars"
+    "rhyme2": "dollars",
+    "rhyme1_candidates": [
+      "Vestibule",
+      "Tool",
+      "Ridicule",
+      "Fool",
+      "Rule",
+      "Cruel",
+      "Jewel",
+      "Pool",
+      "Dual",
+      "School",
+      "Stool",
+      "Fuel",
+      "Molecule",
+      "Preschool",
+      "Liverpool"
+    ],
+    "rhyme2_candidates": [
+      "Collars",
+      "Scholars"
+    ]
   },
   {
     "movie": "The Avengers",
@@ -438,7 +1630,8 @@
     "id": "quote_048",
     "rhyme1": "secret",
     "rhyme2": "angry",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": []
   },
   {
     "movie": "The Hunger Games",
@@ -451,6 +1644,28 @@
     "rhyme2_candidates": [
       "Contribute",
       "Distribute"
+    ],
+    "rhyme1_candidates": [
+      "Austere",
+      "Cavalier",
+      "Clear",
+      "Severe",
+      "Peer",
+      "Queer",
+      "Premier",
+      "Chevalier",
+      "Adhere",
+      "Steer",
+      "Cheer",
+      "Atmosphere",
+      "Appear",
+      "Shear",
+      "Sphere",
+      "Near",
+      "Smear",
+      "Tear",
+      "Spear",
+      "Rear"
     ]
   },
   {
@@ -460,7 +1675,51 @@
     "original_quote": "Let it go.",
     "id": "quote_050",
     "rhyme1": "go",
-    "rhyme2": "let"
+    "rhyme2": "let",
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ],
+    "rhyme2_candidates": [
+      "Epithet",
+      "Set",
+      "Offset",
+      "Wet",
+      "Yet",
+      "Onset",
+      "Beset",
+      "Regret",
+      "Upset",
+      "Silhouette",
+      "Inlet",
+      "Net",
+      "Get",
+      "Pet",
+      "Inset",
+      "Cadet",
+      "Quartet",
+      "Outset",
+      "Debt",
+      "Sweat"
+    ]
   },
   {
     "movie": "Chinatown",
@@ -469,7 +1728,43 @@
     "original_quote": "Forget it, Jake. It's Chinatown.",
     "id": "quote_051",
     "rhyme1": "forget",
-    "rhyme2": "chinatown"
+    "rhyme2": "chinatown",
+    "rhyme1_candidates": [
+      "Epithet",
+      "Set",
+      "Offset",
+      "Wet",
+      "Yet",
+      "Onset",
+      "Beset",
+      "Regret",
+      "Upset",
+      "Silhouette",
+      "Inlet",
+      "Net",
+      "Get",
+      "Pet",
+      "Inset",
+      "Cadet",
+      "Quartet",
+      "Outset",
+      "Debt",
+      "Sweat"
+    ],
+    "rhyme2_candidates": [
+      "Frown",
+      "Crown",
+      "Down",
+      "Renown",
+      "Town",
+      "Brown",
+      "Breakdown",
+      "Gown",
+      "Playground",
+      "Downtown",
+      "Around",
+      "Hometown"
+    ]
   },
   {
     "movie": "The Godfather Part II",
@@ -478,7 +1773,30 @@
     "original_quote": "I know it was you, Fredo. You broke my heart. You broke my heart.",
     "id": "quote_052",
     "rhyme1": "fredo",
-    "rhyme2": "heart"
+    "rhyme2": "heart",
+    "rhyme1_candidates": [
+      "Libido",
+      "Edo",
+      "Guido",
+      "Toledo"
+    ],
+    "rhyme2_candidates": [
+      "Impart",
+      "Part",
+      "Dart",
+      "Smart",
+      "Start",
+      "Sweetheart",
+      "Depart",
+      "Art",
+      "Apart",
+      "Counterpart",
+      "Cart",
+      "Chart",
+      "Restart",
+      "Bart",
+      "Parte"
+    ]
   },
   {
     "movie": "Star Wars: Episode IV - A New Hope",
@@ -487,7 +1805,13 @@
     "original_quote": "These aren't the droids you're looking for.",
     "id": "quote_054",
     "rhyme1": "droids",
-    "rhyme2": "looking"
+    "rhyme2": "looking",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Cooking",
+      "Booking",
+      "Overlooking"
+    ]
   },
   {
     "movie": "Animal House",
@@ -497,7 +1821,10 @@
     "id": "quote_055",
     "rhyme1": "toga",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Yoga"
+    ]
   },
   {
     "movie": "Alien",
@@ -506,7 +1833,23 @@
     "original_quote": "This is Ripley, last survivor of the Nostromo, signing off.",
     "id": "quote_056",
     "rhyme1": "ripley",
-    "rhyme2": "signing"
+    "rhyme2": "signing",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Shining",
+      "Declining",
+      "Defining",
+      "Combining",
+      "Undermining",
+      "Designing",
+      "Refining",
+      "Mining",
+      "Confining",
+      "Lining",
+      "Dining",
+      "Assigning",
+      "Outlining"
+    ]
   },
   {
     "movie": "Airplane!",
@@ -515,7 +1858,15 @@
     "original_quote": "I am serious. And don't call me Shirley.",
     "id": "quote_057",
     "rhyme1": "serious",
-    "rhyme2": "shirley"
+    "rhyme2": "shirley",
+    "rhyme1_candidates": [
+      "Mysterious",
+      "Deleterious"
+    ],
+    "rhyme2_candidates": [
+      "Early",
+      "Curly"
+    ]
   },
   {
     "movie": "The Shining",
@@ -524,7 +1875,37 @@
     "original_quote": "All work and no play makes Jack a dull boy.",
     "id": "quote_058",
     "rhyme1": "jack",
-    "rhyme2": "dull"
+    "rhyme2": "dull",
+    "rhyme1_candidates": [
+      "Crack",
+      "Slack",
+      "Black",
+      "Track",
+      "Hack",
+      "Rack",
+      "Back",
+      "Setback",
+      "Attack",
+      "Feedback",
+      "Tack",
+      "Drawback",
+      "Sack",
+      "Shack",
+      "Stack",
+      "Pack",
+      "Mack",
+      "Almanac",
+      "Aback",
+      "Kodak"
+    ],
+    "rhyme2_candidates": [
+      "Lull",
+      "Null",
+      "Skull",
+      "Ul",
+      "Hull",
+      "Will"
+    ]
   },
   {
     "movie": "Raiders of the Lost Ark",
@@ -534,7 +1915,24 @@
     "id": "quote_059",
     "rhyme1": "snakes",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Takes",
+      "Stakes",
+      "Mistakes",
+      "Makes",
+      "Undertakes",
+      "Breaks",
+      "Headaches",
+      "Brakes",
+      "Shakes",
+      "Flakes",
+      "Cakes",
+      "Outbreaks",
+      "Earthquakes",
+      "Wakes",
+      "Lakes"
+    ]
   },
   {
     "movie": "Blade Runner",
@@ -543,7 +1941,30 @@
     "original_quote": "All those moments will be lost in time, like tears in rain.",
     "id": "quote_060",
     "rhyme1": "moments",
-    "rhyme2": "rain"
+    "rhyme2": "rain",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Ascertain",
+      "Disdain",
+      "Sustain",
+      "Mundane",
+      "Strain",
+      "Attain",
+      "Profane",
+      "Plain",
+      "Retain",
+      "Domain",
+      "Obtain",
+      "Explain",
+      "Train",
+      "Constrain",
+      "Refrain",
+      "Abstain",
+      "Restrain",
+      "Contain",
+      "Pertain",
+      "Campaign"
+    ]
   },
   {
     "movie": "Sudden Impact",
@@ -552,7 +1973,51 @@
     "original_quote": "Go ahead, make my day.",
     "id": "quote_062",
     "rhyme1": "ahead",
-    "rhyme2": "day"
+    "rhyme2": "day",
+    "rhyme1_candidates": [
+      "Dread",
+      "Lead",
+      "Head",
+      "Dead",
+      "Tread",
+      "Bloodshed",
+      "Aforesaid",
+      "Godhead",
+      "Thread",
+      "Shed",
+      "Read",
+      "Bed",
+      "Overhead",
+      "Watershed",
+      "Sped",
+      "Widespread",
+      "Ted",
+      "Instead",
+      "Fled",
+      "Fed"
+    ],
+    "rhyme2_candidates": [
+      "Convey",
+      "Display",
+      "Dismay",
+      "Gay",
+      "Decay",
+      "Play",
+      "Portray",
+      "Cache",
+      "Fray",
+      "Array",
+      "Prey",
+      "Survey",
+      "Tray",
+      "Stray",
+      "Bay",
+      "Lay",
+      "Fay",
+      "Betray",
+      "Interplay",
+      "Relay"
+    ]
   },
   {
     "movie": "This Is Spinal Tap",
@@ -561,7 +2026,37 @@
     "original_quote": "These go to eleven.",
     "id": "quote_063",
     "rhyme1": "these",
-    "rhyme2": "eleven"
+    "rhyme2": "eleven",
+    "rhyme1_candidates": [
+      "Seize",
+      "Appease",
+      "Expertise",
+      "Ease",
+      "Squeeze",
+      "Tease",
+      "Cheese",
+      "Breeze",
+      "Freeze",
+      "Disease",
+      "Mores",
+      "Diocese",
+      "Analyses",
+      "Overseas",
+      "Hypotheses",
+      "Pleas",
+      "Please",
+      "Trustees",
+      "Trainees",
+      "Testes"
+    ],
+    "rhyme2_candidates": [
+      "Heaven",
+      "Seven",
+      "Devon",
+      "Evan",
+      "Kevin",
+      "Levin"
+    ]
   },
   {
     "movie": "The Terminator",
@@ -570,7 +2065,48 @@
     "original_quote": "Come with me if you want to live.",
     "id": "quote_064",
     "rhyme1": "live",
-    "rhyme2": "come"
+    "rhyme2": "come",
+    "rhyme1_candidates": [
+      "Give",
+      "Strive",
+      "Drive",
+      "Derive",
+      "Archive",
+      "Sieve",
+      "Revive",
+      "Alive",
+      "Thrive",
+      "Arrive",
+      "Hive",
+      "Forgive",
+      "Survive",
+      "Dive",
+      "Deprive",
+      "Clive",
+      "Five",
+      "Dr"
+    ],
+    "rhyme2_candidates": [
+      "Bum",
+      "Succumb",
+      "Hum",
+      "Outcome",
+      "Overcome",
+      "Numb",
+      "Plum",
+      "Dumb",
+      "Thumb",
+      "Slum",
+      "Gum",
+      "Rum",
+      "Income",
+      "Some",
+      "Cum",
+      "Mum",
+      "Drum",
+      "From",
+      "Become"
+    ]
   },
   {
     "movie": "Ghostbusters",
@@ -583,6 +2119,28 @@
     "rhyme1_candidates": [
       "Timed",
       "Climbed"
+    ],
+    "rhyme2_candidates": [
+      "Free",
+      "Devotee",
+      "See",
+      "Key",
+      "Glee",
+      "Sensuality",
+      "Esprit",
+      "Weighty",
+      "Decree",
+      "Guarantee",
+      "Jubilee",
+      "Debris",
+      "Plea",
+      "Flee",
+      "Foresee",
+      "Thee",
+      "Bourgeoisie",
+      "Tree",
+      "Oversee",
+      "Actuality"
     ]
   },
   {
@@ -592,7 +2150,30 @@
     "original_quote": "Goonies never say die!",
     "id": "quote_066",
     "rhyme1": "goonies",
-    "rhyme2": "die"
+    "rhyme2": "die",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye",
+      "Occupy"
+    ]
   },
   {
     "movie": "Ferris Bueller's Day Off",
@@ -601,7 +2182,45 @@
     "original_quote": "Life moves pretty fast. If you don't stop and look around once in a while, you could miss it.",
     "id": "quote_067",
     "rhyme1": "fast",
-    "rhyme2": "miss"
+    "rhyme2": "miss",
+    "rhyme1_candidates": [
+      "Steadfast",
+      "Cast",
+      "Vast",
+      "Blast",
+      "Contrast",
+      "Last",
+      "Forecast",
+      "Broadcast",
+      "Past",
+      "Caste",
+      "Asked",
+      "Harassed",
+      "Surpassed",
+      "Passed",
+      "Mast",
+      "Classed",
+      "Plast",
+      "Belfast",
+      "Hast"
+    ],
+    "rhyme2_candidates": [
+      "Abyss",
+      "Dismiss",
+      "Hiss",
+      "Bliss",
+      "Kiss",
+      "Dis",
+      "Vis",
+      "Diss",
+      "This",
+      "Bis",
+      "Sis",
+      "Resists",
+      "Mis",
+      "Chris",
+      "Swiss"
+    ]
   },
   {
     "movie": "RoboCop",
@@ -610,7 +2229,38 @@
     "original_quote": "I'd buy that for a dollar!",
     "id": "quote_068",
     "rhyme1": "buy",
-    "rhyme2": "dollar"
+    "rhyme2": "dollar",
+    "rhyme1_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Die",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Eye"
+    ],
+    "rhyme2_candidates": [
+      "Scholar",
+      "Collar",
+      "Color",
+      "Caller",
+      "Smaller",
+      "Waller",
+      "Taller"
+    ]
   },
   {
     "movie": "Wall Street",
@@ -619,7 +2269,51 @@
     "original_quote": "Greed, for lack of a better word, is good.",
     "id": "quote_069",
     "rhyme1": "greed",
-    "rhyme2": "good"
+    "rhyme2": "good",
+    "rhyme1_candidates": [
+      "Concede",
+      "Impede",
+      "Lead",
+      "Heed",
+      "Precede",
+      "Need",
+      "Seed",
+      "Succeed",
+      "Proceed",
+      "Reed",
+      "Breed",
+      "Read",
+      "Indeed",
+      "Tweed",
+      "Weed",
+      "Bleed",
+      "Exceed",
+      "Deed",
+      "Bead",
+      "Speed"
+    ],
+    "rhyme2_candidates": [
+      "Bid",
+      "Livelihood",
+      "Quid",
+      "Falsehood",
+      "Amid",
+      "Forbid",
+      "Hood",
+      "Could",
+      "Brotherhood",
+      "Misunderstood",
+      "Lid",
+      "Kid",
+      "Neighborhood",
+      "Should",
+      "Grid",
+      "Squid",
+      "Mid",
+      "Likelihood",
+      "Understood",
+      "Hardwood"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -629,7 +2323,13 @@
     "id": "quote_070",
     "rhyme1": "inconceivable",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Unbelievable",
+      "Achievable",
+      "Conceivable",
+      "Receivable"
+    ]
   },
   {
     "movie": "The Silence of the Lambs",
@@ -639,7 +2339,39 @@
     "id": "quote_073",
     "rhyme1": "lotion",
     "rhyme2": "hose",
-    "rhyme3": "rubs"
+    "rhyme3": "rubs",
+    "rhyme1_candidates": [
+      "Notion",
+      "Devotion",
+      "Commotion",
+      "Emotion",
+      "Promotion",
+      "Locomotion",
+      "Motion",
+      "Ocean"
+    ],
+    "rhyme2_candidates": [
+      "Repose",
+      "Close",
+      "Compose",
+      "Pose",
+      "Impose",
+      "Expose",
+      "Oppose",
+      "Disclose",
+      "Propose",
+      "Suppose",
+      "Dispose",
+      "Enclose",
+      "Nose",
+      "Ambrose",
+      "Presuppose",
+      "Those",
+      "Woes",
+      "Rose",
+      "Clothes",
+      "Froze"
+    ]
   },
   {
     "movie": "Wayne's World",
@@ -671,7 +2403,12 @@
       "Ter",
       "Pere"
     ],
-    "rhyme3": "we're"
+    "rhyme3": "we're",
+    "rhyme2_candidates": [
+      "Noteworthy",
+      "Trustworthy",
+      "Unworthy"
+    ]
   },
   {
     "movie": "Scent of a Woman",
@@ -692,7 +2429,29 @@
     "id": "quote_076",
     "rhyme1": "alright",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Insight",
+      "Light",
+      "Delight",
+      "Bright",
+      "Twilight",
+      "Plight",
+      "Spite",
+      "Right",
+      "Oversight",
+      "Despite",
+      "Blight",
+      "Foresight",
+      "Highlight",
+      "Spotlight",
+      "White",
+      "Tight",
+      "Fight",
+      "Knight",
+      "Upright",
+      "Fright"
+    ]
   },
   {
     "movie": "Jurassic Park",
@@ -701,7 +2460,37 @@
     "original_quote": "Life, uh... finds a way.",
     "id": "quote_077",
     "rhyme1": "life",
-    "rhyme2": "way"
+    "rhyme2": "way",
+    "rhyme1_candidates": [
+      "Strife",
+      "Knife",
+      "Wife",
+      "Midwife",
+      "Wildlife",
+      "Housewife"
+    ],
+    "rhyme2_candidates": [
+      "Convey",
+      "Display",
+      "Dismay",
+      "Gay",
+      "Decay",
+      "Play",
+      "Portray",
+      "Cache",
+      "Fray",
+      "Array",
+      "Prey",
+      "Survey",
+      "Tray",
+      "Stray",
+      "Bay",
+      "Lay",
+      "Fay",
+      "Betray",
+      "Interplay",
+      "Relay"
+    ]
   },
   {
     "movie": "Pulp Fiction",
@@ -710,7 +2499,50 @@
     "original_quote": "They call it a Royale with Cheese.",
     "id": "quote_078",
     "rhyme1": "royale",
-    "rhyme2": "cheese"
+    "rhyme2": "cheese",
+    "rhyme1_candidates": [
+      "Rationale",
+      "Corral",
+      "Shall",
+      "Gal",
+      "Sal",
+      "Locale",
+      "Morale",
+      "Mal",
+      "Cal",
+      "Val",
+      "Al",
+      "Bal",
+      "Canal",
+      "Dal",
+      "Hal",
+      "Halle",
+      "Lal",
+      "Pal",
+      "Pascal"
+    ],
+    "rhyme2_candidates": [
+      "Seize",
+      "Appease",
+      "Expertise",
+      "Ease",
+      "Squeeze",
+      "Tease",
+      "Breeze",
+      "Freeze",
+      "Disease",
+      "Mores",
+      "Diocese",
+      "Analyses",
+      "Overseas",
+      "Hypotheses",
+      "Pleas",
+      "Please",
+      "These",
+      "Trustees",
+      "Trainees",
+      "Testes"
+    ]
   },
   {
     "movie": "Clueless",
@@ -720,7 +2552,11 @@
     "id": "quote_079",
     "rhyme1": "if",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Stiff",
+      "Cliff"
+    ]
   },
   {
     "movie": "Braveheart",
@@ -731,7 +2567,21 @@
     "rhyme1": "lives",
     "rhyme2": "freedom",
     "rhyme2_candidates": [],
-    "rhyme3": "they"
+    "rhyme3": "they",
+    "rhyme1_candidates": [
+      "Archives",
+      "Gives",
+      "Drives",
+      "Wives",
+      "Derives",
+      "Arrives",
+      "Housewives",
+      "Strives",
+      "Survives",
+      "Knives",
+      "Midwives",
+      "Ives"
+    ]
   },
   {
     "movie": "Fargo",
@@ -742,7 +2592,10 @@
     "rhyme1": "accomplice",
     "rhyme2": "chipper",
     "rhyme1_candidates": [],
-    "rhyme3": "guess"
+    "rhyme3": "guess",
+    "rhyme2_candidates": [
+      "Skipper"
+    ]
   },
   {
     "movie": "The Big Lebowski",
@@ -751,7 +2604,49 @@
     "original_quote": "The Dude abides.",
     "id": "quote_082",
     "rhyme1": "dude",
-    "rhyme2": "abides"
+    "rhyme2": "abides",
+    "rhyme1_candidates": [
+      "Shrewd",
+      "Crude",
+      "Subdued",
+      "Fortitude",
+      "Brood",
+      "Aptitude",
+      "Preclude",
+      "Solitude",
+      "Imbued",
+      "Multitude",
+      "Attitude",
+      "Accrued",
+      "Conclude",
+      "Amplitude",
+      "Mood",
+      "Gratitude",
+      "Exclude",
+      "Prelude",
+      "Rude",
+      "Servitude"
+    ],
+    "rhyme2_candidates": [
+      "Besides",
+      "Strides",
+      "Tides",
+      "Sides",
+      "Guides",
+      "Provides",
+      "Resides",
+      "Decides",
+      "Pesticides",
+      "Divides",
+      "Slides",
+      "Insecticides",
+      "Oxides",
+      "Peptides",
+      "Suicides",
+      "Coincides",
+      "Hides",
+      "Rides"
+    ]
   },
   {
     "movie": "The Matrix",
@@ -760,7 +2655,48 @@
     "original_quote": "I know kung fu.",
     "id": "quote_083",
     "rhyme1": "kung",
-    "rhyme2": "fu"
+    "rhyme2": "fu",
+    "rhyme1_candidates": [
+      "Tongue",
+      "Among",
+      "Slung",
+      "Flung",
+      "Stung",
+      "Young",
+      "Sprung",
+      "Clung",
+      "Hung",
+      "Strung",
+      "Lung",
+      "Dung",
+      "Rung",
+      "Swung",
+      "Chung",
+      "Sung",
+      "Tung"
+    ],
+    "rhyme2_candidates": [
+      "Blue",
+      "Slew",
+      "Subdue",
+      "Pursue",
+      "True",
+      "View",
+      "Hitherto",
+      "Taboo",
+      "Rendezvous",
+      "Through",
+      "Guru",
+      "Overview",
+      "New",
+      "Review",
+      "Accrue",
+      "Breakthrough",
+      "Debut",
+      "Lew",
+      "Screw",
+      "Undue"
+    ]
   },
   {
     "movie": "American Pie",
@@ -770,7 +2706,38 @@
     "id": "quote_084",
     "rhyme1": "band",
     "rhyme2": "camp",
-    "rhyme3": "time"
+    "rhyme3": "time",
+    "rhyme1_candidates": [
+      "Command",
+      "Expand",
+      "Demand",
+      "Understand",
+      "Land",
+      "Brand",
+      "Stand",
+      "Grand",
+      "Hinterland",
+      "Hand",
+      "Withstand",
+      "Planned",
+      "Sand",
+      "Firsthand",
+      "Beforehand",
+      "Wetland",
+      "Farmland",
+      "Inland",
+      "Mainland",
+      "Overland"
+    ],
+    "rhyme2_candidates": [
+      "Tramp",
+      "Damp",
+      "Clamp",
+      "Stamp",
+      "Ramp",
+      "Amp",
+      "Lamp"
+    ]
   },
   {
     "movie": "Gladiator",
@@ -779,7 +2746,13 @@
     "original_quote": "What we do in life echoes in eternity.",
     "id": "quote_085",
     "rhyme1": "echoes",
-    "rhyme2": "eternity"
+    "rhyme2": "eternity",
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Fraternity",
+      "Maternity",
+      "Modernity"
+    ]
   },
   {
     "movie": "The Lord of the Rings: The Fellowship of the Ring",
@@ -789,7 +2762,29 @@
     "id": "quote_086",
     "rhyme1": "walk",
     "rhyme2": "mordor",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Stock",
+      "Cock",
+      "Stalk",
+      "Shock",
+      "Block",
+      "Mock",
+      "Knock",
+      "Hawk",
+      "Flock",
+      "Deadlock",
+      "Clock",
+      "Dock",
+      "Bedrock",
+      "Livestock",
+      "Doc",
+      "Talk",
+      "Peacock",
+      "Sidewalk",
+      "Bach",
+      "Brock"
+    ]
   },
   {
     "movie": "Training Day",
@@ -798,7 +2793,48 @@
     "original_quote": "King Kong ain't got shit on me!",
     "id": "quote_087",
     "rhyme1": "king",
-    "rhyme2": "kong"
+    "rhyme2": "kong",
+    "rhyme1_candidates": [
+      "Ring",
+      "Spring",
+      "Fling",
+      "Sting",
+      "Thing",
+      "String",
+      "Swing",
+      "Offspring",
+      "Ching",
+      "Wing",
+      "Bring",
+      "Cling",
+      "Ming",
+      "Sling",
+      "Everything",
+      "Anything",
+      "Sing",
+      "Ding",
+      "Ping",
+      "Ling"
+    ],
+    "rhyme2_candidates": [
+      "Strong",
+      "Tang",
+      "Throng",
+      "Long",
+      "Wrong",
+      "Prolong",
+      "Headlong",
+      "Gong",
+      "Dong",
+      "Lifelong",
+      "Wong",
+      "Song",
+      "Belong",
+      "Along",
+      "Armstrong",
+      "Jong",
+      "Cong"
+    ]
   },
   {
     "movie": "Mean Girls",
@@ -809,7 +2845,29 @@
     "rhyme1": "go",
     "rhyme2": "",
     "rhyme2_candidates": [],
-    "rhyme3": "she"
+    "rhyme3": "she",
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "Anchorman: The Legend of Ron Burgundy",
@@ -818,7 +2876,37 @@
     "original_quote": "I'm in a glass case of emotion!",
     "id": "quote_089",
     "rhyme1": "glass",
-    "rhyme2": "emotion"
+    "rhyme2": "emotion",
+    "rhyme1_candidates": [
+      "Ass",
+      "Pass",
+      "Impasse",
+      "Brass",
+      "Mass",
+      "Class",
+      "Surpass",
+      "Alas",
+      "Last",
+      "Bypass",
+      "Trespass",
+      "Bass",
+      "Grass",
+      "Gas",
+      "Cas",
+      "Contrasts",
+      "Sas",
+      "Masse",
+      "Dass"
+    ],
+    "rhyme2_candidates": [
+      "Notion",
+      "Devotion",
+      "Commotion",
+      "Promotion",
+      "Locomotion",
+      "Motion",
+      "Ocean"
+    ]
   },
   {
     "movie": "Brokeback Mountain",
@@ -827,7 +2915,51 @@
     "original_quote": "I wish I knew how to quit you.",
     "id": "quote_090",
     "rhyme1": "quit",
-    "rhyme2": "you"
+    "rhyme2": "you",
+    "rhyme1_candidates": [
+      "Shit",
+      "Fit",
+      "Grit",
+      "Bit",
+      "Counterfeit",
+      "Hit",
+      "Split",
+      "Admit",
+      "Transmit",
+      "Submit",
+      "Omit",
+      "Permit",
+      "Bullshit",
+      "Commit",
+      "Tit",
+      "Emit",
+      "Kit",
+      "Writ",
+      "Cockpit",
+      "Spit"
+    ],
+    "rhyme2_candidates": [
+      "Blue",
+      "Slew",
+      "Subdue",
+      "Pursue",
+      "True",
+      "View",
+      "Hitherto",
+      "Taboo",
+      "Rendezvous",
+      "Through",
+      "Guru",
+      "Overview",
+      "New",
+      "Review",
+      "Accrue",
+      "Breakthrough",
+      "Debut",
+      "Lew",
+      "Screw",
+      "Undue"
+    ]
   },
   {
     "movie": "Casino Royale",
@@ -837,7 +2969,20 @@
     "id": "quote_091",
     "rhyme1": "bond",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Fond",
+      "Beyond",
+      "Respond",
+      "Spawned",
+      "Blonde",
+      "Correspond",
+      "Wand",
+      "Monde",
+      "Dawned",
+      "Blond",
+      "Pond"
+    ]
   },
   {
     "movie": "The Dark Knight",
@@ -846,7 +2991,22 @@
     "original_quote": "Some men just want to watch the world burn.",
     "id": "quote_092",
     "rhyme1": "world",
-    "rhyme2": "burn"
+    "rhyme2": "burn",
+    "rhyme1_candidates": [
+      "Hurled",
+      "Whirled",
+      "Underworld",
+      "Curled"
+    ],
+    "rhyme2_candidates": [
+      "Discern",
+      "Stern",
+      "Concern",
+      "Return",
+      "Turn",
+      "Earn",
+      "Fern"
+    ]
   },
   {
     "movie": "Iron Man",
@@ -856,7 +3016,29 @@
     "id": "quote_093",
     "rhyme1": "iron",
     "rhyme2": "man",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Span",
+      "Clan",
+      "Pan",
+      "Fan",
+      "Caravan",
+      "Scan",
+      "Shan",
+      "Tan",
+      "Afghan",
+      "Clergyman",
+      "Madman",
+      "Businessman",
+      "Began",
+      "Bran",
+      "Fisherman",
+      "Gan",
+      "Japan",
+      "Klan",
+      "Moran",
+      "Jan"
+    ]
   },
   {
     "movie": "Inglourious Basterds",
@@ -866,7 +3048,10 @@
     "id": "quote_094",
     "rhyme1": "bingo",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Domingo"
+    ]
   },
   {
     "movie": "The Avengers",
@@ -876,7 +3061,10 @@
     "id": "quote_095",
     "rhyme1": "hulk",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Bulk"
+    ]
   },
   {
     "movie": "The Wolf of Wall Street",
@@ -885,7 +3073,48 @@
     "original_quote": "Sell me this pen.",
     "id": "quote_096",
     "rhyme1": "sell",
-    "rhyme2": "pen"
+    "rhyme2": "pen",
+    "rhyme1_candidates": [
+      "Compel",
+      "Citadel",
+      "Swell",
+      "Tell",
+      "Dwell",
+      "Shell",
+      "Cell",
+      "Expel",
+      "Parallel",
+      "Well",
+      "Spell",
+      "Rebel",
+      "Yell",
+      "Repel",
+      "Personnel",
+      "Hell",
+      "Smell",
+      "Cartel",
+      "Dell",
+      "Belle"
+    ],
+    "rhyme2_candidates": [
+      "Den",
+      "Ken",
+      "Hen",
+      "Again",
+      "Amen",
+      "Zen",
+      "Ben",
+      "Men",
+      "Gen",
+      "When",
+      "Penn",
+      "Jen",
+      "Ten",
+      "Wren",
+      "Businessmen",
+      "Wen",
+      "Asean"
+    ]
   },
   {
     "movie": "Guardians of the Galaxy",
@@ -894,7 +3123,51 @@
     "original_quote": "We are Groot.",
     "id": "quote_097",
     "rhyme1": "groot",
-    "rhyme2": "we"
+    "rhyme2": "we",
+    "rhyme1_candidates": [
+      "Astute",
+      "Dispute",
+      "Acute",
+      "Destitute",
+      "Refute",
+      "Constitute",
+      "Brute",
+      "Pursuit",
+      "Attribute",
+      "Substitute",
+      "Execute",
+      "Institute",
+      "Cute",
+      "Root",
+      "Mute",
+      "Minute",
+      "Shoot",
+      "Route",
+      "Boot",
+      "Loot"
+    ],
+    "rhyme2_candidates": [
+      "Free",
+      "Devotee",
+      "See",
+      "Key",
+      "Glee",
+      "Sensuality",
+      "Esprit",
+      "Weighty",
+      "Decree",
+      "Guarantee",
+      "Jubilee",
+      "Debris",
+      "Plea",
+      "Flee",
+      "Foresee",
+      "Thee",
+      "Bourgeoisie",
+      "Tree",
+      "Oversee",
+      "Actuality"
+    ]
   },
   {
     "movie": "Get Out",
@@ -903,7 +3176,33 @@
     "original_quote": "I'm in the sunken place.",
     "id": "quote_098",
     "rhyme1": "sunken",
-    "rhyme2": "place"
+    "rhyme2": "place",
+    "rhyme1_candidates": [
+      "Drunken",
+      "Duncan"
+    ],
+    "rhyme2_candidates": [
+      "Base",
+      "Trace",
+      "Case",
+      "Embrace",
+      "Pace",
+      "Ace",
+      "Face",
+      "Space",
+      "Disgrace",
+      "Brace",
+      "Race",
+      "Interface",
+      "Lace",
+      "Displace",
+      "Commonplace",
+      "Bass",
+      "Marketplace",
+      "Chase",
+      "Mace",
+      "Database"
+    ]
   },
   {
     "movie": "Avengers: Infinity War",
@@ -915,6 +3214,16 @@
     "rhyme2": "balanced",
     "rhyme2_candidates": [
       "Unbalanced"
+    ],
+    "rhyme1_candidates": [
+      "Rings",
+      "Wings",
+      "Springs",
+      "Strings",
+      "Brings",
+      "Kings",
+      "Sings",
+      "Swings"
     ]
   },
   {
@@ -925,7 +3234,11 @@
     "id": "quote_100",
     "rhyme1": "avengers",
     "rhyme2": "assemble",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Resemble",
+      "Tremble"
+    ]
   },
   {
     "movie": "The Godfather Part II",
@@ -935,7 +3248,29 @@
     "id": "quote_101",
     "rhyme1": "friends",
     "rhyme2": "enemies",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Contends",
+      "Cleanse",
+      "Lens",
+      "Extends",
+      "Transcends",
+      "Ends",
+      "Pens",
+      "Dividends",
+      "Descends",
+      "Defends",
+      "Intends",
+      "Recommends",
+      "Bends",
+      "Tens",
+      "Lends",
+      "Depends",
+      "Weekends",
+      "Hens",
+      "Spends",
+      "Blends"
+    ]
   },
   {
     "movie": "Star Wars: Episode IV - A New Hope",
@@ -945,7 +3280,21 @@
     "id": "quote_102",
     "rhyme1": "help",
     "rhyme2": "hope",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Scope",
+      "Rope",
+      "Cope",
+      "Envelope",
+      "Soap",
+      "Dope",
+      "Pope",
+      "Isotope",
+      "Telescope",
+      "Microscope",
+      "Antelope",
+      "Slope"
+    ]
   },
   {
     "movie": "Airplane!",
@@ -954,7 +3303,30 @@
     "original_quote": "Looks like I picked the wrong week to stop sniffing glue.",
     "id": "quote_105",
     "rhyme1": "glue",
-    "rhyme2": "sniffing"
+    "rhyme2": "sniffing",
+    "rhyme1_candidates": [
+      "Blue",
+      "Slew",
+      "Subdue",
+      "Pursue",
+      "True",
+      "View",
+      "Hitherto",
+      "Taboo",
+      "Rendezvous",
+      "Through",
+      "Guru",
+      "Overview",
+      "New",
+      "Review",
+      "Accrue",
+      "Breakthrough",
+      "Debut",
+      "Lew",
+      "Screw",
+      "Undue"
+    ],
+    "rhyme2_candidates": []
   },
   {
     "movie": "The Blues Brothers",
@@ -963,7 +3335,48 @@
     "original_quote": "We're on a mission from God.",
     "id": "quote_106",
     "rhyme1": "mission",
-    "rhyme2": "god"
+    "rhyme2": "god",
+    "rhyme1_candidates": [
+      "Disposition",
+      "Cognition",
+      "Ambition",
+      "Admonition",
+      "Volition",
+      "Composition",
+      "Recognition",
+      "Juxtaposition",
+      "Apparition",
+      "Position",
+      "Acquisition",
+      "Opposition",
+      "Expedition",
+      "Proposition",
+      "Attrition",
+      "Intuition",
+      "Supposition",
+      "Submission",
+      "Suspicion",
+      "Condition"
+    ],
+    "rhyme2_candidates": [
+      "Broad",
+      "Facade",
+      "Cod",
+      "Fraud",
+      "Squad",
+      "Prod",
+      "Nod",
+      "Odd",
+      "Flawed",
+      "Pod",
+      "Sod",
+      "Mod",
+      "Todd",
+      "Abroad",
+      "Maud",
+      "Outlawed",
+      "Dodd"
+    ]
   },
   {
     "movie": "Mommie Dearest",
@@ -973,7 +3386,29 @@
     "id": "quote_107",
     "rhyme1": "wire",
     "rhyme2": "hangers",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Desire",
+      "Inquire",
+      "Acquire",
+      "Prior",
+      "Sire",
+      "Fire",
+      "Enquire",
+      "Require",
+      "Satire",
+      "Squire",
+      "Inspire",
+      "Aspire",
+      "Attire",
+      "Entire",
+      "Identifier",
+      "Supplier",
+      "Retire",
+      "Liar",
+      "Tire",
+      "Amplifier"
+    ]
   },
   {
     "movie": "Blade Runner",
@@ -982,7 +3417,39 @@
     "original_quote": "It's too bad she won't live. But then again, who does?",
     "id": "quote_108",
     "rhyme1": "live",
-    "rhyme2": "does"
+    "rhyme2": "does",
+    "rhyme1_candidates": [
+      "Give",
+      "Strive",
+      "Drive",
+      "Derive",
+      "Archive",
+      "Sieve",
+      "Revive",
+      "Alive",
+      "Thrive",
+      "Arrive",
+      "Hive",
+      "Forgive",
+      "Survive",
+      "Dive",
+      "Deprive",
+      "Clive",
+      "Five",
+      "Dr"
+    ],
+    "rhyme2_candidates": [
+      "Buzz",
+      "Because",
+      "Quiz",
+      "Ms",
+      "Liz",
+      "Twas",
+      "His",
+      "Is",
+      "Says",
+      "Tis"
+    ]
   },
   {
     "movie": "Fast Times at Ridgemont High",
@@ -991,7 +3458,36 @@
     "original_quote": "All I need are some tasty waves, a cool buzz, and I'm fine.",
     "id": "quote_109",
     "rhyme1": "waves",
-    "rhyme2": "fine"
+    "rhyme2": "fine",
+    "rhyme1_candidates": [
+      "Caves",
+      "Slaves",
+      "Graves",
+      "Saves",
+      "Behaves"
+    ],
+    "rhyme2_candidates": [
+      "Byzantine",
+      "Benign",
+      "Supine",
+      "Decline",
+      "Line",
+      "Outline",
+      "Undermine",
+      "Shrine",
+      "Pine",
+      "Incline",
+      "Genuine",
+      "Design",
+      "Sign",
+      "Spine",
+      "Shine",
+      "Resign",
+      "Assign",
+      "Align",
+      "Crystalline",
+      "Underline"
+    ]
   },
   {
     "movie": "A Christmas Story",
@@ -1000,7 +3496,51 @@
     "original_quote": "You'll shoot your eye out, kid.",
     "id": "quote_110",
     "rhyme1": "shoot",
-    "rhyme2": "eye"
+    "rhyme2": "eye",
+    "rhyme1_candidates": [
+      "Astute",
+      "Dispute",
+      "Acute",
+      "Destitute",
+      "Refute",
+      "Constitute",
+      "Brute",
+      "Pursuit",
+      "Attribute",
+      "Substitute",
+      "Execute",
+      "Institute",
+      "Cute",
+      "Root",
+      "Mute",
+      "Minute",
+      "Route",
+      "Boot",
+      "Loot",
+      "Prostitute"
+    ],
+    "rhyme2_candidates": [
+      "Exemplify",
+      "Rectify",
+      "High",
+      "Lie",
+      "Apply",
+      "Amplify",
+      "Cry",
+      "Ally",
+      "Sigh",
+      "Clarify",
+      "Comply",
+      "Die",
+      "Identify",
+      "Sly",
+      "Intensify",
+      "Thereby",
+      "Supply",
+      "Defy",
+      "Specify",
+      "Occupy"
+    ]
   },
   {
     "movie": "Ghostbusters",
@@ -1009,7 +3549,50 @@
     "original_quote": "We came, we saw, we kicked its ass!",
     "id": "quote_111",
     "rhyme1": "saw",
-    "rhyme2": "ass"
+    "rhyme2": "ass",
+    "rhyme1_candidates": [
+      "Draw",
+      "Withdraw",
+      "Raw",
+      "Flaw",
+      "Claw",
+      "Law",
+      "Paw",
+      "Jaw",
+      "Straw",
+      "Outlaw",
+      "Bra",
+      "Spa",
+      "Pa",
+      "Ma",
+      "Qua",
+      "Cha",
+      "Ta",
+      "La",
+      "Panama",
+      "Ha"
+    ],
+    "rhyme2_candidates": [
+      "Pass",
+      "Impasse",
+      "Brass",
+      "Mass",
+      "Class",
+      "Surpass",
+      "Alas",
+      "Last",
+      "Glass",
+      "Bypass",
+      "Trespass",
+      "Bass",
+      "Grass",
+      "Gas",
+      "Cas",
+      "Contrasts",
+      "Sas",
+      "Masse",
+      "Dass"
+    ]
   },
   {
     "movie": "Back to the Future",
@@ -1019,7 +3602,29 @@
     "id": "quote_112",
     "rhyme1": "great",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Elucidate",
+      "Articulate",
+      "Desolate",
+      "Facilitate",
+      "Deliberate",
+      "Delineate",
+      "Innate",
+      "Cultivate",
+      "State",
+      "Alleviate",
+      "Intimate",
+      "Subordinate",
+      "Demonstrate",
+      "Contemplate",
+      "Mitigate",
+      "Disseminate",
+      "Adequate",
+      "Indicate",
+      "Necessitate",
+      "Propagate"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -1028,7 +3633,21 @@
     "original_quote": "Have fun storming the castle!",
     "id": "quote_115",
     "rhyme1": "storming",
-    "rhyme2": "castle"
+    "rhyme2": "castle",
+    "rhyme1_candidates": [
+      "Transforming",
+      "Forming",
+      "Conforming",
+      "Performing",
+      "Informing",
+      "Reforming",
+      "Warming"
+    ],
+    "rhyme2_candidates": [
+      "Facile",
+      "Brasil",
+      "Newcastle"
+    ]
   },
   {
     "movie": "RoboCop",
@@ -1037,7 +3656,46 @@
     "original_quote": "Dead or alive, you're coming with me.",
     "id": "quote_116",
     "rhyme1": "dead",
-    "rhyme2": "alive"
+    "rhyme2": "alive",
+    "rhyme1_candidates": [
+      "Dread",
+      "Lead",
+      "Head",
+      "Tread",
+      "Bloodshed",
+      "Aforesaid",
+      "Godhead",
+      "Thread",
+      "Shed",
+      "Read",
+      "Bed",
+      "Ahead",
+      "Overhead",
+      "Watershed",
+      "Sped",
+      "Widespread",
+      "Ted",
+      "Instead",
+      "Fled",
+      "Fed"
+    ],
+    "rhyme2_candidates": [
+      "Strive",
+      "Drive",
+      "Derive",
+      "Archive",
+      "Live",
+      "Revive",
+      "Thrive",
+      "Arrive",
+      "Hive",
+      "Survive",
+      "Dive",
+      "Deprive",
+      "Clive",
+      "Five",
+      "Dr"
+    ]
   },
   {
     "movie": "Who Framed Roger Rabbit",
@@ -1046,7 +3704,46 @@
     "original_quote": "I'm not bad. I'm just drawn that way.",
     "id": "quote_117",
     "rhyme1": "bad",
-    "rhyme2": "drawn"
+    "rhyme2": "drawn",
+    "rhyme1_candidates": [
+      "Sad",
+      "Cad",
+      "Comrade",
+      "Mad",
+      "Clad",
+      "Glad",
+      "Pad",
+      "Add",
+      "Lad",
+      "Dad",
+      "Brad",
+      "Had",
+      "Ad",
+      "Chad",
+      "Fad"
+    ],
+    "rhyme2_candidates": [
+      "Liaison",
+      "Lexicon",
+      "Phenomenon",
+      "Don",
+      "Withdrawn",
+      "Thereupon",
+      "Con",
+      "John",
+      "Baton",
+      "Thereon",
+      "On",
+      "Salon",
+      "Rapprochement",
+      "Upon",
+      "Lawn",
+      "Amazon",
+      "Nylon",
+      "Undergone",
+      "Proton",
+      "Whereupon"
+    ]
   },
   {
     "movie": "Batman",
@@ -1055,7 +3752,33 @@
     "original_quote": "Have you ever danced with the devil in the pale moonlight?",
     "id": "quote_118",
     "rhyme1": "devil",
-    "rhyme2": "moonlight"
+    "rhyme2": "moonlight",
+    "rhyme1_candidates": [
+      "Level",
+      "Neville"
+    ],
+    "rhyme2_candidates": [
+      "Insight",
+      "Light",
+      "Delight",
+      "Bright",
+      "Twilight",
+      "Plight",
+      "Spite",
+      "Right",
+      "Oversight",
+      "Despite",
+      "Blight",
+      "Foresight",
+      "Highlight",
+      "Spotlight",
+      "White",
+      "Tight",
+      "Fight",
+      "Knight",
+      "Upright",
+      "Fright"
+    ]
   },
   {
     "movie": "Goodfellas",
@@ -1064,7 +3787,43 @@
     "original_quote": "Funny how? I mean, funny like I'm a clown? I amuse you?",
     "id": "quote_119",
     "rhyme1": "clown",
-    "rhyme2": "amuse"
+    "rhyme2": "amuse",
+    "rhyme1_candidates": [
+      "Frown",
+      "Crown",
+      "Down",
+      "Renown",
+      "Town",
+      "Brown",
+      "Breakdown",
+      "Gown",
+      "Playground",
+      "Downtown",
+      "Around",
+      "Hometown"
+    ],
+    "rhyme2_candidates": [
+      "Abuse",
+      "Refuse",
+      "Diffuse",
+      "Fuse",
+      "Excuse",
+      "Misuse",
+      "News",
+      "Confuse",
+      "Hues",
+      "Reuse",
+      "Choose",
+      "Cruise",
+      "Residues",
+      "Accuse",
+      "Tissues",
+      "Lose",
+      "Blues",
+      "Shoes",
+      "Whose",
+      "Dues"
+    ]
   },
   {
     "movie": "The Silence of the Lambs",
@@ -1093,6 +3852,14 @@
       "Greece",
       "Increase",
       "Lease"
+    ],
+    "rhyme2_candidates": [
+      "Beaming",
+      "Gleaming",
+      "Seeming",
+      "Streaming",
+      "Steaming",
+      "Dreaming"
     ]
   },
   {
@@ -1102,7 +3869,31 @@
     "original_quote": "Clever girl.",
     "id": "quote_122",
     "rhyme1": "clever",
-    "rhyme2": "girl"
+    "rhyme2": "girl",
+    "rhyme1_candidates": [
+      "Endeavor",
+      "However",
+      "Endeavour",
+      "Lever",
+      "Ever",
+      "Never",
+      "Sever",
+      "Whatever",
+      "Whatsoever",
+      "Whichever",
+      "Whenever",
+      "Whoever",
+      "Wherever",
+      "Forever",
+      "Trevor"
+    ],
+    "rhyme2_candidates": [
+      "Pearl",
+      "Curl",
+      "Earl",
+      "Earle",
+      "Perl"
+    ]
   },
   {
     "movie": "The Sandlot",
@@ -1111,7 +3902,27 @@
     "original_quote": "You're killin' me, Smalls!",
     "id": "quote_123",
     "rhyme1": "killin",
-    "rhyme2": "smalls"
+    "rhyme2": "smalls",
+    "rhyme1_candidates": [
+      "Villain",
+      "Penicillin",
+      "Dillon",
+      "Dylan",
+      "Macmillan"
+    ],
+    "rhyme2_candidates": [
+      "Pitfalls",
+      "Balls",
+      "Protocols",
+      "Recalls",
+      "Dolls",
+      "Calls",
+      "Falls",
+      "Halls",
+      "Rawls",
+      "Stalls",
+      "Walls"
+    ]
   },
   {
     "movie": "Dumb and Dumber",
@@ -1120,7 +3931,33 @@
     "original_quote": "So you're telling me there's a chance.",
     "id": "quote_124",
     "rhyme1": "telling",
-    "rhyme2": "chance"
+    "rhyme2": "chance",
+    "rhyme1_candidates": [
+      "Compelling",
+      "Dwelling",
+      "Swelling",
+      "Yelling",
+      "Storytelling",
+      "Spelling",
+      "Smelling",
+      "Selling"
+    ],
+    "rhyme2_candidates": [
+      "Advance",
+      "Enhance",
+      "Glance",
+      "Circumstance",
+      "Dance",
+      "Expanse",
+      "Lance",
+      "Stance",
+      "Freelance",
+      "Finance",
+      "France",
+      "Romance",
+      "Trance",
+      "Vance"
+    ]
   },
   {
     "movie": "Pulp Fiction",
@@ -1141,7 +3978,10 @@
     "id": "quote_126",
     "rhyme1": "failure",
     "rhyme2": "option",
-    "rhyme1_candidates": []
+    "rhyme1_candidates": [],
+    "rhyme2_candidates": [
+      "Adoption"
+    ]
   },
   {
     "movie": "Babe",
@@ -1172,6 +4012,18 @@
       "Lew",
       "Screw",
       "Undue"
+    ],
+    "rhyme1_candidates": [
+      "Big",
+      "Dig",
+      "Twig",
+      "Fig",
+      "Rig",
+      "Brig",
+      "Wig",
+      "Sig",
+      "Jig",
+      "Whig"
     ]
   },
   {
@@ -1181,7 +4033,51 @@
     "original_quote": "The greatest trick the Devil ever pulled was convincing the world he didn't exist.",
     "id": "quote_128",
     "rhyme1": "trick",
-    "rhyme2": "exist"
+    "rhyme2": "exist",
+    "rhyme1_candidates": [
+      "Thick",
+      "Sick",
+      "Prick",
+      "Slick",
+      "Stick",
+      "Wick",
+      "Dick",
+      "Lick",
+      "Nick",
+      "Pick",
+      "Kick",
+      "Lunatic",
+      "Click",
+      "Chick",
+      "Politic",
+      "Bolshevik",
+      "Quick",
+      "Brick",
+      "Tick",
+      "Picnic"
+    ],
+    "rhyme2_candidates": [
+      "Mist",
+      "Just",
+      "Assist",
+      "Twist",
+      "Persist",
+      "Hissed",
+      "Pissed",
+      "Insist",
+      "Resist",
+      "Dismissed",
+      "Consist",
+      "Midst",
+      "Enlist",
+      "Wrist",
+      "Kissed",
+      "Fist",
+      "Coexist",
+      "Checklist",
+      "Missed",
+      "Cyst"
+    ]
   },
   {
     "movie": "Fargo",
@@ -1301,6 +4197,11 @@
     "rhyme2": "anderson",
     "rhyme2_candidates": [
       "Andersen"
+    ],
+    "rhyme1_candidates": [
+      "Sister",
+      "Transistor",
+      "Mr"
     ]
   },
   {
@@ -1415,7 +4316,25 @@
     "original_quote": "What is this? A center for ants?!",
     "id": "quote_136",
     "rhyme1": "center",
-    "rhyme2": "ants"
+    "rhyme2": "ants",
+    "rhyme1_candidates": [
+      "Tenor",
+      "Centre",
+      "Experimenter",
+      "Inventor",
+      "Brenner",
+      "Enter",
+      "Mentor"
+    ],
+    "rhyme2_candidates": [
+      "Pants",
+      "Chants",
+      "Plants",
+      "Transplants",
+      "Implants",
+      "Aunts",
+      "Grants"
+    ]
   },
   {
     "movie": "The Lord of the Rings: The Two Towers",
@@ -1435,7 +4354,51 @@
     "original_quote": "You sit on a throne of lies.",
     "id": "quote_138",
     "rhyme1": "throne",
-    "rhyme2": "lies"
+    "rhyme2": "lies",
+    "rhyme1_candidates": [
+      "Moan",
+      "Groan",
+      "Cornerstone",
+      "Tone",
+      "Stone",
+      "Unknown",
+      "Cyclone",
+      "Bone",
+      "Backbone",
+      "Milestone",
+      "Zone",
+      "Lone",
+      "Own",
+      "Alone",
+      "Cone",
+      "Blown",
+      "Known",
+      "Clone",
+      "Microphone",
+      "Mon"
+    ],
+    "rhyme2_candidates": [
+      "Surmise",
+      "Emphasize",
+      "Recognize",
+      "Analyze",
+      "Comprise",
+      "Likewise",
+      "Demise",
+      "Rise",
+      "Despise",
+      "Devise",
+      "Optimize",
+      "Utilize",
+      "Exemplifies",
+      "Arise",
+      "Advise",
+      "Realize",
+      "Jeopardize",
+      "Materialize",
+      "Wise",
+      "Criticize"
+    ]
   },
   {
     "movie": "Anchorman: The Legend of Ron Burgundy",
@@ -1466,6 +4429,15 @@
       "Defy",
       "Specify",
       "Eye"
+    ],
+    "rhyme2_candidates": [
+      "Tramp",
+      "Camp",
+      "Damp",
+      "Clamp",
+      "Stamp",
+      "Ramp",
+      "Amp"
     ]
   },
   {
@@ -1477,7 +4449,8 @@
     "rhyme1": "happen",
     "rhyme2": "",
     "rhyme1_candidates": [],
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme3": "fetch"
   },
   {
     "movie": "Napoleon Dynamite",
@@ -1487,7 +4460,29 @@
     "id": "quote_141",
     "rhyme1": "vote",
     "rhyme2": "pedro",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Promote",
+      "Float",
+      "Denote",
+      "Scapegoat",
+      "Note",
+      "Anecdote",
+      "Remote",
+      "Throat",
+      "Rote",
+      "Afloat",
+      "Devote",
+      "Goat",
+      "Moat",
+      "Antidote",
+      "Boat",
+      "Quote",
+      "Overcoat",
+      "Footnote",
+      "Steamboat",
+      "Wrote"
+    ]
   },
   {
     "movie": "No Country for Old Men",
@@ -1496,7 +4491,26 @@
     "original_quote": "What's the most you ever lost on a coin toss?",
     "id": "quote_142",
     "rhyme1": "coin",
-    "rhyme2": "toss"
+    "rhyme2": "toss",
+    "rhyme1_candidates": [
+      "Groin",
+      "Join",
+      "Goin"
+    ],
+    "rhyme2_candidates": [
+      "Cross",
+      "Gloss",
+      "Pos",
+      "Moss",
+      "Loss",
+      "Sauce",
+      "Across",
+      "Ross",
+      "Os",
+      "Dos",
+      "Cos",
+      "Las"
+    ]
   },
   {
     "movie": "Taken",
@@ -1657,7 +4671,41 @@
     "original_quote": "Nothing goes over my head. My reflexes are too fast. I would catch it.",
     "id": "quote_147",
     "rhyme1": "catch",
-    "rhyme2": "head"
+    "rhyme2": "head",
+    "rhyme1_candidates": [
+      "Dispatch",
+      "Batch",
+      "Snatch",
+      "Scratch",
+      "Match",
+      "Patch",
+      "Hatch",
+      "Latch",
+      "Attach",
+      "Mismatch"
+    ],
+    "rhyme2_candidates": [
+      "Dread",
+      "Lead",
+      "Dead",
+      "Tread",
+      "Bloodshed",
+      "Aforesaid",
+      "Godhead",
+      "Thread",
+      "Shed",
+      "Read",
+      "Bed",
+      "Ahead",
+      "Overhead",
+      "Watershed",
+      "Sped",
+      "Widespread",
+      "Ted",
+      "Instead",
+      "Fled",
+      "Fed"
+    ]
   },
   {
     "movie": "Mad Max: Fury Road",
@@ -1667,6 +4715,7 @@
     "id": "quote_148",
     "rhyme1": "day",
     "rhyme2": "",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Convey",
       "Display",
@@ -1688,8 +4737,7 @@
       "Betray",
       "Interplay",
       "Relay"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "Avengers: Infinity War",
@@ -1797,7 +4845,17 @@
     "original_quote": "It's a Sicilian message. It means Luca Brasi sleeps with the fishes.",
     "id": "quote_151",
     "rhyme1": "sleeps",
-    "rhyme2": "fishes"
+    "rhyme2": "fishes",
+    "rhyme1_candidates": [
+      "Leaps",
+      "Keeps",
+      "Sweeps",
+      "Heaps"
+    ],
+    "rhyme2_candidates": [
+      "Dishes",
+      "Wishes"
+    ]
   },
   {
     "movie": "Chinatown",
@@ -1834,6 +4892,7 @@
     "id": "quote_153",
     "rhyme1": "lack",
     "rhyme2": "disturbing",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Crack",
       "Slack",
@@ -1855,8 +4914,7 @@
       "Mack",
       "Almanac",
       "Aback"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "Animal House",
@@ -1919,10 +4977,10 @@
     "id": "quote_155",
     "rhyme1": "horror",
     "rhyme2": "",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Explorer"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "Airplane!",
@@ -1977,14 +5035,14 @@
     "id": "quote_158",
     "rhyme1": "honey",
     "rhyme2": "mileage",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Funny",
       "Money",
       "Bunny",
       "Sonny",
       "Sunny"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "The Thing",
@@ -2098,6 +5156,7 @@
     "id": "quote_162",
     "rhyme1": "man",
     "rhyme2": "scientist",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Span",
       "Clan",
@@ -2119,8 +5178,7 @@
       "Klan",
       "Moran",
       "Jan"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "Back to the Future",
@@ -2384,7 +5442,8 @@
     "id": "quote_169",
     "rhyme1": "stupid",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Dead Poets Society",
@@ -2416,6 +5475,7 @@
     "id": "quote_171",
     "rhyme1": "home",
     "rhyme2": "shinebox",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Roam",
       "Comb",
@@ -2429,8 +5489,7 @@
       "Dome",
       "Guillaume",
       "Jerome"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "The Silence of the Lambs",
@@ -2523,38 +5582,6 @@
       "Intake",
       "Overtake",
       "Drake"
-    ]
-  },
-  {
-    "movie": "Reservoir Dogs",
-    "year": 1992,
-    "character": "Mr. Blonde",
-    "original_quote": "Are you gonna bark all day, little doggy, or are you gonna bite?",
-    "id": "quote_174",
-    "rhyme1": "doggy",
-    "rhyme2": "bite",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Insight",
-      "Light",
-      "Delight",
-      "Bright",
-      "Twilight",
-      "Plight",
-      "Spite",
-      "Right",
-      "Oversight",
-      "Despite",
-      "Blight",
-      "Foresight",
-      "Highlight",
-      "Spotlight",
-      "White",
-      "Tight",
-      "Fight",
-      "Knight",
-      "Upright",
-      "Fright"
     ]
   },
   {
@@ -2949,7 +5976,29 @@
     "id": "quote_185",
     "rhyme1": "star",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Char",
+      "Bar",
+      "Reservoir",
+      "Bizarre",
+      "Seminar",
+      "Repertoire",
+      "Tar",
+      "Registrar",
+      "Memoir",
+      "Car",
+      "Bazaar",
+      "Par",
+      "Scar",
+      "Lumbar",
+      "Cigar",
+      "Afar",
+      "Tsar",
+      "Jar",
+      "Radar",
+      "R"
+    ]
   },
   {
     "movie": "The Big Lebowski",
@@ -3312,7 +6361,26 @@
     "id": "quote_196",
     "rhyme1": "masterpiece",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Nice",
+      "Piece",
+      "Release",
+      "Cease",
+      "Peace",
+      "Decrease",
+      "Grease",
+      "Mouthpiece",
+      "Police",
+      "Apiece",
+      "Obese",
+      "Geese",
+      "Niece",
+      "Denise",
+      "Greece",
+      "Increase",
+      "Lease"
+    ]
   },
   {
     "movie": "The Social Network",
@@ -3577,7 +6645,26 @@
     "id": "quote_205",
     "rhyme1": "trap",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Snap",
+      "Lap",
+      "Wrap",
+      "Sap",
+      "Clap",
+      "Flap",
+      "Rap",
+      "Crap",
+      "Pap",
+      "Gap",
+      "Strap",
+      "Cap",
+      "Handicap",
+      "Overlap",
+      "Nap",
+      "Slap",
+      "Map"
+    ]
   },
   {
     "movie": "Scarface",
@@ -3938,7 +7025,29 @@
     "id": "quote_216",
     "rhyme1": "care",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Despair",
+      "Glare",
+      "Bare",
+      "Declare",
+      "Affair",
+      "Flare",
+      "Fair",
+      "Welfare",
+      "Aware",
+      "Air",
+      "Square",
+      "Fare",
+      "Unaware",
+      "Flair",
+      "Rare",
+      "Snare",
+      "Spare",
+      "Impair",
+      "Prepare",
+      "Repair"
+    ]
   },
   {
     "movie": "Pulp Fiction",
@@ -4268,7 +7377,15 @@
     "id": "quote_227",
     "rhyme1": "guns",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tons",
+      "Runs",
+      "Ones",
+      "Sons",
+      "Nuns",
+      "Tonnes"
+    ]
   },
   {
     "movie": "Fight Club",
@@ -5172,7 +8289,29 @@
     "id": "quote_254",
     "rhyme1": "years",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tears",
+      "Appears",
+      "Yours",
+      "Clears",
+      "Entrepreneurs",
+      "Frontiers",
+      "Confers",
+      "Cheers",
+      "Careers",
+      "Interferes",
+      "Prefers",
+      "Occurs",
+      "Arrears",
+      "Hers",
+      "Ears",
+      "Volunteers",
+      "Gears",
+      "Beers",
+      "Furs",
+      "Spheres"
+    ]
   },
   {
     "movie": "Jaws",
@@ -5182,7 +8321,29 @@
     "id": "quote_255",
     "rhyme1": "smile",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Reconcile",
+      "Vile",
+      "Versatile",
+      "Juvenile",
+      "Senile",
+      "Hostile",
+      "Pile",
+      "Aisle",
+      "File",
+      "Trial",
+      "Worthwhile",
+      "Style",
+      "Tactile",
+      "Compile",
+      "While",
+      "Mercantile",
+      "Meanwhile",
+      "Profile",
+      "Exile",
+      "Immobile"
+    ]
   },
   {
     "movie": "Pulp Fiction",
@@ -5228,7 +8389,19 @@
     "id": "quote_257",
     "rhyme1": "fault",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Assault",
+      "Vault",
+      "Default",
+      "Salt",
+      "Asphalt",
+      "Walt",
+      "Alt",
+      "Basalt",
+      "Cobalt",
+      "Halt"
+    ]
   },
   {
     "movie": "Good Will Hunting",
@@ -5469,7 +8642,29 @@
     "id": "quote_265",
     "rhyme1": "today",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Convey",
+      "Display",
+      "Dismay",
+      "Gay",
+      "Decay",
+      "Play",
+      "Portray",
+      "Cache",
+      "Fray",
+      "Array",
+      "Prey",
+      "Survey",
+      "Tray",
+      "Stray",
+      "Bay",
+      "Lay",
+      "Fay",
+      "Betray",
+      "Interplay",
+      "Relay"
+    ]
   },
   {
     "movie": "The Shining",
@@ -5562,7 +8757,13 @@
     "id": "quote_269",
     "rhyme1": "truth",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Youth",
+      "Tooth",
+      "Booth",
+      "Ruth"
+    ]
   },
   {
     "movie": "The Dark Knight",
@@ -5629,7 +8830,29 @@
     "id": "quote_272",
     "rhyme1": "axe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Relax",
+      "Syntax",
+      "Flax",
+      "Wax",
+      "Drawbacks",
+      "Tracks",
+      "Tax",
+      "Setbacks",
+      "Impacts",
+      "Facts",
+      "Ax",
+      "Attacks",
+      "Fax",
+      "Max",
+      "Contacts",
+      "Racks",
+      "Blacks",
+      "Backs",
+      "Packs",
+      "Cracks"
+    ]
   },
   {
     "movie": "Caddyshack",
@@ -5639,7 +8862,29 @@
     "id": "quote_273",
     "rhyme1": "hole",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Control",
+      "Soul",
+      "Stroll",
+      "Console",
+      "Goal",
+      "Roll",
+      "Enroll",
+      "Mole",
+      "Role",
+      "Scroll",
+      "Coal",
+      "Whole",
+      "Parole",
+      "Dipole",
+      "Poll",
+      "Charcoal",
+      "Bowl",
+      "Stole",
+      "Ole",
+      "Patrol"
+    ]
   },
   {
     "movie": "Ghostbusters",
@@ -5742,7 +8987,10 @@
     "id": "quote_276",
     "rhyme1": "maybe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Baby"
+    ]
   },
   {
     "movie": "The Blues Brothers",
@@ -5753,7 +9001,16 @@
     "rhyme1": "sunglasses",
     "rhyme2": "",
     "rhyme2_candidates": [],
-    "rhyme3": "gas"
+    "rhyme3": "gas",
+    "rhyme1_candidates": [
+      "Molasses",
+      "Masses",
+      "Glasses",
+      "Classes",
+      "Gases",
+      "Grasses",
+      "Passes"
+    ]
   },
   {
     "movie": "Starship Troopers",
@@ -6109,7 +9366,29 @@
     "id": "quote_290",
     "rhyme1": "row",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "The Room",
@@ -6119,7 +9398,26 @@
     "id": "quote_291",
     "rhyme1": "mark",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Stark",
+      "Dark",
+      "Remark",
+      "Spark",
+      "Monarch",
+      "Bark",
+      "Benchmark",
+      "Lark",
+      "Embark",
+      "Ark",
+      "Landmark",
+      "Patriarch",
+      "Park",
+      "Trademark",
+      "Shark",
+      "Quark",
+      "Clark"
+    ]
   },
   {
     "movie": "The Room",
@@ -6577,7 +9875,10 @@
     "id": "quote_306",
     "rhyme1": "safe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Unsafe"
+    ]
   },
   {
     "movie": "Star Wars",
@@ -6730,7 +10031,8 @@
     "id": "quote_312",
     "rhyme1": "khaaaan",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Return of the Jedi",
@@ -6927,7 +10229,8 @@
     "rhyme1": "bubblegum",
     "rhyme2": "",
     "rhyme2_candidates": [],
-    "rhyme3": "chew"
+    "rhyme3": "chew",
+    "rhyme1_candidates": []
   },
   {
     "movie": "Rain Man",
@@ -6962,7 +10265,28 @@
     "id": "quote_321",
     "rhyme1": "fan",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Span",
+      "Clan",
+      "Man",
+      "Pan",
+      "Caravan",
+      "Scan",
+      "Shan",
+      "Tan",
+      "Afghan",
+      "Clergyman",
+      "Madman",
+      "Businessman",
+      "Began",
+      "Bran",
+      "Fisherman",
+      "Gan",
+      "Japan",
+      "Klan",
+      "Moran"
+    ]
   },
   {
     "movie": "Reservoir Dogs",
@@ -7025,7 +10349,8 @@
     "id": "quote_323",
     "rhyme1": "boomstick",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Titanic",
@@ -7398,7 +10723,29 @@
     "id": "quote_333",
     "rhyme1": "sit",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Shit",
+      "Fit",
+      "Grit",
+      "Bit",
+      "Counterfeit",
+      "Hit",
+      "Split",
+      "Admit",
+      "Transmit",
+      "Submit",
+      "Omit",
+      "Permit",
+      "Bullshit",
+      "Commit",
+      "Tit",
+      "Emit",
+      "Kit",
+      "Writ",
+      "Cockpit",
+      "Spit"
+    ]
   },
   {
     "movie": "The Notebook",
@@ -7440,7 +10787,15 @@
     "id": "quote_335",
     "rhyme1": "capes",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Grapes",
+      "Apes",
+      "Tapes",
+      "Shapes",
+      "Escapes",
+      "Landscapes"
+    ]
   },
   {
     "movie": "Star Wars: Episode III \u2013 Revenge of the Sith",
@@ -9467,7 +12822,19 @@
     "id": "quote_398",
     "rhyme1": "hurts",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Asserts",
+      "Outskirts",
+      "Deserts",
+      "Converts",
+      "Inserts",
+      "Concerts",
+      "Exerts",
+      "Hertz",
+      "Shirts",
+      "Skirts"
+    ]
   },
   {
     "movie": "Get Out",
@@ -9648,6 +13015,28 @@
       "Midwife",
       "Wildlife",
       "Housewife"
+    ],
+    "rhyme1_candidates": [
+      "Liaison",
+      "Lexicon",
+      "Phenomenon",
+      "Drawn",
+      "Don",
+      "Withdrawn",
+      "Thereupon",
+      "Con",
+      "John",
+      "Baton",
+      "Thereon",
+      "On",
+      "Salon",
+      "Rapprochement",
+      "Upon",
+      "Lawn",
+      "Amazon",
+      "Nylon",
+      "Undergone",
+      "Proton"
     ]
   },
   {
@@ -10023,7 +13412,8 @@
     "id": "quote_416",
     "rhyme1": "triple-dog-dare",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "The Breakfast Club",
@@ -10220,7 +13610,15 @@
     "id": "quote_421",
     "rhyme1": "change",
     "rhyme2": "animal",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Strange",
+      "Range",
+      "Interchange",
+      "Exchange",
+      "Arrange",
+      "Grange"
+    ]
   },
   {
     "movie": "Unforgiven",
@@ -10307,7 +13705,24 @@
     "id": "quote_424",
     "rhyme1": "cool",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Vestibule",
+      "Tool",
+      "Ridicule",
+      "Fool",
+      "Rule",
+      "Cruel",
+      "Jewel",
+      "Pool",
+      "Dual",
+      "School",
+      "Stool",
+      "Fuel",
+      "Molecule",
+      "Preschool",
+      "Liverpool"
+    ]
   },
   {
     "movie": "Dumb and Dumber",
@@ -10357,7 +13772,10 @@
     "id": "quote_426",
     "rhyme1": "baby",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Maybe"
+    ]
   },
   {
     "movie": "Austin Powers: International Man of Mystery",
@@ -10461,6 +13879,28 @@
       "Cockpit",
       "Spit",
       "Quit"
+    ],
+    "rhyme2_candidates": [
+      "Regard",
+      "Disregard",
+      "Retard",
+      "Safeguard",
+      "Vanguard",
+      "Marred",
+      "Barred",
+      "Discard",
+      "Courtyard",
+      "Boulevard",
+      "Charred",
+      "Scarred",
+      "Yard",
+      "Card",
+      "Graveyard",
+      "Backyard",
+      "Garde",
+      "Postcard",
+      "Starred",
+      "Churchyard"
     ]
   },
   {
@@ -10471,7 +13911,8 @@
     "id": "quote_430",
     "rhyme1": "dags",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Donnie Darko",
@@ -10671,7 +14112,13 @@
     "id": "quote_436",
     "rhyme1": "gosh",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Wash",
+      "Josh",
+      "Squash",
+      "Macintosh"
+    ]
   },
   {
     "movie": "Saw",
@@ -10755,7 +14202,29 @@
     "rhyme1": "nice",
     "rhyme2": "",
     "rhyme2_candidates": [],
-    "rhyme3": "very"
+    "rhyme3": "very",
+    "rhyme1_candidates": [
+      "Concise",
+      "Vice",
+      "Devise",
+      "Piece",
+      "Precise",
+      "Release",
+      "Cease",
+      "Advice",
+      "Paradise",
+      "Sacrifice",
+      "Device",
+      "Peace",
+      "Suffice",
+      "Ice",
+      "Decrease",
+      "Slice",
+      "Grease",
+      "Excise",
+      "Imprecise",
+      "Dice"
+    ]
   },
   {
     "movie": "Hot Fuzz",
@@ -10764,7 +14233,51 @@
     "original_quote": "The greater good.",
     "id": "quote_440",
     "rhyme1": "greater",
-    "rhyme2": "good"
+    "rhyme2": "good",
+    "rhyme1_candidates": [
+      "Perpetrator",
+      "Operator",
+      "Indicator",
+      "Arbitrator",
+      "Curator",
+      "Dictator",
+      "Activator",
+      "Mater",
+      "Crater",
+      "Mediator",
+      "Oscillator",
+      "Traitor",
+      "Investigator",
+      "Facilitator",
+      "Generator",
+      "Regulator",
+      "Later",
+      "Navigator",
+      "Educator",
+      "Waiter"
+    ],
+    "rhyme2_candidates": [
+      "Bid",
+      "Livelihood",
+      "Quid",
+      "Falsehood",
+      "Amid",
+      "Forbid",
+      "Hood",
+      "Could",
+      "Brotherhood",
+      "Misunderstood",
+      "Lid",
+      "Kid",
+      "Neighborhood",
+      "Should",
+      "Grid",
+      "Squid",
+      "Mid",
+      "Likelihood",
+      "Understood",
+      "Hardwood"
+    ]
   },
   {
     "movie": "Superbad",
@@ -10774,7 +14287,8 @@
     "id": "quote_441",
     "rhyme1": "mclovin",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Juno",
@@ -10897,7 +14411,8 @@
     "id": "quote_445",
     "rhyme1": "paaaartyyyyy",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Bridesmaids",
@@ -10954,7 +14469,37 @@
     "original_quote": "Yeah, I'm thinking I'm back.",
     "id": "quote_448",
     "rhyme1": "thinking",
-    "rhyme2": "back"
+    "rhyme2": "back",
+    "rhyme1_candidates": [
+      "Linking",
+      "Drinking",
+      "Rethinking",
+      "Blinking",
+      "Shrinking",
+      "Sinking"
+    ],
+    "rhyme2_candidates": [
+      "Crack",
+      "Slack",
+      "Black",
+      "Track",
+      "Hack",
+      "Rack",
+      "Setback",
+      "Attack",
+      "Feedback",
+      "Tack",
+      "Drawback",
+      "Jack",
+      "Sack",
+      "Shack",
+      "Stack",
+      "Pack",
+      "Mack",
+      "Almanac",
+      "Aback",
+      "Kodak"
+    ]
   },
   {
     "movie": "The Grand Budapest Hotel",
@@ -11327,7 +14872,45 @@
     "original_quote": "Never rat on your friends, and always keep your mouth shut.",
     "id": "quote_458",
     "rhyme1": "rat",
-    "rhyme2": "shut"
+    "rhyme2": "shut",
+    "rhyme1_candidates": [
+      "Flat",
+      "Cat",
+      "Caveat",
+      "Pat",
+      "Combat",
+      "That",
+      "Diplomat",
+      "Fat",
+      "Bat",
+      "Mat",
+      "Spat",
+      "Habitat",
+      "Matt",
+      "Chat",
+      "Stat",
+      "Hat",
+      "Tat",
+      "Format",
+      "Platt",
+      "Nat"
+    ],
+    "rhyme2_candidates": [
+      "Butt",
+      "Cut",
+      "That",
+      "Nut",
+      "Chestnut",
+      "Somewhat",
+      "Robot",
+      "But",
+      "Undercut",
+      "What",
+      "Gut",
+      "Shortcut",
+      "Peanut",
+      "Hut"
+    ]
   },
   {
     "movie": "Fight Club",
@@ -11457,7 +15040,43 @@
     "original_quote": "I find I'm so excited, I can barely sit still or hold a thought in my head.",
     "id": "quote_463",
     "rhyme1": "excited",
-    "rhyme2": "head"
+    "rhyme2": "head",
+    "rhyme1_candidates": [
+      "Delighted",
+      "Ignited",
+      "Cited",
+      "Indicted",
+      "Invited",
+      "Sighted",
+      "Recited",
+      "Lighted",
+      "Reunited",
+      "Copyrighted",
+      "Highlighted",
+      "United"
+    ],
+    "rhyme2_candidates": [
+      "Dread",
+      "Lead",
+      "Dead",
+      "Tread",
+      "Bloodshed",
+      "Aforesaid",
+      "Godhead",
+      "Thread",
+      "Shed",
+      "Read",
+      "Bed",
+      "Ahead",
+      "Overhead",
+      "Watershed",
+      "Sped",
+      "Widespread",
+      "Ted",
+      "Instead",
+      "Fled",
+      "Fed"
+    ]
   },
   {
     "movie": "Ferris Bueller's Day Off",
@@ -11565,7 +15184,41 @@
     "original_quote": "All I have in this world is my balls and my word, and I don't break 'em for no one.",
     "id": "quote_467",
     "rhyme1": "balls",
-    "rhyme2": "word"
+    "rhyme2": "word",
+    "rhyme1_candidates": [
+      "Pitfalls",
+      "Protocols",
+      "Recalls",
+      "Dolls",
+      "Calls",
+      "Falls",
+      "Halls",
+      "Rawls",
+      "Stalls",
+      "Walls"
+    ],
+    "rhyme2_candidates": [
+      "Absurd",
+      "Spurred",
+      "Stirred",
+      "Conferred",
+      "Preferred",
+      "Deferred",
+      "Inferred",
+      "Concurred",
+      "Foreword",
+      "Bird",
+      "Unheard",
+      "Third",
+      "Blurred",
+      "Referred",
+      "Password",
+      "Deterred",
+      "Keyword",
+      "Transferred",
+      "Overheard",
+      "Incurred"
+    ]
   },
   {
     "movie": "Aliens",
@@ -11858,7 +15511,51 @@
     "original_quote": "Chew, if only you could see what I've seen with your eyes.",
     "id": "quote_476",
     "rhyme1": "chew",
-    "rhyme2": "eyes"
+    "rhyme2": "eyes",
+    "rhyme1_candidates": [
+      "Blue",
+      "Slew",
+      "Subdue",
+      "Pursue",
+      "True",
+      "View",
+      "Hitherto",
+      "Taboo",
+      "Rendezvous",
+      "Through",
+      "Guru",
+      "Overview",
+      "New",
+      "Review",
+      "Accrue",
+      "Breakthrough",
+      "Debut",
+      "Lew",
+      "Screw",
+      "Undue"
+    ],
+    "rhyme2_candidates": [
+      "Surmise",
+      "Emphasize",
+      "Recognize",
+      "Analyze",
+      "Comprise",
+      "Likewise",
+      "Demise",
+      "Rise",
+      "Despise",
+      "Devise",
+      "Optimize",
+      "Utilize",
+      "Exemplifies",
+      "Arise",
+      "Advise",
+      "Realize",
+      "Jeopardize",
+      "Materialize",
+      "Wise",
+      "Criticize"
+    ]
   },
   {
     "movie": "Toy Story",
@@ -12023,7 +15720,17 @@
     "original_quote": "In danger of being crushed by a dwarf.",
     "id": "quote_481",
     "rhyme1": "crushed",
-    "rhyme2": "dwarf"
+    "rhyme2": "dwarf",
+    "rhyme1_candidates": [
+      "Hushed",
+      "Brushed",
+      "Rushed",
+      "Flushed",
+      "Blushed"
+    ],
+    "rhyme2_candidates": [
+      "Wharf"
+    ]
   },
   {
     "movie": "Airplane!",
@@ -12182,7 +15889,35 @@
     "original_quote": "I always figured when I got older, God would sorta come into my life somehow. And he didn't.",
     "id": "quote_487",
     "rhyme1": "god",
-    "rhyme2": "older"
+    "rhyme2": "older",
+    "rhyme1_candidates": [
+      "Broad",
+      "Facade",
+      "Cod",
+      "Fraud",
+      "Squad",
+      "Prod",
+      "Nod",
+      "Odd",
+      "Flawed",
+      "Pod",
+      "Sod",
+      "Mod",
+      "Todd",
+      "Abroad",
+      "Maud",
+      "Outlawed",
+      "Dodd"
+    ],
+    "rhyme2_candidates": [
+      "Shoulder",
+      "Holder",
+      "Boulder",
+      "Folder",
+      "Stakeholder",
+      "Shareholder",
+      "Colder"
+    ]
   },
   {
     "movie": "There Will Be Blood",
@@ -12246,7 +15981,51 @@
     "original_quote": "Well? We're waiting!",
     "id": "quote_490",
     "rhyme1": "waiting",
-    "rhyme2": "well"
+    "rhyme2": "well",
+    "rhyme1_candidates": [
+      "Grating",
+      "Fascinating",
+      "Stimulating",
+      "Debilitating",
+      "Fluctuating",
+      "Oscillating",
+      "Accommodating",
+      "Illuminating",
+      "Undulating",
+      "Devastating",
+      "Intimidating",
+      "Creating",
+      "Propagating",
+      "Penetrating",
+      "Discriminating",
+      "Calculating",
+      "Anticipating",
+      "Irritating",
+      "Frustrating",
+      "Integrating"
+    ],
+    "rhyme2_candidates": [
+      "Compel",
+      "Citadel",
+      "Swell",
+      "Tell",
+      "Dwell",
+      "Shell",
+      "Cell",
+      "Expel",
+      "Parallel",
+      "Spell",
+      "Rebel",
+      "Yell",
+      "Repel",
+      "Personnel",
+      "Hell",
+      "Smell",
+      "Sell",
+      "Cartel",
+      "Dell",
+      "Belle"
+    ]
   },
   {
     "movie": "Knives Out",
@@ -12358,7 +16137,20 @@
     "original_quote": "I have many leather-bound books and my apartment smells of rich mahogany.",
     "id": "quote_493",
     "rhyme1": "books",
-    "rhyme2": "apartment"
+    "rhyme2": "apartment",
+    "rhyme1_candidates": [
+      "Looks",
+      "Brooks",
+      "Notebooks",
+      "Handbooks",
+      "Cooks",
+      "Hooks",
+      "Textbooks"
+    ],
+    "rhyme2_candidates": [
+      "Compartment",
+      "Department"
+    ]
   },
   {
     "movie": "300",
@@ -12459,7 +16251,44 @@
     "original_quote": "Amateurs seek the sun. Get eaten. Power stays in the shadows.",
     "id": "quote_498",
     "rhyme1": "power",
-    "rhyme2": "shadows"
+    "rhyme2": "shadows",
+    "rhyme1_candidates": [
+      "Empower",
+      "Bower",
+      "Sour",
+      "Tower",
+      "Devour",
+      "Shower",
+      "Flower",
+      "Manpower",
+      "Hour",
+      "Flour",
+      "Horsepower",
+      "Our",
+      "Bauer"
+    ],
+    "rhyme2_candidates": [
+      "Repose",
+      "Close",
+      "Compose",
+      "Pose",
+      "Impose",
+      "Expose",
+      "Oppose",
+      "Disclose",
+      "Propose",
+      "Suppose",
+      "Dispose",
+      "Enclose",
+      "Nose",
+      "Hose",
+      "Ambrose",
+      "Presuppose",
+      "Those",
+      "Woes",
+      "Rose",
+      "Clothes"
+    ]
   },
   {
     "movie": "The Incredibles",
@@ -12532,7 +16361,29 @@
     "id": "quote_014",
     "rhyme1": "back",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Crack",
+      "Slack",
+      "Black",
+      "Track",
+      "Hack",
+      "Rack",
+      "Setback",
+      "Attack",
+      "Feedback",
+      "Tack",
+      "Drawback",
+      "Jack",
+      "Sack",
+      "Shack",
+      "Stack",
+      "Pack",
+      "Mack",
+      "Almanac",
+      "Aback",
+      "Kodak"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -12542,7 +16393,11 @@
     "id": "quote_019",
     "rhyme1": "wish",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Dish",
+      "Shellfish"
+    ]
   },
   {
     "movie": "Die Hard",
@@ -12552,7 +16407,10 @@
     "id": "quote_020",
     "rhyme1": "motherfucker",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tucker"
+    ]
   },
   {
     "movie": "Jerry Maguire",
@@ -12562,7 +16420,29 @@
     "id": "quote_033",
     "rhyme1": "hello",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "300",
@@ -12572,7 +16452,11 @@
     "id": "quote_043",
     "rhyme1": "sparta",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Jakarta",
+      "Marta"
+    ]
   },
   {
     "movie": "Animal House",
@@ -12582,7 +16466,10 @@
     "id": "quote_055",
     "rhyme1": "toga",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Yoga"
+    ]
   },
   {
     "movie": "Raiders of the Lost Ark",
@@ -12592,7 +16479,24 @@
     "id": "quote_059",
     "rhyme1": "snakes",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Takes",
+      "Stakes",
+      "Mistakes",
+      "Makes",
+      "Undertakes",
+      "Breaks",
+      "Headaches",
+      "Brakes",
+      "Shakes",
+      "Flakes",
+      "Cakes",
+      "Outbreaks",
+      "Earthquakes",
+      "Wakes",
+      "Lakes"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -12602,7 +16506,13 @@
     "id": "quote_070",
     "rhyme1": "inconceivable",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Unbelievable",
+      "Achievable",
+      "Conceivable",
+      "Receivable"
+    ]
   },
   {
     "movie": "Scent of a Woman",
@@ -12623,7 +16533,29 @@
     "id": "quote_076",
     "rhyme1": "alright",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Insight",
+      "Light",
+      "Delight",
+      "Bright",
+      "Twilight",
+      "Plight",
+      "Spite",
+      "Right",
+      "Oversight",
+      "Despite",
+      "Blight",
+      "Foresight",
+      "Highlight",
+      "Spotlight",
+      "White",
+      "Tight",
+      "Fight",
+      "Knight",
+      "Upright",
+      "Fright"
+    ]
   },
   {
     "movie": "Clueless",
@@ -12633,7 +16565,11 @@
     "id": "quote_079",
     "rhyme1": "if",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Stiff",
+      "Cliff"
+    ]
   },
   {
     "movie": "Mean Girls",
@@ -12643,7 +16579,29 @@
     "id": "quote_088",
     "rhyme1": "go",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "Casino Royale",
@@ -12653,7 +16611,20 @@
     "id": "quote_091",
     "rhyme1": "bond",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Fond",
+      "Beyond",
+      "Respond",
+      "Spawned",
+      "Blonde",
+      "Correspond",
+      "Wand",
+      "Monde",
+      "Dawned",
+      "Blond",
+      "Pond"
+    ]
   },
   {
     "movie": "Inglourious Basterds",
@@ -12663,7 +16634,10 @@
     "id": "quote_094",
     "rhyme1": "bingo",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Domingo"
+    ]
   },
   {
     "movie": "The Avengers",
@@ -12673,7 +16647,10 @@
     "id": "quote_095",
     "rhyme1": "hulk",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Bulk"
+    ]
   },
   {
     "movie": "Back to the Future",
@@ -12683,7 +16660,29 @@
     "id": "quote_112",
     "rhyme1": "great",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Elucidate",
+      "Articulate",
+      "Desolate",
+      "Facilitate",
+      "Deliberate",
+      "Delineate",
+      "Innate",
+      "Cultivate",
+      "State",
+      "Alleviate",
+      "Intimate",
+      "Subordinate",
+      "Demonstrate",
+      "Contemplate",
+      "Mitigate",
+      "Disseminate",
+      "Adequate",
+      "Indicate",
+      "Necessitate",
+      "Propagate"
+    ]
   },
   {
     "movie": "Ferris Bueller's Day Off",
@@ -12747,6 +16746,7 @@
     "id": "quote_148",
     "rhyme1": "day",
     "rhyme2": "",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Convey",
       "Display",
@@ -12768,8 +16768,7 @@
       "Betray",
       "Interplay",
       "Relay"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "Apocalypse Now",
@@ -12779,10 +16778,10 @@
     "id": "quote_155",
     "rhyme1": "horror",
     "rhyme2": "",
+    "rhyme2_candidates": [],
     "rhyme1_candidates": [
       "Explorer"
-    ],
-    "rhyme2_candidates": []
+    ]
   },
   {
     "movie": "A Fish Called Wanda",
@@ -12792,7 +16791,8 @@
     "id": "quote_169",
     "rhyme1": "stupid",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Boogie Nights",
@@ -12802,7 +16802,29 @@
     "id": "quote_185",
     "rhyme1": "star",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Char",
+      "Bar",
+      "Reservoir",
+      "Bizarre",
+      "Seminar",
+      "Repertoire",
+      "Tar",
+      "Registrar",
+      "Memoir",
+      "Car",
+      "Bazaar",
+      "Par",
+      "Scar",
+      "Lumbar",
+      "Cigar",
+      "Afar",
+      "Tsar",
+      "Jar",
+      "Radar",
+      "R"
+    ]
   },
   {
     "movie": "Inglourious Basterds",
@@ -12812,7 +16834,26 @@
     "id": "quote_196",
     "rhyme1": "masterpiece",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Nice",
+      "Piece",
+      "Release",
+      "Cease",
+      "Peace",
+      "Decrease",
+      "Grease",
+      "Mouthpiece",
+      "Police",
+      "Apiece",
+      "Obese",
+      "Geese",
+      "Niece",
+      "Denise",
+      "Greece",
+      "Increase",
+      "Lease"
+    ]
   },
   {
     "movie": "The Shining",
@@ -12833,7 +16874,26 @@
     "id": "quote_205",
     "rhyme1": "trap",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Snap",
+      "Lap",
+      "Wrap",
+      "Sap",
+      "Clap",
+      "Flap",
+      "Rap",
+      "Crap",
+      "Pap",
+      "Gap",
+      "Strap",
+      "Cap",
+      "Handicap",
+      "Overlap",
+      "Nap",
+      "Slap",
+      "Map"
+    ]
   },
   {
     "movie": "Back to the Future",
@@ -12854,7 +16914,29 @@
     "id": "quote_216",
     "rhyme1": "care",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Despair",
+      "Glare",
+      "Bare",
+      "Declare",
+      "Affair",
+      "Flare",
+      "Fair",
+      "Welfare",
+      "Aware",
+      "Air",
+      "Square",
+      "Fare",
+      "Unaware",
+      "Flair",
+      "Rare",
+      "Snare",
+      "Spare",
+      "Impair",
+      "Prepare",
+      "Repair"
+    ]
   },
   {
     "movie": "The Matrix",
@@ -12864,7 +16946,15 @@
     "id": "quote_227",
     "rhyme1": "guns",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tons",
+      "Runs",
+      "Ones",
+      "Sons",
+      "Nuns",
+      "Tonnes"
+    ]
   },
   {
     "movie": "Inglourious Basterds",
@@ -12917,7 +17007,29 @@
     "id": "quote_254",
     "rhyme1": "years",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Tears",
+      "Appears",
+      "Yours",
+      "Clears",
+      "Entrepreneurs",
+      "Frontiers",
+      "Confers",
+      "Cheers",
+      "Careers",
+      "Interferes",
+      "Prefers",
+      "Occurs",
+      "Arrears",
+      "Hers",
+      "Ears",
+      "Volunteers",
+      "Gears",
+      "Beers",
+      "Furs",
+      "Spheres"
+    ]
   },
   {
     "movie": "Jaws",
@@ -12927,7 +17039,29 @@
     "id": "quote_255",
     "rhyme1": "smile",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Reconcile",
+      "Vile",
+      "Versatile",
+      "Juvenile",
+      "Senile",
+      "Hostile",
+      "Pile",
+      "Aisle",
+      "File",
+      "Trial",
+      "Worthwhile",
+      "Style",
+      "Tactile",
+      "Compile",
+      "While",
+      "Mercantile",
+      "Meanwhile",
+      "Profile",
+      "Exile",
+      "Immobile"
+    ]
   },
   {
     "movie": "Good Will Hunting",
@@ -12937,7 +17071,19 @@
     "id": "quote_257",
     "rhyme1": "fault",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Assault",
+      "Vault",
+      "Default",
+      "Salt",
+      "Asphalt",
+      "Walt",
+      "Alt",
+      "Basalt",
+      "Cobalt",
+      "Halt"
+    ]
   },
   {
     "movie": "The Princess Bride",
@@ -12947,7 +17093,29 @@
     "id": "quote_265",
     "rhyme1": "today",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Convey",
+      "Display",
+      "Dismay",
+      "Gay",
+      "Decay",
+      "Play",
+      "Portray",
+      "Cache",
+      "Fray",
+      "Array",
+      "Prey",
+      "Survey",
+      "Tray",
+      "Stray",
+      "Bay",
+      "Lay",
+      "Fay",
+      "Betray",
+      "Interplay",
+      "Relay"
+    ]
   },
   {
     "movie": "The Big Lebowski",
@@ -12974,7 +17142,13 @@
     "id": "quote_269",
     "rhyme1": "truth",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Youth",
+      "Tooth",
+      "Booth",
+      "Ruth"
+    ]
   },
   {
     "movie": "The Lord of the Rings: The Fellowship of the Ring",
@@ -12984,7 +17158,29 @@
     "id": "quote_272",
     "rhyme1": "axe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Relax",
+      "Syntax",
+      "Flax",
+      "Wax",
+      "Drawbacks",
+      "Tracks",
+      "Tax",
+      "Setbacks",
+      "Impacts",
+      "Facts",
+      "Ax",
+      "Attacks",
+      "Fax",
+      "Max",
+      "Contacts",
+      "Racks",
+      "Blacks",
+      "Backs",
+      "Packs",
+      "Cracks"
+    ]
   },
   {
     "movie": "Caddyshack",
@@ -12994,7 +17190,29 @@
     "id": "quote_273",
     "rhyme1": "hole",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Control",
+      "Soul",
+      "Stroll",
+      "Console",
+      "Goal",
+      "Roll",
+      "Enroll",
+      "Mole",
+      "Role",
+      "Scroll",
+      "Coal",
+      "Whole",
+      "Parole",
+      "Dipole",
+      "Poll",
+      "Charcoal",
+      "Bowl",
+      "Stole",
+      "Ole",
+      "Patrol"
+    ]
   },
   {
     "movie": "The Departed",
@@ -13004,7 +17222,10 @@
     "id": "quote_276",
     "rhyme1": "maybe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Baby"
+    ]
   },
   {
     "movie": "The Blues Brothers",
@@ -13014,7 +17235,16 @@
     "id": "quote_277",
     "rhyme1": "sunglasses",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Molasses",
+      "Masses",
+      "Glasses",
+      "Classes",
+      "Gases",
+      "Grasses",
+      "Passes"
+    ]
   },
   {
     "movie": "Clerks",
@@ -13024,7 +17254,29 @@
     "id": "quote_290",
     "rhyme1": "row",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Show",
+      "Flow",
+      "Fallow",
+      "Although",
+      "Low",
+      "Bestow",
+      "Glow",
+      "Throw",
+      "Beau",
+      "Oh",
+      "Tableau",
+      "Tempo",
+      "Portfolio",
+      "Slow",
+      "Undergo",
+      "Vertigo",
+      "Indigo",
+      "Know",
+      "Archipelago",
+      "Woe"
+    ]
   },
   {
     "movie": "The Room",
@@ -13034,7 +17286,26 @@
     "id": "quote_291",
     "rhyme1": "mark",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Stark",
+      "Dark",
+      "Remark",
+      "Spark",
+      "Monarch",
+      "Bark",
+      "Benchmark",
+      "Lark",
+      "Embark",
+      "Ark",
+      "Landmark",
+      "Patriarch",
+      "Park",
+      "Trademark",
+      "Shark",
+      "Quark",
+      "Clark"
+    ]
   },
   {
     "movie": "Dog Day Afternoon",
@@ -13055,7 +17326,10 @@
     "id": "quote_306",
     "rhyme1": "safe",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Unsafe"
+    ]
   },
   {
     "movie": "Star Trek II: The Wrath of Khan",
@@ -13065,7 +17339,8 @@
     "id": "quote_312",
     "rhyme1": "khaaaan",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "They Live",
@@ -13075,7 +17350,8 @@
     "id": "quote_318",
     "rhyme1": "bubblegum",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Dead Poets Society",
@@ -13096,7 +17372,28 @@
     "id": "quote_321",
     "rhyme1": "fan",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Span",
+      "Clan",
+      "Man",
+      "Pan",
+      "Caravan",
+      "Scan",
+      "Shan",
+      "Tan",
+      "Afghan",
+      "Clergyman",
+      "Madman",
+      "Businessman",
+      "Began",
+      "Bran",
+      "Fisherman",
+      "Gan",
+      "Japan",
+      "Klan",
+      "Moran"
+    ]
   },
   {
     "movie": "Army of Darkness",
@@ -13106,7 +17403,8 @@
     "id": "quote_323",
     "rhyme1": "boomstick",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Mean Girls",
@@ -13116,7 +17414,29 @@
     "id": "quote_333",
     "rhyme1": "sit",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Shit",
+      "Fit",
+      "Grit",
+      "Bit",
+      "Counterfeit",
+      "Hit",
+      "Split",
+      "Admit",
+      "Transmit",
+      "Submit",
+      "Omit",
+      "Permit",
+      "Bullshit",
+      "Commit",
+      "Tit",
+      "Emit",
+      "Kit",
+      "Writ",
+      "Cockpit",
+      "Spit"
+    ]
   },
   {
     "movie": "The Incredibles",
@@ -13126,7 +17446,15 @@
     "id": "quote_335",
     "rhyme1": "capes",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Grapes",
+      "Apes",
+      "Tapes",
+      "Shapes",
+      "Escapes",
+      "Landscapes"
+    ]
   },
   {
     "movie": "Terminator 2: Judgment Day",
@@ -13147,7 +17475,19 @@
     "id": "quote_398",
     "rhyme1": "hurts",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Asserts",
+      "Outskirts",
+      "Deserts",
+      "Converts",
+      "Inserts",
+      "Concerts",
+      "Exerts",
+      "Hertz",
+      "Shirts",
+      "Skirts"
+    ]
   },
   {
     "movie": "A Christmas Story",
@@ -13157,7 +17497,8 @@
     "id": "quote_416",
     "rhyme1": "triple-dog-dare",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "True Romance",
@@ -13167,7 +17508,24 @@
     "id": "quote_424",
     "rhyme1": "cool",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Vestibule",
+      "Tool",
+      "Ridicule",
+      "Fool",
+      "Rule",
+      "Cruel",
+      "Jewel",
+      "Pool",
+      "Dual",
+      "School",
+      "Stool",
+      "Fuel",
+      "Molecule",
+      "Preschool",
+      "Liverpool"
+    ]
   },
   {
     "movie": "Austin Powers: International Man of Mystery",
@@ -13177,7 +17535,10 @@
     "id": "quote_426",
     "rhyme1": "baby",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Maybe"
+    ]
   },
   {
     "movie": "Snatch",
@@ -13187,7 +17548,8 @@
     "id": "quote_430",
     "rhyme1": "dags",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Napoleon Dynamite",
@@ -13197,7 +17559,13 @@
     "id": "quote_436",
     "rhyme1": "gosh",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Wash",
+      "Josh",
+      "Squash",
+      "Macintosh"
+    ]
   },
   {
     "movie": "Borat",
@@ -13207,7 +17575,29 @@
     "id": "quote_439",
     "rhyme1": "nice",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": [
+      "Concise",
+      "Vice",
+      "Devise",
+      "Piece",
+      "Precise",
+      "Release",
+      "Cease",
+      "Advice",
+      "Paradise",
+      "Sacrifice",
+      "Device",
+      "Peace",
+      "Suffice",
+      "Ice",
+      "Decrease",
+      "Slice",
+      "Grease",
+      "Excise",
+      "Imprecise",
+      "Dice"
+    ]
   },
   {
     "movie": "Superbad",
@@ -13217,7 +17607,8 @@
     "id": "quote_441",
     "rhyme1": "mclovin",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Bridesmaids",
@@ -13227,7 +17618,8 @@
     "id": "quote_445",
     "rhyme1": "paaaartyyyyy",
     "rhyme2": "",
-    "rhyme2_candidates": []
+    "rhyme2_candidates": [],
+    "rhyme1_candidates": []
   },
   {
     "movie": "Braveheart",

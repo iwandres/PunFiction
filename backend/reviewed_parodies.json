@@ -607,20 +607,8 @@
   },
   {
     "pun_id": "quote_007_1778210562551",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_007_1778210562551",
-      "quote_id": "quote_007",
-      "text": "May the Remorse be with you.",
-      "replaced_word": "force",
-      "rhyme_used": "Remorse",
-      "parody_title": "Star Wars: A New Mope",
-      "parody_pitch": "A band of incredibly guilt-ridden space rebels tries to defeat an evil galactic empire by weaponizing their feelings and making everyone feel deeply apologetic for their poor life choices.",
-      "thought_process": "1. Pitch: A band of incredibly guilt-ridden space rebels tries to defeat an evil galactic empire by making everyone, including Darth Vader, feel deeply apologetic for their poor life choices. 2. Phonetic Target: 'Star Wars: Episode IV - A New Hope'. The key words are 'Star' (-ar), 'Wars' (-orz), and 'Hope' (-ohp, rhyming with rope, dope, mope, cope). 3. Brainstorm: remorse -> regret, guilt, sadness, apology, shame, grief, mope, cry, sorry. 4. Intersection: 'Mope' perfectly rhymes with 'Hope' and brilliantly captures the sad, remorseful tone of the pitch. Parody Title = 'Star Wars: Episode IV - A New Mope'.",
-      "target_guess_words": [
-        "Remorse"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778469835355
   },
   {
@@ -823,20 +811,8 @@
   },
   {
     "pun_id": "quote_011_1778211159493",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_011_1778211159493",
-      "quote_id": "quote_011",
-      "text": "Do. Or do not. There is no high.",
-      "replaced_word": "try",
-      "rhyme_used": "High",
-      "parody_title": "Star Wars: The Hemp-ire Strikes Back",
-      "parody_pitch": "A band of intergalactic stoners rebels against a buzz-killing regime that has confiscated all the marijuana in the galaxy, relying on a tiny green guru to teach them how to achieve a purely spiritual buzz.",
-      "thought_process": "1. Pitch: A band of intergalactic stoners rebels against a buzz-killing regime that has confiscated all the marijuana in the galaxy, relying on a tiny green guru to teach them how to achieve a purely spiritual buzz. 2. Phonetic Target: 'Star Wars: Episode V - The Empire Strikes Back'. 'Empire' has two syllables (Em-pire), rhyming with vampire or umpire. 'Strikes' rhymes with bikes, hikes, pipes. 'Back' rhymes with pack, sack, smack. 3. Thematic Brainstorm: High -> weed, stoner, smoke, pipe, hemp, joint, stash, puff, toke, bake. 4. Intersection: 'Hemp' perfectly replaces the 'Em' in 'Empire' to create 'Hempire', which heavily relates to the 'High' theme. Parody Title = 'Star Wars: The Hemp-ire Strikes Back'.",
-      "target_guess_words": [
-        "High"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778470071362
   },
   {
@@ -859,38 +835,14 @@
   },
   {
     "pun_id": "quote_011_1778211163698",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_011_1778211163698",
-      "quote_id": "quote_011",
-      "text": "Do. Or do not. There is no Cry.",
-      "replaced_word": "try",
-      "rhyme_used": "Cry",
-      "parody_title": "Star Bawls: The Empire Wipes Back",
-      "parody_pitch": "A tiny green life coach trains an emotionally stunted space orphan to completely suppress his tears during a grueling, galaxy-wide onion-chopping boot camp.",
-      "thought_process": "1. Pitch: A tiny green life coach trains an emotionally stunted space orphan to completely suppress his tears during a grueling, galaxy-wide onion-chopping boot camp. 2. Phonetic Target: The syllables in 'Star Wars' (ar - orz) and 'Strikes' (ikes). 3. Thematic Brainstorm: weep, sob, tear, bawl, dry, wipe, tissue, emotional scars. 4. Intersection: 'Bawls' shares the exact same vowel and ending consonant sounds as 'Wars' (w\u0254\u02d0rz / b\u0254\u02d0lz), while 'Wipes' works as a slant rhyme for 'Strikes' to match the anti-crying theme. Parody Title = 'Star Bawls: The Empire Wipes Back'.",
-      "target_guess_words": [
-        "Cry"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778470092920
   },
   {
     "pun_id": "quote_011_1778211165279",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_011_1778211165279",
-      "quote_id": "quote_011",
-      "text": "Do. Or do not. There is no Ally.",
-      "replaced_word": "try",
-      "rhyme_used": "Ally",
-      "parody_title": "Star Wars: The Loner Leaves the Pack",
-      "parody_pitch": "A deeply cynical, solo-grinding Jedi Master teaches his eager apprentice that friendship in the galaxy is a total myth, encouraging him to abandon his friends and fight the Sith entirely alone.",
-      "thought_process": "1. Pitch: A deeply cynical, solo-grinding Jedi Master teaches his eager apprentice that friendship in the galaxy is a total myth, encouraging him to abandon his squad and fight the Sith entirely alone. 2. Phonetic Target: 'Star Wars: Episode V - The Empire Strikes Back'. Key syllables rhyme with: ar (Star), orz (Wars), em-pyre (Empire), ikes (Strikes), ack (Back). 3. Thematic Brainstorm: Ally -> friend, partner, buddy, team, squad, pack, solo, lone, loner. 4. Intersection: 'Pack' (meaning a group of allies) rhymes perfectly with 'Back'. Parody Title = 'Star Wars: Episode V - The Loner Leaves the Pack'.",
-      "target_guess_words": [
-        "Ally"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778470548826
   },
   {
@@ -1729,20 +1681,8 @@
   },
   {
     "pun_id": "quote_023_1778211994893",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_023_1778211994893",
-      "quote_id": "quote_023",
-      "text": "Hasta la barista, baby.",
-      "replaced_word": "vista",
-      "rhyme_used": "barista",
-      "parody_title": "Percolator 2: Mug-ment Day",
-      "parody_pitch": "A time-traveling cyborg is sent back from the future to protect the savior of humanity by aggressively managing a highly competitive indie coffee shop and steaming the perfect flat white.",
-      "thought_process": "1. Pitch: A time-traveling cyborg is sent back from the future to protect the savior of humanity by aggressively managing a highly competitive indie coffee shop and steaming the perfect flat white. 2. Phonetic Target: 'Terminator' (Ter-min-a-tor, four syllables ending in -ator) and 'Judgment' (Judg-ment, two syllables). 3. Thematic Brainstorm: barista -> espresso, coffee, beans, mug, percolator, roast, brew, cafe, decaf. 4. Intersection: 'Percolator' rhymes perfectly with 'Terminator', and 'Mug-ment' plays off 'Judgment'. Parody Title = 'Percolator 2: Mug-ment Day'.",
-      "target_guess_words": [
-        "barista"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778471756579
   },
   {
@@ -1981,20 +1921,8 @@
   },
   {
     "pun_id": "quote_028_1778212424115",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_028_1778212424115",
-      "quote_id": "quote_028",
-      "text": "Say 'nut' again. Say 'nut' again, I dare you, I double dare you motherfucker, say nut one more Goddamn time!",
-      "replaced_word": "what",
-      "rhyme_used": "Nut",
-      "parody_title": "Nut Affliction",
-      "parody_pitch": "A philosophizing mob hitman with a severe peanut allergy violently interrogates a fast-food worker who he suspects used cross-contaminated frying oil.",
-      "thought_process": "1. Pitch: A philosophizing mob hitman with a severe, life-threatening peanut allergy violently interrogates a fast-food worker about potential cross-contamination in his burger. 2. Phonetic Target: 'Pulp' (short 'u' sound, rhymes with gulp) and 'Fic-tion' (two syllables, rhymes with diction, friction, affliction, restriction). 3. Thematic Brainstorm: Nut, peanut, allergy, reaction, shock, swelling, restriction, affliction, anaphylaxis. 4. Intersection: 'Affliction' rhymes perfectly with 'Fiction', while 'Nut' shares the exact same short 'u' vowel sound as 'Pulp'. Parody Title = 'Nut Affliction'.",
-      "target_guess_words": [
-        "Nut"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778472576807
   },
   {
@@ -2203,20 +2131,8 @@
   },
   {
     "pun_id": "quote_031_1778212627212",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_031_1778212627212",
-      "quote_id": "quote_031",
-      "text": "To infinity... and pond!",
-      "replaced_word": "beyond",
-      "rhyme_used": "Pond",
-      "parody_title": "Koi Story",
-      "parody_pitch": "A delusional plastic space ranger and a neurotic cowboy toy embark on an epic backyard adventure that is completely derailed when they become hopelessly stranded in the neighbor's decorative koi pond.",
-      "thought_process": "1. Pitch: A delusional plastic space ranger and a neurotic cowboy toy embark on an epic backyard adventure that is completely derailed when they become hopelessly stranded in the neighbor's decorative koi pond. 2. Phonetic Target: 'Toy Story' consists of 'Toy' (rhymes with boy, coy, joy, koi) and 'Story' (rhymes with glory, dory, hoary). 3. Thematic Brainstorm: Pond -> water, frog, toad, fish, koi, splash, lily pad, duck. 4. Intersection: 'Koi' rhymes perfectly with 'Toy' and relates directly to the 'Pond' concept. Parody Title = 'Koi Story'.",
-      "target_guess_words": [
-        "Pond"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778473191451
   },
   {
@@ -2341,20 +2257,8 @@
   },
   {
     "pun_id": "quote_034_1778212835229",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_034_1778212835229",
-      "quote_id": "quote_034",
-      "text": "I'm the offspring of the world!",
-      "replaced_word": "king",
-      "rhyme_used": "Offspring",
-      "parody_title": "Tyketanic",
-      "parody_pitch": "A luxury cruise ship designed exclusively as a giant floating daycare hits an iceberg, prompting one rebellious toddler to climb the bow and declare himself the ultimate child of Mother Earth.",
-      "thought_process": "1. Pitch: A luxury cruise ship designed exclusively as a giant floating daycare hits an iceberg, prompting one rebellious toddler to climb to the bow and declare himself the biological child of Mother Earth. 2. Phonetic Target: 'Titanic' is three syllables (tie-TAN-ick), rhyming with panic, manic, organic, and starting with a 'tie' sound. 3. Thematic Brainstorm: Offspring -> child, baby, kid, teen, youth, organic, biological, tyke. 4. Intersection: 'Tyke' (meaning a small child or offspring) sounds almost identical to the 'Ti' in Titanic, leading to the perfect pun 'Tyketanic'.",
-      "target_guess_words": [
-        "Offspring"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778473310249
   },
   {
@@ -2407,20 +2311,8 @@
   },
   {
     "pun_id": "quote_035_1778212951854",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_035_1778212951854",
-      "quote_id": "quote_035",
-      "text": "The first pool of Fight Club is: you do not talk about Fight Club.",
-      "replaced_word": "rule",
-      "rhyme_used": "Pool",
-      "parody_title": "Fight Tub",
-      "parody_pitch": "Instead of bare-knuckle brawling, disaffected office workers channel their toxic masculinity by forming a secret underground society dedicated to aggressive Marco Polo and synchronized swimming in a giant backyard kiddie pool.",
-      "thought_process": "1. Pitch: Instead of bare-knuckle brawling, disaffected office workers channel their toxic masculinity by forming a secret underground society dedicated to aggressive Marco Polo and synchronized swimming in a giant backyard kiddie pool. 2. Phonetic Target: 'Fight Club' consists of two syllables. 'Fight' rhymes with kite, bite, tight. 'Club' rhymes with scrub, pub, tub. 3. Thematic Brainstorm: pool, swim, dive, water, splash, float, speedo, deep-end, tub, wet, soak. 4. The Intersection: 'Tub' is conceptually related to 'pool' (a small pool of water) and rhymes perfectly with 'Club'. Parody Title = 'Fight Tub'.",
-      "target_guess_words": [
-        "Pool"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778473438378
   },
   {
@@ -2473,20 +2365,8 @@
   },
   {
     "pun_id": "quote_035_1778212973424",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_035_1778212973424",
-      "quote_id": "quote_035",
-      "text": "The first rule of Fight Club is: you do not deadlock about Fight Club.",
-      "replaced_word": "talk",
-      "rhyme_used": "Deadlock",
-      "parody_title": "Byte Club",
-      "parody_pitch": "An underground society of frustrated database administrators gathers in basements to intentionally crash servers with circular dependency errors, but their leader strictly forbids permanently freezing the entire system.",
-      "thought_process": "1. Pitch: An underground society of frustrated database administrators gathers in basements to intentionally crash servers with circular dependency errors, but their leader strictly forbids permanently freezing the system. 2. Phonetic Target: 'Fight Club' is two syllables, rhyming with -ight (bite, night, byte, site) and -ub (rub, sub, hub). 3. Thematic Brainstorm: Deadlock -> software, computers, coding, database, threads, bytes, servers, hub, gridlock. 4. Intersection: 'Byte' rhymes perfectly with 'Fight' and connects to the computer programming deadlock theme. Parody Title = 'Byte Club'.",
-      "target_guess_words": [
-        "Deadlock"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778473637699
   },
   {
@@ -2689,20 +2569,8 @@
   },
   {
     "pun_id": "quote_038_1778285541366",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_038_1778285541366",
-      "quote_id": "quote_038",
-      "text": "Memoir you not entertained?",
-      "replaced_word": "are",
-      "rhyme_used": "Memoir",
-      "parody_title": "Gladi-author",
-      "parody_pitch": "Instead of fighting to the death, a retired Roman general forces captive arena audiences to listen to endless, dramatic readings of his newly published autobiography.",
-      "thought_process": "1. Pitch: Instead of fighting to the death, a retired Roman general forces captive arena audiences to listen to endless, dramatic readings of his newly published autobiography. 2. Phonetic Target: 'Gladiator' is four syllables (Glad-ee-ay-tor), ending in the suffix '-ator'. 3. Thematic Brainstorm: Memoir, book, read, author, writer, diary, publish, scribe. 4. Intersection: 'Author' perfectly replaces the '-ator' suffix while maintaining the rhythm of the original title. Parody Title = Gladi-author.",
-      "target_guess_words": [
-        "Memoir"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778881412603
   },
   {
@@ -2797,38 +2665,14 @@
   },
   {
     "pun_id": "quote_040_1778286084474",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_040_1778286084474",
-      "quote_id": "quote_040",
-      "text": "My semiprecious.",
-      "replaced_word": "precious",
-      "rhyme_used": "semiprecious",
-      "parody_title": "The Hoard of the Bling",
-      "parody_pitch": "Instead of a corrupted creature obsessing over the ultimate Ring of Power, Gollum fixates entirely on a moderately priced turquoise mood ring he found at a Middle-earth mall kiosk.",
-      "thought_process": "1. Pitch: Instead of a corrupted creature obsessing over the ultimate Ring of Power, Gollum fixates entirely on a moderately priced turquoise mood ring he found at a Middle-earth mall kiosk. 2. Phonetic Target: 'The Lord of the Rings: The Two Towers' breaks down to Lord (hoard, board, sword), Rings (things, blings, strings), Two (few, new), Towers (powers, hours). 3. Thematic Brainstorm: hoard, cheap, gems, bling, quartz, stones, carats, baubles. 4. The Intersection: 'Hoard' rhymes perfectly with 'Lord', and 'Bling' rhymes with 'Ring', perfectly capturing the obsession with cheap, semiprecious jewelry. Parody Title = The Hoard of the Bling: The Two Towers.",
-      "target_guess_words": [
-        "semiprecious"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778881499031
   },
   {
     "pun_id": "quote_040_1778286148728",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_040_1778286148728",
-      "quote_id": "quote_040",
-      "text": "Sigh precious.",
-      "replaced_word": "my",
-      "rhyme_used": "Sigh",
-      "parody_title": "The Bored of the Rings",
-      "parody_pitch": "A deeply depressed, melodramatic creature finds the One Ring, but instead of plotting to conquer Middle-earth, he just stares at it and dramatically exhales at the sheer exhaustion of having to walk all the way to an active volcano.",
-      "thought_process": "1. Pitch: A deeply depressed, melodramatic creature finds the One Ring, but instead of plotting to conquer Middle-earth, he just stares at it and dramatically exhales at the sheer exhaustion of having to walk all the way to an active volcano. 2. Phonetic Target: 'The Lord of the Rings: The Two Towers'. 'Lord' rhymes with board, chord, floored, bored. 'Towers' rhymes with cowers, sours, hours. 3. Thematic Brainstorm: Sigh -> exhaustion, ennui, boredom, tired, mope, depressed, yawn, bored, sour. 4. Intersection: 'Bored' rhymes perfectly with 'Lord' and captures the essence of a heavy sigh. Parody Title = 'The Bored of the Rings: The Two Towers'.",
-      "target_guess_words": [
-        "Sigh"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778881509173
   },
   {
@@ -2941,20 +2785,8 @@
   },
   {
     "pun_id": "quote_041_1778286295095",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_041_1778286295095",
-      "quote_id": "quote_041",
-      "text": "With great power comes great nobility.",
-      "replaced_word": "responsibility",
-      "rhyme_used": "Nobility",
-      "parody_title": "Squire-Man",
-      "parody_pitch": "A nerdy teenager is bitten by a radioactive aristocrat and gains the uncontrollable urge to wear powdered wigs, drink tea with his pinky out, and dub petty criminals with a sword.",
-      "thought_process": "1. Pitch: A nerdy teenager is bitten by a radioactive aristocrat and gains the uncontrollable urge to wear powdered wigs, drink tea with his pinky out, and dub petty criminals with a sword. 2. Phonetic Target: 'Spider-Man' has three syllables (Spi-der-Man), with the first two syllables sounding like 'Spy-der', rhyming with rider, glider, sire, and squire. 3. Thematic Brainstorm: Nobility -> Royal, Duke, Earl, King, Crown, Sire, Squire, Aristocrat, Lord. 4. Intersection: 'Squire' is an aristocratic title (or attendant to a noble) that phonetically perfectly mimics the 'Spy-der' sound (Squi-re). Parody Title = 'Squire-Man'.",
-      "target_guess_words": [
-        "Nobility"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778881690805
   },
   {
@@ -3241,20 +3073,8 @@
   },
   {
     "pun_id": "quote_048_1778291324358",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_048_1778291324358",
-      "quote_id": "quote_048",
-      "text": "That's my secret, Cap. I'm always hangry.",
-      "replaced_word": "angry",
-      "rhyme_used": "hangry",
-      "parody_title": "The Cravengers",
-      "parody_pitch": "Earth's mightiest heroes must assemble to stop an intergalactic warlord from hoarding all the universe's snacks, but they struggle to cooperate because their blood sugar is dangerously low.",
-      "thought_process": "1. Pitch: Earth's mightiest heroes must assemble to stop an intergalactic warlord from hoarding all the universe's snacks, but they struggle to cooperate because their blood sugar is dangerously low. 2. Phonetic Target: 'The Avengers' is three syllables (Uh-VEN-jerz), with the main stress on the middle syllable, rhyming with -engers (scavengers, revengers). 3. Thematic Brainstorm: hangry -> hungry, food, starve, binge, snacks, scavenge, cravings. 4. Intersection: Combining 'crave' with the '-engers' suffix creates 'The Cravengers', which sounds nearly identical to the original movie title while perfectly encapsulating the theme of immense hunger.",
-      "target_guess_words": [
-        "hangry"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778882134445
   },
   {
@@ -3265,20 +3085,8 @@
   },
   {
     "pun_id": "quote_049_1778294294421",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_049_1778294294421",
-      "quote_id": "quote_049",
-      "text": "I severe as tribute!",
-      "replaced_word": "volunteer",
-      "rhyme_used": "Severe",
-      "parody_title": "The Hunger Maims",
-      "parody_pitch": "In a brutal dystopian tournament where teenagers compete to aggressively chop off each other's limbs without actually killing anyone, one fiercely protective sister steps up to do the slicing.",
-      "thought_process": "1. Pitch: In a dystopian society where tributes must compete in a televised tournament of brutal non-lethal dismemberment, one brave sister steps forward to do the chopping. 2. Phonetic Target: 'The Hunger Games' consists of 'Hun-ger' (younger, monger, under) and 'Games' (names, frames, maims). 3. Thematic Brainstorm: Severe, sever, cut, chop, dismember, maim, amputate, butcher. 4. Intersection: 'Maims' rhymes perfectly with 'Games' and completely captures the idea of severing limbs. Parody Title = 'The Hunger Maims'.",
-      "target_guess_words": [
-        "Severe"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778882150761
   },
   {
@@ -3289,20 +3097,8 @@
   },
   {
     "pun_id": "quote_049_1778294318168",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_049_1778294318168",
-      "quote_id": "quote_049",
-      "text": "I atmosphere as tribute!",
-      "replaced_word": "volunteer",
-      "rhyme_used": "Atmosphere",
-      "parody_title": "The Thunder Games",
-      "parody_pitch": "In a dystopian future where the planet's climate has collapsed, brave teens are chosen by lottery to literally dissolve into the sky and become protective layers of gas to shield the Capitol from solar radiation.",
-      "thought_process": "1. Pitch: In a dystopian future where the planet's climate has collapsed, brave teens are chosen by lottery to literally dissolve into the sky and become protective layers of gas to shield the Capitol from solar radiation. 2. Phonetic Target: 'The Hunger Games'. 'Hunger' (Hun-ger) rhymes with younger, monger, thunder, tundra, under. 'Games' rhymes with names, frames, flames. 3. Thematic Brainstorm: weather, sky, climate, clouds, thunder, rain, ozone, tundra, storm. 4. Intersection: 'Thunder' sounds very similar to 'Hunger' and fits the atmospheric/weather theme perfectly. Parody Title = The Thunder Games.",
-      "target_guess_words": [
-        "Atmosphere"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778882162294
   },
   {
@@ -4867,38 +4663,14 @@
   },
   {
     "pun_id": "quote_205_1779595785981",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_205_1779595785981",
-      "quote_id": "quote_205",
-      "text": "It's a Rap!",
-      "replaced_word": "trap",
-      "rhyme_used": "Rap",
-      "parody_title": "Bar Wars: Episode VI - Return of the Jedi",
-      "parody_pitch": "The Rebel Alliance must defeat the Galactic Empire in an intergalactic rap battle, prompting Admiral Ackbar to realize they've just stepped into a lethal hip-hop cypher.",
-      "thought_process": "1. Pitch: The Rebel Alliance must defeat the Galactic Empire in an intergalactic rap battle, prompting Admiral Ackbar to realize they've stepped into a lethal hip-hop cypher. 2. Phonetic Target: 'Star Wars' consists of Star (-ar: car, bar, far) and Wars (-ors: doors, scores). 'Jedi' rhymes with steady, ready. 3. Thematic Brainstorm: rap, hip-hop, beats, verse, bars, rhyme, flow, MC, battle, cypher. 4. The Intersection: 'Bar' perfectly rhymes with 'Star' and is hip-hop slang for a rap lyric. Parody Title = 'Bar Wars: Episode VI - Return of the Jedi'.",
-      "target_guess_words": [
-        "Rap"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645062596
   },
   {
     "pun_id": "quote_205_1779595796676",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_205_1779595796676",
-      "quote_id": "quote_205",
-      "text": "It's a Pap!",
-      "replaced_word": "trap",
-      "rhyme_used": "Pap",
-      "parody_title": "Star Wards: Episode VI - Return of the Med Guy",
-      "parody_pitch": "When the Rebel Alliance is ambushed by a giant interstellar gynecology clinic enforcing mandatory cervical screenings, a frantic Admiral Ackbar must desperately warn the fleet.",
-      "thought_process": "1. Pitch: When the Rebel Alliance is ambushed by a giant interstellar gynecology clinic enforcing mandatory cervical screenings, a frantic Admiral Ackbar must warn the fleet. 2. Phonetic Target: 'Star Wars' rhymes with ar-orz (car doors), 'Return' rhymes with e-turn, and 'Jedi' rhymes with ed-eye. 3. Thematic Brainstorm: medical, doctor, clinic, smear, exam, hospital, wards, med-guy. 4. The Intersection: 'Wards' sounds almost exactly like 'Wars', and 'Med Guy' rhymes perfectly with 'Jedi'. Title = Star Wards: Episode VI - Return of the Med Guy.",
-      "target_guess_words": [
-        "Pap"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645065776
   },
   {
@@ -5191,20 +4963,8 @@
   },
   {
     "pun_id": "quote_318_1779596202285",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_318_1779596202285",
-      "quote_id": "quote_318",
-      "text": "I have come here to zoo bubblegum and kick ass... and I'm all out of bubblegum.",
-      "replaced_word": "chew",
-      "rhyme_used": "zoo",
-      "parody_title": "Prey Live",
-      "parody_pitch": "A rugged drifter finds magical sunglasses that reveal society is controlled by aliens, prompting him to save humanity by opening an exotic animal park where the terrifying beasts are sculpted entirely out of chewed Hubba Bubba.",
-      "thought_process": "1. Pitch: A rugged drifter discovers magical sunglasses that reveal society is controlled by aliens, prompting him to defeat them by opening an exotic animal park where the creatures are sculpted entirely out of chewed Hubba Bubba. 2. Phonetic Target: 'They Live' consists of two syllables, rhyming with -ay (say, day, play) and -iv (give, shiv). 3. Brainstorming zoo/animal concepts: exhibit, animals, wild, cage, feed, hay, prey, stray, tame. 4. Intersection: 'Prey' perfectly rhymes with 'They' and fits the predatory/captive theme of a zoo. Parody Title = 'Prey Live'.",
-      "target_guess_words": [
-        "zoo"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645259168
   },
   {
@@ -5293,56 +5053,20 @@
   },
   {
     "pun_id": "quote_277_1779596342062",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_277_1779596342062",
-      "quote_id": "quote_277",
-      "text": "It's 106 miles to Chicago, we got a full tank of gas, half a pack of cigarettes, it's dark, and we're wearing molasses.",
-      "replaced_word": "sunglasses",
-      "rhyme_used": "Molasses",
-      "parody_title": "The Ooze Brothers",
-      "parody_pitch": "Two musicians on a mission from God must evade the police and save an orphanage while driving across the state completely coated in a highly viscous, sticky syrup.",
-      "thought_process": "1. Pitch: Two musicians on a mission from God must evade the police and save an orphanage while driving across the state completely coated in a highly viscous, sticky syrup. 2. Phonetic Target: 'The Blues Brothers'. 'Blues' is one syllable, rhyming with ooze, glues, shoes, choose. 'Brothers' is two syllables, rhyming with mothers, others. 3. Thematic Brainstorm: Molasses -> sticky, syrup, ooze, sweet, slow, goo, glues, brown. 4. Intersection: 'Ooze' perfectly rhymes with 'Blues' and directly relates to being covered in sticky, viscous molasses. Parody Title = 'The Ooze Brothers'.",
-      "target_guess_words": [
-        "Molasses"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645327167
   },
   {
     "pun_id": "quote_277_1779596358023",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_277_1779596358023",
-      "quote_id": "quote_277",
-      "text": "It's 106 miles to Chicago, we got a full tank of sass, half a pack of cigarettes, it's dark, and we're wearing sunglasses.",
-      "replaced_word": "gas",
-      "rhyme_used": "sass",
-      "parody_title": "The Boos Brothers",
-      "parody_pitch": "Two fiercely judgmental, sunglasses-wearing hecklers go on a mission from God to travel across Illinois and ruthlessly roast every single performing arts act they encounter.",
-      "thought_process": "1. Pitch: Two sharp-dressed, sunglasses-wearing hecklers go on a mission from God to absolutely roast every musician in Chicago with unstoppable shade and attitude. 2. Phonetic Target: 'The Blues Brothers'. 'Blues' is one syllable, rhyming with ooze, cruise, lose, news, boos. 'Brothers' is two syllables, rhyming with mothers, others. 3. Brainstorm: words related to 'sass' -> snark, attitude, lip, roast, insult, heckle, shade, boo. 4. Intersection: 'Boos' perfectly rhymes with 'Blues' and perfectly captures the vocal, heckling nature of pure sass. Parody Title = The Boos Brothers.",
-      "target_guess_words": [
-        "sass"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645339705
   },
   {
     "pun_id": "quote_269_1779596403846",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_269_1779596403846",
-      "quote_id": "quote_269",
-      "text": "I want the Tooth!",
-      "replaced_word": "truth",
-      "rhyme_used": "Tooth",
-      "parody_title": "A Chew Good Men",
-      "parody_pitch": "A dramatic military courtroom thriller where an overzealous naval dentist aggressively interrogates a tough-as-nails colonel to surrender a highly classified, heavily decayed molar.",
-      "thought_process": "1. Pitch: A dramatic military courtroom thriller where an overzealous naval dentist aggressively interrogates a tough-as-nails colonel to surrender a highly classified, heavily decayed molar. 2. Phonetic Target: 'A Few Good Men' consists of four syllables, with key rhyming targets for 'few' (-oo: chew, drew, flew), 'good' (-ood: wood, hood), and 'men' (-en: den, ten). 3. Thematic Brainstorm: Tooth -> bite, cavity, molar, chew, drill, dentist, extract, gums, enamel. 4. Intersection: 'chew' rhymes perfectly with 'few' and directly relates to the dental/tooth theme. Parody Title = 'A Chew Good Men'.",
-      "target_guess_words": [
-        "Tooth"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680541761
   },
   {
@@ -5365,20 +5089,8 @@
   },
   {
     "pun_id": "quote_269_1779596406850",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_269_1779596406850",
-      "quote_id": "quote_269",
-      "text": "I want the Booth!",
-      "replaced_word": "truth",
-      "rhyme_used": "Booth",
-      "parody_title": "A Few Good Amens",
-      "parody_pitch": "During a highly intense, court-martial-style Catholic confession, an overly dramatic sinner aggressively cross-examines a terrified priest because he refuses to list his sins in the open pews and demands the wooden box.",
-      "thought_process": "1. Pitch: During a highly intense, court-martial-style Catholic confession, an overly dramatic sinner aggressively cross-examines a terrified priest because he refuses to list his sins in the open pews and demands the wooden box. 2. Phonetic Target: 'A Few Good Men' ends with the syllable 'Men', which rhymes with pen, ten, den, and amen. 3. Thematic Brainstorm: Church, priest, Catholic, confession, sin, penance, pray, amen, pew. 4. The Intersection: 'Amen' perfectly rhymes with and entirely contains the word 'Men', flawlessly fitting the religious theme of a confession booth. Parody Title = 'A Few Good Amens'.",
-      "target_guess_words": [
-        "Booth"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680546317
   },
   {
@@ -5407,20 +5119,8 @@
   },
   {
     "pun_id": "quote_273_1779597719240",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_273_1779597719240",
-      "quote_id": "quote_273",
-      "text": "It's in the Bowl!",
-      "replaced_word": "hole",
-      "rhyme_used": "Bowl",
-      "parody_title": "Caddysnack",
-      "parody_pitch": "An unhinged snack-cart vendor at a snobby country club challenges the elite dining room chef to a high-stakes culinary showdown, culminating in a dramatic, slow-motion toss of a flying matzo ball.",
-      "thought_process": "1. Pitch: An unhinged snack-cart vendor at a snobby country club challenges the elite dining room chef to a high-stakes culinary showdown, culminating in a dramatic, slow-motion toss of a flying matzo ball. 2. Phonetic Target: 'Caddyshack' is three syllables (Cad-dy-shack). Rhymes for 'shack' include back, lack, pack, snack, and track. 3. Brainstorm: The 'Bowl' replacement word brings up themes of soup, cooking, eating, kitchens, food, and snacks. 4. Intersection: 'Snack' perfectly rhymes with 'shack' while fitting the food theme of a soup bowl. Parody Title = Caddysnack.",
-      "target_guess_words": [
-        "Bowl"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680563374
   },
   {
@@ -5431,74 +5131,26 @@
   },
   {
     "pun_id": "quote_265_1779597736979",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_265_1779597736979",
-      "quote_id": "quote_265",
-      "text": "Mawwiage. Mawwiage is what bwings us togethew decay.",
-      "replaced_word": "today",
-      "rhyme_used": "Decay",
-      "parody_title": "The Princess Died",
-      "parody_pitch": "A swashbuckling farm boy returns from the grave as a zombie to rescue his true love, but his rapidly rotting flesh becomes the focal point of their undead wedding ceremony.",
-      "thought_process": "1. Pitch: A swashbuckling farm boy returns from the grave as a zombie to rescue his true love, but his rapidly rotting flesh becomes the focal point of their undead wedding ceremony. 2. Phonetic Target: 'The Princess Bride'. Syllables: The (th-uh), Prin-cess (prin-ses), Bride (br-eye-d). Rhymes for Bride: side, hide, ride, died, fried, slide. 3. Thematic Brainstorm: Decay -> rot, zombie, undead, corpse, grave, died, dead, bone. 4. Intersection: 'Died' rhymes perfectly with 'Bride', fitting the decay and undead theme. Parody Title: The Princess Died.",
-      "target_guess_words": [
-        "Decay"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680574984
   },
   {
     "pun_id": "quote_265_1779597742257",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_265_1779597742257",
-      "quote_id": "quote_265",
-      "text": "Mawwiage. Mawwiage is what bwings us togethew prey.",
-      "replaced_word": "today",
-      "rhyme_used": "Prey",
-      "parody_title": "The Princess Hide",
-      "parody_pitch": "A fairy-tale wedding is abruptly interrupted by a terrifying extraterrestrial hunter, prompting the clergyman to calmly explain to the screaming congregation that they have been gathered together to be hunted for intergalactic sport.",
-      "thought_process": "1. Pitch: A fairy-tale wedding is abruptly interrupted by a terrifying, laser-wielding extraterrestrial hunter, prompting the clergyman to calmly explain to the screaming congregation that they have been gathered together not for love, but to be hunted for sport. 2. Phonetic Target: 'The Princess Bride' -> 'Bride' is one syllable, rhyming with -ide (hide, ride, tied, died, slide). 3. Thematic Brainstorm: prey -> hunt, predator, trap, hide, survive, run, scared. 4. Intersection: 'Hide' perfectly rhymes with 'Bride' and captures exactly what 'prey' needs to do. Parody Title = 'The Princess Hide'.",
-      "target_guess_words": [
-        "Prey"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680581468
   },
   {
     "pun_id": "quote_265_1779597746336",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_265_1779597746336",
-      "quote_id": "quote_265",
-      "text": "Mawwiage. Mawwiage is what bwings us togethew survey.",
-      "replaced_word": "today",
-      "rhyme_used": "Survey",
-      "parody_title": "The Census Bride",
-      "parody_pitch": "A swashbuckling farm boy must rescue his true love from a tedious kingdom where all romantic matches are strictly determined by endless bureaucratic questionnaires and polling data.",
-      "thought_process": "1. Pitch: A swashbuckling farm boy must rescue his true love from a tedious kingdom where all romantic matches are strictly determined by endless bureaucratic questionnaires and polling data. 2. Phonetic Target: 'The Princess Bride'. 'Princess' (two syllables, PRIN-sess, rhyming with mince, assess, census). 'Bride' (one syllable, BR-IDE, rhyming with guide, applied, side). 3. Thematic Brainstorm: Survey -> poll, forms, data, questions, apply, guide, census. 4. Intersection: 'Census' sounds remarkably similar to 'Princess' (SEN-sus / PRIN-sess) and ties perfectly into the theme of taking a 'Survey'. Parody Title = 'The Census Bride'.",
-      "target_guess_words": [
-        "Survey"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680587386
   },
   {
     "pun_id": "quote_265_1779597749291",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_265_1779597749291",
-      "quote_id": "quote_265",
-      "text": "Mawwiage. Mawwiage is what bwings us togethew relay.",
-      "replaced_word": "today",
-      "rhyme_used": "Relay",
-      "parody_title": "The Princess Stride",
-      "parody_pitch": "A fairy tale romance is constantly interrupted by intense track-and-field events, culminating in a sprinting wedding ceremony where the couple must seamlessly pass the baton to seal their vows.",
-      "thought_process": "1. Pitch: A fairy tale romance is constantly interrupted by intense track-and-field events, culminating in a sprinting wedding ceremony where the couple must seamlessly pass the baton to seal their vows. 2. Phonetic Target: 'The Princess Bride' ends with the word 'Bride', which is one syllable rhyming with -ide (ride, hide, side, stride, glide). 3. Thematic Brainstorm: Relay -> running, track, sprint, baton, race, dash, stride. 4. Intersection: 'Stride' rhymes perfectly with 'Bride' and fits the relay race theme. Parody Title = 'The Princess Stride'.",
-      "target_guess_words": [
-        "Relay"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779680644475
   },
   {
@@ -5545,20 +5197,2780 @@
   },
   {
     "pun_id": "quote_254_1779597782320",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1779680678114
+  },
+  {
+    "pun_id": "quote_254_1779597786836",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028755531
+  },
+  {
+    "pun_id": "quote_254_1779597788901",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028758718
+  },
+  {
+    "pun_id": "quote_254_1779597793297",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028765097
+  },
+  {
+    "pun_id": "quote_254_1779597794841",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028767836
+  },
+  {
+    "pun_id": "quote_254_1779597796424",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028772341
+  },
+  {
+    "pun_id": "quote_254_1779597798370",
     "status": "approved",
     "data": {
-      "pun_id": "quote_254_1779597782320",
+      "pun_id": "quote_254_1779597798370",
       "quote_id": "quote_254",
-      "text": "It's been 84 tears...",
+      "text": "It's been 84 Spheres...",
       "replaced_word": "years",
-      "rhyme_used": "Tears",
-      "parody_title": "Crytanic",
-      "parody_pitch": "A melodramatic romance where a supposedly unsinkable ship goes down not because of an iceberg, but because the passengers are so emotionally unstable that their collective weeping literally floods the lower decks.",
-      "thought_process": "1. Pitch: A melodramatic romance where a supposedly unsinkable ship goes down not because of an iceberg, but because the passengers are so emotionally unstable that their collective weeping floods the lower decks, forcing an elderly survivor to count every single drop. 2. Phonetic Target: 'Titanic' has three syllables (Ti-tan-ic). The first syllable 'Ti' rhymes with pie, sky, high, and cry. 3. Thematic Brainstorm: Tears -> crying, weeping, sobbing, sadness, bawling, emotional, cry. 4. Intersection: 'Cry' perfectly rhymes with the first syllable 'Ti' in Titanic, making the perfect parody title 'Crytanic'.",
+      "rhyme_used": "Spheres",
+      "parody_title": "Pi-tanic",
+      "parody_pitch": "A centenarian mathematician recounts the tragic sinking of an unsinkable luxury observatory that collided with a giant geometric shape, forcing the survivors to endlessly count floating round objects.",
+      "thought_process": "1. Pitch: A centenarian mathematician recounts the tragic sinking of an unsinkable luxury observatory that collided with a giant geometric shape, forcing the survivors to endlessly count the floating round objects. 2. Phonetic Target: 'Titanic' has three syllables (Ti-tan-ic), rhyming with panic, manic, organic, while the first syllable 'Ti' rhymes with eye, pie, high. 3. Thematic Brainstorm: spheres -> geometry, circle, round, radius, math, pi, globe, orb, ball. 4. The Intersection: 'Pi' (the mathematical constant used to calculate the volume of a sphere) perfectly rhymes with 'Ti'. Replacing the first syllable gives us the title 'Pitanic'.",
       "target_guess_words": [
-        "Tears"
+        "Spheres"
       ]
     },
-    "reviewed_at": 1779680678114
+    "reviewed_at": 1780028784047
+  },
+  {
+    "pun_id": "quote_463_1779597823729",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028791853
+  },
+  {
+    "pun_id": "quote_463_1779597831300",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028833280
+  },
+  {
+    "pun_id": "quote_463_1779597836067",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028836646
+  },
+  {
+    "pun_id": "quote_463_1779597841260",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028841232
+  },
+  {
+    "pun_id": "quote_463_1779597849084",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028843484
+  },
+  {
+    "pun_id": "quote_481_1779597856208",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028858090
+  },
+  {
+    "pun_id": "quote_481_1779597858713",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028871438
+  },
+  {
+    "pun_id": "quote_481_1779597860936",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_481_1779597860936",
+      "quote_id": "quote_481",
+      "text": "In danger of being crushed by a wharf.",
+      "replaced_word": "dwarf",
+      "rhyme_used": "Wharf",
+      "parody_title": "This Is Tidal Trap",
+      "parody_pitch": "A clueless British rock band embarks on a disastrous nautical tour, playing gigs exclusively on poorly constructed harbor docks where they face the constant threat of collapsing piers and rogue seagulls.",
+      "thought_process": "1. Pitch: A clueless British rock band goes on a disastrous nautical tour, playing gigs exclusively on poorly constructed maritime docks where they face the constant threat of collapsing piers. 2. Phonetic Target: 'This Is Spinal Tap' breaks down into This (miss), Is (biz), Spi-nal (rhymes with vinyl, final, tidal), Tap (rhymes with cap, map, trap). 3. Thematic Brainstorm: Wharf -> ocean, tide, water, dock, pier, trap, harbor, sea. 4. Intersection: 'Tidal' rhymes perfectly with 'Spinal', and 'Trap' rhymes perfectly with 'Tap', fitting the nautical disaster theme of a dangerous wharf. Parody Title = 'This Is Tidal Trap'.",
+      "target_guess_words": [
+        "Wharf"
+      ]
+    },
+    "reviewed_at": 1780028880033
+  },
+  {
+    "pun_id": "quote_493_1779597870422",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028891236
+  },
+  {
+    "pun_id": "quote_493_1779597873960",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028897000
+  },
+  {
+    "pun_id": "quote_493_1779597885323",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028903246
+  },
+  {
+    "pun_id": "quote_498_1779597896572",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028926671
+  },
+  {
+    "pun_id": "quote_498_1779597908881",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028935438
+  },
+  {
+    "pun_id": "quote_498_1779597910788",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028957042
+  },
+  {
+    "pun_id": "quote_498_1779597912499",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028959192
+  },
+  {
+    "pun_id": "quote_498_1779597916414",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_498_1779597916414",
+      "quote_id": "quote_498",
+      "text": "Amateurs seek the sun. Get eaten. Flour stays in the shadows.",
+      "replaced_word": "power",
+      "rhyme_used": "Flour",
+      "parody_title": "Oven-heimer",
+      "parody_pitch": "A brilliant theoretical physicist leads a top-secret underground bakery project to develop the world's most devastating sourdough starter, wrestling with the moral implications of his weaponized bread.",
+      "thought_process": "1. Pitch: A brilliant theoretical physicist is tasked with leading a top-secret underground bakery to develop the world's most devastating, highly classified sourdough starter before the enemy does. 2. Phonetic Target: 'Oppenheimer' has four syllables (Op-pen-hy-mer), with the primary sounds being 'Op' (cop, hop, top) and 'heimer' (timer, rhymer, primer). 3. Thematic Brainstorm: flour, baking, bread, sourdough, yeast, dough, oven, rye, baker, pastry. 4. Intersection: 'Oven' sounds phonetically very similar to 'Oppen' while perfectly tying into the secret baking/flour theme, creating the title 'Ovenheimer'.",
+      "target_guess_words": [
+        "Flour"
+      ]
+    },
+    "reviewed_at": 1780028971091
+  },
+  {
+    "pun_id": "quote_216_1779597922103",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780028990026
+  },
+  {
+    "pun_id": "quote_216_1779597923939",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029001908
+  },
+  {
+    "pun_id": "quote_216_1779597925886",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029137807
+  },
+  {
+    "pun_id": "quote_216_1779597927604",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029142496
+  },
+  {
+    "pun_id": "quote_216_1779597936122",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029144737
+  },
+  {
+    "pun_id": "quote_216_1779597939234",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_216_1779597939234",
+      "quote_id": "quote_216",
+      "text": "I don't prepare.",
+      "replaced_word": "care",
+      "rhyme_used": "Prepare",
+      "parody_title": "The Wing-it-ive",
+      "parody_pitch": "A completely disorganized doctor goes on the run to clear his name without a plan, a map, or sensible shoes, relying entirely on his ability to make things up as he goes while a highly meticulous U.S. Marshal hunts him down.",
+      "thought_process": "1. Pitch: Dr. Richard Kimble goes on the run to clear his name, but since he completely refuses to make a plan, pack a bag, or read a map, he must constantly improvise his escape from a highly organized U.S. Marshal. 2. Phonetic Target: 'The Fugitive' (FYOO-jih-tiv) has three syllables after 'The', ending in the rhyming suffix '-itive' / '-utive'. 3. Thematic Brainstorm: unready, spontaneous, intuitive, winging it, impulsive, wing it. 4. Intersection: By taking the phrase 'wing it' (meaning to act without preparation) and adding the '-itive' suffix, we get 'The Wingitive', perfectly matching the cadence and rhyme of 'The Fugitive'.",
+      "target_guess_words": [
+        "Prepare"
+      ]
+    },
+    "reviewed_at": 1780029158356
+  },
+  {
+    "pun_id": "quote_257_1779597943591",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029205880
+  },
+  {
+    "pun_id": "quote_257_1779597945207",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029215542
+  },
+  {
+    "pun_id": "quote_257_1779597946498",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029315674
+  },
+  {
+    "pun_id": "quote_257_1779597957147",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029321490
+  },
+  {
+    "pun_id": "quote_227_1779597968652",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_227_1779597968652",
+      "quote_id": "quote_227",
+      "text": "Nuns. Lots of nuns.",
+      "replaced_word": "guns",
+      "rhyme_used": "Nuns",
+      "parody_title": "The Pray-trix",
+      "parody_pitch": "When a prophesied hacker discovers humanity is secretly trapped in a digital convent, he must summon a massive army of heavily armed Catholic sisters to overthrow the synthetic Pope.",
+      "thought_process": "1. Pitch: When a prophesied hacker discovers humanity is secretly trapped in a digital convent, he must summon a massive army of heavily armed Catholic sisters to overthrow the synthetic Pope. 2. Phonetic Target: 'The Matrix', specifically the syllables 'Ma-trix' (May-triks). 3. Thematic Brainstorm: Nuns, Catholic, convent, sister, habit, mass, pope, pray, holy. 4. Intersection: 'Pray' perfectly rhymes with 'May', leading to the phonetic intersection 'Pray-trix'. Parody Title = 'The Praytrix'.",
+      "target_guess_words": [
+        "Nuns"
+      ]
+    },
+    "reviewed_at": 1780029333833
+  },
+  {
+    "pun_id": "quote_227_1779597971173",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029351375
+  },
+  {
+    "pun_id": "quote_196_1779597988236",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029359498
+  },
+  {
+    "pun_id": "quote_196_1779597993738",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029371591
+  },
+  {
+    "pun_id": "quote_196_1779597998473",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029374693
+  },
+  {
+    "pun_id": "quote_276_1779598029298",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029382614
+  },
+  {
+    "pun_id": "quote_185_1779598045110",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029402339
+  },
+  {
+    "pun_id": "quote_185_1779598070107",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_185_1779598070107",
+      "quote_id": "quote_185",
+      "text": "I am a cigar. I'm a cigar, I'm a cigar, I'm a cigar. I am a big, bright, shining cigar.",
+      "replaced_word": "star",
+      "rhyme_used": "Cigar",
+      "parody_title": "Stogie Lights",
+      "parody_pitch": "A young, well-rolled tobacco leaf rises to the top of the excessive 1970s adult smoking industry, culminating in a dramatic breakdown where he embraces his destiny as a premium Cuban.",
+      "thought_process": "1. Pitch: A young, ambitious tobacco leaf rises to the top of the decadent 1970s adult smoking industry, culminating in a dramatic breakdown where he fully embraces his identity as a premium Cuban. 2. Phonetic Target: 'Boogie Nights' has three syllables (Boo-gie Nights). The targets end in '-oogie' and '-ights'. 3. Thematic Brainstorm: Cigar -> smoke, tobacco, humidor, stogie, puff, ash, light, matches. 4. Intersection: 'Stogie' is a phonetic slant rhyme for 'Boogie' (sharing the exact '-gie' ending and rhythm), while 'Lights' rhymes perfectly with 'Nights' and fits the smoking theme. Parody Title = 'Stogie Lights'.",
+      "target_guess_words": [
+        "Cigar"
+      ]
+    },
+    "reviewed_at": 1780029421242
+  },
+  {
+    "pun_id": "quote_185_1779598089365",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029434535
+  },
+  {
+    "pun_id": "quote_440_1779598124623",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029442501
+  },
+  {
+    "pun_id": "quote_440_1779598134442",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029446590
+  },
+  {
+    "pun_id": "quote_440_1779598144804",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029450113
+  },
+  {
+    "pun_id": "quote_440_1779598148169",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029468416
+  },
+  {
+    "pun_id": "quote_440_1779598162616",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029472024
+  },
+  {
+    "pun_id": "quote_458_1779598169992",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_458_1779598169992",
+      "quote_id": "quote_458",
+      "text": "Never cat on your friends, and always keep your mouth shut.",
+      "replaced_word": "rat",
+      "rhyme_used": "Cat",
+      "parody_title": "Goodfelines",
+      "parody_pitch": "A gritty mob epic chronicling the rise and fall of a ruthless crew of underground exotic cat smugglers, where the ultimate mafia sin is weaponizing a tabby against your own crew.",
+      "thought_process": "1. Pitch: A gritty mob epic chronicling the rise and fall of a ruthless crew of underground exotic cat smugglers, where the ultimate mafia sin is weaponizing a tabby against your own crew. 2. Phonetic Target: 'Goodfellas' has three syllables (Good-fel-las). The key components are 'Good' (rhymes with hood, wood) and 'fellas' (rhymes with tell us, zealous). 3. Thematic Brainstorm: Cat, feline, kitten, purr, claw, paw, meow, litter, fur. 4. Intersection: 'Felines' shares the first letter, syllable count, and plural 's' ending with 'fellas', making it a very similar-sounding substitute. Replacing 'fellas' with 'felines' gives us the parody title 'Goodfelines'.",
+      "target_guess_words": [
+        "Cat"
+      ]
+    },
+    "reviewed_at": 1780029484049
+  },
+  {
+    "pun_id": "quote_458_1779598184727",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029488895
+  },
+  {
+    "pun_id": "quote_458_1779598187524",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029501896
+  },
+  {
+    "pun_id": "quote_458_1779598191402",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029511729
+  },
+  {
+    "pun_id": "quote_458_1779598207307",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029515535
+  },
+  {
+    "pun_id": "quote_476_1779598220941",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029524905
+  },
+  {
+    "pun_id": "quote_476_1779598228176",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029528081
+  },
+  {
+    "pun_id": "quote_476_1779598236760",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029534565
+  },
+  {
+    "pun_id": "quote_476_1779598241149",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029541413
+  },
+  {
+    "pun_id": "quote_476_1779598249875",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029544415
+  },
+  {
+    "pun_id": "quote_490_1779598271566",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029554251
+  },
+  {
+    "pun_id": "quote_490_1779598273025",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029557554
+  },
+  {
+    "pun_id": "quote_490_1779598275822",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029560354
+  },
+  {
+    "pun_id": "quote_490_1779598278800",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029563285
+  },
+  {
+    "pun_id": "quote_490_1779598281857",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029568804
+  },
+  {
+    "pun_id": "quote_490_1779598284923",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_490_1779598284923",
+      "quote_id": "quote_490",
+      "text": "Well? We're grating!",
+      "replaced_word": "waiting",
+      "rhyme_used": "Grating",
+      "parody_title": "Cheddarjack",
+      "parody_pitch": "An elite country club is turned upside down when a rogue gang of aggressive artisanal cheesemakers takes over the kitchen and demands fresh parmesan on absolutely everything.",
+      "thought_process": "1. Pitch: An elite country club is turned upside down when a rogue gang of aggressive artisanal cheesemakers takes over the kitchen and demands fresh parmesan on everything. 2. Phonetic Target: 'Caddyshack' is three syllables (Cad-dy-shack). Key rhyming sounds are -addy (daddy, baddy, paddy) and -ack (back, pack, track, jack, mac). 3. Thematic Brainstorm: cheese, dairy, grate, shred, cheddar, parmesan, gouda, wheel, slice, jack, mac. 4. Intersection: 'Cheddar' has a similar two-syllable rhythm to 'Caddy', and 'Jack' (as in Monterey Jack cheese) rhymes perfectly with 'shack'. Parody Title = 'Cheddarjack'.",
+      "target_guess_words": [
+        "Grating"
+      ]
+    },
+    "reviewed_at": 1780029583252
+  },
+  {
+    "pun_id": "quote_490_1779598290250",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029585813
+  },
+  {
+    "pun_id": "quote_404_1779598308406",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_404_1779598308406",
+      "quote_id": "quote_404",
+      "text": "Mongo only lexicon in game of life.",
+      "replaced_word": "pawn",
+      "rhyme_used": "Lexicon",
+      "parody_title": "Phrasing Saddles",
+      "parody_pitch": "A hulking brute in the Old West terrorizes outlaws not with his fists, but by aggressively defining words and enforcing strict grammatical rules as a giant, sentient dictionary.",
+      "thought_process": "1. Pitch: A hulking brute in the Old West terrorizes outlaws not with his fists, but by aggressively defining words and enforcing strict grammatical rules as a giant, sentient dictionary. 2. Phonetic Target: 'Blazing Saddles' breaks down into Blaz-ing (grazing, raising, phrasing, praising) and Sad-dles (paddles, waddles, battles, babbles, scrabbles). 3. Thematic Brainstorm: lexicon, dictionary, words, vocabulary, phrasing, reading, spelling, grammar, syllables. 4. Intersection: 'Phrasing' perfectly rhymes with 'Blazing' and ties directly into the 'Lexicon' and language theme.",
+      "target_guess_words": [
+        "Lexicon"
+      ]
+    },
+    "reviewed_at": 1780029598908
+  },
+  {
+    "pun_id": "quote_404_1779598311156",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029602059
+  },
+  {
+    "pun_id": "quote_404_1779598315930",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029604259
+  },
+  {
+    "pun_id": "quote_404_1779598319585",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029613709
+  },
+  {
+    "pun_id": "quote_404_1779598325409",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029621961
+  },
+  {
+    "pun_id": "quote_421_1779598330254",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_421_1779598330254",
+      "quote_id": "quote_421",
+      "text": "Keep the range, ya filthy animal.",
+      "replaced_word": "change",
+      "rhyme_used": "Range",
+      "parody_title": "Roam Alone",
+      "parody_pitch": "Accidentally left behind on a sprawling Texas cattle ranch, an eight-year-old boy must use booby traps to defend his family's vast open pastures from two bumbling livestock rustlers.",
+      "thought_process": "1. Pitch: Accidentally left behind on a sprawling Texas cattle ranch, an eight-year-old boy must defend his family's vast open pastures from two bumbling livestock rustlers. 2. Phonetic Target: 'Home Alone' consists of 'Home' (rhymes with dome, foam, roam, comb) and 'Alone' (rhymes with bone, cone, zone, groan). 3. Thematic Brainstorm: Range -> cattle, land, pasture, wander, cowboy, herd, roam, open zone. 4. Intersection: 'Roam' rhymes perfectly with 'Home' and conceptually ties directly into a vast cattle range. Parody Title = 'Roam Alone'.",
+      "target_guess_words": [
+        "Range"
+      ]
+    },
+    "reviewed_at": 1780029628756
+  },
+  {
+    "pun_id": "quote_421_1779598336810",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029634580
+  },
+  {
+    "pun_id": "quote_429_1779598367671",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029640147
+  },
+  {
+    "pun_id": "quote_429_1779598369515",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_429_1779598369515",
+      "quote_id": "quote_429",
+      "text": "I want you to hit me as yard as you can.",
+      "replaced_word": "hard",
+      "rhyme_used": "Yard",
+      "parody_title": "Fight Shrub",
+      "parody_pitch": "A depressed insomniac and his chaotic alter-ego form an underground landscaping society where disgruntled suburban men take out their primal urges by violently pruning topiary.",
+      "thought_process": "1. Pitch: A depressed suburbanite and his chaotic alter-ego form an underground landscaping society where men brutally prune bushes and aggressively maintain lawns to feel alive. 2. Phonetic Target: 'Fight Club' consists of two one-syllable words. 'Fight' rhymes with -ight (bite, kite, blight) and 'Club' rhymes with -ub (grub, tub, shrub). 3. Thematic Brainstorm: Yard -> lawn, grass, garden, prune, landscape, dirt, grub, shrub, bush, rake. 4. Intersection: 'Shrub' perfectly rhymes with 'Club' and heavily ties into the 'Yard' theme. Additionally, 'Blight' (a plant disease) rhymes with 'Fight', but replacing just one word for 'Fight Shrub' keeps the recognition high.",
+      "target_guess_words": [
+        "Yard"
+      ]
+    },
+    "reviewed_at": 1780029686160
+  },
+  {
+    "pun_id": "quote_429_1779598373982",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029696889
+  },
+  {
+    "pun_id": "quote_429_1779598382246",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029698969
+  },
+  {
+    "pun_id": "quote_448_1779598389124",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029712932
+  },
+  {
+    "pun_id": "quote_448_1779598390535",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029717032
+  },
+  {
+    "pun_id": "quote_448_1779598392253",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029721799
+  },
+  {
+    "pun_id": "quote_448_1779598411645",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_448_1779598411645",
+      "quote_id": "quote_448",
+      "text": "Yeah, I'm thinking I'm track.",
+      "replaced_word": "back",
+      "rhyme_used": "Track",
+      "parody_title": "John Quick",
+      "parody_pitch": "After his beloved racing spikes are stolen, a legendary retired sprinter enters the deadly underground world of high-stakes track and field to run down the mobsters who wronged him.",
+      "thought_process": "1. Pitch: After his beloved racing spikes are stolen, a legendary retired sprinter enters the deadly underground world of high-stakes track and field to run down the mobsters who wronged him. 2. Phonetic Target: 'John Wick' consists of two syllables. 'John' rhymes with -on (don, con, baton), and 'Wick' rhymes with -ick (sick, pick, quick, stick). 3. Thematic Brainstorm: Track -> run, fast, sprint, relay, baton, quick, dash, lap, hurdle. 4. Intersection: 'Quick' relates perfectly to being a track star and rhymes exactly with 'Wick'. Parody Title = 'John Quick'.",
+      "target_guess_words": [
+        "Track"
+      ]
+    },
+    "reviewed_at": 1780029727189
+  },
+  {
+    "pun_id": "quote_467_1779598487942",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029743324
+  },
+  {
+    "pun_id": "quote_467_1779598489486",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029745987
+  },
+  {
+    "pun_id": "quote_467_1779598492700",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029747892
+  },
+  {
+    "pun_id": "quote_467_1779598498735",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029752638
+  },
+  {
+    "pun_id": "quote_467_1779598503873",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029758254
+  },
+  {
+    "pun_id": "quote_467_1779598506521",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029761081
+  },
+  {
+    "pun_id": "quote_467_1779598512320",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029767947
+  },
+  {
+    "pun_id": "quote_487_1779598582922",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_487_1779598582922",
+      "quote_id": "quote_487",
+      "text": "I always figured when I got shoulder, God would sorta come into my life somehow. And he didn't.",
+      "replaced_word": "older",
+      "rhyme_used": "Shoulder",
+      "parody_title": "No Country for Swole Men",
+      "parody_pitch": "A skinny West Texas sheriff investigates a trail of exploded protein powder tubs and discarded dumbbells left by a ruthless hitman obsessed with achieving the ultimate shoulder pump.",
+      "thought_process": "1. Pitch: A gym-crazed cartel hitman terrorizes West Texas, leaving a trail of empty protein jugs while ruthlessly hunting down anyone with bigger deltoids than him. 2. Phonetic Target: 'No Country for Old Men' contains the keyword 'Old' (one syllable, rhyming with cold, fold, sold, bold). 3. Thematic Brainstorm: The concept of 'getting Shoulder' sounds like bodybuilding slang for gaining muscle mass. Words related to shoulder/muscle: deltoid, trap, pump, lift, gym, boulder, flex, swole. 4. Intersection: 'Swole' sounds very similar phonetically to 'Old' (swo\u028al vs o\u028ald) and perfectly ties the gym-bro absurdity of 'getting Shoulder' to the original title. Parody Title = 'No Country for Swole Men'.",
+      "target_guess_words": [
+        "Shoulder"
+      ]
+    },
+    "reviewed_at": 1780029805943
+  },
+  {
+    "pun_id": "quote_487_1779598588113",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029815681
+  },
+  {
+    "pun_id": "quote_487_1779598590344",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029818386
+  },
+  {
+    "pun_id": "quote_487_1779598592022",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029822401
+  },
+  {
+    "pun_id": "quote_487_1779598594046",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_487_1779598594046",
+      "quote_id": "quote_487",
+      "text": "I always figured when I got older, Sod would sorta come into my life somehow. And he didn't.",
+      "replaced_word": "god",
+      "rhyme_used": "Sod",
+      "parody_title": "Mow Country for Old Men",
+      "parody_pitch": "A weary Texas sheriff reflects on his inability to grow a lush lawn while hunting down a ruthless landscaping hitman who flips a coin to decide who gets premium turf and who gets crabgrass.",
+      "thought_process": "1. Pitch: A weary Texas sheriff reflects on his inability to grow a lush lawn while hunting down a ruthless landscaping hitman who flips a coin to decide who gets premium turf and who gets crabgrass. 2. Phonetic Target: 'No Country for Old Men'. Targets: 'No' (rhymes with go, show), 'Country' (rhymes with tree, free), 'Old' (rhymes with cold, fold), 'Men' (rhymes with pen, ten). 3. Thematic Brainstorm: sod -> grass, turf, dirt, yard, green, plant, soil, mow, seed. 4. Intersection: 'Mow' rhymes perfectly with 'No'. Parody Title = 'Mow Country for Old Men'.",
+      "target_guess_words": [
+        "Sod"
+      ]
+    },
+    "reviewed_at": 1780029835620
+  },
+  {
+    "pun_id": "quote_487_1779598601565",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029839972
+  },
+  {
+    "pun_id": "quote_487_1779598605483",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_487_1779598605483",
+      "quote_id": "quote_487",
+      "text": "I always figured when I got older, Cod would sorta come into my life somehow. And he didn't.",
+      "replaced_word": "god",
+      "rhyme_used": "Cod",
+      "parody_title": "Roe Country for Old Men",
+      "parody_pitch": "An aging, melancholic sheriff patrols a desolate, fish-egg-covered coastline, deeply lamenting that a giant, spiritual saltwater fish never arrived to give his life meaning.",
+      "thought_process": "1. Pitch: An aging, melancholic sheriff patrols a desolate, fish-egg-covered Texas coastline, deeply lamenting that a giant, spiritual saltwater fish never arrived to give his life meaning. 2. Phonetic Target: 'No Country for Old Men' syllables include No (toe, row, flow), Country (bounty), Old (cold, fold), and Men (pen, den). 3. Thematic Brainstorm: cod, fish, sea, ocean, bait, rod, roe, shoal, catch, gills. 4. Intersection: 'Roe' (fish eggs) rhymes perfectly with 'No'. Parody Title = 'Roe Country for Old Men'.",
+      "target_guess_words": [
+        "Cod"
+      ]
+    },
+    "reviewed_at": 1780029846855
+  },
+  {
+    "pun_id": "quote_169_1779598644555",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029861874
+  },
+  {
+    "pun_id": "quote_169_1779598657992",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029870068
+  },
+  {
+    "pun_id": "quote_089_1779598706331",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029875823
+  },
+  {
+    "pun_id": "quote_089_1779598712705",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029919387
+  },
+  {
+    "pun_id": "quote_089_1779598723257",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029926028
+  },
+  {
+    "pun_id": "quote_089_1779598725313",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029929441
+  },
+  {
+    "pun_id": "quote_089_1779598730711",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029942161
+  },
+  {
+    "pun_id": "quote_089_1779598739930",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029947639
+  },
+  {
+    "pun_id": "quote_090_1779598747890",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_090_1779598747890",
+      "quote_id": "quote_090",
+      "text": "I wish I knew how to counterfeit you.",
+      "replaced_word": "quit",
+      "rhyme_used": "Counterfeit",
+      "parody_title": "Brokebank Mountain",
+      "parody_pitch": "Instead of herding sheep, two indebted cowboys run an illicit currency forgery ring out of a remote tent, but their romance hits a snag when one struggles to perfectly draw his lover's handsome face onto a fake three-dollar bill.",
+      "thought_process": "1. Pitch: Instead of herding sheep, two indebted cowboys run an illicit currency forgery ring out of a remote tent, but their romance hits a snag when one struggles to perfectly draw his lover's handsome face onto a fake three-dollar bill. 2. Phonetic Target: 'Brokeback Mountain' breaks down into Broke (oak, poke, smoke), back (hack, sack, bank, pack), Moun-tain (foun-tain). 3. Thematic Brainstorm: Counterfeit -> fake, forge, copy, draw, print, mint, broke, bank, money, cash. 4. Intersection: 'Bank' is a near-rhyme/consonance match for 'Back', and ties perfectly into the financial crime of counterfeiting, turning 'Brokeback' into 'Brokebank'. Parody Title = 'Brokebank Mountain'.",
+      "target_guess_words": [
+        "Counterfeit"
+      ]
+    },
+    "reviewed_at": 1780029954765
+  },
+  {
+    "pun_id": "quote_090_1779598749687",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029958566
+  },
+  {
+    "pun_id": "quote_090_1779598756242",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029961461
+  },
+  {
+    "pun_id": "quote_090_1779598763909",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029965738
+  },
+  {
+    "pun_id": "quote_091_1779598769922",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029973623
+  },
+  {
+    "pun_id": "quote_091_1779598781775",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_091_1779598781775",
+      "quote_id": "quote_091",
+      "text": "The name's Pond. James Pond.",
+      "replaced_word": "bond",
+      "rhyme_used": "Pond",
+      "parody_title": "Koi-sino Royale",
+      "parody_pitch": "A suave, tuxedo-wearing aquatic secret agent goes undercover at a high-stakes underwater poker tournament to stop a villainous frog from draining the wetlands.",
+      "thought_process": "1. Pitch: A suave, tuxedo-wearing aquatic secret agent goes undercover at a high-stakes underwater poker tournament to stop a villainous frog from draining the wetlands. 2. Phonetic Target: 'Casino Royale' consists of 'Casino' (cuh-see-no) and 'Royale' (roy-al). 3. Thematic Brainstorm: Pond, fish, water, amphibian, duck, koi, lilypad, frog, croak, minnow, toad. 4. Intersection: 'Koi' (a famous pond fish) blends perfectly with the first word to create 'Koi-sino'. Parody Title = 'Koi-sino Royale'.",
+      "target_guess_words": [
+        "Pond"
+      ]
+    },
+    "reviewed_at": 1780029978837
+  },
+  {
+    "pun_id": "quote_092_1779598800858",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029983863
+  },
+  {
+    "pun_id": "quote_092_1779598804569",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780029994263
+  },
+  {
+    "pun_id": "quote_092_1779598805846",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030011735
+  },
+  {
+    "pun_id": "quote_092_1779598807579",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030015580
+  },
+  {
+    "pun_id": "quote_092_1779598811156",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030018055
+  },
+  {
+    "pun_id": "quote_093_1779598815743",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030027888
+  },
+  {
+    "pun_id": "quote_093_1779598817791",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030030363
+  },
+  {
+    "pun_id": "quote_093_1779598828154",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030033213
+  },
+  {
+    "pun_id": "quote_094_1779598849417",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030038763
+  },
+  {
+    "pun_id": "quote_094_1779598855101",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030040647
+  },
+  {
+    "pun_id": "quote_095_1779598862652",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030049772
+  },
+  {
+    "pun_id": "quote_095_1779598876662",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030112120
+  },
+  {
+    "pun_id": "quote_095_1779598881287",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030113563
+  },
+  {
+    "pun_id": "quote_096_1779598886230",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030121134
+  },
+  {
+    "pun_id": "quote_096_1779598890699",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030123197
+  },
+  {
+    "pun_id": "quote_096_1779598892173",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030127412
+  },
+  {
+    "pun_id": "quote_096_1779598897460",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030130906
+  },
+  {
+    "pun_id": "quote_096_1779598904437",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030132384
+  },
+  {
+    "pun_id": "quote_096_1779598906321",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030135661
+  },
+  {
+    "pun_id": "quote_096_1779598914876",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030138604
+  },
+  {
+    "pun_id": "quote_097_1779598924058",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030143852
+  },
+  {
+    "pun_id": "quote_097_1779598928448",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_097_1779598928448",
+      "quote_id": "quote_097",
+      "text": "Flee are Groot.",
+      "replaced_word": "we",
+      "rhyme_used": "Flee",
+      "parody_title": "Cowardians of the Galaxy",
+      "parody_pitch": "A crew of highly evasive, spineless space misfits whose only survival tactic is running away at top speed whenever their terrifying sentient tree friend shows up.",
+      "thought_process": "1. Pitch: A crew of highly evasive, spineless space misfits whose only survival tactic is running away at top speed whenever their terrifying sentient tree friend shows up. 2. Phonetic Target: 'Guardians of the Galaxy'. The key word 'Guardians' (Gar-dee-uns) is three syllables, sounding like hard-ians, card-ians, yard-ians. 3. Brainstorm: words related to 'flee' -> run, escape, retreat, hide, scared, chickens, cowards. 4. Intersection: 'Cowards' conceptually matches 'Flee', and when you add the '-ians' suffix, 'Cowardians' sounds remarkably similar to 'Guardians'.",
+      "target_guess_words": [
+        "Flee"
+      ]
+    },
+    "reviewed_at": 1780030157116
+  },
+  {
+    "pun_id": "quote_097_1779598930008",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030159900
+  },
+  {
+    "pun_id": "quote_097_1779598935770",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030218021
+  },
+  {
+    "pun_id": "quote_097_1779598940593",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030222162
+  },
+  {
+    "pun_id": "quote_097_1779598951033",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030226509
+  },
+  {
+    "pun_id": "quote_098_1779598955771",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_098_1779598955771",
+      "quote_id": "quote_098",
+      "text": "I'm in the drunken place.",
+      "replaced_word": "sunken",
+      "rhyme_used": "Drunken",
+      "parody_title": "Get Stout",
+      "parody_pitch": "A young man visits his girlfriend's bizarre family estate only to discover they are a cult of aggressive craft brewery snobs trying to hypnotize him into an inescapable, sloppy stupor.",
+      "thought_process": "1. Pitch: A young man visits his girlfriend's bizarre family estate only to discover they are a cult of aggressive craft beer snobs trying to hypnotize him into an inescapable, sloppy stupor. 2. Phonetic Target: 'Get Out' has two syllables. 'Get' rhymes with wet, set, let, sweat. 'Out' rhymes with stout, bout, shout, spout, drought. 3. Thematic Brainstorm: drunk, alcohol, pass out, blackout, beer, stout, keg, chug, pour, brewery. 4. Intersection: 'Stout' (a strong, dark beer) perfectly rhymes with 'Out' and fits the alcohol theme, resulting in the title 'Get Stout'.",
+      "target_guess_words": [
+        "Drunken"
+      ]
+    },
+    "reviewed_at": 1780030233637
+  },
+  {
+    "pun_id": "quote_098_1779598965768",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030247157
+  },
+  {
+    "pun_id": "quote_098_1779598969653",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030249323
+  },
+  {
+    "pun_id": "quote_098_1779598972689",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030251523
+  },
+  {
+    "pun_id": "quote_098_1779598975376",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030254545
+  },
+  {
+    "pun_id": "quote_099_1779598993503",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030263675
+  },
+  {
+    "pun_id": "quote_099_1779598994991",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030268618
+  },
+  {
+    "pun_id": "quote_099_1779598998757",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030272657
+  },
+  {
+    "pun_id": "quote_099_1779599000373",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030282810
+  },
+  {
+    "pun_id": "quote_100_1779599008289",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030288194
+  },
+  {
+    "pun_id": "quote_101_1779599023977",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030350205
+  },
+  {
+    "pun_id": "quote_101_1779599026041",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030354723
+  },
+  {
+    "pun_id": "quote_101_1779599030756",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030360703
+  },
+  {
+    "pun_id": "quote_102_1779599037701",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030365421
+  },
+  {
+    "pun_id": "quote_102_1779599041373",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030369042
+  },
+  {
+    "pun_id": "quote_102_1779599042697",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030371713
+  },
+  {
+    "pun_id": "quote_102_1779599045283",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030375813
+  },
+  {
+    "pun_id": "quote_102_1779599047308",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030378604
+  },
+  {
+    "pun_id": "quote_105_1779599104065",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_105_1779599104065",
+      "quote_id": "quote_105",
+      "text": "Looks like I picked the wrong week to stop quizzing glue.",
+      "replaced_word": "sniffing",
+      "rhyme_used": "quizzing",
+      "parody_title": "Explain!",
+      "parody_pitch": "When the flight crew falls unconscious, a neurotic passenger's only hope to safely land the plane is to win a high-stakes trivia contest by interrogating his sentient school supplies.",
+      "thought_process": "1. Pitch: When the flight crew falls unconscious, a neurotic passenger's only hope to safely land the plane is to win a high-stakes trivia contest by interrogating his sentient school supplies. 2. Phonetic Target: 'Airplane!' (Air-plane) - Two syllables. The second syllable rhymes with train, brain, and plain. 3. Thematic Brainstorm: quizzing -> trivia, test, questions, answers, brain, explain, examine. 4. Intersection: 'Explain' ends with '-plain', which is a perfect homophone for '-plane' and perfectly fits the theme of answering quiz questions. Parody Title: Explain!",
+      "target_guess_words": [
+        "quizzing"
+      ]
+    },
+    "reviewed_at": 1780030396412
+  },
+  {
+    "pun_id": "quote_105_1779599120638",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030399688
+  },
+  {
+    "pun_id": "quote_105_1779599125850",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030401552
+  },
+  {
+    "pun_id": "quote_106_1779599133220",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_106_1779599133220",
+      "quote_id": "quote_106",
+      "text": "We're on a suspicion from God.",
+      "replaced_word": "mission",
+      "rhyme_used": "Suspicion",
+      "parody_title": "The Clues Brothers",
+      "parody_pitch": "Two extremely paranoid siblings, convinced the Almighty has tipped them off to a massive conspiracy, go on a chaotic road trip to aggressively interrogate nuns, orphans, and soul singers.",
+      "thought_process": "1. Pitch: Two extremely paranoid siblings, convinced the Almighty has tipped them off to a massive conspiracy, go on a chaotic road trip to aggressively interrogate nuns, orphans, and soul singers. 2. Phonetic Target: 'The Blues Brothers'. 'Blues' is one syllable, rhyming with -ooz (clues, shoes, news, snooze). 'Brothers' is two syllables, rhyming with -uthers (mothers, others). 3. Thematic Brainstorm: Suspicion -> clues, hints, snoops, detectives, sleuths, doubt. 4. Intersection: 'Clues' perfectly rhymes with 'Blues' and conceptually fits the theme of acting on a 'Suspicion'. Parody Title = 'The Clues Brothers'.",
+      "target_guess_words": [
+        "Suspicion"
+      ]
+    },
+    "reviewed_at": 1780030408191
+  },
+  {
+    "pun_id": "quote_106_1779599135852",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030422519
+  },
+  {
+    "pun_id": "quote_106_1779599140219",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030433460
+  },
+  {
+    "pun_id": "quote_106_1779599144381",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030436345
+  },
+  {
+    "pun_id": "quote_106_1779599147706",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030439676
+  },
+  {
+    "pun_id": "quote_106_1779599153184",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030441670
+  },
+  {
+    "pun_id": "quote_108_1779599171371",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030451915
+  },
+  {
+    "pun_id": "quote_108_1779599180386",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030461597
+  },
+  {
+    "pun_id": "quote_109_1779599194752",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030497353
+  },
+  {
+    "pun_id": "quote_109_1779599196336",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030500056
+  },
+  {
+    "pun_id": "quote_109_1779599197630",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030503028
+  },
+  {
+    "pun_id": "quote_109_1779599206474",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030504732
+  },
+  {
+    "pun_id": "quote_109_1779599214239",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030507908
+  },
+  {
+    "pun_id": "quote_109_1779599223824",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030509910
+  },
+  {
+    "pun_id": "quote_107_1779599235029",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030514672
+  },
+  {
+    "pun_id": "quote_107_1779599239284",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030517107
+  },
+  {
+    "pun_id": "quote_107_1779599242515",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030520001
+  },
+  {
+    "pun_id": "quote_107_1779599244904",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030524368
+  },
+  {
+    "pun_id": "quote_111_1779599252000",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030527995
+  },
+  {
+    "pun_id": "quote_111_1779599253852",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030531181
+  },
+  {
+    "pun_id": "quote_111_1779599255469",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_111_1779599255469",
+      "quote_id": "quote_111",
+      "text": "We came, we bra, we kicked its ass!",
+      "replaced_word": "saw",
+      "rhyme_used": "Bra",
+      "parody_title": "Ghostbustiers",
+      "parody_pitch": "A team of eccentric paranormal tailors must wrangle and properly support a plague of possessed, free-floating lingerie terrorizing New York City.",
+      "thought_process": "1. Pitch: A team of eccentric paranormal tailors must wrangle and properly support a plague of possessed, free-floating lingerie terrorizing New York City. 2. Phonetic Target: 'Ghostbusters' consists of 'Ghost' (rhymes with coast, boast, roast) and 'busters' (rhymes with dusters, clusters, musters). 3. Thematic Brainstorm: Bra -> lingerie, support, chest, strap, cup, corset, bustier, breasts, bust. 4. Intersection: 'Bustier' (a type of lingerie closely related to a bra) sounds incredibly similar to 'buster'. Replacing 'busters' with 'bustiers' gives us our title.",
+      "target_guess_words": [
+        "Bra"
+      ]
+    },
+    "reviewed_at": 1780030542140
+  },
+  {
+    "pun_id": "quote_111_1779599256790",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030544711
+  },
+  {
+    "pun_id": "quote_111_1779599259549",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030548112
+  },
+  {
+    "pun_id": "quote_111_1779599269583",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030553787
+  },
+  {
+    "pun_id": "quote_111_1779599271585",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_111_1779599271585",
+      "quote_id": "quote_111",
+      "text": "We came, we saw, we kicked its class!",
+      "replaced_word": "ass",
+      "rhyme_used": "Class",
+      "parody_title": "Chalkdusters",
+      "parody_pitch": "A squad of eccentric, unemployed substitute teachers build unlicensed nuclear laser pointers to violently eradicate impossible curriculums and kick some academic Class.",
+      "thought_process": "1. Pitch: A squad of eccentric, unemployed substitute teachers build unlicensed nuclear laser pointers to violently eradicate impossible curriculums and kick some academic Class. 2. Phonetic Target: 'Ghostbusters' consists of two main phonetic parts: 'Ghost' (rhymes with boast, roast, toast) and 'busters' (rhymes with dusters, flusters, musters). 3. Thematic Brainstorm: school, class, teacher, desk, blackboard, chalk, eraser, dust, study, test. 4. Intersection: 'dusters' rhymes perfectly with 'busters'. Pairing it with 'Chalk' creates 'Chalkdusters'\u2014a literal classroom tool that phonetically mirrors the rhythm of Ghostbusters and perfectly ties into the new academic theme.",
+      "target_guess_words": [
+        "Class"
+      ]
+    },
+    "reviewed_at": 1780030560033
+  },
+  {
+    "pun_id": "quote_111_1779599278551",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030562541
+  },
+  {
+    "pun_id": "quote_112_1779599288018",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030567585
+  },
+  {
+    "pun_id": "quote_112_1779599296180",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030570685
+  },
+  {
+    "pun_id": "quote_118_1779599329699",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030573957
+  },
+  {
+    "pun_id": "quote_118_1779599331608",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030577496
+  },
+  {
+    "pun_id": "quote_118_1779599338584",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030580294
+  },
+  {
+    "pun_id": "quote_118_1779599343063",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030583502
+  },
+  {
+    "pun_id": "quote_119_1779599351538",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_119_1779599351538",
+      "quote_id": "quote_119",
+      "text": "Funny how? I mean, funny like I'm a crown? I amuse you?",
+      "replaced_word": "clown",
+      "rhyme_used": "Crown",
+      "parody_title": "Goodfillings",
+      "parody_pitch": "A paranoid mafia enforcer opens a dental practice and brutally drills anyone who dares to disrespect his delicate porcelain tooth caps.",
+      "thought_process": "1. Pitch: A paranoid mafia enforcer opens a dental practice and brutally drills anyone who dares to disrespect his delicate porcelain tooth caps. 2. Phonetic Target: 'Goodfellas' is three syllables (Good-fell-as), with the primary rhyming focus on the 'fell-as' ending (rhymes with zealous, jealous, tell us). 3. Thematic Brainstorm: Crown -> dentistry, teeth, drill, molar, enamel, fillings. 4. Intersection: 'Fillings' has a very similar phonetic structure and rhythm to 'Fellas' (short vowel followed by double L and a plural S). Parody Title = 'Goodfillings'.",
+      "target_guess_words": [
+        "Crown"
+      ]
+    },
+    "reviewed_at": 1780030591206
+  },
+  {
+    "pun_id": "quote_119_1779599353467",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030593437
+  },
+  {
+    "pun_id": "quote_119_1779599363819",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030609153
+  },
+  {
+    "pun_id": "quote_119_1779599370447",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030611936
+  },
+  {
+    "pun_id": "quote_119_1779599372072",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030614279
+  },
+  {
+    "pun_id": "quote_119_1779599374232",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030616867
+  },
+  {
+    "pun_id": "quote_119_1779599377267",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030618672
+  },
+  {
+    "pun_id": "quote_117_1779599388748",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030622945
+  },
+  {
+    "pun_id": "quote_117_1779599390728",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_117_1779599390728",
+      "quote_id": "quote_117",
+      "text": "I'm not bad. I'm just nylon that way.",
+      "replaced_word": "drawn",
+      "rhyme_used": "Nylon",
+      "parody_title": "Who Framed Roger Fabric?",
+      "parody_pitch": "A gritty detective investigates the Toontown garment district, where a sultry femme fatale made entirely of cheap synthetic hosiery tries to clear her eccentric husband's name.",
+      "thought_process": "1. Pitch: A gritty detective investigates the Toontown garment district, where a sultry femme fatale made entirely of cheap synthetic hosiery tries to clear her eccentric husband's name. 2. Phonetic Target: 'Rabbit' (two syllables, rab-it), rhyming with habit, grab it. 3. Thematic Brainstorm: Nylon -> synthetic, tights, stockings, pantyhose, material, textile, cloth, habit, fabric. 4. Intersection: 'Fabric' (fab-rik) is a strong slant rhyme and assonance match for 'Rabbit' (rab-it), perfectly encapsulating the transition from being 'drawn' to being made of 'Nylon'. Parody Title = 'Who Framed Roger Fabric?'",
+      "target_guess_words": [
+        "Nylon"
+      ]
+    },
+    "reviewed_at": 1780030678699
+  },
+  {
+    "pun_id": "quote_117_1779599393626",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030681134
+  },
+  {
+    "pun_id": "quote_117_1779599400935",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030687039
+  },
+  {
+    "pun_id": "quote_117_1779599404489",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030690530
+  },
+  {
+    "pun_id": "quote_120_1779599421966",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030699068
+  },
+  {
+    "pun_id": "quote_120_1779599423475",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030709054
+  },
+  {
+    "pun_id": "quote_120_1779599425136",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030712852
+  },
+  {
+    "pun_id": "quote_122_1779599441372",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030723829
+  },
+  {
+    "pun_id": "quote_122_1779599445998",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030726217
+  },
+  {
+    "pun_id": "quote_122_1779599453258",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030728211
+  },
+  {
+    "pun_id": "quote_122_1779599456710",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030731963
+  },
+  {
+    "pun_id": "quote_122_1779599460841",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030738034
+  },
+  {
+    "pun_id": "quote_123_1779599487974",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030742654
+  },
+  {
+    "pun_id": "quote_123_1779599490701",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030747628
+  },
+  {
+    "pun_id": "quote_123_1779599492499",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_123_1779599492499",
+      "quote_id": "quote_123",
+      "text": "You're killin' me, Walls!",
+      "replaced_word": "smalls",
+      "rhyme_used": "Walls",
+      "parody_title": "The Dry-rot",
+      "parody_pitch": "A group of ambitious kids attempt to flip an abandoned wooden clubhouse, but scream in frustration as the severely deteriorated, crumbling partitions keep literally collapsing on them.",
+      "thought_process": "1. Pitch: A group of ambitious kids attempt to flip an abandoned wooden clubhouse, but scream in frustration as the severely deteriorated, crumbling partitions keep literally collapsing on them. 2. Phonetic Target: 'Sandlot' is two syllables, with 'Sand' (rhymes with hand, band) and 'lot' (rhymes with cot, rot, plot). 3. Thematic Brainstorm: walls, wood, timber, studs, termites, decay, dry rot, crumbling, plaster, drywall. 4. Intersection: 'Rot' perfectly rhymes with 'lot', and replacing 'Sand' with 'Dry' maintains a thematic link (arid concepts) while forming 'Dry-rot', the ultimate nemesis of wooden walls. Parody Title = The Dry-rot.",
+      "target_guess_words": [
+        "Walls"
+      ]
+    },
+    "reviewed_at": 1780030756855
+  },
+  {
+    "pun_id": "quote_123_1779599496939",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030758541
+  },
+  {
+    "pun_id": "quote_123_1779599500605",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030812122
+  },
+  {
+    "pun_id": "quote_124_1779599507873",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_124_1779599507873",
+      "quote_id": "quote_124",
+      "text": "So you're dwelling me there's a chance.",
+      "replaced_word": "telling",
+      "rhyme_used": "Dwelling",
+      "parody_title": "Slum and Slummer",
+      "parody_pitch": "Two spectacularly inept real estate agents try to convince desperate buyers to move into increasingly dilapidated, raccoon-infested houses.",
+      "thought_process": "1. Pitch: Two spectacularly inept real estate agents try to convince desperate buyers to move into increasingly dilapidated, raccoon-infested houses. 2. Phonetic Target: 'Dumb and Dumber' has the syllables Dumb (rhymes with bum, slum, crumb, plum) and Dum-ber (rhymes with lumber, plumber, slummer, slumber). 3. Thematic Brainstorm: Dwelling -> house, home, shelter, real estate, slum, apartment, living, shack, property. 4. Intersection: 'Slum' rhymes perfectly with 'Dumb' and relates directly to a type of dwelling, leading to the parody title 'Slum and Slummer'.",
+      "target_guess_words": [
+        "Dwelling"
+      ]
+    },
+    "reviewed_at": 1780030819395
+  },
+  {
+    "pun_id": "quote_124_1779599512665",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_124_1779599512665",
+      "quote_id": "quote_124",
+      "text": "Storytelling me there's a chance.",
+      "replaced_word": "telling",
+      "rhyme_used": "Storytelling",
+      "parody_title": "Numb and Slumber",
+      "parody_pitch": "Two hopelessly uncharismatic aspiring authors read their impossibly boring 10,000-page fantasy manuscript out loud to a captive publisher, clinging to the faint hope of securing a book deal before the entire room falls into a deep sleep.",
+      "thought_process": "1. Pitch: Two hopelessly uncharismatic authors force a captive audience to listen to their impossibly boring 10,000-page manuscript, hoping against all odds they'll get a book deal before everyone falls asleep. 2. Phonetic Target: 'Dumb' (rhymes with hum, numb, thumb) and 'Dumber' (rhymes with lumber, slumber, number). 3. Brainstorm: boring storytelling, sleep, reading, dull tales, numb, slumber, thumbing pages. 4. Intersection: 'Numb' rhymes perfectly with 'Dumb', and 'Slumber' rhymes perfectly with 'Dumber', capturing the mind-numbing, sleep-inducing nature of their terrible storytelling.",
+      "target_guess_words": [
+        "Storytelling"
+      ]
+    },
+    "reviewed_at": 1780030827514
+  },
+  {
+    "pun_id": "quote_124_1779599524301",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030830445
+  },
+  {
+    "pun_id": "quote_124_1779599527721",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030835813
+  },
+  {
+    "pun_id": "quote_124_1779599530165",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030846146
+  },
+  {
+    "pun_id": "quote_124_1779599532372",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030850553
+  },
+  {
+    "pun_id": "quote_124_1779599539282",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030852525
+  },
+  {
+    "pun_id": "quote_127_1779599553492",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030861888
+  },
+  {
+    "pun_id": "quote_127_1779599557001",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030864611
+  },
+  {
+    "pun_id": "quote_127_1779599559089",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_127_1779599559089",
+      "quote_id": "quote_127",
+      "text": "That'll do, wig. That'll do.",
+      "replaced_word": "pig",
+      "rhyme_used": "Wig",
+      "parody_title": "Braid",
+      "parody_pitch": "An orphaned toupee discovers its true calling as a champion sheep-herding hairpiece to save its bald master's farm.",
+      "thought_process": "1. Pitch: An orphaned toupee discovers its true calling as a champion sheep-herding hairpiece to save its bald master's farm. 2. Phonetic Target: 'Babe' is a single syllable word featuring a hard 'B' opening and a long 'A' vowel sound (/be\u026ab/). 3. Thematic Brainstorm: wig, toupee, hair, bald, comb, shave, braid, fade, wave, bob, weave. 4. Intersection: 'Braid' perfectly mirrors the starting 'B' and the long 'A' vowel sound of 'Babe', creating a satisfying slant rhyme that fits the hair-centric theme.",
+      "target_guess_words": [
+        "Wig"
+      ]
+    },
+    "reviewed_at": 1780030871444
+  },
+  {
+    "pun_id": "quote_127_1779599561698",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030873265
+  },
+  {
+    "pun_id": "quote_127_1779599563077",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_127_1779599563077",
+      "quote_id": "quote_127",
+      "text": "That'll do, fig. That'll do.",
+      "replaced_word": "pig",
+      "rhyme_used": "Fig",
+      "parody_title": "Bake",
+      "parody_pitch": "An eccentric farmer tries to win the national pastry championship by emotionally supporting his highly sentient, surprisingly cooperative baking ingredients right before they go into the oven.",
+      "thought_process": "1. Pitch: An eccentric farmer tries to win the national pastry championship by emotionally supporting his highly sentient, surprisingly cooperative baking ingredients before putting them in the oven. 2. Phonetic Target: 'Babe' is one syllable, /be\u026ab/, rhyming exactly with Abe, Gabe, and near-rhyming with words like bake, cape, and grape. 3. Thematic Brainstorm: fig -> fruit, Newton, jam, pastry, oven, sweet, tree, bake. 4. The Intersection: 'Bake' shares the exact same initial consonant and vowel sound (/be\u026a/) as 'Babe', making it a strong phonetic match that ties perfectly into the culinary destiny of a fig. Parody Title = 'Bake'.",
+      "target_guess_words": [
+        "Fig"
+      ]
+    },
+    "reviewed_at": 1780030878949
+  },
+  {
+    "pun_id": "quote_128_1779599569926",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030886799
+  },
+  {
+    "pun_id": "quote_128_1779599572782",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_128_1779599572782",
+      "quote_id": "quote_128",
+      "text": "The greatest Bolshevik the Devil ever pulled was convincing the world he didn't exist.",
+      "replaced_word": "trick",
+      "rhyme_used": "Bolshevik",
+      "parody_title": "The Usual Soviets",
+      "parody_pitch": "Five shady Marxists are rounded up for a Moscow police lineup, completely unaware that the mythical communist mastermind manipulating them is actually the Devil in disguise.",
+      "thought_process": "1. Pitch: Five shady Marxists are rounded up for a Moscow police lineup, completely unaware that the mythical communist mastermind manipulating them is actually the Devil in disguise. 2. Phonetic Target: 'The Usual Suspects' - 'Suspects' has two syllables (sus-pects) and ends with an '-ects' sound (rhyming with defects, expects). 3. Thematic Brainstorm: Bolshevik, Russian, Communist, Soviets, Reds, Marxists, comrades, deflectors, defectors. 4. Intersection: 'Soviets' has a very similar phonetic footprint to 'Suspects' (starting with S, ending with a plural -ets/-ects sound) and perfectly ties into the 'Bolshevik' theme.",
+      "target_guess_words": [
+        "Bolshevik"
+      ]
+    },
+    "reviewed_at": 1780030895391
+  },
+  {
+    "pun_id": "quote_128_1779599575753",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_128_1779599575753",
+      "quote_id": "quote_128",
+      "text": "The greatest brick the Devil ever pulled was convincing the world he didn't exist.",
+      "replaced_word": "trick",
+      "rhyme_used": "Brick",
+      "parody_title": "The Usual Architects",
+      "parody_pitch": "Five crooked contractors are brought in for a police lineup to identify a mythical, masonry-obsessed mastermind whose ultimate heist involved stealing the world's most foundational load-bearing block.",
+      "thought_process": "1. Pitch: Five crooked contractors are brought in for a police lineup to identify a mythical, masonry-obsessed mastermind who is secretly stealing the world's load-bearing structures. 2. Phonetic Target: 'The Usual Suspects'. 'Suspects' is two syllables ending in the '-ects' sound (respects, directs, projects, inspects). 3. Thematic Brainstorm: Brick, wall, construction, mason, mortar, project, build, architect. 4. Intersection: 'Architects' ends with the exact same '-ects' sound as 'Suspects' and perfectly captures the construction and brick theme. Parody Title = The Usual Architects.",
+      "target_guess_words": [
+        "Brick"
+      ]
+    },
+    "reviewed_at": 1780030901995
+  },
+  {
+    "pun_id": "quote_128_1779599587574",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030905077
+  },
+  {
+    "pun_id": "quote_128_1779599590776",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030909033
+  },
+  {
+    "pun_id": "quote_128_1779599600300",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030914433
+  },
+  {
+    "pun_id": "quote_128_1779599603823",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030917319
+  },
+  {
+    "pun_id": "quote_147_1779599992338",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030928685
+  },
+  {
+    "pun_id": "quote_147_1779599996768",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030988915
+  },
+  {
+    "pun_id": "quote_147_1779600004089",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030992998
+  },
+  {
+    "pun_id": "quote_147_1779600009497",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780030995954
+  },
+  {
+    "pun_id": "quote_147_1779600012969",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031003184
+  },
+  {
+    "pun_id": "quote_147_1779600014614",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_147_1779600014614",
+      "quote_id": "quote_147",
+      "text": "Nothing goes over my head. My reflexes are too fast. I would patch it.",
+      "replaced_word": "catch",
+      "rhyme_used": "Patch",
+      "parody_title": "Cardigans of the Galaxy",
+      "parody_pitch": "A group of ragtag intergalactic tailors roam the cosmos fixing torn asteroid belts and mending rips in the fabric of the universe, one hasty stitch at a time.",
+      "thought_process": "1. Pitch: A group of ragtag intergalactic tailors roam the cosmos fixing torn asteroid belts and mending rips in the fabric of the universe, ensuring no celestial garment goes unfixed. 2. Phonetic Target: 'Guardians' (Gar-dee-ans) and 'Galaxy' (Gal-ack-see). Target sounds: 'Gar-dee-ans'. 3. Thematic Brainstorm: sewing, tailoring, mending, fabric, clothes, sweaters, cardigans, quilts, thimbles. 4. Intersection: 'Cardigans' sounds almost identical to 'Guardians' and perfectly captures the clothing repair theme. Parody Title = Cardigans of the Galaxy.",
+      "target_guess_words": [
+        "Patch"
+      ]
+    },
+    "reviewed_at": 1780031012644
+  },
+  {
+    "pun_id": "quote_151_1779600027126",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031015001
+  },
+  {
+    "pun_id": "quote_151_1779600028779",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031020897
+  },
+  {
+    "pun_id": "quote_151_1779600030676",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031021867
+  },
+  {
+    "pun_id": "quote_151_1779600032313",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031024075
+  },
+  {
+    "pun_id": "quote_110_1779600063011",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031031262
+  },
+  {
+    "pun_id": "quote_110_1779600064491",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031038927
+  },
+  {
+    "pun_id": "quote_110_1779600068286",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_110_1779600068286",
+      "quote_id": "quote_110",
+      "text": "You'll prostitute your eye out, kid.",
+      "replaced_word": "shoot",
+      "rhyme_used": "Prostitute",
+      "parody_title": "A Christmas Whorey",
+      "parody_pitch": "Desperate to afford an official Red Ryder BB gun for the holidays, young Ralphie turns to the world's oldest profession on the gritty streets of Indiana, ignoring the grave warnings of his parents and the local mall Santa.",
+      "thought_process": "1. Pitch: Desperate to afford an official Red Ryder BB gun for the holidays, young Ralphie turns to the world's oldest profession on the gritty, snowy streets of Indiana, ignoring the grave warnings of mall Santas and his parents. 2. Phonetic Target: 'A Christmas Story' has two main words. 'Christmas' (kris-muhs) and 'Story' (stohr-ee, rhyming with glory, gory, hoary, dory). 3. Thematic Brainstorm: sex work, streetwalker, hooker, escort, pimp, trick, brothel, whore. 4. Intersection: The word 'whore' with an 'y' added becomes 'whorey', which perfectly rhymes with 'Story' and captures the absurdity of the new quote. The parody title is 'A Christmas Whorey'.",
+      "target_guess_words": [
+        "Prostitute"
+      ]
+    },
+    "reviewed_at": 1780031044578
+  },
+  {
+    "pun_id": "quote_110_1779600074652",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031049505
+  },
+  {
+    "pun_id": "quote_110_1779600076242",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031051682
+  },
+  {
+    "pun_id": "quote_110_1779600086784",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031057183
+  },
+  {
+    "pun_id": "quote_110_1779600090232",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031059028
+  },
+  {
+    "pun_id": "quote_115_1779600121565",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031068382
+  },
+  {
+    "pun_id": "quote_115_1779600124525",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_115_1779600124525",
+      "quote_id": "quote_115",
+      "text": "Have fun warming the castle!",
+      "replaced_word": "storming",
+      "rhyme_used": "Warming",
+      "parody_title": "The Princess Fireside",
+      "parody_pitch": "A heroic peasant leaves his misfit friends behind to endlessly stoke the massive hearths of a drafty stone fortress so his true love doesn't catch a winter chill.",
+      "thought_process": "1. Pitch: A heroic peasant leaves his misfit friends behind to endlessly stoke the massive hearths of a drafty stone fortress so his true love doesn't catch a winter chill. 2. Phonetic Target: 'The Princess Bride'. 'Princess' (prin-sess), 'Bride' (br-ide). Rhymes for Bride: side, hide, fried, wide, tied, guide. 3. Brainstorm: Warming, heating, furnace, thermostat, winter, cozy, fireside, sweat, fried, logs. 4. Intersection: 'Fireside' contains the exact '-ide' rhyme to match 'Bride', while perfectly evoking the act of warming a cold room. Parody Title = 'The Princess Fireside'.",
+      "target_guess_words": [
+        "Warming"
+      ]
+    },
+    "reviewed_at": 1780031076099
+  },
+  {
+    "pun_id": "quote_115_1779600126793",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031079489
+  },
+  {
+    "pun_id": "quote_115_1779600133072",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031084495
+  },
+  {
+    "pun_id": "quote_116_1779600150202",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_116_1779600150202",
+      "quote_id": "quote_116",
+      "text": "Dead or revive, you're coming with me.",
+      "replaced_word": "alive",
+      "rhyme_used": "Revive",
+      "parody_title": "PlaceboCop",
+      "parody_pitch": "A violently enthusiastic cyborg holistic healer patrols the streets of Detroit, aggressively dragging slightly injured citizens to his wellness clinic to be saved with sugar pills and crystal therapy.",
+      "thought_process": "1. Pitch: A violently enthusiastic cyborg holistic healer patrols the streets of Detroit, aggressively dragging slightly injured citizens to his wellness clinic to be saved with sugar pills and crystal therapy. 2. Phonetic Target: 'RoboCop' breaks down into Ro-bo-Cop. The prefix 'Robo' ends in the sound -bo (rhymes with hobo, placebo, gazebo). 3. Thematic Brainstorm: Revive -> heal, cure, medicine, shaman, crystals, placebo, doctor, wellness. 4. The Intersection: 'Placebo' shares the exact '-bo' ending and cadence of 'Robo', perfectly blending the theme of questionable medical revival with the original title. Parody Title = 'PlaceboCop'.",
+      "target_guess_words": [
+        "Revive"
+      ]
+    },
+    "reviewed_at": 1780031099224
+  },
+  {
+    "pun_id": "quote_116_1779600157089",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031102047
+  },
+  {
+    "pun_id": "quote_116_1779600159349",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031104064
+  },
+  {
+    "pun_id": "quote_116_1779600163165",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031108660
+  },
+  {
+    "pun_id": "quote_116_1779600165377",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031112987
+  },
+  {
+    "pun_id": "quote_116_1779600167786",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780031116478
+  },
+  {
+    "pun_id": "quote_126_1779692203790",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_126_1779692203790",
+      "quote_id": "quote_126",
+      "text": "Failure is not an adoption.",
+      "replaced_word": "option",
+      "rhyme_used": "Adoption",
+      "parody_title": "Apollo Pre-teen",
+      "parody_pitch": "When a lunar orphanage faces imminent defunding, a desperate crew of astronaut social workers race against time to find a permanent home for an angst-ridden alien youth.",
+      "thought_process": "1. Pitch: When a lunar orphanage faces imminent defunding, a desperate crew of astronaut social workers race against time to find a permanent home for an angst-ridden alien youth, refusing to return to Earth without signed custody papers. 2. Phonetic Target: 'Apollo 13' is pronounced Uh-paw-low Thur-teen. The word '13' rhymes with seen, bean, teen, and pre-teen. 3. Thematic Brainstorm: Adoption -> child, orphan, custody, youth, baby, foster, parents, teen, pre-teen. 4. Intersection: 'Pre-teen' rhymes perfectly with '13' and fits the adoption and youth theme perfectly. Parody Title = 'Apollo Pre-teen'.",
+      "target_guess_words": [
+        "Adoption"
+      ]
+    },
+    "reviewed_at": 1780032670828
+  },
+  {
+    "pun_id": "quote_132_1779692264898",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_132_1779692264898",
+      "quote_id": "quote_132",
+      "text": "Sister Anderson.",
+      "replaced_word": "mister",
+      "rhyme_used": "Sister",
+      "parody_title": "The Pray-trix",
+      "parody_pitch": "A hacker named Neo is recruited by an underground convent of cyber-nuns to overthrow a computer-generated reality using martial arts and intense rosary sessions.",
+      "thought_process": "1. Pitch: A hacker named Neo is recruited by an underground convent of cyber-nuns to overthrow a computer-generated reality using martial arts and intense rosary sessions. 2. Phonetic Target: 'Matrix' is two syllables, pronounced MAY-triks. 3. Thematic Brainstorm: Sister, nun, church, habit, pray, faith, holy. 4. The Intersection: 'Pray' rhymes perfectly with the 'May' in Matrix, leading to the parody title 'The Pray-trix'.",
+      "target_guess_words": [
+        "Sister"
+      ]
+    },
+    "reviewed_at": 1780032675519
+  },
+  {
+    "pun_id": "quote_132_1779692267913",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_132_1779692267913",
+      "quote_id": "quote_132",
+      "text": "Transistor Anderson.",
+      "replaced_word": "mister",
+      "rhyme_used": "Transistor",
+      "parody_title": "The 8-Tracks",
+      "parody_pitch": "In a dystopian future where humanity is actually just a collection of sentient stereo components trapped inside an obsolete vintage boombox, one brave diode must fight back against the digital streaming revolution.",
+      "thought_process": "1. Pitch: In a dystopian future where humanity is actually just a collection of sentient stereo components trapped inside an obsolete vintage boombox, one brave diode must fight back against the digital streaming revolution. 2. Phonetic Target: 'Matrix' has two syllables (May-triks), rhyming with phrases like late-tricks, wait-list, or eight-tracks. 3. Thematic Brainstorm: transistor, electronics, radio, analog, circuit, cassette, audio, boombox, 8-track. 4. Intersection: '8-Tracks' (Eigh-traks) is a near-perfect phonetic match for 'Matrix' (May-triks) and perfectly captures the vintage electronic analog theme.",
+      "target_guess_words": [
+        "Transistor"
+      ]
+    },
+    "reviewed_at": 1780032702920
+  },
+  {
+    "pun_id": "quote_136_1779692291299",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032710390
+  },
+  {
+    "pun_id": "quote_136_1779692295314",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032714467
+  },
+  {
+    "pun_id": "quote_136_1779692297066",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032717327
+  },
+  {
+    "pun_id": "quote_136_1779692303214",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032725721
+  },
+  {
+    "pun_id": "quote_138_1779692321015",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032735505
+  },
+  {
+    "pun_id": "quote_138_1779692340114",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032737902
+  },
+  {
+    "pun_id": "quote_138_1779692342760",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032740434
+  },
+  {
+    "pun_id": "quote_138_1779692348102",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032742894
+  },
+  {
+    "pun_id": "quote_139_1779692492537",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032746021
+  },
+  {
+    "pun_id": "quote_139_1779692495326",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032750812
+  },
+  {
+    "pun_id": "quote_141_1779692509754",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032763787
+  },
+  {
+    "pun_id": "quote_141_1779692516694",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_141_1779692516694",
+      "quote_id": "quote_141",
+      "text": "Float for Pedro.",
+      "replaced_word": "vote",
+      "rhyme_used": "Float",
+      "parody_title": "Napoleon Watertight",
+      "parody_pitch": "An awkward teenager in a severely flooded Idaho high school tries to help his best friend win the student council election by constructing an unsinkable, perfectly sealed raft.",
+      "thought_process": "1. Pitch: An awkward teenager in a severely flooded Idaho high school tries to help his best friend win the student council election by constructing an unsinkable, perfectly sealed raft. 2. Phonetic Target: 'Napoleon Dynamite' (nuh-POH-lee-uhn DIE-nuh-mite). The word 'Dynamite' is three syllables, rhyming with -ite (parasite, satellite, watertight). 3. Thematic Brainstorm: Float -> raft, pool, water, sink, swim, buoyant, watertight, seal, boat. 4. Intersection: 'Watertight' is a perfect three-syllable rhyme for 'Dynamite' and fits the floating theme. Parody Title = 'Napoleon Watertight'.",
+      "target_guess_words": [
+        "Float"
+      ]
+    },
+    "reviewed_at": 1780032773499
+  },
+  {
+    "pun_id": "quote_141_1779692522790",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_141_1779692522790",
+      "quote_id": "quote_141",
+      "text": "Moat for Pedro.",
+      "replaced_word": "vote",
+      "rhyme_used": "Moat",
+      "parody_title": "Napoleon Feudal-Knight",
+      "parody_pitch": "A socially awkward high schooler helps his transfer-student friend run for class president on a single-issue platform: constructing a medieval defensive water trench around the cafeteria to keep the jocks at bay.",
+      "thought_process": "1. Pitch: A socially awkward high schooler helps his transfer-student friend run for class president on a single-issue platform: constructing a medieval defensive water trench around the cafeteria to keep the jocks at bay. 2. Phonetic Target: 'Napoleon Dynamite'. 'Dynamite' is a three-syllable word (DIE-nuh-mite) rhyming with -ite (bite, site, knight, fight). 3. Thematic Brainstorm: moat -> castle, medieval, trench, drawbridge, defense, water, feudal, knight. 4. Intersection: 'Feudal-Knight' matches the three-syllable rhythm of 'Dynamite' (Feu-dal-knight / Dy-na-mite) and rhymes perfectly with the final syllable. Parody Title = 'Napoleon Feudal-Knight'.",
+      "target_guess_words": [
+        "Moat"
+      ]
+    },
+    "reviewed_at": 1780032777885
+  },
+  {
+    "pun_id": "quote_142_1779692537483",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_142_1779692537483",
+      "quote_id": "quote_142",
+      "text": "What's the most you ever lost on a coin sauce?",
+      "replaced_word": "toss",
+      "rhyme_used": "Sauce",
+      "parody_title": "No Pantry for Old Men",
+      "parody_pitch": "A terrifying, bowl-cut-sporting food critic tracks down a stolen secret recipe across West Texas, forcing terrified diner owners to bet their lives on identifying mystery condiments.",
+      "thought_process": "1. Pitch: A terrifying, bowl-cut-sporting food critic tracks down a stolen secret recipe across West Texas, forcing terrified diner owners to bet their lives on identifying mystery condiments. 2. Phonetic Target: 'No Country for Old Men' has syllables matching 'No' (dough), 'Country' (pantry, hungry), 'for' (pour), 'Old' (cold, mold), 'Men' (hens, pans). 3. Thematic Brainstorm: Sauce -> food, recipe, cooking, kitchen, pantry, dough, pour, pans. 4. Intersection: 'Pantry' is a near-perfect phonetic match for 'Country' and ties directly into the culinary sauce theme. Parody Title = 'No Pantry for Old Men'.",
+      "target_guess_words": [
+        "Sauce"
+      ]
+    },
+    "reviewed_at": 1780032785205
+  },
+  {
+    "pun_id": "quote_142_1779692543736",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032792618
+  },
+  {
+    "pun_id": "quote_142_1779692549674",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032794737
+  },
+  {
+    "pun_id": "quote_131_1780028338416",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032798789
+  },
+  {
+    "pun_id": "quote_131_1780028342202",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032804635
+  },
+  {
+    "pun_id": "quote_131_1780028348105",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032806306
+  },
+  {
+    "pun_id": "quote_131_1780028351864",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032807891
+  },
+  {
+    "pun_id": "quote_131_1780028354579",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032810609
+  },
+  {
+    "pun_id": "quote_131_1780028356808",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032814575
+  },
+  {
+    "pun_id": "quote_131_1780028359128",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032816025
+  },
+  {
+    "pun_id": "quote_131_1780028361781",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032819036
+  },
+  {
+    "pun_id": "quote_135_1780028385327",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032836011
+  },
+  {
+    "pun_id": "quote_135_1780028389450",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032838642
+  },
+  {
+    "pun_id": "quote_137_1780028436445",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_137_1780028436445",
+      "quote_id": "quote_137",
+      "text": "They're taking the gobblets to Isengard!",
+      "replaced_word": "hobbits",
+      "rhyme_used": "gobblets",
+      "parody_title": "The Lord of the Wings: The Stew Devours",
+      "parody_pitch": "When the evil wizard Saruman plans Middle-earth's most epic Thanksgiving feast, an elite fellowship must embark on a desperate quest to rescue the Shire's baby turkeys before they end up on the carving table.",
+      "thought_process": "1. Pitch: A medieval fantasy world is turned upside down when an evil wizard decides to steal all the baby turkeys for a massive Thanksgiving feast. 2. Phonetic Target: 'The Lord of the Rings: The Two Towers' -> Lord (-ord), Rings (-ings), Two (-oo), Towers (-owers). 3. Brainstorm: turkeys, birds, wings, eating, feast, devour, stew, gourd, carve. 4. Intersection: 'Wings' rhymes with 'Rings' and fits the poultry theme perfectly, while 'Stew' and 'Devours' rhyme with 'Two Towers' to emphasize the eating aspect. Parody Title = 'The Lord of the Wings: The Stew Devours'.",
+      "target_guess_words": [
+        "gobblets"
+      ]
+    },
+    "reviewed_at": 1780032851493
+  },
+  {
+    "pun_id": "quote_137_1780028496190",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_137_1780028496190",
+      "quote_id": "quote_137",
+      "text": "They're taking the hobbits to the yard!",
+      "replaced_word": "isengard",
+      "rhyme_used": "the yard",
+      "parody_title": "The Lord of the Swings: The Two Mowers",
+      "parody_pitch": "An epic fantasy fellowship is shattered when a ruthless band of suburban Uruk-hai kidnap Merry and Pippin, forcing the halflings to do extreme landscaping in a middle-class backyard.",
+      "thought_process": "1. Pitch: An epic fantasy fellowship is shattered when a ruthless band of suburban Uruk-hai kidnap Merry and Pippin, forcing the halflings to do extreme landscaping in a middle-class backyard. 2. Phonetic Target: 'The Lord of the Rings: The Two Towers'. Key syllables: Lord (-ord), Rings (-ings), Two (-oo), Towers (-ow-erz). 3. Thematic Brainstorm: yard, lawn, grass, rake, hose, flowers, mowers, landscaping, suburbs, swings, patio. 4. Intersection: 'Mowers' perfectly rhymes with 'Towers' and fits the lawn care theme. We can also swap 'Rings' with 'Swings' for maximum backyard playground energy. Parody Title = 'The Lord of the Swings: The Two Mowers'.",
+      "target_guess_words": [
+        "the yard"
+      ]
+    },
+    "reviewed_at": 1780032855481
+  },
+  {
+    "pun_id": "quote_143_1780028524531",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_143_1780028524531",
+      "quote_id": "quote_143",
+      "text": "I will look for true, I will find true, and I will kill true.",
+      "replaced_word": "you",
+      "rhyme_used": "True",
+      "parody_title": "Fakin'",
+      "parody_pitch": "A highly trained, deeply literal ex-assassin goes on a rampage across Europe to hunt down a legendary, perfectly honest man named True, brutally eliminating anyone caught lying along the way.",
+      "thought_process": "1. Pitch: A highly trained, deeply literal ex-assassin goes on a rampage across Europe to hunt down a legendary, perfectly honest man named True, brutally interrogating and eliminating anyone caught lying along the way. 2. Phonetic Target: 'Taken' is two syllables, Tay-ken, rhyming with bacon, shaken, waken, and fakin'. 3. Thematic Brainstorm: True -> truth, lie, honest, real, fake, faking, mistaken. 4. Intersection: 'Fakin'' (faking) rhymes perfectly with 'Taken' and directly contrasts with the concept of 'True'.",
+      "target_guess_words": [
+        "True"
+      ]
+    },
+    "reviewed_at": 1780032882688
+  },
+  {
+    "pun_id": "quote_143_1780028528592",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032885730
+  },
+  {
+    "pun_id": "quote_143_1780028530827",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_143_1780028530827",
+      "quote_id": "quote_143",
+      "text": "I will look for you, I will find you, and I will mill you.",
+      "replaced_word": "kill",
+      "rhyme_used": "Mill",
+      "parody_title": "Bakin'",
+      "parody_pitch": "An ex-CIA operative with a very particular set of agricultural skills tracks down his daughter's kidnappers to aggressively grind them into fine artisanal flour.",
+      "thought_process": "1. Pitch: An ex-CIA operative with a very particular set of agricultural skills tracks down his daughter's kidnappers to aggressively grind them into fine artisanal flour. 2. Phonetic Target: 'Taken' is two syllables (TAY-ken), rhyming with -aken (shaken, waken, bacon, bakin'). 3. Thematic Brainstorm: mill -> flour, grain, grind, bread, dough, bake, baking. 4. Intersection: 'Bakin'' rhymes perfectly with 'Taken'. Parody Title = 'Bakin''.",
+      "target_guess_words": [
+        "Mill"
+      ]
+    },
+    "reviewed_at": 1780032891732
+  },
+  {
+    "pun_id": "quote_143_1780028532686",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_143_1780028532686",
+      "quote_id": "quote_143",
+      "text": "I will look for you, I will find you, and I will till you.",
+      "replaced_word": "kill",
+      "rhyme_used": "Till",
+      "parody_title": "Rakin'",
+      "parody_pitch": "A retired black-ops agent turns to extreme agriculture, using his very particular set of gardening skills to relentlessly plow the earth after his prized turnips are uprooted.",
+      "thought_process": "1. Pitch: A retired black-ops agent turns to extreme agriculture, using his very particular set of gardening skills to relentlessly plow the earth after his prized turnips are uprooted. 2. Phonetic Target: 'Taken' has two syllables (Ta-ken), rhyming with -aken (waken, shaken, makin', rakin'). 3. Thematic Brainstorm: Till -> farming, agriculture, dirt, soil, hoe, plow, rake, raking. 4. Intersection: 'Rakin'' (raking) rhymes almost perfectly with 'Taken' and perfectly fits the intense landscaping and tilling theme.",
+      "target_guess_words": [
+        "Till"
+      ]
+    },
+    "reviewed_at": 1780032898752
+  },
+  {
+    "pun_id": "quote_143_1780028536272",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780032901430
+  },
+  {
+    "pun_id": "quote_143_1780028539586",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_143_1780028539586",
+      "quote_id": "quote_143",
+      "text": "I will look for you, I will find you, and I will grill you.",
+      "replaced_word": "kill",
+      "rhyme_used": "Grill",
+      "parody_title": "Bacon",
+      "parody_pitch": "When his prized wagyu beef is stolen right before the neighborhood cookout, an intensely serious dad uses his very particular set of culinary skills to track down the meat thieves and host the ultimate revenge barbecue.",
+      "thought_process": "1. Pitch: When his prized wagyu beef is stolen right before the neighborhood cookout, an intensely serious dad uses his very particular set of culinary skills to track down the meat thieves and host the ultimate revenge barbecue. 2. Phonetic Target: 'Taken' is two syllables (Tay-ken), rhyming with -aken (bacon, waken, shaken, makin', bakin'). 3. Thematic Brainstorm: Grill -> BBQ, meat, cook, fire, steak, bacon, baking, sear, char. 4. Intersection: 'Bacon' perfectly rhymes with 'Taken' and fits the meat-centric grilling theme perfectly. Parody Title = 'Bacon'.",
+      "target_guess_words": [
+        "Grill"
+      ]
+    },
+    "reviewed_at": 1780032905055
+  },
+  {
+    "pun_id": "quote_143_1780028546622",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_143_1780028546622",
+      "quote_id": "quote_143",
+      "text": "I will look for screw, I will find screw, and I will kill screw.",
+      "replaced_word": "you",
+      "rhyme_used": "Screw",
+      "parody_title": "Tighten",
+      "parody_pitch": "A highly trained ex-spy uses his very particular set of skills to hunt down the single missing piece of hardware he needs to finish assembling his IKEA nightstand.",
+      "thought_process": "1. Pitch: A highly trained ex-spy uses his very particular set of skills to hunt down the single missing piece of hardware he needs to finish assembling his IKEA nightstand. 2. Phonetic Target: 'Taken' is two syllables (Ta-ken), starting with a hard 'T' and ending with an '-en' sound. 3. Thematic Brainstorm: screw -> hardware, drill, twist, driver, loosen, tighten. 4. Intersection: 'Tighten' shares the identical syllable structure, starting consonant, and ending sound as 'Taken', making it a perfectly themed phonetic swap for a movie about a missing screw. Parody Title = 'Tighten'.",
+      "target_guess_words": [
+        "Screw"
+      ]
+    },
+    "reviewed_at": 1780033347090
+  },
+  {
+    "pun_id": "quote_144_1780028554279",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033351270
+  },
+  {
+    "pun_id": "quote_144_1780028574753",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033355196
+  },
+  {
+    "pun_id": "quote_133_1780028595095",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_133_1780028595095",
+      "quote_id": "quote_133",
+      "text": "Yeah, I'm marijuana need you to go ahead and come in on Saturday.",
+      "replaced_word": "gonna",
+      "rhyme_used": "Marijuana",
+      "parody_title": "Office Haze",
+      "parody_pitch": "A group of apathetic corporate stoners try to embezzle weed from their passive-aggressive boss, who constantly forces them to come in on weekends to trim the company's stash.",
+      "thought_process": "1. Pitch: A group of apathetic corporate stoners try to embezzle weed from their passive-aggressive boss, who constantly forces them to come in on weekends to trim the company's stash. 2. Phonetic Target: 'Office Space' (AW-fis SPAYS). 'Space' has a long 'A' sound, rhyming with face, base, case, pace, race, and phonetically intersecting with 'Z' endings like daze, maze, haze, and blaze. 3. Thematic Brainstorm: Weed, marijuana, pot, high, stoned, baked, bong, blaze, haze, joint, crop. 4. Intersection: 'Haze' and 'Blaze' perfectly capture the marijuana theme while sharing the long 'A' phonetic root of 'Space'. 'Office Haze' perfectly spoofs the original title while fitting the cloudy, stoned reality of the pitch.",
+      "target_guess_words": [
+        "Marijuana"
+      ]
+    },
+    "reviewed_at": 1780033363873
+  },
+  {
+    "pun_id": "quote_133_1780028597425",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033368181
+  },
+  {
+    "pun_id": "quote_133_1780028607795",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033373552
+  },
+  {
+    "pun_id": "quote_133_1780028630521",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033378845
+  },
+  {
+    "pun_id": "quote_140_1780028672512",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_140_1780028672512",
+      "quote_id": "quote_140",
+      "text": "Stop trying to make 'stretch' happen. It's not going to happen.",
+      "replaced_word": "fetch",
+      "rhyme_used": "'stretch'",
+      "parody_title": "Lean Girls",
+      "parody_pitch": "A naive transfer student navigates the brutal social hierarchy of a high school dominated by an elite, ultra-flexible clique of yoga enthusiasts who viciously mock anyone who can't touch their toes.",
+      "thought_process": "1. Pitch: A naive transfer student navigates the brutal social hierarchy of a high school dominated by an elite, ultra-flexible clique of yoga enthusiasts who viciously mock anyone who can't touch their toes. 2. Phonetic Target: 'Mean Girls' consists of two one-syllable words. 'Mean' rhymes with -een (lean, bean, screen, teen) and 'Girls' rhymes with -urls (curls, twirls, pearls). 3. Thematic Brainstorm: stretch -> yoga, flexibility, bend, flex, lean, lunge, reach, strain, warm-up. 4. Intersection: 'Lean' perfectly rhymes with 'Mean' and fits the fitness and stretching theme of the pitch. Parody Title = 'Lean Girls'.",
+      "target_guess_words": [
+        "'stretch'"
+      ]
+    },
+    "reviewed_at": 1780033389178
+  },
+  {
+    "pun_id": "quote_140_1780028686529",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_140_1780028686529",
+      "quote_id": "quote_140",
+      "text": "Stop trying to make 'sketch' happen. It's not going to happen.",
+      "replaced_word": "fetch",
+      "rhyme_used": "'sketch'",
+      "parody_title": "Mean Swirls",
+      "parody_pitch": "A naive teenager transfers to an elite art academy and must survive the 'Plastics,' a ruthless clique of portrait artists who brutally mock everyone's terrible charcoal drawings.",
+      "thought_process": "1. Pitch: A naive teenager transfers to an elite art academy and must survive the 'Plastics,' a ruthless clique of portrait artists who brutally mock everyone's terrible charcoal drawings. 2. Phonetic Target: 'Mean Girls' consists of two syllables, rhyming with '-een' (scene, screen, green) and '-urls' (swirls, curls, pearls). 3. Thematic Brainstorm: sketch, draw, art, scene, outline, doodle, pencil, shade, paint, swirls, canvas. 4. Intersection: 'Swirls' rhymes perfectly with 'Girls' and captures the artistic strokes of sketching. Parody Title = 'Mean Swirls'.",
+      "target_guess_words": [
+        "'sketch'"
+      ]
+    },
+    "reviewed_at": 1780033413051
+  },
+  {
+    "pun_id": "quote_153_1780031876433",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_153_1780031876433",
+      "quote_id": "quote_153",
+      "text": "I find your rack of faith disturbing.",
+      "replaced_word": "lack",
+      "rhyme_used": "Rack",
+      "parody_title": "Char Boars: A Chew Hope",
+      "parody_pitch": "An interstellar pitmaster uses the Dark Side of the Force to judge barbecue competitions, telekinetically choking any chef who presents him with a blasphemously under-seasoned slab of ribs.",
+      "thought_process": "1. Pitch: An interstellar pitmaster uses the Dark Side of the Force to judge barbecue competitions, telekinetically choking any chef who presents him with a blasphemously under-seasoned slab of ribs. 2. Phonetic Target: 'Star Wars' breaks down into /st\u0251r/ (rhyming with car, bar, char) and /w\u0254rz/ (rhyming with doors, chores, boars); 'A New Hope' contains /nu/ (rhymes with shoe, chew, stew). 3. Brainstorm: Words related to a 'rack' of ribs and BBQ -> meat, barbecue, grill, char, smoke, pig, boar, chew, sauce. 4. Intersection: 'Char' rhymes perfectly with 'Star', 'Boars' perfectly rhymes with 'Wars', and 'Chew' rhymes with 'New'. Parody Title = 'Char Boars: A Chew Hope'.",
+      "target_guess_words": [
+        "Rack"
+      ]
+    },
+    "reviewed_at": 1780033427339
+  },
+  {
+    "pun_id": "quote_152_1780031895269",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_152_1780031895269",
+      "quote_id": "quote_152",
+      "text": "She's my transistor and my daughter!",
+      "replaced_word": "sister",
+      "rhyme_used": "Transistor",
+      "parody_title": "Cybertown",
+      "parody_pitch": "A gritty sci-fi detective investigates a corrupt municipal power grid, only to discover the femme fatale is both his biological offspring and a crucial piece of semiconductor electronics.",
+      "thought_process": "1. Pitch: A gritty sci-fi detective investigates a corrupt municipal power grid, only to discover the femme fatale is both his biological offspring and a crucial piece of semiconductor electronics. 2. Phonetic Target: 'Chinatown' consists of three syllables (Chi-na-town). The primary phonetic sounds are the /a\u026a/ (eye) in the first syllable, an unstressed schwa in the second, and the /a\u028an/ (own) in the third. 3. Brainstorm: transistor, electronics, robot, cyber, sci-fi, android, cyborg, motherboard, binary, tech. 4. Intersection: 'Cyber' has a nearly identical phonetic structure to 'China' (/sa\u026a-b\u0259r/ vs /t\u0283a\u026a-n\u0259/), combining the /a\u026a/ sound and the two-syllable rhythm. Merging this with 'town' gives us 'Cybertown'.",
+      "target_guess_words": [
+        "Transistor"
+      ]
+    },
+    "reviewed_at": 1780033436311
+  },
+  {
+    "pun_id": "quote_152_1780031897419",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033440298
+  },
+  {
+    "pun_id": "quote_152_1780031902678",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033448660
+  },
+  {
+    "pun_id": "quote_154_1780031915522",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_154_1780031915522",
+      "quote_id": "quote_154",
+      "text": "Cat, drunk, and stupid is no way to go through life, son.",
+      "replaced_word": "fat",
+      "rhyme_used": "Cat",
+      "parody_title": "Animal Mouse",
+      "parody_pitch": "A rowdy fraternity of drunken stray cats terrorizes a college campus in their relentless, destructive quest to catch the dean's prized, party-crashing rodent.",
+      "thought_process": "1. Pitch: A rowdy fraternity of drunken stray cats terrorizes a college campus in their relentless, destructive quest to catch the dean's prized, party-crashing rodent, leading to a stern lecture for a wasted tabby. 2. Phonetic Target: 'Animal House' breaks down into 'An-i-mal' (rhymes with cannibal, mammal) and 'House' (rhymes with mouse, spouse, louse, douse). 3. Thematic Brainstorm: feline, kitty, claws, purr, meow, catnip, litter, mouse, rat, chase, stray. 4. Intersection: 'Mouse' is the classic enemy/prey of the cat and rhymes perfectly with 'House'. Parody Title = 'Animal Mouse'.",
+      "target_guess_words": [
+        "Cat"
+      ]
+    },
+    "reviewed_at": 1780033453456
+  },
+  {
+    "pun_id": "quote_154_1780031921651",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_154_1780031921651",
+      "quote_id": "quote_154",
+      "text": "Habitat, drunk, and stupid is no way to go through life, son.",
+      "replaced_word": "fat",
+      "rhyme_used": "Habitat",
+      "parody_title": "Animal Grouse",
+      "parody_pitch": "A fraternity of rowdy, intoxicated game birds keeps failing to build proper nesting grounds, prompting an exasperated park ranger to scold them about their terrible conservation efforts.",
+      "thought_process": "1. Pitch: A fraternity of rowdy, intoxicated game birds keeps failing to build proper nesting grounds, prompting an exasperated park ranger to scold them about their terrible conservation efforts. 2. Phonetic Target: 'Animal House' features the one-syllable word 'House', rhyming with -ouse (mouse, douse, spouse, louse, grouse). 3. Thematic Brainstorm: Habitat -> environment, conservation, wild, nest, bird, nature, grouse. 4. Intersection: 'Grouse' rhymes perfectly with 'House' and fits the wildlife/habitat theme perfectly. Parody Title = 'Animal Grouse'.",
+      "target_guess_words": [
+        "Habitat"
+      ]
+    },
+    "reviewed_at": 1780033457334
+  },
+  {
+    "pun_id": "quote_154_1780031924455",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_154_1780031924455",
+      "quote_id": "quote_154",
+      "text": "Fat, drunk, and stupid is no way to go through life, sun.",
+      "replaced_word": "son",
+      "rhyme_used": "Sun",
+      "parody_title": "Flammable House",
+      "parody_pitch": "A disappointed Dean of the Galaxy visits the Milky Way's rowdiest cosmic fraternity to deliver a stern lecture to our solar system's lazy, hard-partying central star.",
+      "thought_process": "1. Pitch: A disappointed Dean of the Galaxy visits the Milky Way's rowdiest cosmic fraternity to deliver a stern lecture to our solar system's lazy, hard-partying central star. 2. Phonetic Target: 'Animal House' consists of 'Animal' (\u00e6n-\u026a-m\u0259l) and 'House' (ha\u028as). 3. Brainstorm: Sun, star, solar, space, burning, gas, hot, flammable, douse, rouse, cosmos. 4. Intersection: 'Flammable' shares the exact same syllable structure and ending phonetic sounds as 'Animal', and perfectly describes our Sun (a giant ball of flaming gas). Parody Title = Flammable House.",
+      "target_guess_words": [
+        "Sun"
+      ]
+    },
+    "reviewed_at": 1780033463769
+  },
+  {
+    "pun_id": "quote_154_1780031932793",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033467590
+  },
+  {
+    "pun_id": "quote_155_1780031937144",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_155_1780031937144",
+      "quote_id": "quote_155",
+      "text": "The explorer... the explorer.",
+      "replaced_word": "horror",
+      "rhyme_used": "Explorer",
+      "parody_title": "A Pocket Map Now",
+      "parody_pitch": "A weary army captain journeys deep into the jungle to find a rogue colonel, only to discover the man has simply become an enthusiastic, heavily-geared hiker who refuses to ask for directions.",
+      "thought_process": "1. Pitch: A weary army captain journeys up a perilous jungle river to find a rogue colonel, only to discover the man has just become an enthusiastic, heavily-geared hiker who refuses to ask for directions. 2. Phonetic Target: 'Apocalypse Now' consists of 'uh-POK-uh-lips NOW'. The key phonetic target is the multi-syllabic 'Apocalypse'. 3. Thematic Brainstorm: hiking, trail, compass, backpack, navigate, pocket, map, lost, boots. 4. The Intersection: 'A pocket map' (uh-pok-it-map) phonetically mimics 'Apocalypse' (uh-pok-uh-lips) almost perfectly. Combining this with the original ending gives us the parody title.",
+      "target_guess_words": [
+        "Explorer"
+      ]
+    },
+    "reviewed_at": 1780033471393
+  },
+  {
+    "pun_id": "quote_156_1780031957390",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_156_1780031957390",
+      "quote_id": "quote_156",
+      "text": "Roger, Roger. What's our nectar, Victor?",
+      "replaced_word": "vector",
+      "rhyme_used": "Nectar",
+      "parody_title": "Airplant!",
+      "parody_pitch": "A traumatized ex-crop-duster must safely land a giant, flying botanical garden piloted by oversized bees after the insect crew passes out from a severe lack of sweet, floral fuel.",
+      "thought_process": "1. Pitch: A traumatized ex-crop-duster must safely land a giant, flying botanical garden piloted by oversized bees after the crew passes out from a lack of sweet floral fuel. 2. Phonetic Target: 'Airplane' is two syllables, broken down into 'Air' (rhymes with hair, bare) and 'plane' (rhymes with train, cane, brain). 3. Brainstorm: Nectar -> bees, flowers, bloom, sweet, sugar, cane, pollen, grain, stem, plant. 4. Intersection: 'Plant' sounds very similar to 'plane' (sharing the 'pl' and 'n' consonants) and perfectly captures the floral, nectar-rich theme. Parody Title = 'Airplant!'.",
+      "target_guess_words": [
+        "Nectar"
+      ]
+    },
+    "reviewed_at": 1780033480687
+  },
+  {
+    "pun_id": "quote_156_1780031960052",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_156_1780031960052",
+      "quote_id": "quote_156",
+      "text": "Roger, Roger. What's our projector, Victor?",
+      "replaced_word": "vector",
+      "rhyme_used": "Projector",
+      "parody_title": "Film-plane!",
+      "parody_pitch": "An intensely incompetent cinema crew tries to run a chaotic projection booth during the world's most anticipated movie premiere.",
+      "thought_process": "1. Pitch: An incompetent cinema crew struggles to run the projection booth during a highly anticipated premiere, frantically trying to figure out which lenses and reels go where. 2. Phonetic Target: 'Airplane!' has two syllables (Air-plane), with the second syllable being 'plane'. 3. Thematic Brainstorm: projector, cinema, film, reel, screen, booth, focus, lens. 4. Intersection: The word 'Film' perfectly pairs with 'plane' to create 'film plane' (the actual part of a camera/projector where the film is held flat for the lens), retaining the exact second syllable and cadence of 'Airplane!'. Parody Title = Film-plane!",
+      "target_guess_words": [
+        "Projector"
+      ]
+    },
+    "reviewed_at": 1780033487057
+  },
+  {
+    "pun_id": "quote_156_1780031962076",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033490623
+  },
+  {
+    "pun_id": "quote_157_1780031967148",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_157_1780031967148",
+      "quote_id": "quote_157",
+      "text": "Voluminous beings are we, not this crude matter.",
+      "replaced_word": "luminous",
+      "rhyme_used": "Voluminous",
+      "parody_title": "The Attire Strikes Back",
+      "parody_pitch": "In a galaxy strictly governed by an evil dictator's skin-tight spandex mandate, a group of rebels fights back by adopting excessively large, billowing wardrobes.",
+      "thought_process": "1. Pitch: In a galaxy strictly governed by an evil dictator's skin-tight spandex mandate, a group of rebels fights back by donning excessively large, billowing wardrobes, guided by a tiny, heavily-layered fashion guru who teaches them the power of taking up space. 2. Phonetic Target: 'The Empire Strikes Back' -> 'Empire' has two syllables rhyming with -ire (fire, sire, attire). 'Strikes' rhymes with -ikes (likes, spikes). 'Back' rhymes with -ack (sack, pack). 3. Thematic Brainstorm: clothes, big, huge, fabric, robes, attire, giant, wide, fashion, layers. 4. Intersection: 'Attire' rhymes perfectly with 'Empire' and directly connects to the concept of 'voluminous' clothing. Parody Title = 'The Attire Strikes Back'.",
+      "target_guess_words": [
+        "Voluminous"
+      ]
+    },
+    "reviewed_at": 1780033496484
+  },
+  {
+    "pun_id": "quote_157_1780031973764",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033500919
+  },
+  {
+    "pun_id": "quote_157_1780031977457",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_157_1780031977457",
+      "quote_id": "quote_157",
+      "text": "Luminous beings are we, not this crude batter.",
+      "replaced_word": "matter",
+      "rhyme_used": "Batter",
+      "parody_title": "The Umpire Strikes Bats",
+      "parody_pitch": "A tiny, wise alien becomes an intergalactic baseball umpire, teaching a frustrated rookie pitcher to rely on the cosmic energy of the universe rather than worrying about the sweaty guy swinging at the plate.",
+      "thought_process": "1. Pitch: A tiny, wise alien becomes an intergalactic baseball umpire, teaching a frustrated rookie pitcher to rely on the cosmic energy of the universe rather than worrying about the sweaty guy swinging at the plate. 2. Phonetic Target: 'The Empire Strikes Back'. 'Empire' (em-pyre) is a two-syllable word, and 'Strikes' is a single syllable ending in -ikes. 3. Thematic Brainstorm: Batter -> baseball, pitch, home run, strike, umpire, dugout, mound. 4. Intersection: 'Umpire' sounds nearly identical to 'Empire', and brilliantly recontextualizes the existing word 'Strikes' to fit the baseball 'Batter' theme perfectly. Parody Title = 'The Umpire Strikes Back'.",
+      "target_guess_words": [
+        "Batter"
+      ]
+    },
+    "reviewed_at": 1780033514139
+  },
+  {
+    "pun_id": "quote_158_1780032000086",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_158_1780032000086",
+      "quote_id": "quote_158",
+      "text": "It's not the years, bunny. It's the mileage.",
+      "replaced_word": "honey",
+      "rhyme_used": "Bunny",
+      "parody_title": "Grazers of the Lost Park",
+      "parody_pitch": "An aging, fedora-wearing rabbit races against evil foxes to uncover a legendary, untouched grassy meadow, groaning to his sidekick that a lifetime of frantic hopping has taken a severe toll on his furry joints.",
+      "thought_process": "1. Pitch: An aging, fedora-wearing rabbit races against evil foxes to uncover a legendary, untouched grassy meadow, groaning to his sidekick that a lifetime of frantic hopping has taken a severe toll on his furry joints. 2. Phonetic Target: 'Raiders' (ray-derz) rhymes with graders, waders. 'Lost' (lawst) rhymes with frost, tossed. 'Ark' (ark) rhymes with dark, park, bark. 3. Thematic Brainstorm: bunny, rabbit, forage, grass, meadow, graze, grazers, burrow, hop, park, nature. 4. Intersection: 'Grazers' rhymes perfectly with 'Raiders', and 'Park' rhymes perfectly with 'Ark'. Combining them makes the ultimate bunny pun. Parody Title = 'Grazers of the Lost Park'.",
+      "target_guess_words": [
+        "Bunny"
+      ]
+    },
+    "reviewed_at": 1780033529054
+  },
+  {
+    "pun_id": "quote_159_1780032006056",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_159_1780032006056",
+      "quote_id": "quote_159",
+      "text": "Somebody in this stamp ain't what he appears to be.",
+      "replaced_word": "camp",
+      "rhyme_used": "Stamp",
+      "parody_title": "The Cling",
+      "parody_pitch": "A microscopic colony of scientists living on the surface of a rare postage stamp succumb to extreme paranoia when a shape-shifting droplet of counterfeit ink begins assimilating them one by one.",
+      "thought_process": "1. Pitch: A microscopic colony of scientists living on the surface of a rare postage stamp succumb to paranoia when a shape-shifting droplet of counterfeit ink begins assimilating them one by one. 2. Phonetic Target: 'The Thing', where 'Thing' is one syllable, rhyming with -ing (sing, ring, cling, fling). 3. Thematic Brainstorm: stamp -> mail, post, letter, adhesive, stick, glue, ink, cling. 4. The Intersection: 'Cling' rhymes perfectly with 'Thing' and perfectly captures the adhesive nature of a postage stamp. Parody Title = 'The Cling'.",
+      "target_guess_words": [
+        "Stamp"
+      ]
+    },
+    "reviewed_at": 1780033543002
+  },
+  {
+    "pun_id": "quote_159_1780032007828",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033545506
+  },
+  {
+    "pun_id": "quote_159_1780032009805",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033548097
+  },
+  {
+    "pun_id": "quote_159_1780032013634",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_159_1780032013634",
+      "quote_id": "quote_159",
+      "text": "Somebody in this camp ain't what he frontiers to be.",
+      "replaced_word": "appears",
+      "rhyme_used": "Frontiers",
+      "parody_title": "The Sing",
+      "parody_pitch": "An isolated group of 19th-century pioneers having a western campfire sing-along realizes one of their cowboys is actually a shapeshifting alien obsessed with westward expansion.",
+      "thought_process": "1. Pitch: An isolated group of 19th-century pioneers having a western campfire sing-along realizes one of their cowboys is actually a shapeshifting alien obsessed with westward expansion. 2. Phonetic Target: 'The Thing' is two syllables, with the keyword 'Thing' rhyming with -ing (ring, fling, sing, spring). 3. Thematic Brainstorm: Frontiers -> camp, pioneer, cowboys, wild west, campfire, singing, acoustic guitar, lasso, spring. 4. Intersection: 'Sing' (as in a frontier campfire sing-along) rhymes perfectly with 'Thing'. Parody Title = The Sing.",
+      "target_guess_words": [
+        "Frontiers"
+      ]
+    },
+    "reviewed_at": 1780033554235
+  },
+  {
+    "pun_id": "quote_159_1780032016398",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780033556402
+  },
+  {
+    "pun_id": "quote_159_1780032021039",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_159_1780032021039",
+      "quote_id": "quote_159",
+      "text": "Somebody in this camp ain't what he engineers to be.",
+      "replaced_word": "appears",
+      "rhyme_used": "Engineers",
+      "parody_title": "The Ping",
+      "parody_pitch": "A shape-shifting alien infiltrates a remote Antarctic base, but constantly blows its cover by obsessively rewiring the camp's IT infrastructure and aggressively lecturing the survivors about packet loss.",
+      "thought_process": "1. Pitch: A shape-shifting alien infiltrates a remote Antarctic base, but gives itself away by obsessively redesigning the camp's IT infrastructure and complaining about network latency. 2. Phonetic Target: 'The Thing' relies on the word 'Thing' (one syllable, rhyming with -ing: ping, ring, sing, spring, string). 3. Thematic Brainstorm: Engineers -> network, IT, software, mechanical, build, spring, ping, code, bridge. 4. Intersection: 'Ping' rhymes perfectly with 'Thing' and represents network/software engineering. Parody Title = 'The Ping'.",
+      "target_guess_words": [
+        "Engineers"
+      ]
+    },
+    "reviewed_at": 1780033561671
+  },
+  {
+    "pun_id": "quote_159_1780032027418",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_159_1780032027418",
+      "quote_id": "quote_159",
+      "text": "Somebody in this camp ain't what he souvenirs to be.",
+      "replaced_word": "appears",
+      "rhyme_used": "Souvenirs",
+      "parody_title": "The Key Ring",
+      "parody_pitch": "A paranoid group of isolated Antarctic researchers discovers a shape-shifting alien that disguises itself as tacky tourist merchandise, leaving them terrified over who is real and who is just a novelty key ring.",
+      "thought_process": "1. Pitch: A paranoid group of isolated Antarctic researchers discovers a shape-shifting alien that disguises itself as tacky tourist merchandise, leaving them terrified over who is real and who is just a novelty key ring. 2. Phonetic Target: 'The Thing' has two syllables, with the stressed word 'Thing' rhyming with -ing (ring, sing, bling, spring). 3. Brainstorm: Souvenirs -> gifts, gift shop, trinket, novelty, snowglobe, keychain, key ring, bling, t-shirt. 4. Intersection: 'Key Ring' rhymes perfectly with 'The Thing' and captures the essence of a cheap tourist souvenir.",
+      "target_guess_words": [
+        "Souvenirs"
+      ]
+    },
+    "reviewed_at": 1780033574584
+  },
+  {
+    "pun_id": "quote_160_1780032044017",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_160_1780032044017",
+      "quote_id": "quote_160",
+      "text": "I always tell the tooth. Even when I lie.",
+      "replaced_word": "truth",
+      "rhyme_used": "Tooth",
+      "parody_title": "Scarbrace",
+      "parody_pitch": "A ruthless Miami mobster builds a lucrative black-market dentistry empire, violently correcting the city's overbites while sporting a terrifying set of orthodontic headgear.",
+      "thought_process": "1. Pitch: A ruthless Miami mobster builds an illegal dentistry empire, rising to power by forcefully extracting bicuspids and intimidating rivals with his terrifying orthodontic headgear. 2. Phonetic Target: 'Scarface' has two syllables, with the second syllable rhyming with -ace (space, lace, case, brace). 3. Thematic Brainstorm: Tooth, dentist, orthodontist, cavity, molar, plaque, extraction, gums, brace, braces. 4. Intersection: 'Brace' perfectly rhymes with 'face' and ties directly into the orthodontic/tooth theme. Parody Title = 'Scarbrace'.",
+      "target_guess_words": [
+        "Tooth"
+      ]
+    },
+    "reviewed_at": 1780033580689
   }
 ]
