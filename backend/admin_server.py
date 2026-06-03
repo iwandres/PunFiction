@@ -198,25 +198,61 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if not puzzle_number:
                     raise ValueError("puzzle_number is required")
                 
-                # Write event to MongoDB
-                database.record_telemetry_event(puzzle_number, event, hints_used)
-                
-                # Sync: update local telemetry.json copies with full db state
+                # Write event to MongoDB with local filesystem fallback on DB failures
+                db_success = True
                 try:
-                    all_stats = database.get_telemetry_stats()
-                    with open(telemetry_file, 'w', encoding='utf-8') as f:
-                        json.dump(all_stats, f, indent=2)
-                except Exception as sync_e:
-                    print(f"Error syncing local telemetry copy from MongoDB: {sync_e}")
+                    database.record_telemetry_event(puzzle_number, event, hints_used)
+                    # Sync: update local telemetry.json copies with full db state
+                    try:
+                        all_stats = database.get_telemetry_stats()
+                        with open(telemetry_file, 'w', encoding='utf-8') as f:
+                            json.dump(all_stats, f, indent=2)
+                    except Exception as sync_e:
+                        print(f"Error syncing local telemetry copy from MongoDB: {sync_e}")
+                except Exception as db_e:
+                    print(f"MongoDB connection/auth failed. Falling back to local telemetry file update. Error: {db_e}")
+                    db_success = False
+                    
+                    # Local fallback implementation
+                    telemetry_data = {}
+                    if os.path.exists(telemetry_file):
+                        try:
+                            with open(telemetry_file, 'r', encoding='utf-8') as f:
+                                telemetry_data = json.load(f)
+                        except Exception:
+                            pass
+                            
+                    if puzzle_number not in telemetry_data:
+                        telemetry_data[puzzle_number] = {
+                            "start": 0,
+                            "solve_0": 0,
+                            "solve_1": 0,
+                            "solve_2": 0,
+                            "solve_3": 0
+                        }
+                        
+                    if event == 'start':
+                        telemetry_data[puzzle_number]["start"] += 1
+                    elif event == 'solve':
+                        clamped_hints = max(0, min(3, int(hints_used)))
+                        telemetry_data[puzzle_number][f"solve_{clamped_hints}"] += 1
+                        
+                    try:
+                        with open(telemetry_file, 'w', encoding='utf-8') as f:
+                            json.dump(telemetry_data, f, indent=2)
+                    except Exception as save_e:
+                        print(f"Failed to save fallback local telemetry file: {save_e}")
                 
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+                self.wfile.write(json.dumps({"success": True, "db_connected": db_success}).encode('utf-8'))
             except Exception as e:
                 print(f"Error handling telemetry: {e}")
                 self.send_response(400)
                 self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
         elif self.path == '/api/quotes':
