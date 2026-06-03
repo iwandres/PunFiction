@@ -168,6 +168,22 @@ window.onload = async () => {
             activeRewardedEvent = null;
             requestNextRewardedAd();
         });
+
+        googletag.pubads().addEventListener('rewardedSlotVideoCompleted', (event) => {
+            console.log("Rewarded slot video completed.");
+        });
+
+        googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+            if (event.slot === rewardedSlot) {
+                console.log("Rewarded slot render ended.", {
+                    isEmpty: event.isEmpty,
+                    creativeId: event.creativeId,
+                    lineItemId: event.lineItemId,
+                    advertiserId: event.advertiserId
+                });
+            }
+        });
+
         googletag.enableServices();
     });
 
