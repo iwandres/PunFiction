@@ -4,23 +4,22 @@ import sys
 import os
 
 pun_ids = [
-    "quote_002_1778164883718", # Challenge 002
-    "quote_005_1778210369173", # Challenge 006
-    "quote_008_1778210636112", # Challenge 007
-    "quote_009_1778210716130", # Challenge 008
-    "quote_010_1778211045400", # Challenge 009
-    "quote_012_1778211280003", # Challenge 010
-    "quote_013_1778211371642", # Challenge 011
-    "quote_015_1778211509916", # Challenge 012
-    "quote_016_1778211589098", # Challenge 013
-    "quote_017_1778211668918", # Challenge 014
-    "quote_018_1778211781181", # Challenge 015
-    "quote_020_1778211828204", # Challenge 016
-    "quote_022_1778211937072", # Challenge 017
-    "quote_024_1778212035034", # Challenge 018
-    "quote_025_1778212167777", # Challenge 019
-    "quote_026_1778212230151", # Challenge 020
-    "quote_014_1778211399121"  # Challenge 021
+    "quote_041_1778286228945",
+    "quote_036_1778213033731",
+    "quote_028_1778212439127",
+    "quote_034_1778212828914",
+    "quote_059_1778295017383",
+    "quote_060_1778295124876",
+    "quote_055_1778294817033",
+    "quote_050_1778294490232",
+    "quote_046_1778291183235",
+    "quote_042_1778290898042",
+    "quote_043_1778286338815",
+    "quote_038_1778285559305",
+    "quote_037_1778213175039",
+    "quote_035_1778212969843",
+    "quote_033_1778212736314",
+    "quote_029_1778212492820"
 ]
 
 print(f"Starting batch poster reformatting for {len(pun_ids)} challenges...")

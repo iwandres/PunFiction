@@ -3217,20 +3217,8 @@
   },
   {
     "pun_id": "quote_051_1778294552301",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_051_1778294552301",
-      "quote_id": "quote_051",
-      "text": "Forget it, Jake. It's Playground.",
-      "replaced_word": "chinatown",
-      "rhyme_used": "Playground",
-      "parody_title": "Climb Around",
-      "parody_pitch": "A cynical, hardboiled kindergarten detective navigates a treacherous web of juice box corruption, tetherball syndicates, and sandbox betrayal during recess.",
-      "thought_process": "1. Pitch: A cynical, hardboiled kindergarten detective navigates a treacherous web of juice box corruption, tetherball syndicates, and sandbox betrayal during recess. 2. Phonetic Target: 'Chinatown' has three syllables (Chai-na-town), following the vowel sounds 'eye', 'uh', and 'ow/own'. 3. Thematic Brainstorm: playground, recess, slide, monkey bars, swing, climb, kids, toddler, timeout, whine, play around. 4. Intersection: 'Climb around' matches the syllables, rhythm, and vowel sounds of 'Chinatown' (Chai-na-town -> Climb-a-round) while perfectly capturing the physical activity of a playground setting. Parody Title = Climb Around.",
-      "target_guess_words": [
-        "Playground"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1778882232782
   },
   {

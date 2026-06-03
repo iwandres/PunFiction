@@ -168,6 +168,7 @@ window.onload = async () => {
             activeRewardedEvent = null;
             requestNextRewardedAd();
         });
+        googletag.enableServices();
     });
 
     const prevBtn = document.getElementById('btn-prev-challenge');

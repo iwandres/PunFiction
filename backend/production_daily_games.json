@@ -1108,7 +1108,7 @@
     "boss_pitch": "Two imprisoned men bond over decades, finding solace and eventual freedom by running a highly lucrative, illicit underground yarn-coloring and knitwear operation.",
     "boss_original_quote": "Get busy living, or get busy dying.",
     "boss_punned_quote": "Get busy living, or get busy dyeing.",
-    "boss_poster_url": "/assets/posters/the_shawlhank_redemption_poster_1778882525.jpg",
+    "boss_poster_url": "/assets/posters/the_shawl_hank_redemption_poster_vertical_1780460670.png",
     "boss_hint2": "T__ S____-____ R_________",
     "answer": "___ _____-____ __________",
     "difficulty_tier": 2,
@@ -1158,7 +1158,7 @@
     "boss_pitch": "A manic agricultural agent writes a controversial memo about crop rotation and wins back his only client, an exhausted strawberry farmer, by romantically suggesting they just let the dirt sit there and rest.",
     "boss_original_quote": "You had me at 'hello'.",
     "boss_punned_quote": "You had me at 'fallow'.",
-    "boss_poster_url": "/assets/posters/berry_maguire_poster_1778882698.jpg",
+    "boss_poster_url": "/assets/posters/berry_maguire_poster_vertical_1780460619.png",
     "boss_hint2": "B____ M______",
     "answer": "_____ _______",
     "difficulty_tier": 2,
@@ -1208,7 +1208,7 @@
     "boss_pitch": "An insomniac office worker discovers a gritty underground society of aggressive birdwatchers who organize chaotic avian gatherings, strictly enforcing the rule that members must never aimlessly congregate.",
     "boss_original_quote": "The first rule of Fight Club is: you do not talk about Fight Club.",
     "boss_punned_quote": "The first rule of Fight Club is: you do not flock about Fight Club.",
-    "boss_poster_url": "/assets/posters/flight_club_poster_1778882832.jpg",
+    "boss_poster_url": "/assets/posters/flight_club_poster_vertical_1780460568.png",
     "boss_hint2": "F_____ C___",
     "answer": "______ ____",
     "difficulty_tier": 2,
@@ -1258,7 +1258,7 @@
     "boss_pitch": "In a dystopian simulated steakhouse, a rebel line cook discovers the ultimate truth about eating perfectly undercooked beef: the cutlery is just an illusion.",
     "boss_original_quote": "There is no spoon.",
     "boss_punned_quote": "Rare is no spoon.",
-    "boss_poster_url": "/assets/posters/the_meatrix_poster_1779598833.jpg",
+    "boss_poster_url": "/assets/posters/the_meatrix_poster_vertical_1780460523.png",
     "boss_hint2": "T__ M______",
     "answer": "___ _______",
     "difficulty_tier": 2,
@@ -1308,7 +1308,7 @@
     "boss_pitch": "Forced to perform grueling HVAC repairs for the Emperor's amusement, a weary Roman technician victoriously empties the Colosseum's massive, rusted heating system and screams at the sputtering pipes.",
     "boss_original_quote": "Are you not entertained?",
     "boss_punned_quote": "Are you not drained?",
-    "boss_poster_url": "/assets/posters/radiator_poster_1779598892.jpg",
+    "boss_poster_url": "/assets/posters/radiator_poster_vertical_1780460477.png",
     "boss_hint2": "R_______",
     "answer": "________",
     "difficulty_tier": 2,
@@ -1358,7 +1358,7 @@
     "boss_pitch": "King Leonidas leads a phalanx of three hundred shirtless, over-caffeinated baristas to fiercely defend their premium Indonesian brew in the bustling capital.",
     "boss_original_quote": "This is Sparta!",
     "boss_punned_quote": "This is Jakarta!",
-    "boss_poster_url": "/assets/posters/tea_hundred_poster_1779599027.jpg",
+    "boss_poster_url": "/assets/posters/tea_hundred_poster_vertical_1780460433.png",
     "boss_hint2": "T__ H______",
     "answer": "___ _______",
     "difficulty_tier": 2,
@@ -1408,7 +1408,7 @@
     "boss_pitch": "A clique of ruthless, fashion-forward high school plumbers dictates that the ultimate status symbol for teen popularity is accessorizing with heavy porcelain plumbing fixtures.",
     "boss_original_quote": "On Wednesdays we wear pink.",
     "boss_punned_quote": "On Wednesdays we wear sink.",
-    "boss_poster_url": "/assets/posters/clean_girls_poster_1779599069.jpg",
+    "boss_poster_url": "/assets/posters/clean_girls_poster_vertical_1780460932.png",
     "boss_hint2": "C____ G____",
     "answer": "_____ _____",
     "difficulty_tier": 2,
@@ -1458,7 +1458,7 @@
     "boss_pitch": "A brooding vigilante realizes fighting crime is futile, so he decides to permanently transform himself into a beautiful open-air structure to host Gotham's finest weddings and outdoor events.",
     "boss_original_quote": "You either die a hero, or you live long enough to see yourself become the villain.",
     "boss_punned_quote": "You either die a hero, or you live long enough to see yourself become the pavillion.",
-    "boss_poster_url": "/assets/posters/the_park_site_poster_1779599203.jpg",
+    "boss_poster_url": "/assets/posters/the_park_site_poster_vertical_1780460344.png",
     "boss_hint2": "T__ P___ S___",
     "answer": "___ ____ ____",
     "difficulty_tier": 2,
@@ -1508,7 +1508,7 @@
     "boss_pitch": "Instead of winter magic, Queen Elsa curses her kingdom with an inescapable, Hitchcockian inner-ear imbalance that makes everyone desperately terrified of stairs and tall fjords.",
     "boss_original_quote": "Let it go.",
     "boss_punned_quote": "Let it vertigo.",
-    "boss_poster_url": "/assets/posters/slowspin_poster_1779599323.jpg",
+    "boss_poster_url": "/assets/posters/slow_spin_poster_vertical_1780460297.png",
     "boss_hint2": "S___-____",
     "answer": "____-____",
     "difficulty_tier": 2,
@@ -1551,56 +1551,6 @@
   },
   {
     "puzzle_number": "032",
-    "puzzle_id": "puz_quote_051_1778294552301",
-    "boss_id": "boss_quote_051_1778294552301",
-    "boss_original_title": "Chinatown",
-    "boss_pun_title": "Climb-around",
-    "boss_pitch": "A cynical, hardboiled kindergarten detective navigates a treacherous web of juice box corruption, tetherball syndicates, and sandbox betrayal during recess.",
-    "boss_original_quote": "Forget it, Jake. It's Chinatown.",
-    "boss_punned_quote": "Forget it, Jake. It's Playground.",
-    "boss_poster_url": "/assets/posters/climb_around_poster_1779599382.jpg",
-    "boss_hint2": "C____-______",
-    "answer": "_____-______",
-    "difficulty_tier": 2,
-    "status": "approved",
-    "puzzles": [
-      {
-        "step": 1,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      },
-      {
-        "step": 2,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      },
-      {
-        "step": 3,
-        "base_movie": "",
-        "original_quote": "",
-        "punned_quote": "",
-        "parody_pitch": "",
-        "parody_title": "",
-        "target_word": "",
-        "hint1": "",
-        "hint2": ""
-      }
-    ]
-  },
-  {
-    "puzzle_number": "033",
     "puzzle_id": "puz_quote_055_1778294817033",
     "boss_id": "boss_quote_055_1778294817033",
     "boss_original_title": "Animal House",
@@ -1608,7 +1558,7 @@
     "boss_pitch": "The rowdy frat bros of Delta House abandon their beer kegs for kombucha and achieve aggressive enlightenment by throwing a wild, campus-wide group stretching party.",
     "boss_original_quote": "Toga! Toga!",
     "boss_punned_quote": "Yoga! Yoga!",
-    "boss_poster_url": "/assets/posters/zenimal_house_poster_1779668769.jpg",
+    "boss_poster_url": "/assets/posters/zen_imal_house_poster_vertical_1780460255.png",
     "boss_hint2": "Z__-____ H____",
     "answer": "___-____ _____",
     "difficulty_tier": 2,
@@ -1650,7 +1600,7 @@
     ]
   },
   {
-    "puzzle_number": "034",
+    "puzzle_number": "033",
     "puzzle_id": "puz_quote_060_1778295124876",
     "boss_id": "boss_quote_060_1778295124876",
     "boss_original_title": "Blade Runner",
@@ -1658,7 +1608,7 @@
     "boss_pitch": "A burnt-out replicant hunter faces an existential crisis not from a thrilling dystopian chase, but from the soul-crushing boredom of his 9-to-5 corporate desk job.",
     "boss_original_quote": "All those moments will be lost in time, like tears in rain.",
     "boss_punned_quote": "All those moments will be lost in time, like tears in mundane.",
-    "boss_poster_url": "/assets/posters/blade_bummer_poster_1779599494.jpg",
+    "boss_poster_url": "/assets/posters/blade_bummer_poster_vertical_1780460209.png",
     "boss_hint2": "B____ B_____",
     "answer": "_____ ______",
     "difficulty_tier": 2,
@@ -1700,7 +1650,7 @@
     ]
   },
   {
-    "puzzle_number": "035",
+    "puzzle_number": "034",
     "puzzle_id": "puz_quote_059_1778295017383",
     "boss_id": "boss_quote_059_1778295017383",
     "boss_original_title": "Raiders of the Lost Ark",
@@ -1708,7 +1658,7 @@
     "boss_pitch": "A fiercely pastry-phobic archaeologist must navigate an ancient, booby-trapped bakery to recover a legendary dessert without succumbing to his crippling fear of baked goods.",
     "boss_original_quote": "Snakes. Why'd it have to be snakes?",
     "boss_punned_quote": "Cakes. Why'd it have to be cakes?",
-    "boss_poster_url": "/assets/posters/bakers_of_the_last_tart_poster_1779599476.jpg",
+    "boss_poster_url": "/assets/posters/bakers_of_the_last_tart_poster_vertical_1780460168.png",
     "boss_hint2": "B_____ o_ t__ L___ T___",
     "answer": "______ __ ___ ____ ____",
     "difficulty_tier": 2,
@@ -1750,7 +1700,7 @@
     ]
   },
   {
-    "puzzle_number": "036",
+    "puzzle_number": "035",
     "puzzle_id": "puz_quote_028_1778212439127",
     "boss_id": "boss_quote_028_1778212439127",
     "boss_original_title": "Pulp Fiction",
@@ -1758,7 +1708,7 @@
     "boss_pitch": "Two terrifying linebackers acting as mob hitmen aggressively interrogate an indecisive opposing quarterback who keeps delaying the snap.",
     "boss_original_quote": "Say 'what' again. Say 'what' again, I dare you, I double dare you motherfucker, say what one more Goddamn time!",
     "boss_punned_quote": "Say 'Hut' again. Say 'Hut' again, I dare you, I double dare you motherfucker, say Hut one more Goddamn time!",
-    "boss_poster_url": "/assets/posters/punt_fiction_poster_1778882422.jpg",
+    "boss_poster_url": "/assets/posters/punt_fiction_poster_vertical_1780460084.png",
     "boss_hint2": "P___ F______",
     "answer": "____ _______",
     "difficulty_tier": 2,
@@ -1800,7 +1750,7 @@
     ]
   },
   {
-    "puzzle_number": "037",
+    "puzzle_number": "036",
     "puzzle_id": "puz_quote_034_1778212828914",
     "boss_id": "boss_quote_034_1778212828914",
     "boss_original_title": "Titanic",
@@ -1808,7 +1758,7 @@
     "boss_pitch": "A doomed luxury ocean liner made entirely of enchanted shrubbery sinks after colliding with a giant iceberg of frozen pollen, while a blooming stowaway enthusiastically declares his floral supremacy.",
     "boss_original_quote": "I'm the king of the world!",
     "boss_punned_quote": "I'm the spring of the world!",
-    "boss_poster_url": "/assets/posters/botanic_poster_1778882721.jpg",
+    "boss_poster_url": "/assets/posters/botanic_poster_vertical_1780460124.png",
     "boss_hint2": "B______",
     "answer": "_______",
     "difficulty_tier": 2,
@@ -1850,7 +1800,7 @@
     ]
   },
   {
-    "puzzle_number": "038",
+    "puzzle_number": "037",
     "puzzle_id": "puz_quote_036_1778213033731",
     "boss_id": "boss_quote_036_1778213033731",
     "boss_original_title": "The Sixth Sense",
@@ -1858,7 +1808,7 @@
     "boss_pitch": "A troubled child psychologist tries to help a young boy who is constantly harassed by the ghosts of desperate door-to-door salesmen trying to close one last deal from beyond the grave.",
     "boss_original_quote": "I see dead people.",
     "boss_punned_quote": "I see dead salespeople.",
-    "boss_poster_url": "/assets/posters/the_sixth_cents_poster_1778882913.jpg",
+    "boss_poster_url": "/assets/posters/the_sixth_cents_poster_vertical_1780460042.png",
     "boss_hint2": "T__ S____ C____",
     "answer": "___ _____ _____",
     "difficulty_tier": 2,
@@ -1900,7 +1850,7 @@
     ]
   },
   {
-    "puzzle_number": "039",
+    "puzzle_number": "038",
     "puzzle_id": "puz_quote_041_1778286228945",
     "boss_id": "boss_quote_041_1778286228945",
     "boss_original_title": "Spider-Man",
@@ -1908,7 +1858,7 @@
     "boss_pitch": "After being bitten by a radioactive baker, a nerdy teen gains the ability to shoot sourdough webs from his wrists and must protect New York City's bakeries from evil gluten-free villains.",
     "boss_original_quote": "With great power comes great responsibility.",
     "boss_punned_quote": "With great flour comes great responsibility.",
-    "boss_poster_url": "/assets/posters/spiderbran_poster_1779668588.jpg",
+    "boss_poster_url": "/assets/posters/spider_bran_poster_vertical_1780460001.png",
     "boss_hint2": "S_____-____",
     "answer": "______-____",
     "difficulty_tier": 2,
@@ -1950,7 +1900,7 @@
     ]
   },
   {
-    "puzzle_number": "040",
+    "puzzle_number": "039",
     "puzzle_id": "puz_quote_047_1778291250404",
     "boss_id": "boss_quote_047_1778291250404",
     "boss_original_title": "The Social Network",
@@ -2000,7 +1950,7 @@
     ]
   },
   {
-    "puzzle_number": "041",
+    "puzzle_number": "040",
     "puzzle_id": "puz_quote_147_1779600014614",
     "boss_id": "boss_quote_147_1779600014614",
     "boss_original_title": "Guardians of the Galaxy",
@@ -2050,7 +2000,7 @@
     ]
   },
   {
-    "puzzle_number": "042",
+    "puzzle_number": "041",
     "puzzle_id": "puz_quote_128_1779599575753",
     "boss_id": "boss_quote_128_1779599575753",
     "boss_original_title": "The Usual Suspects",
@@ -2100,7 +2050,7 @@
     ]
   },
   {
-    "puzzle_number": "043",
+    "puzzle_number": "042",
     "puzzle_id": "puz_quote_124_1779599507873",
     "boss_id": "boss_quote_124_1779599507873",
     "boss_original_title": "Dumb and Dumber",
@@ -2150,7 +2100,7 @@
     ]
   },
   {
-    "puzzle_number": "044",
+    "puzzle_number": "043",
     "puzzle_id": "puz_quote_119_1779599351538",
     "boss_id": "boss_quote_119_1779599351538",
     "boss_original_title": "Goodfellas",
@@ -2200,7 +2150,7 @@
     ]
   },
   {
-    "puzzle_number": "045",
+    "puzzle_number": "044",
     "puzzle_id": "puz_quote_111_1779599271585",
     "boss_id": "boss_quote_111_1779599271585",
     "boss_original_title": "Ghostbusters",
@@ -2250,7 +2200,7 @@
     ]
   },
   {
-    "puzzle_number": "046",
+    "puzzle_number": "045",
     "puzzle_id": "puz_quote_106_1779599133220",
     "boss_id": "boss_quote_106_1779599133220",
     "boss_original_title": "The Blues Brothers",
@@ -2300,7 +2250,7 @@
     ]
   },
   {
-    "puzzle_number": "047",
+    "puzzle_number": "046",
     "puzzle_id": "puz_quote_105_1779599104065",
     "boss_id": "boss_quote_105_1779599104065",
     "boss_original_title": "Airplane!",
@@ -2350,7 +2300,7 @@
     ]
   },
   {
-    "puzzle_number": "048",
+    "puzzle_number": "047",
     "puzzle_id": "puz_quote_091_1779598781775",
     "boss_id": "boss_quote_091_1779598781775",
     "boss_original_title": "Casino Royale",
@@ -2400,7 +2350,7 @@
     ]
   },
   {
-    "puzzle_number": "049",
+    "puzzle_number": "048",
     "puzzle_id": "puz_quote_090_1779598747890",
     "boss_id": "boss_quote_090_1779598747890",
     "boss_original_title": "Brokeback Mountain",
@@ -2450,7 +2400,7 @@
     ]
   },
   {
-    "puzzle_number": "050",
+    "puzzle_number": "049",
     "puzzle_id": "puz_quote_487_1779598605483",
     "boss_id": "boss_quote_487_1779598605483",
     "boss_original_title": "No Country for Old Men",
@@ -2500,7 +2450,7 @@
     ]
   },
   {
-    "puzzle_number": "051",
+    "puzzle_number": "050",
     "puzzle_id": "puz_quote_448_1779598411645",
     "boss_id": "boss_quote_448_1779598411645",
     "boss_original_title": "John Wick",
@@ -2550,7 +2500,7 @@
     ]
   },
   {
-    "puzzle_number": "052",
+    "puzzle_number": "051",
     "puzzle_id": "puz_quote_421_1779598330254",
     "boss_id": "boss_quote_421_1779598330254",
     "boss_original_title": "Home Alone",
@@ -2600,7 +2550,7 @@
     ]
   },
   {
-    "puzzle_number": "053",
+    "puzzle_number": "052",
     "puzzle_id": "puz_quote_404_1779598308406",
     "boss_id": "boss_quote_404_1779598308406",
     "boss_original_title": "Blazing Saddles",
@@ -2650,7 +2600,7 @@
     ]
   },
   {
-    "puzzle_number": "054",
+    "puzzle_number": "053",
     "puzzle_id": "puz_quote_490_1779598284923",
     "boss_id": "boss_quote_490_1779598284923",
     "boss_original_title": "Caddyshack",
@@ -2700,7 +2650,7 @@
     ]
   },
   {
-    "puzzle_number": "055",
+    "puzzle_number": "054",
     "puzzle_id": "puz_quote_185_1779598070107",
     "boss_id": "boss_quote_185_1779598070107",
     "boss_original_title": "Boogie Nights",
@@ -2750,7 +2700,7 @@
     ]
   },
   {
-    "puzzle_number": "056",
+    "puzzle_number": "055",
     "puzzle_id": "puz_quote_498_1779597916414",
     "boss_id": "boss_quote_498_1779597916414",
     "boss_original_title": "Oppenheimer",
@@ -2800,7 +2750,7 @@
     ]
   },
   {
-    "puzzle_number": "057",
+    "puzzle_number": "056",
     "puzzle_id": "puz_quote_216_1779597939234",
     "boss_id": "boss_quote_216_1779597939234",
     "boss_original_title": "The Fugitive",
@@ -2850,7 +2800,7 @@
     ]
   },
   {
-    "puzzle_number": "058",
+    "puzzle_number": "057",
     "puzzle_id": "puz_quote_481_1779597860936",
     "boss_id": "boss_quote_481_1779597860936",
     "boss_original_title": "This Is Spinal Tap",
