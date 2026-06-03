@@ -1197,7 +1197,7 @@ input:focus {
 }
 
 /* ================= REWARDED AD BUTTON ================= */
-#btn-watch-ad {
+#btn-show-hint4 {
     background: #ffde59 !important;
     color: #2d3436 !important;
     font-weight: 900 !important;
@@ -1205,12 +1205,12 @@ input:focus {
     box-shadow: 2px 2px 0px var(--border-color) !important;
 }
 
-#btn-watch-ad:hover {
+#btn-show-hint4:hover {
     transform: translate(-1px, -1px);
     box-shadow: 3px 3px 0px var(--border-color);
 }
 
-#btn-watch-ad:active {
+#btn-show-hint4:active {
     transform: translate(2px, 2px);
     box-shadow: 0px 0px 0px var(--border-color);
 }
