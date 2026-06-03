@@ -1050,6 +1050,1856 @@
     ]
   },
   {
+    "puzzle_number": "022",
+    "puzzle_id": "puz_quote_023_1778211970076",
+    "boss_id": "boss_quote_023_1778211970076",
+    "boss_original_title": "Terminator 2: Judgment Day",
+    "boss_pun_title": "Hesitator 2: Judgment Delay",
+    "boss_pitch": "A time-traveling cyborg is sent back to the 90s, but his deadly programming is plagued by severe indecision and commitment issues, leaving every assassination attempt entirely up in the air.",
+    "boss_original_quote": "Hasta la vista, baby.",
+    "boss_punned_quote": "Hasta la vista, maybe.",
+    "boss_poster_url": "/assets/posters/hesitator_2_judgment_delay_poster_vertical_1780030461.png",
+    "boss_hint2": "H________ 2: J_______ D____",
+    "answer": "_________ 2: ________ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "023",
+    "puzzle_id": "puz_quote_029_1778212492820",
+    "boss_id": "boss_quote_029_1778212492820",
+    "boss_original_title": "The Shawshank Redemption",
+    "boss_pun_title": "The Shawl-Hank Redemption",
+    "boss_pitch": "Two imprisoned men bond over decades, finding solace and eventual freedom by running a highly lucrative, illicit underground yarn-coloring and knitwear operation.",
+    "boss_original_quote": "Get busy living, or get busy dying.",
+    "boss_punned_quote": "Get busy living, or get busy dyeing.",
+    "boss_poster_url": "/assets/posters/the_shawlhank_redemption_poster_1778882525.jpg",
+    "boss_hint2": "T__ S____-____ R_________",
+    "answer": "___ _____-____ __________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "024",
+    "puzzle_id": "puz_quote_033_1778212736314",
+    "boss_id": "boss_quote_033_1778212736314",
+    "boss_original_title": "Jerry Maguire",
+    "boss_pun_title": "Berry Maguire",
+    "boss_pitch": "A manic agricultural agent writes a controversial memo about crop rotation and wins back his only client, an exhausted strawberry farmer, by romantically suggesting they just let the dirt sit there and rest.",
+    "boss_original_quote": "You had me at 'hello'.",
+    "boss_punned_quote": "You had me at 'fallow'.",
+    "boss_poster_url": "/assets/posters/berry_maguire_poster_1778882698.jpg",
+    "boss_hint2": "B____ M______",
+    "answer": "_____ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "025",
+    "puzzle_id": "puz_quote_035_1778212969843",
+    "boss_id": "boss_quote_035_1778212969843",
+    "boss_original_title": "Fight Club",
+    "boss_pun_title": "Flight Club",
+    "boss_pitch": "An insomniac office worker discovers a gritty underground society of aggressive birdwatchers who organize chaotic avian gatherings, strictly enforcing the rule that members must never aimlessly congregate.",
+    "boss_original_quote": "The first rule of Fight Club is: you do not talk about Fight Club.",
+    "boss_punned_quote": "The first rule of Fight Club is: you do not flock about Fight Club.",
+    "boss_poster_url": "/assets/posters/flight_club_poster_1778882832.jpg",
+    "boss_hint2": "F_____ C___",
+    "answer": "______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "026",
+    "puzzle_id": "puz_quote_037_1778213175039",
+    "boss_id": "boss_quote_037_1778213175039",
+    "boss_original_title": "The Matrix",
+    "boss_pun_title": "The Meatrix",
+    "boss_pitch": "In a dystopian simulated steakhouse, a rebel line cook discovers the ultimate truth about eating perfectly undercooked beef: the cutlery is just an illusion.",
+    "boss_original_quote": "There is no spoon.",
+    "boss_punned_quote": "Rare is no spoon.",
+    "boss_poster_url": "/assets/posters/the_meatrix_poster_1779598833.jpg",
+    "boss_hint2": "T__ M______",
+    "answer": "___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "027",
+    "puzzle_id": "puz_quote_038_1778285559305",
+    "boss_id": "boss_quote_038_1778285559305",
+    "boss_original_title": "Gladiator",
+    "boss_pun_title": "Radiator",
+    "boss_pitch": "Forced to perform grueling HVAC repairs for the Emperor's amusement, a weary Roman technician victoriously empties the Colosseum's massive, rusted heating system and screams at the sputtering pipes.",
+    "boss_original_quote": "Are you not entertained?",
+    "boss_punned_quote": "Are you not drained?",
+    "boss_poster_url": "/assets/posters/radiator_poster_1779598892.jpg",
+    "boss_hint2": "R_______",
+    "answer": "________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "028",
+    "puzzle_id": "puz_quote_043_1778286338815",
+    "boss_id": "boss_quote_043_1778286338815",
+    "boss_original_title": "300",
+    "boss_pun_title": "Tea Hundred",
+    "boss_pitch": "King Leonidas leads a phalanx of three hundred shirtless, over-caffeinated baristas to fiercely defend their premium Indonesian brew in the bustling capital.",
+    "boss_original_quote": "This is Sparta!",
+    "boss_punned_quote": "This is Jakarta!",
+    "boss_poster_url": "/assets/posters/tea_hundred_poster_1779599027.jpg",
+    "boss_hint2": "T__ H______",
+    "answer": "___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "029",
+    "puzzle_id": "puz_quote_042_1778290898042",
+    "boss_id": "boss_quote_042_1778290898042",
+    "boss_original_title": "Mean Girls",
+    "boss_pun_title": "Clean Girls",
+    "boss_pitch": "A clique of ruthless, fashion-forward high school plumbers dictates that the ultimate status symbol for teen popularity is accessorizing with heavy porcelain plumbing fixtures.",
+    "boss_original_quote": "On Wednesdays we wear pink.",
+    "boss_punned_quote": "On Wednesdays we wear sink.",
+    "boss_poster_url": "/assets/posters/clean_girls_poster_1779599069.jpg",
+    "boss_hint2": "C____ G____",
+    "answer": "_____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "030",
+    "puzzle_id": "puz_quote_046_1778291183235",
+    "boss_id": "boss_quote_046_1778291183235",
+    "boss_original_title": "The Dark Knight",
+    "boss_pun_title": "The Park Site",
+    "boss_pitch": "A brooding vigilante realizes fighting crime is futile, so he decides to permanently transform himself into a beautiful open-air structure to host Gotham's finest weddings and outdoor events.",
+    "boss_original_quote": "You either die a hero, or you live long enough to see yourself become the villain.",
+    "boss_punned_quote": "You either die a hero, or you live long enough to see yourself become the pavillion.",
+    "boss_poster_url": "/assets/posters/the_park_site_poster_1779599203.jpg",
+    "boss_hint2": "T__ P___ S___",
+    "answer": "___ ____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "031",
+    "puzzle_id": "puz_quote_050_1778294490232",
+    "boss_id": "boss_quote_050_1778294490232",
+    "boss_original_title": "Frozen",
+    "boss_pun_title": "Slow-spin",
+    "boss_pitch": "Instead of winter magic, Queen Elsa curses her kingdom with an inescapable, Hitchcockian inner-ear imbalance that makes everyone desperately terrified of stairs and tall fjords.",
+    "boss_original_quote": "Let it go.",
+    "boss_punned_quote": "Let it vertigo.",
+    "boss_poster_url": "/assets/posters/slowspin_poster_1779599323.jpg",
+    "boss_hint2": "S___-____",
+    "answer": "____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "032",
+    "puzzle_id": "puz_quote_051_1778294552301",
+    "boss_id": "boss_quote_051_1778294552301",
+    "boss_original_title": "Chinatown",
+    "boss_pun_title": "Climb-around",
+    "boss_pitch": "A cynical, hardboiled kindergarten detective navigates a treacherous web of juice box corruption, tetherball syndicates, and sandbox betrayal during recess.",
+    "boss_original_quote": "Forget it, Jake. It's Chinatown.",
+    "boss_punned_quote": "Forget it, Jake. It's Playground.",
+    "boss_poster_url": "/assets/posters/climb_around_poster_1779599382.jpg",
+    "boss_hint2": "C____-______",
+    "answer": "_____-______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "033",
+    "puzzle_id": "puz_quote_055_1778294817033",
+    "boss_id": "boss_quote_055_1778294817033",
+    "boss_original_title": "Animal House",
+    "boss_pun_title": "Zen-imal House",
+    "boss_pitch": "The rowdy frat bros of Delta House abandon their beer kegs for kombucha and achieve aggressive enlightenment by throwing a wild, campus-wide group stretching party.",
+    "boss_original_quote": "Toga! Toga!",
+    "boss_punned_quote": "Yoga! Yoga!",
+    "boss_poster_url": "/assets/posters/zenimal_house_poster_1779668769.jpg",
+    "boss_hint2": "Z__-____ H____",
+    "answer": "___-____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "034",
+    "puzzle_id": "puz_quote_060_1778295124876",
+    "boss_id": "boss_quote_060_1778295124876",
+    "boss_original_title": "Blade Runner",
+    "boss_pun_title": "Blade Bummer",
+    "boss_pitch": "A burnt-out replicant hunter faces an existential crisis not from a thrilling dystopian chase, but from the soul-crushing boredom of his 9-to-5 corporate desk job.",
+    "boss_original_quote": "All those moments will be lost in time, like tears in rain.",
+    "boss_punned_quote": "All those moments will be lost in time, like tears in mundane.",
+    "boss_poster_url": "/assets/posters/blade_bummer_poster_1779599494.jpg",
+    "boss_hint2": "B____ B_____",
+    "answer": "_____ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "035",
+    "puzzle_id": "puz_quote_059_1778295017383",
+    "boss_id": "boss_quote_059_1778295017383",
+    "boss_original_title": "Raiders of the Lost Ark",
+    "boss_pun_title": "Bakers of the Last Tart",
+    "boss_pitch": "A fiercely pastry-phobic archaeologist must navigate an ancient, booby-trapped bakery to recover a legendary dessert without succumbing to his crippling fear of baked goods.",
+    "boss_original_quote": "Snakes. Why'd it have to be snakes?",
+    "boss_punned_quote": "Cakes. Why'd it have to be cakes?",
+    "boss_poster_url": "/assets/posters/bakers_of_the_last_tart_poster_1779599476.jpg",
+    "boss_hint2": "B_____ o_ t__ L___ T___",
+    "answer": "______ __ ___ ____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "036",
+    "puzzle_id": "puz_quote_028_1778212439127",
+    "boss_id": "boss_quote_028_1778212439127",
+    "boss_original_title": "Pulp Fiction",
+    "boss_pun_title": "Punt Fiction",
+    "boss_pitch": "Two terrifying linebackers acting as mob hitmen aggressively interrogate an indecisive opposing quarterback who keeps delaying the snap.",
+    "boss_original_quote": "Say 'what' again. Say 'what' again, I dare you, I double dare you motherfucker, say what one more Goddamn time!",
+    "boss_punned_quote": "Say 'Hut' again. Say 'Hut' again, I dare you, I double dare you motherfucker, say Hut one more Goddamn time!",
+    "boss_poster_url": "/assets/posters/punt_fiction_poster_1778882422.jpg",
+    "boss_hint2": "P___ F______",
+    "answer": "____ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "037",
+    "puzzle_id": "puz_quote_034_1778212828914",
+    "boss_id": "boss_quote_034_1778212828914",
+    "boss_original_title": "Titanic",
+    "boss_pun_title": "Botanic",
+    "boss_pitch": "A doomed luxury ocean liner made entirely of enchanted shrubbery sinks after colliding with a giant iceberg of frozen pollen, while a blooming stowaway enthusiastically declares his floral supremacy.",
+    "boss_original_quote": "I'm the king of the world!",
+    "boss_punned_quote": "I'm the spring of the world!",
+    "boss_poster_url": "/assets/posters/botanic_poster_1778882721.jpg",
+    "boss_hint2": "B______",
+    "answer": "_______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "038",
+    "puzzle_id": "puz_quote_036_1778213033731",
+    "boss_id": "boss_quote_036_1778213033731",
+    "boss_original_title": "The Sixth Sense",
+    "boss_pun_title": "The Sixth Cents",
+    "boss_pitch": "A troubled child psychologist tries to help a young boy who is constantly harassed by the ghosts of desperate door-to-door salesmen trying to close one last deal from beyond the grave.",
+    "boss_original_quote": "I see dead people.",
+    "boss_punned_quote": "I see dead salespeople.",
+    "boss_poster_url": "/assets/posters/the_sixth_cents_poster_1778882913.jpg",
+    "boss_hint2": "T__ S____ C____",
+    "answer": "___ _____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "039",
+    "puzzle_id": "puz_quote_041_1778286228945",
+    "boss_id": "boss_quote_041_1778286228945",
+    "boss_original_title": "Spider-Man",
+    "boss_pun_title": "Spider-Bran",
+    "boss_pitch": "After being bitten by a radioactive baker, a nerdy teen gains the ability to shoot sourdough webs from his wrists and must protect New York City's bakeries from evil gluten-free villains.",
+    "boss_original_quote": "With great power comes great responsibility.",
+    "boss_punned_quote": "With great flour comes great responsibility.",
+    "boss_poster_url": "/assets/posters/spiderbran_poster_1779668588.jpg",
+    "boss_hint2": "S_____-____",
+    "answer": "______-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "040",
+    "puzzle_id": "puz_quote_047_1778291250404",
+    "boss_id": "boss_quote_047_1778291250404",
+    "boss_original_title": "The Social Network",
+    "boss_pun_title": "The Social Petwork",
+    "boss_pitch": "A ruthless, socially awkward Golden Retriever backstabs his furry best friends to build a multi-billion dollar canine neckwear empire.",
+    "boss_original_quote": "A million dollars isn't cool. You know what's cool? A billion dollars.",
+    "boss_punned_quote": "A million collars isn't cool. You know what's cool? A billion collars.",
+    "boss_poster_url": "/assets/posters/the_social_petwork_poster_vertical_1780459501.png",
+    "boss_hint2": "T__ S_____ P______",
+    "answer": "___ ______ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "041",
+    "puzzle_id": "puz_quote_147_1779600014614",
+    "boss_id": "boss_quote_147_1779600014614",
+    "boss_original_title": "Guardians of the Galaxy",
+    "boss_pun_title": "Cardigans of the Galaxy",
+    "boss_pitch": "A group of ragtag intergalactic tailors roam the cosmos fixing torn asteroid belts and mending rips in the fabric of the universe, one hasty stitch at a time.",
+    "boss_original_quote": "Nothing goes over my head. My reflexes are too fast. I would catch it.",
+    "boss_punned_quote": "Nothing goes over my head. My reflexes are too fast. I would patch it.",
+    "boss_poster_url": "/assets/posters/cardigans_of_the_galaxy_poster_vertical_1780032090.png",
+    "boss_hint2": "C________ o_ t__ G_____",
+    "answer": "_________ __ ___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "042",
+    "puzzle_id": "puz_quote_128_1779599575753",
+    "boss_id": "boss_quote_128_1779599575753",
+    "boss_original_title": "The Usual Suspects",
+    "boss_pun_title": "The Usual Architects",
+    "boss_pitch": "Five crooked contractors are brought in for a police lineup to identify a mythical, masonry-obsessed mastermind whose ultimate heist involved stealing the world's most foundational load-bearing block.",
+    "boss_original_quote": "The greatest trick the Devil ever pulled was convincing the world he didn't exist.",
+    "boss_punned_quote": "The greatest brick the Devil ever pulled was convincing the world he didn't exist.",
+    "boss_poster_url": "/assets/posters/the_usual_architects_poster_vertical_1780032070.png",
+    "boss_hint2": "T__ U____ A_________",
+    "answer": "___ _____ __________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "043",
+    "puzzle_id": "puz_quote_124_1779599507873",
+    "boss_id": "boss_quote_124_1779599507873",
+    "boss_original_title": "Dumb and Dumber",
+    "boss_pun_title": "Slum and Slummer",
+    "boss_pitch": "Two spectacularly inept real estate agents try to convince desperate buyers to move into increasingly dilapidated, raccoon-infested houses.",
+    "boss_original_quote": "So you're telling me there's a chance.",
+    "boss_punned_quote": "So you're dwelling me there's a chance.",
+    "boss_poster_url": "/assets/posters/slum_and_slummer_poster_vertical_1780031990.png",
+    "boss_hint2": "S___ a__ S______",
+    "answer": "____ ___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "044",
+    "puzzle_id": "puz_quote_119_1779599351538",
+    "boss_id": "boss_quote_119_1779599351538",
+    "boss_original_title": "Goodfellas",
+    "boss_pun_title": "Goodfillings",
+    "boss_pitch": "A paranoid mafia enforcer opens a dental practice and brutally drills anyone who dares to disrespect his delicate porcelain tooth caps.",
+    "boss_original_quote": "Funny how? I mean, funny like I'm a clown? I amuse you?",
+    "boss_punned_quote": "Funny how? I mean, funny like I'm a crown? I amuse you?",
+    "boss_poster_url": "/assets/posters/goodfillings_poster_vertical_1780031922.png",
+    "boss_hint2": "G___________",
+    "answer": "____________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "045",
+    "puzzle_id": "puz_quote_111_1779599271585",
+    "boss_id": "boss_quote_111_1779599271585",
+    "boss_original_title": "Ghostbusters",
+    "boss_pun_title": "Chalkdusters",
+    "boss_pitch": "A squad of eccentric, unemployed substitute teachers build unlicensed nuclear laser pointers to violently eradicate impossible curriculums and kick some academic Class.",
+    "boss_original_quote": "We came, we saw, we kicked its ass!",
+    "boss_punned_quote": "We came, we saw, we kicked its class!",
+    "boss_poster_url": "/assets/posters/chalkdusters_poster_vertical_1780031911.png",
+    "boss_hint2": "C___________",
+    "answer": "____________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "046",
+    "puzzle_id": "puz_quote_106_1779599133220",
+    "boss_id": "boss_quote_106_1779599133220",
+    "boss_original_title": "The Blues Brothers",
+    "boss_pun_title": "The Clues Brothers",
+    "boss_pitch": "Two extremely paranoid siblings, convinced the Almighty has tipped them off to a massive conspiracy, go on a chaotic road trip to aggressively interrogate nuns, orphans, and soul singers.",
+    "boss_original_quote": "We're on a mission from God.",
+    "boss_punned_quote": "We're on a suspicion from God.",
+    "boss_poster_url": "/assets/posters/the_clues_brothers_poster_vertical_1780031879.png",
+    "boss_hint2": "T__ C____ B_______",
+    "answer": "___ _____ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "047",
+    "puzzle_id": "puz_quote_105_1779599104065",
+    "boss_id": "boss_quote_105_1779599104065",
+    "boss_original_title": "Airplane!",
+    "boss_pun_title": "Explain!",
+    "boss_pitch": "When the flight crew falls unconscious, a neurotic passenger's only hope to safely land the plane is to win a high-stakes trivia contest by interrogating his sentient school supplies.",
+    "boss_original_quote": "Looks like I picked the wrong week to stop sniffing glue.",
+    "boss_punned_quote": "Looks like I picked the wrong week to stop quizzing glue.",
+    "boss_poster_url": "/assets/posters/explain_poster_vertical_1780031867.png",
+    "boss_hint2": "E______!",
+    "answer": "_______!",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "048",
+    "puzzle_id": "puz_quote_091_1779598781775",
+    "boss_id": "boss_quote_091_1779598781775",
+    "boss_original_title": "Casino Royale",
+    "boss_pun_title": "Koi-sino Royale",
+    "boss_pitch": "A suave, tuxedo-wearing aquatic secret agent goes undercover at a high-stakes underwater poker tournament to stop a villainous frog from draining the wetlands.",
+    "boss_original_quote": "The name's Bond. James Bond.",
+    "boss_punned_quote": "The name's Pond. James Pond.",
+    "boss_poster_url": "/assets/posters/koisino_royale_poster_vertical_1780031088.png",
+    "boss_hint2": "K__-____ R_____",
+    "answer": "___-____ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "049",
+    "puzzle_id": "puz_quote_090_1779598747890",
+    "boss_id": "boss_quote_090_1779598747890",
+    "boss_original_title": "Brokeback Mountain",
+    "boss_pun_title": "Brokebank Mountain",
+    "boss_pitch": "Instead of herding sheep, two indebted cowboys run an illicit currency forgery ring out of a remote tent, but their romance hits a snag when one struggles to perfectly draw his lover's handsome face onto a fake three-dollar bill.",
+    "boss_original_quote": "I wish I knew how to quit you.",
+    "boss_punned_quote": "I wish I knew how to counterfeit you.",
+    "boss_poster_url": "/assets/posters/brokebank_mountain_poster_vertical_1780031067.png",
+    "boss_hint2": "B________ M_______",
+    "answer": "_________ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "050",
+    "puzzle_id": "puz_quote_487_1779598605483",
+    "boss_id": "boss_quote_487_1779598605483",
+    "boss_original_title": "No Country for Old Men",
+    "boss_pun_title": "Roe Country for Old Men",
+    "boss_pitch": "An aging, melancholic sheriff patrols a desolate, fish-egg-covered coastline, deeply lamenting that a giant, spiritual saltwater fish never arrived to give his life meaning.",
+    "boss_original_quote": "I always figured when I got older, God would sorta come into my life somehow. And he didn't.",
+    "boss_punned_quote": "I always figured when I got older, Cod would sorta come into my life somehow. And he didn't.",
+    "boss_poster_url": "/assets/posters/roe_country_for_old_men_poster_vertical_1780031046.png",
+    "boss_hint2": "R__ C______ f__ O__ M__",
+    "answer": "___ _______ ___ ___ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "051",
+    "puzzle_id": "puz_quote_448_1779598411645",
+    "boss_id": "boss_quote_448_1779598411645",
+    "boss_original_title": "John Wick",
+    "boss_pun_title": "John Quick",
+    "boss_pitch": "After his beloved racing spikes are stolen, a legendary retired sprinter enters the deadly underground world of high-stakes track and field to run down the mobsters who wronged him.",
+    "boss_original_quote": "Yeah, I'm thinking I'm back.",
+    "boss_punned_quote": "Yeah, I'm thinking I'm track.",
+    "boss_poster_url": "/assets/posters/john_quick_poster_vertical_1780030991.png",
+    "boss_hint2": "J___ Q____",
+    "answer": "____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "052",
+    "puzzle_id": "puz_quote_421_1779598330254",
+    "boss_id": "boss_quote_421_1779598330254",
+    "boss_original_title": "Home Alone",
+    "boss_pun_title": "Roam Alone",
+    "boss_pitch": "Accidentally left behind on a sprawling Texas cattle ranch, an eight-year-old boy must use booby traps to defend his family's vast open pastures from two bumbling livestock rustlers.",
+    "boss_original_quote": "Keep the change, ya filthy animal.",
+    "boss_punned_quote": "Keep the range, ya filthy animal.",
+    "boss_poster_url": "/assets/posters/roam_alone_poster_vertical_1780030958.png",
+    "boss_hint2": "R___ A____",
+    "answer": "____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "053",
+    "puzzle_id": "puz_quote_404_1779598308406",
+    "boss_id": "boss_quote_404_1779598308406",
+    "boss_original_title": "Blazing Saddles",
+    "boss_pun_title": "Phrasing Saddles",
+    "boss_pitch": "A hulking brute in the Old West terrorizes outlaws not with his fists, but by aggressively defining words and enforcing strict grammatical rules as a giant, sentient dictionary.",
+    "boss_original_quote": "Mongo only pawn in game of life.",
+    "boss_punned_quote": "Mongo only lexicon in game of life.",
+    "boss_poster_url": "/assets/posters/phrasing_saddles_poster_vertical_1780030935.png",
+    "boss_hint2": "P_______ S______",
+    "answer": "________ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "054",
+    "puzzle_id": "puz_quote_490_1779598284923",
+    "boss_id": "boss_quote_490_1779598284923",
+    "boss_original_title": "Caddyshack",
+    "boss_pun_title": "Cheddarjack",
+    "boss_pitch": "An elite country club is turned upside down when a rogue gang of aggressive artisanal cheesemakers takes over the kitchen and demands fresh parmesan on absolutely everything.",
+    "boss_original_quote": "Well? We're waiting!",
+    "boss_punned_quote": "Well? We're grating!",
+    "boss_poster_url": "/assets/posters/cheddarjack_poster_vertical_1780030924.png",
+    "boss_hint2": "C__________",
+    "answer": "___________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "055",
+    "puzzle_id": "puz_quote_185_1779598070107",
+    "boss_id": "boss_quote_185_1779598070107",
+    "boss_original_title": "Boogie Nights",
+    "boss_pun_title": "Stogie Lights",
+    "boss_pitch": "A young, well-rolled tobacco leaf rises to the top of the excessive 1970s adult smoking industry, culminating in a dramatic breakdown where he embraces his destiny as a premium Cuban.",
+    "boss_original_quote": "I am a star. I'm a star, I'm a star, I'm a star. I am a big, bright, shining star.",
+    "boss_punned_quote": "I am a cigar. I'm a cigar, I'm a cigar, I'm a cigar. I am a big, bright, shining cigar.",
+    "boss_poster_url": "/assets/posters/stogie_lights_poster_vertical_1780030873.png",
+    "boss_hint2": "S_____ L_____",
+    "answer": "______ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "056",
+    "puzzle_id": "puz_quote_498_1779597916414",
+    "boss_id": "boss_quote_498_1779597916414",
+    "boss_original_title": "Oppenheimer",
+    "boss_pun_title": "Oven-heimer",
+    "boss_pitch": "A brilliant theoretical physicist leads a top-secret underground bakery project to develop the world's most devastating sourdough starter, wrestling with the moral implications of his weaponized bread.",
+    "boss_original_quote": "Amateurs seek the sun. Get eaten. Power stays in the shadows.",
+    "boss_punned_quote": "Amateurs seek the sun. Get eaten. Flour stays in the shadows.",
+    "boss_poster_url": "/assets/posters/ovenheimer_poster_vertical_1780030760.png",
+    "boss_hint2": "O___-______",
+    "answer": "____-______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "057",
+    "puzzle_id": "puz_quote_216_1779597939234",
+    "boss_id": "boss_quote_216_1779597939234",
+    "boss_original_title": "The Fugitive",
+    "boss_pun_title": "The Wing-it-ive",
+    "boss_pitch": "A completely disorganized doctor goes on the run to clear his name without a plan, a map, or sensible shoes, relying entirely on his ability to make things up as he goes while a highly meticulous U.S. Marshal hunts him down.",
+    "boss_original_quote": "I don't care.",
+    "boss_punned_quote": "I don't prepare.",
+    "boss_poster_url": "/assets/posters/the_wingitive_poster_vertical_1780030792.png",
+    "boss_hint2": "T__ W___-__-___",
+    "answer": "___ ____-__-___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "058",
+    "puzzle_id": "puz_quote_481_1779597860936",
+    "boss_id": "boss_quote_481_1779597860936",
+    "boss_original_title": "This Is Spinal Tap",
+    "boss_pun_title": "This Is Tidal Trap",
+    "boss_pitch": "A clueless British rock band embarks on a disastrous nautical tour, playing gigs exclusively on poorly constructed harbor docks where they face the constant threat of collapsing piers and rogue seagulls.",
+    "boss_original_quote": "In danger of being crushed by a dwarf.",
+    "boss_punned_quote": "In danger of being crushed by a wharf.",
+    "boss_poster_url": "/assets/posters/this_is_tidal_trap_poster_vertical_1780030727.png",
+    "boss_hint2": "T___ I_ T____ T___",
+    "answer": "____ __ _____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
     "puzzle_number": "",
     "puzzle_id": "puz_quote_002_1778164889440",
     "boss_id": "boss_quote_002_1778164889440",
@@ -2561,6 +4411,1156 @@
     "boss_poster_url": "/assets/posters/a_few_good_lumens_poster_1779598571.jpg",
     "boss_hint2": "A F__ G___ L_____",
     "answer": "_ ___ ____ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_017_1778211666922",
+    "boss_id": "boss_quote_017_1778211666922",
+    "boss_original_title": "Top Gun",
+    "boss_pun_title": "Top Spun",
+    "boss_pitch": "A renegade menswear designer at a prestigious tailoring academy pushes his vintage sewing machine to the absolute limit to weave the world's most aerodynamic woolen jacket.",
+    "boss_original_quote": "I feel the need\u2014the need for speed!",
+    "boss_punned_quote": "I feel the tweed\u2014the tweed for speed!",
+    "boss_poster_url": "/assets/posters/top_spun_poster_1779598434.jpg",
+    "boss_hint2": "T__ S___",
+    "answer": "___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_018_1778211775122",
+    "boss_id": "boss_quote_018_1778211775122",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Gin-cess Bride",
+    "boss_pitch": "A swashbuckling swordsman hunts down the wicked, six-fingered master distiller who tragically boiled down and fermented his beloved father into a batch of artisanal botanical gin.",
+    "boss_original_quote": "Hello. My name is Inigo Montoya. You killed my father. Prepare to die.",
+    "boss_punned_quote": "Hello. My name is Inigo Montoya. You distilled my father. Prepare to die.",
+    "boss_poster_url": "/assets/posters/the_gincess_bride_poster_1779598463.jpg",
+    "boss_hint2": "T__ G__-____ B____",
+    "answer": "___ ___-____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_019_1778211810791",
+    "boss_id": "boss_quote_019_1778211810791",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Princess Fried",
+    "boss_pitch": "A swashbuckling sous-chef must rescue his true love from a terrible prince by deep-frying the ultimate royal banquet and serving up the kingdom's spiciest gossip.",
+    "boss_original_quote": "As you wish.",
+    "boss_punned_quote": "As you dish.",
+    "boss_poster_url": "/assets/posters/the_princess_fried_poster_1779598481.jpg",
+    "boss_hint2": "T__ P_______ F____",
+    "answer": "___ ________ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_014_1778211407620",
+    "boss_id": "boss_quote_014_1778211407620",
+    "boss_original_title": "The Terminator",
+    "boss_pun_title": "The Evaluator",
+    "boss_pitch": "A relentless cyborg from the future is sent back to 1984 to work in Human Resources, mercilessly hunting down employees to deliver terrifyingly brutal performance reviews.",
+    "boss_original_quote": "I'll be back.",
+    "boss_punned_quote": "I'll be feedback.",
+    "boss_poster_url": "/assets/posters/the_evaluator_poster_1779598362.jpg",
+    "boss_hint2": "T__ E________",
+    "answer": "___ _________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_015_1778211518280",
+    "boss_id": "boss_quote_015_1778211518280",
+    "boss_original_title": "Back to the Future",
+    "boss_pun_title": "Back to the Crew-ture",
+    "boss_pitch": "A manic scientist and a teenager must furiously paddle a time-traveling scull at exactly 88 strokes per minute to fix the space-time continuum.",
+    "boss_original_quote": "Roads? Where we're going, we don't need roads.",
+    "boss_punned_quote": "Roads? Where we're rowing, we don't need roads.",
+    "boss_poster_url": "/assets/posters/back_to_the_crewture_poster_1779598415.jpg",
+    "boss_hint2": "B___ t_ t__ C___-____",
+    "answer": "____ __ ___ ____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_028_1778212471774",
+    "boss_id": "boss_quote_028_1778212471774",
+    "boss_original_title": "Pulp Fiction",
+    "boss_pun_title": "Pulp Fixin'",
+    "boss_pitch": "Two aggressively philosophical handymen travel around Los Angeles violently repairing broken appliances for terrified clients while debating the metric system used in European tool sets.",
+    "boss_original_quote": "Say 'what' again. Say 'what' again, I dare you, I double dare you motherfucker, say what one more Goddamn time!",
+    "boss_punned_quote": "Say 'what' again. Say 'what' again, I repair you, I double repair you motherfucker, say what one more Goddamn time!",
+    "boss_poster_url": "/assets/posters/pulp_fixin_poster_1778882466.jpg",
+    "boss_hint2": "P___ F____'",
+    "answer": "____ _____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_032_1778212693312",
+    "boss_id": "boss_quote_032_1778212693312",
+    "boss_original_title": "Jerry Maguire",
+    "boss_pun_title": "Beary Maguire",
+    "boss_pitch": "A disgraced sports agent tries to rebuild his career by representing a highly demanding, football-playing grizzly bear who refuses to take the field until his sweet tooth is satisfied.",
+    "boss_original_quote": "Show me the money!",
+    "boss_punned_quote": "Show me the honey!",
+    "boss_poster_url": "/assets/posters/beary_maguire_poster_1778882679.jpg",
+    "boss_hint2": "B____ M______",
+    "answer": "_____ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_034_1778212833453",
+    "boss_id": "boss_quote_034_1778212833453",
+    "boss_original_title": "Titanic",
+    "boss_pun_title": "Tire-tanic",
+    "boss_pitch": "A tragic romance blossoms on a colossal playground structure, culminating in a doomed recess where our hero claims supremacy on a massive rubber pendulum before plunging into a freezing sea of woodchips.",
+    "boss_original_quote": "I'm the king of the world!",
+    "boss_punned_quote": "I'm the swing of the world!",
+    "boss_poster_url": "/assets/posters/tiretanic_poster_1778882739.jpg",
+    "boss_hint2": "T___-_____",
+    "answer": "____-_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_035_1778212962196",
+    "boss_id": "boss_quote_035_1778212962196",
+    "boss_original_title": "Fight Club",
+    "boss_pun_title": "Knight Club",
+    "boss_pitch": "An insomniac office worker starts an underground society where frustrated men exclusively combat each other by dual-wielding medieval broadswords.",
+    "boss_original_quote": "The first rule of Fight Club is: you do not talk about Fight Club.",
+    "boss_punned_quote": "The first dual of Fight Club is: you do not talk about Fight Club.",
+    "boss_poster_url": "/assets/posters/knight_club_poster_1779668488.jpg",
+    "boss_hint2": "K_____ C___",
+    "answer": "______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_037_1778213124304",
+    "boss_id": "boss_quote_037_1778213124304",
+    "boss_original_title": "The Matrix",
+    "boss_pun_title": "The Luna-trix",
+    "boss_pitch": "A hacker uncovers a massive cosmic conspiracy revealing that Earth's only satellite is just a giant holographic projection, much to the dismay of the local werewolf community.",
+    "boss_original_quote": "There is no spoon.",
+    "boss_punned_quote": "There is no moon.",
+    "boss_poster_url": "/assets/posters/the_lunatrix_poster_1779598683.jpg",
+    "boss_hint2": "T__ L___-____",
+    "answer": "___ ____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_038_1778285512634",
+    "boss_id": "boss_quote_038_1778285512634",
+    "boss_original_title": "Gladiator",
+    "boss_pun_title": "Vladiator",
+    "boss_pitch": "After being overthrown, a flamboyant Russian monarch is forced to fight in the Roman Colosseum, where he befuddles rival warriors with aggressive ballet routines and weaponized Faberg\u00e9 eggs.",
+    "boss_original_quote": "Are you not entertained?",
+    "boss_punned_quote": "Tsar you not entertained?",
+    "boss_poster_url": "/assets/posters/vladiator_poster_1779598853.jpg",
+    "boss_hint2": "V________",
+    "answer": "_________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_046_1778291163008",
+    "boss_id": "boss_quote_046_1778291163008",
+    "boss_original_title": "The Dark Knight",
+    "boss_pun_title": "The Doc Knight",
+    "boss_pitch": "A billionaire physician vows to rid Gotham of untreated bacterial infections, but his obsessive medical experiments push him to mutate into a giant, sentient antibiotic with a terrible bedside manner.",
+    "boss_original_quote": "You either die a hero, or you live long enough to see yourself become the villain.",
+    "boss_punned_quote": "You either die a hero, or you live long enough to see yourself become the penicillin.",
+    "boss_poster_url": "/assets/posters/the_doc_knight_poster_1779599186.jpg",
+    "boss_hint2": "T__ D__ K_____",
+    "answer": "___ ___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_115_1779600124525",
+    "boss_id": "boss_quote_115_1779600124525",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Princess Fireside",
+    "boss_pitch": "A heroic peasant leaves his misfit friends behind to endlessly stoke the massive hearths of a drafty stone fortress so his true love doesn't catch a winter chill.",
+    "boss_original_quote": "Have fun storming the castle!",
+    "boss_punned_quote": "Have fun warming the castle!",
+    "boss_poster_url": "/assets/posters/the_princess_fireside_poster_vertical_1780032136.png",
+    "boss_hint2": "T__ P_______ F_______",
+    "answer": "___ ________ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_097_1779598928448",
+    "boss_id": "boss_quote_097_1779598928448",
+    "boss_original_title": "Guardians of the Galaxy",
+    "boss_pun_title": "Cowardians of the Galaxy",
+    "boss_pitch": "A crew of highly evasive, spineless space misfits whose only survival tactic is running away at top speed whenever their terrifying sentient tree friend shows up.",
+    "boss_original_quote": "We are Groot.",
+    "boss_punned_quote": "Flee are Groot.",
+    "boss_poster_url": "/assets/posters/cowardians_of_the_galaxy_poster_vertical_1780031821.png",
+    "boss_hint2": "C_________ o_ t__ G_____",
+    "answer": "__________ __ ___ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_111_1779599255469",
+    "boss_id": "boss_quote_111_1779599255469",
+    "boss_original_title": "Ghostbusters",
+    "boss_pun_title": "Ghostbustiers",
+    "boss_pitch": "A team of eccentric paranormal tailors must wrangle and properly support a plague of possessed, free-floating lingerie terrorizing New York City.",
+    "boss_original_quote": "We came, we saw, we kicked its ass!",
+    "boss_punned_quote": "We came, we bra, we kicked its ass!",
+    "boss_poster_url": "/assets/posters/ghostbustiers_poster_vertical_1780031900.png",
+    "boss_hint2": "G____________",
+    "answer": "_____________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_128_1779599572782",
+    "boss_id": "boss_quote_128_1779599572782",
+    "boss_original_title": "The Usual Suspects",
+    "boss_pun_title": "The Usual Soviets",
+    "boss_pitch": "Five shady Marxists are rounded up for a Moscow police lineup, completely unaware that the mythical communist mastermind manipulating them is actually the Devil in disguise.",
+    "boss_original_quote": "The greatest trick the Devil ever pulled was convincing the world he didn't exist.",
+    "boss_punned_quote": "The greatest Bolshevik the Devil ever pulled was convincing the world he didn't exist.",
+    "boss_poster_url": "/assets/posters/the_usual_soviets_poster_vertical_1780032058.png",
+    "boss_hint2": "T__ U____ S______",
+    "answer": "___ _____ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_487_1779598582922",
+    "boss_id": "boss_quote_487_1779598582922",
+    "boss_original_title": "No Country for Old Men",
+    "boss_pun_title": "No Country for Swole Men",
+    "boss_pitch": "A skinny West Texas sheriff investigates a trail of exploded protein powder tubs and discarded dumbbells left by a ruthless hitman obsessed with achieving the ultimate shoulder pump.",
+    "boss_original_quote": "I always figured when I got older, God would sorta come into my life somehow. And he didn't.",
+    "boss_punned_quote": "I always figured when I got shoulder, God would sorta come into my life somehow. And he didn't.",
+    "boss_poster_url": "/assets/posters/no_country_for_swole_men_poster_vertical_1780031012.png",
+    "boss_hint2": "N_ C______ f__ S____ M__",
+    "answer": "__ _______ ___ _____ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_487_1779598594046",
+    "boss_id": "boss_quote_487_1779598594046",
+    "boss_original_title": "No Country for Old Men",
+    "boss_pun_title": "Mow Country for Old Men",
+    "boss_pitch": "A weary Texas sheriff reflects on his inability to grow a lush lawn while hunting down a ruthless landscaping hitman who flips a coin to decide who gets premium turf and who gets crabgrass.",
+    "boss_original_quote": "I always figured when I got older, God would sorta come into my life somehow. And he didn't.",
+    "boss_punned_quote": "I always figured when I got older, Sod would sorta come into my life somehow. And he didn't.",
+    "boss_poster_url": "/assets/posters/mow_country_for_old_men_poster_vertical_1780031033.png",
+    "boss_hint2": "M__ C______ f__ O__ M__",
+    "answer": "___ _______ ___ ___ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_458_1779598169992",
+    "boss_id": "boss_quote_458_1779598169992",
+    "boss_original_title": "Goodfellas",
+    "boss_pun_title": "Goodfelines",
+    "boss_pitch": "A gritty mob epic chronicling the rise and fall of a ruthless crew of underground exotic cat smugglers, where the ultimate mafia sin is weaponizing a tabby against your own crew.",
+    "boss_original_quote": "Never rat on your friends, and always keep your mouth shut.",
+    "boss_punned_quote": "Never cat on your friends, and always keep your mouth shut.",
+    "boss_poster_url": "/assets/posters/goodfelines_poster_vertical_1780030894.png",
+    "boss_hint2": "G__________",
+    "answer": "___________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_429_1779598369515",
+    "boss_id": "boss_quote_429_1779598369515",
+    "boss_original_title": "Fight Club",
+    "boss_pun_title": "Fight Shrub",
+    "boss_pitch": "A depressed insomniac and his chaotic alter-ego form an underground landscaping society where disgruntled suburban men take out their primal urges by violently pruning topiary.",
+    "boss_original_quote": "I want you to hit me as hard as you can.",
+    "boss_punned_quote": "I want you to hit me as yard as you can.",
+    "boss_poster_url": "/assets/posters/fight_shrub_poster_vertical_1780030968.png",
+    "boss_hint2": "F____ S____",
+    "answer": "_____ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_227_1779597968652",
+    "boss_id": "boss_quote_227_1779597968652",
+    "boss_original_title": "The Matrix",
+    "boss_pun_title": "The Pray-trix",
+    "boss_pitch": "When a prophesied hacker discovers humanity is secretly trapped in a digital convent, he must summon a massive army of heavily armed Catholic sisters to overthrow the synthetic Pope.",
+    "boss_original_quote": "Guns. Lots of guns.",
+    "boss_punned_quote": "Nuns. Lots of nuns.",
+    "boss_poster_url": "/assets/posters/the_praytrix_poster_vertical_1780030825.png",
+    "boss_hint2": "T__ P___-____",
+    "answer": "___ ____-____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_254_1779597798370",
+    "boss_id": "boss_quote_254_1779597798370",
+    "boss_original_title": "Titanic",
+    "boss_pun_title": "Pi-tanic",
+    "boss_pitch": "A centenarian mathematician recounts the tragic sinking of an unsinkable luxury observatory that collided with a giant geometric shape, forcing the survivors to endlessly count floating round objects.",
+    "boss_original_quote": "It's been 84 years...",
+    "boss_punned_quote": "It's been 84 Spheres...",
+    "boss_poster_url": "/assets/posters/pitanic_poster_vertical_1780030707.png",
+    "boss_hint2": "P_-_____",
+    "answer": "__-_____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_269_1779596405088",
+    "boss_id": "boss_quote_269_1779596405088",
+    "boss_original_title": "A Few Good Men",
+    "boss_pun_title": "A Few Good Hens",
+    "boss_pitch": "A hot-headed military lawyer stages a dramatic tribunal at a local nursing home, aggressively cross-examining a flock of gossipy seniors to find out what happened to their missing bingo buddy, Ruth.",
+    "boss_original_quote": "I want the truth!",
+    "boss_punned_quote": "I want the Ruth!",
+    "boss_poster_url": "/assets/posters/a_few_good_hens_poster_vertical_1780030591.png",
+    "boss_hint2": "A F__ G___ H___",
+    "answer": "_ ___ ____ ____",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [
