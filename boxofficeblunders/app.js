@@ -491,10 +491,12 @@ function loadLevel() {
     // Render interactive blank slots
     renderGuessSlots();
 
-    // Automatically focus input so player can type immediately
-    setTimeout(() => {
-        ui.guessInput.focus();
-    }, 100);
+    // Automatically focus input on desktop so player can type immediately (skip on mobile to prevent layout shift/keyboard popup on load)
+    if (window.innerWidth >= 768) {
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
+    }
 
     // Trigger puzzle engagement start event
     sendTelemetryEvent('start');
@@ -579,10 +581,12 @@ function revealHint3() {
     // Render slots immediately with prefilled letters in correct positions
     renderGuessSlots();
 
-    // Auto-focus input
-    setTimeout(() => {
-        ui.guessInput.focus();
-    }, 100);
+    // Auto-focus input on desktop (skip on mobile to prevent focus-mode styling from immediately hiding the unlocked hint)
+    if (window.innerWidth >= 768) {
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
+    }
 }
 
 function revealHint4() {
@@ -611,10 +615,12 @@ function revealHint4() {
     // Render slots immediately with prefilled letters & vowels in correct positions
     renderGuessSlots();
 
-    // Auto-focus input
-    setTimeout(() => {
-        ui.guessInput.focus();
-    }, 100);
+    // Auto-focus input on desktop (skip on mobile to prevent focus-mode styling from immediately hiding the vowel rush reveal)
+    if (window.innerWidth >= 768) {
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
+    }
 }
 
 function generateFirstLetterBlanks(str) {
