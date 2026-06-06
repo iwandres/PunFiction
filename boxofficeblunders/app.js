@@ -1432,7 +1432,7 @@ function requestNextRewardedAd() {
         
         console.log("Requesting next GPT rewarded slot with production unit...");
         rewardedSlot = googletag.defineOutOfPageSlot(
-            '/1030340/1',
+            '/23355087107/PunFiction_Web_Rewarded',
             googletag.enums.OutOfPageFormat.REWARDED
         );
         
