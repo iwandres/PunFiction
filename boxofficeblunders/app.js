@@ -435,7 +435,25 @@ function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
     return `"${highlighted}"`;
 }
 
+function updateBackgroundGradient(puzzleNum) {
+    const num = parseInt(puzzleNum) || 1;
+    // Each challenge shifts the hue by 8 degrees for a smooth, progressive transition
+    const hueShift = (num * 8) % 360;
+    
+    const startHue = (50 + hueShift) % 360;
+    const endHue = (23 + hueShift) % 360;
+    
+    const startColor = `hsl(${startHue}, 100%, 67%)`;
+    const endColor = `hsl(${endHue}, 100%, 65%)`;
+    
+    document.documentElement.style.setProperty('--bg-color', startColor);
+    document.documentElement.style.setProperty('--bg-gradient-end', endColor);
+}
+
 function loadLevel() {
+    if (activeChallenge && activeChallenge.puzzle_number) {
+        updateBackgroundGradient(activeChallenge.puzzle_number);
+    }
     hint3Active = false;
     hint4Active = false;
     animateVowelRush = false;
