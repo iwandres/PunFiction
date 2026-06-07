@@ -1025,35 +1025,37 @@ async function loadAndRenderGlobalStats(puzzleNum) {
     // to prevent showing 0 solves or outdated numbers before the POST request completes.
     if (stats) {
         stats.start = (stats.start || 0) + 1;
-        const clampedHints = Math.max(0, Math.min(3, parseInt(hintsUsed) || 0));
+        const clampedHints = Math.max(0, Math.min(4, parseInt(hintsUsed) || 0));
         stats[`solve_${clampedHints}`] = (stats[`solve_${clampedHints}`] || 0) + 1;
     }
     
     // Calculate percentages
     let totalStarts = stats.start || 1;
-    let totalSolves = (stats.solve_0 || 0) + (stats.solve_1 || 0) + (stats.solve_2 || 0) + (stats.solve_3 || 0);
+    let totalSolves = (stats.solve_0 || 0) + (stats.solve_1 || 0) + (stats.solve_2 || 0) + (stats.solve_3 || 0) + (stats.solve_4 || 0);
     if (totalStarts < totalSolves) totalStarts = totalSolves;
     
     const solveRate = Math.round((totalSolves / totalStarts) * 100);
     
-    let pct0 = 0, pct1 = 0, pct2 = 0, pct3 = 0;
+    let pct0 = 0, pct1 = 0, pct2 = 0, pct3 = 0, pct4 = 0;
     if (totalSolves > 0) {
         pct0 = Math.round((stats.solve_0 / totalSolves) * 100);
         pct1 = Math.round((stats.solve_1 / totalSolves) * 100);
         pct2 = Math.round((stats.solve_2 / totalSolves) * 100);
         pct3 = Math.round((stats.solve_3 / totalSolves) * 100);
+        pct4 = Math.round((stats.solve_4 / totalSolves) * 100);
         
-        const sum = pct0 + pct1 + pct2 + pct3;
+        const sum = pct0 + pct1 + pct2 + pct3 + pct4;
         if (sum !== 100 && sum > 0) {
             const diff = 100 - sum;
-            const maxVal = Math.max(pct0, pct1, pct2, pct3);
+            const maxVal = Math.max(pct0, pct1, pct2, pct3, pct4);
             if (pct0 === maxVal) pct0 += diff;
             else if (pct1 === maxVal) pct1 += diff;
             else if (pct2 === maxVal) pct2 += diff;
-            else pct3 += diff;
+            else if (pct3 === maxVal) pct3 += diff;
+            else pct4 += diff;
         }
     } else {
-        pct0 = 0; pct1 = 0; pct2 = 0; pct3 = 0;
+        pct0 = 0; pct1 = 0; pct2 = 0; pct3 = 0; pct4 = 0;
     }
     
     // Render Stats
@@ -1065,32 +1067,38 @@ async function loadAndRenderGlobalStats(puzzleNum) {
     const fill1 = document.getElementById('funnel-fill-1');
     const fill2 = document.getElementById('funnel-fill-2');
     const fill3 = document.getElementById('funnel-fill-3');
+    const fill4 = document.getElementById('funnel-fill-4');
     
     const pct0Label = document.getElementById('funnel-pct-0');
     const pct1Label = document.getElementById('funnel-pct-1');
     const pct2Label = document.getElementById('funnel-pct-2');
     const pct3Label = document.getElementById('funnel-pct-3');
+    const pct4Label = document.getElementById('funnel-pct-4');
     
     if (fill0) fill0.style.width = '0%';
     if (fill1) fill1.style.width = '0%';
     if (fill2) fill2.style.width = '0%';
     if (fill3) fill3.style.width = '0%';
+    if (fill4) fill4.style.width = '0%';
     
     if (pct0Label) pct0Label.innerText = '0%';
     if (pct1Label) pct1Label.innerText = '0%';
     if (pct2Label) pct2Label.innerText = '0%';
     if (pct3Label) pct3Label.innerText = '0%';
+    if (pct4Label) pct4Label.innerText = '0%';
     
     setTimeout(() => {
         if (fill0) fill0.style.width = `${pct0}%`;
         if (fill1) fill1.style.width = `${pct1}%`;
         if (fill2) fill2.style.width = `${pct2}%`;
         if (fill3) fill3.style.width = `${pct3}%`;
+        if (fill4) fill4.style.width = `${pct4}%`;
         
         if (pct0Label) pct0Label.innerText = `${pct0}%`;
         if (pct1Label) pct1Label.innerText = `${pct1}%`;
         if (pct2Label) pct2Label.innerText = `${pct2}%`;
         if (pct3Label) pct3Label.innerText = `${pct3}%`;
+        if (pct4Label) pct4Label.innerText = `${pct4}%`;
     }, 200);
 }
 
@@ -1372,23 +1380,26 @@ function getDeterministicMockMetrics(puzzleNum) {
     const totalSolves = Math.round(totalStarts * (solveRatePct / 100));
     
     // Create highly distinct distributions based on puzzle number to avoid looking like "overall averages"
-    const p1 = 0.25 + ((num * 17) % 30) / 100; // 25% to 55%
-    const p2 = 0.20 + ((num * 23) % 25) / 100; // 20% to 45%
-    const p3 = 0.10 + ((num * 13) % 20) / 100; // 10% to 30%
-    const p4 = Math.max(0.02, 1.0 - p1 - p2 - p3);
+    const p1 = 0.20 + ((num * 17) % 25) / 100; // 20% to 45%
+    const p2 = 0.18 + ((num * 23) % 20) / 100; // 18% to 38%
+    const p3 = 0.10 + ((num * 13) % 15) / 100; // 10% to 25%
+    const p4 = 0.08 + ((num * 7) % 10) / 100;  // 8% to 18%
+    const p5 = Math.max(0.02, 1.0 - p1 - p2 - p3 - p4);
     
-    const sumP = p1 + p2 + p3 + p4;
+    const sumP = p1 + p2 + p3 + p4 + p5;
     const solve_0 = Math.round(totalSolves * (p1 / sumP));
     const solve_1 = Math.round(totalSolves * (p2 / sumP));
     const solve_2 = Math.round(totalSolves * (p3 / sumP));
-    const solve_3 = Math.max(0, totalSolves - solve_0 - solve_1 - solve_2);
+    const solve_3 = Math.round(totalSolves * (p4 / sumP));
+    const solve_4 = Math.max(0, totalSolves - solve_0 - solve_1 - solve_2 - solve_3);
     
     return {
         start: totalStarts,
         solve_0: solve_0,
         solve_1: solve_1,
         solve_2: solve_2,
-        solve_3: solve_3
+        solve_3: solve_3,
+        solve_4: solve_4
     };
 }
 

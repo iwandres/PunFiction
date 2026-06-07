@@ -1136,6 +1136,10 @@ input:focus {
     background: var(--accent-main); /* #ff4757 */
 }
 
+.funnel-bar-fill.four-hints {
+    background: #54a0ff;
+}
+
 .funnel-pct {
     width: 35px;
     font-size: 0.85rem;
