@@ -1016,8 +1016,6 @@ function triggerVictory() {
 }
 
 async function loadAndRenderGlobalStats(puzzleNum) {
-    let stats = null;
-    
     const solveRateBadge = document.getElementById('solve-rate-badge');
     if (solveRateBadge) {
         solveRateBadge.innerText = "⚡ RETRIEVING LIVE BOX OFFICE METRICS...";
@@ -1028,47 +1026,14 @@ async function loadAndRenderGlobalStats(puzzleNum) {
         funnelContainer.classList.add('loading');
     }
     
-    try {
-        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? `/api/telemetry?puzzle_number=${puzzleNum}`
-            : `${BACKEND_API_URL}/api/telemetry?puzzle_number=${puzzleNum}`;
-            
-        // Timeout after 3.5 seconds to bypass slow/sleeping Render cold starts Snappily!
-        const response = await fetchWithTimeout(telemetryUrl, { timeout: 3500 });
-        if (response.ok) {
-            const rawStats = await response.json();
-            if (rawStats.start > 0) {
-                stats = rawStats;
-                console.log("Telemetry stats successfully loaded from live Render backend!");
-            }
-        }
-    } catch (e) {
-        console.log("Primary telemetry API fetch failed or timed out, trying static fallback...", e);
-        // Fallback to static GitHub JSON file (highly resilient!)
-        try {
-            const staticUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
-            const response = await fetchWithTimeout(staticUrl, { timeout: 3500 });
-            if (response.ok) {
-                const rawStats = await response.json();
-                const puzzleStats = rawStats[puzzleNum];
-                if (puzzleStats && puzzleStats.start > 0) {
-                    stats = puzzleStats;
-                    console.log("Telemetry stats successfully loaded from static raw CDN!");
-                }
-            }
-        } catch (staticE) {
-            console.log("Static telemetry fallback fetch failed.", staticE);
-        }
-    }
+    // Fetch combined telemetry stats
+    await fetchAllTelemetryStats();
     
     if (funnelContainer) {
         funnelContainer.classList.remove('loading');
     }
     
-    if (!stats) {
-        stats = getDeterministicMockMetrics(puzzleNum);
-        console.log("Using deterministic high-fidelity mock metrics as fallback.");
-    }
+    let stats = getPuzzleTelemetryStats(puzzleNum);
     
     // Ensure the current user's solve is immediately accounted for in the rendered stats
     // to prevent showing 0 solves or outdated numbers before the POST request completes.
@@ -1425,7 +1390,7 @@ function getDeterministicMockMetrics(puzzleNum) {
     const seedFactor = pseudoSeed / 233280;
     
     const totalStarts = Math.floor(250 + seedFactor * 500); // 250 to 750
-    const solveRatePct = Math.floor(75 + seedFactor * 20); // 75% to 95%
+    const solveRatePct = Math.floor(55 + seedFactor * 35); // 55% to 90%
     const totalSolves = Math.round(totalStarts * (solveRatePct / 100));
     
     // Create highly distinct distributions based on puzzle number to avoid looking like "overall averages"
@@ -1513,6 +1478,9 @@ function requestNextRewardedAd() {
 async function fetchAllTelemetryStats() {
     if (allTelemetry) return allTelemetry;
     
+    let liveData = {};
+    let staticData = {};
+    
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? '/api/telemetry'
@@ -1522,13 +1490,12 @@ async function fetchAllTelemetryStats() {
         if (response.ok) {
             const data = await response.json();
             if (data && typeof data === 'object' && !data.hasOwnProperty('start')) {
-                allTelemetry = data;
-                console.log("Telemetry stats for all puzzles successfully loaded from live Render backend!");
-                return allTelemetry;
+                liveData = data;
+                console.log("Live telemetry fetched successfully for merging.");
             }
         }
     } catch (e) {
-        console.log("All-puzzles telemetry live fetch failed/timed out, trying static fallback...", e);
+        console.log("Failed to fetch live telemetry for merging, using empty object.", e);
     }
     
     try {
@@ -1537,16 +1504,31 @@ async function fetchAllTelemetryStats() {
         if (response.ok) {
             const data = await response.json();
             if (data && typeof data === 'object') {
-                allTelemetry = data;
-                console.log("Telemetry stats for all puzzles successfully loaded from static raw CDN!");
-                return allTelemetry;
+                staticData = data;
+                console.log("Static telemetry fetched successfully for merging.");
             }
         }
     } catch (staticE) {
-        console.log("Static all-puzzles telemetry fallback fetch failed.", staticE);
+        console.log("Static telemetry fetch for merging failed.", staticE);
     }
     
+    // Merge live and static data
     allTelemetry = {};
+    const allKeys = new Set([...Object.keys(liveData), ...Object.keys(staticData)]);
+    allKeys.forEach(key => {
+        const live = liveData[key] || {};
+        const stat = staticData[key] || {};
+        
+        allTelemetry[key] = {
+            start: (parseInt(live.start) || 0) + (parseInt(stat.start) || 0),
+            solve_0: (parseInt(live.solve_0) || 0) + (parseInt(stat.solve_0) || 0),
+            solve_1: (parseInt(live.solve_1) || 0) + (parseInt(stat.solve_1) || 0),
+            solve_2: (parseInt(live.solve_2) || 0) + (parseInt(stat.solve_2) || 0),
+            solve_3: (parseInt(live.solve_3) || 0) + (parseInt(stat.solve_3) || 0),
+            solve_4: (parseInt(live.solve_4) || 0) + (parseInt(stat.solve_4) || 0)
+        };
+    });
+    
     return allTelemetry;
 }
 
