@@ -30,6 +30,7 @@
                     <span class="level-indicator" id="challenge-header">Challenge #???</span>
                     <button id="btn-next-challenge" class="challenge-nav-btn" title="Next Challenge">▶</button>
                 </div>
+                <button id="btn-stats-select" class="stats-select-btn" title="Stats & Level Select">🏆</button>
                 <button id="btn-how-to-play" class="how-to-play-btn" title="How to Play">?</button>
                 
                 <p class="question-subtext" style="font-weight: 900; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; margin-top: 10px; letter-spacing: 0.5px; opacity: 0.85; width: 100%; text-align: center;">Guess the movie based on the fictional quote</p>
@@ -191,6 +192,80 @@
                 </div>
                 
                 <p class="how-to-play-tip">💡 <strong>Pro Tip:</strong> Use the progressive hints at the bottom if you get stuck! They show the original movie title, highlight the pun, and even fill in letters and vowels!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats & Level Select Modal -->
+    <div id="stats-select-modal" class="poster-modal">
+        <div class="stats-select-card">
+            <button id="btn-close-stats-select" class="modal-close-btn">&times;</button>
+            <h2 class="stats-select-title">🏆 STATS & LEVELS</h2>
+            
+            <!-- Aggregate Stats Section -->
+            <div class="aggregate-stats-container">
+                <div class="aggregate-stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value" id="agg-total-starts">0</span>
+                        <span class="stat-label">Total Starts</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="agg-total-solves">0</span>
+                        <span class="stat-label">Total Solves</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="agg-solve-rate">0%</span>
+                        <span class="stat-label">Solve Rate</span>
+                    </div>
+                </div>
+                
+                <!-- Solve Distribution Funnel -->
+                <div class="agg-funnel-container">
+                    <h3 class="agg-funnel-title">SOLVE DISTRIBUTION</h3>
+                    <div class="funnel-row">
+                        <span class="funnel-label">🏆 No Hints</span>
+                        <div class="funnel-bar-track">
+                            <div class="funnel-bar-fill no-hints" id="agg-funnel-fill-0" style="width: 0%;"></div>
+                        </div>
+                        <span class="funnel-pct" id="agg-funnel-pct-0">0%</span>
+                    </div>
+                    <div class="funnel-row">
+                        <span class="funnel-label">🥇 1 Hint</span>
+                        <div class="funnel-bar-track">
+                            <div class="funnel-bar-fill one-hint" id="agg-funnel-fill-1" style="width: 0%;"></div>
+                        </div>
+                        <span class="funnel-pct" id="agg-funnel-pct-1">0%</span>
+                    </div>
+                    <div class="funnel-row">
+                        <span class="funnel-label">🥈 2 Hints</span>
+                        <div class="funnel-bar-track">
+                            <div class="funnel-bar-fill two-hints" id="agg-funnel-fill-2" style="width: 0%;"></div>
+                        </div>
+                        <span class="funnel-pct" id="agg-funnel-pct-2">0%</span>
+                    </div>
+                    <div class="funnel-row">
+                        <span class="funnel-label">🥉 3 Hints</span>
+                        <div class="funnel-bar-track">
+                            <div class="funnel-bar-fill three-hints" id="agg-funnel-fill-3" style="width: 0%;"></div>
+                        </div>
+                        <span class="funnel-pct" id="agg-funnel-pct-3">0%</span>
+                    </div>
+                    <div class="funnel-row">
+                        <span class="funnel-label">⚡ Vowel Rush</span>
+                        <div class="funnel-bar-track">
+                            <div class="funnel-bar-fill four-hints" id="agg-funnel-fill-4" style="width: 0%;"></div>
+                        </div>
+                        <span class="funnel-pct" id="agg-funnel-pct-4">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <!-- Challenges List Section -->
+            <h3 class="challenges-section-title">🎬 SELECT A CHALLENGE</h3>
+            <div class="challenges-list-container" id="challenges-list">
+                <!-- Dynamically populated challenge list -->
             </div>
         </div>
     </div>

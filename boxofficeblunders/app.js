@@ -56,6 +56,7 @@ let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory s
 let inventory = []; // accumulated target words
 let currentPuzzleIndex = 0; // index in local puzzles array
 let activeFetchedFromCDN = false; // flag to trace assets loading
+let allTelemetry = null; // cached telemetry stats for all puzzles
 
 // DOM Elements Mapping
 const screens = {
@@ -245,6 +246,36 @@ window.onload = async () => {
         howToPlayModal.onclick = (e) => {
             if (e.target === howToPlayModal) {
                 howToPlayModal.classList.remove('active');
+            }
+        };
+    }
+
+    // Stats & Level Select Modal bindings
+    const statsSelectModal = document.getElementById('stats-select-modal');
+    const btnStatsSelect = document.getElementById('btn-stats-select');
+    const btnCloseStatsSelect = document.getElementById('btn-close-stats-select');
+
+    if (btnStatsSelect) {
+        btnStatsSelect.onclick = () => {
+            if (statsSelectModal) {
+                statsSelectModal.classList.add('active');
+                openStatsSelectModal();
+            }
+        };
+    }
+
+    if (btnCloseStatsSelect) {
+        btnCloseStatsSelect.onclick = () => {
+            if (statsSelectModal) {
+                statsSelectModal.classList.remove('active');
+            }
+        };
+    }
+
+    if (statsSelectModal) {
+        statsSelectModal.onclick = (e) => {
+            if (e.target === statsSelectModal) {
+                statsSelectModal.classList.remove('active');
             }
         };
     }
@@ -1475,4 +1506,177 @@ function requestNextRewardedAd() {
             console.warn("Failed to create Out-Of-Page rewarded slot.");
         }
     });
+}
+
+// ================= STATS & LEVEL SELECT CONTROLLER =================
+
+async function fetchAllTelemetryStats() {
+    if (allTelemetry) return allTelemetry;
+    
+    try {
+        const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? '/api/telemetry'
+            : `${BACKEND_API_URL}/api/telemetry`;
+            
+        const response = await fetchWithTimeout(telemetryUrl, { timeout: 3500 });
+        if (response.ok) {
+            const data = await response.json();
+            if (data && typeof data === 'object' && !data.hasOwnProperty('start')) {
+                allTelemetry = data;
+                console.log("Telemetry stats for all puzzles successfully loaded from live Render backend!");
+                return allTelemetry;
+            }
+        }
+    } catch (e) {
+        console.log("All-puzzles telemetry live fetch failed/timed out, trying static fallback...", e);
+    }
+    
+    try {
+        const staticUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
+        const response = await fetchWithTimeout(staticUrl, { timeout: 3500 });
+        if (response.ok) {
+            const data = await response.json();
+            if (data && typeof data === 'object') {
+                allTelemetry = data;
+                console.log("Telemetry stats for all puzzles successfully loaded from static raw CDN!");
+                return allTelemetry;
+            }
+        }
+    } catch (staticE) {
+        console.log("Static all-puzzles telemetry fallback fetch failed.", staticE);
+    }
+    
+    allTelemetry = {};
+    return allTelemetry;
+}
+
+function getPuzzleTelemetryStats(puzzleNum) {
+    if (allTelemetry && allTelemetry[puzzleNum] && allTelemetry[puzzleNum].start > 0) {
+        return allTelemetry[puzzleNum];
+    }
+    return getDeterministicMockMetrics(puzzleNum);
+}
+
+function getChallengeDifficulty(challenge, stats) {
+    const starts = parseInt(stats.start) || 0;
+    const s0 = parseInt(stats.solve_0) || 0;
+    const s1 = parseInt(stats.solve_1) || 0;
+    const s2 = parseInt(stats.solve_2) || 0;
+    const s3 = parseInt(stats.solve_3) || 0;
+    const s4 = parseInt(stats.solve_4) || 0;
+    const totalSolves = s0 + s1 + s2 + s3 + s4;
+    
+    if (starts > 10) {
+        const solveRate = (totalSolves / starts) * 100;
+        if (solveRate >= 85) return 'Easy';
+        if (solveRate >= 68) return 'Medium';
+        return 'Hard';
+    } else {
+        const tier = parseInt(challenge.difficulty_tier) || 2;
+        if (tier === 1) return 'Easy';
+        if (tier === 3) return 'Hard';
+        return 'Medium';
+    }
+}
+
+async function openStatsSelectModal() {
+    // 1. Show loading indicator states
+    document.getElementById('agg-total-starts').innerText = '...';
+    document.getElementById('agg-total-solves').innerText = '...';
+    document.getElementById('agg-solve-rate').innerText = '...';
+    
+    for (let i = 0; i <= 4; i++) {
+        const fillBar = document.getElementById(`agg-funnel-fill-${i}`);
+        const pctLabel = document.getElementById(`agg-funnel-pct-${i}`);
+        if (fillBar) fillBar.style.width = '0%';
+        if (pctLabel) pctLabel.innerText = '0%';
+    }
+    
+    const challengesList = document.getElementById('challenges-list');
+    if (challengesList) {
+        challengesList.innerHTML = '<div style="text-align: center; padding: 20px; font-weight: 800; color: var(--text-secondary);">Loading challenges...</div>';
+    }
+
+    // 2. Fetch stats
+    const statsData = await fetchAllTelemetryStats();
+    
+    // 3. Aggregate stats
+    const approved = getApprovedChallenges();
+    let totalStarts = 0;
+    let totalSolves = 0;
+    const hintSolves = [0, 0, 0, 0, 0];
+    
+    approved.forEach(c => {
+        const stats = getPuzzleTelemetryStats(c.puzzle_number);
+        const starts = parseInt(stats.start) || 0;
+        const s0 = parseInt(stats.solve_0) || 0;
+        const s1 = parseInt(stats.solve_1) || 0;
+        const s2 = parseInt(stats.solve_2) || 0;
+        const s3 = parseInt(stats.solve_3) || 0;
+        const s4 = parseInt(stats.solve_4) || 0;
+        
+        totalStarts += starts;
+        totalSolves += (s0 + s1 + s2 + s3 + s4);
+        hintSolves[0] += s0;
+        hintSolves[1] += s1;
+        hintSolves[2] += s2;
+        hintSolves[3] += s3;
+        hintSolves[4] += s4;
+    });
+    
+    const solveRate = totalStarts > 0 ? ((totalSolves / totalStarts) * 100).toFixed(1) : '0.0';
+    
+    document.getElementById('agg-total-starts').innerText = totalStarts.toLocaleString();
+    document.getElementById('agg-total-solves').innerText = totalSolves.toLocaleString();
+    document.getElementById('agg-solve-rate').innerText = `${solveRate}%`;
+    
+    for (let i = 0; i <= 4; i++) {
+        const count = hintSolves[i];
+        const pct = totalSolves > 0 ? Math.round((count / totalSolves) * 100) : 0;
+        const fillBar = document.getElementById(`agg-funnel-fill-${i}`);
+        const pctLabel = document.getElementById(`agg-funnel-pct-${i}`);
+        if (fillBar) fillBar.style.width = `${pct}%`;
+        if (pctLabel) pctLabel.innerText = `${pct}%`;
+    }
+    
+    // 4. Populate list of challenges
+    if (challengesList) {
+        challengesList.innerHTML = '';
+        
+        approved.forEach(c => {
+            const stats = getPuzzleTelemetryStats(c.puzzle_number);
+            const difficulty = getChallengeDifficulty(c, stats);
+            
+            const row = document.createElement('div');
+            row.className = 'challenge-select-row';
+            
+            const isActive = activeChallenge && activeChallenge.puzzle_number === c.puzzle_number;
+            if (isActive) {
+                row.style.borderColor = '#5f27cd';
+                row.style.background = '#f1eafd';
+            }
+            
+            const displayNum = parseInt(c.puzzle_number);
+            const chalName = c.boss_pun_title || 'Untitled';
+            
+            row.innerHTML = `
+                <div class="challenge-select-info">
+                    <span class="challenge-select-num">Challenge #${displayNum}</span>
+                    <span class="challenge-select-name">${chalName}</span>
+                </div>
+                <span class="difficulty-badge ${difficulty.toLowerCase()}">${difficulty}</span>
+            `;
+            
+            row.onclick = () => {
+                startGame(c);
+                history.replaceState(null, "", `?challenge=${c.puzzle_number}`);
+                const statsSelectModal = document.getElementById('stats-select-modal');
+                if (statsSelectModal) {
+                    statsSelectModal.classList.remove('active');
+                }
+            };
+            
+            challengesList.appendChild(row);
+        });
+    }
 }
