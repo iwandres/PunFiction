@@ -73,6 +73,7 @@ const ui = {
     pitchDisplay: document.getElementById('pitch-display'),
     guessSlotsContainer: document.getElementById('guess-slots-container'),
     guessInput: document.getElementById('guess-input'),
+    guessForm: document.getElementById('guess-form'),
     feedbackMsg: document.getElementById('feedback-msg'),
     
     // Progressive hints
@@ -104,11 +105,12 @@ window.onload = async () => {
     // 1. Setup UI bindings
     document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
-    ui.btnSubmit.onclick = handleGuessSubmit;
+    ui.guessForm.onsubmit = (e) => {
+        e.preventDefault();
+        handleGuessSubmit();
+    };
     ui.guessInput.onkeydown = (e) => {
-        if (e.key === 'Enter') {
-            handleGuessSubmit();
-        } else if (e.key === 'Backspace') {
+        if (e.key === 'Backspace') {
             // Snappy rendering fallback on backspace
             setTimeout(renderGuessSlots, 0);
         }

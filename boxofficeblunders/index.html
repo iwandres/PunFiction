@@ -80,10 +80,10 @@
                 <div class="guess-slots-container" id="guess-slots-container"></div>
                 
                 <!-- User Input Section -->
-                <div class="input-section" style="justify-content: center;">
+                <form id="guess-form" class="input-section" style="justify-content: center; margin: 0; width: 100%;" onsubmit="event.preventDefault();">
                     <input type="text" id="guess-input" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="latin">
-                    <button id="btn-submit" class="btn primary-btn" style="padding: 12px 30px;">Submit Guess</button>
-                </div>
+                    <button id="btn-submit" type="submit" class="btn primary-btn" style="padding: 12px 30px;">Submit Guess</button>
+                </form>
                 
                 <div id="feedback-msg" class="feedback"></div>
             </div>
