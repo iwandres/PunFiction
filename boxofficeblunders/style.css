@@ -1428,6 +1428,9 @@ input:focus {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow: hidden;
+    flex: 1;
+    margin-right: 15px;
 }
 
 .challenge-select-num {
@@ -1440,6 +1443,10 @@ input:focus {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .difficulty-badge {

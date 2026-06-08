@@ -1639,12 +1639,12 @@ async function openStatsSelectModal() {
             }
             
             const displayNum = parseInt(c.puzzle_number);
-            const chalName = c.boss_pun_title || 'Untitled';
+            const chalQuote = c.boss_punned_quote ? `"${c.boss_punned_quote}"` : '"Quote Text Missing"';
             
             row.innerHTML = `
                 <div class="challenge-select-info">
                     <span class="challenge-select-num">Challenge #${displayNum}</span>
-                    <span class="challenge-select-name">${chalName}</span>
+                    <span class="challenge-select-name">${chalQuote}</span>
                 </div>
                 <span class="difficulty-badge ${difficulty.toLowerCase()}">${difficulty}</span>
             `;
