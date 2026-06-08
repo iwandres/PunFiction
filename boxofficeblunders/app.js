@@ -57,6 +57,7 @@ let inventory = []; // accumulated target words
 let currentPuzzleIndex = 0; // index in local puzzles array
 let activeFetchedFromCDN = false; // flag to trace assets loading
 let allTelemetry = null; // cached telemetry stats for all puzzles
+let telemetryStartSent = false; // flag to ensure start event is only sent once per session on interaction
 
 // DOM Elements Mapping
 const screens = {
@@ -427,6 +428,7 @@ function startGame(challenge) {
     hintsUsed = 0;
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
+    telemetryStartSent = false; // Reset start telemetry flag for new session
 
     switchScreen('game');
     loadLevel();
@@ -548,12 +550,10 @@ function loadLevel() {
             ui.guessInput.focus();
         }, 100);
     }
-
-    // Trigger puzzle engagement start event
-    sendTelemetryEvent('start');
 }
 
 function revealHint1() {
+    triggerStartTelemetry();
     ui.btnShowHint1.classList.add('hidden');
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden'); // Reveal unified Hint Box
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
@@ -561,6 +561,7 @@ function revealHint1() {
 }
 
 function revealHint2() {
+    triggerStartTelemetry();
     const btn = ui.btnShowHint2;
     const btnRect = btn.getBoundingClientRect();
     
@@ -605,6 +606,7 @@ function revealHint2() {
 }
 
 function revealHint3() {
+    triggerStartTelemetry();
     ui.btnShowHint3.classList.add('hidden');
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
     if (ui.hintLettersSection) ui.hintLettersSection.classList.remove('hidden'); // Reveal First Letters section inside box
@@ -641,6 +643,7 @@ function revealHint3() {
 }
 
 function revealHint4() {
+    triggerStartTelemetry();
     ui.btnShowHint4.classList.add('hidden');
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
     if (ui.hintVowelsSection) ui.hintVowelsSection.classList.remove('hidden'); // Reveal Vowel Rush section inside box
@@ -687,6 +690,7 @@ function generateFirstLetterBlanks(str) {
 // ================= INTERACTIVE CHAR-SLOT PUZZLE LOGIC =================
 
 function handleGuessInput() {
+    triggerStartTelemetry();
     const origVal = ui.guessInput.value;
     const sanitizedVal = origVal.replace(/[^a-zA-Z]/g, '');
     if (origVal !== sanitizedVal) {
@@ -1417,6 +1421,11 @@ function getDeterministicMockMetrics(puzzleNum) {
     };
 }
 
+function triggerStartTelemetry() {
+    if (telemetryStartSent) return;
+    telemetryStartSent = true;
+    sendTelemetryEvent('start');
+}
 
 async function sendTelemetryEvent(event, hints = 0) {
     const puzzleNum = activeChallenge ? activeChallenge.puzzle_number : null;
