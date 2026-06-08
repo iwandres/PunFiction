@@ -4045,56 +4045,20 @@
   },
   {
     "pun_id": "quote_077_1778766656019",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_077_1778766656019",
-      "quote_id": "quote_077",
-      "text": "Strife, uh... finds a way.",
-      "replaced_word": "life",
-      "rhyme_used": "Strife",
-      "parody_title": "Jurassic Snark",
-      "parody_pitch": "An eccentric billionaire clones the universe's most dramatic, argument-prone reality TV stars to populate a chaotic theme park, only to discover that petty interpersonal conflict cannot be contained.",
-      "thought_process": "1. Pitch: An eccentric billionaire clones the universe's most dramatic, argument-prone reality TV stars to populate a chaotic theme park, only to discover that petty interpersonal conflict cannot be contained. 2. Phonetic Target: 'Jurassic Park' (Joo-rass-ik Park). 'Jurassic' rhymes with classic, plastic, sarcastic, drastic. 'Park' rhymes with dark, bark, snark, spark. 3. Thematic Brainstorm: Strife -> conflict, drama, arguing, sarcasm, snark, bickering, clash. 4. Intersection: 'Snark' perfectly rhymes with 'Park' and captures the essence of interpersonal strife. Alternatively, 'Sarcastic' rhymes with 'Jurassic'. Let's combine the original first word with the rhyming second word for 'Jurassic Snark'.",
-      "target_guess_words": [
-        "Strife"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779596949653
   },
   {
     "pun_id": "quote_077_1778766658924",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_077_1778766658924",
-      "quote_id": "quote_077",
-      "text": "Ex-wives, uh... find a way.",
-      "replaced_word": "life",
-      "rhyme_used": "Wife",
-      "parody_title": "Your Exes Park",
-      "parody_pitch": "An eccentric billionaire builds an island theme park populated by genetically engineered clones of his former spouses, but disaster strikes when the fences fail and they relentlessly hunt him down for alimony.",
-      "thought_process": "1. Pitch: An eccentric billionaire builds an island theme park populated entirely by genetically engineered clones of his former spouses, but disaster strikes when they escape their enclosures to mercilessly hunt him down for alimony. 2. Phonetic Target: 'Jurassic Park'. 'Jurassic' is three syllables (Ju-ras-sic) rhyming with drastic, plastic, and classic. 'Park' is one syllable rhyming with dark, shark, and bark. 3. Brainstorm: Wife -> spouse, bride, marriage, divorce, alimony, exes, ex-wife. 4. Intersection: 'Your exes' sounds phonetically very similar to 'Jurassic' (Ju-ras-sic -> Your-ex-es). Combining this with the original second word gives us 'Your Exes Park'.",
-      "target_guess_words": [
-        "Wife"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597037971
   },
   {
     "pun_id": "quote_077_1778766662273",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_077_1778766662273",
-      "quote_id": "quote_077",
-      "text": "Life, uh... finds a display.",
-      "replaced_word": "way",
-      "rhyme_used": "Display",
-      "parody_title": "Jurassic Spark",
-      "parody_pitch": "A visionary billionaire opens a massive big-box electronics store run by cloned prehistoric beasts, but chaos ensues when the velociraptors break loose to obsessively optimize the 4K television endcaps.",
-      "thought_process": "1. Pitch: A visionary billionaire opens a massive big-box electronics store run by cloned prehistoric beasts, but chaos ensues when the velociraptors break loose to obsessively optimize the 4K television endcaps. 2. Phonetic Target: 'Jurassic Park' has four syllables (Ju-ras-sic Park). The word 'Park' rhymes with -ark (dark, spark, bark, mark, ark). 3. Thematic Brainstorm: Display -> electronics, TVs, screens, electricity, spark, monitor, retail, tech. 4. Intersection: 'Spark' rhymes perfectly with 'Park' and fits the electronics/monitor display theme. Parody Title = 'Jurassic Spark'.",
-      "target_guess_words": [
-        "Display"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597060014
   },
   {
@@ -4105,20 +4069,8 @@
   },
   {
     "pun_id": "quote_077_1778766671014",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_077_1778766671014",
-      "quote_id": "quote_077",
-      "text": "Life, uh... finds a tray.",
-      "replaced_word": "way",
-      "rhyme_used": "Tray",
-      "parody_title": "Plastic Park",
-      "parody_pitch": "When a billionaire genetically engineers dinosaurs to work as lunch ladies in a massive prehistoric cafeteria, a skeptical chaotician marvels at how the T-Rex waitstaff always manages to safely deliver the sloppy joes.",
-      "thought_process": "1. Pitch: When a billionaire genetically engineers dinosaurs to work as lunch ladies in a chaotic, high-volume cafeteria, a skeptical chaotician marvels at how the T-Rex waitstaff always manages to serve the sloppy joes. 2. Phonetic Target: 'Jurassic Park' has two main words: 'Jurassic' (ju-RAS-ik) and 'Park' (-ark). Rhymes for Jurassic include classic, plastic, drastic. Rhymes for Park include dark, bark, spark. 3. Thematic Brainstorm: Tray -> food service, lunch, cafeteria, dish, spork, plastic, meal, buffet. 4. Intersection: 'Plastic' is a perfect rhyme for 'Jurassic' and ties directly into the material cafeteria trays are made of. Parody Title = 'Plastic Park'.",
-      "target_guess_words": [
-        "Tray"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597067092
   },
   {
@@ -4219,20 +4171,8 @@
   },
   {
     "pun_id": "quote_080_1778766747769",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_080_1778766747769",
-      "quote_id": "quote_080",
-      "text": "They may take our wives, but they'll never take our freedom!",
-      "replaced_word": "lives",
-      "rhyme_used": "Wives",
-      "parody_title": "Caveheart",
-      "parody_pitch": "After an evil English king kidnaps all the Scottish wives, a suddenly single warrior rallies his men to celebrate their newfound bachelorhood and defend the ultimate symbol of their liberty: the man-cave.",
-      "thought_process": "1. Pitch: After an evil English king kidnaps all the Scottish wives, a suddenly single warrior rallies his men to celebrate their newfound bachelorhood and defend the ultimate symbol of their liberty: the man-cave. 2. Phonetic Target: 'Braveheart' has two syllables: 'Brave' (rhymes with save, cave, wave, shave) and 'heart' (rhymes with part, smart, dart). 3. Brainstorm: marriage, bachelor, single, divorce, groom, man-cave, part, shave. 4. Intersection: 'Cave' (from man-cave, representing their bachelor freedom) rhymes perfectly with 'Brave'. Parody Title = Caveheart.",
-      "target_guess_words": [
-        "Wives"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597182006
   },
   {
@@ -4279,20 +4219,8 @@
   },
   {
     "pun_id": "quote_082_1778766964328",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_082_1778766964328",
-      "quote_id": "quote_082",
-      "text": "The crude abides.",
-      "replaced_word": "dude",
-      "rhyme_used": "Crude",
-      "parody_title": "The Rig Lebowski",
-      "parody_pitch": "A hopelessly lazy, foul-mouthed Texas oil prospector known only as 'The Crude' gets entangled in a convoluted kidnapping plot after thugs spill unrefined petroleum all over his favorite rug.",
-      "thought_process": "1. Pitch: A hopelessly lazy, foul-mouthed Texas oil prospector known only as 'The Crude' gets entangled in a convoluted kidnapping plot after thugs spill unrefined petroleum all over his favorite rug. 2. Phonetic Target: 'The Big Lebowski' breaks down into 'The' (th-uh), 'Big' (-ig), 'Le-bow-ski' (luh-bow-skee). 3. Thematic Brainstorm: crude -> oil, drill, spill, sludge, rig, barrel, unrefined, slick, texas, pump. 4. Intersection: 'Rig' rhymes perfectly with 'Big' and strongly ties to crude oil drilling. Parody Title = 'The Rig Lebowski'.",
-      "target_guess_words": [
-        "Crude"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597222745
   },
   {
@@ -4399,20 +4327,8 @@
   },
   {
     "pun_id": "quote_084_1778767103146",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_084_1778767103146",
-      "quote_id": "quote_084",
-      "text": "This one time, at sand camp...",
-      "replaced_word": "band",
-      "rhyme_used": "Sand",
-      "parody_title": "American Dry",
-      "parody_pitch": "A group of desperately horny high schoolers vow to lose their virginity by prom, but get continually thwarted because they accidentally enrolled in a grueling, all-dune desert survival program where the sandy chafing is absolute torture.",
-      "thought_process": "1. Pitch: A group of desperately horny high schoolers vow to lose their virginity by prom, but get continually thwarted because they accidentally enrolled in a grueling, all-dune desert survival program where the chafing is absolute torture. 2. Phonetic Target: 'American Pie' has two words. 'American' (uh-MAIR-ih-kin) and 'Pie' (one syllable, rhyming with eye, sky, high, dry). 3. Thematic Brainstorm: Sand -> desert, beach, gritty, dune, arid, dust, dry, thirst. 4. Intersection: 'Dry' perfectly rhymes with 'Pie' and ties directly into the sandy, arid theme. Parody Title = 'American Dry'.",
-      "target_guess_words": [
-        "Sand"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779597356452
   },
   {
@@ -4555,38 +4471,14 @@
   },
   {
     "pun_id": "quote_205_1779595780936",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_205_1779595780936",
-      "quote_id": "quote_205",
-      "text": "It's a Nap!",
-      "replaced_word": "trap",
-      "rhyme_used": "Nap",
-      "parody_title": "Star Snores: Return of the Shut-Eye",
-      "parody_pitch": "When the Rebel Alliance is lured into a plush, overly-cushioned Death Star equipped with soothing white noise machines, a drowsy Admiral Ackbar realizes the Empire's sinister plot is actually just an elaborate scheme to make everyone take a restorative afternoon snooze.",
-      "thought_process": "1. Pitch: The Rebel Alliance is lured into a plush, overly-cushioned Death Star equipped with soothing white noise machines, prompting a sleepy Admiral Ackbar to realize they haven't been ambushed, they've just been tucked in. 2. Phonetic Target: 'Star Wars: Episode VI - Return of the Jedi'. 'Wars' is one syllable rhyming with -orz (doors, chores, scores). 'Jedi' is two syllables rhyming with -ed-eye (red-eye, dead-eye). 3. Thematic Brainstorm: Nap, sleep, snore, bed, dream, shut-eye, slumber, resting. 4. Intersection: 'Snores' rhymes perfectly with 'Wars', and 'Shut-eye' rhymes perfectly with 'Jedi'. Parody Title = 'Star Snores: Return of the Shut-Eye'.",
-      "target_guess_words": [
-        "Nap"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645053726
   },
   {
     "pun_id": "quote_205_1779595784169",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_205_1779595784169",
-      "quote_id": "quote_205",
-      "text": "It's a Flap!",
-      "replaced_word": "trap",
-      "rhyme_used": "Flap",
-      "parody_title": "Stork Soars: Episode VI - Re-Tern of the Jedi",
-      "parody_pitch": "When the Avian Alliance attempts to ambush the Imperial nest, Admiral Quackbar panics as giant mechanical wings descend upon them.",
-      "thought_process": "1. Pitch: When the Avian Alliance attempts to ambush the Imperial nest, Admiral Quackbar panics as giant mechanical wings descend upon them. 2. Phonetic Target: 'Star Wars' (St-ar W-orz), 'Return' (Re-turn), 'Jedi' (Jeh-dye). 3. Thematic Brainstorm: flap -> bird, wings, flying, stork, soar, tern, fly. 4. Intersection: 'Stork Soars' perfectly mimics the sounds of 'Star Wars', and 'Re-Tern' (a type of seabird) plays off 'Return'.",
-      "target_guess_words": [
-        "Flap"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645059484
   },
   {
@@ -4627,20 +4519,8 @@
   },
   {
     "pun_id": "quote_272_1779595821467",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_272_1779595821467",
-      "quote_id": "quote_272",
-      "text": "And my Wax!",
-      "replaced_word": "axe",
-      "rhyme_used": "Wax",
-      "parody_title": "The Lord of the Stings: The Fellowship of the Sting",
-      "parody_pitch": "Nine brave estheticians embark on a perilous journey to Mount Doom's day spa to deliver an agonizingly smooth full-body hair removal treatment to a very shaggy Dark Lord.",
-      "thought_process": "1. Pitch: Nine brave estheticians embark on a perilous journey to Mount Doom's day spa to deliver an agonizingly smooth full-body hair removal treatment to a very shaggy Dark Lord. 2. Phonetic Target: 'The Lord of the Rings: The Fellowship of the Ring' features the prominent words 'Rings' and 'Ring', which rhyme with things, springs, strings, and stings. 3. Thematic Brainstorm: wax, hair removal, salon, spa, smooth, strip, pull, pain, sting, burn. 4. Intersection: 'Sting' perfectly describes the sharp pain of tearing off a wax strip and rhymes flawlessly with 'Ring'. Parody Title = 'The Lord of the Stings: The Fellowship of the Sting'.",
-      "target_guess_words": [
-        "Wax"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645094869
   },
   {
@@ -4717,20 +4597,8 @@
   },
   {
     "pun_id": "quote_436_1779595906107",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_436_1779595906107",
-      "quote_id": "quote_436",
-      "text": "Squash!",
-      "replaced_word": "gosh",
-      "rhyme_used": "Squash",
-      "parody_title": "Napoleon Vine-amite",
-      "parody_pitch": "An awkward, deadpan Idaho teenager attempts to win the local 4-H competition by growing an explosively large, aggressively yellow gourd, constantly shouting his favorite vegetable's name in frustration.",
-      "thought_process": "1. Pitch: An awkward, mouth-breathing teenager in rural Idaho tries to win the state fair by growing an explosively large, aggressively yellow vegetable, repeatedly shouting its name whenever he gets frustrated. 2. Phonetic Target: 'Napoleon Dynamite'. 'Dynamite' is three syllables (Dye-nuh-mite), with the first syllable 'Dyne' rhyming with mine, sign, line, and vine. 3. Brainstorm: squash, gourd, pumpkin, vegetable, agriculture, plant, leaves, roots, vine. 4. Intersection: 'Vine' perfectly rhymes with 'Dyne' (the first syllable of Dynamite). Parody Title = 'Napoleon Vine-amite'.",
-      "target_guess_words": [
-        "Squash"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645130019
   },
   {
@@ -4753,20 +4621,8 @@
   },
   {
     "pun_id": "quote_441_1779595955010",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_441_1779595955010",
-      "quote_id": "quote_441",
-      "text": "I am McShovin.",
-      "replaced_word": "mclovin",
-      "rhyme_used": "McShovin",
-      "parody_title": "Supermad",
-      "parody_pitch": "Two awkward teens try to secure booze for a high school party, but their night is derailed when their nerdy friend's fake ID transforms him into an incredibly angry, hyper-aggressive brawler who violently pushes everyone he meets.",
-      "thought_process": "1. Pitch: Two awkward teens try to secure booze for a high school party, but their night is derailed when their nerdy friend's fake ID transforms him into an incredibly angry, hyper-aggressive brawler who violently pushes everyone he meets. 2. Phonetic Target: 'Superbad' is three syllables, with the final syllable rhyming with -ad (sad, mad, fad, glad, dad). 3. Brainstorm: shove, push, aggressive, bully, angry, mad, fight, bump. 4. Intersection: 'Mad' rhymes perfectly with 'bad' and perfectly captures the hostile, shoving-obsessed behavior of the new alter-ego. Parody Title = 'Supermad'.",
-      "target_guess_words": [
-        "McShovin"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645153039
   },
   {
@@ -4789,20 +4645,8 @@
   },
   {
     "pun_id": "quote_333_1779596050271",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_333_1779596050271",
-      "quote_id": "quote_333",
-      "text": "You can't emit with us!",
-      "replaced_word": "sit",
-      "rhyme_used": "Emit",
-      "parody_title": "Bean Girls",
-      "parody_pitch": "A clique of extremely gassy, legume-obsessed teenagers rule the cafeteria, ruthlessly banishing any student who doesn't produce enough toxic flatulence to join their ranks.",
-      "thought_process": "1. Pitch: A clique of extremely gassy, legume-obsessed teenagers rule the high school cafeteria, ruthlessly banishing anyone who doesn't produce enough toxic flatulence. 2. Phonetic Target: 'Mean Girls' consists of 'Mean' (rhymes with bean, green, screen, clean) and 'Girls' (rhymes with pearls, twirls, curls). 3. Thematic Brainstorm: Emit -> gas, smell, flatulence, beans, stink, green, toxic. 4. The Intersection: 'Bean' rhymes perfectly with 'Mean' and perfectly explains the source of their gaseous emissions. Parody Title = 'Bean Girls'.",
-      "target_guess_words": [
-        "Emit"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645172233
   },
   {
@@ -4837,20 +4681,8 @@
   },
   {
     "pun_id": "quote_323_1779596119116",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_323_1779596119116",
-      "quote_id": "quote_323",
-      "text": "This is my broomstick!",
-      "replaced_word": "boomstick",
-      "rhyme_used": "broomstick",
-      "parody_title": "Army of Sparkness",
-      "parody_pitch": "A wise-cracking janitor is transported to the unhygienic Middle Ages, where he must battle ancient grime and make the castle shine using his trusty sweeping tool.",
-      "thought_process": "1. Pitch: A wise-cracking janitor is transported back in time to the filthy Middle Ages, where he must battle ancient grime and make the kingdom shine using his heavy-duty sweeping tool. 2. Phonetic Target: 'Army of Darkness' features two main phonetic anchors: 'Army' (ar-mee) and 'Darkness' (dark-niss, rhyming with starkness, parkness, sharkness). 3. Brainstorm: broomstick -> sweeping, cleaning, mopping, shine, stark, sparkle, sparkness. 4. Intersection: 'Sparkness' (derived from sparkle/cleaning) rhymes perfectly with 'Darkness'. Parody Title = Army of Sparkness.",
-      "target_guess_words": [
-        "broomstick"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645206863
   },
   {
@@ -4873,20 +4705,8 @@
   },
   {
     "pun_id": "quote_318_1779596186871",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_318_1779596186871",
-      "quote_id": "quote_318",
-      "text": "I have come here to stew bubblegum and kick ass... and I'm all out of bubblegum.",
-      "replaced_word": "chew",
-      "rhyme_used": "stew",
-      "parody_title": "They Sieve",
-      "parody_pitch": "A bizarre culinary drifter discovers a hidden alien invasion, but his quest to save humanity keeps getting derailed by his obsession with slow-cooking and straining rubbery bubblegum broths.",
-      "thought_process": "1. Pitch: A bizarre culinary drifter discovers a hidden alien invasion, but before he can save humanity, his primary focus is slow-cooking Hubba Bubba into a thick, rubbery broth. 2. Phonetic Target: 'They Live' consists of 'They' (rhyming with day, say, weigh) and 'Live' (rhyming with give, shiv, sieve). 3. Thematic Brainstorm: cook, soup, pot, broth, boil, simmer, culinary, chef, strain, sieve. 4. Intersection: 'Sieve' rhymes perfectly with 'Live' and connects to the culinary act of making and straining a stew. Parody Title = 'They Sieve'.",
-      "target_guess_words": [
-        "stew"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645248164
   },
   {
@@ -4897,20 +4717,8 @@
   },
   {
     "pun_id": "quote_312_1779596250002",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_312_1779596250002",
-      "quote_id": "quote_312",
-      "text": "Praaaawn!!",
-      "replaced_word": "khaaaan",
-      "rhyme_used": "Praaaawn!",
-      "parody_title": "Star Chef II: The Broth of Prawn",
-      "parody_pitch": "Admiral Kirk is forced into a deadly culinary showdown when a genetically engineered crustacean steals the Genesis cocktail sauce.",
-      "thought_process": "1. Pitch: Admiral Kirk is forced into a deadly culinary showdown when a genetically engineered crustacean steals the Genesis cocktail sauce. 2. Phonetic Target: 'Star Trek II: The Wrath of Khan' has key syllables Wrath (math, path, broth) and Khan (dawn, lawn, prawn). 3. Thematic Brainstorm: prawn -> seafood, boil, soup, broth, shrimp, chef. 4. Intersection: 'Broth' sounds similar to 'Wrath' and 'Prawn' rhymes perfectly with 'Khan'. Parody Title = Star Chef II: The Broth of Prawn.",
-      "target_guess_words": [
-        "Praaaawn!"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645268211
   },
   {
@@ -4963,20 +4771,8 @@
   },
   {
     "pun_id": "quote_290_1779596334048",
-    "status": "approved",
-    "data": {
-      "pun_id": "quote_290_1779596334048",
-      "quote_id": "quote_290",
-      "text": "37? In a throw?",
-      "replaced_word": "row",
-      "rhyme_used": "Throw",
-      "parody_title": "Dirks",
-      "parody_pitch": "Two apathetic medieval market stall operators pass the time by tossing daggers, marveling in disbelief when a passing rogue embeds 37 blades into a wooden barrel with a single flick of the wrist.",
-      "thought_process": "1. Pitch: Two apathetic medieval market stall operators pass the time by tossing daggers, marveling in disbelief when a passing rogue embeds 37 blades into a wooden barrel with a single flick of the wrist. 2. Phonetic Target: 'Clerks' is one syllable, rhyming with -erks (jerks, smirks, works, lurks, dirks). 3. Thematic Brainstorm: Throw -> toss, hurl, fling, dart, target, dagger, knife, dirk. 4. Intersection: 'dirks' (a type of short dagger specifically meant to be thrown) rhymes perfectly with 'Clerks'. Parody Title = 'Dirks'.",
-      "target_guess_words": [
-        "Throw"
-      ]
-    },
+    "status": "rejected",
+    "data": null,
     "reviewed_at": 1779645310423
   },
   {
@@ -7900,5 +7696,71 @@
       ]
     },
     "reviewed_at": 1780033580689
+  },
+  {
+    "pun_id": "quote_160_1780032052770",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780896675474
+  },
+  {
+    "pun_id": "quote_160_1780032057207",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780896678318
+  },
+  {
+    "pun_id": "quote_150_1780032071514",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_150_1780032071514",
+      "quote_id": "quote_150",
+      "text": "I just wanted to take another hook at you.",
+      "replaced_word": "look",
+      "rhyme_used": "Hook",
+      "parody_title": "A Scar is Born",
+      "parody_pitch": "A fading, rum-soaked pirate captain falls in love with a talented young swashbuckler, guiding her to legendary maritime fame just as she receives her iconic prosthetic appendage.",
+      "thought_process": "1. Pitch: A fading, rum-soaked pirate captain falls in love with a talented young swashbuckler, guiding her to legendary maritime fame just as she receives her iconic prosthetic appendage. 2. Phonetic Target: 'A Star is Born' has the syllables uh-STAR-iz-BORN. The key rhyming targets are 'Star' (-ar: bar, car, far) and 'Born' (-orn: corn, horn, torn). 3. Thematic Brainstorm: Hook -> pirate, fishing, peg-leg, eye-patch, cutlass, sea, ship, spar, sail, scar, torn, cape horn. 4. Intersection: 'Scar' perfectly rhymes with 'Star', capturing the pirate injury theme perfectly associated with a 'Hook'. Parody Title = A Scar is Born.",
+      "target_guess_words": [
+        "Hook"
+      ]
+    },
+    "reviewed_at": 1780896687871
+  },
+  {
+    "pun_id": "quote_150_1780032078273",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780896690961
+  },
+  {
+    "pun_id": "quote_150_1780032083842",
+    "status": "approved",
+    "data": {
+      "pun_id": "quote_150_1780032083842",
+      "quote_id": "quote_150",
+      "text": "I just wanted to take another look at guru.",
+      "replaced_word": "you",
+      "rhyme_used": "Guru",
+      "parody_title": "A Sitar is Born",
+      "parody_pitch": "A washed-up rock star abandons his own career and a promising young singer because he becomes completely obsessed with achieving enlightenment by staring deeply into the eyes of a levitating spiritual master.",
+      "thought_process": "1. Pitch: A washed-up rock star abandons his own career and a promising young singer because he becomes completely obsessed with achieving enlightenment by staring deeply into the eyes of a levitating spiritual master. 2. Phonetic Target: 'A Star is Born' has the key syllables 'Star' (rhymes with car, far, tar) and 'Born' (rhymes with corn, horn, shorn). 3. Thematic Brainstorm: Guru -> mystic, swami, enlightened, meditation, Indian music, sitar, ashram, shorn (shaved head), vow (sworn). 4. The Intersection: 'Sitar' ends with a perfect rhyme for 'Star' and heavily relates to the musical stereotype of rockstars visiting Eastern Gurus. Parody Title = 'A Sitar is Born'.",
+      "target_guess_words": [
+        "Guru"
+      ]
+    },
+    "reviewed_at": 1780896704830
+  },
+  {
+    "pun_id": "quote_162_1780032093076",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780896710524
+  },
+  {
+    "pun_id": "quote_162_1780032094825",
+    "status": "rejected",
+    "data": null,
+    "reviewed_at": 1780896715800
   }
 ]

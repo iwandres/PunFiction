@@ -714,9 +714,9 @@
     "parody_title": "The Shoestring Redemption",
     "original_movie": "The Shawshank Redemption",
     "style_key": "woodcut",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Shoestring Redemption' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An incredibly patient inmate plots his grand prison escape not with a rock hammer, but by spending two decades obsessively knotting together a miles-long sneaker lace.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Shoestring Redemption\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in a vintage woodcut print style. Black ink illustration on an aged sepia parchment background. High contrast with heavy linocut hatching. A disheveled prisoner in a striped uniform sits on a stool inside a stone cell, holding a sneaker and pulling a long shoelace. He is surrounded by a massive, tangled pile of knotted shoelaces on the floor. Above him, a thought bubble displays a winged shoe escaping over a castle wall. At the top, bold, distressed, blocky sans-serif text.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE SHOESTRING REDEMPTION\" as the main movie title, placed at the top in black blocky letters.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_shoestring_redemption_poster_1778882542.jpg",
+    "image_path": "/assets/posters/the_shoestring_redemption_poster_vertical_1780896850.png",
     "status": "approved"
   },
   {
@@ -924,9 +924,9 @@
     "parody_title": "The Dark Byte",
     "original_movie": "The Dark Knight",
     "style_key": "synthwave",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Dark Byte' (Parodying a famous classic film). Create this entirely in the style of: 1980s Cyberpunk / Synthwave poster, neon magenta and cyan colors, glowing wireframe grids, chrome reflections, dark futuristic cityscapes. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A binary-obsessed hacker vigilante faces an existential crisis over whether his legacy will end as a meaningless 'Zero', or if he'll live long enough to become a corrupting malicious virus.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Dark Byte\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical movie poster (2:3 ratio) in retro synthwave cyberpunk style. Color palette: deep purples, vibrant cyan, magenta, neon green. Background: dark futuristic cityscape with neon grid lines and floating binary code. Center focus: comic-style manic hacker typing on a glowing neon keyboard. He wears goggles and a circuit-board purple jacket. One eye is a glowing blue '0', the other is infected by a green/red swirling virus. Place title text 'THE DARK BYTE' at the top in large, metallic reflective 80s font with neon pink/blue outlines. Below the keyboard, center the tagline text. Along the bottom edge, place the movie credit block text. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE DARK BYTE\" as the main movie title.\n2. \"HE'S EITHER A ZERO OR A VIRUS. HIS FUTURE IS IN THE CODE.\" positioned near the bottom center in a clean, matching bright cyan font.\n3. \"A PARODY PRODUCTION. SYNTHWAVE CINEMA PRESENTS. STARRING: A. HACKER & D. COMPILER. DIRECTED BY: B. SCREEN\" in their original styles along the bottom edge in a condensed light blue font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_dark_byte_poster_1779599167.jpg",
+    "image_path": "/assets/posters/the_dark_byte_poster_vertical_1780896827.png",
     "status": "approved"
   },
   {
@@ -994,9 +994,9 @@
     "parody_title": "Foreclosin'",
     "original_movie": "Frozen",
     "style_key": "mythic_epic",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Foreclosin'' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A magical princess maxes out her kingdom's credit cards to build an extravagant ice palace, forcing her to dramatically embrace bankruptcy when the royal bank comes to seize her assets.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Foreclosin'\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster, 2D animated mythic epic parody style. Colors: icy blues, purples, rich golds, reds. Top: Large icy 3D title 'FORECLOSIN'' and gold subtitle 'THE KINGDOM'S OUT OF CASH!'. Upper half: Crying blonde ice princess holding melting credit cards and an ice staff, framed by a magical blizzard. Midground center: Sinister banker in top hat and monocle gesturing. Midground right: Frozen ice castle with a 'SOLD' sign. Midground left: Royal guard with 'REPOSSESSION' sash near an open glowing treasure chest. Bottom right: Distressed prince in winter royal garb. Bottom edge on a cream border, black text credits.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"FORECLOSIN'\" as the main movie title.\n2. \"THE KINGDOM'S OUT OF CASH!\" positioned below the title in an elegant gold font.\n3. \"REPOSSESSION\" written on the royal guard's sash.\n4. \"SOLD\" on the red sign next to the castle.\n5. \"A MYTHIC ADVENTURE PARODY!\", \"DIRECTED BY A. SPOOFMAN\", \"STARRING A. PRINCESS, THE BANKER, & THE PRINCE\", and \"ILLUSTRATED IN COLOR!\" positioned along the bottom edge in clean, matching black fonts.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/foreclosin_poster_1779668750.jpg",
+    "image_path": "/assets/posters/foreclosin__poster_vertical_1780896798.png",
     "status": "approved"
   },
   {
@@ -1024,9 +1024,9 @@
     "parody_title": "Failures of the Lost Ark",
     "original_movie": "Raiders of the Lost Ark",
     "style_key": "woodcut",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Failures of the Lost Ark' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An incredibly clumsy archaeologist bumbles his way through ancient tombs, constantly triggering booby traps and destroying priceless artifacts in a continuous string of hilarious blunders.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICALLY IMPORTANT: Absolutely DO NOT copy the likeness of Harrison Ford's Indiana Jones. The explorer must be a funny, generic cartoon caricature in a generic explorer outfit. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Failures of the Lost Ark\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster. Vintage woodcut engraving style, black ink on aged sepia paper with subtle gold highlights on treasure. Humorous parody tone. Top: large ornate ribbon banner holding the title. Center: clumsy explorer in fedora, leather jacket, and whip, slipping backward onto a stone sarcophagus amid falling rocks. Surroundings: broken classical pillars, two comedic skeletons reacting to the chaos, and clay pots spilling gold coins. Dense cross-hatching and thick outlines. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"Failures of the Lost Ark\" as the main movie title inside the top ribbon banner in a vintage Gothic blackletter font.\n2. \"A Tale of Woe and Blunders in Ancient Tombs\" positioned directly below the main banner in a matching smaller vintage font, flanked by decorative flourishes.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/failures_of_the_lost_ark_poster_1779668805.jpg",
+    "image_path": "/assets/posters/failures_of_the_lost_ark_poster_vertical_1780896764.png",
     "status": "approved"
   },
   {
@@ -1064,9 +1064,9 @@
     "parody_title": "Wooden Impact",
     "original_movie": "Sudden Impact",
     "style_key": "pop_art",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Wooden Impact' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A tough-as-nails code enforcement officer armed with a .44 Magnum nail gun ruthlessly hunts down homeowners who build unpermitted backyard storage units.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Wooden Impact\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in vintage pop art comic book style. Halftone dots, thick ink outlines, vibrant primary colors (yellow, blue, red). Top: Large bold title in 3D yellow-to-red gradient. Right foreground: Stern older man in blue uniform and yellow hard hat holding a silver revolver nail gun. Left midground: Panicked man in red-and-white striped shirt and glasses running past a wooden shed. Background: Green grass, blue sky, suburban houses. Integrate comic bursts and speech bubbles for dialogue.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"WOOODEN IMPACT\" as the main movie title at the top.\n2. \"A PARODY OF A CLASSIC!\" inside a jagged starburst top left.\n3. \"NO PERMIT? NO PROBLEM!\" in a speech bubble above the uniform man.\n4. \"I'M THE LAW AROUND HERE, PAL!\" in a speech bubble next to the uniform man.\n5. \"POW!\" in a red explosive burst near the nail gun.\n6. \".44 MAGNUM NAIL GUN\" in a scalloped caption bubble at the bottom center.\n7. \"ERFORCEMENT\" on the uniform right chest nameplate.\n8. \"CODE ENFORCEMENT\" on the uniform left chest gold shield.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/wooden_impact_poster_1779599537.jpg",
+    "image_path": "/assets/posters/wooden_impact_poster_vertical_1780896738.png",
     "status": "approved"
   },
   {
@@ -1225,9 +1225,9 @@
     "original_movie": "Jurassic Park",
     "style_key": "wpa_poster",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Jurassic Snark' (Parodying a famous classic film). Create this entirely in the style of: 1930s WPA National Park poster style, muted earthy colors, flat vector shapes, screen-printed texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An eccentric billionaire clones the universe's most dramatic, argument-prone reality TV stars to populate a chaotic theme park, only to discover that petty interpersonal conflict cannot be contained.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Jurassic Snark\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/jurassic_snark_poster_1779599991.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_077_1778766658924",
@@ -1235,9 +1235,9 @@
     "original_movie": "Jurassic Park",
     "style_key": "mythic_epic",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Your Exes Park' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An eccentric billionaire builds an island theme park populated by genetically engineered clones of his former spouses, but disaster strikes when the fences fail and they relentlessly hunt him down for alimony.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Your Exes Park\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/your_exes_park_poster_1779668927.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_077_1778766662273",
@@ -1245,9 +1245,9 @@
     "original_movie": "Jurassic Park",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Jurassic Spark' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A visionary billionaire opens a massive big-box electronics store run by cloned prehistoric beasts, but chaos ensues when the velociraptors break loose to obsessively optimize the 4K television endcaps.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Jurassic Spark\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/jurassic_spark_poster_1779600032.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_077_1778766671014",
@@ -1255,18 +1255,18 @@
     "original_movie": "Jurassic Park",
     "style_key": "mid_century",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Plastic Park' (Parodying a famous classic film). Create this entirely in the style of: 1950s UPA animation style, geometric shapes, flat colors, minimalist mid-century modern illustration. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: When a billionaire genetically engineers dinosaurs to work as lunch ladies in a massive prehistoric cafeteria, a skeptical chaotician marvels at how the T-Rex waitstaff always manages to safely deliver the sloppy joes.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Plastic Park\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/plastic_park_poster_1779668946.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_077_1778766673269",
     "parody_title": "Purrassic Bark",
     "original_movie": "Jurassic Park",
     "style_key": "woodcut",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Purrassic Bark' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An eccentric billionaire builds an island theme park populated entirely by cloned, giant feral alley animals, but chaos erupts when the laser pointers die and the scientists are overwhelmed by an army of un-adoptable pets.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Purrassic Bark\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in a medieval woodcut engraving style. Black ink linework on aged sepia parchment. Framed by an ornate vine border with corner animals. Top center: large title \"PURRASSIC BARK\" in shaded serif woodcut font, with a ribbon below reading \"A WOODCUT PARODY\". Center: island castle overrun by giant cats and dogs. Left sky features a ribbon reading \"CLONED BEASTS\". Right sky features a flag reading \"CHAOS!\". Right edge: stone tower where a king stands behind a banner reading \"BILLIONAIRE\", firing a device labeled \"PROINTER\" and \"LASER POINTER\". Foreground: two massive aggressive wolves flank two fleeing wizards, with a ribbon reading \"SCIENTISTS\" between them.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"PURRASSIC BARK\" as the main movie title at the top.\n2. \"A WOODCUT PARODY\" on a ribbon banner below the main title.\n3. \"CLONED BEASTS\" on a ribbon banner in the mid-left sky.\n4. \"CHAOS!\" on a flag in the mid-right sky.\n5. \"PROINTER\" and \"LASER POINTER\" pointing to a handheld device on the right.\n6. \"BILLIONAIRE\" on a banner across the right-side stone tower.\n7. \"SCIENTISTS\" on a banner between the fleeing figures in the foreground.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/purrassic_bark_poster_1779600072.jpg",
+    "image_path": "/assets/posters/purrassic_bark_poster_vertical_1780896702.png",
     "status": "approved"
   },
   {
@@ -1274,9 +1274,9 @@
     "parody_title": "Pulp Eviction",
     "original_movie": "Pulp Fiction",
     "style_key": "woodcut",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Pulp Eviction' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Two philosophical mob enforcers moonlight as ruthless property managers, debating European repossession laws before violently serving deadbeats with high-class foreclosures.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Pulp Eviction\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in medieval woodcut print style. Sepia tone, dark brown ink on aged parchment, heavy cross-hatching. Scene parodies Pulp Fiction. Left: two aggressive medieval guards; one points with a scroll, the other wields a war hammer. Right: frightened peasants cower in a timber doorway. Rustic interior background. Top: ragged banner with text. Bottom: centered taglines.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"PULP EVICTION\" as the main movie title inside a top banner.\n2. \"A MEDIEVAL SPOOF \u2013 FROM THE LORDS OF PROPERTY MANAGEMENT.\" positioned near the bottom center in a clean, matching font.\n3. \"COMING SOON TO A FEUDAL LORD NEAR YOU.\" positioned at the very bottom center in a clean, matching font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/pulp_eviction_poster_1779600094.jpg",
+    "image_path": "/assets/posters/pulp_eviction_poster_vertical_1780896671.png",
     "status": "approved"
   },
   {
@@ -1284,9 +1284,9 @@
     "parody_title": "Bravechart",
     "original_movie": "Braveheart",
     "style_key": "mythic_epic",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Bravechart' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A face-painted Scottish archivist leads a fierce and bloody rebellion against the English monarchy to protect the nation's historical records, valiantly fighting for a world without overdue fines.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Bravechart\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster, 'mythic_epic' caricature illustration, aged parchment aesthetic. Center: giant floating blue face of a Scottish warrior with wild hair, beard, glasses, wielding a massive quill. Background: chaotic castle-library battle between kilted warriors and redcoats, explosions, scattered books. Colors: parchment yellows, deep reds, vibrant blues, earthy browns. Top center: arched title 'BRAVECHART' in large, dark red, gold-outlined serif. Below title left: 'THE EPIC SAGA / OF OVERDUE FINES' in dark bold serif.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"BRAVECHART\" as the main movie title, large, arched, dark red with gold outline at the top.\n2. \"THE EPIC SAGA\" positioned below the left side of the title in a dark, bold serif font.\n3. \"OF OVERDUE FINES\" positioned directly below \"THE EPIC SAGA\" in matching dark, bold serif font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/bravechart_poster_1779600132.jpg",
+    "image_path": "/assets/posters/bravechart_poster_vertical_1780896644.png",
     "status": "approved"
   },
   {
@@ -1295,18 +1295,18 @@
     "original_movie": "Braveheart",
     "style_key": "woodcut",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Caveheart' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: After an evil English king kidnaps all the Scottish wives, a suddenly single warrior rallies his men to celebrate their newfound bachelorhood and defend the ultimate symbol of their liberty: the man-cave.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Caveheart\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/caveheart_poster_1779600151.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_080_1778766876008",
     "parody_title": "Grazeheart",
     "original_movie": "Braveheart",
     "style_key": "pop_art",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Grazeheart' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A rebellious, face-painted Scottish stallion leads an uprising against English farmers to free his fellow equines and secure the right to an endless, open pasture.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Grazeheart\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in vintage comic pop art style with visible halftone dots and thick black linework. Top: large title \"GRAZEHEART\" in yellow/red gradient with thick black drop-shadow borders against a blue strip. Center: a brown horse with blue face paint and a tartan sash, yelling aggressively. A speech bubble next to it reads \"FREEDOM OF THE FIELD!\". Left background: a stampeding herd of horses. Right background: panicked farmers in overalls and straw hats holding pitchforks. Setting: green meadow, blue halftone sky, yellow sun with sharp black rays. Bottom edge: a white horizontal banner with black italicized text \"THE BATTLE FOR THE BIGGEST MEADOW!\". Bold primary color palette of red, yellow, blue, and green.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"GRAZEHEART\" as the main movie title at the top.\n2. \"FREEDOM OF THE FIELD!\" inside a speech bubble pointing to the main horse.\n3. \"THE BATTLE FOR THE BIGGEST MEADOW!\" positioned across the bottom edge in a clean, matching comic font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/grazeheart_poster_1779600171.jpg",
+    "image_path": "/assets/posters/grazeheart_poster_vertical_1780896613.png",
     "status": "approved"
   },
   {
@@ -1315,18 +1315,18 @@
     "original_movie": "The Big Lebowski",
     "style_key": "mythic_epic",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'The Rig Lebowski' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A hopelessly lazy, foul-mouthed Texas oil prospector known only as 'The Crude' gets entangled in a convoluted kidnapping plot after thugs spill unrefined petroleum all over his favorite rug.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Rig Lebowski\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/the_rig_lebowski_poster_1779668967.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_082_1778767028319",
     "parody_title": "The Big Lebow-sea",
     "original_movie": "The Big Lebowski",
     "style_key": "pop_art",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Big Lebow-sea' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: After a millionaire yachtsman ruins his favorite beach towel, a notoriously lazy coastal slacker must navigate treacherous oceanic swells and militant lifeguards to restore his shoreside zen.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Big Lebow-sea\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster. Retro pop-art comic style, thick black outlines, halftone dots. Primary colors: yellow, cyan, red. Top: Large comic-style title \"THE BIG LEBOW-SEA\" in red-orange with yellow outlines. Center: Bearded slacker in sunglasses and bathrobe lounging on a yellow-red raft in stylized blue waves. Two thought bubbles above him: a patterned rug and a yacht. Yellow caption box nearby: \"THE SLACKER\". Background: Angry men in red swimsuits and white-red helmets charging on red-white jetskis. Speech bubble from one rider: \"NOT ON MY BEACH!\". Bottom margin: \"A COASTAL SPOOF!\" on the left, \"COMING SOON TO A THEATER NEAR YOU!\" on the right. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE BIG LEBOW-SEA\" as the main movie title.\n2. \"THE SLACKER\" inside a yellow caption box.\n3. \"NOT ON MY BEACH!\" inside a speech bubble.\n4. \"A COASTAL SPOOF!\" positioned at the bottom left in a clean font.\n5. \"COMING SOON TO A THEATER NEAR YOU!\" positioned at the bottom right in a clean font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_big_lebowsea_poster_1779600208.jpg",
+    "image_path": "/assets/posters/the_big_lebow_sea_poster_vertical_1780896586.png",
     "status": "approved"
   },
   {
@@ -1334,9 +1334,9 @@
     "parody_title": "The Metrics",
     "original_movie": "The Matrix",
     "style_key": "grindhouse",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Metrics' (Parodying a famous classic film). Create this entirely in the style of: 1970s Grindhouse B-Movie Exploitation poster, gritty, hyper-saturated, intentionally distressed texture like folded/torn paper, lurid and sensationalist composition. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A hardware store clerk discovers reality is a simulation held together by cheap imperial fasteners, so he downloads advanced DIY skills to dismantle the system from within.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Metrics\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 grindhouse retro comic movie poster. Distressed paper, halftone texture. Psychedelic purple/green circuit board background with orange explosions. Top: large 3D orange/yellow text 'THE METRICS'. Below it: white 'IN SCREW-O-VISION!' and yellow 'REALITY IS HELD BY A THREAD... AND IT'S STRIPPED!'. Center: Panicked mechanic in blue apron holding glowing wrench and drill, bursting from a wall showing green digital code. Speech bubble: 'DIY DOWNLOAD COMPLETE!'. Left: Man in suit with cash register head (screen reads 'CASH', nametag 'System Agent'), holding megaphone. Right: Angry man with wrench-spiked colander helmet, holding caulking gun. Flying hardware scattered throughout. Bottom left: yellow 'SEE THE WORLD'S CHEAPEST SIMULATION... UNPLUGGED!'. Bottom right: 'NOT RATED!' box, and 'A HAMMER & NAIL PRODUCTION'. Saturated, high-contrast pop-art colors.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE METRICS\" as the main movie title.\n2. \"IN SCREW-O-VISION!\" positioned below the title in white.\n3. \"REALITY IS HELD BY A THREAD... AND IT'S STRIPPED!\" positioned below the subtitle in yellow.\n4. \"DIY DOWNLOAD COMPLETE!\" positioned inside a speech bubble near the central character.\n5. \"SEE THE WORLD'S CHEAPEST SIMULATION... UNPLUGGED!\" positioned at the bottom left in yellow.\n6. \"NOT RATED!\" positioned in a small box at the bottom right.\n7. \"A HAMMER & NAIL PRODUCTION\" positioned at the bottom right corner in white.\n8. \"CASH\" positioned on the cash register screen, and \"System Agent\" on the left character's nametag.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_metrics_poster_1779669009.jpg",
+    "image_path": "/assets/posters/the_metrics_poster_vertical_1780896553.png",
     "status": "approved"
   },
   {
@@ -1344,9 +1344,9 @@
     "parody_title": "American Buy",
     "original_movie": "American Pie",
     "style_key": "saul_bass",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'American Buy' (Parodying a famous classic film). Create this entirely in the style of: 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism, stark contrasting colors (heavy red, black, and white). It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Four teenage corporate shills make a desperate pact to completely monetize their personal identities and secure lucrative sponsorships before graduation by surviving a ruthless corporate marketing retreat.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"American Buy\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "A 2:3 vertical movie poster in the minimalist graphic style of Saul Bass. Features flat colors of stark black, pure white, and deep crimson red with hand-cut, jagged paper edges. The left side vertically spans abstract, geometric skyscrapers in black and red, with the tallest black building displaying a red polygon containing a black dollar sign. The lower center features four identical black-suited businessmen holding briefcases, their heads replaced by blank, angled black price tags. At the top center, place the large red jagged title. At the very bottom center, place the black tagline. High-contrast, bold, minimalist composition.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"AMERICAN BUY\" as the main movie title, positioned at the top in large, jagged red Saul Bass style lettering.\n2. \"A SPOOF OF A CLASSIC!\" positioned near the bottom center in a clean, matching black font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/american_buy_poster_1779669029.jpg",
+    "image_path": "/assets/posters/american_buy_poster_vertical_1780896519.png",
     "status": "approved"
   },
   {
@@ -1355,18 +1355,18 @@
     "original_movie": "American Pie",
     "style_key": "mythic_epic",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'American Dry' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A group of desperately horny high schoolers vow to lose their virginity by prom, but get continually thwarted because they accidentally enrolled in a grueling, all-dune desert survival program where the sandy chafing is absolute torture.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"American Dry\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/american_dry_poster_1779669047.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_086_1778767192903",
     "parody_title": "The Lord of the Wings",
     "original_movie": "The Lord of the Rings: The Fellowship of the Ring",
     "style_key": "grindhouse",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Lord of the Wings' (Parodying a famous classic film). Create this entirely in the style of: 1970s Grindhouse B-Movie Exploitation poster, gritty, hyper-saturated, intentionally distressed texture like folded/torn paper, lurid and sensationalist composition. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A courageous flock of migrating geese must transport a cursed breadcrumb to Mount Doom, but they quickly realize the dark lord Sauron has heavily netted his airspace.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Lord of the Wings\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 vintage grindhouse movie poster. Retro comic art with distressed, folded paper textures. Palette: fiery oranges, deep reds, bright yellows, dark shadows. Composition: Flock of heroic geese wearing vintage aviator goggles and leather bomber jackets flying right. Lead goose holds a glowing slice of bread in its beak. Background: Erupting volcano, jagged fantasy tower, flaming sky. Top: Giant hanging net with a fiery red eye and silhouetted flying demons. Top text: 'THE LORD OF THE WINGS' in dripping yellow-orange horror font. Bottom text: 'THEY'RE ON A MISSION FROM HONK! AND THE AIRSPACE IS NETTED!' in bold yellow sans-serif. Volcano labeled 'MOUNT DOOM'.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE LORD OF THE WINGS\" as the main movie title.\n2. \"THEY'RE ON A MISSION FROM HONK! AND THE AIRSPACE IS NETTED!\" positioned at the bottom in bold yellow sans-serif.\n3. \"MOUNT DOOM\" overlaid directly on the volcano.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_lord_of_the_wings_poster_1779600323.jpg",
+    "image_path": "/assets/posters/the_lord_of_the_wings_poster_vertical_1780896494.png",
     "status": "approved"
   },
   {
@@ -1374,9 +1374,9 @@
     "parody_title": "Lean Girls",
     "original_movie": "Mean Girls",
     "style_key": "wpa_poster",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Lean Girls' (Parodying a famous classic film). Create this entirely in the style of: 1930s WPA National Park poster style, muted earthy colors, flat vector shapes, screen-printed texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A clique of judgmental, 90% fat-free heifers rule the pasture, ruthlessly bullying a new farm animal who can't even moo properly.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Lean Girls\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in a retro WPA poster art style. Muted earthy palette: olive green, tan, rust red, dark outlines, halftone edge textures. Top center features large vintage, slightly wavy text \"LEAN GIRLS\". Below right, smaller text \"THEY RULE THE PASTURE\". Mid-ground shows three judgmental cows (wearing neckerchiefs and a beret) glaring down at an anxious sheep wearing glasses and a backpack on the right. A wooden sign reads \"PASTURE RULES\". Rolling pasture hills background. Bottom text reads \"A SPOOF OF A CLASSIC FILM\".\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"LEAN GIRLS\" as the main movie title at the top.\n2. \"THEY RULE THE PASTURE\" positioned below the main title.\n3. \"PASTURE RULES\" stacked on a wooden sign in the mid-ground.\n4. \"A SPOOF OF A CLASSIC FILM\" positioned near the bottom center in a clean, matching font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/lean_girls_poster_1779669066.jpg",
+    "image_path": "/assets/posters/lean_girls_poster_vertical_1780896462.png",
     "status": "approved"
   },
   {
@@ -1385,9 +1385,9 @@
     "original_movie": "Star Wars: Episode VI - Return of the Jedi",
     "style_key": "mythic_epic",
     "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Star Snores: Return of the Shut-Eye' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: When the Rebel Alliance is lured into a plush, overly-cushioned Death Star equipped with soothing white noise machines, a drowsy Admiral Ackbar realizes the Empire's sinister plot is actually just an elaborate scheme to make everyone take a restorative afternoon snooze.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICALLY IMPORTANT: Absolutely DO NOT draw Darth Vader, Stormtroopers, Yoda, or any official Star Wars character designs or light sabers. Any space knights must use generic glowing swords or silly laser beams, and space villains must wear comical, custom space helmets. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Star Snores: Return of the Shut-Eye\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/star_snores_return_of_the_shuteye_poster_vertical_1780030507.png",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_205_1779595784169",
@@ -1395,9 +1395,9 @@
     "original_movie": "Star Wars: Episode VI - Return of the Jedi",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Stork Soars: Episode VI - Re-Tern of the Jedi' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: When the Avian Alliance attempts to ambush the Imperial nest, Admiral Quackbar panics as giant mechanical wings descend upon them.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICALLY IMPORTANT: Absolutely DO NOT draw Darth Vader, Stormtroopers, Yoda, or any official Star Wars character designs or light sabers. Any space knights must use generic glowing swords or silly laser beams, and space villains must wear comical, custom space helmets. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Stork Soars: Episode VI - Re-Tern of the Jedi\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/stork_soars_episode_vi__retern_of_the_jedi_poster_1779669167.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_272_1779595821467",
@@ -1405,18 +1405,18 @@
     "original_movie": "The Lord of the Rings: The Fellowship of the Ring",
     "style_key": "mid_century",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'The Lord of the Stings: The Fellowship of the Sting' (Parodying a famous classic film). Create this entirely in the style of: 1950s UPA animation style, geometric shapes, flat colors, minimalist mid-century modern illustration. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Nine brave estheticians embark on a perilous journey to Mount Doom's day spa to deliver an agonizingly smooth full-body hair removal treatment to a very shaggy Dark Lord.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICALLY IMPORTANT: Absolutely DO NOT use the film likenesses of Frodo, Gandalf, Gollum, or Sauron. All fantasy characters must look like generic, highly exaggerated cartoon/comic illustrations. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Lord of the Stings: The Fellowship of the Sting\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/the_lord_of_the_stings_the_fellowship_of_the_sting_poster_1779669307.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_398_1779595839473",
     "parody_title": "Plaid Slacks: Fury Sewed",
     "original_movie": "Mad Max: Fury Road",
     "style_key": "ghibli",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Plaid Slacks: Fury Sewed' (Parodying a famous classic film). Create this entirely in the style of: 1990s Studio Ghibli anime style, lush meticulously detailed watercolor backgrounds, expressive characters, vibrant pastoral colors, soft nostalgic lighting. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: In a desolate, post-apocalyptic wasteland where barren torsos freeze in the desert wind, a lone tailor must drive a war-rig full of crisp button-downs away from a tyrannical warlord with terrible fashion sense.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Plaid Slacks: Fury Sewed\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical movie poster in Studio Ghibli 2D anime style. Soft watercolor pastel palette: sandy beige desert, pale blue sky, vibrant clothing accents. Top layout: title text \"Plaid Slacks: Fury Sewed\" rendered in stitched patchwork fabric lettering. Center layout: a patchwork vintage car driving through a dusty desert, featuring a black sewing machine mounted on the hood. Driven by a rugged man wearing a thimble hat and a measuring tape. The car is overloaded with towering stacks of neatly folded colorful shirts. Background: desert mesas draped in large fabric sheets. A pursuing convoy of patchwork vehicles is led by a flamboyant villain in a bright clashing plaid suit and large feathered hat. Bottom foreground: a group of pale, shirtless, shivering men huddled together.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"Plaid Slacks: Fury Sewed\" as the main movie title positioned at the top in stitched fabric lettering.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/plaid_slacks_fury_sewed_poster_1779669328.jpg",
+    "image_path": "/assets/posters/plaid_slacks__fury_sewed_poster_vertical_1780896436.png",
     "status": "approved"
   },
   {
@@ -1424,9 +1424,9 @@
     "parody_title": "Patch",
     "original_movie": "Snatch",
     "style_key": "mythic_epic",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Patch' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A frantic crew of underground cockney vexillologists and eccentric tailors scheme to steal a priceless historical banner, aggressively cornering people to ask about their favorite pennants.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Patch\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster parody titled \"Patch\". Style: comedic illustration, classic adventure art, 'mythic_epic' parody. Colors: earthy browns, torchlight yellows, muted reds/blues, vintage parchment background. Top center title \"Patch\" features letters made of sewn, multi-colored fabric patches with stitches. Center: Panicked adventurer running forward, wielding a giant sewing needle and thread spool. Beside him, a frantic woman in a patched dress. Background: Angry mob of men in flat caps chasing them through a torchlit stone dungeon. Sides: Rolled fabrics, Union Jack flag. Bottom center: Three small men fighting over a yellow fabric banner.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"Patch\" as the main movie title.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/patch_poster_1779669369.jpg",
+    "image_path": "/assets/posters/patch_poster_vertical_1780896408.png",
     "status": "approved"
   },
   {
@@ -1434,9 +1434,9 @@
     "parody_title": "Austin Cowers: International Man of Indecision",
     "original_movie": "Austin Powers: International Man of Mystery",
     "style_key": "saul_bass",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Austin Cowers: International Man of Indecision' (Parodying a famous classic film). Create this entirely in the style of: 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism, stark contrasting colors (heavy red, black, and white). It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A chronically noncommittal and indecisive 1960s British super-spy refuses to lock down concrete plans to save the world, leaving his villains and lovers constantly hanging.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Austin Cowers: International Man of Indecision\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "A 2:3 vertical movie poster in minimalist Saul Bass style using only red, black, and white. Top: a jagged black banner. Center: a large red question mark behind a black silhouette of a man in a trench coat and fedora, arms crossed. Left: a small stylized figure holding a watch. Right: a small impatient figure tapping his foot. Bottom: a red and black globe beneath opposing left/right white arrows on a split black/red background.\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"AUSTIN COWERS: INTERNATIONAL MAN OF INDECISION\" as the main movie title in jagged white text inside the top black banner.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/austin_cowers_international_man_of_indecision_poster_1779669388.jpg",
+    "image_path": "/assets/posters/austin_cowers__international_man_of_indecision_poster_vertical_1780896380.png",
     "status": "approved"
   },
   {
@@ -1445,18 +1445,18 @@
     "original_movie": "Napoleon Dynamite",
     "style_key": "mythic_epic",
     "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Napoleon Vine-amite' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An awkward, deadpan Idaho teenager attempts to win the local 4-H competition by growing an explosively large, aggressively yellow gourd, constantly shouting his favorite vegetable's name in frustration.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Napoleon Vine-amite\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/napoleon_vineamite_poster_vertical_1780030537.png",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_424_1779595929554",
     "parody_title": "Crude Romance",
     "original_movie": "True Romance",
     "style_key": "mythic_epic",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Crude Romance' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Two reckless lovers go on the run from the mob, but instead of trying to sell a suitcase full of stolen drugs, they are trying to fence a massive barrel of high-octane gasoline to fund their cross-country road trip.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Crude Romance\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 retro 1930s pulp adventure movie poster in 'mythic_epic' illustration style. Palette features deep blues, fiery oranges, and dusty tans. Center layout: Rugged man in fedora and woman in aviator goggles jointly carrying a metal barrel. Below them: a speeding classic 1930s car. Background left: gangsters with Tommy guns and a steam train. Background right: oil derricks, desert mesas, and a zeppelin. Framed by dramatic dust clouds. Large arched title at the top in orange-yellow gradient with 3D shadow. Bottom center features a ribbon banner. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"Crude Romance\" as the main movie title.\n2. \"HIGH-OCTANE GASOLINE\" printed on the metal barrel in bold text with a flame graphic.\n3. \"A PARODY OF PASSION & PETROL\" positioned at the bottom center on a ribbon banner.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/crude_romance_poster_1779669430.jpg",
+    "image_path": "/assets/posters/crude_romance_poster_vertical_1780896355.png",
     "status": "approved"
   },
   {
@@ -1465,9 +1465,9 @@
     "original_movie": "Superbad",
     "style_key": "mythic_epic",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Supermad' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Two awkward teens try to secure booze for a high school party, but their night is derailed when their nerdy friend's fake ID transforms him into an incredibly angry, hyper-aggressive brawler who violently pushes everyone he meets.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Supermad\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/supermad_poster_1779669450.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_333_1779596050271",
@@ -1475,18 +1475,18 @@
     "original_movie": "Mean Girls",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Bean Girls' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A clique of extremely gassy, legume-obsessed teenagers rule the cafeteria, ruthlessly banishing any student who doesn't produce enough toxic flatulence to join their ranks.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Bean Girls\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/bean_girls_poster_1779669512.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_335_1779596073631",
     "parody_title": "The Unpettables",
     "original_movie": "The Incredibles",
     "style_key": "wpa_poster",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Unpettables' (Parodying a famous classic film). Create this entirely in the style of: 1930s WPA National Park poster style, muted earthy colors, flat vector shapes, screen-printed texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A family of bumbling animal control officers tries to run a rescue for highly dangerous wildlife, but their eccentric safety inspector strictly forbids them from bringing in any primates.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Unpettables\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster, vintage WPA poster style, flat muted colors, bold outlines. Olive green background, khaki, brown, orange palette. Top: Large dark bold text \"The Unpettables\". Center: Chaotic scene of bumbling park rangers in khaki uniforms struggling with wildlife. Features a roaring brown bear, hissing bobcat, coiled snake, and monkey with a suitcase. Rangers use butterfly nets. One large ranger holds a sign: \"NO PRIMATES!\". Right: Stern female supervisor with clipboard pointing from behind a barricade reading \"SAFETY FIRST\". Bear traps on ground. Bottom: Text \"A BUMBLING TALE OF WILDLIFE RESCUE & REGULATION\".\n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"The Unpettables\" as the main movie title at the top.\n2. \"NO PRIMATES!\" on a sign held by a ranger.\n3. \"SAFETY FIRST\" on a striped barricade.\n4. \"A BUMBLING TALE OF WILDLIFE RESCUE & REGULATION\" positioned at the bottom in a clean, matching font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_unpettables_poster_1779669555.jpg",
+    "image_path": "/assets/posters/the_unpettables_poster_vertical_1780896328.png",
     "status": "approved"
   },
   {
@@ -1495,9 +1495,9 @@
     "original_movie": "Army of Darkness",
     "style_key": "woodcut",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Army of Sparkness' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A wise-cracking janitor is transported to the unhygienic Middle Ages, where he must battle ancient grime and make the castle shine using his trusty sweeping tool.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Army of Sparkness\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/army_of_sparkness_poster_1779669574.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_318_1779596186871",
@@ -1505,9 +1505,9 @@
     "original_movie": "They Live",
     "style_key": "mythic_epic",
     "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'They Sieve' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A bizarre culinary drifter discovers a hidden alien invasion, but his quest to save humanity keeps getting derailed by his obsession with slow-cooking and straining rubbery bubblegum broths.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"They Sieve\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/they_sieve_poster_vertical_1780030547.png",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_312_1779596250002",
@@ -1515,18 +1515,18 @@
     "original_movie": "Star Trek II: The Wrath of Khan",
     "style_key": "mythic_epic",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Star Chef II: The Broth of Prawn' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Admiral Kirk is forced into a deadly culinary showdown when a genetically engineered crustacean steals the Genesis cocktail sauce.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Star Chef II: The Broth of Prawn\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/star_chef_ii_the_broth_of_prawn_poster_1779669678.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_291_1779596292294",
     "parody_title": "The Doom",
     "original_movie": "The Room",
     "style_key": "pop_art",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'The Doom' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A melodramatic man builds a giant wooden boat on his apartment roof to survive a biblical flood, but his treacherous fianc\u00e9e Lisa keeps tearing his apocalyptic warnings apart.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Doom\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in retro pop-art comic style. Use Ben-Day dots, heavy black outlines, and distressed paper texture. Primary colors: red, cyan, yellow, black. Top section: Solid red banner with giant, jagged yellow 3D text \"THE DOOM\" casting a thick black shadow. Mid section: Cyan halftone sky background. Left: Dramatically crying retro man in a blue suit with a thought bubble. Center: Wooden Noah's ark resting on a flat brick rooftop. Right: Angry blonde woman in a cyan polka-dot dress tearing a document, with a speech bubble. Bottom section: A rectangular inset panel showing a minimal city skyline submerged in blue waves against a solid yellow background. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"THE DOOM\" as the main movie title in the top red banner.\n2. \"OH, HI MARK! I'M FED UP WITH THIS WORLD!\" inside the crying man's thought bubble.\n3. \"I DON'T CARE! YOU'RE TEARING ME APART, JOHNNY!\" inside the blonde woman's speech bubble.\n4. \"WARNING: FLOOD\" printed clearly on the torn paper in the woman's hands.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/the_doom_poster_1779669721.jpg",
+    "image_path": "/assets/posters/the_doom_poster_vertical_1780896299.png",
     "status": "approved"
   },
   {
@@ -1535,9 +1535,9 @@
     "original_movie": "Clerks",
     "style_key": "woodcut",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Dirks' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Two apathetic medieval market stall operators pass the time by tossing daggers, marveling in disbelief when a passing rogue embeds 37 blades into a wooden barrel with a single flick of the wrist.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Dirks\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/dirks_poster_1779669781.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_277_1779596342062",
