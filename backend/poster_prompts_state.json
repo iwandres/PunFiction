@@ -1115,9 +1115,9 @@
     "original_movie": "Ferris Bueller's Day Off",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Ferris Mewler's Day Off' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A slick, rebellious housecat escapes through an open window to take his nervous terrier best friend on a wild joyride across Chicago, reminding fellow pets that if you don't stop and look around, you just might hiss it.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Ferris Mewler's Day Off\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/ferris_mewlers_day_off_poster_1779599719.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_068_1778295894061",
@@ -1155,9 +1155,9 @@
     "original_movie": "Wall Street",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Wall Wheat' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A ruthless corporate raider leaves the financial sector to dominate the cutthroat, high-stakes world of competitive agriculture, where maximizing crop yield is the ultimate power play.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Wall Wheat\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/wall_wheat_poster_1779599817.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_070_1778296280981",
@@ -1165,9 +1165,9 @@
     "original_movie": "The Princess Bride",
     "style_key": "wpa_poster",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'The Princess Guide' (Parodying a famous classic film). Create this entirely in the style of: 1930s WPA National Park poster style, muted earthy colors, flat vector shapes, screen-printed texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A highly motivated fantasy life coach embarks on an epic quest to aggressively convince pirates, giants, and royalty that their personal goals are totally within reach.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Princess Guide\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/the_princess_guide_poster_1779599838.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_070_1778296284874",
@@ -1185,9 +1185,9 @@
     "original_movie": "The Silence of the Lambs",
     "style_key": "saul_bass",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'The Silence of the Brands' (Parodying a famous classic film). Create this entirely in the style of: 1960s Saul Bass minimalist poster design, jagged paper-cutout shapes, abstract symbolism, stark contrasting colors (heavy red, black, and white). It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A psychotic corporate executive traps marketing interns in a basement cubicle pit, forcing them to physically absorb toxic synergy and ad campaigns until they are ruthless enough to climb the corporate ladder.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Silence of the Brands\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/the_silence_of_the_brands_poster_1779599874.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_073_1778684862107",
@@ -1204,9 +1204,9 @@
     "parody_title": "Glazed and Enthused",
     "original_movie": "Dazed and Confused",
     "style_key": "mythic_epic",
-    "prompt": "Generate a movie poster illustration for a spoof movie called 'Glazed and Enthused' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A group of aggressively wholesome 1970s teenagers spend their last day of high school running a highly successful donut shop, spreading sugary joy and relentless positivity to their entire town.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Glazed and Enthused\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
+    "prompt": "Vertical 2:3 movie poster in a nostalgic 1970s painted illustration style. Warm golden hour palette featuring yellows, oranges, and faded denim blues. Epic montage composition. Top: Massive frosted bubble-letter title \"GLAZED AND ENTHUSED\". Center: Clustered portrait of five beaming 70s teens with feathered hair, triumphantly holding up donuts. Background: Nostalgic American town square under a hazy sky raining donuts. Mid-left: A suspended street banner reading \"DONUT DAY\". Bottom: A lively crowd of smaller figures in vintage bell-bottoms cheering around a classic orange VW bus loaded with donut boxes. \n\nCRITICAL INSTRUCTION: You must prominently feature the following exact text strings on the poster:\n1. \"GLAZED AND ENTHUSED\" as the main movie title.\n2. \"DONUT DAY\" positioned on a banner in the mid-left background in a clean, matching font.\nEnsure all text is fully legible and spelled exactly as written. Do not include generic studio logos or shields unless they are the custom stylized emblems from the original.",
     "generated": true,
-    "image_path": "/assets/posters/glazed_and_enthused_poster_1779668906.jpg",
+    "image_path": "/assets/posters/glazed_and_enthused_poster_vertical_1780892747.png",
     "status": "approved"
   },
   {
@@ -1215,9 +1215,9 @@
     "original_movie": "Dazed and Confused",
     "style_key": "pop_art",
     "prompt": "Generate a movie poster illustration for a spoof movie called 'Raised and Fused' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A group of slumping 1970s teenagers desperately try to fix their terrible posture before summer vacation under the guidance of a slacker chiropractor.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Raised and Fused\" as the movie title on the poster. Ensure the typography is stylized to match the artwork. Do not include any studio shields, globes, or branding.",
-    "generated": true,
-    "image_path": "/assets/posters/raised_and_fused_poster_1779599971.jpg",
-    "status": "approved"
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
   },
   {
     "pun_id": "quote_077_1778766656019",

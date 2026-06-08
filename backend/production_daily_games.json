@@ -2850,6 +2850,206 @@
     ]
   },
   {
+    "puzzle_number": "058",
+    "puzzle_id": "puz_quote_062_1778295263659",
+    "boss_id": "boss_quote_062_1778295263659",
+    "boss_original_title": "Sudden Impact",
+    "boss_pun_title": "Runnin' Track",
+    "boss_pitch": "A renegade track-and-field official with a massive .44 Magnum violently enforces baton-handoff regulations at a high-stakes athletic meet, daring sprinters to commit a passing foul.",
+    "boss_original_quote": "Go ahead, make my day.",
+    "boss_punned_quote": "Go ahead, make my relay.",
+    "boss_poster_url": "/assets/posters/runnin_track_poster_1779668824.jpg",
+    "boss_hint2": "R_____' T____",
+    "answer": "______' _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "059",
+    "puzzle_id": "puz_quote_068_1778295894061",
+    "boss_id": "boss_quote_068_1778295894061",
+    "boss_original_title": "RoboCop",
+    "boss_pun_title": "RoboShop",
+    "boss_pitch": "After Detroit's supply chain collapses, an invincible cyborg is deployed not to fight crime, but to aggressively distribute wholesale office materials and manage city-wide logistics at unbeatable prices.",
+    "boss_original_quote": "I'd buy that for a dollar!",
+    "boss_punned_quote": "I'd supply that for a dollar!",
+    "boss_poster_url": "/assets/posters/roboshop_poster_1779599758.jpg",
+    "boss_hint2": "R_______",
+    "answer": "________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "060",
+    "puzzle_id": "puz_quote_069_1778295969438",
+    "boss_id": "boss_quote_069_1778295969438",
+    "boss_original_title": "Wall Street",
+    "boss_pun_title": "Stall Street",
+    "boss_pitch": "A ruthless livestock broker mentors a naive young farmhand in the cutthroat, high-stakes world of thoroughbred horse mating, preaching that maximizing offspring is the ultimate power move.",
+    "boss_original_quote": "Greed, for lack of a better word, is good.",
+    "boss_punned_quote": "Breed, for lack of a better word, is good.",
+    "boss_poster_url": "/assets/posters/stall_street_poster_1779599779.jpg",
+    "boss_hint2": "S____ S_____",
+    "answer": "_____ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "061",
+    "puzzle_id": "puz_quote_076_1778766624514",
+    "boss_id": "boss_quote_076_1778766624514",
+    "boss_original_title": "Dazed and Confused",
+    "boss_pun_title": "Glazed and Enthused",
+    "boss_pitch": "A group of aggressively wholesome 1970s teenagers spend their last day of high school running a highly successful donut shop, spreading sugary joy and relentless positivity to their entire town.",
+    "boss_original_quote": "Alright, alright, alright.",
+    "boss_punned_quote": "Delight, delight, delight.",
+    "boss_poster_url": "/assets/posters/glazed_and_enthused_poster_vertical_1780892747.png",
+    "boss_hint2": "G_____ a__ E_______",
+    "answer": "______ ___ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
     "puzzle_number": "",
     "puzzle_id": "puz_quote_002_1778164889440",
     "boss_id": "boss_quote_002_1778164889440",
@@ -5511,6 +5711,356 @@
     "boss_poster_url": "/assets/posters/a_few_good_hens_poster_vertical_1780030591.png",
     "boss_hint2": "A F__ G___ H___",
     "answer": "_ ___ ____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_059_1778295015038",
+    "boss_id": "boss_quote_059_1778295015038",
+    "boss_original_title": "Raiders of the Lost Ark",
+    "boss_pun_title": "Waders of the Lost Park",
+    "boss_pitch": "An adventurous but aquaphobic archaeologist must don his waterproof overalls to navigate a terrifying gauntlet of freshwater bodies in search of a damp biblical artifact.",
+    "boss_original_quote": "Snakes. Why'd it have to be snakes?",
+    "boss_punned_quote": "Lakes. Why'd it have to be lakes?",
+    "boss_poster_url": "/assets/posters/waders_of_the_lost_park_poster_1779599456.jpg",
+    "boss_hint2": "W_____ o_ t__ L___ P___",
+    "answer": "______ __ ___ ____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_063_1778295329439",
+    "boss_id": "boss_quote_063_1778295329439",
+    "boss_original_title": "This Is Spinal Tap",
+    "boss_pun_title": "Swiss Is Spinal Trap",
+    "boss_pitch": "A mockumentary follows an aging, clueless heavy metal band that has bizarrely pivoted to artisanal dairy production, bragging that their pungent aging process goes one notch past ten.",
+    "boss_original_quote": "These go to eleven.",
+    "boss_punned_quote": "Cheese go to eleven.",
+    "boss_poster_url": "/assets/posters/swiss_is_spinal_trap_poster_1779599599.jpg",
+    "boss_hint2": "S____ I_ S_____ T___",
+    "answer": "_____ __ ______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_063_1778295334108",
+    "boss_id": "boss_quote_063_1778295334108",
+    "boss_original_title": "This Is Spinal Tap",
+    "boss_pun_title": "This Is Spinal Clap",
+    "boss_pitch": "A raunchy mockumentary follows an aging heavy metal band on tour as they brag to clinic doctors about their impossibly severe, chart-breaking venereal diseases.",
+    "boss_original_quote": "These go to eleven.",
+    "boss_punned_quote": "Disease go to eleven.",
+    "boss_poster_url": "/assets/posters/this_is_spinal_clap_poster_1779599618.jpg",
+    "boss_hint2": "T___ I_ S_____ C___",
+    "answer": "____ __ ______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_064_1778295597197",
+    "boss_id": "boss_quote_064_1778295597197",
+    "boss_original_title": "The Terminator",
+    "boss_pun_title": "The Donator",
+    "boss_pitch": "A relentless cyborg travels back in time to aggressively run a PBS telethon, physically forcing people to open their wallets for charity.",
+    "boss_original_quote": "Come with me if you want to live.",
+    "boss_punned_quote": "Come with me if you want to give.",
+    "boss_poster_url": "/assets/posters/the_donator_poster_1779599679.jpg",
+    "boss_hint2": "T__ D______",
+    "answer": "___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_069_1778296021097",
+    "boss_id": "boss_quote_069_1778296021097",
+    "boss_original_title": "Wall Street",
+    "boss_pun_title": "Shawl Street",
+    "boss_pitch": "A ruthless 1980s corporate raider abandons high finance to aggressively dominate the cutthroat world of vintage British textiles and academic menswear.",
+    "boss_original_quote": "Greed, for lack of a better word, is good.",
+    "boss_punned_quote": "Tweed, for lack of a better word, is good.",
+    "boss_poster_url": "/assets/posters/shawl_street_poster_1779599798.jpg",
+    "boss_hint2": "S____ S_____",
+    "answer": "_____ ______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_070_1778296284874",
+    "boss_id": "boss_quote_070_1778296284874",
+    "boss_original_title": "The Princess Bride",
+    "boss_pun_title": "The Princess Bribe",
+    "boss_pitch": "A swashbuckling tale of corporate medieval romance where an evil prince tries to embezzle kingdom funds and a brilliant Sicilian auditor keeps declaring every shady invoice perfectly collectible.",
+    "boss_original_quote": "Inconceivable!",
+    "boss_punned_quote": "Receivable!",
+    "boss_poster_url": "/assets/posters/the_princess_bribe_poster_1779599856.jpg",
+    "boss_hint2": "T__ P_______ B____",
+    "answer": "___ ________ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_073_1778684862107",
+    "boss_id": "boss_quote_073_1778684862107",
+    "boss_original_title": "The Silence of the Lambs",
+    "boss_pun_title": "The Silence of the Clams",
+    "boss_pitch": "A marine-obsessed maniac traps beachgoers in a deep sandy pit, forcing them to aggressively exfoliate with salt water to achieve the ultimate coastal glow.",
+    "boss_original_quote": "It rubs the lotion on its skin or else it gets the hose again.",
+    "boss_punned_quote": "It rubs the ocean on its skin or else it gets the hose again.",
+    "boss_poster_url": "/assets/posters/the_silence_of_the_clams_poster_1779599912.jpg",
+    "boss_hint2": "T__ S______ o_ t__ C____",
+    "answer": "___ _______ __ ___ _____",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [
