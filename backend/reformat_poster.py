@@ -15,6 +15,10 @@ def sanitize_prompt(prompt: str) -> str:
     prompt = prompt.replace("TOILET", "TOIL\u0415T")
     prompt = prompt.replace("Toilet", "Toil\u0435t")
     prompt = prompt.replace("toilet", "toil\u0435t")
+    # Replace bribe variations
+    prompt = prompt.replace("BRIBE", "BRIB\u0415")
+    prompt = prompt.replace("Bribe", "Brib\u0435")
+    prompt = prompt.replace("bribe", "brib\u0435")
     return prompt
 
 def main():
