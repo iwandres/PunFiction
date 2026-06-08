@@ -168,9 +168,10 @@
 
     <!-- How to Play Modal -->
     <div id="how-to-play-modal" class="poster-modal">
-        <div class="how-to-play-card">
+        <div class="modal-wrapper">
             <button id="btn-close-how-to-play" class="modal-close-btn">&times;</button>
-            <h2 class="how-to-play-title">🎬 HOW TO PLAY</h2>
+            <div class="how-to-play-card">
+                <h2 class="how-to-play-title">🎬 HOW TO PLAY</h2>
             <div class="how-to-play-content">
                 <p style="margin-top: 0; line-height: 1.5; font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">In <strong>PunFiction: Box Office Blunders</strong>, your goal is to guess a hilarious <strong>parody movie title</strong> based on its comedic plot and a punned movie quote!</p>
                 
@@ -194,13 +195,15 @@
                 <p class="how-to-play-tip">💡 <strong>Pro Tip:</strong> Use the progressive hints at the bottom if you get stuck! They show the original movie title, highlight the pun, and even fill in letters and vowels!</p>
             </div>
         </div>
+        </div>
     </div>
 
     <!-- Stats & Level Select Modal -->
     <div id="stats-select-modal" class="poster-modal">
-        <div class="stats-select-card">
+        <div class="modal-wrapper">
             <button id="btn-close-stats-select" class="modal-close-btn">&times;</button>
-            <h2 class="stats-select-title">🏆 All Challenges - Global Stats</h2>
+            <div class="stats-select-card">
+                <h2 class="stats-select-title">🏆 All Challenges - Global Stats</h2>
             
             <!-- Aggregate Stats Section -->
             <div class="aggregate-stats-container">
@@ -267,6 +270,7 @@
             <div class="challenges-list-container" id="challenges-list">
                 <!-- Dynamically populated challenge list -->
             </div>
+        </div>
         </div>
     </div>
 
