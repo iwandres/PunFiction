@@ -911,8 +911,8 @@ input:focus {
 }
 
 .modal-wrapper .modal-close-btn {
-    top: -16px;
-    right: -16px;
+    top: 15px;
+    right: 15px;
     width: 36px;
     height: 36px;
     font-size: 1.4rem;
