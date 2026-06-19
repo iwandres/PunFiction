@@ -956,6 +956,8 @@ function loadLevel() {
 
     // Render interactive blank slots
     renderGuessSlots();
+    // Re-render after a short delay to ensure browser layout has stabilized (prevents mobile layout shifting)
+    setTimeout(renderGuessSlots, 50);
 
     // Automatically focus input on desktop so player can type immediately (skip on mobile to prevent layout shift/keyboard popup on load)
     if (window.innerWidth >= 768) {
