@@ -1362,47 +1362,6 @@ function triggerVictory() {
     }
     updateChallengeNavButtons();
 
-    // Set up dynamic Congratulatory Messages (4 levels!)
-    const bannerEl = document.getElementById('victory-banner');
-    const subtitleEl = document.getElementById('victory-subtitle');
-    
-    if (bannerEl) {
-        bannerEl.className = "victory-banner";
-        bannerEl.style.animation = "none";
-        bannerEl.offsetHeight; /* trigger reflow */
-        
-        if (hintsUsed === 0) {
-            bannerEl.innerText = "HOLY MOVIE GODS! 🏆";
-        } else if (hintsUsed === 1) {
-            bannerEl.innerText = "BRILLIANT DIRECTING! 🎬";
-        } else if (hintsUsed === 2) {
-            bannerEl.innerText = "GREAT SOLVE! 🎟️";
-        } else if (hintsUsed === 3) {
-            bannerEl.innerText = "YOU CRACKED IT! 🍿";
-        } else {
-            bannerEl.innerText = "PHEW! YOU SURVIVED! 🎭";
-        }
-    }
-    
-    if (subtitleEl) {
-        if (hintsUsed === 0) {
-            subtitleEl.innerHTML = `YOU ARE AN ABSOLUTE CINEMATIC LEGEND! SOLVED WITH ZERO HINTS! MIND = BLOWN! 🍿🎬🔥`;
-            subtitleEl.style.color = "#10ac84";
-        } else if (hintsUsed === 1) {
-            subtitleEl.innerHTML = `Only <span style="color: #ff914d; font-weight: 800;">1 Hint</span> used! You're a certified Box Office Pro! Outstanding solve! 🍿🌟`;
-            subtitleEl.style.color = "";
-        } else if (hintsUsed === 2) {
-            subtitleEl.innerHTML = `Solved with <span style="color: var(--text-secondary); font-weight: 800;">2 Hints</span>. You cracked the code and saved the production! Solid work! ⭐`;
-            subtitleEl.style.color = "";
-        } else if (hintsUsed === 3) {
-            subtitleEl.innerHTML = `Solved with <span style="color: var(--accent-main); font-weight: 800;">3 Hints</span>. The director's cut is safe and the show must go on! Keep practicing! 🎬`;
-            subtitleEl.style.color = "";
-        } else {
-            subtitleEl.innerHTML = `Solved with <span style="color: #ff4757; font-weight: 800;">4 Hints (Vowel Rush!)</span>. You made it across the finish line! Keep on playin'! 🌟`;
-            subtitleEl.style.color = "";
-        }
-    }
-
     // Set up victory lobby button dynamically
     const lobbyBtn = document.getElementById('btn-victory-lobby');
     if (lobbyBtn) {

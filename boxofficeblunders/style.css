@@ -745,21 +745,7 @@ input:focus {
 #victory-screen {
     gap: 15px;
     justify-content: flex-start;
-    padding-top: 15px;
-}
-
-.victory-banner {
-    background: #2ed573;
-    color: #ffffff;
-    font-family: var(--font-heading);
-    font-size: 2.2rem;
-    padding: 5px 25px;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
-    border-radius: 8px;
-    transform: none;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
+    padding-top: 10px;
 }
 
 .theatrical-frame {
@@ -767,7 +753,7 @@ input:focus {
     border: 3px solid var(--border-color);
     box-shadow: 6px 6px 0px var(--border-color);
     border-radius: 16px;
-    padding: 20px;
+    padding: 25px 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
