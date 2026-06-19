@@ -3,7 +3,7 @@ import os
 import re
 
 STYLES = {
-    "mythic_epic": "mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel",
+    "mythic_epic": "mythic and epic illustrative style, hand-painted artwork, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, a single prominent central character or max 2 distinct faces, vibrant colors, detailed airbrush work, nostalgic romantic feel, avoiding cluttered layouts of multiple floating heads",
     "pop_art": "Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic",
     "mid_century": "1950s UPA animation style, geometric shapes, flat colors, minimalist mid-century modern illustration",
     "woodcut": "medieval woodcut print style, intricate linework, monochromatic ink on parchment texture",

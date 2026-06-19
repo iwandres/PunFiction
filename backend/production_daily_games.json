@@ -4100,6 +4100,106 @@
     ]
   },
   {
+    "puzzle_number": "083",
+    "puzzle_id": "puz_quote_326_1780898666743",
+    "boss_id": "boss_quote_326_1780898666743",
+    "boss_original_title": "Harry Potter and the Sorcerer's Stone",
+    "boss_pun_title": "Harry Plotter and the Scammer's Loan",
+    "boss_pitch": "A young orphan discovers he isn't a wizard, but a mastermind con artist, and is whisked away to a secret boarding school dedicated entirely to elaborate grifts, multi-level marketing scams, and Ponzi schemes.",
+    "boss_original_quote": "It does not do to dwell on dreams and forget to live.",
+    "boss_punned_quote": "It does not do to dwell on schemes and forget to live.",
+    "boss_poster_url": "/assets/posters/harry_plotter_and_the_scammers_loan_poster_vertical_1781908869.png",
+    "boss_hint2": "H____ P______ a__ t__ S______'_ L___",
+    "answer": "_____ _______ ___ ___ _______'_ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "084",
+    "puzzle_id": "puz_quote_314_1780898555593",
+    "boss_id": "boss_quote_314_1780898555593",
+    "boss_original_title": "The Karate Kid",
+    "boss_pun_title": "The Chapati Kid",
+    "boss_pitch": "An eccentric bakery owner teaches a bullied teen martial arts through the rigorous, repetitive process of pressing dietary seeds into Indian flatbreads and scraping off the excess.",
+    "boss_original_quote": "Wax on, wax off.",
+    "boss_punned_quote": "Flax on, flax off.",
+    "boss_poster_url": "/assets/posters/the_chapati_kid_poster_vertical_1781908878.png",
+    "boss_hint2": "T__ C______ K__",
+    "answer": "___ _______ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
     "puzzle_number": "",
     "puzzle_id": "puz_quote_002_1778164889440",
     "boss_id": "boss_quote_002_1778164889440",
@@ -8211,6 +8311,56 @@
     "boss_poster_url": "/assets/posters/makin_poster_vertical_1781908125.png",
     "boss_hint2": "M____'",
     "answer": "_____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_156_1780031957390",
+    "boss_id": "boss_quote_156_1780031957390",
+    "boss_original_title": "Airplane!",
+    "boss_pun_title": "Airplant!",
+    "boss_pitch": "A traumatized ex-crop-duster must safely land a giant, flying botanical garden piloted by oversized bees after the insect crew passes out from a severe lack of sweet, floral fuel.",
+    "boss_original_quote": "Roger, Roger. What's our vector, Victor?",
+    "boss_punned_quote": "Roger, Roger. What's our nectar, Victor?",
+    "boss_poster_url": "/assets/posters/airplant_poster_vertical_1781908841.png",
+    "boss_hint2": "A______!",
+    "answer": "________!",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [

@@ -82,13 +82,20 @@ def main():
     
     # Stage 1: Analyze existing poster using Gemini 3.1 Pro
     print(f"\nStep 2: Sending original image to Gemini 3.1 Pro for style & layout analysis (Title: '{parody_title}', Style: '{style_key}')...")
+    
+    style_constraint = ""
+    style_constraint_fallback = ""
+    if style_key == "mythic_epic":
+        style_constraint = " Also, keep the composition clean and focused. Limit the layout description to 1-3 main characters/heads maximum, and explicitly instruct the image generator to avoid creating a cluttered montage or collage of multiple floating faces or background heads."
+        style_constraint_fallback = " Limit the composition to 1-3 characters/heads maximum, avoiding a cluttered montage of many faces."
+        
     analysis_prompt = f"""
     You are a master graphic designer and professional movie poster illustrator.
     We have an existing square (1:1) parody movie poster for a film called '{parody_title}'.
     We want to reformat it as a standard vertical movie poster (2:3 aspect ratio).
     
     Analyze the attached image in detail, paying special attention to:
-    1. Visual Style: Specifically the style characteristics of style category '{style_key}'.
+    1. Visual Style: Specifically the style characteristics of style category '{style_key}'.{style_constraint}
     2. Color Scheme: The exact color palette used in the image.
     3. Composition: The central figure(s), layout, and artistic elements.
     4. Text and Typography: 
@@ -124,7 +131,7 @@ def main():
         print("Falling back to pre-defined prompt...")
         refined_prompt = (
             f"Generate a vertical movie poster illustration for a spoof movie called '{parody_title}' (Parodying a famous classic film). "
-            f"Create this entirely in the style of style key {style_key}, "
+            f"Create this entirely in the style of style key {style_key}.{style_constraint_fallback} "
             "using stark contrasting colors from the original. It must look like an illustration, NOT a photograph or a cinematic movie still. "
             f"CRITICAL INSTRUCTION: You must prominently feature the exact text \"{parody_title}\" as the movie title on the poster in a stylized, bold "
             "font matching the artwork. Do not include any studio shields, globes, or branding."
