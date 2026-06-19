@@ -1711,3 +1711,17 @@ input:focus {
     }
 }
 
+/* Trophy Icon SVG Silhouette Styles */
+.trophy-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    position: relative;
+    top: -1.5px;
+}
+
+.stats-select-btn .trophy-icon {
+    margin-right: 0;
+    top: 0;
+}
+
