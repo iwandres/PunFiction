@@ -329,6 +329,10 @@ async function loadPuzzleDatabase() {
         } catch (e) {
             console.error("Critical: Failed to load daily challenges database from all sources.", e);
             showToast("Failed to load daily challenges. Curation server offline?", true);
+            const appEl = document.getElementById('app');
+            if (appEl) {
+                appEl.classList.remove('app-loading');
+            }
             return;
         }
     }
@@ -436,6 +440,11 @@ function startGame(challenge) {
     // Update challenge navigation buttons
     updateChallengeNavButtons();
 
+    // Reveal app once game loads
+    const appEl = document.getElementById('app');
+    if (appEl) {
+        appEl.classList.remove('app-loading');
+    }
 }
 
 function getCorrectPosterUrl(urlPath) {

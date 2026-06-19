@@ -51,6 +51,12 @@ body {
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
+    transition: opacity 0.15s ease-in-out;
+}
+
+#app.app-loading {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .screen {
