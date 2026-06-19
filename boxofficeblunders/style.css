@@ -1592,3 +1592,59 @@ input:focus {
     background-color: #f1f2f6;
     color: #2f3542;
 }
+
+/* ================= MAIN LAYOUT WRAPPER ================= */
+.main-layout-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.desktop-sidebar-ad {
+    display: none; /* Hidden by default on mobile/tablet */
+}
+
+/* Desktop layout viewport media query */
+@media (min-width: 1024px) {
+    .main-layout-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .desktop-sidebar-ad {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 320px;
+        min-width: 320px;
+        height: 620px;
+        position: sticky;
+        top: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 3px dashed rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 10px;
+    }
+    
+    /* Add a neat placeholder label inside the ad box during local testing */
+    .desktop-sidebar-ad::before {
+        content: "ADVERTISEMENT";
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        opacity: 0.4;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+}
