@@ -120,7 +120,13 @@ window.onload = async () => {
         }
     };
     ui.guessInput.oninput = handleGuessInput;
+    
+    let keyboardFocusTimeout = null;
     ui.guessInput.addEventListener('focus', () => {
+        if (keyboardFocusTimeout) {
+            clearTimeout(keyboardFocusTimeout);
+            keyboardFocusTimeout = null;
+        }
         document.body.classList.add('keyboard-focused');
         
         // Multi-stage scrolling to handle different keyboard animation speeds across mobile devices
@@ -134,7 +140,10 @@ window.onload = async () => {
         setTimeout(scrollSlots, 500);
     });
     ui.guessInput.addEventListener('blur', () => {
-        document.body.classList.remove('keyboard-focused');
+        keyboardFocusTimeout = setTimeout(() => {
+            document.body.classList.remove('keyboard-focused');
+            keyboardFocusTimeout = null;
+        }, 150);
     });
     if (ui.guessSlotsContainer) {
         ui.guessSlotsContainer.onclick = () => ui.guessInput.focus();
