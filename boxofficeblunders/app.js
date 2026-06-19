@@ -345,6 +345,56 @@ window.onload = async () => {
         if (displayInput) {
             displayInput.value = getOrGenerateProfileId();
         }
+
+        // 3. Render Puzzle Directory lists
+        const approved = getApprovedChallenges();
+        const solvedPuzzles = [];
+        const attemptedPuzzles = [];
+        const unplayedPuzzles = [];
+        
+        approved.forEach(p => {
+            const pNumStr = padPuzzleNumber(p.puzzle_number);
+            if (solvedList.has(pNumStr)) {
+                solvedPuzzles.push(p);
+            } else if (attemptedList.has(pNumStr)) {
+                attemptedPuzzles.push(p);
+            } else {
+                unplayedPuzzles.push(p);
+            }
+        });
+
+        const renderBadgeList = (elementId, list, typeClass) => {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            if (list.length === 0) {
+                const emptySpan = document.createElement('span');
+                emptySpan.style.fontSize = '0.85rem';
+                emptySpan.style.color = '#7f8c8d';
+                emptySpan.style.fontStyle = 'italic';
+                emptySpan.innerText = 'None';
+                container.appendChild(emptySpan);
+                return;
+            }
+            
+            list.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = `profile-puzzle-link ${typeClass}`;
+                btn.innerText = parseInt(p.puzzle_number);
+                btn.title = `Challenge #${p.puzzle_number}: "${p.boss_pun_title}"`;
+                btn.onclick = () => {
+                    startGame(p);
+                    history.replaceState(null, "", `?challenge=${p.puzzle_number}`);
+                    if (settingsModal) settingsModal.classList.remove('active');
+                };
+                container.appendChild(btn);
+            });
+        };
+        
+        renderBadgeList('profile-solved-list', solvedPuzzles, 'solved');
+        renderBadgeList('profile-attempted-list', attemptedPuzzles, 'attempted');
+        renderBadgeList('profile-unplayed-list', unplayedPuzzles, 'unplayed');
     };
 
     if (btnSettings) btnSettings.onclick = openSettingsModal;
