@@ -1342,6 +1342,7 @@ const sanitizeText = (str) => {
 
 function handleGuessSubmit() {
     if (!activeChallenge) return;
+    triggerStartTelemetry();
     
     const completeGuess = getCompleteGuessString();
     if (!completeGuess.trim()) {
