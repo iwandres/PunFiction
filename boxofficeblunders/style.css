@@ -1475,3 +1475,65 @@ input:focus {
     background: #FF4757;
     color: #ffffff;
 }
+
+/* ================= USER SETTINGS & SYNC STYLING ================= */
+.settings-btn {
+    position: absolute;
+    top: -16px;
+    right: 100px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #54a0ff;
+    color: #ffffff;
+    border: 3px solid #5f27cd;
+    box-shadow: 3px 3px 0px #5f27cd;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.1s ease;
+    padding: 0;
+}
+
+.settings-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #5f27cd;
+}
+
+.settings-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #5f27cd;
+}
+
+.completion-badge {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    box-shadow: 1px 1px 0px var(--border-color);
+    text-transform: uppercase;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.completion-badge.solved {
+    background: #2ed573;
+    color: #ffffff;
+}
+
+.completion-badge.attempted {
+    background: #ff9f43;
+    color: #ffffff;
+}
+
+.completion-badge.unplayed {
+    background: #a4b0be;
+    color: #ffffff;
+}

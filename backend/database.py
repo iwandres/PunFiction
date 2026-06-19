@@ -135,3 +135,42 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_4": doc.get("solve_4", 0)
             }
         return stats_map
+
+user_profiles_pool = db["UserProfiles"]
+
+def get_user_profile(profile_id):
+    """Fetches a user profile from MongoDB by profile_id."""
+    try:
+        profile = user_profiles_pool.find_one({"_id": profile_id})
+        if profile:
+            return {
+                "profile_id": profile["_id"],
+                "solved_puzzles": profile.get("solved_puzzles", []),
+                "solved_hints": profile.get("solved_hints", {}),
+                "attempted_puzzles": profile.get("attempted_puzzles", []),
+                "max_streak": profile.get("max_streak", 0)
+            }
+    except Exception as e:
+        print(f"Error fetching user profile {profile_id}: {e}")
+    return None
+
+def upsert_user_profile(profile_id, solved_puzzles, solved_hints, attempted_puzzles, max_streak):
+    """Upserts user profile state to MongoDB."""
+    try:
+        user_profiles_pool.update_one(
+            {"_id": profile_id},
+            {
+                "$set": {
+                    "solved_puzzles": solved_puzzles,
+                    "solved_hints": solved_hints,
+                    "attempted_puzzles": attempted_puzzles,
+                    "max_streak": max_streak,
+                    "last_updated": datetime.now(timezone.utc)
+                }
+            },
+            upsert=True
+        )
+        return True
+    except Exception as e:
+        print(f"Error upserting user profile {profile_id}: {e}")
+        return False

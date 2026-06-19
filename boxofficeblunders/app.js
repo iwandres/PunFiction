@@ -45,6 +45,7 @@ let puzzles = [];
 let todayChallenge = null;
 let yesterdayChallenge = null;
 let activeChallenge = null; // Currently playing challenge
+let naturalTodayIndex = 1; // Global scheduling active puzzle number
 let hint3Active = false; // Flag for Hint 3 (first letters populated)
 let hint4Active = false; // Flag for Hint 4 (vowels populated)
 let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on reveal
@@ -306,6 +307,125 @@ window.onload = async () => {
         };
     }
 
+    // ================= USER SETTINGS & SYNC BINDINGS =================
+    const settingsModal = document.getElementById('settings-modal');
+    const btnSettings = document.getElementById('btn-settings');
+    const btnSettingsVic = document.getElementById('btn-settings-victory');
+    const btnCloseSettings = document.getElementById('btn-close-settings');
+    const btnCopySyncCode = document.getElementById('btn-copy-sync-code');
+    const btnSubmitSyncCode = document.getElementById('btn-submit-sync-code');
+    const syncCodeInput = document.getElementById('sync-code-input');
+    const btnResetProgress = document.getElementById('btn-reset-progress');
+
+    const openSettingsModal = () => {
+        if (!settingsModal) return;
+        settingsModal.classList.add('active');
+        
+        // 1. Load data
+        const solvedList = getSolvedPuzzlesList();
+        const attemptedList = getAttemptedPuzzles();
+        
+        // Ensure solved is a subset of attempted just in case of local storage discrepancies
+        solvedList.forEach(p => attemptedList.add(p));
+        
+        const { currentStreak, maxStreak } = calculateStreakMetrics(solvedList);
+        
+        const totalAttempted = attemptedList.size;
+        const totalSolved = solvedList.size;
+        const accuracy = totalAttempted > 0 ? ((totalSolved / totalAttempted) * 100).toFixed(1) : '0.0';
+        
+        // 2. Populate UI elements
+        document.getElementById('user-total-attempted').innerText = totalAttempted.toLocaleString();
+        document.getElementById('user-total-solved').innerText = totalSolved.toLocaleString();
+        document.getElementById('user-solve-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('user-current-streak').innerText = currentStreak.toLocaleString();
+        document.getElementById('user-max-streak').innerText = maxStreak.toLocaleString();
+        
+        const displayInput = document.getElementById('sync-code-display');
+        if (displayInput) {
+            displayInput.value = getOrGenerateProfileId();
+        }
+    };
+
+    if (btnSettings) btnSettings.onclick = openSettingsModal;
+    if (btnSettingsVic) btnSettingsVic.onclick = openSettingsModal;
+
+    if (btnCloseSettings) {
+        btnCloseSettings.onclick = () => {
+            if (settingsModal) settingsModal.classList.remove('active');
+        };
+    }
+
+    if (settingsModal) {
+        settingsModal.onclick = (e) => {
+            if (e.target === settingsModal) {
+                settingsModal.classList.remove('active');
+            }
+        };
+    }
+
+    if (btnCopySyncCode) {
+        btnCopySyncCode.onclick = () => {
+            const displayInput = document.getElementById('sync-code-display');
+            if (displayInput && displayInput.value) {
+                navigator.clipboard.writeText(displayInput.value).then(() => {
+                    showToast("📋 Sync Code copied to clipboard!");
+                }).catch(err => {
+                    console.error("Failed copying code: ", err);
+                });
+            }
+        };
+    }
+
+    if (btnSubmitSyncCode) {
+        btnSubmitSyncCode.onclick = async () => {
+            if (!syncCodeInput || !syncCodeInput.value.trim()) {
+                showToast("⚠️ Please enter a valid Sync Code!");
+                return;
+            }
+            btnSubmitSyncCode.disabled = true;
+            btnSubmitSyncCode.innerText = "Syncing...";
+            
+            const success = await fetchAndMergeProfile(syncCodeInput.value);
+            btnSubmitSyncCode.disabled = false;
+            btnSubmitSyncCode.innerText = "Sync Device";
+            
+            if (success) {
+                showToast("🔄 Progress synced successfully!");
+                syncCodeInput.value = '';
+                if (settingsModal) settingsModal.classList.remove('active');
+                
+                // Reload active challenge view with updated solved state
+                if (activeChallenge) {
+                    startGame(activeChallenge);
+                }
+            } else {
+                showToast("❌ Sync failed! Invalid or expired code.");
+            }
+        };
+    }
+
+    if (btnResetProgress) {
+        btnResetProgress.onclick = () => {
+            const confirmReset = confirm("⚠️ Are you sure you want to reset all your progress? This will delete all your local solving statistics and cannot be undone.");
+            if (confirmReset) {
+                try {
+                    localStorage.removeItem('pun_fiction_solved_puzzles');
+                    localStorage.removeItem('pun_fiction_solved_hints');
+                    localStorage.removeItem('pun_fiction_attempted_puzzles');
+                    localStorage.removeItem('pun_fiction_max_streak');
+                    localStorage.removeItem('pun_fiction_profile_id');
+                    showToast("🗑️ All progress has been reset.");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } catch (e) {
+                    console.error("Error clearing progress", e);
+                }
+            }
+        };
+    }
+
     // Listen for window resize to adjust slot sizes dynamically
     window.addEventListener('resize', () => {
         if (screens.game.classList.contains('active')) {
@@ -384,7 +504,7 @@ async function loadPuzzleDatabase() {
 
     // Calculate current scheduling indexes based on elapsed days since launch (updates at 2am PT)
     const daysElapsed = getDaysElapsedSinceStart();
-    const naturalTodayIndex = daysElapsed + 1;
+    naturalTodayIndex = daysElapsed + 1;
     let currentDayIndex = naturalTodayIndex;
 
     // Check if player URL overrides day (e.g. ?day=001) for diagnostic playtesting
@@ -407,8 +527,8 @@ async function loadPuzzleDatabase() {
         }
     }
 
-    const todayChallengeStr = padPuzzleNumber(currentDayIndex);
-    const yesterdayChallengeStr = padPuzzleNumber(currentDayIndex - 1);
+    const todayChallengeStr = padPuzzleNumber(naturalTodayIndex);
+    const yesterdayChallengeStr = padPuzzleNumber(naturalTodayIndex - 1);
 
     // Map challenges
     todayChallenge = approvedChallenges.find(p => p.puzzle_number === todayChallengeStr) || approvedChallenges[approvedChallenges.length - 1];
@@ -455,8 +575,182 @@ function savePuzzleSolved(puzzleNum) {
         const solvedHints = getSolvedHintsMap();
         solvedHints[puzzleNum] = hintsUsed;
         localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(solvedHints));
+
+        // Push solved status to backend profile sync
+        postUserProfile();
     } catch (e) {
         console.error("Could not write solved progress to local storage", e);
+    }
+}
+
+// Generate a profile sync ID (PF-XXXXXX)
+function getOrGenerateProfileId() {
+    try {
+        let profileId = localStorage.getItem('pun_fiction_profile_id');
+        if (!profileId) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomCode = '';
+            for (let i = 0; i < 6; i++) {
+                randomCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            profileId = `PF-${randomCode}`;
+            localStorage.setItem('pun_fiction_profile_id', profileId);
+        }
+        return profileId;
+    } catch (e) {
+        return "PF-ERROR";
+    }
+}
+
+function getAttemptedPuzzles() {
+    try {
+        const data = localStorage.getItem('pun_fiction_attempted_puzzles');
+        return new Set(data ? JSON.parse(data) : []);
+    } catch (e) {
+        return new Set();
+    }
+}
+
+function savePuzzleAttempted(puzzleNum) {
+    try {
+        const attempted = getAttemptedPuzzles();
+        if (!attempted.has(puzzleNum)) {
+            attempted.add(puzzleNum);
+            localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...attempted]));
+            
+            // Push attempted status to backend profile sync
+            postUserProfile();
+        }
+    } catch (e) {
+        console.error("Could not write attempted progress to local storage", e);
+    }
+}
+
+// Dynamically calculate solved streak metrics
+function calculateStreakMetrics(solvedList) {
+    let currentStreak = 0;
+    let maxStreak = 0;
+    
+    try {
+        maxStreak = parseInt(localStorage.getItem('pun_fiction_max_streak')) || 0;
+    } catch (e) {}
+
+    // Trace backwards starting from natural today
+    if (naturalTodayIndex) {
+        let checkDay = naturalTodayIndex;
+        // If today is not solved, check if yesterday was solved to keep the streak active
+        const todayStr = padPuzzleNumber(checkDay);
+        const yesterdayStr = padPuzzleNumber(checkDay - 1);
+        
+        if (!solvedList.has(todayStr) && solvedList.has(yesterdayStr)) {
+            checkDay = checkDay - 1; // start check from yesterday
+        }
+        
+        while (checkDay > 0) {
+            const dayStr = padPuzzleNumber(checkDay);
+            if (solvedList.has(dayStr)) {
+                currentStreak++;
+                checkDay--;
+            } else {
+                break;
+            }
+        }
+    }
+    
+    if (currentStreak > maxStreak) {
+        maxStreak = currentStreak;
+        try {
+            localStorage.setItem('pun_fiction_max_streak', maxStreak.toString());
+        } catch (e) {}
+    }
+    
+    return { currentStreak, maxStreak };
+}
+
+// Push user profile to database server
+async function postUserProfile() {
+    const profileId = getOrGenerateProfileId();
+    if (profileId === "PF-ERROR") return;
+    
+    const solved = [...getSolvedPuzzlesList()];
+    const hints = getSolvedHintsMap();
+    const attempted = [...getAttemptedPuzzles()];
+    const { maxStreak } = calculateStreakMetrics(new Set(solved));
+    
+    const payload = {
+        profile_id: profileId,
+        solved_puzzles: solved,
+        solved_hints: hints,
+        attempted_puzzles: attempted,
+        max_streak: maxStreak
+    };
+    
+    try {
+        await fetch(`${BACKEND_API_URL}/api/user`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'cors'
+        });
+    } catch (e) {
+        console.log("Offline or failed syncing user profile to server", e);
+    }
+}
+
+// Fetch from server and merge progress
+async function fetchAndMergeProfile(serverProfileId) {
+    if (!serverProfileId || !serverProfileId.trim()) return false;
+    
+    try {
+        const res = await fetch(`${BACKEND_API_URL}/api/user?profile_id=${serverProfileId.trim().toUpperCase()}`, {
+            mode: 'cors'
+        });
+        if (!res.ok) return false;
+        
+        const data = await res.json();
+        if (data.error) return false;
+        
+        // 1. Merge Solved Puzzles
+        const localSolved = getSolvedPuzzlesList();
+        const serverSolved = data.solved_puzzles || [];
+        serverSolved.forEach(p => localSolved.add(p));
+        localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...localSolved]));
+        
+        // 2. Merge Solved Hints (take minimum hints used)
+        const localHints = getSolvedHintsMap();
+        const serverHints = data.solved_hints || {};
+        Object.keys(serverHints).forEach(p => {
+            const serverH = serverHints[p];
+            const localH = localHints[p];
+            if (localH === undefined || serverH < localH) {
+                localHints[p] = serverH;
+            }
+        });
+        localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(localHints));
+        
+        // 3. Merge Attempted Puzzles
+        const localAttempted = getAttemptedPuzzles();
+        const serverAttempted = data.attempted_puzzles || [];
+        serverAttempted.forEach(p => localAttempted.add(p));
+        localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...localAttempted]));
+        
+        // 4. Merge Max Streak
+        let localMaxStreak = parseInt(localStorage.getItem('pun_fiction_max_streak')) || 0;
+        const serverMaxStreak = data.max_streak || 0;
+        if (serverMaxStreak > localMaxStreak) {
+            localStorage.setItem('pun_fiction_max_streak', serverMaxStreak.toString());
+        }
+        
+        // 5. Update local profile ID to the synced one
+        localStorage.setItem('pun_fiction_profile_id', serverProfileId.toUpperCase());
+        
+        // 6. Push merged state back to server to make it fully synchronous
+        await postUserProfile();
+        
+        return true;
+    } catch (e) {
+        console.error("Failed merging profiles:", e);
+        return false;
     }
 }
 
@@ -1538,6 +1832,9 @@ function getDeterministicMockMetrics(puzzleNum) {
 }
 
 function triggerStartTelemetry() {
+    if (activeChallenge && activeChallenge.puzzle_number) {
+        savePuzzleAttempted(activeChallenge.puzzle_number);
+    }
     if (telemetryStartSent) return;
     telemetryStartSent = true;
     sendTelemetryEvent('start');
@@ -1749,6 +2046,8 @@ async function openStatsSelectModal() {
     // 4. Populate list of challenges
     if (challengesList) {
         challengesList.innerHTML = '';
+        const solvedList = getSolvedPuzzlesList();
+        const attemptedList = getAttemptedPuzzles();
         
         approved.forEach(c => {
             const stats = getPuzzleTelemetryStats(c.puzzle_number);
@@ -1766,12 +2065,24 @@ async function openStatsSelectModal() {
             const displayNum = parseInt(c.puzzle_number);
             const chalQuote = c.boss_punned_quote ? `"${c.boss_punned_quote}"` : '"Quote Text Missing"';
             
+            let statusBadgeHtml = '';
+            if (solvedList.has(c.puzzle_number)) {
+                statusBadgeHtml = `<span class="completion-badge solved">Solved</span>`;
+            } else if (attemptedList.has(c.puzzle_number)) {
+                statusBadgeHtml = `<span class="completion-badge attempted">Attempted</span>`;
+            } else {
+                statusBadgeHtml = `<span class="completion-badge unplayed">Unplayed</span>`;
+            }
+            
             row.innerHTML = `
                 <div class="challenge-select-info">
                     <span class="challenge-select-num">Challenge #${displayNum}</span>
                     <span class="challenge-select-name">${chalQuote}</span>
                 </div>
-                <span class="difficulty-badge ${difficulty.toLowerCase()}">${difficulty}</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="difficulty-badge ${difficulty.toLowerCase()}">${difficulty}</span>
+                    ${statusBadgeHtml}
+                </div>
             `;
             
             row.onclick = () => {

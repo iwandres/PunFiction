@@ -76,6 +76,27 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
                 else:
                     self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
+        elif req_path == '/api/user':
+            import urllib.parse
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            profile_id = query_params.get('profile_id', [None])[0]
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            
+            if profile_id:
+                try:
+                    profile_stats = database.get_user_profile(profile_id)
+                    if profile_stats:
+                        self.wfile.write(json.dumps(profile_stats).encode('utf-8'))
+                    else:
+                        self.wfile.write(json.dumps({"error": "Profile not found"}).encode('utf-8'))
+                except Exception as e:
+                    self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+            else:
+                self.wfile.write(json.dumps({"error": "profile_id is required"}).encode('utf-8'))
         elif req_path == '/quotes':
             self.send_response(302)
             self.send_header('Location', '/#quotes')
@@ -251,6 +272,36 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": True, "db_connected": db_success}).encode('utf-8'))
             except Exception as e:
                 print(f"Error handling telemetry: {e}")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+        elif self.path == '/api/user':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            try:
+                payload = json.loads(post_data.decode('utf-8'))
+                profile_id = payload.get('profile_id')
+                solved_puzzles = payload.get('solved_puzzles', [])
+                solved_hints = payload.get('solved_hints', {})
+                attempted_puzzles = payload.get('attempted_puzzles', [])
+                max_streak = int(payload.get('max_streak', 0))
+                
+                if not profile_id:
+                    raise ValueError("profile_id is required")
+                
+                success = database.upsert_user_profile(
+                    profile_id, solved_puzzles, solved_hints, attempted_puzzles, max_streak
+                )
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": success}).encode('utf-8'))
+            except Exception as e:
+                print(f"Error upserting user profile: {e}")
                 self.send_response(400)
                 self.send_header('Content-type', 'application/json')
                 self.send_header('Access-Control-Allow-Origin', '*')
