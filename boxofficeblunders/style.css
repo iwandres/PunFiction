@@ -1725,3 +1725,17 @@ input:focus {
     top: 0;
 }
 
+/* Person Icon SVG Silhouette Styles */
+.person-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    position: relative;
+    top: -1.5px;
+}
+
+.settings-btn .person-icon {
+    margin-right: 0;
+    top: 0;
+}
+
