@@ -909,10 +909,10 @@ function loadLevel() {
     ui.feedbackMsg.className = 'feedback';
 
     if (ui.challengeHeader) {
-        ui.challengeHeader.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+        ui.challengeHeader.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
     }
     if (ui.challengeHeaderVictory) {
-        ui.challengeHeaderVictory.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
     }
 
     // Reset progressive hints container expand state
@@ -1412,7 +1412,7 @@ function triggerVictory() {
     ui.finalBossPitch.innerText = activeChallenge.boss_pitch;
 
     if (ui.challengeHeaderVictory) {
-        ui.challengeHeaderVictory.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
     }
     updateChallengeNavButtons();
 

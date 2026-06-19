@@ -1651,3 +1651,50 @@ input:focus {
         margin-bottom: 8px;
     }
 }
+
+/* ================= MOBILE WEB RESPONSIVE HEADER OVERLAP RESOLUTION ================= */
+@media (max-width: 600px) {
+    /* Hide the "Challenge" word to make the indicator compact (e.g. "#001") */
+    .challenge-label {
+        display: none !important;
+    }
+
+    /* 
+     * Center the level navigation controls.
+     * We shift it 18px to the right to perfectly balance the gap between the two 
+     * left-hanging buttons (settings, stats) and the single right-hanging button (how-to-play).
+     */
+    .challenge-navigation {
+        left: calc(50% + 18px) !important;
+        transform: translateX(-50%) rotate(-2deg) !important;
+    }
+
+    /* Shrink navigation font-size and padding slightly for optimal narrow viewport fit */
+    .challenge-nav-btn {
+        font-size: 0.85rem !important;
+        padding: 3px 8px !important;
+    }
+
+    .level-indicator {
+        font-size: 0.9rem !important;
+        padding: 3px 8px !important;
+    }
+
+    /* Position settings and stats buttons on the left edge */
+    .settings-btn {
+        left: 8px !important;
+        right: auto !important;
+    }
+
+    .stats-select-btn {
+        left: 44px !important;
+        right: auto !important;
+    }
+
+    /* Position how-to-play button on the right edge */
+    .how-to-play-btn {
+        right: 8px !important;
+        left: auto !important;
+    }
+}
+
