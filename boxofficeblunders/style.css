@@ -1711,8 +1711,8 @@ input:focus {
     }
 }
 
-/* Trophy Icon SVG Silhouette Styles */
-.trophy-icon {
+/* Popcorn Icon SVG Silhouette Styles */
+.popcorn-icon {
     display: inline-block;
     vertical-align: middle;
     margin-right: 4px;
@@ -1720,7 +1720,7 @@ input:focus {
     top: -1.5px;
 }
 
-.stats-select-btn .trophy-icon {
+.stats-select-btn .popcorn-icon {
     margin-right: 0;
     top: 0;
 }
