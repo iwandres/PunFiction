@@ -350,7 +350,7 @@ window.onload = async () => {
         
         const totalAttempted = attemptedList.size;
         const totalSolved = solvedList.size;
-        const accuracy = totalAttempted > 0 ? ((totalSolved / totalAttempted) * 100).toFixed(1) : '0.0';
+        const accuracy = totalAttempted > 0 ? Math.round((totalSolved / totalAttempted) * 100) : 0;
         
         // 2. Populate UI elements
         document.getElementById('user-total-attempted').innerText = totalAttempted.toLocaleString();
