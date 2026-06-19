@@ -1812,29 +1812,7 @@
     "id": "quote_177",
     "rhyme1": "english",
     "rhyme2": "speak",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Bleak",
-      "Oblique",
-      "Sleek",
-      "Unique",
-      "Physique",
-      "Weak",
-      "Antique",
-      "Sneak",
-      "Freak",
-      "Clique",
-      "Peak",
-      "Peek",
-      "Seek",
-      "Mystique",
-      "Critique",
-      "Cheek",
-      "Technique",
-      "Streak",
-      "Creek",
-      "Leak"
-    ]
+    "rhyme1_candidates": []
   },
   {
     "movie": "The Shawshank Redemption",
@@ -1990,51 +1968,7 @@
     "original_quote": "There's a snake in my boot!",
     "id": "quote_182",
     "rhyme1": "snake",
-    "rhyme2": "boot",
-    "rhyme1_candidates": [
-      "Break",
-      "Opaque",
-      "Forsake",
-      "Ache",
-      "Take",
-      "Make",
-      "Undertake",
-      "Shake",
-      "Fake",
-      "Wake",
-      "Cake",
-      "Stake",
-      "Partake",
-      "Flake",
-      "Uptake",
-      "Brake",
-      "Outbreak",
-      "Mistake",
-      "Intake",
-      "Overtake"
-    ],
-    "rhyme2_candidates": [
-      "Astute",
-      "Dispute",
-      "Acute",
-      "Destitute",
-      "Refute",
-      "Constitute",
-      "Brute",
-      "Pursuit",
-      "Attribute",
-      "Substitute",
-      "Execute",
-      "Institute",
-      "Cute",
-      "Root",
-      "Mute",
-      "Minute",
-      "Shoot",
-      "Route",
-      "Loot",
-      "Prostitute"
-    ]
+    "rhyme2": "boot"
   },
   {
     "movie": "Jerry Maguire",
@@ -2096,36 +2030,7 @@
     "original_quote": "And for what? For a little bit of money.",
     "id": "quote_184",
     "rhyme1": "bit",
-    "rhyme2": "money",
-    "rhyme1_candidates": [
-      "Shit",
-      "Fit",
-      "Grit",
-      "Counterfeit",
-      "Hit",
-      "Split",
-      "Admit",
-      "Transmit",
-      "Submit",
-      "Omit",
-      "Permit",
-      "Bullshit",
-      "Commit",
-      "Tit",
-      "Emit",
-      "Kit",
-      "Writ",
-      "Cockpit",
-      "Spit",
-      "Quit"
-    ],
-    "rhyme2_candidates": [
-      "Honey",
-      "Funny",
-      "Bunny",
-      "Sonny",
-      "Sunny"
-    ]
+    "rhyme2": "money"
   },
   {
     "movie": "Boogie Nights",
@@ -2144,32 +2049,7 @@
     "original_quote": "Well, you know, that's just, like, your opinion, man.",
     "id": "quote_186",
     "rhyme1": "opinion",
-    "rhyme2": "man",
-    "rhyme1_candidates": [
-      "Dominion"
-    ],
-    "rhyme2_candidates": [
-      "Span",
-      "Clan",
-      "Pan",
-      "Fan",
-      "Caravan",
-      "Scan",
-      "Shan",
-      "Tan",
-      "Afghan",
-      "Clergyman",
-      "Madman",
-      "Businessman",
-      "Began",
-      "Bran",
-      "Fisherman",
-      "Gan",
-      "Japan",
-      "Klan",
-      "Moran",
-      "Jan"
-    ]
+    "rhyme2": "man"
   },
   {
     "movie": "The Matrix",
@@ -2285,28 +2165,6 @@
     "id": "quote_189",
     "rhyme1": "all",
     "rhyme2": "happening",
-    "rhyme1_candidates": [
-      "Pall",
-      "Call",
-      "Gall",
-      "Forestall",
-      "Recall",
-      "Stall",
-      "Protocol",
-      "Fall",
-      "Nightfall",
-      "Small",
-      "Sol",
-      "Doll",
-      "Shawl",
-      "Overall",
-      "Haul",
-      "Hall",
-      "Ball",
-      "Wall",
-      "Crawl",
-      "Downfall"
-    ],
     "rhyme2_candidates": []
   },
   {
@@ -2316,14 +2174,7 @@
     "original_quote": "A wizard is never late, Frodo Baggins. Nor is he early. He arrives precisely when he means to.",
     "id": "quote_190",
     "rhyme1": "wizard",
-    "rhyme2": "early",
-    "rhyme1_candidates": [
-      "Lizard"
-    ],
-    "rhyme2_candidates": [
-      "Curly",
-      "Shirley"
-    ]
+    "rhyme2": "early"
   },
   {
     "movie": "Zoolander",
@@ -2332,30 +2183,7 @@
     "original_quote": "But why male models?",
     "id": "quote_191",
     "rhyme1": "male",
-    "rhyme2": "models",
-    "rhyme1_candidates": [
-      "Wail",
-      "Gale",
-      "Avail",
-      "Frail",
-      "Travail",
-      "Prevail",
-      "Entail",
-      "Stale",
-      "Quail",
-      "Tail",
-      "Rail",
-      "Trail",
-      "Pale",
-      "Tale",
-      "Hail",
-      "Nail",
-      "Whale",
-      "Veil",
-      "Fail",
-      "Scale"
-    ],
-    "rhyme2_candidates": []
+    "rhyme2": "models"
   },
   {
     "movie": "The Lord of the Rings: The Two Towers",
@@ -2365,29 +2193,7 @@
     "id": "quote_192",
     "rhyme1": "po-tay-toes",
     "rhyme2": "stew",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Blue",
-      "Slew",
-      "Subdue",
-      "Pursue",
-      "True",
-      "View",
-      "Hitherto",
-      "Taboo",
-      "Rendezvous",
-      "Through",
-      "Guru",
-      "Overview",
-      "New",
-      "Review",
-      "Accrue",
-      "Breakthrough",
-      "Debut",
-      "Lew",
-      "Screw",
-      "Undue"
-    ]
+    "rhyme1_candidates": []
   },
   {
     "movie": "Mean Girls",

@@ -12419,321 +12419,896 @@
     "quote_id": "quote_334",
     "text": "If you're a Absurd, I'm a bird.",
     "replaced_word": "bird",
-    "rhyme_used": "Absurd"
+    "rhyme_used": "Absurd",
+    "parody_title": "The Jokebook",
+    "parody_pitch": "An elderly man reads a diary to a woman about a passionate young couple whose tragic romance consists entirely of surreal, nonsensical performance art and dadaist pranks.",
+    "thought_process": "1. Pitch: A romance based entirely on surreal, nonsensical performance art. 2. Phonetic Target: 'Notebook' has two syllables, focusing on the 'note' and 'book' sounds. 3. Brainstorm: Words related to absurdity include jokes, gags, and laughs. 4. Intersection: 'Jokebook' closely mirrors 'Notebook' and fits the absurd theme.",
+    "target_guess_words": [
+      "Absurd"
+    ]
   },
   {
     "pun_id": "quote_334_1780897815231",
     "quote_id": "quote_334",
     "text": "If you're a Third, I'm a bird.",
     "replaced_word": "bird",
-    "rhyme_used": "Third"
+    "rhyme_used": "Third",
+    "parody_title": "The Votebook",
+    "parody_pitch": "In a fierce election year, an eccentric bird-watcher falls madly in love with an unviable third-party political candidate, pledging both her heart and her flock to his campaign.",
+    "thought_process": "1. Pitch: In a fierce election year, a passionate romance blossoms on the campaign trail when an eccentric ornithologist pledges her undying devotion to an unviable third-party political candidate. 2. Phonetic Target: 'The Notebook' consists of 'The' + 'Note' (rhymes with boat, coat, vote, quote) + 'book' (rhymes with look, hook, rook). 3. Brainstorm: Third -> third-party, election, politics, candidate, ballot, vote, poll. 4. Intersection: 'Vote' relates directly to the 'third-party' theme and rhymes perfectly with 'Note'. Parody Title = 'The Votebook'.",
+    "target_guess_words": [
+      "Third"
+    ]
   },
   {
     "pun_id": "quote_334_1780897838611",
     "quote_id": "quote_334",
     "text": "If you're a Word, I'm a bird.",
     "replaced_word": "bird",
-    "rhyme_used": "Word"
+    "rhyme_used": "Word",
+    "parody_title": "The Quotebook",
+    "parody_pitch": "An epic, tear-jerking romance unfolds between an illiterate pigeon and a sentient, spell-checking word processor.",
+    "thought_process": "1. Pitch: An epic, tear-jerking romance unfolds between an illiterate pigeon and a sentient, spell-checking word processor. 2. Phonetic Target: 'The Notebook' contains 'Note' (rhymes with boat, coat, wrote, quote, oat) and 'book'. 3. Thematic Brainstorm: Word -> text, write, wrote, quote, dictionary. Bird -> pigeon, flight, oat, beak. 4. Intersection: 'Quote' conceptually matches 'Word' (as quotes are made of words) and perfectly rhymes with 'Note'. Parody Title = 'The Quotebook'.",
+    "target_guess_words": [
+      "Word"
+    ]
   },
   {
     "pun_id": "quote_344_1780897847822",
     "quote_id": "quote_344",
     "text": "You is kind. You is Dart. You is important.",
     "replaced_word": "smart",
-    "rhyme_used": "Dart"
+    "rhyme_used": "Dart",
+    "parody_title": "The Yelp",
+    "parody_pitch": "A group of Southern maids secretly coach a sentient, emotionally fragile pub dart to win a high-stakes tournament, leading to countless puncture wounds and sudden cries of pain.",
+    "thought_process": "1. Pitch: A group of Southern maids secretly coach a sentient, emotionally fragile pub dart to win a high-stakes tournament, leading to countless puncture wounds and sudden cries of pain. 2. Phonetic Target: 'The Help' has two syllables, with the main word 'Help' rhyming with -elp (yelp, kelp, whelp). 3. Thematic Brainstorm: dart -> throw, sharp, point, puncture, injury, ouch, pain, yelp. 4. Intersection: 'Yelp' rhymes perfectly with 'Help' and perfectly captures the sound bystanders make when hit by an insecure, poorly aimed dart. Parody Title = 'The Yelp'.",
+    "target_guess_words": [
+      "Dart"
+    ]
   },
   {
     "pun_id": "quote_344_1780897850862",
     "quote_id": "quote_344",
     "text": "You is kind. You is Art. You is important.",
     "replaced_word": "smart",
-    "rhyme_used": "Art"
+    "rhyme_used": "Art",
+    "parody_title": "The Kelp",
+    "parody_pitch": "In 1960s Mississippi, a kind-hearted maid forms an unlikely friendship with a deeply insecure, sentient contemporary sculpture made entirely of seaweed, constantly reassuring the oceanic flora of its true aesthetic value.",
+    "thought_process": "1. Pitch: In 1960s Mississippi, a kind-hearted maid forms a bond with a deeply insecure, sentient contemporary sculpture made of seaweed, constantly reassuring the oceanic flora of its true aesthetic value. 2. Phonetic Target: 'The Help' has two syllables, with the key word 'Help' rhyming with -elp (yelp, whelp, kelp). 3. Thematic Brainstorm: Art -> sculpture, contemporary, materials, gallery, ocean flora, seaweed, kelp. 4. Intersection: 'Kelp' is a perfect rhyme for 'Help' and fits the absurd medium of the new art piece. Parody Title = 'The Kelp'.",
+    "target_guess_words": [
+      "Art"
+    ]
   },
   {
     "pun_id": "quote_344_1780897854200",
     "quote_id": "quote_344",
     "text": "You is kind. You is Cart. You is important.",
     "replaced_word": "smart",
-    "rhyme_used": "Cart"
+    "rhyme_used": "Cart",
+    "parody_title": "The Kelp",
+    "parody_pitch": "A heartwarming 1960s drama where a courageous grocery clerk provides daily emotional validation to an insecure, wobbly-wheeled shopping cart whose sole purpose is transporting premium organic seaweed.",
+    "thought_process": "1. Pitch: A heartwarming 1960s drama where a courageous grocery clerk provides emotional validation to an insecure, wobbly-wheeled shopping cart whose only purpose is to transport premium organic seaweed. 2. Phonetic Target: 'The Help' features the core word 'Help', which is one syllable and rhymes with -elp (kelp, yelp, whelp). 3. Thematic Brainstorm: cart -> grocery store, shopping, food, aisle, basket, squeak, yelp, seaweed, kelp. 4. Intersection: 'Kelp' rhymes perfectly with 'Help' and fits the grocery store item theme for the shopping cart. Parody Title = 'The Kelp'.",
+    "target_guess_words": [
+      "Cart"
+    ]
   },
   {
     "pun_id": "quote_345_1780897891133",
     "quote_id": "quote_345",
     "text": "Do you Zeal in charge?",
     "replaced_word": "feel",
-    "rhyme_used": "Zeal"
+    "rhyme_used": "Zeal",
+    "parody_title": "The Spark Knight Rises",
+    "parody_pitch": "Bane takes over Gotham City as an aggressively enthusiastic motivational speaker, breaking Batman's spirit with overwhelming positivity and mandatory corporate pep rallies.",
+    "thought_process": "1. Pitch: Bane takes over Gotham City not as a masked terrorist, but as an aggressively enthusiastic motivational speaker, breaking Batman's spirit with overwhelming positivity and mandatory corporate pep rallies. 2. Phonetic Target: 'The Dark Knight Rises' (The-Dark-Knight-Rises). 'Dark' rhymes with bark, park, spark. 'Knight' rhymes with bite, light, site. 'Rises' rhymes with prizes, sizes, guises. 3. Thematic Brainstorm: Zeal -> enthusiasm, passion, energy, motivation, pep, hype, spark, drive. 4. Intersection: 'Spark' rhymes perfectly with 'Dark' and captures the high-energy enthusiasm of 'Zeal'. Parody Title = 'The Spark Knight Rises'.",
+    "target_guess_words": [
+      "Zeal"
+    ]
   },
   {
     "pun_id": "quote_345_1780897893598",
     "quote_id": "quote_345",
     "text": "Do you Seal in charge?",
     "replaced_word": "feel",
-    "rhyme_used": "Seal"
+    "rhyme_used": "Seal",
+    "parody_title": "The Bark Knight Rises",
+    "parody_pitch": "A masked rogue pinniped takes over the Gotham Aquarium, constantly barking orders at the captive manager to establish who the true alpha marine mammal is.",
+    "thought_process": "1. Pitch: A masked rogue pinniped takes over the Gotham Aquarium, constantly barking orders and asking the captive manager who the real alpha mammal is. 2. Phonetic Target: 'The Dark Knight Rises' syllables are The (th-uh) Dark (d-ar-k) Knight (n-igh-t) Rises (r-eye-z-iz). Rhymes for Dark: bark, park, shark, mark. 3. Thematic Brainstorm: Seal, ocean, flipper, bark, blubber, fish, aquarium, splash, marine, bite. 4. Intersection: 'Bark' perfectly rhymes with 'Dark' and directly references the loud vocalizations a seal makes, creating 'The Bark Knight Rises'.",
+    "target_guess_words": [
+      "Seal"
+    ]
   },
   {
     "pun_id": "quote_345_1780897897663",
     "quote_id": "quote_345",
     "text": "Do you Peel in charge?",
     "replaced_word": "feel",
-    "rhyme_used": "Peel"
+    "rhyme_used": "Peel",
+    "parody_title": "The Dark Knight Slices",
+    "parody_pitch": "A menacing, muffled super-villain takes over Gotham's farmer's market, breaking the Batman's spirit by forcing him to aggressively prep and peel a seemingly endless supply of thick-skinned citrus fruits.",
+    "thought_process": "1. Pitch: A menacing, muffled super-villain takes over Gotham's farmer's market, breaking the Batman's spirit by forcing him to prep and peel a seemingly endless supply of thick-skinned citrus fruits. 2. Phonetic Target: 'The Dark Knight Rises' consists of The (uh) Dark (ark) Knight (ite) Rises (iz-ez). 3. Thematic Brainstorm: peel -> fruit, orange, rind, skin, knife, cut, slice, zest. 4. Intersection: 'Slices' rhymes perfectly with 'Rises' and ties directly into the culinary/peeling theme. Parody Title = 'The Dark Knight Slices'.",
+    "target_guess_words": [
+      "Peel"
+    ]
   },
   {
     "pun_id": "quote_345_1780897901466",
     "quote_id": "quote_345",
     "text": "Do you feel in Enlarge?",
     "replaced_word": "charge",
-    "rhyme_used": "Enlarge"
+    "rhyme_used": "Enlarge",
+    "parody_title": "The Dark Knight Sizes",
+    "parody_pitch": "A masked villain takes over Gotham by using a sinister ray gun to comically upsize everyday objects, forcing an out-of-shape vigilante to stop the swelling madness.",
+    "thought_process": "1. Pitch: A masked villain takes over Gotham by using a sinister ray gun to comically upsize everyday objects, forcing an out-of-shape vigilante to stop the swelling madness. 2. Phonetic Target: 'The Dark Knight Rises' has four syllables/words with key rhyming sounds: -ark (Dark), -ite (Knight), and -izes (Rises). 3. Brainstorm: Enlarge -> big, grow, huge, swell, height, scale, sizes, bulk. 4. Intersection: 'Sizes' is directly related to 'Enlarge' and perfectly rhymes with 'Rises'. Substituting this gives us 'The Dark Knight Sizes'.",
+    "target_guess_words": [
+      "Enlarge"
+    ]
   },
   {
     "pun_id": "quote_345_1780897903305",
     "quote_id": "quote_345",
     "text": "Do you feel in Barge?",
     "replaced_word": "charge",
-    "rhyme_used": "Barge"
+    "rhyme_used": "Barge",
+    "parody_title": "The Dock Knight Capsizes",
+    "parody_pitch": "After a masked villain holds Gotham hostage using a fleet of incredibly slow flat-bottomed cargo boats, Batman must master maritime freight logistics to save the city's rivers.",
+    "thought_process": "1. Pitch: After a masked villain holds Gotham hostage using a fleet of incredibly slow flat-bottomed cargo boats, Batman must master maritime freight logistics to save the city's rivers. 2. Phonetic Target: 'The Dark Knight Rises' (The / d-ark / n-ite / r-eyes-is). Key targets to rhyme or replace: Dark, Rises. 3. Thematic Brainstorm: barge, boat, float, cargo, dock, sail, sink, capsize. 4. Intersection: 'Capsizes' perfectly rhymes with 'Rises' and 'Dock' sounds similar to 'Dark'. Both fit the nautical barge theme perfectly. Parody Title = The Dock Knight Capsizes.",
+    "target_guess_words": [
+      "Barge"
+    ]
   },
   {
     "pun_id": "quote_360_1780897931515",
     "quote_id": "quote_360",
     "text": "Joey, have you ever been in a... in a Turkish Risen?",
     "replaced_word": "prison",
-    "rhyme_used": "Risen"
+    "rhyme_used": "Risen",
+    "parody_title": "Airgrain!",
+    "parody_pitch": "A traumatized former pilot must safely land a commercial flight after the crew is incapacitated, all while the creepy co-pilot asks a young boy increasingly uncomfortable questions about exotic baked goods.",
+    "thought_process": "1. Pitch: A traumatized former pilot must safely land a commercial flight after the crew is incapacitated by food poisoning, all while the creepy co-pilot awkwardly interrogates a visiting young boy about his experience with exotic, yeast-leavened Middle Eastern breads. 2. Phonetic Target: 'Airplane!' consists of two syllables: 'Air' (rhymes with hair, bare, stare) and 'plane' (rhymes with sane, train, grain, bane). 3. Thematic Brainstorm: Risen -> bread, yeast, dough, bake, flour, wheat, grain. 4. Intersection: 'Grain' perfectly rhymes with 'plane' and directly relates to the baking theme of a dough that has 'Risen'. Parody Title = 'Airgrain!'.",
+    "target_guess_words": [
+      "Risen"
+    ]
   },
   {
     "pun_id": "quote_392_1780897943270",
     "quote_id": "quote_392",
     "text": "There's a whole ocean of Turmoil under our feet! No one can get at it except for me!",
     "replaced_word": "oil",
-    "rhyme_used": "Turmoil"
+    "rhyme_used": "Turmoil",
+    "parody_title": "There Will Be Mud",
+    "parody_pitch": "A ruthless prospector strikes it rich by drilling into a highly pressurized subterranean reserve of pure drama, monopolizing the town's social turmoil and guaranteeing a messy era of mudslinging.",
+    "thought_process": "1. Pitch: A ruthless prospector strikes it rich by drilling into a highly pressurized subterranean reserve of pure drama, monopolizing the town's social turmoil and guaranteeing a messy era of mudslinging. 2. Phonetic Target: The key word in the original title, 'Blood', is one syllable and rhymes with the -uhd sound (mud, flood, thud, dud). 3. Thematic Brainstorm: Turmoil -> drama, conflict, gossip, stress, mudslinging, dirty tricks, mud, chaos, flood. 4. Intersection: 'Mud' captures the dirty, scandalous nature of social turmoil (as in mudslinging) and rhymes perfectly with 'Blood'. Parody Title = 'There Will Be Mud'.",
+    "target_guess_words": [
+      "Turmoil"
+    ]
   },
   {
     "pun_id": "quote_392_1780897955117",
     "quote_id": "quote_392",
     "text": "There's a whole ocean of oil under our Suite! No one can get at it except for me!",
     "replaced_word": "feet",
-    "rhyme_used": "Suite"
+    "rhyme_used": "Suite",
+    "parody_title": "There Will Be Flood",
+    "parody_pitch": "A deranged oil tycoon rents out a 5-star hotel penthouse and sets up an indoor drilling rig right through the expensive floorboards, inevitably causing a catastrophic, room-ruining petroleum deluge.",
+    "thought_process": "1. Pitch: A deranged oil tycoon rents out a luxury 5-star hotel penthouse and sets up a massive indoor drilling rig right through the expensive carpet, inevitably causing a catastrophic room-service petroleum spill. 2. Phonetic Target: 'There Will Be Blood' has the key noun 'Blood', rhyming with mud, stud, dud, flood. 3. Brainstorm: suite, hotel, room, spill, mess, carpet, mud, flood, indoors, damage, bill. 4. Intersection: 'Flood' perfectly rhymes with 'Blood' and connects directly to the 'ocean of oil' overtaking the luxury suite. Parody Title = 'There Will Be Flood'.",
+    "target_guess_words": [
+      "Suite"
+    ]
   },
   {
     "pun_id": "quote_394_1780897969664",
     "quote_id": "quote_394",
     "text": "I don't have money. But what I do have are a very particular set of Pills; skills I have acquired over a very long career.",
     "replaced_word": "skills",
-    "rhyme_used": "Pills"
+    "rhyme_used": "Pills",
+    "parody_title": "Achin'",
+    "parody_pitch": "A retired pharmacist goes on a ruthless rampage across Europe to rescue his kidnapped daughter, armed only with a dangerously comprehensive knowledge of prescription medication.",
+    "thought_process": "1. Pitch: A retired pharmacist goes on a ruthless rampage across Europe to rescue his kidnapped daughter, armed only with a dangerously comprehensive knowledge of prescription medication. 2. Phonetic Target: 'Taken' is two syllables, emphasizing the long 'A' sound followed by 'ken' (rhyming with bacon, shaken, waken, and achin'). 3. Thematic Brainstorm: Pills -> medicine, pharmacy, sickness, pain, aches, healing, drugstore. 4. Intersection: 'Achin'' (aching) rhymes perfectly with 'Taken' and directly connects to the concept of physical pain that would require a particular set of pills. Parody Title = 'Achin''.",
+    "target_guess_words": [
+      "Pills"
+    ]
   },
   {
     "pun_id": "quote_394_1780897971463",
     "quote_id": "quote_394",
     "text": "I don't have money. But what I do have are a very particular set of Gills; skills I have acquired over a very long career.",
     "replaced_word": "skills",
-    "rhyme_used": "Gills"
+    "rhyme_used": "Gills",
+    "parody_title": "Kraken",
+    "parody_pitch": "When his daughter is abducted by international poachers, a retired special-ops dad who was mysteriously transformed into a mythical sea monster vows to track them down using his highly specialized underwater respiratory organs.",
+    "thought_process": "1. Pitch: When his daughter is abducted by a syndicate of international fishermen, a retired special-ops dad who was mysteriously transformed into a giant sea monster vows to track them down using his highly specialized underwater breathing apparatus. 2. Phonetic Target: 'Taken' is two syllables, pronounced TAY-kuhn. It rhymes with shaken, waken, bacon, forsaken, and the alternate pronunciation of kraken (KRAY-kuhn). 3. Thematic Brainstorm: Gills -> fish, ocean, water, sea creature, squid, lake, kraken, swim. 4. Intersection: 'Kraken' (pronounced KRAY-kuhn) matches the cadence and exact vowel sounds of 'Taken'. Parody Title = 'Kraken'.",
+    "target_guess_words": [
+      "Gills"
+    ]
   },
   {
     "pun_id": "quote_394_1780897973848",
     "quote_id": "quote_394",
     "text": "I don't have money. But what I do have are a very particular set of Drills; skills I have acquired over a very long career.",
     "replaced_word": "skills",
-    "rhyme_used": "Drills"
+    "rhyme_used": "Drills",
+    "parody_title": "Makin'",
+    "parody_pitch": "A retired CIA agent pivots to aggressive home renovation, using his very particular set of power tools to rescue his daughter's botched DIY project.",
+    "thought_process": "1. Pitch: A retired operative uses his intense contracting expertise to perform aggressive home renovations. 2. Phonetic Target: 'Taken' is two syllables (Tay-ken). 3. Brainstorm: building, creating, fixing, making. 4. Intersection: 'Makin'' slant-rhymes with 'Taken' and fits the DIY theme.",
+    "target_guess_words": [
+      "Drills"
+    ]
   },
   {
     "pun_id": "quote_394_1780897984260",
     "quote_id": "quote_394",
     "text": "I don't have money. But what I do have are a very particular set of Hills; skills I have acquired over a very long career.",
     "replaced_word": "skills",
-    "rhyme_used": "Hills"
+    "rhyme_used": "Hills",
+    "parody_title": "Achin'",
+    "parody_pitch": "An intense former spy exacts his revenge by forcing his enemies to hike up and down his meticulously curated collection of steep topographical mounds until their calves completely give out.",
+    "thought_process": "1. Pitch: An intense former spy exacts his revenge by forcing his enemies to hike up and down his meticulously curated collection of steep topographical mounds until their calves give out. 2. Phonetic Target: 'Taken' is two syllables (Tay-ken), rhyming with bacon, shaken, makin', achin'. 3. Brainstorm: Hills, climbing, hiking, steep, sore legs, calves, pain, ache. 4. Intersection: 'Achin'' perfectly rhymes with 'Taken' and describes the exact state of the kidnappers' legs after dealing with his hills. Parody Title = 'Achin''.",
+    "target_guess_words": [
+      "Hills"
+    ]
   },
   {
     "pun_id": "quote_394_1780897997256",
     "quote_id": "quote_394",
     "text": "I don't have money. But what I do have are a very particular set of skills; skills I have acquired over a very long Premier.",
     "replaced_word": "career",
-    "rhyme_used": "Premier"
+    "rhyme_used": "Premier",
+    "parody_title": "Fakin'",
+    "parody_pitch": "An overly intense Hollywood body double must rescue his kidnapped starlet by relying entirely on the fake martial arts skills he acquired while standing around at a ridiculously long red carpet premiere.",
+    "thought_process": "1. Pitch: An overly intense Hollywood stunt double must rescue a kidnapped starlet by relying entirely on the fake martial arts skills he acquired while standing around at a ridiculously long red carpet movie premiere. 2. Phonetic Target: 'Taken' is two syllables (Ta-ken), emphasizing the first, and rhymes with bacon, shaken, waken, makin', and fakin'. 3. Brainstorm: premier, hollywood, acting, movies, pretend, stunt, faking, making. 4. Intersection: 'Fakin'' rhymes perfectly with 'Taken' and perfectly encapsulates the Hollywood acting/premiere theme of the pitch.",
+    "target_guess_words": [
+      "Premier"
+    ]
   },
   {
     "pun_id": "quote_258_1780898487400",
     "quote_id": "quote_258",
     "text": "How do you like Femme apples?",
     "replaced_word": "them",
-    "rhyme_used": "Femme"
+    "rhyme_used": "Femme",
+    "parody_title": "Good Frill Stunting",
+    "parody_pitch": "A brilliant but hyper-glamorous South Boston math prodigy spends her days solving complex equations and aggressively giving fabulous drag makeovers to local orchard fruits, intimidating Harvard boys with her fierce chicness.",
+    "thought_process": "1. Pitch: A brilliant but hyper-glamorous South Boston math prodigy spends her days solving complex equations and aggressively giving fabulous drag makeovers to local orchard fruits, intimidating Harvard boys with her fierce chicness. 2. Phonetic Target: 'Good Will Hunting' - Good (wood, hood, should), Will (pill, frill, chill, skill), Hunting (punting, stunting, fronting, grunting). 3. Thematic Brainstorm: Femme -> female, glamour, chic, pink, frill, slay, makeup, strut, stunting, heels. 4. Intersection: 'Frill' rhymes perfectly with 'Will' and conceptually fits femme decor/fashion, while 'Stunting' (showing off fiercely) rhymes perfectly with 'Hunting'. Thus, we get 'Good Frill Stunting'.",
+    "target_guess_words": [
+      "Femme"
+    ]
   },
   {
     "pun_id": "quote_258_1780898494688",
     "quote_id": "quote_258",
     "text": "How do you like Condemn apples?",
     "replaced_word": "them",
-    "rhyme_used": "Condemn"
+    "rhyme_used": "Condemn",
+    "parody_title": "Good Swill Hunting",
+    "parody_pitch": "A brilliant but troubled janitor at an agricultural inspection board uses his genius-level intellect to legally sentence rotten, garbage fruit to the incinerator.",
+    "thought_process": "1. Pitch: A brilliant but troubled janitor working at a fruit inspection board uses his genius-level intellect to legally sentence rotten, garbage fruit to the incinerator. 2. Phonetic Target: 'Good Will Hunting' -> 'Good' (wood, hood), 'Will' (ill, swill, chill, kill), 'Hunting' (punting, shunting). 3. Thematic Brainstorm: Condemn, trash, garbage, rotten food, waste, swill, execute, judge, ill. 4. Intersection: 'Swill' (meaning liquid waste or garbage food) perfectly rhymes with 'Will'. Parody Title = 'Good Swill Hunting'.",
+    "target_guess_words": [
+      "Condemn"
+    ]
   },
   {
     "pun_id": "quote_297_1780898504808",
     "quote_id": "quote_297",
     "text": "Just keep Trimming.",
     "replaced_word": "swimming",
-    "rhyme_used": "Trimming"
+    "rhyme_used": "Trimming",
+    "parody_title": "Finding Treemo",
+    "parody_pitch": "A frantic landscaper traverses the cutthroat world of competitive topiary to recover his stolen, award-winning bush, encouraging his forgetful, shears-wielding sidekick to never stop snipping.",
+    "thought_process": "1. Pitch: A frantic landscaper searches for his stolen, award-winning topiary bush, encouraging his shears-wielding sidekick to never stop snipping. 2. Phonetic Target: 'Finding Nemo' has four syllables total ('Find-ing Nee-mo'). 'Nemo' rhymes with chemo, emo, demo. 3. Thematic Brainstorm: Trimming -> haircut, scissors, hedge, bush, tree, topiary, pruning. 4. Intersection: 'Tree' combined with the '-mo' suffix creates 'Treemo', rhyming perfectly with 'Nemo' while capturing the plant-trimming theme.",
+    "target_guess_words": [
+      "Trimming"
+    ]
   },
   {
     "pun_id": "quote_297_1780898507173",
     "quote_id": "quote_297",
     "text": "Lust keep swimming.",
     "replaced_word": "just",
-    "rhyme_used": "Lust"
+    "rhyme_used": "Lust",
+    "parody_title": "Grinding Nemo",
+    "parody_pitch": "When a passionately over-hormonal clownfish loses his gorgeous Tinder match to a scuba diver's net, he must cross the ocean on a desperate quest fueled entirely by unbridled fishy desire.",
+    "thought_process": "1. Pitch: When a passionately over-hormonal clownfish loses his gorgeous Tinder match to a scuba diver's net, he must cross the ocean on a quest fueled entirely by unbridled fishy desire. 2. Phonetic Target: 'Finding Nemo' is four syllables: Find-ing (rhymes with binding, minding, grinding) Nee-mo (rhymes with chemo, emo, limo). 3. Thematic Brainstorm: lust, mating, clubbing, hooking up, romance, swiping, nympho, grinding, pining. 4. Intersection: 'Grinding' perfectly rhymes with 'Finding' and fits the highly charged, lustful theme of the new quote. Parody Title = Grinding Nemo.",
+    "target_guess_words": [
+      "Lust"
+    ]
   },
   {
     "pun_id": "quote_297_1780898509341",
     "quote_id": "quote_297",
     "text": "Trust keep swimming.",
     "replaced_word": "just",
-    "rhyme_used": "Trust"
+    "rhyme_used": "Trust",
+    "parody_title": "Blinding Nemo",
+    "parody_pitch": "After getting roped into a sketchy underwater Ponzi scheme, a gullible clownfish puts complete blind faith in his shady financial guru, who constantly reassures him to ignore the red flags as they flee from loan sharks.",
+    "thought_process": "1. Pitch: After getting roped into a sketchy underwater Ponzi scheme, a gullible clownfish puts complete blind faith in his shady financial guru, who constantly reassures him to ignore the red flags as they flee from loan sharks. 2. Phonetic Target: 'Finding Nemo' breaks down into 'Find-ing' (rhymes with binding, blinding, winding, grinding) and 'Nee-mo' (rhymes with chemo, limo). 3. Thematic Brainstorm: trust -> faith, blind, scheme, con, belief, binding, loyal. 4. Intersection: 'Blinding' rhymes perfectly with 'Finding' and cleverly captures the 'blind trust' required in the pitch. Parody Title = 'Blinding Nemo'.",
+    "target_guess_words": [
+      "Trust"
+    ]
   },
   {
     "pun_id": "quote_297_1780898510946",
     "quote_id": "quote_297",
     "text": "Bust keep swimming.",
     "replaced_word": "just",
-    "rhyme_used": "Bust"
+    "rhyme_used": "Bust",
+    "parody_title": "Finding Nero",
+    "parody_pitch": "After falling off a museum cargo ship, a heavy marble bust of a Roman emperor must stubbornly sink-walk its way across the ocean floor, constantly telling itself to 'bust keep swimming.'",
+    "thought_process": "1. Pitch: A heavy marble bust of a Roman emperor falls off a museum cargo ship, and the inanimate object must stubbornly sink-walk its way across the ocean floor. 2. Phonetic Target: 'Finding Nemo' consists of 'Find-ing' (rhymes with binding, grinding) and 'Nee-mo' (rhymes with chemo, demo, hero, Nero). 3. Brainstorm: bust, statue, stone, marble, museum, sculpture, Roman, emperor, Nero. 4. Intersection: 'Nero' sounds almost exactly like 'Nemo' and perfectly fits the concept of a classical marble bust. Parody Title = Finding Nero.",
+    "target_guess_words": [
+      "Bust"
+    ]
   },
   {
     "pun_id": "quote_297_1780898516469",
     "quote_id": "quote_297",
     "text": "Unjust keep swimming.",
     "replaced_word": "just",
-    "rhyme_used": "Unjust"
+    "rhyme_used": "Unjust",
+    "parody_title": "Binding Nemo",
+    "parody_pitch": "A litigious clownfish attempts to sue the dentist who kidnapped his son, but must navigate a deeply corrupt underwater judicial system by motivating his amnesiac lawyer to push through the rigged court rulings.",
+    "thought_process": "1. Pitch: A litigious clownfish attempts to sue the dentist who kidnapped his son, but must navigate a deeply corrupt underwater judicial system by motivating his lawyer to push through the rigged court rulings. 2. Phonetic Target: 'Finding Nemo'. 'Finding' has two syllables (Find-ing) and rhymes with binding, blinding, grinding, minding. 'Nemo' is two syllables (Nee-mo) and rhymes with chemo, demo. 3. Thematic Brainstorm: Unjust -> law, legal, unfair, court, lawsuit, legally binding, blinding (justice is blind), judge, verdict. 4. Intersection: 'Binding' (as in a legally binding contract or ruling) rhymes perfectly with 'Finding'. Parody Title = 'Binding Nemo'.",
+    "target_guess_words": [
+      "Unjust"
+    ]
   },
   {
     "pun_id": "quote_297_1780898519884",
     "quote_id": "quote_297",
     "text": "Thrust keep swimming.",
     "replaced_word": "just",
-    "rhyme_used": "Thrust"
+    "rhyme_used": "Thrust",
+    "parody_title": "Blinding Nemo",
+    "parody_pitch": "After discovering an experimental underwater jetpack, a thrill-seeking clownfish relies on supersonic thrust to outrun predators, moving at such high speeds that his frantic father can't even see him.",
+    "thought_process": "1. Pitch: After discovering an experimental underwater jetpack, a thrill-seeking clownfish relies on supersonic thrust to outrun predators, moving at such high speeds that his frantic father can't even see him. 2. Phonetic Target: 'Finding Nemo' consists of Find-ing Nee-mo. 'Finding' rhymes with binding, blinding, grinding, and minding. 3. Thematic Brainstorm: Thrust -> rocket, jetpack, speed, fast, blinding, propulsion, engine. 4. The Intersection: 'Blinding' captures the extreme speed caused by the rocket thrust and perfectly rhymes with 'Finding'. Parody Title = 'Blinding Nemo'.",
+    "target_guess_words": [
+      "Thrust"
+    ]
   },
   {
     "pun_id": "quote_308_1780898529615",
     "quote_id": "quote_308",
     "text": "What a Peace of junk!",
     "replaced_word": "piece",
-    "rhyme_used": "Peace"
+    "rhyme_used": "Peace",
+    "parody_title": "Spa Wars",
+    "parody_pitch": "When an evil empire tries to stress out the galaxy, a group of rebel pacifists must restore universal harmony using a rusted-out meditation retreat ship.",
+    "thought_process": "1. Pitch: A sci-fi epic where intergalactic rebels spread tranquility using a dilapidated meditation spaceship. 2. Phonetic Target: The rhyming sounds of 'Star Wars'. 3. Brainstorm: Words relating to peace, calm, and relaxation. 4. Intersection: 'Spa' perfectly matches the phonetic sound of 'Star', leading to 'Spa Wars'.",
+    "target_guess_words": [
+      "Peace"
+    ]
   },
   {
     "pun_id": "quote_308_1780898536265",
     "quote_id": "quote_308",
     "text": "What a Niece of junk!",
     "replaced_word": "piece",
-    "rhyme_used": "Niece"
+    "rhyme_used": "Niece",
+    "parody_title": "Star Chores",
+    "parody_pitch": "An intergalactic uncle is tasked with the ultimate, exhausting mission of babysitting his horribly misbehaved, scrap-metal-obsessed extended family member.",
+    "thought_process": "1. Pitch: An intergalactic uncle is tasked with the ultimate chore of babysitting his terribly behaved, scrap-metal-obsessed extended family member, leading to exasperated outbursts. 2. Phonetic Target: 'Star Wars' consists of two syllables, 'Star' (rhymes with car, far, bar) and 'Wars' (rhymes with doors, chores, snores). 3. Thematic Brainstorm: Niece -> family, kids, babysit, chores, brat, relative, uncle. 4. Intersection: 'Chores' perfectly rhymes with 'Wars' and conceptually fits the exhausting task of babysitting a difficult niece, resulting in the title 'Star Chores'.",
+    "target_guess_words": [
+      "Niece"
+    ]
   },
   {
     "pun_id": "quote_308_1780898543482",
     "quote_id": "quote_308",
     "text": "What a piece of Trunk!",
     "replaced_word": "junk",
-    "rhyme_used": "Trunk"
+    "rhyme_used": "Trunk",
+    "parody_title": "Car Wars",
+    "parody_pitch": "A young mechanic joins a rebellion of scrappy compact vehicles to defeat an evil empire of massive SUVs, often criticizing each other's inadequate cargo space.",
+    "thought_process": "1. Pitch: A young mechanic joins a rebellion of scrappy compact vehicles against an empire of massive SUVs. 2. Phonetic Target: 'Star' rhymes with the -ar sound. 3. Thematic Brainstorm: car, auto, vehicle. 4. Intersection: 'Car' rhymes perfectly with 'Star', leading to the title 'Car Wars'.",
+    "target_guess_words": [
+      "Trunk"
+    ]
   },
   {
     "pun_id": "quote_308_1780898548038",
     "quote_id": "quote_308",
     "text": "What a piece of Monk!",
     "replaced_word": "junk",
-    "rhyme_used": "Monk"
+    "rhyme_used": "Monk",
+    "parody_title": "Star Chores",
+    "parody_pitch": "A young novice joins an ancient order of space ascetics, but instead of fighting evil, he's forced to clean the galactic monastery alongside a totally useless, lazy friar.",
+    "thought_process": "1. Pitch: A young novice joins an ancient order of space ascetics, but instead of fighting evil, he's forced to clean the galactic monastery alongside a totally useless, lazy friar. 2. Phonetic Target: 'Star Wars' consists of two single-syllable words; 'Star' rhymes with far/car, and 'Wars' rhymes with doors/snores/chores. 3. Thematic Brainstorm: Monk -> abbey, monastery, vows, silence, sweeping, duties, chores. 4. Intersection: 'Chores' perfectly rhymes with 'Wars' and fits the mundane reality of monastic life. Parody Title = Star Chores.",
+    "target_guess_words": [
+      "Monk"
+    ]
   },
   {
     "pun_id": "quote_314_1780898555593",
     "quote_id": "quote_314",
     "text": "Flax on, flax off.",
     "replaced_word": "wax",
-    "rhyme_used": "Flax"
+    "rhyme_used": "Flax",
+    "parody_title": "The Chapati Kid",
+    "parody_pitch": "An eccentric bakery owner teaches a bullied teen martial arts through the rigorous, repetitive process of pressing dietary seeds into Indian flatbreads and scraping off the excess.",
+    "thought_process": "1. Pitch: An eccentric bakery owner teaches a bullied teen martial arts through the rigorous, repetitive process of pressing dietary seeds into Indian flatbreads and scraping off the excess. 2. Phonetic Target: 'The Karate Kid' features the word 'Karate' (kuh-rah-tee), which has three syllables and rhymes with words like biscotti, knotty, and chapati. 3. Thematic Brainstorm: Flax, seeds, healthy eating, baking, dough, flatbread, chapati, naan, wheat. 4. The Intersection: 'Chapati' rhymes perfectly with 'Karate' and grounds the absurd new quote in a culinary setting where applying and removing seeds makes total sense. Parody Title = 'The Chapati Kid'.",
+    "target_guess_words": [
+      "Flax"
+    ]
   },
   {
     "pun_id": "quote_314_1780898575742",
     "quote_id": "quote_314",
     "text": "Tax on, tax off.",
     "replaced_word": "wax",
-    "rhyme_used": "Tax"
+    "rhyme_used": "Tax",
+    "parody_title": "The 1040 Kid",
+    "parody_pitch": "A wise, elderly CPA teaches a bullied teen the ancient, ruthless art of filing IRS returns to defeat a rival dojo of aggressive hedge fund bros.",
+    "thought_process": "1. Pitch: A wise, elderly CPA teaches a bullied teen the ancient, ruthless art of filing IRS returns to defeat a rival firm of aggressive hedge fund bros. 2. Phonetic Target: 'The Karate Kid' features the key word 'Karate' (kuh-rah-tee), which is three syllables and ends in a distinct '-tee' sound. 3. Thematic Brainstorm: tax, audit, CPA, refund, deduction, IRS, ledger, W-2, 1040, tariff. 4. The Intersection: '1040' (pronounced ten-four-tee) mimics the exact three-syllable meter and ending sound of 'Karate' (kuh-rah-tee), perfectly tying into the tax theme. Parody Title = The 1040 Kid.",
+    "target_guess_words": [
+      "Tax"
+    ]
   },
   {
     "pun_id": "quote_314_1780898585339",
     "quote_id": "quote_314",
     "text": "Packs on, packs off.",
     "replaced_word": "wax",
-    "rhyme_used": "Packs"
+    "rhyme_used": "Packs",
+    "parody_title": "The Pilates Kid",
+    "parody_pitch": "A scrawny teenager seeks to build the ultimate abdominal six-pack by endlessly flexing and relaxing his core under the guidance of a ruthless fitness guru.",
+    "thought_process": "1. Pitch: A scrawny teenager seeks to build the ultimate abdominal six-pack by endlessly flexing and relaxing his core under the guidance of a ruthless fitness guru. 2. Phonetic Target: 'Karate' is three syllables (kuh-rah-tee), featuring a distinct '-ah-tee' sound at the end. 3. Thematic Brainstorm: Packs -> Six-pack, abs, core strength, gym, crunches, fitness, Pilates. 4. Intersection: 'Pilates' (puh-lah-teez) sounds remarkably similar in rhythm and vowel structure to 'Karate' (kuh-rah-tee) and perfectly links physical discipline to the 'six-pack' interpretation of the pun. Parody Title: 'The Pilates Kid'.",
+    "target_guess_words": [
+      "Packs"
+    ]
   },
   {
     "pun_id": "quote_314_1780898597396",
     "quote_id": "quote_314",
     "text": "Axe on, axe off.",
     "replaced_word": "wax",
-    "rhyme_used": "Axe"
+    "rhyme_used": "Axe",
+    "parody_title": "The Carve-A-Tree Kid",
+    "parody_pitch": "An eccentric old lumberjack teaches a bullied teen how to defeat his high school rivals through the aggressive, splinter-filled art of competitive deforestation.",
+    "thought_process": "1. Pitch: An eccentric old lumberjack teaches a bullied teen how to defend himself through the aggressive, splinter-filled art of competitive woodchopping. 2. Phonetic Target: 'Karate' (kuh-rah-tee). A 3-syllable word that starts with a hard 'k', has an 'r' in the middle, and ends in an 'ee' sound. 3. Thematic Brainstorm: Axe -> chop, swing, carve, wood, lumber, tree, forest. 4. Intersection: Combining 'carve', 'a', and 'tree' forms 'Carve-a-tree' (car-vuh-tree), which perfectly mimics the phonetic structure and cadence of 'Karate'. Parody Title = The Carve-A-Tree Kid.",
+    "target_guess_words": [
+      "Axe"
+    ]
   },
   {
     "pun_id": "quote_314_1780898610812",
     "quote_id": "quote_314",
     "text": "Fax on, fax off.",
     "replaced_word": "wax",
-    "rhyme_used": "Fax"
+    "rhyme_used": "Fax",
+    "parody_title": "The Carfax Kid",
+    "parody_pitch": "A wise, elderly used car salesman teaches an impatient trainee the ancient, forgotten art of pulling vehicle history reports on a dusty 1990s machine to outsmart a rival dealership.",
+    "thought_process": "1. Pitch: A wise, elderly used car salesman teaches an impatient teen trainee the ancient, forgotten art of pulling vehicle history reports using a dusty 1990s machine to outsmart a rival dealership. 2. Phonetic Target: 'Karate' is three syllables (kuh-rah-tee), starting with a hard 'Kah/Car' sound. 'Kid' is one syllable, rhyming with id, did, hid, grid. 3. Thematic Brainstorm: fax -> office, paper, transmission, dial-up, copy, telecom, vehicle history, Carfax. 4. Intersection: 'Carfax' perfectly captures the hard 'Car' starting sound of 'Karate' and directly incorporates the new rhyme word 'Fax'. Parody Title = 'The Carfax Kid'.",
+    "target_guess_words": [
+      "Fax"
+    ]
   },
   {
     "pun_id": "quote_326_1780898651638",
     "quote_id": "quote_326",
     "text": "It does not do to Swell on dreams and forget to live.",
     "replaced_word": "dwell",
-    "rhyme_used": "Swell"
+    "rhyme_used": "Swell",
+    "parody_title": "Harry Squatter and the Swolecerer's Tone",
+    "parody_pitch": "A young, aggressively muscular wizard enrolls at Hogwarts School of Witchcraft and Weightlifting, where the headmaster warns him that obsessing over the perfect muscle pump will only make him bloat.",
+    "thought_process": "1. Pitch: A young, aggressively muscular wizard enrolls at Hogwarts School of Witchcraft and Weightlifting, where the headmaster warns him that obsessing over the perfect muscle pump will only make him bloat. 2. Phonetic Target: 'Harry' (carry, parry), 'Potter' (squatter, spotter, hotter), 'Sorcerer's' (swole-cerer's), 'Stone' (tone, bone, groan). 3. Thematic Brainstorm: Swell, swole, muscles, gym, weightlifting, spotter, squatter, tone, bloat, pump. 4. Intersection: 'Squatter' rhymes perfectly with 'Potter', 'Swole-cerer' blends thematically with 'Sorcerer', and 'Tone' rhymes with 'Stone'. Parody Title = Harry Squatter and the Swolecerer's Tone.",
+    "target_guess_words": [
+      "Swell"
+    ]
   },
   {
     "pun_id": "quote_326_1780898653344",
     "quote_id": "quote_326",
     "text": "It does not do to Shell on dreams and forget to live.",
     "replaced_word": "dwell",
-    "rhyme_used": "Shell"
+    "rhyme_used": "Shell",
+    "parody_title": "Hairy Squatter and the Sorcerer's Stone",
+    "parody_pitch": "A magical hermit crab with unusually fuzzy legs finds an enchanted discarded seashell to live in, but his wise crustacean mentor warns him against retreating inside it all day instead of actually exploring the tide pool.",
+    "thought_process": "1. Pitch: A magical hermit crab with unusually fuzzy legs finds an enchanted discarded seashell to live in, but his wise crustacean mentor warns him against retreating inside it all day instead of actually exploring the tide pool. 2. Phonetic Target: 'Harry Potter' breaks down into Harry (Hair-ee) and Potter (Pot-er, rhyming with hotter, spotter, squatter). 3. Thematic Brainstorm: Shell -> hermit crab, crustacean, retreat, hide, occupy, squat, squatter, hairy legs, ocean. 4. Intersection: 'Squatter' rhymes perfectly with 'Potter' and 'Hairy' sounds exactly like 'Harry', perfectly capturing a shell-stealing hermit crab. Parody Title = 'Hairy Squatter and the Sorcerer's Stone'.",
+    "target_guess_words": [
+      "Shell"
+    ]
   },
   {
     "pun_id": "quote_326_1780898656680",
     "quote_id": "quote_326",
     "text": "It does not do to Well on dreams and forget to live.",
     "replaced_word": "dwell",
-    "rhyme_used": "Well"
+    "rhyme_used": "Well",
+    "parody_title": "Harry Water and the Sorcerer's Stone",
+    "parody_pitch": "A young wizard discovers a magical courtyard wishing well that shows him endless fantasies, becoming so obsessed with staring into the damp abyss that his headmaster has to remind him to actually go to class.",
+    "thought_process": "1. Pitch: A young wizard discovers a magical courtyard wishing well that grants endless dream scenarios, becoming so obsessed with staring into the damp abyss that his headmaster has to remind him to actually go to class. 2. Phonetic Target: 'Harry Potter and the Sorcerer's Stone' (Har-ry Pot-ter, Sor-cer-er's Stone, syllables: ot-ter, one). 3. Brainstorm: well, water, wish, bucket, thrown, deep, wet, coin. 4. Intersection: 'Water' is phonetically very similar to 'Potter' (especially in an American accent) and perfectly connects to the 'Well' theme. Parody Title = 'Harry Water and the Sorcerer's Stone'.",
+    "target_guess_words": [
+      "Well"
+    ]
   },
   {
     "pun_id": "quote_326_1780898659043",
     "quote_id": "quote_326",
     "text": "It does not do to Rebel on dreams and forget to live.",
     "replaced_word": "dwell",
-    "rhyme_used": "Rebel"
+    "rhyme_used": "Rebel",
+    "parody_title": "Harry Plotter and the Sorcerer's Stone",
+    "parody_pitch": "A teenage wizard gets sick of taking orders from Dumbledore, throws on a leather jacket, and starts secretly organizing an anarchist uprising in the Gryffindor basement.",
+    "thought_process": "1. Pitch: A teenage wizard gets sick of taking orders from Dumbledore, throws on a leather jacket, and starts secretly organizing a school-wide anarchist uprising in the Gryffindor basement. 2. Phonetic Target: 'Potter' (pot-ter) rhymes with cotter, hotter, trotter, plotter. 'Stone' (st-one) rhymes with bone, moan, groan. 3. Brainstorm (Rebel): revolution, scheme, conspire, plot, teen angst, mutiny, subversion. 4. Intersection: 'Plotter' perfectly rhymes with 'Potter' and perfectly aligns with a rebellious protagonist secretly scheming against the magical establishment.",
+    "target_guess_words": [
+      "Rebel"
+    ]
   },
   {
     "pun_id": "quote_326_1780898662611",
     "quote_id": "quote_326",
     "text": "It does not do to Personnel on dreams and forget to live.",
     "replaced_word": "dwell",
-    "rhyme_used": "Personnel"
+    "rhyme_used": "Personnel",
+    "parody_title": "HR Potter and the Sourcer's Phone",
+    "parody_pitch": "A young wizard discovers his true destiny lies in corporate Human Resources, navigating a bureaucratic academy where the most powerful magic is properly managing staff and avoiding endless memos.",
+    "thought_process": "1. Pitch: A young wizard discovers his true destiny lies in corporate Human Resources, navigating a bureaucratic academy where the most powerful magic is properly managing staff and avoiding endless memos. 2. Phonetic Target: 'Harry Potter and the Sorcerer's Stone'. Target syllables: Harry (Hair-ee), Sorcerer's (Sor-sir-erz), Stone (St-own). 3. Thematic Brainstorm: HR, personnel, recruiter, sourcer, manager, phone, drone, office, hire, staff. 4. Intersection: 'HR' loosely replaces 'Harry', 'Sourcer' (an HR recruiter) sounds almost identical to 'Sorcerer', and 'Phone' (used to call personnel) rhymes perfectly with 'Stone'. Parody Title = 'HR Potter and the Sourcer's Phone'.",
+    "target_guess_words": [
+      "Personnel"
+    ]
   },
   {
     "pun_id": "quote_326_1780898666743",
     "quote_id": "quote_326",
     "text": "It does not do to dwell on Schemes and forget to live.",
     "replaced_word": "dreams",
-    "rhyme_used": "Schemes"
+    "rhyme_used": "Schemes",
+    "parody_title": "Harry Plotter and the Scammer's Loan",
+    "parody_pitch": "A young orphan discovers he isn't a wizard, but a mastermind con artist, and is whisked away to a secret boarding school dedicated entirely to elaborate grifts, multi-level marketing scams, and Ponzi schemes.",
+    "thought_process": "1. Pitch: A young orphan discovers he isn't a wizard, but a mastermind con artist, and is whisked away to a secret boarding school dedicated entirely to elaborate grifts, multi-level marketing scams, and Ponzi schemes. 2. Phonetic Target: 'Harry Potter and the Sorcerer's Stone'. Syllables and rhymes: Harry (Hair-ee, carry, parry), Potter (Pot-er, cotter, hotter), Sorcerer's (Sors-er-ers), Stone (Stohn, bone, loan, own). 3. Thematic Brainstorm: schemes, plots, cons, grifts, scams, heist, loan, fraud, swindle. 4. Intersection: 'Plotter' rhymes perfectly with 'Potter' and fits the plotting/scheming theme. 'Loan' rhymes perfectly with 'Stone' and fits the financial scam theme. Parody Title = 'Harry Plotter and the Scammer's Loan'.",
+    "target_guess_words": [
+      "Schemes"
+    ]
   },
   {
     "pun_id": "quote_326_1780898672804",
     "quote_id": "quote_326",
     "text": "It does not do to dwell on Extremes and forget to live.",
     "replaced_word": "dreams",
-    "rhyme_used": "Extremes"
+    "rhyme_used": "Extremes",
+    "parody_title": "Gnarly Spotter and the Sorcerer's Zone",
+    "parody_pitch": "A rad young wizard gets accepted into a magical extreme sports academy, where his headmaster must warn him not to get too obsessed with landing sick, death-defying broomstick tricks in the halfpipe.",
+    "thought_process": "1. Pitch: A rad young wizard gets accepted into a magical extreme sports academy, where his headmaster must warn him not to get too obsessed with landing sick, death-defying broomstick tricks in the halfpipe. 2. Phonetic Target: 'Harry Potter and the Sorcerer's Stone'. Key rhyming targets: Harry (carry, parry, hairy), Potter (hotter, spotter), Sorcerer's (pourers, roarers), Stone (bone, zone, moan, thrown). 3. Brainstorm: extreme, radical, gnarly, sick, stunt, halfpipe, spotter, zone, bone, adrenaline, shred. 4. Intersection: 'Gnarly' is a phonetic slant for 'Harry', 'Spotter' (someone who watches your stunts) rhymes with 'Potter', and 'Zone' rhymes perfectly with 'Stone'. Parody Title = 'Gnarly Spotter and the Sorcerer's Zone'.",
+    "target_guess_words": [
+      "Extremes"
+    ]
   },
   {
     "pun_id": "quote_326_1780898676413",
     "quote_id": "quote_326",
     "text": "It does not do to dwell on Themes and forget to live.",
     "replaced_word": "dreams",
-    "rhyme_used": "Themes"
+    "rhyme_used": "Themes",
+    "parody_title": "Harry Plotter and the Sorcerer's Tone",
+    "parody_pitch": "A young boy discovers he is a wizard of literary analysis and attends a magical boarding school where students duel using heavy-handed motifs and struggle not to lose themselves in deep thematic subtext.",
+    "thought_process": "1. Pitch: A magical boy goes to a wizarding school where all the magic is just heavy-handed literary analysis. 2. Phonetic Target: Potter (-otter) and Stone (-one). 3. Brainstorm: literature, analysis, plot, tone. 4. Intersection: 'Plotter' rhymes with Potter, and 'Tone' rhymes with Stone.",
+    "target_guess_words": [
+      "Themes"
+    ]
   },
   {
     "pun_id": "quote_339_1780898686471",
     "quote_id": "quote_339",
     "text": "Are you watching mostly?",
     "replaced_word": "closely",
-    "rhyme_used": "Mostly"
+    "rhyme_used": "Mostly",
+    "parody_title": "The Prestish",
+    "parody_pitch": "Two mediocre magicians attempt half-baked illusions for an audience of distracted, smartphone-scrolling millennials, forcing the illusionists to settle for partial attention.",
+    "thought_process": "1. Pitch: Two mediocre magicians attempt half-baked illusions for an audience of distracted, smartphone-scrolling millennials, forcing the illusionists to settle for partial attention. 2. Phonetic Target: 'The Prestige' (Pres-TEEZH) has two syllables in its main word, ending in a soft '-zh' sound. 3. Thematic Brainstorm: mostly, kind of, half, somewhat, partial, average, the suffix '-ish'. 4. Intersection: Blending 'Prestige' with the suffix '-ish' (meaning somewhat or mostly) creates 'The Prestish', matching the concept of partial attention while sounding incredibly similar to the original title.",
+    "target_guess_words": [
+      "Mostly"
+    ]
   },
   {
     "pun_id": "quote_339_1780898738787",
     "quote_id": "quote_339",
     "text": "Are you botching closely?",
     "replaced_word": "watching",
-    "rhyme_used": "botching"
+    "rhyme_used": "botching",
+    "parody_title": "The Mess-tige",
+    "parody_pitch": "Two spectacularly incompetent rival magicians fiercely compete to see who can bungle, flub, and ultimately ruin the simplest parlor tricks on the grandest scale.",
+    "thought_process": "1. Pitch: Two rival, spectacularly incompetent magicians fiercely compete to see who can bungle, flub, and ultimately ruin the simplest parlor tricks on the grandest stage. 2. Phonetic Target: 'The Prestige' consists of two syllables (Pres-TEEZH). The first syllable 'Pres' rhymes with dress, less, and mess. 3. Thematic Brainstorm: botching, failure, screw-up, blunder, fumble, error, mess. 4. Intersection: The word 'Mess' directly relates to botching a trick and perfectly rhymes with the first syllable of the original title. Swapping it in creates the portmanteau 'The Mess-tige'.",
+    "target_guess_words": [
+      "botching"
+    ]
+  },
+  {
+    "pun_id": "quote_184_1781908328249",
+    "quote_id": "quote_184",
+    "text": "And for what? For a little bit of Honey.",
+    "replaced_word": "money",
+    "rhyme_used": "Honey",
+    "parody_title": "Jargo",
+    "parody_pitch": "A desperate Minnesota car salesman hires two bumbling thugs to kidnap his wife to extort a ransom paid entirely in jars of artisanal sweet nectar, leading to a sticky, bee-filled winter bloodbath.",
+    "thought_process": "1. Pitch: A desperate Minnesota car salesman hires two bumbling thugs to kidnap his wife to extort a ransom paid entirely in jars of artisanal sweet nectar, leading to a sticky, bee-filled winter bloodbath. 2. Phonetic Target: 'Fargo' has two syllables (Far-go), rhyming with car-go, star-go, and jar-go. 3. Thematic Brainstorm: honey, bees, bear, sticky, sweet, hive, nectar, pot, jar. 4. Intersection: 'Jar' perfectly rhymes with the 'Far' in Fargo, directly connecting to the vessel honey is famously stored in. Parody Title = 'Jargo'.",
+    "target_guess_words": [
+      "Honey"
+    ]
+  },
+  {
+    "pun_id": "quote_184_1781908333780",
+    "quote_id": "quote_184",
+    "text": "And for what? For a little Hit of money.",
+    "replaced_word": "bit",
+    "rhyme_used": "Hit",
+    "parody_title": "Narco",
+    "parody_pitch": "A pregnant police chief investigates a snowy midwestern crime syndicate where desperate criminals are literally getting high off of snorting rolled-up dollar bills.",
+    "thought_process": "1. Pitch: Criminals get addicted to taking literal hits of cash. 2. Phonetic Target: Far-go. 3. Brainstorm: drugs, high, narco. 4. Intersection: Narco.",
+    "target_guess_words": [
+      "Hit"
+    ]
+  },
+  {
+    "pun_id": "quote_184_1781908339310",
+    "quote_id": "quote_184",
+    "text": "And for what? For a little Spit of money.",
+    "replaced_word": "bit",
+    "rhyme_used": "Spit",
+    "parody_title": "Phlegmgo",
+    "parody_pitch": "In a frozen Midwestern town where the local currency has been replaced by highly valued saliva, a desperate car salesman hires two thugs to extort a jar of premium bodily fluids from his wealthy father-in-law.",
+    "thought_process": "1. Pitch: In a frozen Midwestern town where the local currency has been replaced by highly valued saliva, a desperate car salesman hires two thugs to extort a jar of premium drool from his father-in-law. 2. Phonetic Target: 'Fargo' has two syllables, starting with an 'F' sound and ending with an 'oh' sound (Far-go). 3. Thematic Brainstorm: spit, saliva, drool, loogie, expectorate, phlegm, gob, hock. 4. Intersection: 'Phlegm' starts with an 'F' sound. Combining it with the '-go' suffix gives 'Phlegmgo', which mimics the cadence and phonetic bookends of 'Fargo' while perfectly capturing the absurd spit theme.",
+    "target_guess_words": [
+      "Spit"
+    ]
+  },
+  {
+    "pun_id": "quote_184_1781908347480",
+    "quote_id": "quote_184",
+    "text": "And for what? For a little Fit of money.",
+    "replaced_word": "bit",
+    "rhyme_used": "Fit",
+    "parody_title": "Cargo",
+    "parody_pitch": "A pregnant police chief tracks down bumbling midwestern criminals whose entire kidnapping scheme was orchestrated to buy trendy, multi-pocketed pants so they could finally show off a sick new 'fit' made of money.",
+    "thought_process": "1. Pitch: A pregnant police chief tracks down bumbling midwestern criminals whose entire kidnapping scheme was orchestrated to buy trendy, multi-pocketed pants so they could finally show off a sick new 'fit' made of money. 2. Phonetic Target: 'Fargo' is two syllables, rhyming with -argo (cargo, embargo, largo). 3. Thematic Brainstorm: Fit (slang for outfit) -> clothes, style, drip, pants, pockets, cargo. 4. Intersection: 'Cargo' perfectly rhymes with 'Fargo' and ties directly into the 'fit' (outfit) theme.",
+    "target_guess_words": [
+      "Fit"
+    ]
+  },
+  {
+    "pun_id": "quote_186_1781908354264",
+    "quote_id": "quote_186",
+    "text": "Well, you know, that's just, like, your Dominion, man.",
+    "replaced_word": "opinion",
+    "rhyme_used": "Dominion",
+    "parody_title": "The Big Le-Vow-Ski",
+    "parody_pitch": "A laid-back medieval lord takes a sacred oath to rule over a massive feudal realm, but he mostly just wants his stolen tapestry back because it really tied the throne room together.",
+    "thought_process": "1. Pitch: A laid-back medieval lord takes a sacred oath to rule over a massive feudal realm, but he mostly just wants his stolen tapestry back because it really tied the throne room together. 2. Phonetic Target: 'The Big Lebowski' breaks down into syllables The Big Le-bow-ski, with the stressed middle syllable 'bow' rhyming with cow, how, plow, and vow. 3. Brainstorm: Dominion -> rule, kingdom, realm, fealty, knight, oath, swear, vow. 4. Intersection: 'Vow' (representing a pledge to a dominion) rhymes perfectly with the 'bow' in Lebowski. Parody Title = The Big Le-Vow-Ski.",
+    "target_guess_words": [
+      "Dominion"
+    ]
+  },
+  {
+    "pun_id": "quote_186_1781908362034",
+    "quote_id": "quote_186",
+    "text": "Well, you know, that's just, like, your opinion, Pan.",
+    "replaced_word": "man",
+    "rhyme_used": "Pan",
+    "parody_title": "The Brig Lebowski",
+    "parody_pitch": "After a magical mishap transports him to Neverland, a bathrobe-clad slacker gets locked in Captain Hook's pirate ship prison, where he refuses to swashbuckle and instead just tries to convince a flying boy in green tights to chill out.",
+    "thought_process": "1. Pitch: After a magical mishap transports him to Neverland, a bathrobe-clad slacker gets locked in Captain Hook's pirate ship prison, where he refuses to swashbuckle and instead just tries to convince a flying boy in green tights to chill out. 2. Phonetic Target: 'The Big Lebowski'. 'Big' is one syllable, rhyming with -ig (dig, pig, rig). 'Lebowski' is three syllables (Luh-bow-skee). 3. Thematic Brainstorm: Pan -> Neverland, Peter, Hook, Pirate, Ship, Rigging, Brig, Smee, Lost Boys, Fairy. 4. Intersection: 'Brig' (a pirate ship's jail) perfectly rhymes with 'Big'. Parody Title = 'The Brig Lebowski'.",
+    "target_guess_words": [
+      "Pan"
+    ]
+  },
+  {
+    "pun_id": "quote_186_1781908367164",
+    "quote_id": "quote_186",
+    "text": "Well, you know, that's just, like, your opinion, Japan.",
+    "replaced_word": "man",
+    "rhyme_used": "Japan",
+    "parody_title": "The Big Nintendowski",
+    "parody_pitch": "When a laid-back Los Angeles slacker is mistakenly hired as a chief executive at a Tokyo video game conglomerate, he must rely on his bowling buddies to navigate international corporate protocols and settle a bitter 16-bit console war.",
+    "thought_process": "1. Pitch: A lazy Los Angeles slacker is mistaken for a legendary Japanese video game developer and must travel to Tokyo to mediate a high-stakes console war. 2. Phonetic Target: 'The Big Lebowski' centers on the 3-syllable name 'Lebowski' (luh-BOW-skee), specifically emphasizing the '-bow-ski' rhyming sounds. 3. Thematic Brainstorm: Japan, Tokyo, diplomacy, anime, samurai, sushi, video games, Nintendo, Kyoto. 4. The Intersection: 'Nintendo' perfectly captures the Japanese cultural theme, and by replacing the end of the word with the iconic movie suffix, we get 'Nintendowski' (nin-TEN-dow-skee), maintaining the exact '-ow-skee' rhyme and phonetic rhythm.",
+    "target_guess_words": [
+      "Japan"
+    ]
+  },
+  {
+    "pun_id": "quote_186_1781908369630",
+    "quote_id": "quote_186",
+    "text": "Well, you know, that's just, like, your opinion, Afghan.",
+    "replaced_word": "man",
+    "rhyme_used": "Afghan",
+    "parody_title": "The Big Le-bow-wow-ski",
+    "parody_pitch": "A laid-back canine enthusiast known as 'The Dude' gets dragged into a convoluted kidnapping plot when thugs mistake him for a wealthy dog breeder and traumatize his prized Afghan hound.",
+    "thought_process": "1. Pitch: A laid-back canine enthusiast known as 'The Dude' gets dragged into a convoluted kidnapping plot when thugs mistake him for a wealthy dog breeder and traumatize his prized Afghan hound. 2. Phonetic Target: 'The Big Lebowski' breaks down into The (th-uh), Big (b-ih-g), Le (l-uh), bow (b-ow - rhyming with cow), ski (s-k-ee). 3. Thematic Brainstorm: Afghan -> dog, hound, canine, bark, fetch, pet, show dog, bow-wow, pup. 4. Intersection: 'Bow-wow' perfectly captures the dog theme of the Afghan hound and fits directly into the middle syllables of the original title. Parody Title = 'The Big Le-bow-wow-ski'.",
+    "target_guess_words": [
+      "Afghan"
+    ]
+  },
+  {
+    "pun_id": "quote_186_1781908373801",
+    "quote_id": "quote_186",
+    "text": "Well, you know, that's just, like, your opinion, Tan.",
+    "replaced_word": "man",
+    "rhyme_used": "Tan",
+    "parody_title": "The Big Lebrownski",
+    "parody_pitch": "A perpetually bronzed slacker gets mixed up in a complex Los Angeles kidnapping plot after someone ruins his prized tanning bed, forcing him to confront his aggressively sun-baked rival, Tan.",
+    "thought_process": "1. Pitch: A perpetually bronzed slacker gets mixed up in a complex Los Angeles kidnapping plot after someone ruins his prized tanning bed, forcing him to confront his aggressively sun-baked rival, Tan. 2. Phonetic Target: 'The Big Lebowski'. The key word 'Lebowski' has three syllables (Le-bow-ski), with the stressed middle syllable having an 'ow' sound (rhyming with cow, plow, how). 3. Thematic Brainstorm: tan, bronze, brown, sun, bake, burn, rays, beach. 4. Intersection: 'Brown' perfectly matches the 'ow' sound in the middle of 'Lebowski' (Le-bow-ski -> Le-brown-ski), tying directly into the tanning theme. Parody Title: The Big Lebrownski.",
+    "target_guess_words": [
+      "Tan"
+    ]
+  },
+  {
+    "pun_id": "quote_182_1781908387175",
+    "quote_id": "quote_182",
+    "text": "There's a cake in my boot!",
+    "replaced_word": "snake",
+    "rhyme_used": "Cake",
+    "parody_title": "Doughboy Story",
+    "parody_pitch": "A sentient tube of cowboy-shaped pastry dough struggles to maintain order in the bakery when his footwear keeps getting mysteriously filled with rival cakes.",
+    "thought_process": "1. Pitch: A sentient tube of cowboy-shaped pastry dough struggles to maintain order in the bakery when his footwear keeps getting mysteriously filled with rival cakes. 2. Phonetic Target: 'Toy' is one syllable, rhyming with -oy (boy, joy, soy, ploy). 3. Thematic Brainstorm: cake, bake, pastry, sweet, flour, dough, doughboy, frosting. 4. Intersection: 'Doughboy' ends in a perfect rhyme for 'Toy', bridging the original movie's living plaything concept with the new baking theme. Parody Title = 'Doughboy Story'.",
+    "target_guess_words": [
+      "Cake"
+    ]
+  },
+  {
+    "pun_id": "quote_182_1781908392234",
+    "quote_id": "quote_182",
+    "text": "There's opaque in my boot!",
+    "replaced_word": "snake",
+    "rhyme_used": "Opaque",
+    "parody_title": "Toy Blurry",
+    "parody_pitch": "A neurotic cowboy doll leads his plastic friends on a desperate quest to figure out why his footwear has suddenly become completely non-transparent.",
+    "thought_process": "1. Pitch: A neurotic cowboy doll leads his plastic friends on a desperate quest to figure out why his footwear has suddenly become completely non-transparent. 2. Phonetic Target: 'Toy Story' consists of 'Toy' (rhymes: boy, joy, coy) and 'Story' (rhymes: glory, hoary, blurry). 3. Thematic Brainstorm: opaque, cloudy, vision, blind, clear, blurry, fog, matte. 4. Intersection: 'Blurry' matches the syllabic rhythm and ending sound of 'Story', tying directly into the theme of visual opacity and poor light transmission. Parody Title: Toy Blurry.",
+    "target_guess_words": [
+      "Opaque"
+    ]
+  },
+  {
+    "pun_id": "quote_182_1781908407242",
+    "quote_id": "quote_182",
+    "text": "There's a snake in my route!",
+    "replaced_word": "boot",
+    "rhyme_used": "Route",
+    "parody_title": "Convoy Story",
+    "parody_pitch": "A neurotic cowboy GPS navigator has to guide a fleet of cross-country truckers, but his digital map keeps redirecting them into dangerous, reptile-infested highways.",
+    "thought_process": "1. Pitch: A neurotic cowboy GPS navigator has to guide a fleet of cross-country truckers, but his digital map keeps redirecting them into dangerous, reptile-infested highways. 2. Phonetic Target: 'Toy Story' is three syllables total. 'Toy' rhymes with -oy (boy, joy, soy, convoy). 'Story' rhymes with -ory (glory, lorry, dory). 3. Thematic Brainstorm: route -> driving, trucks, GPS, navigation, map, convoy, lorry, toll. 4. Intersection: 'Convoy' rhymes perfectly with 'Toy' and fits the truck-driving theme of following a route. Parody Title = 'Convoy Story'.",
+    "target_guess_words": [
+      "Route"
+    ]
+  },
+  {
+    "pun_id": "quote_182_1781908414712",
+    "quote_id": "quote_182",
+    "text": "There's a snake in my dispute!",
+    "replaced_word": "boot",
+    "rhyme_used": "Dispute",
+    "parody_title": "Ploy Story",
+    "parody_pitch": "A group of highly litigious action figures settle their grievances in out-of-box arbitration, where a treacherous reptile constantly uses underhanded legal tactics to sabotage their settlements.",
+    "thought_process": "1. Pitch: A group of highly litigious action figures settle their grievances in out-of-box arbitration, where a treacherous reptile constantly uses underhanded legal tactics to sabotage their settlements. 2. Phonetic Target: 'Toy Story' is three syllables total. 'Toy' rhymes with boy, joy, coy, ploy. 'Story' rhymes with glory, hoary, gory, dory. 3. Thematic Brainstorm: Dispute -> law, sue, tort, argue, trick, tactic, ploy, court, conflict. 4. Intersection: 'Ploy' perfectly rhymes with 'Toy' and relates to argumentative or legal tactics used in a dispute. Parody Title = 'Ploy Story'.",
+    "target_guess_words": [
+      "Dispute"
+    ]
+  },
+  {
+    "pun_id": "quote_191_1781908437438",
+    "quote_id": "quote_191",
+    "text": "But why trail models?",
+    "replaced_word": "male",
+    "rhyme_used": "Trail",
+    "parody_title": "Shoelander",
+    "parody_pitch": "Two dimwitted, ridiculously good-looking fashion icons are drafted to showcase haute-couture survival gear on the treacherous Appalachian path, armed only with their striking cheekbones and 'Blue Steel' hiking boots.",
+    "thought_process": "1. Pitch: Two dimwitted, ridiculously good-looking fashion icons are drafted to showcase haute-couture survival gear on the treacherous Appalachian path. 2. Phonetic Target: 'Zoolander' is three syllables (Zoo-lan-der). The first syllable 'Zoo' rhymes with shoe, view, do, blue. The suffix '-lander' rhymes with gander, sander, or stander. 3. Thematic Brainstorm: trail -> hike, walk, nature, view, trek, boot, shoe, path, timber. 4. Intersection: 'Shoe' perfectly rhymes with 'Zoo', and hiking shoes are the most essential gear for a trail model. Replacing 'Zoo' with 'Shoe' creates the parody title.",
+    "target_guess_words": [
+      "Trail"
+    ]
+  },
+  {
+    "pun_id": "quote_191_1781908441647",
+    "quote_id": "quote_191",
+    "text": "But why whale models?",
+    "replaced_word": "male",
+    "rhyme_used": "Whale",
+    "parody_title": "Bluelander",
+    "parody_pitch": "A ridiculously good-looking but intellectually barren marine biologist uncovers an international assassination plot while trying to launch a high-fashion runway show exclusively for giant cetaceans.",
+    "thought_process": "1. Pitch: A ridiculously good-looking but intellectually barren marine biologist uncovers an assassination plot while trying to launch a high-fashion runway show exclusively for giant cetaceans. 2. Phonetic Target: 'Zoolander' has three syllables (Zoo-lan-der), with the primary vowel sound on the first syllable 'Zoo' (rhyming with too, shoe, glue, blue). 3. Thematic Brainstorm: Whale, ocean, Shamu, beluga, blubber, krill, blue, cetacean, splash, spout. 4. Intersection: 'Blue' (as in Blue Whale) perfectly rhymes with 'Zoo'. By replacing the first syllable, we get 'Bluelander'.",
+    "target_guess_words": [
+      "Whale"
+    ]
+  },
+  {
+    "pun_id": "quote_191_1781908452151",
+    "quote_id": "quote_191",
+    "text": "But why quail models?",
+    "replaced_word": "male",
+    "rhyme_used": "Quail",
+    "parody_title": "Zoogander",
+    "parody_pitch": "A dim-witted but beautifully feathered game bird is brainwashed by an evil fashion designer to assassinate the Prime Minister of Malaysia at a high-stakes poultry pageant.",
+    "thought_process": "1. Pitch: A dim-witted but incredibly beautiful game bird is brainwashed by an evil fashion designer to assassinate the Prime Minister of Malaysia at a high-stakes poultry pageant. 2. Phonetic Target: 'Zoolander' has three syllables (Zoo-lan-der), with the back half rhyming with -ander (slander, pander, commander, gander). 3. Thematic Brainstorm: quail, bird, feathers, poultry, beak, fowl, flock, goose, gander. 4. Intersection: 'gander' (a male bird) perfectly rhymes with 'lander' and fits the avian theme of the new quote, creating the title 'Zoogander'.",
+    "target_guess_words": [
+      "Quail"
+    ]
+  },
+  {
+    "pun_id": "quote_191_1781908457448",
+    "quote_id": "quote_191",
+    "text": "But why pale models?",
+    "replaced_word": "male",
+    "rhyme_used": "Pale",
+    "parody_title": "Ghoulander",
+    "parody_pitch": "A ridiculously good-looking vampire infiltrates the high-stakes world of undead fashion, struggling to comprehend a villain's diabolical plot to assassinate the industry's most sun-deprived runway stars.",
+    "thought_process": "1. Pitch: A ridiculously good-looking vampire infiltrates the high-stakes world of undead fashion, struggling to comprehend a villain's diabolical plot to assassinate the industry's most sun-deprived runway stars. 2. Phonetic Target: 'Zoolander' has three syllables (Zoo-lan-der), with the primary target being the first syllable 'Zoo' which rhymes with -oo (boo, goo, shoe, tool, ghoul). 3. Thematic Brainstorm: pale -> ghost, vampire, undead, ghoul, boo, translucent, blood, gothic. 4. Intersection: 'Ghoul' sounds very similar to 'Zoo' and perfectly captures the pale, undead theme of the quote. Parody Title = 'Ghoulander'.",
+    "target_guess_words": [
+      "Pale"
+    ]
+  },
+  {
+    "pun_id": "quote_191_1781908484096",
+    "quote_id": "quote_191",
+    "text": "But why male bottles?",
+    "replaced_word": "models",
+    "rhyme_used": "bottles",
+    "parody_title": "Brewlander",
+    "parody_pitch": "A ridiculously good-looking but dim-witted sommelier uncovers an evil fashion industry conspiracy to replace all human runway talent with aggressively gendered, chiseled glass hydration containers.",
+    "thought_process": "1. Pitch: A ridiculously good-looking but dim-witted sommelier uncovers an evil fashion industry conspiracy to replace all human runway talent with aggressively gendered, chiseled glass hydration containers. 2. Phonetic Target: 'Zoolander' is three syllables (Zoo-lan-der), with the first syllable 'Zoo' rhyming with /zu/ (do, too, brew, moo, shoe). 3. Thematic Brainstorm: bottles -> glass, water, drink, beverage, booze, brew, pour, flask. 4. The Intersection: 'Brew' rhymes perfectly with 'Zoo' and conceptually ties directly into the 'bottles' theme. Parody Title = 'Brewlander'.",
+    "target_guess_words": [
+      "bottles"
+    ]
+  },
+  {
+    "pun_id": "quote_189_1781908506272",
+    "quote_id": "quote_189",
+    "text": "It's shawl happening.",
+    "replaced_word": "all",
+    "rhyme_used": "Shawl",
+    "parody_title": "Shawl-most Famous",
+    "parody_pitch": "A teenage journalist goes on tour with a legendary 1970s rock band, but discovers their wild backstage lifestyle consists entirely of aggressive knitting and wrapping rock stars in cozy hand-crafted outerwear.",
+    "thought_process": "1. Pitch: A teenage journalist goes on tour with a legendary 1970s rock band, but discovers their wild backstage lifestyle actually revolves entirely around aggressive knitting and crafting cozy outerwear. 2. Phonetic Target: 'Almost Famous' breaks down into 'All-most' and 'Fay-mus'. The first syllable 'All' perfectly rhymes with 'Shawl'. 3. Thematic Brainstorm: shawl -> knit, wool, yarn, wrap, seamless, cardigan, crochet. 4. Intersection: Replacing the 'All' in 'Almost' with the rhyming/thematic word 'Shawl' creates 'Shawl-most'. Parody Title = 'Shawl-most Famous'.",
+    "target_guess_words": [
+      "Shawl"
+    ]
+  },
+  {
+    "pun_id": "quote_189_1781908516552",
+    "quote_id": "quote_189",
+    "text": "It's doll happening.",
+    "replaced_word": "all",
+    "rhyme_used": "Doll",
+    "parody_title": "Doll-most Famous",
+    "parody_pitch": "A teenage journalist hits the road with a wildly popular 1970s rock band made entirely of sentient, drama-filled plastic figurines, discovering that the rock-and-roll lifestyle is surprisingly rigid.",
+    "thought_process": "1. Pitch: A teenage journalist hits the road with a wildly popular 1970s rock band made entirely of sentient, drama-filled plastic figurines, discovering that the rock-and-roll lifestyle is surprisingly rigid. 2. Phonetic Target: 'Almost Famous' features the syllables 'All-most Fay-muss'. 3. Thematic Brainstorm: Doll, toy, plastic, miniature, play, action figure. 4. Intersection: The word 'Doll' perfectly rhymes with and replaces the 'All' syllable in 'Almost', creating 'Doll-most'.",
+    "target_guess_words": [
+      "Doll"
+    ]
+  },
+  {
+    "pun_id": "quote_190_1781908526024",
+    "quote_id": "quote_190",
+    "text": "A lizard is never late, Frodo Baggins. Nor is he early. He arrives precisely when he means to.",
+    "replaced_word": "wizard",
+    "rhyme_used": "Lizard",
+    "parody_title": "The Lord of the Skinks: The Fellowship of the Skink",
+    "parody_pitch": "Instead of a wise old man, a giant, sun-basking reptile guides a young hobbit on a remarkably slow-moving quest to drop a magical heat lamp into a volcano.",
+    "thought_process": "1. Pitch: A quest guided by a giant cold-blooded reptile who constantly stops to bask on warm rocks. 2. Phonetic Target: 'Rings' has one syllable, rhyming with kings, sings, and skinks (slant rhyme). 3. Thematic Brainstorm: reptile, iguana, scales, skink, cold-blooded. 4. Intersection: 'Skinks' sounds very similar to 'Rings', leading to the title 'The Lord of the Skinks'.",
+    "target_guess_words": [
+      "Lizard"
+    ]
+  },
+  {
+    "pun_id": "quote_190_1781908537343",
+    "quote_id": "quote_190",
+    "text": "A wizard is never late, Frodo Baggins. Nor is he curly. He arrives precisely when he means to.",
+    "replaced_word": "early",
+    "rhyme_used": "Curly",
+    "parody_title": "The Lord of the Fringes: The Gel-lowship of the Fringe",
+    "parody_pitch": "Instead of fighting dark lords, a wizard embarks on an epic quest across Middle-earth to maintain perfectly straight, flat-ironed hair in unbearable humidity.",
+    "thought_process": "1. Pitch: A wizard maintains perfectly straight hair despite Middle-earth's humidity. 2. Phonetic Target: 'Fellowship' and 'Rings'. 3. Brainstorm: gel, fringe, straight, salon. 4. Intersection: 'Gel' and 'Fringe' substitute perfectly for 'Fellow' and 'Rings', leading to the title.",
+    "target_guess_words": [
+      "Curly"
+    ]
+  },
+  {
+    "pun_id": "quote_192_1781908556446",
+    "quote_id": "quote_192",
+    "text": "Po-tay-toes! Boil 'em, mash 'em, stick 'em in accrue.",
+    "replaced_word": "stew",
+    "rhyme_used": "Accrue",
+    "parody_title": "The Lord of the Rings: The Two Tellers",
+    "parody_pitch": "Samwise Gamgee gives up adventuring to become Middle-earth's most aggressive financial advisor, teaching hobbits how to build wealth through high-yield potato compounding.",
+    "thought_process": "1. Pitch: Samwise Gamgee opens a banking branch in Middle-earth to aggressively compound potato investments. 2. Phonetic Target: 'Towers' has two syllables (-ow-ers). 3. Brainstorm: finance, banking, tellers, loans, returns. 4. Intersection: 'Tellers' sounds similar to 'Towers', resulting in the parody title.",
+    "target_guess_words": [
+      "Accrue"
+    ]
   }
 ]

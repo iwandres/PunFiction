@@ -3700,6 +3700,406 @@
     ]
   },
   {
+    "puzzle_number": "075",
+    "puzzle_id": "puz_quote_143_1780028530827",
+    "boss_id": "boss_quote_143_1780028530827",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Bakin'",
+    "boss_pitch": "An ex-CIA operative with a very particular set of agricultural skills tracks down his daughter's kidnappers to aggressively grind them into fine artisanal flour.",
+    "boss_original_quote": "I will look for you, I will find you, and I will kill you.",
+    "boss_punned_quote": "I will look for you, I will find you, and I will mill you.",
+    "boss_poster_url": "/assets/posters/bakin_poster_vertical_1781906643.png",
+    "boss_hint2": "B____'",
+    "answer": "_____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "076",
+    "puzzle_id": "puz_quote_159_1780032027418",
+    "boss_id": "boss_quote_159_1780032027418",
+    "boss_original_title": "The Thing",
+    "boss_pun_title": "The Key Ring",
+    "boss_pitch": "A paranoid group of isolated Antarctic researchers discovers a shape-shifting alien that disguises itself as tacky tourist merchandise, leaving them terrified over who is real and who is just a novelty key ring.",
+    "boss_original_quote": "Somebody in this camp ain't what he appears to be.",
+    "boss_punned_quote": "Somebody in this camp ain't what he souvenirs to be.",
+    "boss_poster_url": "/assets/posters/the_key_ring_poster_vertical_1781906846.png",
+    "boss_hint2": "T__ K__ R___",
+    "answer": "___ ___ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "077",
+    "puzzle_id": "puz_quote_170_1780068052302",
+    "boss_id": "boss_quote_170_1780068052302",
+    "boss_original_title": "Dead Poets Society",
+    "boss_pun_title": "Dead Parrots Society",
+    "boss_pitch": "A rebellious teacher at a stuffy prep school inspires his students to seize the day not through poetry, but by secretly training a massive flock of radical, free-thinking macaws to overthrow the administration.",
+    "boss_original_quote": "No matter what anybody tells you, words and ideas can change the world.",
+    "boss_punned_quote": "No matter what anybody tells you, birds and ideas can change the world.",
+    "boss_poster_url": "/assets/posters/dead_parrots_society_poster_vertical_1781906969.png",
+    "boss_hint2": "D___ P______ S______",
+    "answer": "____ _______ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "078",
+    "puzzle_id": "puz_quote_164_1780067791901",
+    "boss_id": "boss_quote_164_1780067791901",
+    "boss_original_title": "The Breakfast Club",
+    "boss_pun_title": "The Brake-fast Hub",
+    "boss_pitch": "Five mismatched public transit vehicles serving Saturday detention in a municipal garage write a heartfelt essay to the transit authority explaining that they are more than just their commuter stereotypes.",
+    "boss_original_quote": "You see us as you want to see us: in the simplest terms, in the most convenient definitions.",
+    "boss_punned_quote": "You see bus as you want to see bus: in the simplest terms, in the most convenient definitions.",
+    "boss_poster_url": "/assets/posters/the_brakefast_hub_poster_vertical_1781906922.png",
+    "boss_hint2": "T__ B____-f___ H__",
+    "answer": "___ _____-____ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "079",
+    "puzzle_id": "puz_quote_157_1780031977457",
+    "boss_id": "boss_quote_157_1780031977457",
+    "boss_original_title": "The Empire Strikes Back",
+    "boss_pun_title": "The Umpire Strikes Bats",
+    "boss_pitch": "A tiny, wise alien becomes an intergalactic baseball umpire, teaching a frustrated rookie pitcher to rely on the cosmic energy of the universe rather than worrying about the sweaty guy swinging at the plate.",
+    "boss_original_quote": "Luminous beings are we, not this crude matter.",
+    "boss_punned_quote": "Luminous beings are we, not this crude batter.",
+    "boss_poster_url": "/assets/posters/the_umpire_strikes_bats_poster_vertical_1781906798.png",
+    "boss_hint2": "T__ U_____ S______ B___",
+    "answer": "___ ______ _______ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "080",
+    "puzzle_id": "puz_quote_150_1780032083842",
+    "boss_id": "boss_quote_150_1780032083842",
+    "boss_original_title": "A Star is Born",
+    "boss_pun_title": "A Sitar is Born",
+    "boss_pitch": "A washed-up rock star abandons his own career and a promising young singer because he becomes completely obsessed with achieving enlightenment by staring deeply into the eyes of a levitating spiritual master.",
+    "boss_original_quote": "I just wanted to take another look at you.",
+    "boss_punned_quote": "I just wanted to take another look at guru.",
+    "boss_poster_url": "/assets/posters/a_sitar_is_born_poster_vertical_1781906878.png",
+    "boss_hint2": "A S____ i_ B___",
+    "answer": "_ _____ __ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "081",
+    "puzzle_id": "puz_quote_334_1780897811291",
+    "boss_id": "boss_quote_334_1780897811291",
+    "boss_original_title": "The Notebook",
+    "boss_pun_title": "The Jokebook",
+    "boss_pitch": "An elderly man reads a diary to a woman about a passionate young couple whose tragic romance consists entirely of surreal, nonsensical performance art and dadaist pranks.",
+    "boss_original_quote": "If you're a bird, I'm a bird.",
+    "boss_punned_quote": "If you're a absurd, I'm absurd.",
+    "boss_poster_url": "/assets/posters/the_jokebook_poster_vertical_1781908066.png",
+    "boss_hint2": "T__ J_______",
+    "answer": "___ ________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "082",
+    "puzzle_id": "puz_quote_098_1779598955771",
+    "boss_id": "boss_quote_098_1779598955771",
+    "boss_original_title": "Get Out",
+    "boss_pun_title": "Get Stout",
+    "boss_pitch": "A young man visits his girlfriend's bizarre family estate only to discover they are a cult of aggressive craft brewery snobs trying to hypnotize him into an inescapable, sloppy stupor.",
+    "boss_original_quote": "I'm in the sunken place.",
+    "boss_punned_quote": "I'm in the drunken place.",
+    "boss_poster_url": "/assets/posters/get_stout_poster_vertical_1781908022.png",
+    "boss_hint2": "G__ S____",
+    "answer": "___ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
     "puzzle_number": "",
     "puzzle_id": "puz_quote_002_1778164889440",
     "boss_id": "boss_quote_002_1778164889440",
@@ -7161,6 +7561,656 @@
     "boss_poster_url": "/assets/posters/numb_and_slumber_poster_vertical_1780897606.png",
     "boss_hint2": "N___ a__ S______",
     "answer": "____ ___ _______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_143_1780028532686",
+    "boss_id": "boss_quote_143_1780028532686",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Rakin'",
+    "boss_pitch": "A retired black-ops agent turns to extreme agriculture, using his very particular set of gardening skills to relentlessly plow the earth after his prized turnips are uprooted.",
+    "boss_original_quote": "I will look for you, I will find you, and I will kill you.",
+    "boss_punned_quote": "I will look for you, I will find you, and I will till you.",
+    "boss_poster_url": "/assets/posters/rakin_poster_vertical_1781906653.png",
+    "boss_hint2": "R____'",
+    "answer": "_____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_143_1780028546622",
+    "boss_id": "boss_quote_143_1780028546622",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Tighten",
+    "boss_pitch": "A highly trained ex-spy uses his very particular set of skills to hunt down the single missing piece of hardware he needs to finish assembling his IKEA nightstand.",
+    "boss_original_quote": "I will look for you, I will find you, and I will kill you.",
+    "boss_punned_quote": "I will look for screw, I will find screw, and I will kill screw.",
+    "boss_poster_url": "/assets/posters/tighten_poster_vertical_1781906671.png",
+    "boss_hint2": "T______",
+    "answer": "_______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_155_1780031937144",
+    "boss_id": "boss_quote_155_1780031937144",
+    "boss_original_title": "Apocalypse Now",
+    "boss_pun_title": "A Pocket Map Now",
+    "boss_pitch": "A weary army captain journeys deep into the jungle to find a rogue colonel, only to discover the man has simply become an enthusiastic, heavily-geared hiker who refuses to ask for directions.",
+    "boss_original_quote": "The horror... the horror.",
+    "boss_punned_quote": "The explorer... the explorer.",
+    "boss_poster_url": "/assets/posters/a_pocket_map_now_poster_vertical_1781906757.png",
+    "boss_hint2": "A P_____ M__ N__",
+    "answer": "_ ______ ___ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_167_1780068245530",
+    "boss_id": "boss_quote_167_1780068245530",
+    "boss_original_title": "RoboCop",
+    "boss_pun_title": "Robo-Bop",
+    "boss_pitch": "A cyborg law enforcement officer cleans up the crime-ridden streets of futuristic Detroit by forcing street thugs into high-stakes disco dance battles.",
+    "boss_original_quote": "Your move, creep.",
+    "boss_punned_quote": "Your groove, creep.",
+    "boss_poster_url": "/assets/posters/robobop_poster_vertical_1781907000.png",
+    "boss_hint2": "R___-B__",
+    "answer": "____-___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_143_1780028524531",
+    "boss_id": "boss_quote_143_1780028524531",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Fakin'",
+    "boss_pitch": "A highly trained, deeply literal ex-assassin goes on a rampage across Europe to hunt down a legendary, perfectly honest man named True, brutally eliminating anyone caught lying along the way.",
+    "boss_original_quote": "I will look for you, I will find you, and I will kill you.",
+    "boss_punned_quote": "I will look for true, I will find true, and I will kill true.",
+    "boss_poster_url": "/assets/posters/fakin_poster_vertical_1781906633.png",
+    "boss_hint2": "F____'",
+    "answer": "_____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_154_1780031915522",
+    "boss_id": "boss_quote_154_1780031915522",
+    "boss_original_title": "Animal House",
+    "boss_pun_title": "Animal Mouse",
+    "boss_pitch": "A rowdy fraternity of drunken stray cats terrorizes a college campus in their relentless, destructive quest to catch the dean's prized, party-crashing rodent.",
+    "boss_original_quote": "Fat, drunk, and stupid is no way to go through life, son.",
+    "boss_punned_quote": "Cat, drunk, and stupid is no way to go through life, son.",
+    "boss_poster_url": "/assets/posters/animal_mouse_poster_vertical_1781906727.png",
+    "boss_hint2": "A_____ M____",
+    "answer": "______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_148_1780067704612",
+    "boss_id": "boss_quote_148_1780067704612",
+    "boss_original_title": "Mad Max: Fury Road",
+    "boss_pun_title": "Mad Acts: Fury Ode",
+    "boss_pitch": "In a post-apocalyptic wasteland where gasoline is secondary to community theater, a lone drifter must help a rogue director stage the ultimate high-octane Broadway musical on top of speeding monster trucks.",
+    "boss_original_quote": "Oh, what a day... what a lovely day!",
+    "boss_punned_quote": "Oh, what a play... what a lovely play!",
+    "boss_poster_url": "/assets/posters/mad_acts_fury_ode_poster_vertical_1781906890.png",
+    "boss_hint2": "M__ A___: F___ O__",
+    "answer": "___ ____: ____ ___",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_173_1780068151049",
+    "boss_id": "boss_quote_173_1780068151049",
+    "boss_original_title": "Terminator 2: Judgment Day",
+    "boss_pun_title": "Alternator 2: Traffic Delay",
+    "boss_pitch": "A time-traveling cyborg is sent back to the 90s to teach a rebellious teen how to parallel park and properly apply the emergency brake to prevent a future vehicular apocalypse.",
+    "boss_original_quote": "There is no fate but what we make.",
+    "boss_punned_quote": "There is no fate but what we brake.",
+    "boss_poster_url": "/assets/posters/alternator_2_traffic_delay_poster_vertical_1781906979.png",
+    "boss_hint2": "A_________ 2: T______ D____",
+    "answer": "__________ 2: _______ _____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_158_1780032000086",
+    "boss_id": "boss_quote_158_1780032000086",
+    "boss_original_title": "Raiders of the Lost Ark",
+    "boss_pun_title": "Grazers of the Lost Park",
+    "boss_pitch": "An aging, fedora-wearing rabbit races against evil foxes to uncover a legendary, untouched grassy meadow, groaning to his sidekick that a lifetime of frantic hopping has taken a severe toll on his furry joints.",
+    "boss_original_quote": "It's not the years, honey. It's the mileage.",
+    "boss_punned_quote": "It's not the years, bunny. It's the mileage.",
+    "boss_poster_url": "/assets/posters/grazers_of_the_lost_park_poster_vertical_1781908056.png",
+    "boss_hint2": "G______ o_ t__ L___ P___",
+    "answer": "_______ __ ___ ____ ____",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_334_1780897838611",
+    "boss_id": "boss_quote_334_1780897838611",
+    "boss_original_title": "The Notebook",
+    "boss_pun_title": "The Quotebook",
+    "boss_pitch": "An epic, tear-jerking romance unfolds between an illiterate pigeon and a sentient, spell-checking word processor.",
+    "boss_original_quote": "If you're a bird, I'm a bird.",
+    "boss_punned_quote": "If you're a word, I'm a word.",
+    "boss_poster_url": "/assets/posters/the_quotebook_poster_vertical_1781908074.png",
+    "boss_hint2": "T__ Q________",
+    "answer": "___ _________",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_394_1780897969664",
+    "boss_id": "boss_quote_394_1780897969664",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Achin'",
+    "boss_pitch": "A retired pharmacist goes on a ruthless rampage across Europe to rescue his kidnapped daughter, armed only with a dangerously comprehensive knowledge of prescription medication.",
+    "boss_original_quote": "I don't have money. But what I do have are a very particular set of skills; skills I have acquired over a very long career.",
+    "boss_punned_quote": "I don't have money. But what I do have are a very particular set of pills; pills I have acquired over a very long career.",
+    "boss_poster_url": "/assets/posters/achin_poster_vertical_1781908105.png",
+    "boss_hint2": "A____'",
+    "answer": "_____'",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_394_1780897971463",
+    "boss_id": "boss_quote_394_1780897971463",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Kraken",
+    "boss_pitch": "When his daughter is abducted by international poachers, a retired special-ops dad who was mysteriously transformed into a mythical sea monster vows to track them down using his highly specialized underwater respiratory organs.",
+    "boss_original_quote": "I don't have money. But what I do have are a very particular set of skills; skills I have acquired over a very long career.",
+    "boss_punned_quote": "I don't have money. But what I do have are a very particular set of gills; gills I have acquired over a very long career.",
+    "boss_poster_url": "/assets/posters/kraken_poster_vertical_1781908116.png",
+    "boss_hint2": "K_____",
+    "answer": "______",
+    "difficulty_tier": 2,
+    "status": "approved",
+    "puzzles": [
+      {
+        "step": 1,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 2,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      },
+      {
+        "step": 3,
+        "base_movie": "",
+        "original_quote": "",
+        "punned_quote": "",
+        "parody_pitch": "",
+        "parody_title": "",
+        "target_word": "",
+        "hint1": "",
+        "hint2": ""
+      }
+    ]
+  },
+  {
+    "puzzle_number": "",
+    "puzzle_id": "puz_quote_394_1780897973848",
+    "boss_id": "boss_quote_394_1780897973848",
+    "boss_original_title": "Taken",
+    "boss_pun_title": "Makin'",
+    "boss_pitch": "A retired CIA agent pivots to aggressive home renovation, using his very particular set of power tools to rescue his daughter's botched DIY project.",
+    "boss_original_quote": "I don't have money. But what I do have are a very particular set of skills; skills I have acquired over a very long career.",
+    "boss_punned_quote": "I don't have money. But what I do have are a very particular set of drills; drills I have acquired over a very long career.",
+    "boss_poster_url": "/assets/posters/makin_poster_vertical_1781908125.png",
+    "boss_hint2": "M____'",
+    "answer": "_____'",
     "difficulty_tier": 2,
     "status": "approved",
     "puzzles": [
