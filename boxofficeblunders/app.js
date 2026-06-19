@@ -429,11 +429,25 @@ function getSolvedPuzzlesList() {
     }
 }
 
+function getSolvedHintsMap() {
+    try {
+        const data = localStorage.getItem('pun_fiction_solved_hints');
+        return data ? JSON.parse(data) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
 function savePuzzleSolved(puzzleNum) {
     try {
         const solved = getSolvedPuzzlesList();
         solved.add(puzzleNum);
         localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...solved]));
+        
+        // Save the number of hints used for this puzzle
+        const solvedHints = getSolvedHintsMap();
+        solvedHints[puzzleNum] = hintsUsed;
+        localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(solvedHints));
     } catch (e) {
         console.error("Could not write solved progress to local storage", e);
     }
@@ -459,8 +473,15 @@ function startGame(challenge) {
     inventory = [];
     telemetryStartSent = false; // Reset start telemetry flag for new session
 
-    switchScreen('game');
-    loadLevel();
+    const solvedList = getSolvedPuzzlesList();
+    if (solvedList.has(challenge.puzzle_number)) {
+        const solvedHints = getSolvedHintsMap();
+        hintsUsed = solvedHints[challenge.puzzle_number] !== undefined ? solvedHints[challenge.puzzle_number] : 0;
+        triggerVictory();
+    } else {
+        switchScreen('game');
+        loadLevel();
+    }
 
     // Update challenge navigation buttons
     updateChallengeNavButtons();
