@@ -774,6 +774,10 @@ function startGame(challenge) {
     inventory = [];
     telemetryStartSent = false; // Reset start telemetry flag for new session
 
+    if (challenge.puzzle_number) {
+        updateBackgroundGradient(challenge.puzzle_number);
+    }
+
     const solvedList = getSolvedPuzzlesList();
     if (solvedList.has(challenge.puzzle_number)) {
         const solvedHints = getSolvedHintsMap();
