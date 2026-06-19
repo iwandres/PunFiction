@@ -107,6 +107,15 @@ window.onload = async () => {
     prewarmBackend();
 
     // 1. Setup UI bindings
+    const appTitle = document.getElementById('app-title');
+    if (appTitle) {
+        appTitle.onclick = () => {
+            if (todayChallenge) {
+                startGame(todayChallenge);
+                history.replaceState(null, "", `?challenge=${todayChallenge.puzzle_number}`);
+            }
+        };
+    }
     document.getElementById('btn-victory-lobby').onclick = () => startGame(todayChallenge);
     document.getElementById('btn-share-score').onclick = shareSolvedScore;
     ui.guessForm.onsubmit = (e) => {

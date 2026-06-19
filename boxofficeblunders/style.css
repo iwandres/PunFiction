@@ -87,6 +87,12 @@ body {
     text-shadow: 4px 4px 0px #ffffff;
     transform: rotate(-3deg);
     display: inline-block;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+}
+
+.title:hover {
+    transform: rotate(-3deg) scale(1.03);
 }
 
 .title .accent {
