@@ -67,6 +67,7 @@ const screens = {
 
 const ui = {
     challengeHeader: document.getElementById('challenge-header'),
+    challengeHeaderVictory: document.getElementById('challenge-header-victory'),
     questionLabel: document.getElementById('question-label'),
     bossPosterWrapper: document.getElementById('boss-poster-wrapper'),
     bossPosterImg: document.getElementById('boss-poster-img'),
@@ -193,6 +194,30 @@ window.onload = async () => {
     if (prevBtn) prevBtn.onclick = () => navigateChallenge(-1);
     const nextBtn = document.getElementById('btn-next-challenge');
     if (nextBtn) nextBtn.onclick = () => navigateChallenge(1);
+
+    const prevBtnVic = document.getElementById('btn-prev-challenge-victory');
+    if (prevBtnVic) prevBtnVic.onclick = () => navigateChallenge(-1);
+    const nextBtnVic = document.getElementById('btn-next-challenge-victory');
+    if (nextBtnVic) nextBtnVic.onclick = () => navigateChallenge(1);
+
+    const btnStatsSelectVic = document.getElementById('btn-stats-select-victory');
+    if (btnStatsSelectVic) {
+        btnStatsSelectVic.onclick = () => {
+            if (statsSelectModal) {
+                statsSelectModal.classList.add('active');
+                openStatsSelectModal();
+            }
+        };
+    }
+
+    const btnHowToPlayVic = document.getElementById('btn-how-to-play-victory');
+    if (btnHowToPlayVic) {
+        btnHowToPlayVic.onclick = () => {
+            if (howToPlayModal) {
+                howToPlayModal.classList.add('active');
+            }
+        };
+    }
  
     // Fullscreen Poster Modal bindings
     const posterModal = document.getElementById('poster-modal');
@@ -509,6 +534,9 @@ function loadLevel() {
 
     if (ui.challengeHeader) {
         ui.challengeHeader.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+    }
+    if (ui.challengeHeaderVictory) {
+        ui.challengeHeaderVictory.innerText = `Challenge #${activeChallenge.puzzle_number}`;
     }
 
     // Reset progressive hints container expand state
@@ -937,19 +965,16 @@ function updateChallengeNavButtons() {
     const approved = getApprovedChallenges();
     const prevBtn = document.getElementById('btn-prev-challenge');
     const nextBtn = document.getElementById('btn-next-challenge');
+    const prevBtnVic = document.getElementById('btn-prev-challenge-victory');
+    const nextBtnVic = document.getElementById('btn-next-challenge-victory');
     
-    if (!prevBtn || !nextBtn) return;
+    const disablePrev = (approved.length === 0 || !activeChallenge || approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number) <= 0);
+    const disableNext = (approved.length === 0 || !activeChallenge || approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number) >= approved.length - 1);
     
-    if (approved.length === 0 || !activeChallenge) {
-        prevBtn.disabled = true;
-        nextBtn.disabled = true;
-        return;
-    }
-    
-    const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
-    
-    prevBtn.disabled = (currentIndex <= 0);
-    nextBtn.disabled = (currentIndex >= approved.length - 1);
+    if (prevBtn) prevBtn.disabled = disablePrev;
+    if (nextBtn) nextBtn.disabled = disableNext;
+    if (prevBtnVic) prevBtnVic.disabled = disablePrev;
+    if (nextBtnVic) nextBtnVic.disabled = disableNext;
 }
 
 function triggerVictory() {
@@ -960,6 +985,11 @@ function triggerVictory() {
     ui.finalBossTitle.innerText = activeChallenge.boss_pun_title;
     ui.finalBossMovie.innerText = `Original Movie: ${activeChallenge.boss_original_title}`;
     ui.finalBossPitch.innerText = activeChallenge.boss_pitch;
+
+    if (ui.challengeHeaderVictory) {
+        ui.challengeHeaderVictory.innerText = `Challenge #${activeChallenge.puzzle_number}`;
+    }
+    updateChallengeNavButtons();
 
     // Set up dynamic Congratulatory Messages (4 levels!)
     const bannerEl = document.getElementById('victory-banner');
