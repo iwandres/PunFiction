@@ -1637,7 +1637,7 @@ input:focus {
         height: 620px;
         position: sticky;
         top: 20px;
-        margin-top: 104px; /* Align with the top edge of the navigation controls (which sit at top: -16px relative to the card) */
+        margin-top: 165px; /* Align with the top edge of the navigation controls (which sit at top: -16px relative to the card) */
         background: rgba(255, 255, 255, 0.05);
         border: 3px dashed rgba(255, 255, 255, 0.15);
         border-radius: 12px;
