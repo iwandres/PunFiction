@@ -1456,6 +1456,22 @@ function triggerVictory() {
         }
     }
 
+    // Render solved status badge above poster
+    const solvedStatus = document.getElementById('victory-solved-status');
+    if (solvedStatus) {
+        const solvedList = getSolvedPuzzlesList();
+        if (solvedList.has(activeChallenge.puzzle_number)) {
+            const solvedHints = getSolvedHintsMap();
+            const used = solvedHints[activeChallenge.puzzle_number] !== undefined ? solvedHints[activeChallenge.puzzle_number] : hintsUsed;
+            
+            const hintText = used === 0 ? "No Hints" : `${used} Hint${used > 1 ? 's' : ''}`;
+            solvedStatus.innerText = `Solved! ${hintText}`;
+            solvedStatus.classList.remove('hidden');
+        } else {
+            solvedStatus.classList.add('hidden');
+        }
+    }
+
     // Switch screen to Victory instantly!
     switchScreen('victory');
 

@@ -1639,16 +1639,6 @@
     "status": "approved"
   },
   {
-    "pun_id": "quote_159_1780032006056",
-    "parody_title": "The Cling",
-    "original_movie": "The Thing",
-    "style_key": "mythic_epic",
-    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'The Cling' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A microscopic colony of scientists living on the surface of a rare postage stamp succumb to extreme paranoia when a shape-shifting droplet of counterfeit ink begins assimilating them one by one.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Cling\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
-    "generated": false,
-    "image_path": null,
-    "status": "rejected"
-  },
-  {
     "pun_id": "quote_159_1780032027418",
     "parody_title": "The Key Ring",
     "original_movie": "The Thing",
@@ -1739,16 +1729,6 @@
     "status": "approved"
   },
   {
-    "pun_id": "quote_345_1780897897663",
-    "parody_title": "The Dark Knight Slices",
-    "original_movie": "The Dark Knight Rises",
-    "style_key": "pop_art",
-    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'The Dark Knight Slices' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A menacing, muffled super-villain takes over Gotham's farmer's market, breaking the Batman's spirit by forcing him to aggressively prep and peel a seemingly endless supply of thick-skinned citrus fruits.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Dark Knight Slices\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
-    "generated": false,
-    "image_path": null,
-    "status": "rejected"
-  },
-  {
     "pun_id": "quote_394_1780897969664",
     "parody_title": "Achin'",
     "original_movie": "Taken",
@@ -1799,13 +1779,93 @@
     "status": "approved"
   },
   {
-    "pun_id": "quote_308_1780898536265",
-    "parody_title": "Star Chores",
-    "original_movie": "Star Wars",
+    "pun_id": "quote_184_1781908333780",
+    "parody_title": "Narco",
+    "original_movie": "Fargo",
+    "style_key": "pop_art",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Narco' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A pregnant police chief investigates a snowy midwestern crime syndicate where desperate criminals are literally getting high off of snorting rolled-up dollar bills.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Narco\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": true,
+    "image_path": "/assets/posters/narco_poster_vertical_1781910246.png",
+    "status": "approved"
+  },
+  {
+    "pun_id": "quote_186_1781908373801",
+    "parody_title": "The Big Le-brown-ski",
+    "original_movie": "The Big Lebowski",
     "style_key": "mythic_epic",
-    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Star Chores' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted character collages, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, central floating head composition, vibrant colors, detailed airbrush work, nostalgic romantic feel. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: An intergalactic uncle is tasked with the ultimate, exhausting mission of babysitting his horribly misbehaved, scrap-metal-obsessed extended family member.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICALLY IMPORTANT: Absolutely DO NOT draw Darth Vader, Stormtroopers, Yoda, or any official Star Wars character designs or light sabers. Any space knights must use generic glowing swords or silly laser beams, and space villains must wear comical, custom space helmets. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Star Chores\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'The Big Le-brown-ski' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted artwork, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, a single prominent central character or max 2 distinct faces, vibrant colors, detailed airbrush work, nostalgic romantic feel, avoiding cluttered layouts of multiple floating heads. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A perpetually bronzed slacker gets mixed up in a complex Los Angeles kidnapping plot after someone ruins his prized tanning bed, forcing him to confront his aggressively sun-baked rival, Tan.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"The Big Le-brown-ski\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": true,
+    "image_path": "/assets/posters/the_big_lebrownski_poster_vertical_1781910255.png",
+    "status": "approved"
+  },
+  {
+    "pun_id": "quote_182_1781908387175",
+    "parody_title": "Doughboy Story",
+    "original_movie": "Toy Story",
+    "style_key": "mythic_epic",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Doughboy Story' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted artwork, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, a single prominent central character or max 2 distinct faces, vibrant colors, detailed airbrush work, nostalgic romantic feel, avoiding cluttered layouts of multiple floating heads. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A sentient tube of cowboy-shaped pastry dough struggles to maintain order in the bakery when his footwear keeps getting mysteriously filled with rival cakes.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Doughboy Story\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
     "generated": false,
     "image_path": null,
     "status": "rejected"
+  },
+  {
+    "pun_id": "quote_182_1781908392234",
+    "parody_title": "Toy Blurry",
+    "original_movie": "Toy Story",
+    "style_key": "pop_art",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Toy Blurry' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A neurotic cowboy doll leads his plastic friends on a desperate quest to figure out why his footwear has suddenly become completely non-transparent.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Toy Blurry\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
+  },
+  {
+    "pun_id": "quote_191_1781908437438",
+    "parody_title": "Shoe-lander",
+    "original_movie": "Zoolander",
+    "style_key": "mythic_epic",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Shoe-lander' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted artwork, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, a single prominent central character or max 2 distinct faces, vibrant colors, detailed airbrush work, nostalgic romantic feel, avoiding cluttered layouts of multiple floating heads. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: Two dimwitted, ridiculously good-looking fashion icons are drafted to showcase haute-couture survival gear on the treacherous Appalachian path, armed only with their striking cheekbones and 'Blue Steel' hiking boots.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Shoe-lander\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": true,
+    "image_path": "/assets/posters/shoelander_poster_vertical_1781910284.png",
+    "status": "approved"
+  },
+  {
+    "pun_id": "quote_191_1781908441647",
+    "parody_title": "Blue-lander",
+    "original_movie": "Zoolander",
+    "style_key": "pop_art",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Blue-lander' (Parodying a famous classic film). Create this entirely in the style of: Roy Lichtenstein pop art style, bold primary colors, heavy halftone dots, comic book aesthetic. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A ridiculously good-looking but intellectually barren marine biologist uncovers an international assassination plot while trying to launch a high-fashion runway show exclusively for giant cetaceans.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Blue-lander\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": true,
+    "image_path": "/assets/posters/bluelander_poster_vertical_1781910292.png",
+    "status": "approved"
+  },
+  {
+    "pun_id": "quote_191_1781908457448",
+    "parody_title": "Ghoul-ander",
+    "original_movie": "Zoolander",
+    "style_key": "mid_century",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Ghoul-ander' (Parodying a famous classic film). Create this entirely in the style of: 1950s UPA animation style, geometric shapes, flat colors, minimalist mid-century modern illustration. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A ridiculously good-looking vampire infiltrates the high-stakes world of undead fashion, struggling to comprehend a villain's diabolical plot to assassinate the industry's most sun-deprived runway stars.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Ghoul-ander\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
+  },
+  {
+    "pun_id": "quote_191_1781908484096",
+    "parody_title": "Brew-lander",
+    "original_movie": "Zoolander",
+    "style_key": "woodcut",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Brew-lander' (Parodying a famous classic film). Create this entirely in the style of: medieval woodcut print style, intricate linework, monochromatic ink on parchment texture. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A ridiculously good-looking but dim-witted sommelier uncovers an evil fashion industry conspiracy to replace all human runway talent with aggressively gendered, chiseled glass hydration containers.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Brew-lander\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": false,
+    "image_path": null,
+    "status": "rejected"
+  },
+  {
+    "pun_id": "quote_189_1781908506272",
+    "parody_title": "Shawl-most Famous",
+    "original_movie": "Almost Famous",
+    "style_key": "mythic_epic",
+    "prompt": "Generate a vertical 3:4 movie poster illustration for a spoof movie called 'Shawl-most Famous' (Parodying a famous classic film). Create this entirely in the style of: mythic and epic illustrative style, hand-painted artwork, dramatic lighting, action scenes that evoke 1930s pulp adventure serials, Drew Struzan style, a single prominent central character or max 2 distinct faces, vibrant colors, detailed airbrush work, nostalgic romantic feel, avoiding cluttered layouts of multiple floating heads. It must look like an illustration, NOT a photograph or a cinematic movie still. The central focus should be: A teenage journalist goes on tour with a legendary 1970s rock band, but discovers their wild backstage lifestyle consists entirely of aggressive knitting and wrapping rock stars in cozy hand-crafted outerwear.. Constraints: Characters must be generic, exaggerated caricatures. Do NOT make them look like the actors or any copyrighted, original characters (e.g. iconic masked villains or specific aliens) from the original film. CRITICAL INSTRUCTION: You must prominently feature the exact text \"Shawl-most Famous\" as the movie title on the poster in a stylized, bold font matching the artwork. Do not include any generic studio shields, globes, or branding.",
+    "generated": true,
+    "image_path": "/assets/posters/shawlmost_famous_poster_vertical_1781910324.png",
+    "status": "approved"
   }
 ]

@@ -774,6 +774,23 @@ input:focus {
     position: relative;
 }
 
+.victory-solved-status {
+    background: #06D6A0; /* emerald green */
+    color: #000000;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    padding: 8px 20px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    display: inline-block;
+    z-index: 2;
+    letter-spacing: 0.5px;
+}
+
 .victory-poster-wrapper {
     width: 240px;
     height: 360px;
