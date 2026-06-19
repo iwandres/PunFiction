@@ -1998,6 +1998,17 @@ function getChallengeDifficulty(challenge, stats) {
     }
 }
 
+function abbreviateNumber(num) {
+    if (num === null || num === undefined) return '0';
+    if (num < 1000) return num.toLocaleString();
+    if (num < 1000000) {
+        const value = num / 1000;
+        return (value % 1 === 0 ? value.toFixed(0) : value.toFixed(1)) + 'K';
+    }
+    const value = num / 1000000;
+    return (value % 1 === 0 ? value.toFixed(0) : value.toFixed(1)) + 'M';
+}
+
 async function openStatsSelectModal() {
     // 1. Show loading indicator states
     document.getElementById('agg-total-starts').innerText = '...';
@@ -2045,8 +2056,8 @@ async function openStatsSelectModal() {
     
     const solveRate = totalStarts > 0 ? ((totalSolves / totalStarts) * 100).toFixed(1) : '0.0';
     
-    document.getElementById('agg-total-starts').innerText = totalStarts.toLocaleString();
-    document.getElementById('agg-total-solves').innerText = totalSolves.toLocaleString();
+    document.getElementById('agg-total-starts').innerText = abbreviateNumber(totalStarts);
+    document.getElementById('agg-total-solves').innerText = abbreviateNumber(totalSolves);
     document.getElementById('agg-solve-rate').innerText = `${solveRate}%`;
     
     for (let i = 0; i <= 4; i++) {
