@@ -515,7 +515,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px 6px;
+    gap: 8px var(--slot-gap, 6px);
     width: 100%;
     margin-bottom: 25px;
     padding: 5px;
@@ -525,16 +525,16 @@ body {
 .guess-word {
     display: inline-flex;
     flex-wrap: nowrap;
-    gap: 6px;
+    gap: var(--slot-gap, 6px);
 }
 
 .guess-letter-slot {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
-    width: 32px;
-    height: 42px;
-    border: 3px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    font-size: var(--slot-font-size, 1.6rem);
+    width: var(--slot-width, 32px);
+    height: var(--slot-height, 42px);
+    border: var(--slot-border, 3px) solid var(--border-color);
+    box-shadow: var(--slot-shadow, 2px) var(--slot-shadow, 2px) 0px var(--border-color);
     border-radius: 6px;
     background: #ffffff;
     color: var(--text-primary);
@@ -550,7 +550,7 @@ body {
     background: #fff9db;
     border-color: var(--border-color);
     transform: translateY(-2px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px var(--border-color);
     color: var(--accent-main);
 }
 
@@ -558,23 +558,23 @@ body {
     background: #f0ebfa !important;
     color: var(--text-secondary) !important;
     transform: translateY(-2px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px var(--border-color);
 }
 
 .guess-letter-slot.active {
     border-color: var(--accent-main);
-    box-shadow: 2px 2px 0px var(--accent-main);
+    box-shadow: var(--slot-shadow, 2px) var(--slot-shadow, 2px) 0px var(--accent-main);
     animation: pulseActive 0.8s infinite alternate;
 }
 
 .guess-separator-space {
-    width: 14px;
+    width: var(--slot-space-width, 14px);
     display: inline-block;
 }
 
 .guess-separator-char {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: var(--slot-font-size, 1.6rem);
     color: var(--text-primary);
     display: flex;
     align-items: center;

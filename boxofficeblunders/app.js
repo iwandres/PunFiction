@@ -306,6 +306,13 @@ window.onload = async () => {
         };
     }
 
+    // Listen for window resize to adjust slot sizes dynamically
+    window.addEventListener('resize', () => {
+        if (screens.game.classList.contains('active')) {
+            renderGuessSlots();
+        }
+    });
+
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
 };
@@ -832,7 +839,56 @@ function renderGuessSlots() {
     const currentGuess = ui.guessInput.value;
     
     if (!ui.guessSlotsContainer) return;
+
+    // Calculate maximum word length (excluding separators/punctuation)
+    let maxWordLength = 0;
+    const words = title.split(/[\s\-:\.,;]+/);
+    words.forEach(w => {
+        const cleanW = w.replace(/[^a-zA-Z]/g, '');
+        if (cleanW.length > maxWordLength) {
+            maxWordLength = cleanW.length;
+        }
+    });
+
+    // Measure container clientWidth, fallback to 380px if not loaded
+    const containerWidth = ui.guessSlotsContainer.clientWidth || 380;
+
+    // Calculate optimal W (default max 32px)
+    const maxSlotWidth = 32;
+    let W = maxSlotWidth;
+    if (maxWordLength > 0) {
+        const targetWidth = containerWidth - 16;
+        const computedW = Math.floor(targetWidth / (1.2 * maxWordLength - 0.2));
+        if (computedW < maxSlotWidth) {
+            W = Math.max(16, computedW);
+        }
+    }
+
+    // Set other variables proportionally
+    const G = Math.round(W / 5);
+    const H = Math.round(W * 1.3125);
+    const F = (W / 20).toFixed(2) + 'rem';
+    const spaceW = Math.round(W * 0.4375);
     
+    let B = '3px';
+    let S = '2px';
+    if (W < 20) {
+        B = '1.5px';
+        S = '1px';
+    } else if (W < 28) {
+        B = '2px';
+        S = '1.5px';
+    }
+
+    // Apply values to style variables
+    ui.guessSlotsContainer.style.setProperty('--slot-width', `${W}px`);
+    ui.guessSlotsContainer.style.setProperty('--slot-height', `${H}px`);
+    ui.guessSlotsContainer.style.setProperty('--slot-font-size', F);
+    ui.guessSlotsContainer.style.setProperty('--slot-gap', `${G}px`);
+    ui.guessSlotsContainer.style.setProperty('--slot-space-width', `${spaceW}px`);
+    ui.guessSlotsContainer.style.setProperty('--slot-border', `${B}`);
+    ui.guessSlotsContainer.style.setProperty('--slot-shadow', `${S}`);
+
     let html = '';
     let activeHighlighted = false;
     
