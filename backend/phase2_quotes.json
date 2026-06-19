@@ -4424,28 +4424,6 @@
     "id": "quote_258",
     "rhyme1": "them",
     "rhyme2": "apples",
-    "rhyme1_candidates": [
-      "Condemn",
-      "Bum",
-      "Succumb",
-      "Hum",
-      "Stem",
-      "Outcome",
-      "Overcome",
-      "Numb",
-      "Come",
-      "Gem",
-      "Plum",
-      "Dumb",
-      "Femme",
-      "Thumb",
-      "Slum",
-      "Gum",
-      "Rum",
-      "Income",
-      "Some",
-      "Cum"
-    ],
     "rhyme2_candidates": [
       "Chapels"
     ]
@@ -5472,32 +5450,7 @@
     "original_quote": "Just keep swimming.",
     "id": "quote_297",
     "rhyme1": "just",
-    "rhyme2": "swimming",
-    "rhyme1_candidates": [
-      "Robust",
-      "Thrust",
-      "Lust",
-      "Mist",
-      "Assist",
-      "Twist",
-      "Persist",
-      "Trust",
-      "Must",
-      "Adjust",
-      "Hissed",
-      "Bust",
-      "Pissed",
-      "Insist",
-      "Distrust",
-      "Resist",
-      "Mistrust",
-      "Dismissed",
-      "Consist",
-      "Unjust"
-    ],
-    "rhyme2_candidates": [
-      "Trimming"
-    ]
+    "rhyme2": "swimming"
   },
   {
     "movie": "Anchorman: The Legend of Ron Burgundy",
@@ -5772,37 +5725,7 @@
     "original_quote": "What a piece of junk!",
     "id": "quote_308",
     "rhyme1": "piece",
-    "rhyme2": "junk",
-    "rhyme1_candidates": [
-      "Nice",
-      "Release",
-      "Cease",
-      "Peace",
-      "Decrease",
-      "Grease",
-      "Mouthpiece",
-      "Police",
-      "Apiece",
-      "Obese",
-      "Geese",
-      "Masterpiece",
-      "Niece",
-      "Denise",
-      "Greece",
-      "Increase",
-      "Lease",
-      "Luis"
-    ],
-    "rhyme2_candidates": [
-      "Bunk",
-      "Funk",
-      "Trunk",
-      "Monk",
-      "Shrunk",
-      "Sunk",
-      "Chunk",
-      "Drunk"
-    ]
+    "rhyme2": "junk"
   },
   {
     "movie": "The Blues Brothers",
@@ -5950,28 +5873,6 @@
       "Gorbachev",
       "Khrushchev",
       "Knopf"
-    ],
-    "rhyme2_candidates": [
-      "Relax",
-      "Syntax",
-      "Flax",
-      "Axe",
-      "Drawbacks",
-      "Tracks",
-      "Tax",
-      "Setbacks",
-      "Impacts",
-      "Facts",
-      "Ax",
-      "Attacks",
-      "Fax",
-      "Max",
-      "Contacts",
-      "Racks",
-      "Blacks",
-      "Backs",
-      "Packs",
-      "Cracks"
     ]
   },
   {
@@ -6305,41 +6206,7 @@
     "original_quote": "It does not do to dwell on dreams and forget to live.",
     "id": "quote_326",
     "rhyme1": "dreams",
-    "rhyme2": "dwell",
-    "rhyme1_candidates": [
-      "Beams",
-      "Schemes",
-      "Seams",
-      "Seems",
-      "Streams",
-      "Extremes",
-      "Regimes",
-      "Screams",
-      "Teams",
-      "Themes"
-    ],
-    "rhyme2_candidates": [
-      "Compel",
-      "Citadel",
-      "Swell",
-      "Tell",
-      "Shell",
-      "Cell",
-      "Expel",
-      "Parallel",
-      "Well",
-      "Spell",
-      "Rebel",
-      "Yell",
-      "Repel",
-      "Personnel",
-      "Hell",
-      "Smell",
-      "Sell",
-      "Cartel",
-      "Dell",
-      "Belle"
-    ]
+    "rhyme2": "dwell"
   },
   {
     "movie": "The Fast and the Furious",
@@ -6594,28 +6461,6 @@
     "id": "quote_334",
     "rhyme1": "bird",
     "rhyme2": "youre",
-    "rhyme1_candidates": [
-      "Absurd",
-      "Spurred",
-      "Stirred",
-      "Conferred",
-      "Preferred",
-      "Deferred",
-      "Inferred",
-      "Concurred",
-      "Word",
-      "Foreword",
-      "Unheard",
-      "Third",
-      "Blurred",
-      "Referred",
-      "Password",
-      "Deterred",
-      "Keyword",
-      "Transferred",
-      "Overheard",
-      "Incurred"
-    ],
     "rhyme2_candidates": []
   },
   {
@@ -6753,12 +6598,7 @@
     "original_quote": "Are you watching closely?",
     "id": "quote_339",
     "rhyme1": "watching",
-    "rhyme2": "closely",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Grossly",
-      "Mostly"
-    ]
+    "rhyme2": "closely"
   },
   {
     "movie": "In Bruges",
@@ -6944,23 +6784,6 @@
     "id": "quote_344",
     "rhyme1": "smart",
     "rhyme2": "important",
-    "rhyme1_candidates": [
-      "Impart",
-      "Part",
-      "Dart",
-      "Start",
-      "Sweetheart",
-      "Heart",
-      "Depart",
-      "Art",
-      "Apart",
-      "Counterpart",
-      "Cart",
-      "Chart",
-      "Restart",
-      "Bart",
-      "Parte"
-    ],
     "rhyme2_candidates": [
       "Unimportant"
     ]
@@ -6972,35 +6795,7 @@
     "original_quote": "Do you feel in charge?",
     "id": "quote_345",
     "rhyme1": "feel",
-    "rhyme2": "charge",
-    "rhyme1_candidates": [
-      "Zeal",
-      "Genteel",
-      "Reveal",
-      "Keel",
-      "Appeal",
-      "Heel",
-      "Deal",
-      "Ordeal",
-      "Seal",
-      "Steel",
-      "Conceal",
-      "Unreal",
-      "Real",
-      "Automobile",
-      "Peel",
-      "Steal",
-      "Repeal",
-      "Piecemeal",
-      "Immobile",
-      "Meal"
-    ],
-    "rhyme2_candidates": [
-      "Discharge",
-      "Large",
-      "Barge",
-      "Enlarge"
-    ]
+    "rhyme2": "charge"
   },
   {
     "movie": "Captain Phillips",
@@ -7171,38 +6966,6 @@
       "Oat"
     ],
     "rhyme2_candidates": []
-  },
-  {
-    "movie": "Rocky",
-    "year": 1976,
-    "character": "Rocky Balboa",
-    "original_quote": "Adrian! I did it!",
-    "id": "quote_353",
-    "rhyme1": "adrian",
-    "rhyme2": "it",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Shit",
-      "Fit",
-      "Grit",
-      "Bit",
-      "Counterfeit",
-      "Hit",
-      "Split",
-      "Admit",
-      "Transmit",
-      "Submit",
-      "Omit",
-      "Permit",
-      "Bullshit",
-      "Commit",
-      "Tit",
-      "Emit",
-      "Kit",
-      "Writ",
-      "Cockpit",
-      "Spit"
-    ]
   },
   {
     "movie": "Star Wars: A New Hope",
@@ -7439,11 +7202,7 @@
     "id": "quote_360",
     "rhyme1": "turkish",
     "rhyme2": "prison",
-    "rhyme1_candidates": [],
-    "rhyme2_candidates": [
-      "Arisen",
-      "Risen"
-    ]
+    "rhyme1_candidates": []
   },
   {
     "movie": "Raiders of the Lost Ark",
@@ -8398,41 +8157,7 @@
     "original_quote": "There's a whole ocean of oil under our feet! No one can get at it except for me!",
     "id": "quote_392",
     "rhyme1": "oil",
-    "rhyme2": "feet",
-    "rhyme1_candidates": [
-      "Turmoil",
-      "Recoil",
-      "Coil",
-      "Foil",
-      "Soil",
-      "Spoil",
-      "Boil",
-      "Boyle",
-      "Doyle",
-      "Toil"
-    ],
-    "rhyme2_candidates": [
-      "Conceit",
-      "Sweet",
-      "Obsolete",
-      "Replete",
-      "Complete",
-      "Concrete",
-      "Heat",
-      "Deceit",
-      "Retreat",
-      "Beat",
-      "Discreet",
-      "Elite",
-      "Meet",
-      "Treat",
-      "Neat",
-      "Repeat",
-      "Meat",
-      "Suite",
-      "Defeat",
-      "Discrete"
-    ]
+    "rhyme2": "feet"
   },
   {
     "movie": "The Dark Knight",
@@ -8475,45 +8200,7 @@
     "original_quote": "I don't have money. But what I do have are a very particular set of skills; skills I have acquired over a very long career.",
     "id": "quote_394",
     "rhyme1": "skills",
-    "rhyme2": "career",
-    "rhyme1_candidates": [
-      "Chills",
-      "Fills",
-      "Foothills",
-      "Pills",
-      "Gills",
-      "Ills",
-      "Fulfills",
-      "Bills",
-      "Drills",
-      "Hills",
-      "Kills",
-      "Mills",
-      "Spills",
-      "Wills"
-    ],
-    "rhyme2_candidates": [
-      "Austere",
-      "Cavalier",
-      "Clear",
-      "Severe",
-      "Peer",
-      "Queer",
-      "Premier",
-      "Chevalier",
-      "Adhere",
-      "Steer",
-      "Cheer",
-      "Atmosphere",
-      "Appear",
-      "Shear",
-      "Sphere",
-      "Near",
-      "Smear",
-      "Tear",
-      "Spear",
-      "Rear"
-    ]
+    "rhyme2": "career"
   },
   {
     "movie": "Inglourious Basterds",
