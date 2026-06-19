@@ -284,23 +284,23 @@ body {
 .challenge-navigation {
     position: absolute;
     top: -16px;
-    left: 20px;
+    left: calc(50% - 20px);
     z-index: 10;
     display: flex;
     align-items: center;
     gap: 6px;
-    transform: rotate(-2deg);
+    transform: translateX(-50%) rotate(-2deg);
 }
 
 .challenge-nav-btn {
     font-family: var(--font-heading);
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     color: #ffffff;
     background: #06D6A0; /* brand emerald green */
     border: 3px solid var(--border-color);
     box-shadow: 2px 2px 0px var(--border-color);
     border-radius: 6px;
-    padding: 4px 10px;
+    padding: 5px 12px;
     cursor: pointer;
     transition: all 0.1s ease;
     display: inline-flex;
@@ -337,11 +337,16 @@ body {
     border: 3px solid var(--border-color);
     box-shadow: 3px 3px 0px var(--border-color);
     border-radius: 6px;
-    padding: 4px 14px;
+    padding: 5px 12px;
     letter-spacing: 0.5px;
     display: inline-block;
     text-transform: uppercase;
     margin: 0;
+}
+
+/* Hide the "Challenge" word by default to keep the layout clean and unified */
+.challenge-label {
+    display: none;
 }
 
 .inventory-container {
@@ -1240,7 +1245,7 @@ input:focus {
 .stats-select-btn {
     position: absolute;
     top: -16px;
-    right: 60px;
+    left: 20px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -1468,7 +1473,7 @@ input:focus {
 .settings-btn {
     position: absolute;
     top: -16px;
-    right: 100px;
+    right: 60px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
