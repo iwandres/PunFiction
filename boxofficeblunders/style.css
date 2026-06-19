@@ -1687,7 +1687,7 @@ input:focus {
         padding: 5px 12px !important;
     }
 
-    /* Position settings (ticket) button on the left edge */
+    /* Position settings (profile) button on the left edge */
     .settings-btn {
         left: 8px !important;
         right: auto !important;
