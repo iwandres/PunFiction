@@ -1245,7 +1245,8 @@ input:focus {
 .stats-select-btn {
     position: absolute;
     top: -16px;
-    left: 20px;
+    right: 60px;
+    left: auto;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -1473,7 +1474,8 @@ input:focus {
 .settings-btn {
     position: absolute;
     top: -16px;
-    right: 60px;
+    left: 20px;
+    right: auto;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -1685,14 +1687,14 @@ input:focus {
         padding: 5px 12px !important;
     }
 
-    /* Position stats button on the left edge */
-    .stats-select-btn {
+    /* Position settings (ticket) button on the left edge */
+    .settings-btn {
         left: 8px !important;
         right: auto !important;
     }
 
-    /* Position settings (gear) and how-to-play (?) buttons on the right edge */
-    .settings-btn {
+    /* Position stats (trophy) and how-to-play (?) buttons on the right edge */
+    .stats-select-btn {
         right: 44px !important;
         left: auto !important;
     }
