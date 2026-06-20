@@ -618,7 +618,8 @@ async function loadPuzzleDatabase() {
 function getSolvedPuzzlesList() {
     try {
         const data = localStorage.getItem('pun_fiction_solved_puzzles');
-        return new Set(data ? JSON.parse(data) : []);
+        const list = data ? JSON.parse(data) : [];
+        return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
         return new Set();
     }
@@ -627,7 +628,12 @@ function getSolvedPuzzlesList() {
 function getSolvedHintsMap() {
     try {
         const data = localStorage.getItem('pun_fiction_solved_hints');
-        return data ? JSON.parse(data) : {};
+        const map = data ? JSON.parse(data) : {};
+        const sanitized = {};
+        Object.keys(map).forEach(k => {
+            sanitized[padPuzzleNumber(k)] = map[k];
+        });
+        return sanitized;
     } catch (e) {
         return {};
     }
@@ -635,13 +641,14 @@ function getSolvedHintsMap() {
 
 function savePuzzleSolved(puzzleNum) {
     try {
+        const paddedNum = padPuzzleNumber(puzzleNum);
         const solved = getSolvedPuzzlesList();
-        solved.add(puzzleNum);
+        solved.add(paddedNum);
         localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...solved]));
         
         // Save the number of hints used for this puzzle
         const solvedHints = getSolvedHintsMap();
-        solvedHints[puzzleNum] = hintsUsed;
+        solvedHints[paddedNum] = hintsUsed;
         localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(solvedHints));
 
         // Push solved status to backend profile sync
@@ -673,7 +680,8 @@ function getOrGenerateProfileId() {
 function getAttemptedPuzzles() {
     try {
         const data = localStorage.getItem('pun_fiction_attempted_puzzles');
-        return new Set(data ? JSON.parse(data) : []);
+        const list = data ? JSON.parse(data) : [];
+        return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
         return new Set();
     }
@@ -681,9 +689,10 @@ function getAttemptedPuzzles() {
 
 function savePuzzleAttempted(puzzleNum) {
     try {
+        const paddedNum = padPuzzleNumber(puzzleNum);
         const attempted = getAttemptedPuzzles();
-        if (!attempted.has(puzzleNum)) {
-            attempted.add(puzzleNum);
+        if (!attempted.has(paddedNum)) {
+            attempted.add(paddedNum);
             localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...attempted]));
             
             // Push attempted status to backend profile sync
@@ -781,17 +790,18 @@ async function fetchAndMergeProfile(serverProfileId) {
         // 1. Merge Solved Puzzles
         const localSolved = getSolvedPuzzlesList();
         const serverSolved = data.solved_puzzles || [];
-        serverSolved.forEach(p => localSolved.add(p));
+        serverSolved.forEach(p => localSolved.add(padPuzzleNumber(p)));
         localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...localSolved]));
         
         // 2. Merge Solved Hints (take minimum hints used)
         const localHints = getSolvedHintsMap();
         const serverHints = data.solved_hints || {};
         Object.keys(serverHints).forEach(p => {
+            const paddedP = padPuzzleNumber(p);
             const serverH = serverHints[p];
-            const localH = localHints[p];
+            const localH = localHints[paddedP];
             if (localH === undefined || serverH < localH) {
-                localHints[p] = serverH;
+                localHints[paddedP] = serverH;
             }
         });
         localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(localHints));
@@ -799,7 +809,7 @@ async function fetchAndMergeProfile(serverProfileId) {
         // 3. Merge Attempted Puzzles
         const localAttempted = getAttemptedPuzzles();
         const serverAttempted = data.attempted_puzzles || [];
-        serverAttempted.forEach(p => localAttempted.add(p));
+        serverAttempted.forEach(p => localAttempted.add(padPuzzleNumber(p)));
         localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...localAttempted]));
         
         // 4. Merge Max Streak

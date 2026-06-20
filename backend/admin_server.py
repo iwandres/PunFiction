@@ -4,7 +4,7 @@ import json
 import os
 import database
 
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 DATA_FILE = os.path.join(DIR_PATH, 'production_daily_games.json')
 HTML_FILE = os.path.join(DIR_PATH, 'admin.html')
