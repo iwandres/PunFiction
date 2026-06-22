@@ -874,6 +874,14 @@ function startGame(challenge) {
     if (appEl) {
         appEl.classList.remove('app-loading');
     }
+
+    // Send virtual pageview to Google Analytics for the active challenge
+    if (typeof gtag === 'function') {
+        gtag('config', 'G-41EV4HJ1LH', {
+            'page_title': `Challenge #${challenge.puzzle_number}`,
+            'page_path': `${window.location.pathname}?challenge=${challenge.puzzle_number}`
+        });
+    }
 }
 
 function getCorrectPosterUrl(urlPath) {
