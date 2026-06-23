@@ -1598,6 +1598,22 @@ async function loadAndRenderGlobalStats(puzzleNum) {
     }, 200);
 }
 
+function getMaskedParodyTitle(title) {
+    if (!title) return "";
+    return title.split(/\s+/).map(word => {
+        if (!word) return "";
+        const firstAlphanumericIndex = word.search(/[a-zA-Z0-9]/);
+        if (firstAlphanumericIndex === -1) {
+            return word;
+        }
+        const prefix = word.substring(0, firstAlphanumericIndex);
+        const letter = word.charAt(firstAlphanumericIndex);
+        const suffix = word.substring(firstAlphanumericIndex + 1);
+        const maskedSuffix = suffix.replace(/[a-zA-Z0-9]/g, '_');
+        return prefix + letter + maskedSuffix;
+    }).join(" ");
+}
+
 // Share score streak via clipboard copy
 function shareSolvedScore() {
     const solvedList = getSolvedPuzzlesList();
@@ -1607,7 +1623,7 @@ function shareSolvedScore() {
     const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/4 hints used 💡`;
 
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
-                     `Parody Solved: "${activeChallenge.boss_pun_title}" 🍿\n` +
+                     `Parody Solved: "${getMaskedParodyTitle(activeChallenge.boss_pun_title)}" 🍿\n` +
                      `💡 Stats: ${hintText}\n` +
                      `🌟 Complete Streak: ${streak} solved challenge(s)!\n` +
                      `Play daily challenges at: https://iwandres.github.io/PunFiction/boxofficeblunders/`;
