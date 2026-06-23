@@ -1600,7 +1600,8 @@ async function loadAndRenderGlobalStats(puzzleNum) {
 
 function getMaskedParodyTitle(title) {
     if (!title) return "";
-    return title.split(/\s+/).map(word => {
+    const words = title.split(/\s+/);
+    const maskedWords = words.map(word => {
         if (!word) return "";
         const firstAlphanumericIndex = word.search(/[a-zA-Z0-9]/);
         if (firstAlphanumericIndex === -1) {
@@ -1611,7 +1612,15 @@ function getMaskedParodyTitle(title) {
         const suffix = word.substring(firstAlphanumericIndex + 1);
         const maskedSuffix = suffix.replace(/[a-zA-Z0-9]/g, '_');
         return prefix + letter + maskedSuffix;
-    }).join(" ");
+    });
+
+    if (maskedWords.length > 2) {
+        let truncated = maskedWords.slice(0, 2).join(" ");
+        // Strip trailing non-alphanumeric/non-underscore characters from the end of the truncated string
+        truncated = truncated.replace(/[^a-zA-Z0-9_]+$/, '');
+        return truncated + "...";
+    }
+    return maskedWords.join(" ");
 }
 
 // Share score streak via clipboard copy
