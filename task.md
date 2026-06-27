@@ -1,0 +1,23 @@
+# Task List - Attempts Telemetry, Letter Lock-in, Color Flash, Global Stats, Victory Badge, Victory Quote, and Font Legibility
+
+- `[x]` Update database layer `backend/database.py` to record `'attempt'` events and fetch attempts stats.
+- `[x]` Update API endpoints in `backend/admin_server.py` to parse and store attempts in local fallback file copy.
+- `[x]` Declare `lockedInIndices` set in client `boxofficeblunders/app.js` and clear it on game start.
+- `[x]` Modify `handleGuessSubmit()` to match correct letters on incorrect guesses, lock them in, and fire `'attempt'` telemetry event to the backend.
+- `[x]` Modify `getPrefilledIndices()` and `renderGuessSlots()` in `boxofficeblunders/app.js` to prefill locked-in correct letters.
+- `[x]` Highlight locked-in correct letters in the UI with a satisfying neo-brutalist green style in `boxofficeblunders/style.css`.
+- `[x]` Dynamically compute input `maxLength` based on locked-in letters to keep input typing aligned.
+- `[x]` Bump version parameters for `style.css` and `app.js` references in `boxofficeblunders/index.html` to bypass caches.
+- `[x]` Add an early inline JavaScript color loader inside `<head>` of `boxofficeblunders/index.html` to calculate colors and set CSS custom variables immediately, preventing the yellow-to-challenge background color flash.
+- `[x]` Fix a JS syntax error (`prefilledIndices` double declaration) in `boxofficeblunders/app.js` which blocked page execution.
+- `[x]` Add a "Total Attempts" aggregate stat box to the "Global Box Office Stats" grid, layout out in a symmetrical 2x2 grid. (Replaced in follow-up task with a full attempts distribution graph, then reverted to Average Attempts).
+- `[x]` Track local attempts count per puzzle in a local map `pun_fiction_puzzle_attempts` inside client localStorage.
+- `[x]` Display attempts count next to hints count in the victory Solved badge (e.g. `Solved! No Hints • 3 Attempts`).
+- `[x]` Clear the attempts map when players click the "Reset Progress" button.
+- `[x]` Add the parodied quote (`final-boss-quote` container) to the correct answer victory screen underneath the plot description, rendering with a dashed purple border, italic layout, and highlighted pun/rhyme words.
+- `[x]` Support recording attempts-to-solve distribution parameters (`solve_att_1` to `solve_att_5`) in `backend/database.py` and `backend/admin_server.py`.
+- `[x]` Add a top-level "Avg Attempts" card in `boxofficeblunders/index.html` inside the 2x2 aggregate stats grid.
+- `[x]` Calculate the weighted average attempts per solve inside `openStatsSelectModal()` based on solved attempts distribution telemetry.
+- `[x]` Remove the attempts distribution graph to keep the UI clean, lightweight, and focused.
+- `[x]` Resolve the legibility issue between numbers `1` and `7` in the `Bangers` font by wrapping active challenge numbers in span tags styled with the `Nunito` body font (`var(--font-body)`) and heavy weight (`900`).
+- `[x]` Change the `.stat-value` styling in `boxofficeblunders/style.css` to use the `Nunito` body font for high-contrast numeric legibility.
