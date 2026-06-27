@@ -9,7 +9,7 @@ function prewarmBackend() {
     if (isLocal) return;
     
     console.log("Initiating asynchronous backend pre-warm ping...");
-    fetch(`${BACKEND_API_URL}/api/telemetry?puzzle_number=001`, { mode: 'cors' })
+    fetch(`${BACKEND_API_URL}/api/records?puzzle_number=001`, { mode: 'cors' })
         .then(res => {
             if (res.ok) {
                 console.log("Render backend container warmed up and awake!");
@@ -2036,8 +2036,8 @@ async function sendTelemetryEvent(event, hints = 0) {
     
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/api/telemetry'
-            : `${BACKEND_API_URL}/api/telemetry`;
+            ? '/api/records'
+            : `${BACKEND_API_URL}/api/records`;
         
         await fetch(telemetryUrl, {
             method: 'POST',
@@ -2089,8 +2089,8 @@ async function fetchAllTelemetryStats() {
     
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/api/telemetry'
-            : `${BACKEND_API_URL}/api/telemetry`;
+            ? '/api/records'
+            : `${BACKEND_API_URL}/api/records`;
             
         const response = await fetchWithTimeout(telemetryUrl, { timeout: 3500 });
         if (response.ok) {
@@ -2105,7 +2105,7 @@ async function fetchAllTelemetryStats() {
     }
     
     try {
-        const staticUrl = `${GITHUB_REPO_URL}/telemetry.json?t=${Date.now()}`;
+        const staticUrl = `${GITHUB_REPO_URL}/records.json?t=${Date.now()}`;
         const response = await fetchWithTimeout(staticUrl, { timeout: 3500 });
         if (response.ok) {
             const data = await response.json();

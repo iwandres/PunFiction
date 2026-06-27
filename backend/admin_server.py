@@ -37,7 +37,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(f.read())
             else:
                 self.wfile.write(b'[]')
-        elif req_path == '/api/telemetry':
+        elif req_path == '/api/records':
             import urllib.parse
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
@@ -53,8 +53,8 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
                 else:
                     telemetry_data = database.get_telemetry_stats()
-                    # Keep local telemetry.json in sync
-                    telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+                    # Keep local records.json in sync
+                    telemetry_file = os.path.join(DIR_PATH, 'records.json')
                     with open(telemetry_file, 'w', encoding='utf-8') as f:
                         json.dump(telemetry_data, f, indent=2)
                     self.wfile.write(json.dumps(telemetry_data).encode('utf-8'))
@@ -62,7 +62,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 print(f"Error querying telemetry from MongoDB: {e}")
                 # Fallback to local file
                 telemetry_data = {}
-                telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+                telemetry_file = os.path.join(DIR_PATH, 'records.json')
                 if os.path.exists(telemetry_file):
                     try:
                         with open(telemetry_file, 'r', encoding='utf-8') as f:
@@ -207,10 +207,10 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-        elif self.path == '/api/telemetry':
+        elif self.path == '/api/records':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
-            telemetry_file = os.path.join(DIR_PATH, 'telemetry.json')
+            telemetry_file = os.path.join(DIR_PATH, 'records.json')
             try:
                 payload = json.loads(post_data.decode('utf-8'))
                 event = payload.get('event')
