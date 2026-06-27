@@ -2189,7 +2189,6 @@ async function openStatsSelectModal() {
     document.getElementById('agg-total-starts').innerText = '...';
     document.getElementById('agg-total-solves').innerText = '...';
     document.getElementById('agg-solve-rate').innerText = '...';
-    document.getElementById('agg-avg-attempts').innerText = '...';
     
     for (let i = 0; i <= 4; i++) {
         const fillBar = document.getElementById(`agg-funnel-fill-${i}`);
@@ -2211,7 +2210,6 @@ async function openStatsSelectModal() {
     let totalStarts = 0;
     let totalSolves = 0;
     const hintSolves = [0, 0, 0, 0, 0];
-    const attemptSolves = [0, 0, 0, 0, 0, 0]; // 1-indexed to match attempts 1 to 5
     
     approved.forEach(c => {
         const stats = getPuzzleTelemetryStats(c.puzzle_number);
@@ -2222,12 +2220,6 @@ async function openStatsSelectModal() {
         const s3 = parseInt(stats.solve_3) || 0;
         const s4 = parseInt(stats.solve_4) || 0;
         
-        const sa1 = parseInt(stats.solve_att_1) || 0;
-        const sa2 = parseInt(stats.solve_att_2) || 0;
-        const sa3 = parseInt(stats.solve_att_3) || 0;
-        const sa4 = parseInt(stats.solve_att_4) || 0;
-        const sa5 = parseInt(stats.solve_att_5) || 0;
-        
         totalStarts += starts;
         totalSolves += (s0 + s1 + s2 + s3 + s4);
         hintSolves[0] += s0;
@@ -2235,22 +2227,13 @@ async function openStatsSelectModal() {
         hintSolves[2] += s2;
         hintSolves[3] += s3;
         hintSolves[4] += s4;
-        
-        attemptSolves[1] += sa1;
-        attemptSolves[2] += sa2;
-        attemptSolves[3] += sa3;
-        attemptSolves[4] += sa4;
-        attemptSolves[5] += sa5;
     });
     
     const solveRate = totalStarts > 0 ? ((totalSolves / totalStarts) * 100).toFixed(1) : '0.0';
-    const solveWeight = (1 * attemptSolves[1]) + (2 * attemptSolves[2]) + (3 * attemptSolves[3]) + (4 * attemptSolves[4]) + (5.5 * attemptSolves[5]);
-    const avgAttempts = totalSolves > 0 ? (solveWeight / totalSolves).toFixed(1) : '0.0';
     
     document.getElementById('agg-total-starts').innerText = abbreviateNumber(totalStarts);
     document.getElementById('agg-total-solves').innerText = abbreviateNumber(totalSolves);
     document.getElementById('agg-solve-rate').innerText = `${solveRate}%`;
-    document.getElementById('agg-avg-attempts').innerText = avgAttempts;
     
     for (let i = 0; i <= 4; i++) {
         const count = hintSolves[i];
