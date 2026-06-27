@@ -71,7 +71,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                         pass
                 if puzzle_number:
                     puzzle_stats = telemetry_data.get(puzzle_number, {
-                        "start": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0
+                        "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0
                     })
                     self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
                 else:
@@ -246,6 +246,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     if puzzle_number not in telemetry_data:
                         telemetry_data[puzzle_number] = {
                             "start": 0,
+                            "attempts": 0,
                             "solve_0": 0,
                             "solve_1": 0,
                             "solve_2": 0,
@@ -255,6 +256,8 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                         
                     if event == 'start':
                         telemetry_data[puzzle_number]["start"] += 1
+                    elif event == 'attempt':
+                        telemetry_data[puzzle_number]["attempts"] = telemetry_data[puzzle_number].get("attempts", 0) + 1
                     elif event == 'solve':
                         clamped_hints = max(0, min(4, int(hints_used)))
                         telemetry_data[puzzle_number][f"solve_{clamped_hints}"] += 1

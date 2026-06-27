@@ -87,6 +87,8 @@ def record_telemetry_event(puzzle_number, event_type, hints_used=0):
     update_query = {}
     if event_type == 'start':
         update_query = {"$inc": {"start": 1}}
+    elif event_type == 'attempt':
+        update_query = {"$inc": {"attempts": 1}}
     elif event_type == 'solve':
         hints_used = max(0, min(4, int(hints_used)))
         update_query = {"$inc": {f"solve_{hints_used}": 1}}
@@ -105,6 +107,7 @@ def get_telemetry_stats(puzzle_number=None):
         if doc:
             return {
                 "start": doc.get("start", 0),
+                "attempts": doc.get("attempts", 0),
                 "solve_0": doc.get("solve_0", 0),
                 "solve_1": doc.get("solve_1", 0),
                 "solve_2": doc.get("solve_2", 0),
@@ -114,6 +117,7 @@ def get_telemetry_stats(puzzle_number=None):
         else:
             return {
                 "start": 0,
+                "attempts": 0,
                 "solve_0": 0,
                 "solve_1": 0,
                 "solve_2": 0,
@@ -128,6 +132,7 @@ def get_telemetry_stats(puzzle_number=None):
             p_num = doc["_id"]
             stats_map[p_num] = {
                 "start": doc.get("start", 0),
+                "attempts": doc.get("attempts", 0),
                 "solve_0": doc.get("solve_0", 0),
                 "solve_1": doc.get("solve_1", 0),
                 "solve_2": doc.get("solve_2", 0),

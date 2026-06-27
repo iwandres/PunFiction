@@ -572,6 +572,14 @@ body {
     box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px var(--border-color);
 }
 
+.guess-letter-slot.locked-in {
+    background: #e6fcf5 !important;
+    color: #0ca678 !important;
+    border-color: #0ca678 !important;
+    transform: translateY(-2px);
+    box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px #0ca678;
+}
+
 .guess-letter-slot.active {
     border-color: var(--accent-main);
     box-shadow: var(--slot-shadow, 2px) var(--slot-shadow, 2px) 0px var(--accent-main);

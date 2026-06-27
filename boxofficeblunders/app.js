@@ -48,6 +48,7 @@ let activeChallenge = null; // Currently playing challenge
 let naturalTodayIndex = 1; // Global scheduling active puzzle number
 let hint3Active = false; // Flag for Hint 3 (first letters populated)
 let hint4Active = false; // Flag for Hint 4 (vowels populated)
+let lockedInIndices = new Set(); // indices of correct letters locked in by player attempts
 let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on reveal
 let hintsUsed = 0; // Number of progressive hints used
 let activeRewardedEvent = null;
@@ -846,6 +847,7 @@ function startGame(challenge) {
     activeChallenge = challenge;
     hint3Active = false;
     hint4Active = false;
+    lockedInIndices = new Set();
     animateVowelRush = false;
     hintsUsed = 0;
     currentLevel = 4; // Start directly at Boss Level!
@@ -1183,7 +1185,8 @@ function getPrefilledIndices(title) {
         if (/[a-zA-Z]/.test(char)) {
             const isFirstLetter = firstLetterIndices.includes(letterIdx);
             const isVowelChar = hint4Active && /[aeiouAEIOU]/.test(char);
-            if (isFirstLetter || isVowelChar) {
+            const isLocked = lockedInIndices && lockedInIndices.has(letterIdx);
+            if (isFirstLetter || isVowelChar || isLocked) {
                 indices.push(letterIdx);
             }
             letterIdx++;
@@ -1222,6 +1225,12 @@ function getCompleteGuessString() {
 function renderGuessSlots() {
     if (!activeChallenge) return;
     const title = activeChallenge.boss_pun_title;
+    
+    // Set dynamic maxLength
+    const prefilledIndices = getPrefilledIndices(title);
+    const totalLetters = (title.match(/[a-zA-Z]/g) || []).length;
+    ui.guessInput.maxLength = totalLetters - prefilledIndices.length;
+    
     const currentGuess = ui.guessInput.value;
     
     if (!ui.guessSlotsContainer) return;
@@ -1311,14 +1320,20 @@ function renderGuessSlots() {
                 const wChar = wordChars[j];
                 if (/[a-zA-Z]/.test(wChar)) {
                     const isPrefilled = prefilledIndices.includes(letterIdx);
+                    const isLocked = lockedInIndices && lockedInIndices.has(letterIdx);
                     let displayChar = '';
                     let isFilled = false;
                     let isPrefilledStyle = false;
+                    let isLockedStyle = false;
                     
-                    if (isPrefilled) {
+                    if (isPrefilled && !isLocked) {
                         displayChar = wChar; // display the actual letter from the title
                         isFilled = true;
                         isPrefilledStyle = true;
+                    } else if (isLocked) {
+                        displayChar = wChar; // display the locked-in correct letter
+                        isFilled = true;
+                        isLockedStyle = true;
                     } else {
                         displayChar = currentGuess[typedIdx] || '';
                         if (displayChar !== '') {
@@ -1332,6 +1347,7 @@ function renderGuessSlots() {
                     let classes = 'guess-letter-slot';
                     if (isFilled) classes += ' filled';
                     if (isPrefilledStyle) classes += ' prefilled';
+                    if (isLockedStyle) classes += ' locked-in';
                     if (isLetterActive) {
                         classes += ' active';
                         activeHighlighted = true;
@@ -1377,6 +1393,9 @@ function handleGuessSubmit() {
         return;
     }
 
+    // Record attempt telemetry event!
+    sendTelemetryEvent('attempt');
+
     const cleanGuess = sanitizeText(completeGuess);
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
@@ -1385,6 +1404,20 @@ function handleGuessSubmit() {
         sendTelemetryEvent('solve', hintsUsed); // Post solve telemetry
         triggerVictory();
     } else {
+        // Lock in correct letters matched on this attempt
+        const title = activeChallenge.boss_pun_title;
+        let letterIdx = 0;
+        for (let i = 0; i < title.length; i++) {
+            const char = title[i];
+            if (/[a-zA-Z]/.test(char)) {
+                const guessChar = completeGuess[i];
+                if (guessChar && guessChar.toLowerCase() === char.toLowerCase()) {
+                    lockedInIndices.add(letterIdx);
+                }
+                letterIdx++;
+            }
+        }
+
         ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
         ui.feedbackMsg.className = "feedback error";
         ui.guessInput.value = '';
@@ -1916,6 +1949,7 @@ function getDeterministicMockMetrics(puzzleNum) {
     
     return {
         start: totalStarts,
+        attempts: totalSolves * 3 + (totalStarts - totalSolves) * 2,
         solve_0: solve_0,
         solve_1: solve_1,
         solve_2: solve_2,
@@ -2036,6 +2070,7 @@ async function fetchAllTelemetryStats() {
         
         allTelemetry[key] = {
             start: (parseInt(live.start) || 0) + (parseInt(stat.start) || 0),
+            attempts: (parseInt(live.attempts) || 0) + (parseInt(stat.attempts) || 0),
             solve_0: (parseInt(live.solve_0) || 0) + (parseInt(stat.solve_0) || 0),
             solve_1: (parseInt(live.solve_1) || 0) + (parseInt(stat.solve_1) || 0),
             solve_2: (parseInt(live.solve_2) || 0) + (parseInt(stat.solve_2) || 0),
