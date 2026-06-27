@@ -82,7 +82,7 @@ def flag_puzzle_format_error(original_doc_id):
         {"$set": {"status": "requires_custom_format"}}
     )
 
-def record_telemetry_event(puzzle_number, event_type, hints_used=0):
+def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
     """Records a telemetry event in the MongoDB collection using atomic increments."""
     update_query = {}
     if event_type == 'start':
@@ -91,7 +91,13 @@ def record_telemetry_event(puzzle_number, event_type, hints_used=0):
         update_query = {"$inc": {"attempts": 1}}
     elif event_type == 'solve':
         hints_used = max(0, min(4, int(hints_used)))
-        update_query = {"$inc": {f"solve_{hints_used}": 1}}
+        clamped_attempts = max(1, min(5, int(attempts)))
+        update_query = {
+            "$inc": {
+                f"solve_{hints_used}": 1,
+                f"solve_att_{clamped_attempts}": 1
+            }
+        }
         
     if update_query:
         telemetry_pool.update_one(
@@ -112,7 +118,12 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_1": doc.get("solve_1", 0),
                 "solve_2": doc.get("solve_2", 0),
                 "solve_3": doc.get("solve_3", 0),
-                "solve_4": doc.get("solve_4", 0)
+                "solve_4": doc.get("solve_4", 0),
+                "solve_att_1": doc.get("solve_att_1", 0),
+                "solve_att_2": doc.get("solve_att_2", 0),
+                "solve_att_3": doc.get("solve_att_3", 0),
+                "solve_att_4": doc.get("solve_att_4", 0),
+                "solve_att_5": doc.get("solve_att_5", 0)
             }
         else:
             return {
@@ -122,7 +133,12 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_1": 0,
                 "solve_2": 0,
                 "solve_3": 0,
-                "solve_4": 0
+                "solve_4": 0,
+                "solve_att_1": 0,
+                "solve_att_2": 0,
+                "solve_att_3": 0,
+                "solve_att_4": 0,
+                "solve_att_5": 0
             }
     else:
         # Fetch all stats and build mapped dictionary
@@ -137,7 +153,12 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_1": doc.get("solve_1", 0),
                 "solve_2": doc.get("solve_2", 0),
                 "solve_3": doc.get("solve_3", 0),
-                "solve_4": doc.get("solve_4", 0)
+                "solve_4": doc.get("solve_4", 0),
+                "solve_att_1": doc.get("solve_att_1", 0),
+                "solve_att_2": doc.get("solve_att_2", 0),
+                "solve_att_3": doc.get("solve_att_3", 0),
+                "solve_att_4": doc.get("solve_att_4", 0),
+                "solve_att_5": doc.get("solve_att_5", 0)
             }
         return stats_map
 

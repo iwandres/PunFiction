@@ -71,7 +71,8 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                         pass
                 if puzzle_number:
                     puzzle_stats = telemetry_data.get(puzzle_number, {
-                        "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0
+                        "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0,
+                        "solve_att_1": 0, "solve_att_2": 0, "solve_att_3": 0, "solve_att_4": 0, "solve_att_5": 0
                     })
                     self.wfile.write(json.dumps(puzzle_stats).encode('utf-8'))
                 else:
@@ -215,6 +216,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 event = payload.get('event')
                 puzzle_number = payload.get('puzzle_number')
                 hints_used = int(payload.get('hints_used', 0))
+                attempts = int(payload.get('attempts', 1))
                 
                 if not puzzle_number:
                     raise ValueError("puzzle_number is required")
@@ -222,7 +224,7 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                 # Write event to MongoDB with local filesystem fallback on DB failures
                 db_success = True
                 try:
-                    database.record_telemetry_event(puzzle_number, event, hints_used)
+                    database.record_telemetry_event(puzzle_number, event, hints_used, attempts)
                     # Sync: update local telemetry.json copies with full db state
                     try:
                         all_stats = database.get_telemetry_stats()
@@ -251,7 +253,12 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                             "solve_1": 0,
                             "solve_2": 0,
                             "solve_3": 0,
-                            "solve_4": 0
+                            "solve_4": 0,
+                            "solve_att_1": 0,
+                            "solve_att_2": 0,
+                            "solve_att_3": 0,
+                            "solve_att_4": 0,
+                            "solve_att_5": 0
                         }
                         
                     if event == 'start':
@@ -261,6 +268,9 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                     elif event == 'solve':
                         clamped_hints = max(0, min(4, int(hints_used)))
                         telemetry_data[puzzle_number][f"solve_{clamped_hints}"] += 1
+                        
+                        clamped_attempts = max(1, min(5, attempts))
+                        telemetry_data[puzzle_number][f"solve_att_{clamped_attempts}"] = telemetry_data[puzzle_number].get(f"solve_att_{clamped_attempts}", 0) + 1
                         
                     try:
                         with open(telemetry_file, 'w', encoding='utf-8') as f:

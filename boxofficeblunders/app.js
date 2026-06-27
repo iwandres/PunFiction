@@ -1985,6 +1985,13 @@ function getDeterministicMockMetrics(puzzleNum) {
     const solve_3 = Math.round(totalSolves * (p4 / sumP));
     const solve_4 = Math.max(0, totalSolves - solve_0 - solve_1 - solve_2 - solve_3);
     
+    // Deterministic mock attempts-to-solve distribution
+    const sa1 = Math.round(totalSolves * 0.35); // 35% in 1 attempt
+    const sa2 = Math.round(totalSolves * 0.30); // 30% in 2 attempts
+    const sa3 = Math.round(totalSolves * 0.18); // 18% in 3 attempts
+    const sa4 = Math.round(totalSolves * 0.10); // 10% in 4 attempts
+    const sa5 = Math.max(0, totalSolves - sa1 - sa2 - sa3 - sa4); // remaining in 5+ attempts
+    
     return {
         start: totalStarts,
         attempts: totalSolves * 3 + (totalStarts - totalSolves) * 2,
@@ -1992,7 +1999,12 @@ function getDeterministicMockMetrics(puzzleNum) {
         solve_1: solve_1,
         solve_2: solve_2,
         solve_3: solve_3,
-        solve_4: solve_4
+        solve_4: solve_4,
+        solve_att_1: sa1,
+        solve_att_2: sa2,
+        solve_att_3: sa3,
+        solve_att_4: sa4,
+        solve_att_5: sa5
     };
 }
 
@@ -2009,10 +2021,17 @@ async function sendTelemetryEvent(event, hints = 0) {
     const puzzleNum = activeChallenge ? activeChallenge.puzzle_number : null;
     if (!puzzleNum) return;
     
+    let attemptsCount = 1;
+    if (event === 'solve') {
+        const attemptsMap = getPuzzleAttemptsMap();
+        attemptsCount = attemptsMap[puzzleNum] || 1;
+    }
+    
     const payload = {
         event: event,
         puzzle_number: puzzleNum,
-        hints_used: hints
+        hints_used: hints,
+        attempts: attemptsCount
     };
     
     try {
@@ -2113,7 +2132,12 @@ async function fetchAllTelemetryStats() {
             solve_1: (parseInt(live.solve_1) || 0) + (parseInt(stat.solve_1) || 0),
             solve_2: (parseInt(live.solve_2) || 0) + (parseInt(stat.solve_2) || 0),
             solve_3: (parseInt(live.solve_3) || 0) + (parseInt(stat.solve_3) || 0),
-            solve_4: (parseInt(live.solve_4) || 0) + (parseInt(stat.solve_4) || 0)
+            solve_4: (parseInt(live.solve_4) || 0) + (parseInt(stat.solve_4) || 0),
+            solve_att_1: (parseInt(live.solve_att_1) || 0) + (parseInt(stat.solve_att_1) || 0),
+            solve_att_2: (parseInt(live.solve_att_2) || 0) + (parseInt(stat.solve_att_2) || 0),
+            solve_att_3: (parseInt(live.solve_att_3) || 0) + (parseInt(stat.solve_att_3) || 0),
+            solve_att_4: (parseInt(live.solve_att_4) || 0) + (parseInt(stat.solve_att_4) || 0),
+            solve_att_5: (parseInt(live.solve_att_5) || 0) + (parseInt(stat.solve_att_5) || 0)
         };
     });
     
@@ -2163,13 +2187,19 @@ function abbreviateNumber(num) {
 async function openStatsSelectModal() {
     // 1. Show loading indicator states
     document.getElementById('agg-total-starts').innerText = '...';
-    document.getElementById('agg-total-attempts').innerText = '...';
     document.getElementById('agg-total-solves').innerText = '...';
     document.getElementById('agg-solve-rate').innerText = '...';
     
     for (let i = 0; i <= 4; i++) {
         const fillBar = document.getElementById(`agg-funnel-fill-${i}`);
         const pctLabel = document.getElementById(`agg-funnel-pct-${i}`);
+        if (fillBar) fillBar.style.width = '0%';
+        if (pctLabel) pctLabel.innerText = '0%';
+    }
+    
+    for (let i = 1; i <= 5; i++) {
+        const fillBar = document.getElementById(`agg-attempts-fill-${i}`);
+        const pctLabel = document.getElementById(`agg-attempts-pct-${i}`);
         if (fillBar) fillBar.style.width = '0%';
         if (pctLabel) pctLabel.innerText = '0%';
     }
@@ -2185,34 +2215,43 @@ async function openStatsSelectModal() {
     // 3. Aggregate stats
     const approved = getApprovedChallenges();
     let totalStarts = 0;
-    let totalAttempts = 0;
     let totalSolves = 0;
     const hintSolves = [0, 0, 0, 0, 0];
+    const attemptSolves = [0, 0, 0, 0, 0, 0]; // 1-indexed to match attempts 1 to 5
     
     approved.forEach(c => {
         const stats = getPuzzleTelemetryStats(c.puzzle_number);
         const starts = parseInt(stats.start) || 0;
-        const attempts = parseInt(stats.attempts) || 0;
         const s0 = parseInt(stats.solve_0) || 0;
         const s1 = parseInt(stats.solve_1) || 0;
         const s2 = parseInt(stats.solve_2) || 0;
         const s3 = parseInt(stats.solve_3) || 0;
         const s4 = parseInt(stats.solve_4) || 0;
         
+        const sa1 = parseInt(stats.solve_att_1) || 0;
+        const sa2 = parseInt(stats.solve_att_2) || 0;
+        const sa3 = parseInt(stats.solve_att_3) || 0;
+        const sa4 = parseInt(stats.solve_att_4) || 0;
+        const sa5 = parseInt(stats.solve_att_5) || 0;
+        
         totalStarts += starts;
-        totalAttempts += attempts;
         totalSolves += (s0 + s1 + s2 + s3 + s4);
         hintSolves[0] += s0;
         hintSolves[1] += s1;
         hintSolves[2] += s2;
         hintSolves[3] += s3;
         hintSolves[4] += s4;
+        
+        attemptSolves[1] += sa1;
+        attemptSolves[2] += sa2;
+        attemptSolves[3] += sa3;
+        attemptSolves[4] += sa4;
+        attemptSolves[5] += sa5;
     });
     
     const solveRate = totalStarts > 0 ? ((totalSolves / totalStarts) * 100).toFixed(1) : '0.0';
     
     document.getElementById('agg-total-starts').innerText = abbreviateNumber(totalStarts);
-    document.getElementById('agg-total-attempts').innerText = abbreviateNumber(totalAttempts);
     document.getElementById('agg-total-solves').innerText = abbreviateNumber(totalSolves);
     document.getElementById('agg-solve-rate').innerText = `${solveRate}%`;
     
@@ -2221,6 +2260,15 @@ async function openStatsSelectModal() {
         const pct = totalSolves > 0 ? Math.round((count / totalSolves) * 100) : 0;
         const fillBar = document.getElementById(`agg-funnel-fill-${i}`);
         const pctLabel = document.getElementById(`agg-funnel-pct-${i}`);
+        if (fillBar) fillBar.style.width = `${pct}%`;
+        if (pctLabel) pctLabel.innerText = `${pct}%`;
+    }
+    
+    for (let i = 1; i <= 5; i++) {
+        const count = attemptSolves[i];
+        const pct = totalSolves > 0 ? Math.round((count / totalSolves) * 100) : 0;
+        const fillBar = document.getElementById(`agg-attempts-fill-${i}`);
+        const pctLabel = document.getElementById(`agg-attempts-pct-${i}`);
         if (fillBar) fillBar.style.width = `${pct}%`;
         if (pctLabel) pctLabel.innerText = `${pct}%`;
     }
