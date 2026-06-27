@@ -13,6 +13,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PunFiction: Box Office Blunders</title>
+    <script>
+        // Critical early background color calculation to prevent color flash on load
+        (function() {
+            try {
+                const START_DATE = new Date("2026-05-24T02:00:00-07:00");
+                const now = new Date();
+                const nowInPT = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+                const startInPT = new Date(START_DATE.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+                const diffMs = nowInPT.getTime() - startInPT.getTime();
+                const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+                const naturalToday = Math.max(0, days) + 1;
+                let currentPuzzleNum = naturalToday;
+                const urlParams = new URLSearchParams(window.location.search);
+                const override = urlParams.get('day') || urlParams.get('challenge');
+                if (override) {
+                    const parsed = parseInt(override);
+                    if (!isNaN(parsed) && parsed > 0 && parsed <= naturalToday) {
+                        currentPuzzleNum = parsed;
+                    }
+                }
+                const hueShift = (currentPuzzleNum * 8) % 360;
+                const startHue = (50 + hueShift) % 360;
+                const endHue = (23 + hueShift) % 360;
+                document.documentElement.style.setProperty('--bg-color', `hsl(${startHue}, 100%, 67%)`);
+                document.documentElement.style.setProperty('--bg-gradient-end', `hsl(${endHue}, 100%, 65%)`);
+            } catch (e) {
+                console.error("Early theme setup failed", e);
+            }
+        })();
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1.43">
     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
