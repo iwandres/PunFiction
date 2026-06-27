@@ -482,6 +482,7 @@ window.onload = async () => {
                     localStorage.removeItem('pun_fiction_solved_puzzles');
                     localStorage.removeItem('pun_fiction_solved_hints');
                     localStorage.removeItem('pun_fiction_attempted_puzzles');
+                    localStorage.removeItem('pun_fiction_puzzle_attempts');
                     localStorage.removeItem('pun_fiction_max_streak');
                     localStorage.removeItem('pun_fiction_profile_id');
                     showToast("🗑️ All progress has been reset.");
@@ -685,6 +686,31 @@ function getAttemptedPuzzles() {
         return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
         return new Set();
+    }
+}
+
+function getPuzzleAttemptsMap() {
+    try {
+        const data = localStorage.getItem('pun_fiction_puzzle_attempts');
+        const map = data ? JSON.parse(data) : {};
+        const sanitized = {};
+        Object.keys(map).forEach(k => {
+            sanitized[padPuzzleNumber(k)] = parseInt(map[k]) || 0;
+        });
+        return sanitized;
+    } catch (e) {
+        return {};
+    }
+}
+
+function incrementPuzzleAttempts(puzzleNum) {
+    try {
+        const paddedNum = padPuzzleNumber(puzzleNum);
+        const attemptsMap = getPuzzleAttemptsMap();
+        attemptsMap[paddedNum] = (attemptsMap[paddedNum] || 0) + 1;
+        localStorage.setItem('pun_fiction_puzzle_attempts', JSON.stringify(attemptsMap));
+    } catch (e) {
+        console.error("Could not write attempts progress to local storage", e);
     }
 }
 
@@ -1395,6 +1421,9 @@ function handleGuessSubmit() {
     // Record attempt telemetry event!
     sendTelemetryEvent('attempt');
 
+    // Increment local attempts counter!
+    incrementPuzzleAttempts(activeChallenge.puzzle_number);
+
     const cleanGuess = sanitizeText(completeGuess);
     const cleanBossAnswer = sanitizeText(activeChallenge.boss_pun_title);
 
@@ -1514,8 +1543,13 @@ function triggerVictory() {
             const solvedHints = getSolvedHintsMap();
             const used = solvedHints[activeChallenge.puzzle_number] !== undefined ? solvedHints[activeChallenge.puzzle_number] : hintsUsed;
             
+            const attemptsMap = getPuzzleAttemptsMap();
+            const attemptsCount = attemptsMap[activeChallenge.puzzle_number] || 1;
+            
             const hintText = used === 0 ? "No Hints" : `${used} Hint${used > 1 ? 's' : ''}`;
-            solvedStatus.innerText = `Solved! ${hintText}`;
+            const attemptText = `${attemptsCount} Attempt${attemptsCount > 1 ? 's' : ''}`;
+            
+            solvedStatus.innerText = `Solved! ${hintText} • ${attemptText}`;
             solvedStatus.classList.remove('hidden');
         } else {
             solvedStatus.classList.add('hidden');
