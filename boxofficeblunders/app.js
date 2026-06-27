@@ -1511,6 +1511,11 @@ function triggerVictory() {
     ui.finalBossMovie.innerText = `Original Movie: ${activeChallenge.boss_original_title}`;
     ui.finalBossPitch.innerText = activeChallenge.boss_pitch;
 
+    const quoteEl = document.getElementById('final-boss-quote');
+    if (quoteEl) {
+        quoteEl.innerHTML = getHighlightedPunnedQuote(activeChallenge.boss_punned_quote, activeChallenge.boss_original_quote);
+    }
+
     if (ui.challengeHeaderVictory) {
         ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
     }
