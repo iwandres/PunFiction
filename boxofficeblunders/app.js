@@ -2124,6 +2124,7 @@ function abbreviateNumber(num) {
 async function openStatsSelectModal() {
     // 1. Show loading indicator states
     document.getElementById('agg-total-starts').innerText = '...';
+    document.getElementById('agg-total-attempts').innerText = '...';
     document.getElementById('agg-total-solves').innerText = '...';
     document.getElementById('agg-solve-rate').innerText = '...';
     
@@ -2145,12 +2146,14 @@ async function openStatsSelectModal() {
     // 3. Aggregate stats
     const approved = getApprovedChallenges();
     let totalStarts = 0;
+    let totalAttempts = 0;
     let totalSolves = 0;
     const hintSolves = [0, 0, 0, 0, 0];
     
     approved.forEach(c => {
         const stats = getPuzzleTelemetryStats(c.puzzle_number);
         const starts = parseInt(stats.start) || 0;
+        const attempts = parseInt(stats.attempts) || 0;
         const s0 = parseInt(stats.solve_0) || 0;
         const s1 = parseInt(stats.solve_1) || 0;
         const s2 = parseInt(stats.solve_2) || 0;
@@ -2158,6 +2161,7 @@ async function openStatsSelectModal() {
         const s4 = parseInt(stats.solve_4) || 0;
         
         totalStarts += starts;
+        totalAttempts += attempts;
         totalSolves += (s0 + s1 + s2 + s3 + s4);
         hintSolves[0] += s0;
         hintSolves[1] += s1;
@@ -2169,6 +2173,7 @@ async function openStatsSelectModal() {
     const solveRate = totalStarts > 0 ? ((totalSolves / totalStarts) * 100).toFixed(1) : '0.0';
     
     document.getElementById('agg-total-starts').innerText = abbreviateNumber(totalStarts);
+    document.getElementById('agg-total-attempts').innerText = abbreviateNumber(totalAttempts);
     document.getElementById('agg-total-solves').innerText = abbreviateNumber(totalSolves);
     document.getElementById('agg-solve-rate').innerText = `${solveRate}%`;
     

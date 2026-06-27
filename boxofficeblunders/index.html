@@ -274,10 +274,14 @@
             
             <!-- Aggregate Stats Section -->
             <div class="aggregate-stats-container">
-                <div class="aggregate-stats-grid">
+                <div class="aggregate-stats-grid" style="grid-template-columns: repeat(2, 1fr);">
                     <div class="stat-box">
                         <span class="stat-value" id="agg-total-starts">0</span>
                         <span class="stat-label">Total Starts</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="agg-total-attempts">0</span>
+                        <span class="stat-label">Total Attempts</span>
                     </div>
                     <div class="stat-box">
                         <span class="stat-value" id="agg-total-solves">0</span>
@@ -431,6 +435,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=1.47"></script>
+    <script src="app.js?v=1.48"></script>
 </body>
 </html>
