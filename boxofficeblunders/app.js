@@ -1287,7 +1287,6 @@ function renderGuessSlots() {
     let html = '';
     let activeHighlighted = false;
     
-    const prefilledIndices = getPrefilledIndices(title);
     const firstLetterIndices = hint3Active ? getFirstLetterIndices(title) : [];
     
     let letterIdx = 0; // index in the letter sequence of the title
