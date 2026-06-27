@@ -973,10 +973,10 @@ function loadLevel() {
     ui.feedbackMsg.className = 'feedback';
 
     if (ui.challengeHeader) {
-        ui.challengeHeader.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
+        ui.challengeHeader.innerHTML = `<span class="challenge-label">Challenge</span> #<span class="level-indicator-num">${activeChallenge.puzzle_number}</span>`;
     }
     if (ui.challengeHeaderVictory) {
-        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
+        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #<span class="level-indicator-num">${activeChallenge.puzzle_number}</span>`;
     }
 
     // Reset progressive hints container expand state
@@ -1517,7 +1517,7 @@ function triggerVictory() {
     }
 
     if (ui.challengeHeaderVictory) {
-        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #${activeChallenge.puzzle_number}`;
+        ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #<span class="level-indicator-num">${activeChallenge.puzzle_number}</span>`;
     }
     updateChallengeNavButtons();
 
@@ -2294,7 +2294,7 @@ async function openStatsSelectModal() {
             
             row.innerHTML = `
                 <div class="challenge-select-info">
-                    <span class="challenge-select-num">Challenge #${displayNum}</span>
+                    <span class="challenge-select-num">Challenge #<span class="challenge-select-num-val">${displayNum}</span></span>
                     <span class="challenge-select-name">${chalQuote}</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
