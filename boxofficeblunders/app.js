@@ -2122,23 +2122,42 @@ async function fetchAllTelemetryStats() {
     allTelemetry = {};
     const allKeys = new Set([...Object.keys(liveData), ...Object.keys(staticData)]);
     allKeys.forEach(key => {
-        const live = liveData[key] || {};
-        const stat = staticData[key] || {};
+        const live = liveData[key];
+        const stat = staticData[key];
         
-        allTelemetry[key] = {
-            start: (parseInt(live.start) || 0) + (parseInt(stat.start) || 0),
-            attempts: (parseInt(live.attempts) || 0) + (parseInt(stat.attempts) || 0),
-            solve_0: (parseInt(live.solve_0) || 0) + (parseInt(stat.solve_0) || 0),
-            solve_1: (parseInt(live.solve_1) || 0) + (parseInt(stat.solve_1) || 0),
-            solve_2: (parseInt(live.solve_2) || 0) + (parseInt(stat.solve_2) || 0),
-            solve_3: (parseInt(live.solve_3) || 0) + (parseInt(stat.solve_3) || 0),
-            solve_4: (parseInt(live.solve_4) || 0) + (parseInt(stat.solve_4) || 0),
-            solve_att_1: (parseInt(live.solve_att_1) || 0) + (parseInt(stat.solve_att_1) || 0),
-            solve_att_2: (parseInt(live.solve_att_2) || 0) + (parseInt(stat.solve_att_2) || 0),
-            solve_att_3: (parseInt(live.solve_att_3) || 0) + (parseInt(stat.solve_att_3) || 0),
-            solve_att_4: (parseInt(live.solve_att_4) || 0) + (parseInt(stat.solve_att_4) || 0),
-            solve_att_5: (parseInt(live.solve_att_5) || 0) + (parseInt(stat.solve_att_5) || 0)
-        };
+        // If live data has starts recorded, prefer it as it is fresh live data from the database.
+        // Otherwise, fall back to the static backup snapshot.
+        if (live && (parseInt(live.start) || 0) > 0) {
+            allTelemetry[key] = {
+                start: parseInt(live.start) || 0,
+                attempts: parseInt(live.attempts) || 0,
+                solve_0: parseInt(live.solve_0) || 0,
+                solve_1: parseInt(live.solve_1) || 0,
+                solve_2: parseInt(live.solve_2) || 0,
+                solve_3: parseInt(live.solve_3) || 0,
+                solve_4: parseInt(live.solve_4) || 0,
+                solve_att_1: parseInt(live.solve_att_1) || 0,
+                solve_att_2: parseInt(live.solve_att_2) || 0,
+                solve_att_3: parseInt(live.solve_att_3) || 0,
+                solve_att_4: parseInt(live.solve_att_4) || 0,
+                solve_att_5: parseInt(live.solve_att_5) || 0
+            };
+        } else if (stat) {
+            allTelemetry[key] = {
+                start: parseInt(stat.start) || 0,
+                attempts: parseInt(stat.attempts) || 0,
+                solve_0: parseInt(stat.solve_0) || 0,
+                solve_1: parseInt(stat.solve_1) || 0,
+                solve_2: parseInt(stat.solve_2) || 0,
+                solve_3: parseInt(stat.solve_3) || 0,
+                solve_4: parseInt(stat.solve_4) || 0,
+                solve_att_1: parseInt(stat.solve_att_1) || 0,
+                solve_att_2: parseInt(stat.solve_att_2) || 0,
+                solve_att_3: parseInt(stat.solve_att_3) || 0,
+                solve_att_4: parseInt(stat.solve_att_4) || 0,
+                solve_att_5: parseInt(stat.solve_att_5) || 0
+            };
+        }
     });
     
     return allTelemetry;
