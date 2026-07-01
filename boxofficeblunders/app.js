@@ -914,6 +914,14 @@ function switchScreen(screenName) {
 
 function startGame(challenge) {
     if (!challenge) return;
+    if (isCrazyGames && typeof window.CrazyGames !== 'undefined') {
+        try {
+            window.CrazyGames.SDK.game.gameplayStart();
+            console.log("CrazyGames gameplayStart signaled.");
+        } catch (e) {
+            console.warn("CrazyGames gameplayStart failed:", e);
+        }
+    }
     activeChallenge = challenge;
     hint3Active = false;
     hint4Active = false;
@@ -1558,6 +1566,14 @@ function updateChallengeNavButtons() {
 }
 
 function triggerVictory() {
+    if (isCrazyGames && typeof window.CrazyGames !== 'undefined') {
+        try {
+            window.CrazyGames.SDK.game.gameplayStop();
+            console.log("CrazyGames gameplayStop signaled.");
+        } catch (e) {
+            console.warn("CrazyGames gameplayStop failed:", e);
+        }
+    }
     currentLevel = 5;
 
     // Render theatrical movie poster frame immediately
