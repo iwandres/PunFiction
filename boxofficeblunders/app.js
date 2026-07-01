@@ -54,6 +54,19 @@ let hintsUsed = 0; // Number of progressive hints used
 let activeRewardedEvent = null;
 let rewardedSlot = null;
 
+let isCrazyGames = false;
+let crazySDK = null;
+
+function initCrazyGamesSDK() {
+    if (typeof window.CrazyGames !== 'undefined') {
+        crazySDK = window.CrazyGames.SDK;
+        console.log("CrazyGames SDK reference acquired successfully.");
+    } else {
+        console.warn("CrazyGames SDK script not loaded yet. Retrying in 500ms...");
+        setTimeout(initCrazyGamesSDK, 500);
+    }
+}
+
 let currentLevel = 1; // 1 to 3 = thematic levels, 4 = boss level, 5 = victory screen
 let inventory = []; // accumulated target words
 let currentPuzzleIndex = 0; // index in local puzzles array
@@ -104,6 +117,13 @@ const ui = {
 // ================= INITIALIZATION & SCHEDULING =================
  
 window.onload = async () => {
+    // Detect environment (CrazyGames or standard play)
+    isCrazyGames = window.location.hostname.includes('crazygames') || window.location.hostname.includes('game-arena');
+    console.log("Environment detection: isCrazyGames =", isCrazyGames);
+    if (isCrazyGames) {
+        initCrazyGamesSDK();
+    }
+
     // 0. Wake up the Render container in the background as early as possible
     prewarmBackend();
 
@@ -162,7 +182,22 @@ window.onload = async () => {
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
     ui.btnShowHint4.onclick = () => {
-        if (activeRewardedEvent) {
+        if (isCrazyGames && crazySDK) {
+            console.log("Triggering CrazyGames rewarded ad for Hint 4...");
+            crazySDK.ad.requestAd('rewarded', {
+                adStarted: () => {
+                    console.log("CrazyGames ad started");
+                },
+                adError: (error) => {
+                    console.error("CrazyGames ad error:", error);
+                    revealHint4(); // Fallback so player isn't stuck
+                },
+                adFinished: () => {
+                    console.log("CrazyGames ad finished successfully");
+                    revealHint4(); // Grant reward
+                }
+            });
+        } else if (activeRewardedEvent) {
             console.log("Triggering rewarded ad for Hint 4...");
             activeRewardedEvent.makeRewardedVisible();
         } else {
@@ -171,44 +206,46 @@ window.onload = async () => {
         }
     };
 
-    // Google Publisher Tag (GPT) setup and event listeners
-    window.googletag = window.googletag || { cmd: [] };
-    googletag.cmd.push(() => {
-        googletag.pubads().addEventListener('rewardedSlotReady', (event) => {
-            console.log("Rewarded slot is ready.");
-            activeRewardedEvent = event;
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotGranted', (event) => {
-            console.log("Rewarded slot reward granted. Unlocking Vowel Rush!");
-            revealHint4();
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotClosed', (event) => {
-            console.log("Rewarded slot closed.");
-            if (rewardedSlot) {
-                googletag.destroySlots([rewardedSlot]);
-                rewardedSlot = null;
-            }
-            activeRewardedEvent = null;
-            requestNextRewardedAd();
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotVideoCompleted', (event) => {
-            console.log("Rewarded slot video completed.");
-        });
-
-        googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-            console.log("Slot render ended:", event.slot.getAdUnitPath(), {
-                isEmpty: event.isEmpty,
-                creativeId: event.creativeId,
-                lineItemId: event.lineItemId,
-                advertiserId: event.advertiserId
+    if (!isCrazyGames) {
+        // Google Publisher Tag (GPT) setup and event listeners
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(() => {
+            googletag.pubads().addEventListener('rewardedSlotReady', (event) => {
+                console.log("Rewarded slot is ready.");
+                activeRewardedEvent = event;
             });
-        });
 
-        googletag.enableServices();
-    });
+            googletag.pubads().addEventListener('rewardedSlotGranted', (event) => {
+                console.log("Rewarded slot reward granted. Unlocking Vowel Rush!");
+                revealHint4();
+            });
+
+            googletag.pubads().addEventListener('rewardedSlotClosed', (event) => {
+                console.log("Rewarded slot closed.");
+                if (rewardedSlot) {
+                    googletag.destroySlots([rewardedSlot]);
+                    rewardedSlot = null;
+                }
+                activeRewardedEvent = null;
+                requestNextRewardedAd();
+            });
+
+            googletag.pubads().addEventListener('rewardedSlotVideoCompleted', (event) => {
+                console.log("Rewarded slot video completed.");
+            });
+
+            googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+                console.log("Slot render ended:", event.slot.getAdUnitPath(), {
+                    isEmpty: event.isEmpty,
+                    creativeId: event.creativeId,
+                    lineItemId: event.lineItemId,
+                    advertiserId: event.advertiserId
+                });
+            });
+
+            googletag.enableServices();
+        });
+    }
 
     const prevBtn = document.getElementById('btn-prev-challenge');
     if (prevBtn) prevBtn.onclick = () => navigateChallenge(-1);
@@ -1562,10 +1599,27 @@ function triggerVictory() {
     }
 
     // Switch screen to Victory instantly!
-    switchScreen('victory');
-
-    // Run the telemetry fetching and rendering asynchronously in the background
-    loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+    if (isCrazyGames && crazySDK) {
+        console.log("Requesting CrazyGames midgame ad on victory...");
+        crazySDK.ad.requestAd('midgame', {
+            adStarted: () => {
+                console.log("CrazyGames midgame ad started");
+            },
+            adError: (error) => {
+                console.error("CrazyGames midgame ad error:", error);
+                switchScreen('victory');
+                loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+            },
+            adFinished: () => {
+                console.log("CrazyGames midgame ad finished");
+                switchScreen('victory');
+                loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+            }
+        });
+    } else {
+        switchScreen('victory');
+        loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+    }
 }
 
 async function loadAndRenderGlobalStats(puzzleNum) {
@@ -2052,6 +2106,7 @@ async function sendTelemetryEvent(event, hints = 0) {
 // ================= REWARDED AD LOGIC (GOOGLE PUBLISHER TAG) =================
 
 function requestNextRewardedAd() {
+    if (isCrazyGames) return; // Skip Google GPT ads on CrazyGames
     if (typeof googletag === 'undefined') {
         console.warn("googletag is not defined. Offline fallback active.");
         return;
