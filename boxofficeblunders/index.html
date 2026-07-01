@@ -37,10 +37,17 @@
                 const hueShift = (currentPuzzleNum * 8) % 360;
                 const startHue = (50 + hueShift) % 360;
                 const endHue = (23 + hueShift) % 360;
-                const accentHue = (startHue + 180) % 360;
+                
+                let accentColor;
+                if (startHue >= 25 && startHue <= 95) {
+                    accentColor = 'hsl(270, 95%, 45%)';
+                } else {
+                    accentColor = 'hsl(48, 100%, 50%)';
+                }
+                
                 document.documentElement.style.setProperty('--bg-color', `hsl(${startHue}, 100%, 67%)`);
                 document.documentElement.style.setProperty('--bg-gradient-end', `hsl(${endHue}, 100%, 65%)`);
-                document.documentElement.style.setProperty('--accent-main', `hsl(${accentHue}, 95%, 48%)`);
+                document.documentElement.style.setProperty('--accent-main', accentColor);
             } catch (e) {
                 console.error("Early theme setup failed", e);
             }

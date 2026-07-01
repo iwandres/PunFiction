@@ -996,8 +996,15 @@ function updateBackgroundGradient(puzzleNum) {
     const startColor = `hsl(${startHue}, 100%, 67%)`;
     const endColor = `hsl(${endHue}, 100%, 65%)`;
     
-    const accentHue = (startHue + 180) % 360;
-    const accentColor = `hsl(${accentHue}, 95%, 48%)`;
+    // Cinema Gold & Indigo rule:
+    // If background startHue is in the yellow/orange range (25 to 95), use deep indigo.
+    // Otherwise, use a bright, warm cinema gold/yellow.
+    let accentColor;
+    if (startHue >= 25 && startHue <= 95) {
+        accentColor = 'hsl(270, 95%, 45%)'; // Deep indigo/purple
+    } else {
+        accentColor = 'hsl(48, 100%, 50%)'; // Cinema gold/yellow
+    }
     
     document.documentElement.style.setProperty('--bg-color', startColor);
     document.documentElement.style.setProperty('--bg-gradient-end', endColor);
