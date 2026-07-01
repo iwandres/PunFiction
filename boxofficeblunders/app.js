@@ -127,6 +127,7 @@ window.onload = async () => {
     isCrazyGames = !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
     console.log("Environment detection: isCrazyGames =", isCrazyGames);
     if (isCrazyGames) {
+        document.body.classList.add('crazygames-env');
         await initCrazyGamesSDK();
     }
 
