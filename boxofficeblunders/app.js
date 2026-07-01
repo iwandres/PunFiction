@@ -57,10 +57,15 @@ let rewardedSlot = null;
 let isCrazyGames = false;
 let crazySDK = null;
 
-function initCrazyGamesSDK() {
+async function initCrazyGamesSDK() {
     if (typeof window.CrazyGames !== 'undefined') {
-        crazySDK = window.CrazyGames.SDK;
-        console.log("CrazyGames SDK reference acquired successfully.");
+        try {
+            await window.CrazyGames.SDK.init();
+            crazySDK = window.CrazyGames.SDK;
+            console.log("CrazyGames SDK v3 initialized successfully.");
+        } catch (e) {
+            console.error("CrazyGames SDK initialization failed:", e);
+        }
     } else {
         console.warn("CrazyGames SDK script not loaded yet. Retrying in 500ms...");
         setTimeout(initCrazyGamesSDK, 500);
@@ -122,7 +127,7 @@ window.onload = async () => {
     isCrazyGames = !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
     console.log("Environment detection: isCrazyGames =", isCrazyGames);
     if (isCrazyGames) {
-        initCrazyGamesSDK();
+        await initCrazyGamesSDK();
     }
 
     // 0. Wake up the Render container in the background as early as possible
@@ -183,9 +188,9 @@ window.onload = async () => {
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
     ui.btnShowHint4.onclick = () => {
-        if (isCrazyGames && crazySDK) {
+        if (isCrazyGames && typeof window.CrazyGames !== 'undefined') {
             console.log("Triggering CrazyGames rewarded ad for Hint 4...");
-            crazySDK.ad.requestAd('rewarded', {
+            window.CrazyGames.SDK.ad.requestAd('rewarded', {
                 adStarted: () => {
                     console.log("CrazyGames ad started");
                 },
@@ -1600,9 +1605,9 @@ function triggerVictory() {
     }
 
     // Switch screen to Victory instantly!
-    if (isCrazyGames && crazySDK) {
+    if (isCrazyGames && typeof window.CrazyGames !== 'undefined') {
         console.log("Requesting CrazyGames midgame ad on victory...");
-        crazySDK.ad.requestAd('midgame', {
+        window.CrazyGames.SDK.ad.requestAd('midgame', {
             adStarted: () => {
                 console.log("CrazyGames midgame ad started");
             },
