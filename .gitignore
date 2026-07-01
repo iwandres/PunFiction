@@ -11,3 +11,6 @@ Thumbs.db
 # IDEs
 .idea/
 .vscode/
+
+# HTML5 Game builds
+boxofficeblunders/*.zip
