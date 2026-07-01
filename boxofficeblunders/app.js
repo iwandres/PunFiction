@@ -118,7 +118,8 @@ const ui = {
  
 window.onload = async () => {
     // Detect environment (CrazyGames or standard play)
-    isCrazyGames = window.location.hostname.includes('crazygames') || window.location.hostname.includes('game-arena');
+    const hostname = window.location.hostname;
+    isCrazyGames = !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
     console.log("Environment detection: isCrazyGames =", isCrazyGames);
     if (isCrazyGames) {
         initCrazyGamesSDK();
