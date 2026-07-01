@@ -1845,3 +1845,12 @@ body.crazygames-env .app-footer {
     display: none !important;
 }
 
+/* User Consent / TOS links - Hidden by default, only shown on CrazyGames */
+.settings-footer-tos {
+    display: none;
+}
+
+body.crazygames-env .settings-footer-tos {
+    display: block !important;
+}
+
