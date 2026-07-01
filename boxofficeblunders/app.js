@@ -996,8 +996,12 @@ function updateBackgroundGradient(puzzleNum) {
     const startColor = `hsl(${startHue}, 100%, 67%)`;
     const endColor = `hsl(${endHue}, 100%, 65%)`;
     
+    const accentHue = (startHue + 180) % 360;
+    const accentColor = `hsl(${accentHue}, 95%, 48%)`;
+    
     document.documentElement.style.setProperty('--bg-color', startColor);
     document.documentElement.style.setProperty('--bg-gradient-end', endColor);
+    document.documentElement.style.setProperty('--accent-main', accentColor);
 }
 
 function loadLevel() {
