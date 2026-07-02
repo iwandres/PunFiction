@@ -13,4 +13,4 @@ Thumbs.db
 .vscode/
 
 # HTML5 Game builds
-boxofficeblunders/*.zip
+*.zip
