@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Play | PunFiction: The Daily Movie Parody Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0f16;
+            --card-bg: #181824;
+            --text-color: #ffffff;
+            --text-muted: #a0a0c0;
+            --primary: #bd93f9;
+            --accent: #ffb86c;
+            --border-color: #000000;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            box-sizing: border-box;
+        }
+
+        h1.brand {
+            font-family: 'Bangers', cursive;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            margin: 0;
+            color: var(--text-color);
+            text-shadow: 4px 4px 0px var(--border-color);
+        }
+
+        h1.brand span.accent {
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-top: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border: 4px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 8px 8px 0px var(--border-color);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0f0;
+            margin-bottom: 20px;
+        }
+
+        ol, ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: #e0e0f0;
+        }
+
+        li strong {
+            color: var(--primary);
+        }
+
+        .example-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+
+        .example-block h3 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            display: inline-block;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            background-color: var(--primary);
+            color: var(--border-color);
+            padding: 10px 25px;
+            border: 3px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 4px 4px 0px var(--border-color);
+            transition: transform 0.1s, box-shadow 0.1s;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #c7a4ff;
+            transform: translate(-1px, -1px);
+            box-shadow: 5px 5px 0px var(--border-color);
+        }
+
+        .back-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="brand">Pun<span class="accent">Fiction</span></h1>
+        <div class="tagline">How to Play & Solve Parody Puzzles</div>
+    </header>
+
+    <main>
+        <div class="content-card">
+            <h2>🎮 The Game Rules</h2>
+            <p>In <strong>PunFiction: Box Office Blunders</strong>, you are presented with a comedic daily challenge based on a classic film. A mysterious parody quote and an absurd movie pitch are displayed. Your objective is to solve the title of this fictional parody movie. The title of the parody movie will always rhyme with the original, classic movie title! Only one word in the original movie title is modified to create the punned version.</p>
+            
+            <div class="example-block">
+                <h3>🍿 Example Walkthrough</h3>
+                <p><strong>Parody Quote:</strong> "You're gonna need a bigger <em>coat</em>!"</p>
+                <p><strong>Comedic Plot Pitch:</strong> A giant Great White shark terrorizes a ski resort town by freezing the water and judging people's outerwear.</p>
+                <p><strong>How to solve:</strong>
+                    <br>1. Identify the classic movie quote reference: <em>"You're gonna need a bigger boat."</em>
+                    <br>2. Recall the original movie: <strong>Jaws</strong>.
+                    <br>3. Locate the pun change: <em>boat</em> was changed to <em>coat</em>.
+                    <br>4. Swap the rhyming word in the title: Swap the word *Jaws* for a rhyming word associated with freezing/outerwear.
+                    <br>5. The correct answer: <strong>Thaws</strong> (which rhymes with Jaws!).
+                </p>
+            </div>
+
+            <h2>💡 The Progressive Hint System</h2>
+            <p>If you get stuck, don't worry! PunFiction features a progressive hint system located at the bottom of the active challenge card. You can unlock up to four clues step-by-step. Keep in mind that using more hints affects your final solve category in the global statistics funnel! The hints are structured as follows:</p>
+            <ol>
+                <li><strong>Hint 1: Original Movie:</strong> This reveals the title of the classic movie that is being parodied, instantly giving you a huge phonetic reference.</li>
+                <li><strong>Hint 2: Highlight Rhyme:</strong> An interactive animation highlights the exact word inside the quote that has been punned, showing you exactly which portion of the title needs to change.</li>
+                <li><strong>Hint 3: First Letters:</strong> Pre-fills the first letter of each word in the blanks, clarifying the length and spacing of the correct title.</li>
+                <li><strong>Hint 4 (All Vowels):</strong> Automatically fills in every vowel (A, E, I, O, U) in the blanks. Once Hint 4 is active, you only need to fill in the remaining consonants to complete the parody.</li>
+            </ol>
+
+            <h2>📊 Solve Ranks & Telemetry Funnel</h2>
+            <p>Every time you solve a puzzle, your performance is ranked on the **Global Box Office Stats** funnel alongside players from around the world. These ranks are based on the number of hints you needed to crack the daily challenge:</p>
+            <ul>
+                <li><strong>🏆 No Hints:</strong> The ultimate rank, representing a perfect solve on logic and intuition alone.</li>
+                <li><strong>🥇 1 Hint:</strong> Earned by solving the puzzle after revealing the original movie title.</li>
+                <li><strong>🥈 2 Hints:</strong> Earned by solving after highlighting the rhyming word.</li>
+                <li><strong>🥉 3 Hints:</strong> Earned by using the first letters guide.</li>
+                <li><strong>⚡ 4 Hints:</strong> Earned by solving with the help of prefilled vowels.</li>
+            </ul>
+
+            <h2>⚡ Advanced Pro Strategies</h2>
+            <p>To maximize your solve rate and keep your daily streak alive, try using these strategy tips:</p>
+            <ul>
+                <li><strong>Analyze the Pitch Theme:</strong> The comedic plot pitch contains heavy vocabulary themes. Look for words like *sauna*, *drenched*, or *sweat* (pointing to "Soakin'" instead of "Frozen") or *math*, *geometric*, or *adding* (pointing to "Mathyshack" instead of "Caddyshack").</li>
+                <li><strong>Count the Blanks:</strong> Before typing, look at the layout of the blank spaces. They indicate the exact syllable count and word lengths of the parody title.</li>
+                <li><strong>Think Phonetically:</strong> Puns are based on phonetic sounds, not spelling. Say the original title out loud and experiment with rhyming syllables matching the pitch's context.</li>
+            </ul>
+
+            <div style="text-align: center;">
+                <a href="./" class="back-btn">➔ Start Playing</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PunFiction. All rights reserved. | <a href="./">Home</a> | <a href="./about.html">About Us</a> | <a href="./how-to-play.html">How to Play</a> | Powered by <a href="https://github.com/iwandres/PunFiction">GitHub Pages</a></p>
+    </footer>
+</body>
+</html>
