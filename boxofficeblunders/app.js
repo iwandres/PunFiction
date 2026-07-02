@@ -132,6 +132,10 @@ window.onload = async () => {
         document.body.classList.add('crazygames-env');
         await initCrazyGamesSDK();
     }
+    if (isItch) {
+        const playlinBadge = document.getElementById('playlin-badge');
+        if (playlinBadge) playlinBadge.style.display = 'none';
+    }
 
     // 0. Wake up the Render container in the background as early as possible
     prewarmBackend();
