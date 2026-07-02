@@ -55,6 +55,7 @@ let activeRewardedEvent = null;
 let rewardedSlot = null;
 
 let isCrazyGames = false;
+let isItch = false;
 let crazySDK = null;
 
 async function initCrazyGamesSDK() {
@@ -122,10 +123,11 @@ const ui = {
 // ================= INITIALIZATION & SCHEDULING =================
  
 window.onload = async () => {
-    // Detect environment (CrazyGames or standard play)
+    // Detect environment (CrazyGames, itch.io, or standard play)
     const hostname = window.location.hostname;
-    isCrazyGames = !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
-    console.log("Environment detection: isCrazyGames =", isCrazyGames);
+    isItch = hostname.includes('itch.io') || hostname.includes('itch.zone') || window.location.href.includes('itch.io');
+    isCrazyGames = !isItch && !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
+    console.log("Environment detection: isItch =", isItch, ", isCrazyGames =", isCrazyGames);
     if (isCrazyGames) {
         document.body.classList.add('crazygames-env');
         await initCrazyGamesSDK();
@@ -623,7 +625,7 @@ async function loadPuzzleDatabase() {
 
     // Check if player URL overrides day (e.g. ?day=001) for diagnostic playtesting
     const urlParams = new URLSearchParams(window.location.search);
-    const dayOverride = urlParams.get('day') || urlParams.get('challenge');
+    const dayOverride = isItch ? null : (urlParams.get('day') || urlParams.get('challenge'));
     let matchedOverride = null;
 
     if (dayOverride) {
@@ -1556,6 +1558,14 @@ function updateChallengeNavButtons() {
     const prevBtnVic = document.getElementById('btn-prev-challenge-victory');
     const nextBtnVic = document.getElementById('btn-next-challenge-victory');
     
+    if (isItch) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        if (prevBtnVic) prevBtnVic.style.display = 'none';
+        if (nextBtnVic) nextBtnVic.style.display = 'none';
+        return;
+    }
+    
     const disablePrev = (approved.length === 0 || !activeChallenge || approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number) <= 0);
     const disableNext = (approved.length === 0 || !activeChallenge || approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number) >= approved.length - 1);
     
@@ -1595,19 +1605,27 @@ function triggerVictory() {
     // Set up victory lobby button dynamically
     const lobbyBtn = document.getElementById('btn-victory-lobby');
     if (lobbyBtn) {
-        const approved = getApprovedChallenges();
-        const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
-        
-        if (currentIndex !== -1 && currentIndex < approved.length - 1) {
-            const nextChallenge = approved[currentIndex + 1];
-            lobbyBtn.innerHTML = `⏭️ PLAY CHALLENGE #${nextChallenge.puzzle_number}`;
+        if (isItch) {
+            lobbyBtn.innerHTML = `🎮 PLAY ALL & TRACK STREAK ➔`;
             lobbyBtn.classList.remove('hidden');
             lobbyBtn.onclick = () => {
-                startGame(nextChallenge);
-                history.replaceState(null, "", `?challenge=${nextChallenge.puzzle_number}`);
+                window.open('https://iwandres.github.io/PunFiction/boxofficeblunders/', '_blank');
             };
         } else {
-            lobbyBtn.classList.add('hidden');
+            const approved = getApprovedChallenges();
+            const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
+            
+            if (currentIndex !== -1 && currentIndex < approved.length - 1) {
+                const nextChallenge = approved[currentIndex + 1];
+                lobbyBtn.innerHTML = `⏭️ PLAY CHALLENGE #${nextChallenge.puzzle_number}`;
+                lobbyBtn.classList.remove('hidden');
+                lobbyBtn.onclick = () => {
+                    startGame(nextChallenge);
+                    history.replaceState(null, "", `?challenge=${nextChallenge.puzzle_number}`);
+                };
+            } else {
+                lobbyBtn.classList.add('hidden');
+            }
         }
     }
 
@@ -2354,6 +2372,20 @@ async function openStatsSelectModal() {
     
     // 4. Populate list of challenges
     if (challengesList) {
+        if (isItch) {
+            const titleEl = document.querySelector('.challenges-section-title');
+            if (titleEl) titleEl.style.display = 'none';
+            challengesList.innerHTML = `
+                <div style="text-align: center; padding: 25px; background: var(--bg-color); border: 2px solid var(--border-color); border-radius: 8px; box-shadow: 4px 4px 0px var(--border-color); margin-top: 15px;">
+                    <p style="margin-top: 0; font-size: 1.2rem; color: var(--accent); font-weight: 800; font-family: 'Bangers', cursive; letter-spacing: 1px;">Want to play more levels?</p>
+                    <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-color); margin-bottom: 20px;">
+                        The itch.io edition only displays today's puzzle. Visit the official portal to play all historical challenges, view leaderboards, and track your daily streak!
+                    </p>
+                    <a href="https://iwandres.github.io/PunFiction/boxofficeblunders/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
+                </div>
+            `;
+            return;
+        }
         challengesList.innerHTML = '';
         const solvedList = getSolvedPuzzlesList();
         const attemptedList = getAttemptedPuzzles();
