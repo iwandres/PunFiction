@@ -1888,17 +1888,13 @@ function getMaskedParodyTitle(title) {
 
 // Share score streak via clipboard copy
 function shareSolvedScore() {
-    const solvedList = getSolvedPuzzlesList();
-    const streak = solvedList.size;
-
     // Add hint count to the share text
     const hintText = hintsUsed === 0 ? "No hints used! Perfect score! 🌟" : `${hintsUsed}/4 hints used 💡`;
 
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${getMaskedParodyTitle(activeChallenge.boss_pun_title)}" 🍿\n` +
-                     `💡 Stats: ${hintText}\n` +
-                     `🌟 Complete Streak: ${streak} solved challenge(s)!\n` +
-                     `Play daily challenges at: https://iwandres.github.io/PunFiction/boxofficeblunders/`;
+                     `Stats: ${hintText}\n` +
+                     `Play daily challenge at: https://iwandres.github.io/PunFiction/boxofficeblunders/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
