@@ -1841,7 +1841,17 @@ input:focus {
     box-shadow: 1px 1px 0px var(--border-color);
 }
 
-/* Environment-specific conditional hides (e.g. CrazyGames, Itch.io) */
+/* ================= ENVIRONMENT-SPECIFIC OVERRIDES =================
+ *
+ * 1. Portal Compliance Rules:
+ *    - Offsite footers (Playlin featured badge, GitHub feedback links) and desktop-sidebar-ad
+ *      containers are hidden when loaded inside CrazyGames (.crazygames-env) or Itch.io (.itch-env) 
+ *      to ensure 100% compliance with external redirection policies.
+ * 
+ * 2. User Consent / TOS display:
+ *    - Consent links (.settings-footer-tos) linking to terms/privacy are hidden by default,
+ *      and dynamically shown only inside CrazyGames (.crazygames-env) to satisfy technical requirements.
+ */
 body.crazygames-env .app-footer,
 body.crazygames-env .desktop-sidebar-ad,
 body.itch-env .app-footer,
@@ -1849,7 +1859,6 @@ body.itch-env .desktop-sidebar-ad {
     display: none !important;
 }
 
-/* User Consent / TOS links - Hidden by default, only shown on CrazyGames */
 .settings-footer-tos {
     display: none;
 }

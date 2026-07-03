@@ -1,3 +1,29 @@
+/**
+ * PunFiction: Box Office Blunders - Core Gameplay Application
+ * 
+ * DESIGN & DEPLOYMENT ARCHITECTURE:
+ * 
+ * 1. Environment Routing:
+ *    - The client detects its platform context (Itch.io sandbox, CrazyGames portal, GitHub Pages, or localhost).
+ *    - 'isItch': Matches 'itch.io', 'itch.zone', '.hwcdn.net', 'itch.im', or parent frame referrers.
+ *    - 'isCrazyGames': True on portal frames, excluding localhost, github, and itch.
+ * 
+ * 2. Layout & Shift Prevention:
+ *    - Main wrapper (.main-layout-container) uses justify-content: flex-start on small/iframe viewports.
+ *      This anchors the game header to a static 20px padding-top and prevents loading shifts.
+ *    - Google AdSense is loaded dynamically ONLY on production domain 'iwandres.github.io' to prevent
+ *      Auto Ads from injecting headers and shifting layouts on Itch.io or CrazyGames.
+ *    - The desktop sidebar ad container (.desktop-sidebar-ad) is conditionally hidden in Itch.io/CrazyGames.
+ * 
+ * 3. Accent Color Calculation (Cinema Gold & Indigo Rule):
+ *    - Challenges with Orange/Yellow hues (startHue between 25 and 95) dynamically use a deep Indigo accent.
+ *    - All other challenges (warm/cool hues) use a bright Cinema Gold accent for high contrast.
+ * 
+ * 4. CrazyGames SDK v3 Integration:
+ *    - Ad Routing: Hint 4 (Vowel Rush) triggers crazySDK.ad.requestAd('rewarded') and victory triggers 'midgame' ads.
+ *    - Game State Tracking: gameplayStart() runs when loading level is finished; gameplayStop() runs on victory.
+ */
+
 // Core Constants & CDN Paths
 const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/main/backend";
 const BACKEND_API_URL = "https://punfiction.onrender.com";
