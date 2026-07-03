@@ -149,6 +149,15 @@ window.onload = async () => {
         document.body.classList.add('itch-env');
     }
 
+    // Load Google AdSense only on the production GitHub Pages domain
+    if (hostname === 'iwandres.github.io') {
+        const adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1900802133351015';
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+    }
+
     // 0. Wake up the Render container in the background as early as possible
     prewarmBackend();
 

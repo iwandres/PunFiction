@@ -1842,7 +1842,9 @@ input:focus {
 
 /* Environment-specific conditional hides (e.g. CrazyGames, Itch.io) */
 body.crazygames-env .app-footer,
-body.itch-env .app-footer {
+body.crazygames-env .desktop-sidebar-ad,
+body.itch-env .app-footer,
+body.itch-env .desktop-sidebar-ad {
     display: none !important;
 }
 
