@@ -1664,6 +1664,16 @@ function triggerVictory() {
     }
     updateChallengeNavButtons();
 
+    // Set up dynamic share score nudge text based on performance
+    const nudgeEl = document.getElementById('share-nudge');
+    if (nudgeEl) {
+        if (hintsUsed === 0) {
+            nudgeEl.innerText = "Show off your perfect score to friends! 🏆";
+        } else {
+            nudgeEl.innerText = "Show off your score to friends! 🍿";
+        }
+    }
+
     // Set up victory lobby button dynamically
     const lobbyBtn = document.getElementById('btn-victory-lobby');
     const playRandomBtn = document.getElementById('btn-play-random');

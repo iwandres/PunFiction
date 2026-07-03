@@ -1899,3 +1899,16 @@ body.crazygames-env .settings-footer-tos {
     box-shadow: 1px 1px 0px var(--border-color);
 }
 
+.share-nudge-text {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 900;
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: -5px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
