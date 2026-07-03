@@ -152,13 +152,13 @@ window.onload = async () => {
     // Detect environment (CrazyGames, itch.io, or standard play)
     const hostname = window.location.hostname;
     const referrer = document.referrer || "";
+    const isIframe = window.self !== window.top;
     isItch = hostname.includes('itch.io') || 
              hostname.includes('itch.zone') || 
              hostname.includes('hwcdn.net') || 
              hostname.includes('itch.im') || 
              window.location.href.includes('itch.io') ||
-             referrer.includes('itch.io') ||
-             referrer.includes('itch.zone');
+             (isIframe && (referrer.includes('itch.io') || referrer.includes('itch.zone')));
              
     isCrazyGames = !isItch && 
                    !hostname.includes('github.io') && 
