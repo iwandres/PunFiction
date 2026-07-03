@@ -1912,3 +1912,61 @@ body.crazygames-env .settings-footer-tos {
     letter-spacing: 0.5px;
 }
 
+.streak-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 12px auto;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.streak-day-box {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 900;
+    box-sizing: border-box;
+    position: relative;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+/* Solved State */
+.streak-day-box.solved {
+    background-color: #06D6A0;
+    color: #ffffff;
+    border-color: var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+/* Missed State */
+.streak-day-box.missed {
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    border-color: #cbd5e1;
+    text-decoration: line-through;
+    opacity: 0.75;
+}
+
+/* Today Active State */
+.streak-day-box.today {
+    border: 2.5px dashed var(--border-color);
+    box-shadow: none;
+    animation: pulseBorder 1.5s infinite;
+}
+
+@keyframes pulseBorder {
+    0% { border-color: var(--border-color); }
+    50% { border-color: #5f27cd; }
+    100% { border-color: var(--border-color); }
+}
+

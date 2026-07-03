@@ -1637,6 +1637,55 @@ function updateChallengeNavButtons() {
     if (nextBtnVic) nextBtnVic.disabled = disableNext;
 }
 
+function renderStreakCalendar() {
+    const gridEl = document.getElementById('streak-grid');
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const solvedList = getSolvedPuzzlesList();
+    const approved = getApprovedChallenges();
+    
+    // We want a rolling 7-day window ending at naturalTodayIndex (the latest active daily challenge)
+    const endChallengeNum = naturalTodayIndex;
+    const startChallengeNum = Math.max(1, endChallengeNum - 6);
+
+    for (let i = startChallengeNum; i <= endChallengeNum; i++) {
+        const paddedNum = padPuzzleNumber(i);
+        const isSolved = solvedList.has(paddedNum);
+        const isToday = i === endChallengeNum;
+
+        const box = document.createElement('div');
+        box.className = 'streak-day-box';
+        // Display the shortened number (strip leading zeros to keep it clean)
+        box.innerText = i.toString();
+
+        if (isSolved) {
+            box.classList.add('solved');
+            box.title = `Challenge #${paddedNum} - Solved!`;
+        } else if (isToday) {
+            box.classList.add('today');
+            box.title = `Challenge #${paddedNum} - Today's challenge!`;
+        } else {
+            box.classList.add('missed');
+            box.title = `Challenge #${paddedNum} - Missed`;
+            
+            // Allow clicking missed historical challenges on non-itch environments to play and restore streak
+            if (!isItch) {
+                const challengeObj = approved.find(p => p.puzzle_number === paddedNum);
+                if (challengeObj) {
+                    box.style.cursor = 'pointer';
+                    box.onclick = () => {
+                        startGame(challengeObj);
+                        history.replaceState(null, "", `?challenge=${challengeObj.puzzle_number}`);
+                    };
+                }
+            }
+        }
+
+        gridEl.appendChild(box);
+    }
+}
+
 function triggerVictory() {
     if (isCrazyGames && typeof window.CrazyGames !== 'undefined') {
         try {
@@ -1663,6 +1712,9 @@ function triggerVictory() {
         ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #<span class="level-indicator-num">${activeChallenge.puzzle_number}</span>`;
     }
     updateChallengeNavButtons();
+
+    // Render the rolling 7-day streak calendar grid
+    renderStreakCalendar();
 
     // Set up dynamic share score nudge text based on performance
     const nudgeEl = document.getElementById('share-nudge');
