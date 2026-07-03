@@ -258,7 +258,10 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                             "solve_att_2": 0,
                             "solve_att_3": 0,
                             "solve_att_4": 0,
-                            "solve_att_5": 0
+                            "solve_att_5": 0,
+                            "click_profile": 0,
+                            "click_stats": 0,
+                            "click_help": 0
                         }
                         
                     if event == 'start':
@@ -271,6 +274,8 @@ class AdminRequestHandler(http.server.SimpleHTTPRequestHandler):
                         
                         clamped_attempts = max(1, min(5, attempts))
                         telemetry_data[puzzle_number][f"solve_att_{clamped_attempts}"] = telemetry_data[puzzle_number].get(f"solve_att_{clamped_attempts}", 0) + 1
+                    elif event in ['click_profile', 'click_stats', 'click_help']:
+                        telemetry_data[puzzle_number][event] = telemetry_data[puzzle_number].get(event, 0) + 1
                         
                     try:
                         with open(telemetry_file, 'w', encoding='utf-8') as f:

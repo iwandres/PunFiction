@@ -324,23 +324,43 @@ window.onload = async () => {
     const nextBtnVic = document.getElementById('btn-next-challenge-victory');
     if (nextBtnVic) nextBtnVic.onclick = () => navigateChallenge(1);
 
+    const openStatsSelectModalWithTracking = () => {
+        if (!statsSelectModal) return;
+        statsSelectModal.classList.add('active');
+        openStatsSelectModal();
+
+        // Track stats view
+        sendTelemetryEvent('click_stats');
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Global Stats',
+                page_path: '/global-stats'
+            });
+        }
+    };
+
+    const openHowToPlayModalWithTracking = () => {
+        if (!howToPlayModal) return;
+        howToPlayModal.classList.add('active');
+
+        // Track help view
+        sendTelemetryEvent('click_help');
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'How To Play',
+                page_path: '/how-to-play'
+            });
+        }
+    };
+
     const btnStatsSelectVic = document.getElementById('btn-stats-select-victory');
     if (btnStatsSelectVic) {
-        btnStatsSelectVic.onclick = () => {
-            if (statsSelectModal) {
-                statsSelectModal.classList.add('active');
-                openStatsSelectModal();
-            }
-        };
+        btnStatsSelectVic.onclick = openStatsSelectModalWithTracking;
     }
 
     const btnHowToPlayVic = document.getElementById('btn-how-to-play-victory');
     if (btnHowToPlayVic) {
-        btnHowToPlayVic.onclick = () => {
-            if (howToPlayModal) {
-                howToPlayModal.classList.add('active');
-            }
-        };
+        btnHowToPlayVic.onclick = openHowToPlayModalWithTracking;
     }
  
     // Fullscreen Poster Modal bindings
@@ -377,11 +397,7 @@ window.onload = async () => {
     const btnCloseHowToPlay = document.getElementById('btn-close-how-to-play');
 
     if (btnHowToPlay) {
-        btnHowToPlay.onclick = () => {
-            if (howToPlayModal) {
-                howToPlayModal.classList.add('active');
-            }
-        };
+        btnHowToPlay.onclick = openHowToPlayModalWithTracking;
     }
 
     if (btnCloseHowToPlay) {
@@ -406,12 +422,7 @@ window.onload = async () => {
     const btnCloseStatsSelect = document.getElementById('btn-close-stats-select');
 
     if (btnStatsSelect) {
-        btnStatsSelect.onclick = () => {
-            if (statsSelectModal) {
-                statsSelectModal.classList.add('active');
-                openStatsSelectModal();
-            }
-        };
+        btnStatsSelect.onclick = openStatsSelectModalWithTracking;
     }
 
     if (btnCloseStatsSelect) {
@@ -443,6 +454,15 @@ window.onload = async () => {
     const openSettingsModal = () => {
         if (!settingsModal) return;
         settingsModal.classList.add('active');
+
+        // Track profile view
+        sendTelemetryEvent('click_profile');
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Profile Settings',
+                page_path: '/profile-settings'
+            });
+        }
         
         // 1. Load data
         const solvedList = getSolvedPuzzlesList();

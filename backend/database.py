@@ -98,6 +98,8 @@ def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
                 f"solve_att_{clamped_attempts}": 1
             }
         }
+    elif event_type in ['click_profile', 'click_stats', 'click_help']:
+        update_query = {"$inc": {event_type: 1}}
         
     if update_query:
         telemetry_pool.update_one(
