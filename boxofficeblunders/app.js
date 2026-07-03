@@ -1659,6 +1659,13 @@ function triggerVictory() {
 
     // Set up victory lobby button dynamically
     const lobbyBtn = document.getElementById('btn-victory-lobby');
+    const playRandomBtn = document.getElementById('btn-play-random');
+    const allCompletedMsg = document.getElementById('all-completed-msg');
+    
+    const solvedList = getSolvedPuzzlesList();
+    const approved = getApprovedChallenges();
+    const uncompleted = approved.filter(p => !solvedList.has(p.puzzle_number));
+
     if (lobbyBtn) {
         if (isItch) {
             lobbyBtn.innerHTML = `🎮 PLAY ALL & TRACK STREAK ➔`;
@@ -1667,10 +1674,9 @@ function triggerVictory() {
                 window.open('https://iwandres.github.io/PunFiction/boxofficeblunders/', '_blank');
             };
         } else {
-            const approved = getApprovedChallenges();
             const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
             
-            if (currentIndex !== -1 && currentIndex < approved.length - 1) {
+            if (uncompleted.length > 0 && currentIndex !== -1 && currentIndex < approved.length - 1) {
                 const nextChallenge = approved[currentIndex + 1];
                 lobbyBtn.innerHTML = `⏭️ PLAY CHALLENGE #${nextChallenge.puzzle_number}`;
                 lobbyBtn.classList.remove('hidden');
@@ -1680,6 +1686,31 @@ function triggerVictory() {
                 };
             } else {
                 lobbyBtn.classList.add('hidden');
+            }
+        }
+    }
+
+    if (playRandomBtn && allCompletedMsg) {
+        if (isItch) {
+            playRandomBtn.classList.add('hidden');
+            allCompletedMsg.classList.add('hidden');
+        } else {
+            if (uncompleted.length === 0) {
+                playRandomBtn.classList.add('hidden');
+                if (lobbyBtn) lobbyBtn.classList.add('hidden');
+                allCompletedMsg.classList.remove('hidden');
+            } else {
+                allCompletedMsg.classList.add('hidden');
+                
+                // Select a random uncompleted challenge
+                const randomIndex = Math.floor(Math.random() * uncompleted.length);
+                const randomChallenge = uncompleted[randomIndex];
+                
+                playRandomBtn.classList.remove('hidden');
+                playRandomBtn.onclick = () => {
+                    startGame(randomChallenge);
+                    history.replaceState(null, "", `?challenge=${randomChallenge.puzzle_number}`);
+                };
             }
         }
     }
