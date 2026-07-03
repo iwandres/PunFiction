@@ -608,6 +608,9 @@ window.onload = async () => {
 
     // 2. Fetch and synchronize puzzle database
     await loadPuzzleDatabase();
+
+    // 3. Initialize hover-based daily streak tooltip for desktop users
+    initStreakTooltip();
 };
 
 function getDaysElapsedSinceStart() {
@@ -2591,5 +2594,81 @@ async function openStatsSelectModal() {
             
             challengesList.appendChild(row);
         });
+    }
+}
+
+function initStreakTooltip() {
+    // Only initialize hover tooltip on desktop devices with pointer support (prevents mobile touch issues)
+    if (!window.matchMedia('(hover: hover)').matches) return;
+
+    const tooltip = document.createElement('div');
+    tooltip.id = 'streak-tooltip';
+    tooltip.className = 'streak-tooltip hidden';
+    
+    const title = document.createElement('h4');
+    title.className = 'streak-tooltip-title';
+    title.innerText = '🔥 STREAK CALENDAR';
+    tooltip.appendChild(title);
+    
+    const grid = document.createElement('div');
+    grid.className = 'streak-grid';
+    grid.id = 'streak-tooltip-grid';
+    tooltip.appendChild(grid);
+    
+    document.body.appendChild(tooltip);
+
+    const buttons = document.querySelectorAll('.settings-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            renderTooltipGrid();
+            
+            const rect = btn.getBoundingClientRect();
+            const scrollX = window.scrollX || window.pageXOffset;
+            const scrollY = window.scrollY || window.pageYOffset;
+            
+            // Center the tooltip horizontally relative to the button
+            tooltip.style.left = `${rect.left + scrollX + (rect.width / 2) - 130}px`; // 130px is half of tooltip width (260px)
+            tooltip.style.top = `${rect.bottom + scrollY + 8}px`;
+            
+            tooltip.classList.remove('hidden');
+            tooltip.offsetHeight; // force reflow for opacity transition
+            tooltip.classList.add('active');
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('active');
+            tooltip.classList.add('hidden');
+        });
+    });
+}
+
+function renderTooltipGrid() {
+    const gridEl = document.getElementById('streak-tooltip-grid');
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const solvedList = getSolvedPuzzlesList();
+    
+    const endChallengeNum = naturalTodayIndex;
+    const startChallengeNum = Math.max(1, endChallengeNum - 6);
+
+    for (let i = startChallengeNum; i <= endChallengeNum; i++) {
+        const paddedNum = padPuzzleNumber(i);
+        const isSolved = solvedList.has(paddedNum);
+        const isToday = i === endChallengeNum;
+
+        const box = document.createElement('div');
+        box.className = 'streak-day-box';
+        box.innerText = i.toString();
+
+        if (isSolved) {
+            box.classList.add('solved');
+        } else if (isToday) {
+            box.classList.add('today');
+        } else {
+            box.classList.add('missed');
+        }
+
+        gridEl.appendChild(box);
     }
 }

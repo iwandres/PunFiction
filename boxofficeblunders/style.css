@@ -1970,3 +1970,52 @@ body.crazygames-env .settings-footer-tos {
     100% { border-color: var(--border-color); }
 }
 
+.streak-tooltip {
+    position: absolute;
+    z-index: 10000;
+    background-color: var(--card-bg);
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0px var(--border-color);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.streak-tooltip.active {
+    opacity: 1;
+}
+
+.streak-tooltip-title {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: var(--text-secondary);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.streak-tooltip .streak-grid {
+    margin: 0;
+    gap: 4px;
+}
+
+.streak-tooltip .streak-day-box {
+    width: 24px;
+    height: 24px;
+    font-size: 0.62rem;
+    border-radius: 6px;
+    border-width: 1.5px;
+    transition: none;
+}
+
+.streak-tooltip .streak-day-box.solved {
+    box-shadow: 1.5px 1.5px 0px var(--border-color);
+}
+
