@@ -1870,8 +1870,8 @@ body.crazygames-env .settings-footer-tos {
 
 /* Solved-box styled Share Score button */
 .share-score-btn {
-    background-color: #06D6A0;
-    color: #000000;
+    background-color: #5f27cd;
+    color: #ffffff;
     border: 3px solid var(--border-color);
     box-shadow: 4px 4px 0px var(--border-color);
     border-radius: 12px;
