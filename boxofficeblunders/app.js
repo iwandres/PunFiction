@@ -463,6 +463,9 @@ window.onload = async () => {
         document.getElementById('user-solve-accuracy').innerText = `${accuracy}%`;
         document.getElementById('user-current-streak').innerText = currentStreak.toLocaleString();
         document.getElementById('user-max-streak').innerText = maxStreak.toLocaleString();
+
+        // Render 7-day streak calendar inside settings modal
+        renderProfileStreakCalendar();
         
         const displayInput = document.getElementById('sync-code-display');
         if (displayInput) {
@@ -2667,6 +2670,55 @@ function renderTooltipGrid() {
             box.classList.add('today');
         } else {
             box.classList.add('missed');
+        }
+
+        gridEl.appendChild(box);
+    }
+}
+
+function renderProfileStreakCalendar() {
+    const gridEl = document.getElementById('profile-streak-grid');
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const solvedList = getSolvedPuzzlesList();
+    const approved = getApprovedChallenges();
+    
+    const endChallengeNum = naturalTodayIndex;
+    const startChallengeNum = Math.max(1, endChallengeNum - 6);
+
+    for (let i = startChallengeNum; i <= endChallengeNum; i++) {
+        const paddedNum = padPuzzleNumber(i);
+        const isSolved = solvedList.has(paddedNum);
+        const isToday = i === endChallengeNum;
+
+        const box = document.createElement('div');
+        box.className = 'streak-day-box';
+        box.innerText = i.toString();
+
+        if (isSolved) {
+            box.classList.add('solved');
+            box.title = `Challenge #${paddedNum} - Solved!`;
+        } else if (isToday) {
+            box.classList.add('today');
+            box.title = `Challenge #${paddedNum} - Today's challenge!`;
+        } else {
+            box.classList.add('missed');
+            box.title = `Challenge #${paddedNum} - Missed`;
+            
+            // Allow clicking missed historical challenges to play and restore streak
+            if (!isItch) {
+                const challengeObj = approved.find(p => p.puzzle_number === paddedNum);
+                if (challengeObj) {
+                    box.style.cursor = 'pointer';
+                    box.onclick = () => {
+                        startGame(challengeObj);
+                        history.replaceState(null, "", `?challenge=${challengeObj.puzzle_number}`);
+                        const settingsModal = document.getElementById('settings-modal');
+                        if (settingsModal) settingsModal.classList.remove('active');
+                    };
+                }
+            }
         }
 
         gridEl.appendChild(box);
