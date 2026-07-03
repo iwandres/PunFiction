@@ -534,7 +534,6 @@ window.onload = async () => {
                     localStorage.removeItem('pun_fiction_attempted_puzzles');
                     localStorage.removeItem('pun_fiction_puzzle_attempts');
                     localStorage.removeItem('pun_fiction_max_streak');
-                    localStorage.removeItem('pun_fiction_profile_id');
                     showToast("🗑️ All progress has been reset.");
                     setTimeout(() => {
                         window.location.reload();
