@@ -125,16 +125,28 @@ const ui = {
 window.onload = async () => {
     // Detect environment (CrazyGames, itch.io, or standard play)
     const hostname = window.location.hostname;
-    isItch = hostname.includes('itch.io') || hostname.includes('itch.zone') || window.location.href.includes('itch.io');
-    isCrazyGames = !isItch && !hostname.includes('github.io') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1');
-    console.log("Environment detection: isItch =", isItch, ", isCrazyGames =", isCrazyGames);
+    const referrer = document.referrer || "";
+    isItch = hostname.includes('itch.io') || 
+             hostname.includes('itch.zone') || 
+             hostname.includes('hwcdn.net') || 
+             hostname.includes('itch.im') || 
+             window.location.href.includes('itch.io') ||
+             referrer.includes('itch.io') ||
+             referrer.includes('itch.zone');
+             
+    isCrazyGames = !isItch && 
+                   !hostname.includes('github.io') && 
+                   !hostname.includes('localhost') && 
+                   !hostname.includes('127.0.0.1');
+                   
+    console.log("Environment detection: isItch =", isItch, ", isCrazyGames =", isCrazyGames, ", hostname =", hostname, ", referrer =", referrer);
+    
     if (isCrazyGames) {
         document.body.classList.add('crazygames-env');
         await initCrazyGamesSDK();
     }
     if (isItch) {
-        const playlinBadge = document.getElementById('playlin-badge');
-        if (playlinBadge) playlinBadge.style.display = 'none';
+        document.body.classList.add('itch-env');
     }
 
     // 0. Wake up the Render container in the background as early as possible

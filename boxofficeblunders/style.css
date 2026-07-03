@@ -1840,8 +1840,9 @@ input:focus {
     box-shadow: 1px 1px 0px var(--border-color);
 }
 
-/* Environment-specific conditional hides (e.g. CrazyGames) */
-body.crazygames-env .app-footer {
+/* Environment-specific conditional hides (e.g. CrazyGames, Itch.io) */
+body.crazygames-env .app-footer,
+body.itch-env .app-footer {
     display: none !important;
 }
 
