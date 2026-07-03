@@ -157,8 +157,15 @@ window.onload = async () => {
              hostname.includes('itch.zone') || 
              hostname.includes('hwcdn.net') || 
              hostname.includes('itch.im') || 
+             hostname.includes('newgrounds.com') || 
+             hostname.includes('ungrounded.net') || 
              window.location.href.includes('itch.io') ||
-             (isIframe && (referrer.includes('itch.io') || referrer.includes('itch.zone')));
+             window.location.href.includes('newgrounds.com') ||
+             (isIframe && (
+                 referrer.includes('itch.io') || 
+                 referrer.includes('itch.zone') || 
+                 referrer.includes('newgrounds.com')
+             ));
              
     isCrazyGames = !isItch && 
                    !hostname.includes('github.io') && 
