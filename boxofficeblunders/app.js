@@ -1138,10 +1138,15 @@ function loadLevel() {
     // Re-render after a short delay to ensure browser layout has stabilized (prevents mobile layout shifting)
     setTimeout(renderGuessSlots, 50);
 
-    // Automatically focus input on desktop so player can type immediately (skip on mobile to prevent layout shift/keyboard popup on load)
-    if (window.innerWidth >= 768) {
+    // Automatically focus input on desktop direct play (skip inside portal frames/iframes to prevent keyboard shifts and scrollbar jumps)
+    const isIframe = window.self !== window.top;
+    if (window.innerWidth >= 768 && !isIframe && !isCrazyGames && !isItch) {
         setTimeout(() => {
-            ui.guessInput.focus();
+            try {
+                ui.guessInput.focus({ preventScroll: true });
+            } catch (e) {
+                ui.guessInput.focus();
+            }
         }, 100);
     }
 }
