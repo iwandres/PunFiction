@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PunFiction: Tourist Traps Curation Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bangers&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #FAF8F5;
+            --bg-card: #ffffff;
+            --bg-input: #f8fafc;
+            --border-base: #e2e8f0;
+            --primary: #00AA6C;
+            --primary-dark: #008f5a;
+            --accent: #ffb86c;
+            --text-primary: #2C2C2C;
+            --text-secondary: #64748b;
+            --error: #ff4757;
+            --success: #00aa6c;
+            --warning: #f1c40f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            border-bottom: 2px solid #2D3436;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 4px 4px 0px #2D3436;
+            margin: 15px;
+            border-radius: 12px;
+        }
+
+        .brand {
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        .pipeline-nav {
+            display: flex;
+            gap: 10px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 12px;
+            border: 2px solid #2D3436;
+            box-shadow: 4px 4px 0px #2D3436;
+            margin: 0 15px 15px 15px;
+        }
+
+        .pipeline-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pipeline-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .pipeline-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 2px 2px 0px #2D3436;
+            border: 2px solid #2D3436;
+        }
+
+        /* Container & Cards */
+        main {
+            flex: 1;
+            padding: 0 15px 30px 15px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 3px solid #2D3436;
+            box-shadow: 6px 6px 0px #2D3436;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--border-base);
+            padding-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Buttons & Forms */
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #2D3436;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 2px 2px 0px #2D3436;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #2D3436;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .danger-btn {
+            background: var(--error);
+            color: white;
+        }
+
+        .outline-btn {
+            background: white;
+            color: var(--text-primary);
+        }
+
+        .outline-btn:hover {
+            background: #f8fafc;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Lists & Items */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .list-item {
+            background: white;
+            border: 2px solid #2D3436;
+            box-shadow: 4px 4px 0px #2D3436;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 12px;
+            border: 1.5px solid #2D3436;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: var(--warning); color: #000; }
+        .status-approved { background: var(--success); color: #fff; }
+        .status-rejected { background: var(--error); color: #fff; }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"], textarea {
+            padding: 10px;
+            border: 2px solid #2D3436;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        /* Postcard image preview */
+        .img-preview {
+            width: 160px;
+            height: 120px;
+            border: 2px solid #2D3436;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 2px 2px 0 #2D3436;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">Pun<span>Fiction</span>: Curation Portal</div>
+        <div>
+            <span style="font-weight: 800; font-size: 0.9rem; margin-right: 15px;">Game: Tourist Traps 🗺️</span>
+            <button class="btn outline-btn" onclick="window.open('/touristtraps/', '_blank')">🎮 Open Game</button>
+        </div>
+    </header>
+
+    <div class="pipeline-nav">
+        <button class="pipeline-btn active" data-tab="landmarks" onclick="switchTab('landmarks')">📍 1. Landmarks</button>
+        <button class="pipeline-btn" data-tab="puns" onclick="switchTab('puns')">✍️ 2. Puns</button>
+        <button class="pipeline-btn" data-tab="clues" onclick="switchTab('clues')">📝 3. Clues</button>
+        <button class="pipeline-btn" data-tab="postcards" onclick="switchTab('postcards')">🎨 4. Postcards & Responses</button>
+        <button class="pipeline-btn" data-tab="puzzles" onclick="switchTab('puzzles')">📅 5. Daily Schedule</button>
+    </div>
+
+    <main>
+        <!-- 1. LANDMARKS TAB -->
+        <div id="tab-landmarks" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <h2>📍 Base Landmarks Curation</h2>
+                    <button class="btn primary-btn" onclick="generatePuns()">⚡ Generate Puns (Gemini)</button>
+                </div>
+                <div class="filter-row">
+                    <input type="text" id="lm-name" placeholder="Landmark Name (e.g. Grand Canyon)" style="max-width: 250px;">
+                    <input type="text" id="lm-loc" placeholder="Location (e.g. Arizona)" style="max-width: 200px;">
+                    <button class="btn outline-btn" onclick="addLandmark()">+ Add Landmark</button>
+                </div>
+                <div class="item-list" id="landmarks-list"></div>
+            </div>
+        </div>
+
+        <!-- 2. PUNS TAB -->
+        <div id="tab-puns" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>✍️ Approved Landmark Puns</h2>
+                    <button class="btn primary-btn" onclick="generateClues()">⚡ Generate Clues (Gemini)</button>
+                </div>
+                <div class="item-list" id="puns-list"></div>
+            </div>
+        </div>
+
+        <!-- 3. CLUES TAB -->
+        <div id="tab-clues" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>📝 Parody Review Clues</h2>
+                    <button class="btn primary-btn" onclick="generatePostcards()">⚡ Generate Postcards (Imagen)</button>
+                </div>
+                <div class="item-list" id="clues-list"></div>
+            </div>
+        </div>
+
+        <!-- 4. POSTCARDS TAB -->
+        <div id="tab-postcards" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>🎨 Postcard Art & Owner Replies</h2>
+                </div>
+                <div class="item-list" id="postcards-list"></div>
+            </div>
+        </div>
+
+        <!-- 5. PUZZLES TAB -->
+        <div id="tab-puzzles" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>📅 Daily Challenge Sequence</h2>
+                    <button class="btn primary-btn" onclick="savePuzzlesToProduction()">💾 Save Daily Challenges</button>
+                </div>
+                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <button class="btn outline-btn" onclick="addNewPuzzleFromApproved()">+ Add Approved Puzzle to Queue</button>
+                </div>
+                <div class="item-list" id="puzzles-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let landmarks = [];
+        let puns = [];
+        let clues = [];
+        let postcards = [];
+        let puzzles = [];
+
+        async function init() {
+            await Promise.all([
+                loadData('landmarks'),
+                loadData('puns'),
+                loadData('clues'),
+                loadData('postcards'),
+                loadData('puzzles')
+            ]);
+            renderAll();
+        }
+
+        async function loadData(type) {
+            try {
+                let res = await fetch(`/api/${type}`);
+                let data = await res.json();
+                if (type === 'landmarks') landmarks = data;
+                else if (type === 'puns') puns = data;
+                else if (type === 'clues') clues = data;
+                else if (type === 'postcards') postcards = data;
+                else if (type === 'puzzles') puzzles = data;
+            } catch (e) {
+                console.error(`Failed to load ${type}: ${e}`);
+            }
+        }
+
+        async function saveData(type, data) {
+            try {
+                await fetch(`/api/${type}`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+            } catch (e) {
+                console.error(`Failed to save ${type}: ${e}`);
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.pipeline-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        // --- LANDMARKS ---
+        function addLandmark() {
+            const name = document.getElementById('lm-name').value.trim();
+            const loc = document.getElementById('lm-loc').value.trim();
+            if (!name) return;
+            landmarks.push({
+                id: 'landmark_' + Date.now(),
+                name: name,
+                location: loc || 'Unknown',
+                status: 'approved'
+            });
+            document.getElementById('lm-name').value = '';
+            document.getElementById('lm-loc').value = '';
+            saveData('landmarks', landmarks);
+            renderLandmarks();
+        }
+
+        function setStatus(list, id, status, type) {
+            let item = list.find(x => x.id === id);
+            if (item) {
+                item.status = status;
+                saveData(type, list);
+                renderAll();
+            }
+        }
+
+        // --- GENERATION CALLS ---
+        async function generatePuns() {
+            let res = await fetch('/api/generate_puns', {method: 'POST'});
+            let data = await res.json();
+            alert(`Puns generated! New puns added: ${data.generated_count}`);
+            await init();
+        }
+
+        async function generateClues() {
+            let res = await fetch('/api/generate_clues', {method: 'POST'});
+            let data = await res.json();
+            alert(`Reviews and Clues generated! New items: ${data.generated_count}`);
+            await init();
+        }
+
+        async function generatePostcards() {
+            let res = await fetch('/api/generate_postcards', {method: 'POST'});
+            let data = await res.json();
+            alert(`Postcards and Owner Responses generated! New items: ${data.generated_count}`);
+            await init();
+        }
+
+        // --- puzzle additions ---
+        function addNewPuzzleFromApproved() {
+            let approved = postcards.filter(p => p.status === 'approved');
+            let existingIds = new Set(puzzles.map(p => p.puzzle_id));
+            let available = approved.filter(a => !existingIds.has(a.clue_id));
+            
+            if (available.length === 0) {
+                alert("No new approved postcards to add! Make sure postcards are approved in Step 4.");
+                return;
+            }
+            
+            let item = available[0];
+            let matchingClue = clues.find(c => c.id === item.clue_id);
+            
+            let num = String(puzzles.length + 1).padStart(3, '0');
+            
+            // Format answer underscores
+            let rawTitle = item.pun_name;
+            let ansPattern = rawTitle.replace(/[a-zA-Z]/g, '_');
+            let firstLetterPattern = rawTitle.split(' ').map(w => w[0] + w.slice(1).replace(/[a-zA-Z]/g, '_')).join(' ');
+
+            puzzles.push({
+                puzzle_number: num,
+                puzzle_id: item.clue_id,
+                boss_id: 'boss_' + item.clue_id,
+                boss_original_title: item.original_name,
+                boss_pun_title: item.pun_name,
+                answer: ansPattern,
+                boss_hint2: firstLetterPattern,
+                reviewer_name: matchingClue ? matchingClue.reviewer_name : "Karen S.",
+                review_title: matchingClue ? matchingClue.review_title : "Terrible!",
+                clue1: matchingClue ? matchingClue.clue1 : "",
+                clue2: matchingClue ? matchingClue.clue2 : "",
+                clue3: matchingClue ? matchingClue.clue3 : "",
+                clue4: matchingClue ? matchingClue.clue4 : "",
+                boss_pitch: item.owner_response,
+                boss_poster_url: item.image_path,
+                difficulty_tier: 1,
+                status: "approved",
+                puzzles: []
+            });
+            
+            saveData('puzzles', puzzles);
+            renderPuzzles();
+        }
+
+        async function savePuzzlesToProduction() {
+            await saveData('puzzles', puzzles);
+            alert("Daily puzzles saved to production successfully!");
+        }
+
+        // --- RENDERING ---
+        function renderAll() {
+            renderLandmarks();
+            renderPuns();
+            renderClues();
+            renderPostcards();
+            renderPuzzles();
+        }
+
+        function renderLandmarks() {
+            let el = document.getElementById('landmarks-list');
+            el.innerHTML = landmarks.map(lm => `
+                <div class="list-item">
+                    <div class="item-details">
+                        <strong>${lm.name}</strong> (${lm.location})
+                    </div>
+                    <div class="item-actions">
+                        <span class="status-badge status-${lm.status}">${lm.status}</span>
+                        <button class="btn outline-btn" onclick="setStatus(landmarks, '${lm.id}', 'approved', 'landmarks')">Approve</button>
+                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(landmarks, '${lm.id}', 'rejected', 'landmarks')">X</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPuns() {
+            let el = document.getElementById('puns-list');
+            el.innerHTML = puns.map(p => `
+                <div class="list-item">
+                    <div class="item-details">
+                        <strong>${p.pun_name}</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Original: ${p.original_name} | Rhyme: ${p.rhyme_used}</div>
+                    </div>
+                    <div class="item-actions">
+                        <span class="status-badge status-${p.status}">${p.status}</span>
+                        <button class="btn outline-btn" onclick="setStatus(puns, '${p.id}', 'approved', 'puns')">Approve</button>
+                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(puns, '${p.id}', 'rejected', 'puns')">X</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderClues() {
+            let el = document.getElementById('clues-list');
+            el.innerHTML = clues.map(c => `
+                <div class="list-item" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <strong>${c.pun_name} (from ${c.original_name})</strong>
+                        <div>
+                            <span class="status-badge status-${c.status}">${c.status}</span>
+                            <button class="btn outline-btn" onclick="setStatus(clues, '${c.id}', 'approved', 'clues')">Approve</button>
+                            <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(clues, '${c.id}', 'rejected', 'clues')">X</button>
+                        </div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 6px; width: 100%; font-size: 0.9rem;">
+                        <div><strong>Title:</strong> ${c.review_title} | <strong>User:</strong> ${c.reviewer_name}</div>
+                        <div style="margin-top: 4px;"><strong>Clue 1:</strong> ${c.clue1}</div>
+                        <div><strong>Clue 2:</strong> ${c.clue2}</div>
+                        <div><strong>Clue 3:</strong> ${c.clue3}</div>
+                        <div><strong>Clue 4:</strong> ${c.clue4}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPostcards() {
+            let el = document.getElementById('postcards-list');
+            el.innerHTML = postcards.map(p => `
+                <div class="list-item" style="gap: 15px;">
+                    <img class="img-preview" src="${p.image_path}" alt="Postcard preview">
+                    <div class="item-details">
+                        <strong>${p.pun_name}</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Prompt: ${p.image_prompt}</div>
+                        <div style="font-size: 0.9rem; background: #f8fafc; padding: 6px; border-radius: 6px;">
+                            <strong>Owner Reply:</strong> ${p.owner_response}
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <span class="status-badge status-${p.status}">${p.status}</span>
+                        <button class="btn outline-btn" onclick="setStatus(postcards, '${p.id}', 'approved', 'postcards')">Approve</button>
+                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(postcards, '${p.id}', 'rejected', 'postcards')">X</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPuzzles() {
+            let el = document.getElementById('puzzles-list');
+            el.innerHTML = puzzles.map((p, idx) => `
+                <div class="list-item">
+                    <div class="item-details">
+                        <strong>Challenge #${p.puzzle_number}: ${p.boss_pun_title}</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Original Location: ${p.boss_original_title}</div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn outline-btn" onclick="movePuzzle(${idx}, -1)">▲</button>
+                        <button class="btn outline-btn" onclick="movePuzzle(${idx}, 1)">▼</button>
+                        <button class="btn danger-btn" style="padding: 10px;" onclick="removePuzzle(${idx})">X</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function movePuzzle(idx, direction) {
+            let nextIdx = idx + direction;
+            if (nextIdx < 0 || nextIdx >= puzzles.length) return;
+            let temp = puzzles[idx];
+            puzzles[idx] = puzzles[nextIdx];
+            puzzles[nextIdx] = temp;
+            
+            // Re-index challenge numbers
+            puzzles.forEach((p, i) => {
+                p.puzzle_number = String(i + 1).padStart(3, '0');
+            });
+            
+            saveData('puzzles', puzzles);
+            renderPuzzles();
+        }
+
+        function removePuzzle(idx) {
+            puzzles.splice(idx, 1);
+            puzzles.forEach((p, i) => {
+                p.puzzle_number = String(i + 1).padStart(3, '0');
+            });
+            saveData('puzzles', puzzles);
+            renderPuzzles();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+[1] Game Spec: PunFiction - Tourist Traps
+[2] The Concept
+[3] Welcome to the dark side of tourism. The goal is simple: users must guess the punny name of a famous location based on a wildly unfair, completely unhinged 1-star review. It's the perfect intersection of geography trivia and the worst people on the internet.
+[4] 1. The Core Loop & Mechanics
+[5] The game functions as an expanding, terrible review.
+[6] State 1 (The Hook): The user sees Clue 1 (the most obscure, absurd complaint), a generic reviewer avatar, and a blank letter bank for the answer.
+[7] State 2 (The Escalation): Users reveal Clues 2, 3, and 4 one at a time. Each reveal reduces the potential points for a correct guess.
+[8] State 3 (The Reveal): Once the user guesses correctly, the layout expands to show an "Attached Photo" (the cartoon pun) and the "Response from the Owner" (the flavor text).
+[9] The Clue: "Avoid at all costs. The entire city is infested with tiny, annoying insects that constantly try to sell you miniature Eiffel Towers."
+[10] The Answer: Paris-ites
+[11] The Clue: "Beautiful architecture, but the locals are legally required to carry large, crusty loaves of bread and hit you with them if you walk too slowly."
+[12] The Answer: San Fran-cis-dough
+[13] 2. UI / UX Features: The Fake App Ecosystem
+[14] To fully commit to the bit, the UI mimics a cynical travel site like a dystopian TripAdvisor.
+[15] "Attached Photo" Reveal: The reward cartoon isn't just a pop-up; it expands as a thumbnail clicked by the user, framed as the reviewer's "proof."
+[16] "Response from the Owner": The traditional trivia "flavor text" is styled as a passive-aggressive reply from the location's management.  This is shown after the challenge is successfully answered.
+[17] 4. Test Batch: The First 3 Levels
+[18] Level 1: THE GRAND CRAYON
+[19] Clue 1: "It's just a big ditch. I could dig this in my backyard if I had a free weekend and a decent shovel."
+[20] Clue 2: "The river at the bottom is practically invisible. Totally overhyped, dusty Arizona tourist trap."
+[21] Clue 3: "Tried to use it to color in my coloring book, but it was too heavy and ruined the paper."
+[22] Clue 4: "The most famous wax-based writing utensil in the American Southwest."
+[23] Response from the Owner: "Hi Susan. As stated on the 40 warning signs you walked past, this is a geological formation, not art supplies. We are billing you for the helicopter rescue."
+[24] Level 3: EIFFEL TOWEL
+[25] Clue 1: "Extremely drafty. There are holes everywhere, it doesn't block the wind at all."
+[26] Clue 2: "You'd think the most famous structure in Paris would be a bit more functional for the price."
+[27] Clue 3: "Tried to dry off after my shower with it, but it's made of wrought iron and completely non-absorbent."
+[28] Clue 4: "A 300-meter-tall French bathroom accessory."
+[29] Response from the Owner: "Monsieur, if you are using 10,000 tons of 19th-century iron to dry your hair, you have significantly bigger problems than a slight draft."
+[30] UX Direction
+[31] 1. The Vibe and Color Palette
+[32] Forget the bright, cheery colors of standard trivia games. You want this to feel like a sterile corporate review platform.
+[33] The Background: Off-white or a very light "Aggressive Beige."
+[34] The Accents: A slightly sickly "Toxic Mustard" or a faded, washed-out "TripAdvisor Green" for your primary buttons.
+[35] Typography: A crisp, emotionless sans-serif (like Roboto or Inter) for the review text to make the unhinged complaints feel officially published.
+[36] 2. The Main Play Screen (The Expanding Card)
+[37] The core of the screen is a single ElevatedCard that contains the fake review. It should feel claustrophobic at first and expand as they buy clues.
+[38] 3. The Input Area (The "Filing a Complaint" Section)
+[39] Keep the input separated from the review card so it doesn't get lost when the card expands.
+[40] The Blanks: Standard empty tiles for the pun answer (e.g., _ _ _ _ _ _ _ _ _ _ _ _ _ _). To add some snark, maybe the cursor is a little blinking angry face instead of a vertical line.
+[41] The Keyboard: A scrambled letter bank. When a user taps a letter, it physically flies up into the blank space.
+[42] 4. The Grand Reveal (Post-Solve State)
+[43] This is where the UI transitions from "guessing game" to "pure comedy." Once the user fills in the correct answer:
+[44] The "Attached Photo": An AnimatedVisibility block slides down inside the review card, revealing a small thumbnail of your cartoon artwork. The user taps it, and it expands to full screen.
+[45] The Owner's Response: Another block slides in at the very bottom of the card, indented with a thick grey line on the left (standard nested comment UI). The background is a slightly darker grey. This holds your passive-aggressive flavor text.
+[46] The Final Trap: The "Was this review helpful? [Yes] / [No]" buttons fade in at the very bottom of the screen.
+[47] favicon should be a postcard?
