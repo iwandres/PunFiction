@@ -258,6 +258,60 @@
             border-radius: 8px;
             object-fit: cover;
             box-shadow: 2px 2px 0 #2D3436;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .img-preview:hover {
+            transform: scale(1.03);
+            box-shadow: 4px 4px 0 #2D3436;
+        }
+
+        /* Daily Challenge Cards Styles */
+        .puzzle-card {
+            border: 2px solid #2D3436;
+            border-radius: 8px;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 4px 4px 0 #2D3436;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .puzzle-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #2D3436;
+            padding-bottom: 12px;
+        }
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 20px;
+        }
+        .puzzle-fields-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+        .field-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+        .field-group input, .field-group textarea {
+            padding: 8px 12px;
+            border: 2px solid #2D3436;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -310,8 +364,19 @@
         <div id="tab-clues" class="tab-content">
             <div class="card">
                 <div class="card-header">
-                    <h2>📝 Parody Review Clues</h2>
-                    <button class="btn primary-btn" onclick="generatePostcards()">⚡ Generate Postcards (Imagen)</button>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label for="art-style-select" style="font-weight: 800; font-size: 0.9rem;">Art Style:</label>
+                        <select id="art-style-select" style="padding: 8px 12px; border: 2px solid #2D3436; border-radius: 6px; font-weight: bold; background: white; cursor: pointer;">
+                            <option value="random">🎲 Random Mix</option>
+                            <option value="cartoon">🎨 Comical Cartoon</option>
+                            <option value="watercolor">🖌️ Whimsical Watercolor</option>
+                            <option value="retro">✈️ 1950s Travel Poster</option>
+                            <option value="wpa">🏞️ WPA Nature Park Illustration</option>
+                            <option value="vintage">✉️ Distressed Linen Postcard</option>
+                            <option value="pop-art">💥 Vibrant Pop Art</option>
+                        </select>
+                        <button class="btn primary-btn" onclick="generatePostcards()">⚡ Generate Postcards (Imagen)</button>
+                    </div>
                 </div>
                 <div class="item-list" id="clues-list"></div>
             </div>
@@ -334,13 +399,15 @@
                     <h2>📅 Daily Challenge Sequence</h2>
                     <button class="btn primary-btn" onclick="savePuzzlesToProduction()">💾 Save Daily Challenges</button>
                 </div>
-                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-                    <button class="btn outline-btn" onclick="addNewPuzzleFromApproved()">+ Add Approved Puzzle to Queue</button>
-                </div>
                 <div class="item-list" id="puzzles-list"></div>
             </div>
         </div>
     </main>
+
+    <!-- Image Modal -->
+    <div id="image-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; cursor: zoom-out;" onclick="closePostcardModal()">
+        <img id="modal-img" src="" style="max-width: 90%; max-height: 90%; border: 4px solid white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+    </div>
 
     <script>
         let landmarks = [];
@@ -419,8 +486,59 @@
             if (item) {
                 item.status = status;
                 saveData(type, list);
+                
+                // Automate Step 5 daily queue insertion when a postcard is approved
+                if (type === 'postcards' && status === 'approved') {
+                    compilePuzzleFromPostcard(item);
+                } else if (type === 'postcards' && status !== 'approved') {
+                    // Remove from daily queue if unapproved or rejected
+                    puzzles = puzzles.filter(pz => pz.puzzle_id !== item.clue_id);
+                    // Recalculate daily challenge numbers sequentially
+                    puzzles.forEach((pz, idx) => {
+                        pz.puzzle_number = String(idx + 1).padStart(3, '0');
+                    });
+                    saveData('puzzles', puzzles);
+                }
+                
                 renderAll();
             }
+        }
+
+        function compilePuzzleFromPostcard(item) {
+            // Check if already in queue
+            if (puzzles.some(pz => pz.puzzle_id === item.clue_id)) {
+                return;
+            }
+            
+            let matchingClue = clues.find(c => c.id === item.clue_id);
+            let num = String(puzzles.length + 1).padStart(3, '0');
+            
+            // Format answer underscores
+            let rawTitle = item.pun_name;
+            let ansPattern = rawTitle.replace(/[a-zA-Z]/g, '_');
+            let firstLetterPattern = rawTitle.split(' ').map(w => w[0] + w.slice(1).replace(/[a-zA-Z]/g, '_')).join(' ');
+
+            puzzles.push({
+                puzzle_number: num,
+                puzzle_id: item.clue_id,
+                boss_id: 'boss_' + item.clue_id,
+                boss_original_title: item.original_name,
+                boss_pun_title: item.pun_name,
+                answer: ansPattern,
+                boss_hint2: firstLetterPattern,
+                reviewer_name: matchingClue ? matchingClue.reviewer_name : "Anonymous",
+                review_title: matchingClue ? matchingClue.review_title : "Terrible!",
+                clue1: matchingClue ? matchingClue.clue1 : "",
+                clue2: matchingClue ? matchingClue.clue2 : "",
+                clue3: matchingClue ? matchingClue.clue3 : "",
+                boss_pitch: item.owner_response,
+                boss_poster_url: item.image_path,
+                difficulty_tier: 1,
+                status: "approved",
+                puzzles: []
+            });
+            
+            saveData('puzzles', puzzles);
         }
 
         // --- GENERATION CALLS ---
@@ -439,56 +557,15 @@
         }
 
         async function generatePostcards() {
-            let res = await fetch('/api/generate_postcards', {method: 'POST'});
+            const style = document.getElementById('art-style-select').value;
+            let res = await fetch('/api/generate_postcards', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ art_style: style })
+            });
             let data = await res.json();
             alert(`Postcards and Owner Responses generated! New items: ${data.generated_count}`);
             await init();
-        }
-
-        // --- puzzle additions ---
-        function addNewPuzzleFromApproved() {
-            let approved = postcards.filter(p => p.status === 'approved');
-            let existingIds = new Set(puzzles.map(p => p.puzzle_id));
-            let available = approved.filter(a => !existingIds.has(a.clue_id));
-            
-            if (available.length === 0) {
-                alert("No new approved postcards to add! Make sure postcards are approved in Step 4.");
-                return;
-            }
-            
-            let item = available[0];
-            let matchingClue = clues.find(c => c.id === item.clue_id);
-            
-            let num = String(puzzles.length + 1).padStart(3, '0');
-            
-            // Format answer underscores
-            let rawTitle = item.pun_name;
-            let ansPattern = rawTitle.replace(/[a-zA-Z]/g, '_');
-            let firstLetterPattern = rawTitle.split(' ').map(w => w[0] + w.slice(1).replace(/[a-zA-Z]/g, '_')).join(' ');
-
-            puzzles.push({
-                puzzle_number: num,
-                puzzle_id: item.clue_id,
-                boss_id: 'boss_' + item.clue_id,
-                boss_original_title: item.original_name,
-                boss_pun_title: item.pun_name,
-                answer: ansPattern,
-                boss_hint2: firstLetterPattern,
-                reviewer_name: matchingClue ? matchingClue.reviewer_name : "Karen S.",
-                review_title: matchingClue ? matchingClue.review_title : "Terrible!",
-                clue1: matchingClue ? matchingClue.clue1 : "",
-                clue2: matchingClue ? matchingClue.clue2 : "",
-                clue3: matchingClue ? matchingClue.clue3 : "",
-                clue4: matchingClue ? matchingClue.clue4 : "",
-                boss_pitch: item.owner_response,
-                boss_poster_url: item.image_path,
-                difficulty_tier: 1,
-                status: "approved",
-                puzzles: []
-            });
-            
-            saveData('puzzles', puzzles);
-            renderPuzzles();
         }
 
         async function savePuzzlesToProduction() {
@@ -523,19 +600,33 @@
 
         function renderPuns() {
             let el = document.getElementById('puns-list');
-            el.innerHTML = puns.map(p => `
-                <div class="list-item">
-                    <div class="item-details">
-                        <strong>${p.pun_name}</strong>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Original: ${p.original_name} | Rhyme: ${p.rhyme_used}</div>
+            el.innerHTML = puns.map((p, idx) => `
+                <div class="list-item" style="gap: 15px;">
+                    <div class="item-details" style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: bold;">Original: ${p.original_name}</div>
+                        <input type="text" value="${p.pun_name}" onchange="updatePunName(${idx}, this.value)" style="width: 100%; max-width: 400px; padding: 6px 10px; border: 2px solid #2D3436; border-radius: 6px; font-weight: bold; font-family: inherit;">
                     </div>
-                    <div class="item-actions">
+                    <div class="item-actions" style="align-items: center; gap: 8px;">
                         <span class="status-badge status-${p.status}">${p.status}</span>
                         <button class="btn outline-btn" onclick="setStatus(puns, '${p.id}', 'approved', 'puns')">Approve</button>
-                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(puns, '${p.id}', 'rejected', 'puns')">X</button>
+                        <button class="btn danger-btn" style="padding: 10px 14px;" onclick="setStatus(puns, '${p.id}', 'rejected', 'puns')">Reject</button>
+                        <button class="btn danger-btn" style="padding: 10px 14px; background-color: #d63031; font-size: 0.85rem;" onclick="deletePun(${idx})">Delete</button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function updatePunName(idx, newValue) {
+            puns[idx].pun_name = newValue.trim();
+            saveData('puns', puns);
+        }
+
+        function deletePun(idx) {
+            if (confirm("Are you sure you want to permanently delete this pun suggestion?")) {
+                puns.splice(idx, 1);
+                saveData('puns', puns);
+                renderPuns();
+            }
         }
 
         function renderClues() {
@@ -551,11 +642,10 @@
                         </div>
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 6px; width: 100%; font-size: 0.9rem;">
-                        <div><strong>Title:</strong> ${c.review_title} | <strong>User:</strong> ${c.reviewer_name}</div>
+                        <div><strong>Title:</strong> ${c.review_title} | <strong>Reviewer:</strong> @${c.reviewer_name || 'Anonymous'}</div>
                         <div style="margin-top: 4px;"><strong>Clue 1:</strong> ${c.clue1}</div>
                         <div><strong>Clue 2:</strong> ${c.clue2}</div>
                         <div><strong>Clue 3:</strong> ${c.clue3}</div>
-                        <div><strong>Clue 4:</strong> ${c.clue4}</div>
                     </div>
                 </div>
             `).join('');
@@ -565,38 +655,204 @@
             let el = document.getElementById('postcards-list');
             el.innerHTML = postcards.map(p => `
                 <div class="list-item" style="gap: 15px;">
-                    <img class="img-preview" src="${p.image_path}" alt="Postcard preview">
+                    <img class="img-preview" src="${p.image_path}" alt="Postcard preview" onclick="openPostcardModal('${p.image_path}')">
                     <div class="item-details">
                         <strong>${p.pun_name}</strong>
                         <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Prompt: ${p.image_prompt}</div>
-                        <div style="font-size: 0.9rem; background: #f8fafc; padding: 6px; border-radius: 6px;">
-                            <strong>Owner Reply:</strong> ${p.owner_response}
+                        <div style="font-size: 0.9rem; background: #f8fafc; padding: 10px; border-radius: 6px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px;">
+                                <strong>Owner Reply:</strong>
+                                <button class="btn outline-btn" style="padding: 4px 8px; font-size: 0.8rem; background-color: #e8f4fd;" onclick="regenerateOwnerReply('${p.clue_id}')">🔄 Regenerate Reply</button>
+                            </div>
+                            <div id="reply-text-${p.clue_id}">${p.owner_response}</div>
                         </div>
                     </div>
-                    <div class="item-actions">
+                    <div class="item-actions" style="gap: 8px;">
                         <span class="status-badge status-${p.status}">${p.status}</span>
                         <button class="btn outline-btn" onclick="setStatus(postcards, '${p.id}', 'approved', 'postcards')">Approve</button>
-                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(postcards, '${p.id}', 'rejected', 'postcards')">X</button>
+                        <button class="btn outline-btn" style="background-color: #ffeaa7;" onclick="regeneratePostcard('${p.clue_id}', '${p.art_style}')">🔄 Regenerate Image</button>
+                        <button class="btn danger-btn" style="padding: 10px 14px;" onclick="setStatus(postcards, '${p.id}', 'rejected', 'postcards')">X</button>
                     </div>
                 </div>
             `).join('');
         }
 
+        async function regenerateOwnerReply(clueId) {
+            if (!confirm("Are you sure you want to regenerate this owner response?")) return;
+            
+            let btn = event.target;
+            let origText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = "⏳ Writing...";
+            
+            try {
+                let res = await fetch('/api/regenerate_owner_reply', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ clue_id: clueId })
+                });
+                let data = await res.json();
+                if (data.success) {
+                    let txtEl = document.getElementById(`reply-text-${clueId}`);
+                    if (txtEl) {
+                        txtEl.innerText = data.owner_response;
+                    }
+                    let p = postcards.find(x => x.clue_id === clueId);
+                    if (p) p.owner_response = data.owner_response;
+                    alert("Owner reply regenerated successfully!");
+                } else {
+                    alert("Generation failed: " + data.error);
+                }
+            } catch (e) {
+                alert("Error: " + e);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = origText;
+            }
+        }
+
+        async function regeneratePostcard(clueId, artStyle) {
+            if (!confirm("Are you sure you want to regenerate this postcard art using Gemini 3 Pro?")) return;
+            
+            let btn = event.target;
+            let origText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = "⏳ Generating...";
+            
+            try {
+                let res = await fetch('/api/generate_postcards', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ clue_id: clueId, art_style: artStyle })
+                });
+                let data = await res.json();
+                if (data.success) {
+                    alert("Postcard regenerated successfully!");
+                    await init();
+                } else {
+                    alert("Generation failed: " + data.error);
+                }
+            } catch (e) {
+                alert("Error: " + e);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = origText;
+            }
+        }
+
+        function openPostcardModal(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('image-modal').style.display = 'flex';
+        }
+
+        function closePostcardModal() {
+            document.getElementById('image-modal').style.display = 'none';
+        }
+
         function renderPuzzles() {
             let el = document.getElementById('puzzles-list');
             el.innerHTML = puzzles.map((p, idx) => `
-                <div class="list-item">
-                    <div class="item-details">
-                        <strong>Challenge #${p.puzzle_number}: ${p.boss_pun_title}</strong>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Original Location: ${p.boss_original_title}</div>
+                <div class="puzzle-card">
+                    <!-- Header with challenge info -->
+                    <div class="puzzle-card-header">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-secondary);">Challenge #</span>
+                                <input type="text" value="${p.puzzle_number || ''}" placeholder="e.g. 001" style="width: 60px; padding: 4px 8px; border: 2px solid #2D3436; border-radius: 4px; font-family: inherit; font-size: 0.85rem;" onchange="updatePuzzleField(${idx}, 'puzzle_number', this.value)">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-secondary);">Puzzle ID</span>
+                                <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puzzle_id" style="width: 140px; padding: 4px 8px; border: 2px solid #2D3436; border-radius: 4px; font-family: inherit; font-size: 0.85rem;" onchange="updatePuzzleField(${idx}, 'puzzle_id', this.value)">
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700;">Tier:</span>
+                                <input type="number" min="1" max="5" value="${p.difficulty_tier || 1}" style="width: 50px; padding: 4px 8px; border: 2px solid #2D3436; border-radius: 4px; font-family: inherit; font-size: 0.85rem;" onchange="updatePuzzleField(${idx}, 'difficulty_tier', parseInt(this.value) || 1)">
+                            </div>
+                            <span style="font-size: 0.8rem; padding: 4px 10px; border-radius: 12px; font-weight: 700; background: rgba(0, 245, 212, 0.15); color: #00b894; border: 2px solid #2D3436;">
+                                APPROVED
+                            </span>
+                        </div>
                     </div>
-                    <div class="item-actions">
-                        <button class="btn outline-btn" onclick="movePuzzle(${idx}, -1)">▲</button>
-                        <button class="btn outline-btn" onclick="movePuzzle(${idx}, 1)">▼</button>
-                        <button class="btn danger-btn" style="padding: 10px;" onclick="removePuzzle(${idx})">X</button>
+
+                    <!-- Main grid layout: Image on the left, editable details on the right -->
+                    <div class="puzzle-grid">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                            <img class="img-preview" src="${p.boss_poster_url}" style="width: 160px; height: 120px; object-fit: cover;" onclick="openPostcardModal('${p.boss_poster_url}')">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary); text-align: center;">Click to Preview</span>
+                        </div>
+                        <div class="puzzle-fields-grid">
+                            <div class="field-group">
+                                <label>Pun Name (Answer)</label>
+                                <input type="text" value="${p.boss_pun_title || ''}" onchange="updatePuzzleField(${idx}, 'boss_pun_title', this.value)">
+                            </div>
+                            <div class="field-group">
+                                <label>Original Landmark</label>
+                                <input type="text" value="${p.boss_original_title || ''}" onchange="updatePuzzleField(${idx}, 'boss_original_title', this.value)">
+                            </div>
+                            <div class="field-group">
+                                <label>Answer Pattern Blanks (Auto-Syncs)</label>
+                                <input type="text" value="${p.answer || ''}" onchange="updatePuzzleField(${idx}, 'answer', this.value)">
+                            </div>
+                            <div class="field-group">
+                                <label>First Letters Hint (Auto-Syncs)</label>
+                                <input type="text" value="${p.boss_hint2 || ''}" onchange="updatePuzzleField(${idx}, 'boss_hint2', this.value)">
+                            </div>
+                            <div class="field-group">
+                                <label>Reviewer Username</label>
+                                <input type="text" value="${p.reviewer_name || ''}" onchange="updatePuzzleField(${idx}, 'reviewer_name', this.value)">
+                            </div>
+                            <div class="field-group">
+                                <label>Review Title</label>
+                                <input type="text" value="${p.review_title || ''}" onchange="updatePuzzleField(${idx}, 'review_title', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clues and response text strings -->
+                    <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed #2D3436; padding-top: 12px;">
+                        <div class="field-group">
+                            <label>Clue 1 (Comical obscure review)</label>
+                            <input type="text" value="${p.clue1 || ''}" onchange="updatePuzzleField(${idx}, 'clue1', this.value)">
+                        </div>
+                        <div class="field-group">
+                            <label>Clue 2 (Comical landmark-related review)</label>
+                            <input type="text" value="${p.clue2 || ''}" onchange="updatePuzzleField(${idx}, 'clue2', this.value)">
+                        </div>
+                        <div class="field-group">
+                            <label>Clue 3 (Comical pun-revealing review)</label>
+                            <input type="text" value="${p.clue3 || ''}" onchange="updatePuzzleField(${idx}, 'clue3', this.value)">
+                        </div>
+                        <div class="field-group">
+                            <label>Owner Reply (Boss Pitch)</label>
+                            <textarea style="min-height: 60px; line-height: 1.4; padding: 8px 12px;" onchange="updatePuzzleField(${idx}, 'boss_pitch', this.value)">${p.boss_pitch || ''}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed #2D3436; padding-top: 10px; margin-top: 4px;">
+                        <button class="btn danger-btn" style="padding: 8px 16px; font-size: 0.9rem;" onclick="removePuzzle(${idx})">🗑️ Delete Challenge</button>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn outline-btn" style="padding: 8px 16px; font-size: 0.9rem;" onclick="movePuzzle(${idx}, -1)">▲ Move Up</button>
+                            <button class="btn outline-btn" style="padding: 8px 16px; font-size: 0.9rem;" onclick="movePuzzle(${idx}, 1)">▼ Move Down</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function updatePuzzleField(idx, key, val) {
+            if (puzzles[idx]) {
+                puzzles[idx][key] = val;
+                // If editing pun name, auto-sync answer and hint2 patterns for consistency
+                if (key === 'boss_pun_title') {
+                    puzzles[idx].answer = val.toUpperCase();
+                    puzzles[idx].boss_hint2 = val.split(' ').map(w => w[0] + w.slice(1).replace(/[a-zA-Z]/g, '_')).join(' ');
+                }
+                saveData('puzzles', puzzles);
+                // Do NOT call renderPuzzles() here to preserve input focus while typing!
+            }
         }
 
         function movePuzzle(idx, direction) {

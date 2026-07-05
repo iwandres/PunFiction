@@ -1,1 +1,137 @@
-[]
+[
+  {
+    "id": "pun_landmark_1_1783199003_0_1783199786",
+    "landmark_id": "landmark_1_1783199003",
+    "original_name": "Eiffel Tower",
+    "pun_name": "Waffle Tower",
+    "replaced_part": "Eiffel",
+    "rhyme_used": "Waffle",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_1_1783199003_1_1783199786",
+    "landmark_id": "landmark_1_1783199003",
+    "original_name": "Eiffel Tower",
+    "pun_name": "Eiffel Shower",
+    "replaced_part": "Tower",
+    "rhyme_used": "Shower",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_1_1783199003_2_1783199786",
+    "landmark_id": "landmark_1_1783199003",
+    "original_name": "Eiffel Tower",
+    "pun_name": "Eiffel Flower",
+    "replaced_part": "Tower",
+    "rhyme_used": "Flower",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_2_1783199003_1_1783199795",
+    "landmark_id": "landmark_2_1783199003",
+    "original_name": "Louvre Museum",
+    "pun_name": "Lover Museum",
+    "replaced_part": "Louvre",
+    "rhyme_used": "Lover",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_12_1783199003_0_1783199821",
+    "landmark_id": "landmark_12_1783199003",
+    "original_name": "St. Peter's Basilica",
+    "pun_name": "St. Peter's Bazooka",
+    "replaced_part": "Basilica",
+    "rhyme_used": "Bazooka",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_14_1783199003_0_1783199826",
+    "landmark_id": "landmark_14_1783199003",
+    "original_name": "Trevi Fountain",
+    "pun_name": "Trevi Mountain",
+    "replaced_part": "Fountain",
+    "rhyme_used": "Mountain",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_14_1783199003_1_1783199826",
+    "landmark_id": "landmark_14_1783199003",
+    "original_name": "Trevi Fountain",
+    "pun_name": "Heavy Fountain",
+    "replaced_part": "Trevi",
+    "rhyme_used": "Heavy",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_15_1783199003_1_1783199835",
+    "landmark_id": "landmark_15_1783199003",
+    "original_name": "Pantheon",
+    "pun_name": "The Can-theon",
+    "replaced_part": "Pan",
+    "rhyme_used": "Can",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_17_1783199003_0_1783199839",
+    "landmark_id": "landmark_17_1783199003",
+    "original_name": "Leaning Tower of Pisa",
+    "pun_name": "Leaning Tower of Pizza",
+    "replaced_part": "Pisa",
+    "rhyme_used": "Pizza",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_17_1783199003_1_1783199839",
+    "landmark_id": "landmark_17_1783199003",
+    "original_name": "Leaning Tower of Pisa",
+    "pun_name": "Leaning Shower of Pisa",
+    "replaced_part": "Tower",
+    "rhyme_used": "Shower",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_20_1783199003_1_1783199843",
+    "landmark_id": "landmark_20_1783199003",
+    "original_name": "Grand Canal",
+    "pun_name": "Brand Canal",
+    "replaced_part": "Grand",
+    "rhyme_used": "Brand",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_20_1783199003_2_1783199843",
+    "landmark_id": "landmark_20_1783199003",
+    "original_name": "Grand Canal",
+    "pun_name": "Sand Canal",
+    "replaced_part": "Grand",
+    "rhyme_used": "Sand",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_22_1783199003_0_1783199852",
+    "landmark_id": "landmark_22_1783199003",
+    "original_name": "Pompeii",
+    "pun_name": "Pomp-Play",
+    "replaced_part": "Pompeii",
+    "rhyme_used": "Play",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_23_1783199003_0_1783199856",
+    "landmark_id": "landmark_23_1783199003",
+    "original_name": "Spanish Steps",
+    "pun_name": "Spanish Crepes",
+    "replaced_part": "Steps",
+    "rhyme_used": "Crepes",
+    "status": "approved"
+  },
+  {
+    "id": "pun_landmark_23_1783199003_1_1783199856",
+    "landmark_id": "landmark_23_1783199003",
+    "original_name": "Spanish Steps",
+    "pun_name": "Famish Steps",
+    "replaced_part": "Spanish",
+    "rhyme_used": "Famish",
+    "status": "approved"
+  }
+]

@@ -157,7 +157,10 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
         # 3. Serve Client Files Directly (e.g. /touristtraps/index.html, /touristtraps/app.js)
         elif req_path.startswith('/touristtraps/') or req_path.startswith('/assets/'):
             clean_path = urllib.parse.unquote(req_path.strip('/'))
-            file_path = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
+            if req_path.startswith('/assets/'):
+                file_path = os.path.join(PROJECT_ROOT, 'touristtraps', *clean_path.split('/'))
+            else:
+                file_path = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
             if os.path.exists(file_path) and not os.path.isdir(file_path):
                 self.send_response(200)
                 if file_path.endswith('.html'):
@@ -287,9 +290,9 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
                 
             try:
-                import google.generativeai as genai
-                genai.configure(api_key=gemini_key)
-                model = genai.GenerativeModel('gemini-3.5-flash')
+                from google import genai
+                from google.genai import types
+                client = genai.Client(api_key=gemini_key)
                 
                 landmarks = load_json(LANDMARKS_FILE, [])
                 puns = load_json(PUNS_FILE, [])
@@ -298,7 +301,8 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 approved_landmarks = [l for l in landmarks if l.get('status') == 'approved' and l['id'] not in existing_landmarks_in_puns]
                 
                 new_puns_count = 0
-                for lm in approved_landmarks:
+                # Process in batches of 5 to avoid HTTP timeouts
+                for lm in approved_landmarks[:5]:
                     prompt = f"""
                     You are a comedy writer for a travel pun trivia game. 
                     Given the famous landmark "{lm['name']}" located in "{lm.get('location', 'Unknown')}", generate 3 funny location puns.
@@ -316,7 +320,13 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                       }}
                     ]
                     """
-                    response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json"
+                        )
+                    )
                     generated = json.loads(response.text)
                     
                     for idx, g in enumerate(generated):
@@ -351,9 +361,9 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
                 
             try:
-                import google.generativeai as genai
-                genai.configure(api_key=gemini_key)
-                model = genai.GenerativeModel('gemini-3.5-flash')
+                from google import genai
+                from google.genai import types
+                client = genai.Client(api_key=gemini_key)
                 
                 puns = load_json(PUNS_FILE, [])
                 clues = load_json(CLUES_FILE, [])
@@ -362,32 +372,50 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 approved_puns = [p for p in puns if p.get('status') == 'approved' and p['id'] not in existing_puns_in_clues]
                 
                 new_clues_count = 0
-                for p in approved_puns:
+                # Process in batches of 5 to avoid HTTP timeouts
+                for p in approved_puns[:5]:
                     prompt = f"""
                     You are a writer for a 1-star TripAdvisor review parody game.
                     Original Landmark: {p['original_name']}
                     Pun Name: {p['pun_name']}
                     
-                    Your job is to generate 4 progressive clues (reviews) complaining about this location in an unhinged, comedic way:
+                    Your job is to generate 3 progressive clues (reviews) complaining about this location in an unhinged, comedic way:
                     - Clue 1: The most obscure, absurd complaint about the location.
                     - Clue 2: A slightly more obvious complaint about the original landmark's actual features.
-                    - Clue 3: A complaint that starts hinting at the pun word's concept/literal meaning.
-                    - Clue 4: A very obvious riddle clue about the pun word itself.
-                    Also generate a passive-aggressive 'Response from the Owner' (flavor text reply from management).
-                    Also generate a funny Reviewer Name and a review title.
+                    - Clue 3: A complaint that makes it fairly obvious what the location pun is (without saying it).
+                    
+                    Also generate a funny review title.
+                    Also generate a funny Reviewer Username (reviewer_name) that is thematically related to the parodied location or the complaint (e.g., 'SyrupSlinger' for Waffle Tower, 'SoggySouffle' for Eiffel Shower, 'BitterSingle' for Lover Museum). Do not include the '@' symbol in the JSON value.
+                    
+                    Also generate a 'Response from the Owner' (flavor text reply from management).
+                    CRITICAL: The Owner's POV is the manager of the ACTUAL historical landmark (e.g. the Eiffel Tower, the Louvre Museum, etc.). You are responding to a ridiculous 1-star TripAdvisor review from a traveler who has confused your actual historical landmark with a silly, literal pun name (e.g., Eiffel Towel, Waffle Tower, Lover Museum).
+                    The response must be short (under 2 sentences), highly sarcastic, and punchy, correcting the reviewer's absurd confusion by pointing out the actual nature of your landmark (e.g. that it is a 300-meter iron monument, a fine art museum, etc.) and why their complaint makes no sense.
+                    To bolster the response and make it highly contextual, the owner can directly reference a specific notable complaint or mistake made by the reviewer in the clues (e.g., trying to dry off with wrought iron, complaining about square indentations or wanting maple syrup on the girders). Do NOT mention the original landmark name in the response itself.
+                    The owner should occasionally reference the reviewer's username (reviewer_name) directly in their reply prefixed with '@' (e.g. 'Listen here, @DampCroissant...', 'Dear @DampCroissant...'), but vary it sometimes with general greetings like 'Dear Traveler' or 'Dear Adventurer'.
+                    Example of the tone:
+                    Actual Landmark: Eiffel Tower
+                    Pun Name: Eiffel Towel
+                    Reviewer Username: DampCroissant
+                    Reviewer Complaint: "Tried to dry off after my shower with it, but it's made of wrought iron and completely non-absorbent."
+                    Response from the Owner: "Listen, @DampCroissant, if you are using 10,000 tons of 19th-century iron to dry your hair, you have significantly bigger problems than a slight draft."
                     
                     Return a JSON object matching exactly this schema:
-                    {{
-                      "reviewer_name": "Karen S.",
+                    {
+                      "reviewer_name": "Username",
                       "review_title": "Avoid at all costs!",
                       "clue1": "Clue 1 text",
                       "clue2": "Clue 2 text",
                       "clue3": "Clue 3 text",
-                      "clue4": "Clue 4 text",
-                      "owner_response": "Hi Karen, ..."
-                    }}
+                      "owner_response": "Owner response here"
+                    }
                     """
-                    response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json"
+                        )
+                    )
                     generated = json.loads(response.text)
                     
                     clues.append({
@@ -400,7 +428,6 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                         "clue1": generated['clue1'],
                         "clue2": generated['clue2'],
                         "clue3": generated['clue3'],
-                        "clue4": generated['clue4'],
                         "owner_response": generated['owner_response'],
                         "status": "pending"
                       })
@@ -431,25 +458,51 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 from google.genai import types
                 from PIL import Image
                 import io
+                import random
                 
                 client = genai.Client(api_key=gemini_key)
                 
+                # Parse payload for selected art style
+                payload = {}
+                try:
+                    payload = json.loads(post_data.decode('utf-8'))
+                except:
+                    pass
+                selected_style = payload.get('art_style', 'random')
+                
+                styles_dict = {
+                    "cartoon": "Comical cartoon illustration, bold lines, bright vibrant colors, humorous caricature, white postcard border.",
+                    "watercolor": "Whimsical watercolor and ink sketch, detailed storybook style, soft textures, pastel colors, artistically detailed.",
+                    "retro": "Vintage 1950s travel poster style, retro flat vector design, bold colors, screen-printed poster aesthetic.",
+                    "wpa": "Old school nature park illustration style, rooted in 1930s WPA-era silk-screened travel posters and 1960s lithographs, featuring bold shapes, muted nature-inspired color palettes, and hand-drawn typography.",
+                    "vintage": "Classic distressed linen texture vintage postcard style, hand-colored photo print aesthetic, 1930s travel style.",
+                    "pop-art": "Vibrant Pop Art style, bold outlines, screen print dot texture, retro comic book feel, high contrast colors."
+                }
+                
                 clues = load_json(CLUES_FILE, [])
                 postcards = load_json(POSTCARDS_FILE, [])
-                existing_clues_in_postcards = {p['clue_id'] for p in postcards}
+                target_clue_id = payload.get('clue_id')
                 
-                approved_clues = [c for c in clues if c.get('status') == 'approved' and c['id'] not in existing_clues_in_postcards]
+                if target_clue_id:
+                    # Regenerate mode: find the specific clue regardless of status
+                    approved_clues = [c for c in clues if c['id'] == target_clue_id]
+                else:
+                    existing_clues_in_postcards = {p['clue_id'] for p in postcards}
+                    approved_clues = [c for c in clues if c.get('status') == 'approved' and c['id'] not in existing_clues_in_postcards]
                 
                 new_postcards_count = 0
-                for c in approved_clues:
-                    # Let's generate a prompt first using standard Gemini
-                    import google.generativeai as legacy_genai
-                    legacy_genai.configure(api_key=gemini_key)
-                    legacy_model = legacy_genai.GenerativeModel('gemini-3.5-flash')
+                # Process in batches of 5 to avoid HTTP timeouts
+                for c in approved_clues[:5]:
+                    # Determine style description
+                    style_key = selected_style
+                    if style_key == 'random' or style_key not in styles_dict:
+                        style_key = random.choice(list(styles_dict.keys()))
+                    style_prompt = styles_dict[style_key]
                     
+                    # Let's generate a prompt first using standard Gemini
                     prompt_gen = f"""
-                    Create a single-sentence descriptive text-to-image prompt for a cartoon postcard based on the location pun "{c['pun_name']}" (derived from "{c['original_name']}").
-                    The prompt should describe a funny, comical, cartoon drawing.
+                    Create a single-sentence descriptive text-to-image prompt for a parodied travel postcard based on the location pun "{c['pun_name']}" (derived from "{c['original_name']}").
+                    The prompt should describe a funny, comical scene matching this art style: "{style_prompt}".
                     Example for "The Grand Crayon":
                     "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
                     
@@ -458,43 +511,59 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                       "image_prompt": "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
                     }}
                     """
-                    prompt_res = legacy_model.generate_content(prompt_gen, generation_config={"response_mime_type": "application/json"})
+                    prompt_res = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt_gen,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json"
+                        )
+                    )
                     prompt_data = json.loads(prompt_res.text)
                     image_prompt = prompt_data.get("image_prompt", f"A funny cartoon of {c['pun_name']}, comical illustration.")
                     
-                    # Run Imagen
+                    # Run Gemini 3 Pro Image generation
                     safe_filename = c['pun_name'].lower().replace(' ', '_').replace('-', '_').replace(':', '') + f"_{int(time.time())}.png"
                     image_path = f"/assets/cartoons/{safe_filename}"
                     local_image_path = os.path.join(CARTOONS_DIR, safe_filename)
                     
-                    print(f"Generating Imagen postcard for '{c['pun_name']}'...")
-                    response = client.models.generate_images(
-                        model='models/imagen-4.0-generate-001',
-                        prompt=f"Comical cartoon postcard drawing. {image_prompt}",
-                        config=types.GenerateImagesConfig(
-                            number_of_images=1,
-                            output_mime_type='image/png',
-                            aspect_ratio='4:3'
-                        )
+                    print(f"Generating postcard for '{c['pun_name']}' in style '{style_key}' using gemini-3-pro-image-preview...")
+                    response = client.models.generate_content(
+                        model='models/gemini-3-pro-image-preview',
+                        contents=[f"{style_prompt} {image_prompt}"]
                     )
                     
-                    # Save PIL Image
-                    for generated_image in response.generated_images:
-                        image_bytes = generated_image.image.image_bytes
-                        image = Image.open(io.BytesIO(image_bytes))
-                        image.save(local_image_path)
-                        print(f"Saved generated image: {local_image_path}")
+                    # Save image from inline data
+                    saved_image = False
+                    for part in response.parts:
+                        if part.inline_data:
+                            image_bytes = part.inline_data.data
+                            image = Image.open(io.BytesIO(image_bytes))
+                            image.save(local_image_path)
+                            print(f"Saved generated image: {local_image_path}")
+                            saved_image = True
+                            break
+                    if not saved_image:
+                        raise Exception("No image returned in response parts from gemini-3-pro-image-preview")
                         
-                    postcards.append({
-                        "id": f"postcard_{c['id']}_{int(time.time())}",
+                    # Check if postcard already exists to replace it (regenerate)
+                    existing_idx = next((i for i, p in enumerate(postcards) if p['clue_id'] == c['id']), None)
+                    
+                    postcard_entry = {
+                        "id": f"postcard_{c['id']}_{int(time.time())}" if existing_idx is None else postcards[existing_idx]["id"],
                         "clue_id": c['id'],
                         "pun_name": c['pun_name'],
                         "original_name": c['original_name'],
                         "image_prompt": image_prompt,
                         "image_path": image_path,
+                        "art_style": style_key,
                         "owner_response": c['owner_response'],
                         "status": "pending"
-                    })
+                    }
+                    
+                    if existing_idx is not None:
+                        postcards[existing_idx] = postcard_entry
+                    else:
+                        postcards.append(postcard_entry)
                     new_postcards_count += 1
                     
                 save_json(POSTCARDS_FILE, postcards)
@@ -508,11 +577,93 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+        elif req_path == '/api/regenerate_owner_reply':
+            if not gemini_available:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": "GEMINI_API_KEY env variable missing"}).encode('utf-8'))
+                return
+                
+            try:
+                from google import genai
+                from google.genai import types
+                
+                payload = {}
+                try:
+                    payload = json.loads(post_data.decode('utf-8'))
+                except:
+                    pass
+                clue_id = payload.get('clue_id')
+                if not clue_id:
+                    self.send_response(400)
+                    self.send_header('Content-type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"success": False, "error": "clue_id is required"}).encode('utf-8'))
+                    return
+                    
+                clues = load_json(CLUES_FILE, [])
+                postcards = load_json(POSTCARDS_FILE, [])
+                
+                c = next((cl for cl in clues if cl['id'] == clue_id), None)
+                if not c:
+                    self.send_response(404)
+                    self.send_header('Content-type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"success": False, "error": "Clue not found"}).encode('utf-8'))
+                    return
+                    
+                client = genai.Client(api_key=gemini_key)
+                prompt = f"""
+                You are the owner/manager of the ACTUAL historical landmark (the real place behind the pun "{c['pun_name']}", which has original landmark features of "{c['original_name']}").
+                Your POV is that of the real, actual landmark. You are responding to a ridiculous 1-star TripAdvisor review from a traveler named "{c['reviewer_name']}" who has confused your famous landmark with a silly, literal pun name (the "{c['pun_name']}").
+                Complaints:
+                - Clue 1: "{c['clue1']}"
+                - Clue 2: "{c['clue2']}"
+                - Clue 3: "{c['clue3']}"
+                
+                Write a short (under 2 sentences), highly sarcastic, and punchy owner response correcting the reviewer's absurd confusion by pointing out the actual nature of your landmark (e.g., that it is a giant iron structure, a historic fine art museum, etc.) and why their complaint makes no sense.
+                To bolster the response and make it highly contextual, the owner can directly reference a specific notable complaint or mistake made by the reviewer in the clues (e.g. drying hair on iron, eating waffles, complaining about public romance). Do NOT mention the original landmark name in the response itself.
+                Reference their username directly in the reply prefixed with '@' (e.g., 'Listen, @{c['reviewer_name']}...', 'Dear @{c['reviewer_name']}...'), or use general terms like 'Dear Adventurer' or 'Dear Traveler' for variation.
+                
+                Return a JSON object matching exactly this schema:
+                {{
+                  "owner_response": "Response text here"
+                }}
+                """
+                response = client.models.generate_content(
+                    model='gemini-2.5-flash',
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json"
+                    )
+                )
+                data = json.loads(response.text)
+                new_reply = data.get('owner_response', '')
+                
+                # Update files
+                c['owner_response'] = new_reply
+                save_json(CLUES_FILE, clues)
+                
+                for p in postcards:
+                    if p['clue_id'] == clue_id:
+                        p['owner_response'] = new_reply
+                save_json(POSTCARDS_FILE, postcards)
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "owner_response": new_reply}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
         else:
             self.send_error(404)
 
 if __name__ == '__main__':
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), TouristTrapsRequestHandler) as httpd:
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    with socketserver.ThreadingTCPServer(("", PORT), TouristTrapsRequestHandler) as httpd:
         print(f"Serving PunFiction: Tourist Traps Curation Server at http://localhost:{PORT}")
         httpd.serve_forever()

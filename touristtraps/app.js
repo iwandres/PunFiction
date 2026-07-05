@@ -1168,12 +1168,12 @@ function loadLevel() {
     ui.quoteDisplay.innerText = activeChallenge.clue1 ? `"${activeChallenge.clue1}"` : '"Review Text Missing"';
     
     // Hook up pitch Display to TripAdvisor Review Header info
-    const reviewerName = activeChallenge.reviewer_name || "DisappointedTraveler";
+    const reviewerName = activeChallenge.reviewer_name || "AnonymousTraveler";
     const reviewTitle = activeChallenge.review_title || "Avoid at all costs!";
     ui.pitchDisplay.innerHTML = `
         <span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">1-Star TripAdvisor Review</span>
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-family: var(--font-body);">
-            <span style="font-weight: 800; font-size: 0.9rem;">${reviewerName}</span>
+            <span style="font-weight: 800; font-size: 0.9rem; color: #555;">@${reviewerName}</span>
             <span style="color: #00aa6c; font-size: 1rem; letter-spacing: -2px; font-weight: bold;">🟢⚪⚪⚪⚪</span>
         </div>
         <div style="font-weight: 800; font-size: 1.1rem; color: var(--border-color); line-height: 1.2; font-family: var(--font-body);">${reviewTitle}</div>
@@ -1247,16 +1247,6 @@ function revealHint3() {
     
     if (ui.lettersHint) {
         ui.lettersHint.innerText = activeChallenge.boss_hint2 || generateFirstLetterBlanks(activeChallenge.boss_pun_title);
-    }
-
-    // Append Clue 4 (Final Warning Review) to additional reviews box
-    const box = document.getElementById('additional-reviews-box');
-    if (box) {
-        box.innerHTML += `
-            <div style="margin-top: 8px; border-top: 1px dashed #cbd5e1; padding-top: 6px; font-family: var(--font-body);">
-                <strong>Review 4 (Final Warning):</strong> "${activeChallenge.clue4 || 'Details missing.'}"
-            </div>
-        `;
     }
 
     hintsUsed = 3;
@@ -1754,7 +1744,6 @@ function triggerVictory() {
                     <li>"${activeChallenge.clue1}"</li>
                     <li>"${activeChallenge.clue2}"</li>
                     <li>"${activeChallenge.clue3}"</li>
-                    <li>"${activeChallenge.clue4}"</li>
                 </ul>
             </div>
         `;
