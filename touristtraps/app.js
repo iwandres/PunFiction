@@ -1060,12 +1060,17 @@ function startGame(challenge) {
 
 function getCorrectPosterUrl(urlPath) {
     if (!urlPath) return "https://placehold.co/140x210/111625/f8fafc?text=No+Poster";
+    
+    // Normalize urlPath to remove leading slash for subfolder-relative resolves
+    const cleanPath = urlPath.startsWith('/') ? urlPath.substring(1) : urlPath;
+    
     if (activeFetchedFromCDN) {
-        // Load poster illustration from raw public GitHub CDN
-        return `${GITHUB_REPO_URL}${urlPath}`;
+        // Load poster illustration from raw public GitHub CDN under the touristtraps subfolder
+        const rawRepoUrl = "https://raw.githubusercontent.com/iwandres/PunFiction/main/touristtraps";
+        return `${rawRepoUrl}/${cleanPath}`;
     }
     // Sandbox local wrapper load
-    return urlPath;
+    return cleanPath;
 }
 
 function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
