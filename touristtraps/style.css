@@ -617,8 +617,10 @@ body {
 
 /* ================= MOVIE POSTER STYLING ================= */
 .boss-poster-frame {
-    width: 270px;
-    height: 180px;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 3 / 2;
+    height: auto;
     background: #090c15;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -809,8 +811,10 @@ input:focus {
 }
 
 .victory-poster-wrapper {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 3 / 2;
+    height: auto;
     background: #090c15;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: none; /* completely flat! */
