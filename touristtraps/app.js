@@ -133,6 +133,7 @@ const ui = {
     btnShowHint4: document.getElementById('btn-show-hint4'),
     hintDisplayBox: document.getElementById('hint-display-box'),
     movieHint: document.getElementById('movie-hint'),
+    hintMovieSection: document.getElementById('section-hint-movie'),
     hintRhymeSection: document.getElementById('section-hint-rhyme'),
     hintLettersSection: document.getElementById('section-hint-letters'),
     hintVowelsSection: document.getElementById('section-hint-vowels'),
@@ -1142,6 +1143,7 @@ function loadLevel() {
     ui.btnShowHint4.classList.add('hidden');
 
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.add('hidden');
+    if (ui.hintMovieSection) ui.hintMovieSection.classList.add('hidden');
     if (ui.hintRhymeSection) ui.hintRhymeSection.classList.add('hidden');
     if (ui.hintLettersSection) ui.hintLettersSection.classList.add('hidden');
     if (ui.hintVowelsSection) ui.hintVowelsSection.classList.add('hidden');
@@ -1175,6 +1177,7 @@ function loadLevel() {
         </div>
         <div style="font-weight: 800; font-size: 1.1rem; color: var(--border-color); line-height: 1.25; font-family: var(--font-body); margin-bottom: 10px;">${reviewTitle}</div>
         <div style="font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: #444; line-height: 1.5; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 10px;">"${clue1Text}"</div>
+        <div id="additional-reviews-box" class="hidden"></div>
     `;
 
     // Setup input maxLength based on letters count in answer
@@ -1202,35 +1205,34 @@ function loadLevel() {
 function revealHint1() {
     triggerStartTelemetry();
     ui.btnShowHint1.classList.add('hidden');
-    if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden'); // Reveal unified Hint Box
+    
+    // Populate and show additional reviews inside the 1-Star Review box
+    const box = document.getElementById('additional-reviews-box');
+    if (box) {
+        box.classList.remove('hidden');
+        box.innerHTML = `
+            <div style="font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: #444; line-height: 1.5; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 10px; margin-top: 10px;">
+                <strong>Review 2:</strong> "${activeChallenge.clue2 || 'Details missing.'}"
+            </div>
+            <div style="font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: #444; line-height: 1.5; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 10px; margin-top: 10px;">
+                <strong>Review 3:</strong> "${activeChallenge.clue3 || 'Details missing.'}"
+            </div>
+        `;
+    }
+    
     ui.btnShowHint2.classList.remove('hidden'); // Unlock Hint 2 button
     hintsUsed = 1;
 }
 
 function revealHint2() {
     triggerStartTelemetry();
-    const btn = ui.btnShowHint2;
-    btn.classList.add('hidden');
+    ui.btnShowHint2.classList.add('hidden');
     
-    // Reveal Hint 2 section in consolidated Hint Box below Original Movie
+    // Reveal Hint 2 section (Original Location) inside the consolidated Hint Box
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
-    if (ui.hintRhymeSection) ui.hintRhymeSection.classList.remove('hidden');
+    if (ui.hintMovieSection) ui.hintMovieSection.classList.remove('hidden');
     
-    // Populate additional reviews
-    const box = document.getElementById('additional-reviews-box');
-    if (box) {
-        box.innerHTML = `
-            <div style="margin-bottom: 8px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 6px; font-family: var(--font-body);">
-                <strong>Review 2:</strong> "${activeChallenge.clue2 || 'Details missing.'}"
-            </div>
-            <div style="font-family: var(--font-body);">
-                <strong>Review 3:</strong> "${activeChallenge.clue3 || 'Details missing.'}"
-            </div>
-        `;
-    }
-    
-    // Unlock Hint 3 button
-    ui.btnShowHint3.classList.remove('hidden');
+    ui.btnShowHint3.classList.remove('hidden'); // Unlock Hint 3 button
     hintsUsed = 2;
 }
 
