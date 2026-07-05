@@ -1770,10 +1770,12 @@ function triggerVictory() {
     
     // Response from the Owner
     ui.finalBossPitch.innerHTML = `
-        <strong>Response from the Owner:</strong>
-        <em style="color: #4a5568; display: block; padding-left: 12px; border-left: 3px solid #00aa6c; margin-top: 5px; font-style: italic; font-family: var(--font-body); line-height: 1.4;">
-            "${activeChallenge.boss_pitch || 'No response.'}"
-        </em>
+        <div style="text-align: left; width: 100%;">
+            <strong style="color: var(--accent-main); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Response from the Owner:</strong>
+            <em style="color: #4a5568; display: block; font-style: italic; font-family: var(--font-body); line-height: 1.45; font-size: 0.9rem; font-weight: 600;">
+                "${activeChallenge.boss_pitch || 'No response.'}"
+            </em>
+        </div>
     `;
 
     const quoteEl = document.getElementById('final-boss-quote');
