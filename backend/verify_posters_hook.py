@@ -18,6 +18,18 @@ def main():
     # Standardize paths to use forward slashes
     staged_files = [f.replace('\\', '/') for f in staged_files]
     
+    # Configure console streams to use UTF-8 to prevent encoding crashes on Windows cmd/powershell
+    if hasattr(sys.stdout, 'reconfigure'):
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
+    if hasattr(sys.stderr, 'reconfigure'):
+        try:
+            sys.stderr.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
+            
     db_path = "backend/production_daily_games.json"
     
     # 2. If the database file is not staged, we don't need to check anything
