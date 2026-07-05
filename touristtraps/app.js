@@ -1782,7 +1782,7 @@ function triggerVictory() {
     if (quoteEl) {
         quoteEl.innerHTML = `
             <div style="font-family: var(--font-body); font-size: 0.9rem; line-height: 1.4; color: #4a5568; text-align: left;">
-                <strong>Combined Reviews:</strong>
+                <strong>1-Star Reviews:</strong>
                 <ul style="margin: 5px 0 0 15px; padding: 0;">
                     <li>"${activeChallenge.clue1}"</li>
                     <li>"${activeChallenge.clue2}"</li>
