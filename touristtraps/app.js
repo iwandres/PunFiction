@@ -1089,28 +1089,22 @@ function getHighlightedPunnedQuote(punnedQuote, originalQuote) {
 
 function updateBackgroundGradient(puzzleNum) {
     const num = parseInt(puzzleNum) || 1;
-    // Each challenge shifts the hue by 8 degrees for a smooth, progressive transition
-    const hueShift = (num * 8) % 360;
     
-    const startHue = (50 + hueShift) % 360;
-    const endHue = (23 + hueShift) % 360;
+    // Premium, ultra-soft travel pastel gradients (lightness ~96-98%)
+    // reflecting different vacation resort aesthetics (alpine, coastal, desert, etc.)
+    const themes = [
+        { bg: '#FAF8F5', end: '#E6F4EA', accent: '#00AA6C' }, // Alpine Forest / TripAdvisor Green
+        { bg: '#FAF8F5', end: '#E8F0FE', accent: '#1A73E8' }, // Coastal Resort / Google Blue
+        { bg: '#FAF8F5', end: '#FDF2E9', accent: '#E67E22' }, // Desert Oasis / Terracotta
+        { bg: '#FAF8F5', end: '#F3E5F5', accent: '#9B59B6' }, // Lavender Field / Violet
+        { bg: '#FAF8F5', end: '#FEF9E7', accent: '#F1C40F' }  // Sunny Beach / Golden Amber
+    ];
     
-    const startColor = `hsl(${startHue}, 100%, 67%)`;
-    const endColor = `hsl(${endHue}, 100%, 65%)`;
+    const theme = themes[(num - 1) % themes.length];
     
-    // Cinema Gold & Indigo rule:
-    // If background startHue is in the yellow/orange range (25 to 95), use deep indigo.
-    // Otherwise, use a bright, warm cinema gold/yellow.
-    let accentColor;
-    if (startHue >= 25 && startHue <= 95) {
-        accentColor = 'hsl(270, 95%, 45%)'; // Deep indigo/purple
-    } else {
-        accentColor = 'hsl(48, 100%, 50%)'; // Cinema gold/yellow
-    }
-    
-    document.documentElement.style.setProperty('--bg-color', startColor);
-    document.documentElement.style.setProperty('--bg-gradient-end', endColor);
-    document.documentElement.style.setProperty('--accent-main', accentColor);
+    document.documentElement.style.setProperty('--bg-color', theme.bg);
+    document.documentElement.style.setProperty('--bg-gradient-end', theme.end);
+    document.documentElement.style.setProperty('--accent-main', theme.accent);
 }
 
 function loadLevel() {
