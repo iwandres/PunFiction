@@ -584,7 +584,7 @@
 
         function renderLandmarks() {
             let el = document.getElementById('landmarks-list');
-            el.innerHTML = landmarks.map(lm => `
+            el.innerHTML = landmarks.map((lm, idx) => `
                 <div class="list-item">
                     <div class="item-details">
                         <strong>${lm.name}</strong> (${lm.location})
@@ -592,10 +592,18 @@
                     <div class="item-actions">
                         <span class="status-badge status-${lm.status}">${lm.status}</span>
                         <button class="btn outline-btn" onclick="setStatus(landmarks, '${lm.id}', 'approved', 'landmarks')">Approve</button>
-                        <button class="btn danger-btn" style="padding: 10px;" onclick="setStatus(landmarks, '${lm.id}', 'rejected', 'landmarks')">X</button>
+                        <button class="btn danger-btn" style="padding: 10px;" onclick="deleteLandmark(${idx})">X</button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function deleteLandmark(idx) {
+            if (confirm("Are you sure you want to permanently delete this landmark?")) {
+                landmarks.splice(idx, 1);
+                saveData('landmarks', landmarks);
+                renderAll();
+            }
         }
 
         function renderPuns() {
