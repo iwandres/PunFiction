@@ -20,7 +20,7 @@
     --border-color: #2D3436;
     --error: #ff4757;
     --success: #00AA6C;
-    --font-heading: 'Bangers', cursive;
+    --font-heading: 'Nunito', sans-serif;
     --font-body: 'Nunito', sans-serif;
 }
 
@@ -28,6 +28,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+.title, h1.brand, .brand, .brand span.accent {
+    font-family: 'Bangers', cursive !important;
 }
 
 body {
@@ -122,9 +125,9 @@ body {
 
 .comic-card {
     background: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 6px 6px 0px var(--border-color);
-    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
     padding: 20px;
     width: 100%;
     display: flex;
@@ -150,12 +153,16 @@ body {
     left: 20px;
     background: #ff4757;
     color: #ffffff;
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    padding: 2px 12px;
-    border: 2px solid var(--border-color);
-    transform: rotate(-2deg);
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 14px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(255, 71, 87, 0.2);
+    transform: none;
 }
 
 .comic-card.yesterday .challenge-tag {
@@ -166,15 +173,16 @@ body {
     position: absolute;
     top: -12px;
     right: 20px;
-    background: #ffde59;
-    color: #2d3436;
-    font-size: 12px;
-    font-weight: 900;
-    padding: 2px 8px;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    box-shadow: 2px 2px 0px var(--border-color);
-    transform: rotate(3deg);
+    background: #00AA6C;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 170, 108, 0.2);
+    transform: none;
 }
 
 .challenge-title {
@@ -195,11 +203,12 @@ body {
 }
 
 /* ================= NEOBRUTALIST BUTTONS ================= */
+/* ================= PREMIUM MODERN BUTTONS ================= */
 .btn {
     padding: 12px 25px;
-    font-size: 1.1rem;
-    font-weight: 900;
-    border: 3px solid var(--border-color);
+    font-size: 1.05rem;
+    font-weight: 800;
+    border: none;
     border-radius: 50px;
     cursor: pointer;
     font-family: var(--font-body);
@@ -208,56 +217,57 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: transform 0.1s, box-shadow 0.1s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     outline: none;
 }
 
 .primary-btn {
-    background: #ff4757;
+    background: var(--accent-main);
     color: #ffffff;
-    box-shadow: 4px 4px 0px var(--border-color);
+    box-shadow: 0 4px 14px rgba(0, 170, 108, 0.3);
 }
 
 .primary-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 170, 108, 0.4);
+    background: var(--accent-dark);
 }
 
 .primary-btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px var(--border-color);
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 170, 108, 0.3);
 }
 
 .secondary-btn {
     background: #5f27cd;
     color: #ffffff;
-    box-shadow: 4px 4px 0px var(--border-color);
+    box-shadow: 0 4px 14px rgba(95, 39, 205, 0.25);
 }
 
 .secondary-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(95, 39, 205, 0.35);
 }
 
 .secondary-btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px var(--border-color);
+    transform: translateY(0);
 }
 
 .outline-btn {
     background: #ffffff;
-    color: #2d3436;
-    box-shadow: 3px 3px 0px var(--border-color);
+    color: var(--text-primary);
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .outline-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px var(--border-color);
+    background: #f5f5f5;
+    border-color: #c0c0c0;
+    transform: translateY(-1px);
 }
 
 .outline-btn:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px var(--border-color);
+    transform: translateY(0);
 }
 
 /* ================= GAME SCREEN LAYOUT ================= */
@@ -302,13 +312,13 @@ body {
     font-family: var(--font-heading);
     font-size: 1.05rem;
     color: #ffffff;
-    background: #06D6A0; /* brand emerald green */
-    border: 3px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
-    border-radius: 6px;
-    padding: 5px 12px;
+    background: var(--accent-main);
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 170, 108, 0.25);
+    border-radius: 20px;
+    padding: 6px 14px;
     cursor: pointer;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -317,14 +327,14 @@ body {
 }
 
 .challenge-nav-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px var(--border-color);
-    background: #05b88a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 170, 108, 0.35);
+    background: var(--accent-dark);
 }
 
 .challenge-nav-btn:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .challenge-nav-btn:disabled {
@@ -340,8 +350,8 @@ body {
     font-size: 1.1rem;
     color: #ffffff;
     background: #5f27cd;
-    border: 3px solid var(--border-color);
-    box-shadow: 3px 3px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 6px;
     padding: 5px 12px;
     letter-spacing: 0.5px;
@@ -376,10 +386,10 @@ body {
 }
 
 .inventory-slot.filled {
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: #ffde59;
     color: #2d3436;
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
@@ -393,9 +403,9 @@ body {
 .puzzle-card {
     width: 100%;
     background: var(--card-bg);
-    border: 3px solid var(--border-color);
-    box-shadow: 6px 6px 0px var(--border-color);
-    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border-radius: 20px;
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
@@ -405,15 +415,12 @@ body {
 }
 
 .question-text {
-    font-family: var(--font-heading);
-    font-size: 2.2rem;
-    line-height: 1.1;
+    font-family: var(--font-body);
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.2;
     color: var(--text-primary);
-    text-shadow: 2px 2px 0px #ffffff;
-    letter-spacing: 1px;
     margin-bottom: 20px;
-    text-transform: uppercase;
-    transform: rotate(-1.5deg);
     display: inline-block;
 }
 
@@ -426,27 +433,29 @@ body {
 }
 
 .small-btn {
-    padding: 4px 12px;
-    font-size: 0.8rem;
+    padding: 6px 16px;
+    font-size: 0.82rem;
     font-weight: 800;
-    background: #f1f2f6;
-    color: #2d3436;
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    background: #ffffff;
+    color: var(--text-primary);
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     border-radius: 20px;
     cursor: pointer;
     text-transform: none;
-    transition: all 0.1s;
+    transition: all 0.15s ease;
 }
 
 .small-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    background: #f5f5f5;
+    border-color: #c0c0c0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .small-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px var(--border-color);
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .hidden {
@@ -457,7 +466,7 @@ body {
     background: #f8f6ff;
     border: 2px solid var(--text-secondary);
     border-left: 6px solid var(--text-secondary);
-    box-shadow: 3px 3px 0px rgba(95, 39, 205, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     padding: 10px 15px;
     width: 100%;
@@ -492,15 +501,15 @@ body {
 }
 
 .pitch {
-    background: #f8f6ff;
-    border: 2px solid var(--text-secondary);
-    border-left: 6px solid var(--text-secondary);
-    box-shadow: 3px 3px 0px rgba(95, 39, 205, 0.15);
-    border-radius: 8px;
-    padding: 12px 18px;
-    font-size: 0.92rem;
+    background: #FAF8F5;
+    border: 1px solid #e0e0e0;
+    border-left: 5px solid #ff4757;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.95rem;
     color: var(--text-primary);
-    margin: 0 auto 15px auto;
+    margin: 0 auto 20px auto;
     line-height: 1.5;
     font-weight: 700;
     width: 100%;
@@ -544,8 +553,8 @@ body {
     font-size: var(--slot-font-size, 1.6rem);
     width: var(--slot-width, 32px);
     height: var(--slot-height, 42px);
-    border: var(--slot-border, 3px) solid var(--border-color);
-    box-shadow: var(--slot-shadow, 2px) var(--slot-shadow, 2px) 0px var(--border-color);
+    border: 1.5px solid #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     border-radius: 6px;
     background: #ffffff;
     color: var(--text-primary);
@@ -553,15 +562,15 @@ body {
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
-    transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.15s ease;
     user-select: none;
 }
 
 .guess-letter-slot.filled {
-    background: #fff9db;
-    border-color: var(--border-color);
-    transform: translateY(-2px);
-    box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px var(--border-color);
+    background: #FAF8F5;
+    border-color: var(--accent-main);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 170, 108, 0.15);
     color: var(--accent-main);
 }
 
@@ -573,16 +582,16 @@ body {
 }
 
 .guess-letter-slot.locked-in {
-    background: #e6fcf5 !important;
+    background: rgba(12, 166, 120, 0.08) !important;
     color: #0ca678 !important;
     border-color: #0ca678 !important;
-    transform: translateY(-2px);
-    box-shadow: calc(var(--slot-shadow, 2px) + 1px) calc(var(--slot-shadow, 2px) + 1px) 0px #0ca678;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(12, 166, 120, 0.15);
 }
 
 .guess-letter-slot.active {
     border-color: var(--accent-main);
-    box-shadow: var(--slot-shadow, 2px) var(--slot-shadow, 2px) 0px var(--accent-main);
+    box-shadow: 0 0 0 3px rgba(0, 170, 108, 0.15);
     animation: pulseActive 0.8s infinite alternate;
 }
 
@@ -611,8 +620,8 @@ body {
     width: 140px;
     height: 210px;
     background: #090c15;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
@@ -649,9 +658,9 @@ body {
     font-family: var(--font-heading);
     font-size: 1rem;
     padding: 2px 10px;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     transform: rotate(-5deg);
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     letter-spacing: 0.5px;
     z-index: 2;
 }
@@ -667,13 +676,13 @@ input {
     flex: 1;
     padding: 10px 15px;
     border-radius: 25px;
-    border: 3px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: #ffffff;
     color: var(--text-primary);
     font-size: 0.95rem;
     font-weight: 800;
     font-family: var(--font-body);
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 input:focus {
@@ -744,19 +753,19 @@ input:focus {
 .feedback.error {
     color: #ffffff;
     background: var(--error);
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 4px 10px;
     border-radius: 5px;
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .feedback.success {
     color: #ffffff;
     background: var(--success);
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 4px 10px;
     border-radius: 5px;
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -770,8 +779,8 @@ input:focus {
 
 .theatrical-frame {
     background: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 6px 6px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 16px;
     padding: 25px 20px;
     width: 100%;
@@ -785,8 +794,8 @@ input:focus {
 .victory-solved-status {
     background: #06D6A0; /* emerald green */
     color: #000000;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     padding: 8px 20px;
     border-radius: 12px;
     font-weight: 900;
@@ -803,7 +812,7 @@ input:focus {
     width: 240px;
     height: 360px;
     background: #090c15;
-    border: 3px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: none; /* completely flat! */
     border-radius: 8px;
     overflow: hidden;
@@ -854,8 +863,8 @@ input:focus {
     max-width: 90vw;
     max-height: 85vh;
     object-fit: contain;
-    border: 4px solid var(--border-color);
-    box-shadow: 10px 10px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     background: #090c15;
     transform: scale(0.9);
@@ -874,8 +883,8 @@ input:focus {
     height: 46px;
     background: #ff4757;
     color: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 50%;
     font-size: 1.8rem;
     font-family: var(--font-heading);
@@ -894,8 +903,7 @@ input:focus {
 }
 
 .modal-close-btn:active {
-    transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    transform: translateY(0);
 }
 
 /* ================= HOW TO PLAY OVERLAY STYLING ================= */
@@ -904,13 +912,13 @@ input:focus {
     position: absolute;
     top: -16px;
     right: 20px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: #06D6A0;
-    color: #2d3436;
-    border: 3px solid #5f27cd;
-    box-shadow: 3px 3px 0px #5f27cd;
+    background: #ffffff;
+    color: var(--accent-main);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 20px;
@@ -919,18 +927,26 @@ input:focus {
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
     padding: 0;
+}
+.how-to-play-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    background: #f8fafc;
+}
+.how-to-play-btn:active {
+    transform: translateY(0);
 }
 
 .how-to-play-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 .how-to-play-btn:active {
     transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 /* Modal wrapper to allow close button to extend beyond the card boundary without overflow clipping */
@@ -947,19 +963,19 @@ input:focus {
     width: 36px;
     height: 36px;
     font-size: 1.4rem;
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     z-index: 10010;
 }
 
 .modal-wrapper .modal-close-btn:active {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .how-to-play-card {
     background: #ffffff;
-    border: 4px solid var(--border-color);
-    box-shadow: 8px 8px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 16px;
     padding: 30px 25px;
     width: 100%;
@@ -987,8 +1003,8 @@ input:focus {
 
 .example-box {
     background: #f8f6ff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px rgba(95, 39, 205, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     padding: 16px 20px;
     margin: 20px 0;
@@ -1018,11 +1034,11 @@ input:focus {
 .final-answer-line span {
     color: #ff4757;
     background: #fff9db;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 2px 10px;
     border-radius: 6px;
     display: inline-block;
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     font-family: var(--font-heading);
     font-size: 1.2rem;
     letter-spacing: 0.5px;
@@ -1035,7 +1051,7 @@ input:focus {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background: #eae3f7;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 4px;
     padding: 1px 6px;
     margin-left: 4px;
@@ -1044,7 +1060,7 @@ input:focus {
 
 .how-to-play-tip {
     background: #fffde5;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 12px 15px;
     border-radius: 10px;
     font-size: 0.88rem;
@@ -1117,8 +1133,8 @@ input:focus {
 /* ================= TELEMETRY METRICS PANEL ================= */
 .metrics-panel {
     background: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     padding: 18px 15px;
     width: 100%;
@@ -1141,8 +1157,8 @@ input:focus {
 .solve-rate-badge {
     background: #fff9db;
     color: var(--text-primary);
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     padding: 4px 12px;
     font-weight: 900;
     font-size: 0.85rem;
@@ -1179,7 +1195,7 @@ input:focus {
     flex: 1;
     height: 16px;
     background: #f1f2f6;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -1254,17 +1270,17 @@ input:focus {
     0% {
         transform: scale(0.5) rotate(-5deg);
         background-color: #ffde59;
-        box-shadow: 0px 0px 0px var(--border-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     50% {
         transform: scale(1.25) rotate(5deg);
         background-color: #ffde59;
-        box-shadow: 4px 4px 0px var(--border-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     100% {
         transform: scale(1) rotate(0deg);
         background-color: #fff9db;
-        box-shadow: 3px 3px 0px var(--border-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -1283,12 +1299,12 @@ input:focus {
 
 #btn-show-hint4:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 #btn-show-hint4:active {
     transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* ================= STATS & LEVEL SELECT OVERLAY STYLING ================= */
@@ -1296,15 +1312,15 @@ input:focus {
 .stats-select-btn {
     position: absolute;
     top: -16px;
-    right: 60px;
+    right: 64px;
     left: auto;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: #06D6A0;
-    color: #2d3436;
-    border: 3px solid #5f27cd;
-    box-shadow: 3px 3px 0px #5f27cd;
+    background: #ffffff;
+    color: var(--accent-main);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 19px;
@@ -1313,25 +1329,33 @@ input:focus {
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
     padding: 0;
+}
+.stats-select-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    background: #f8fafc;
+}
+.stats-select-btn:active {
+    transform: translateY(0);
 }
 
 .stats-select-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 .stats-select-btn:active {
     transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 .stats-select-card {
     background: #ffffff;
-    border: 4px solid var(--border-color);
-    box-shadow: 8px 8px 0px var(--border-color);
-    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
     padding: 25px 20px;
     width: 100%;
     max-width: 100%;
@@ -1356,8 +1380,8 @@ input:focus {
 
 .aggregate-stats-container {
     background: #f8f6ff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px rgba(95, 39, 205, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 15px;
@@ -1372,11 +1396,11 @@ input:focus {
 
 .stat-box {
     background: #ffffff;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
     padding: 8px 4px;
     text-align: center;
-    box-shadow: 2px 2px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .stat-value {
@@ -1449,7 +1473,7 @@ input:focus {
 .challenges-list-container::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 4px;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .challenge-select-row {
@@ -1457,11 +1481,11 @@ input:focus {
     align-items: center;
     justify-content: space-between;
     background: #ffffff;
-    border: 3px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     padding: 10px 15px;
     cursor: pointer;
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: all 0.1s ease;
     text-decoration: none;
     color: inherit;
@@ -1469,13 +1493,13 @@ input:focus {
 
 .challenge-select-row:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     background: #fafafa;
 }
 
 .challenge-select-row:active {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .challenge-select-info {
@@ -1507,7 +1531,7 @@ input:focus {
     font-family: var(--font-heading);
     font-size: 0.8rem;
     padding: 4px 8px;
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 6px;
     box-shadow: 1.5px 1.5px 0px var(--border-color);
     text-transform: uppercase;
@@ -1534,13 +1558,13 @@ input:focus {
     top: -16px;
     left: 20px;
     right: auto;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: #06D6A0;
-    color: #2d3436;
-    border: 3px solid #5f27cd;
-    box-shadow: 3px 3px 0px #5f27cd;
+    background: #ffffff;
+    color: var(--accent-main);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 16px;
@@ -1549,18 +1573,26 @@ input:focus {
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
     padding: 0;
+}
+.settings-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    background: #f8fafc;
+}
+.settings-btn:active {
+    transform: translateY(0);
 }
 
 .settings-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 .settings-btn:active {
     transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #5f27cd;
+    box-shadow: 0 4px 12px rgba(95, 39, 205, 0.15);
 }
 
 .completion-badge {
@@ -1569,8 +1601,8 @@ input:focus {
     font-weight: 900;
     padding: 4px 8px;
     border-radius: 6px;
-    border: 2px solid var(--border-color);
-    box-shadow: 1px 1px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-transform: uppercase;
     margin-left: 8px;
     white-space: nowrap;
@@ -1624,8 +1656,8 @@ input:focus {
     width: 32px;
     height: 32px;
     border-radius: 6px;
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 900;
@@ -1637,12 +1669,12 @@ input:focus {
 
 .profile-puzzle-link:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .profile-puzzle-link:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .profile-puzzle-link.solved {
@@ -1825,8 +1857,8 @@ input:focus {
     text-decoration: none;
     color: var(--text-primary);
     background: #ffffff;
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.1s;
@@ -1834,12 +1866,12 @@ input:focus {
 
 .footer-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .footer-btn:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* ================= ENVIRONMENT-SPECIFIC OVERRIDES =================
@@ -1872,8 +1904,8 @@ body.crazygames-env .settings-footer-tos {
 .share-score-btn {
     background-color: #5f27cd;
     color: #ffffff;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     font-weight: 900;
     text-transform: uppercase;
@@ -1891,12 +1923,12 @@ body.crazygames-env .settings-footer-tos {
 
 .share-score-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 5px 5px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .share-score-btn:active {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .share-nudge-text {
@@ -1925,7 +1957,7 @@ body.crazygames-env .settings-footer-tos {
 .streak-day-box {
     width: 32px;
     height: 32px;
-    border: 2px solid var(--border-color);
+    border: 1.5px solid #cbd5e1;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -1937,15 +1969,15 @@ body.crazygames-env .settings-footer-tos {
     position: relative;
     background-color: var(--card-bg);
     color: var(--text-color);
-    transition: transform 0.05s ease, box-shadow 0.05s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 /* Solved State */
 .streak-day-box.solved {
-    background-color: #06D6A0;
+    background-color: var(--accent-main);
     color: #ffffff;
-    border-color: var(--border-color);
-    box-shadow: 2px 2px 0px var(--border-color);
+    border-color: var(--accent-main);
+    box-shadow: 0 2px 6px rgba(0, 170, 108, 0.2);
 }
 
 /* Missed State */
@@ -1974,8 +2006,8 @@ body.crazygames-env .settings-footer-tos {
     position: absolute;
     z-index: 10000;
     background-color: var(--card-bg);
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0px var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     padding: 10px 12px;
     display: flex;
