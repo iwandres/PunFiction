@@ -1167,11 +1167,11 @@ function loadLevel() {
     // Hook up quote Display to first 1-star review text (clue1)
     ui.quoteDisplay.innerText = activeChallenge.clue1 ? `"${activeChallenge.clue1}"` : '"Review Text Missing"';
     
-    // Hook up pitch Display to TripAdvisor Review Header info
+    // Hook up pitch Display to Review Header info
     const reviewerName = activeChallenge.reviewer_name || "AnonymousTraveler";
     const reviewTitle = activeChallenge.review_title || "Avoid at all costs!";
     ui.pitchDisplay.innerHTML = `
-        <span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">1-Star TripAdvisor Review</span>
+        <span style="color: var(--text-secondary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">1-Star Review</span>
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-family: var(--font-body);">
             <span style="font-weight: 800; font-size: 0.9rem; color: #555;">@${reviewerName}</span>
             <span style="color: #00aa6c; font-size: 1rem; letter-spacing: -2px; font-weight: bold;">🟢⚪⚪⚪⚪</span>
