@@ -1,5 +1,5 @@
 /**
- * PunFiction: Box Office Blunders - Core Gameplay Application
+ * PunFiction: Tourist Traps - Core Gameplay Application
  * 
  * DESIGN & DEPLOYMENT ARCHITECTURE:
  * 
@@ -606,11 +606,11 @@ window.onload = async () => {
             const confirmReset = confirm("⚠️ Are you sure you want to reset all your progress? This will delete all your local solving statistics and cannot be undone.");
             if (confirmReset) {
                 try {
-                    localStorage.removeItem('pun_fiction_solved_puzzles');
-                    localStorage.removeItem('pun_fiction_solved_hints');
-                    localStorage.removeItem('pun_fiction_attempted_puzzles');
-                    localStorage.removeItem('pun_fiction_puzzle_attempts');
-                    localStorage.removeItem('pun_fiction_max_streak');
+                    localStorage.removeItem('tourist_traps_solved_puzzles');
+                    localStorage.removeItem('tourist_traps_solved_hints');
+                    localStorage.removeItem('tourist_traps_attempted_puzzles');
+                    localStorage.removeItem('tourist_traps_puzzle_attempts');
+                    localStorage.removeItem('tourist_traps_max_streak');
                     showToast("🗑️ All progress has been reset.");
                     setTimeout(() => {
                         window.location.reload();
@@ -748,7 +748,7 @@ async function loadPuzzleDatabase() {
 
 function getSolvedPuzzlesList() {
     try {
-        const data = localStorage.getItem('pun_fiction_solved_puzzles');
+        const data = localStorage.getItem('tourist_traps_solved_puzzles');
         const list = data ? JSON.parse(data) : [];
         return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
@@ -758,7 +758,7 @@ function getSolvedPuzzlesList() {
 
 function getSolvedHintsMap() {
     try {
-        const data = localStorage.getItem('pun_fiction_solved_hints');
+        const data = localStorage.getItem('tourist_traps_solved_hints');
         const map = data ? JSON.parse(data) : {};
         const sanitized = {};
         Object.keys(map).forEach(k => {
@@ -775,12 +775,12 @@ function savePuzzleSolved(puzzleNum) {
         const paddedNum = padPuzzleNumber(puzzleNum);
         const solved = getSolvedPuzzlesList();
         solved.add(paddedNum);
-        localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...solved]));
+        localStorage.setItem('tourist_traps_solved_puzzles', JSON.stringify([...solved]));
         
         // Save the number of hints used for this puzzle
         const solvedHints = getSolvedHintsMap();
         solvedHints[paddedNum] = hintsUsed;
-        localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(solvedHints));
+        localStorage.setItem('tourist_traps_solved_hints', JSON.stringify(solvedHints));
 
         // Push solved status to backend profile sync
         postUserProfile();
@@ -792,7 +792,7 @@ function savePuzzleSolved(puzzleNum) {
 // Generate a profile sync ID (PF-XXXXXX)
 function getOrGenerateProfileId() {
     try {
-        let profileId = localStorage.getItem('pun_fiction_profile_id');
+        let profileId = localStorage.getItem('tourist_traps_profile_id');
         if (!profileId) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let randomCode = '';
@@ -800,7 +800,7 @@ function getOrGenerateProfileId() {
                 randomCode += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             profileId = `PF-${randomCode}`;
-            localStorage.setItem('pun_fiction_profile_id', profileId);
+            localStorage.setItem('tourist_traps_profile_id', profileId);
         }
         return profileId;
     } catch (e) {
@@ -810,7 +810,7 @@ function getOrGenerateProfileId() {
 
 function getAttemptedPuzzles() {
     try {
-        const data = localStorage.getItem('pun_fiction_attempted_puzzles');
+        const data = localStorage.getItem('tourist_traps_attempted_puzzles');
         const list = data ? JSON.parse(data) : [];
         return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
@@ -820,7 +820,7 @@ function getAttemptedPuzzles() {
 
 function getPuzzleAttemptsMap() {
     try {
-        const data = localStorage.getItem('pun_fiction_puzzle_attempts');
+        const data = localStorage.getItem('tourist_traps_puzzle_attempts');
         const map = data ? JSON.parse(data) : {};
         const sanitized = {};
         Object.keys(map).forEach(k => {
@@ -837,7 +837,7 @@ function incrementPuzzleAttempts(puzzleNum) {
         const paddedNum = padPuzzleNumber(puzzleNum);
         const attemptsMap = getPuzzleAttemptsMap();
         attemptsMap[paddedNum] = (attemptsMap[paddedNum] || 0) + 1;
-        localStorage.setItem('pun_fiction_puzzle_attempts', JSON.stringify(attemptsMap));
+        localStorage.setItem('tourist_traps_puzzle_attempts', JSON.stringify(attemptsMap));
     } catch (e) {
         console.error("Could not write attempts progress to local storage", e);
     }
@@ -849,7 +849,7 @@ function savePuzzleAttempted(puzzleNum) {
         const attempted = getAttemptedPuzzles();
         if (!attempted.has(paddedNum)) {
             attempted.add(paddedNum);
-            localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...attempted]));
+            localStorage.setItem('tourist_traps_attempted_puzzles', JSON.stringify([...attempted]));
             
             // Push attempted status to backend profile sync
             postUserProfile();
@@ -865,7 +865,7 @@ function calculateStreakMetrics(solvedList) {
     let maxStreak = 0;
     
     try {
-        maxStreak = parseInt(localStorage.getItem('pun_fiction_max_streak')) || 0;
+        maxStreak = parseInt(localStorage.getItem('tourist_traps_max_streak')) || 0;
     } catch (e) {}
 
     // Trace backwards starting from natural today
@@ -893,7 +893,7 @@ function calculateStreakMetrics(solvedList) {
     if (currentStreak > maxStreak) {
         maxStreak = currentStreak;
         try {
-            localStorage.setItem('pun_fiction_max_streak', maxStreak.toString());
+            localStorage.setItem('tourist_traps_max_streak', maxStreak.toString());
         } catch (e) {}
     }
     
@@ -955,7 +955,7 @@ async function fetchAndMergeProfile(serverProfileId) {
         const localSolved = getSolvedPuzzlesList();
         const serverSolved = data.solved_puzzles || [];
         serverSolved.forEach(p => localSolved.add(padPuzzleNumber(p)));
-        localStorage.setItem('pun_fiction_solved_puzzles', JSON.stringify([...localSolved]));
+        localStorage.setItem('tourist_traps_solved_puzzles', JSON.stringify([...localSolved]));
         
         // 2. Merge Solved Hints (take minimum hints used)
         const localHints = getSolvedHintsMap();
@@ -968,23 +968,23 @@ async function fetchAndMergeProfile(serverProfileId) {
                 localHints[paddedP] = serverH;
             }
         });
-        localStorage.setItem('pun_fiction_solved_hints', JSON.stringify(localHints));
+        localStorage.setItem('tourist_traps_solved_hints', JSON.stringify(localHints));
         
         // 3. Merge Attempted Puzzles
         const localAttempted = getAttemptedPuzzles();
         const serverAttempted = data.attempted_puzzles || [];
         serverAttempted.forEach(p => localAttempted.add(padPuzzleNumber(p)));
-        localStorage.setItem('pun_fiction_attempted_puzzles', JSON.stringify([...localAttempted]));
+        localStorage.setItem('tourist_traps_attempted_puzzles', JSON.stringify([...localAttempted]));
         
         // 4. Merge Max Streak
-        let localMaxStreak = parseInt(localStorage.getItem('pun_fiction_max_streak')) || 0;
+        let localMaxStreak = parseInt(localStorage.getItem('tourist_traps_max_streak')) || 0;
         const serverMaxStreak = data.max_streak || 0;
         if (serverMaxStreak > localMaxStreak) {
-            localStorage.setItem('pun_fiction_max_streak', serverMaxStreak.toString());
+            localStorage.setItem('tourist_traps_max_streak', serverMaxStreak.toString());
         }
         
         // 5. Update local profile ID to the synced one
-        localStorage.setItem('pun_fiction_profile_id', serverProfileId.toUpperCase());
+        localStorage.setItem('tourist_traps_profile_id', serverProfileId.toUpperCase());
         
         // 6. Push merged state back to server to make it fully synchronous
         await postUserProfile();
@@ -1781,7 +1781,7 @@ function triggerVictory() {
             lobbyBtn.innerHTML = `🎮 PLAY ALL & TRACK STREAK ➔`;
             lobbyBtn.classList.remove('hidden');
             lobbyBtn.onclick = () => {
-                window.open('https://iwandres.github.io/PunFiction/boxofficeblunders/', '_blank');
+                window.open('https://iwandres.github.io/PunFiction/touristtraps/', '_blank');
             };
         } else {
             const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
@@ -1873,7 +1873,7 @@ function triggerVictory() {
 async function loadAndRenderGlobalStats(puzzleNum) {
     const solveRateBadge = document.getElementById('solve-rate-badge');
     if (solveRateBadge) {
-        solveRateBadge.innerText = "⚡ RETRIEVING LIVE BOX OFFICE METRICS...";
+        solveRateBadge.innerText = "⚡ RETRIEVING LIVE TRAVEL METRICS...";
     }
     
     const funnelContainer = document.querySelector('.funnel-container');
@@ -2004,7 +2004,7 @@ function shareSolvedScore() {
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${getMaskedParodyTitle(activeChallenge.boss_pun_title)}" 🍿\n` +
                      `Stats: ${hintText}\n` +
-                     `Play daily challenge at: https://iwandres.github.io/PunFiction/boxofficeblunders/`;
+                     `Play daily challenge at: https://iwandres.github.io/PunFiction/touristtraps/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
@@ -2576,7 +2576,7 @@ async function openStatsSelectModal() {
                     <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-color); margin-bottom: 20px;">
                         The itch.io edition only displays today's puzzle. Visit the official portal to play all historical challenges, view leaderboards, and track your daily streak!
                     </p>
-                    <a href="https://iwandres.github.io/PunFiction/boxofficeblunders/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
+                    <a href="https://iwandres.github.io/PunFiction/touristtraps/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
                 </div>
             `;
             return;
