@@ -2060,3 +2060,47 @@ body.crazygames-env .settings-footer-tos {
     box-shadow: 1.5px 1.5px 0px var(--border-color);
 }
 
+/* ================= BACKGROUND WATERMARK STAMPS ================= */
+.bg-stamp {
+    position: fixed;
+    width: 220px;
+    height: 220px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0; /* floating above body background but behind main layout cards */
+    opacity: 0.7;
+    transition: opacity 0.8s ease, transform 0.8s ease, background-image 0.8s ease;
+}
+
+.stamp-left {
+    top: 15%;
+    left: -60px;
+    transform: rotate(-15deg);
+}
+
+.stamp-right {
+    bottom: 20%;
+    right: -60px;
+    transform: rotate(20deg);
+}
+
+/* Push stamps outwards on larger displays so they frame the main app container card */
+@media (min-width: 900px) {
+    .stamp-left {
+        left: calc(50% - 440px);
+    }
+    .stamp-right {
+        right: calc(50% - 440px);
+    }
+}
+@media (min-width: 1200px) {
+    .stamp-left {
+        left: calc(50% - 500px);
+    }
+    .stamp-right {
+        right: calc(50% - 500px);
+    }
+}
+
+

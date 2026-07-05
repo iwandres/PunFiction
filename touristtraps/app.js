@@ -1113,9 +1113,45 @@ function updateBackgroundGradient(puzzleNum) {
     document.documentElement.style.setProperty('--accent-main', theme.accent);
 }
 
+function updateBackgroundStamps(puzzleNum) {
+    const num = parseInt(puzzleNum) || 1;
+    
+    // Cycle through generated stamp assets
+    const stampFiles = [
+        'stamp_airplane.png',
+        'stamp_nautical.png',
+        'stamp_compass.png'
+    ];
+    
+    // Select different stamps for left and right based on challenge number
+    const leftFile = stampFiles[(num - 1) % stampFiles.length];
+    const rightFile = stampFiles[num % stampFiles.length];
+    
+    // Resolve correct paths for raw GitHub CDN or local development
+    const leftUrl = getCorrectPosterUrl(`assets/stamps/${leftFile}`);
+    const rightUrl = getCorrectPosterUrl(`assets/stamps/${rightFile}`);
+    
+    const leftEl = document.getElementById('bg-stamp-left');
+    const rightEl = document.getElementById('bg-stamp-right');
+    
+    if (leftEl) {
+        leftEl.style.backgroundImage = `url('${leftUrl}')`;
+        // Apply slight randomized rotation angle per level so stamps feel hand-pressed
+        const rot = -10 - ((num * 7) % 20);
+        leftEl.style.transform = `rotate(${rot}deg)`;
+    }
+    
+    if (rightEl) {
+        rightEl.style.backgroundImage = `url('${rightUrl}')`;
+        const rot = 10 + ((num * 9) % 20);
+        rightEl.style.transform = `rotate(${rot}deg)`;
+    }
+}
+
 function loadLevel() {
     if (activeChallenge && activeChallenge.puzzle_number) {
         updateBackgroundGradient(activeChallenge.puzzle_number);
+        updateBackgroundStamps(activeChallenge.puzzle_number);
     }
     hint3Active = false;
     hint4Active = false;
