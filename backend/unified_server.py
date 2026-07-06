@@ -809,12 +809,10 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     existing_clues_in_postcards = {p['clue_id'] for p in postcards}
                     approved_clues = [c for c in clues if c.get('status') == 'approved' and c['id'] not in existing_clues_in_postcards]
-                
+                client = genai.Client(api_key=gemini_key)
                 new_postcards_count = 0
                 for c in approved_clues[:5]:
-                    style_key = selected_style
-                    if style_key == 'random' or style_key not in styles_dict:
-                        style_key = random.choice(list(styles_dict.keys()))
+                    style_key = random.choice(list(styles_dict.keys()))
                     style_prompt = styles_dict[style_key]
                     
                     prompt_gen = f"""
