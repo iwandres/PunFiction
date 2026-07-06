@@ -524,9 +524,9 @@ class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     image_path = f"/assets/cartoons/{safe_filename}"
                     local_image_path = os.path.join(CARTOONS_DIR, safe_filename)
                     
-                    print(f"Generating postcard for '{c['pun_name']}' in style '{style_key}' using imagen-3.0-generate-002...")
+                    print(f"Generating postcard for '{c['pun_name']}' in style '{style_key}' using imagen-4.0-generate-001...")
                     response = client.models.generate_images(
-                        model='imagen-3.0-generate-002',
+                        model='imagen-4.0-generate-001',
                         prompt=f"{style_prompt} {image_prompt}",
                         config=types.GenerateImagesConfig(
                             number_of_images=1,
@@ -545,7 +545,7 @@ class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
                         saved_image = True
                         break
                     if not saved_image:
-                        raise Exception("No image returned in response parts from imagen-3.0-generate-002")
+                        raise Exception("No image returned in response parts from imagen-4.0-generate-001")
                         
                     # Check if postcard already exists to replace it (regenerate)
                     existing_idx = next((i for i, p in enumerate(postcards) if p['clue_id'] == c['id']), None)
