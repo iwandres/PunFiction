@@ -27,7 +27,7 @@
 // Core Constants & CDN Paths
 const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/main/backend";
 const BACKEND_API_URL = "https://punfiction.onrender.com";
-const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
+const START_DATE_PT = new Date("2026-07-04T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
 // Pre-warm the backend Render service in the background as early as possible
 function prewarmBackend() {
