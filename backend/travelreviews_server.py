@@ -494,9 +494,7 @@ class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 # Process in batches of 5 to avoid HTTP timeouts
                 for c in approved_clues[:5]:
                     # Determine style description
-                    style_key = selected_style
-                    if style_key == 'random' or style_key not in styles_dict:
-                        style_key = random.choice(list(styles_dict.keys()))
+                    style_key = random.choice(list(styles_dict.keys()))
                     style_prompt = styles_dict[style_key]
                     
                     # Let's generate a prompt first using standard Gemini
