@@ -3689,30 +3689,30 @@
         }
 
         function tt_updateBadges() {
-            // 1. Landmarks count: approved landmarks waiting for puns to be generated
-            const pendingLandmarks = tt_landmarks.filter(lm => lm.status === 'approved' && !tt_puns.some(p => p.original_name === lm.name)).length;
+            // 1. Landmarks pending count
+            const pendingLandmarks = tt_landmarks.filter(lm => !lm.status || lm.status === 'pending').length;
             const elLandmarks = document.getElementById('badge-tt-landmarks');
             if (elLandmarks) elLandmarks.innerText = pendingLandmarks;
 
-            // 2. Puns count: approved puns waiting for clues to be generated
-            const pendingPuns = tt_puns.filter(p => p.status === 'approved' && !tt_clues.some(c => c.pun_name === p.pun_name)).length;
+            // 2. Puns pending count
+            const pendingPuns = tt_puns.filter(p => !p.status || p.status === 'pending').length;
             const elPuns = document.getElementById('badge-tt-puns');
             if (elPuns) elPuns.innerText = pendingPuns;
 
-            // 3. Clues count: approved clues waiting for postcards/owner response to be generated
-            const pendingClues = tt_clues.filter(c => c.status === 'approved' && !tt_postcards.some(p => p.clue_id === c.id)).length;
+            // 3. Clues pending count
+            const pendingClues = tt_clues.filter(c => !c.status || c.status === 'pending').length;
             const elClues = document.getElementById('badge-tt-clues');
             if (elClues) elClues.innerText = pendingClues;
 
-            // 4. Postcards count: approved postcards waiting for puzzles to be assembled
-            const pendingPostcards = tt_postcards.filter(p => p.status === 'approved' && !tt_puzzles.some(pz => pz.boss_id === p.id)).length;
+            // 4. Postcards pending count
+            const pendingPostcards = tt_postcards.filter(p => !p.status || p.status === 'pending').length;
             const elPostcards = document.getElementById('badge-tt-postcards');
             if (elPostcards) elPostcards.innerText = pendingPostcards;
 
-            // 5. Approved Daily challenges count
-            const approvedChallengesCount = tt_puzzles.filter(p => p.status === 'approved').length;
+            // 5. Total Daily challenges count
+            const totalPuzzles = tt_puzzles.length;
             const elPuzzles = document.getElementById('badge-tt-puzzles');
-            if (elPuzzles) elPuzzles.innerText = approvedChallengesCount;
+            if (elPuzzles) elPuzzles.innerText = totalPuzzles;
         }
 
         function tt_renderLandmarks() {
