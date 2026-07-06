@@ -13,7 +13,7 @@ from PIL import Image
 
 # Import database wrappers
 import database as boxoffice_database
-import touristtraps_database as touristtraps_database
+import travelreviews_database as travelreviews_database
 
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -28,15 +28,18 @@ BOXOFFICE_REVIEWED_FILE = os.path.join(DIR_PATH, 'reviewed_parodies.json')
 BOXOFFICE_POSTERS_FILE = os.path.join(DIR_PATH, 'poster_prompts_state.json')
 BOXOFFICE_RECORDS_FILE = os.path.join(DIR_PATH, 'records.json')
 
-# File paths - Tourist Traps
-CLUES_FILE = os.path.join(DIR_PATH, 'touristtraps_clues.json')
-POSTCARDS_FILE = os.path.join(DIR_PATH, 'touristtraps_postcards.json')
-DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'touristtraps_daily_games.json')
-LANDMARKS_FILE = os.path.join(DIR_PATH, 'touristtraps_landmarks.json')
-PUNS_FILE = os.path.join(DIR_PATH, 'touristtraps_puns.json')
-TOURISTTRAPS_RECORDS_FILE = os.path.join(DIR_PATH, 'touristtraps_records.json')
+# File paths - 1-Star Travel Reviews
+CLUES_FILE = os.path.join(DIR_PATH, 'travelreviews_clues.json')
+POSTCARDS_FILE = os.path.join(DIR_PATH, 'travelreviews_postcards.json')
+DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'travelreviews_daily_games.json')
+LANDMARKS_FILE = os.path.join(DIR_PATH, 'travelreviews_landmarks.json')
+PUNS_FILE = os.path.join(DIR_PATH, 'travelreviews_puns.json')
+TRAVELREVIEWS_RECORDS_FILE = os.path.join(DIR_PATH, 'travelreviews_records.json')
 
-CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'touristtraps', 'assets', 'cartoons')
+if os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
+    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'travelreviews', 'assets', 'cartoons')
+else:
+    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'assets', 'cartoons')
 os.makedirs(CARTOONS_DIR, exist_ok=True)
 UNIFIED_HTML_FILE = os.path.join(DIR_PATH, 'unified_admin.html')
 
@@ -85,12 +88,12 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-    def is_tourist_traps_context(self, req_path):
-        """Determine if request is for Tourist Traps based on prefix or Referer header."""
-        if '/touristtraps/' in req_path:
+    def is_travelreviews_context(self, req_path):
+        """Determine if request is for 1-Star Travel Reviews based on prefix or Referer header."""
+        if '/travelreviews/' in req_path:
             return True
         referer = self.headers.get('Referer', '')
-        if '/touristtraps/' in referer:
+        if '/travelreviews/' in referer:
             return True
         return False
 
@@ -101,25 +104,28 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         if req_path == '/':
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
             self.end_headers()
             with open(UNIFIED_HTML_FILE, 'rb') as f:
                 self.wfile.write(f.read())
             return
 
         # 2. Unified File Router based on paths
-        is_tt = self.is_tourist_traps_context(req_path)
+        is_tt = self.is_travelreviews_context(req_path)
         
         # --- Shared APIs (puzzles, records, user) ---
-        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/touristtraps/puzzles']:
+        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/travelreviews/puzzles']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            file = DAILY_GAMES_FILE if (is_tt or 'touristtraps' in req_path) else BOXOFFICE_PUZZLES_FILE
+            file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
             data = load_json(file, [])
             self.wfile.write(json.dumps(data).encode('utf-8'))
             return
             
-        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/touristtraps/records']:
+        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/travelreviews/records']:
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
             puzzle_number = query_params.get('puzzle_number', [None])[0]
@@ -128,9 +134,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             
-            use_tt_db = is_tt or 'touristtraps' in req_path
-            db_module = touristtraps_database if use_tt_db else boxoffice_database
-            rec_file = TOURISTTRAPS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
+            use_tt_db = is_tt or 'travelreviews' in req_path
+            db_module = travelreviews_database if use_tt_db else boxoffice_database
+            rec_file = TRAVELREVIEWS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
             
             try:
                 if puzzle_number:
@@ -151,7 +157,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(json.dumps(telemetry).encode('utf-8'))
             return
             
-        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/touristtraps/user']:
+        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/travelreviews/user']:
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
             profile_id = query_params.get('profile_id', [None])[0]
@@ -160,8 +166,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             
-            use_tt_db = is_tt or 'touristtraps' in req_path
-            db_module = touristtraps_database if use_tt_db else boxoffice_database
+            use_tt_db = is_tt or 'travelreviews' in req_path
+            db_module = travelreviews_database if use_tt_db else boxoffice_database
             
             if profile_id:
                 try:
@@ -208,26 +214,26 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(load_json(BOXOFFICE_POSTERS_FILE, [])).encode('utf-8'))
             return
 
-        # --- Tourist Traps Specific APIs ---
-        elif req_path in ['/api/landmarks', '/api/touristtraps/landmarks']:
+        # --- 1-Star Travel Reviews Specific APIs ---
+        elif req_path in ['/api/landmarks', '/api/travelreviews/landmarks']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(load_json(LANDMARKS_FILE, [])).encode('utf-8'))
             return
-        elif req_path in ['/api/puns', '/api/touristtraps/puns']:
+        elif req_path in ['/api/puns', '/api/travelreviews/puns']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(load_json(PUNS_FILE, [])).encode('utf-8'))
             return
-        elif req_path in ['/api/clues', '/api/touristtraps/clues']:
+        elif req_path in ['/api/clues', '/api/travelreviews/clues']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(load_json(CLUES_FILE, [])).encode('utf-8'))
             return
-        elif req_path in ['/api/postcards', '/api/touristtraps/postcards']:
+        elif req_path in ['/api/postcards', '/api/travelreviews/postcards']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -235,21 +241,27 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         # --- Static Assets and Client Files Router ---
-        elif req_path.startswith('/touristtraps/') or req_path.startswith('/assets/'):
+        elif req_path.startswith('/travelreviews/') or req_path.startswith('/assets/'):
             clean_path = urllib.parse.unquote(req_path.strip('/'))
             
             # Smart asset directory check
             if req_path.startswith('/assets/'):
-                # Try Tourist Traps folder first
-                file_path_tt = os.path.join(PROJECT_ROOT, 'touristtraps', *clean_path.split('/'))
+                # Try 1-Star Travel Reviews folder first
+                file_path_tt = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
+                file_path_root = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
                 if os.path.exists(file_path_tt) and not os.path.isdir(file_path_tt):
                     file_path = file_path_tt
+                elif os.path.exists(file_path_root) and not os.path.isdir(file_path_root):
+                    file_path = file_path_root
                 else:
                     # Fallback to Box Office assets folder
                     file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
             else:
-                # Regular touristtraps files
-                file_path = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
+                # Regular travelreviews files
+                parts = clean_path.split('/')
+                if parts and parts[0] == 'travelreviews' and not os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
+                    parts = parts[1:]
+                file_path = os.path.join(PROJECT_ROOT, *parts)
                 
             if os.path.exists(file_path) and not os.path.isdir(file_path):
                 self.send_response(200)
@@ -279,11 +291,11 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         req_path = self.path.split('?')[0]
         
-        is_tt = self.is_tourist_traps_context(req_path)
+        is_tt = self.is_travelreviews_context(req_path)
         
         # --- Shared POST Save APIs ---
-        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/touristtraps/puzzles']:
-            file = DAILY_GAMES_FILE if (is_tt or 'touristtraps' in req_path) else BOXOFFICE_PUZZLES_FILE
+        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/travelreviews/puzzles']:
+            file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
             try:
                 data = json.loads(post_data.decode('utf-8'))
                 save_json(file, data)
@@ -298,10 +310,10 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/touristtraps/records']:
-            use_tt_db = is_tt or 'touristtraps' in req_path
-            db_module = touristtraps_database if use_tt_db else boxoffice_database
-            rec_file = TOURISTTRAPS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
+        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/travelreviews/records']:
+            use_tt_db = is_tt or 'travelreviews' in req_path
+            db_module = travelreviews_database if use_tt_db else boxoffice_database
+            rec_file = TRAVELREVIEWS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
             
             try:
                 payload = json.loads(post_data.decode('utf-8'))
@@ -358,9 +370,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/touristtraps/user']:
-            use_tt_db = is_tt or 'touristtraps' in req_path
-            db_module = touristtraps_database if use_tt_db else boxoffice_database
+        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/travelreviews/user']:
+            use_tt_db = is_tt or 'travelreviews' in req_path
+            db_module = travelreviews_database if use_tt_db else boxoffice_database
             
             try:
                 payload = json.loads(post_data.decode('utf-8'))
@@ -523,8 +535,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
 
-        # --- Tourist Traps Specific POST Save APIs ---
-        elif req_path in ['/api/landmarks', '/api/touristtraps/landmarks']:
+        # --- 1-Star Travel Reviews Specific POST Save APIs ---
+        elif req_path in ['/api/landmarks', '/api/travelreviews/landmarks']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
                 save_json(LANDMARKS_FILE, data)
@@ -538,7 +550,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
-        elif req_path in ['/api/puns', '/api/touristtraps/puns']:
+        elif req_path in ['/api/puns', '/api/travelreviews/puns']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
                 save_json(PUNS_FILE, data)
@@ -552,7 +564,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
-        elif req_path in ['/api/clues', '/api/touristtraps/clues']:
+        elif req_path in ['/api/clues', '/api/travelreviews/clues']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
                 save_json(CLUES_FILE, data)
@@ -566,7 +578,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
-        elif req_path in ['/api/postcards', '/api/touristtraps/postcards']:
+        elif req_path in ['/api/postcards', '/api/travelreviews/postcards']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
                 if os.path.exists(POSTCARDS_FILE):
@@ -578,11 +590,14 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                             img_path = item.get('image_path')
                             if img_path and img_path.startswith('/assets/'):
                                 clean_path = urllib.parse.unquote(img_path.strip('/'))
-                                file_to_delete = os.path.join(PROJECT_ROOT, 'touristtraps', *clean_path.split('/'))
+                                if os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
+                                    file_to_delete = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
+                                else:
+                                    file_to_delete = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
                                 if os.path.exists(file_to_delete):
                                     try:
                                         os.remove(file_to_delete)
-                                        print(f"Deleted Tourist Traps rejected/removed image: {file_to_delete}")
+                                        print(f"Deleted 1-Star Travel Reviews rejected/removed image: {file_to_delete}")
                                     except Exception as delete_e:
                                         print(f"Failed to delete {file_to_delete}: {delete_e}")
                 save_json(POSTCARDS_FILE, data)
@@ -597,8 +612,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
 
-        # --- Tourist Traps Gemini Inline Generation Routines ---
-        elif req_path in ['/api/generate_puns', '/api/touristtraps/generate_puns']:
+        # --- 1-Star Travel Reviews Gemini Inline Generation Routines ---
+        elif req_path in ['/api/generate_puns', '/api/travelreviews/generate_puns']:
             if not gemini_available:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
@@ -663,7 +678,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/generate_clues', '/api/touristtraps/generate_clues']:
+        elif req_path in ['/api/generate_clues', '/api/travelreviews/generate_clues']:
             if not gemini_available:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
@@ -693,10 +708,11 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     The player needs to guess a location pun.
                     The target location pun name is: "{p['pun_name']}" (which is a pun on the real landmark "{p['original_name']}").
                     
-                    Your job is to generate 3 progressive clues (reviews) complaining about this location in an unhinged, comedic way:
-                    - Clue 1: The most obscure, absurd complaint about the location.
-                    - Clue 2: A slightly more obvious complaint about the original landmark's actual features.
-                    - Clue 3: A complaint that makes it fairly obvious what the location pun is (without saying it).
+                    Your job is to generate 3 progressive clues (reviews) complaining about this location in an unhinged, comedic way.
+                    CRITICAL CONSTRAINT: Each clue MUST be a very short snippet, phrase, or sentence fragment (under 12-15 words). You can use sentence fragments noted/separated using '...' or similar punctuation (e.g., 'So drafty... holes everywhere... completely non-functional!'). Do NOT write long paragraphs or multiple full sentences.
+                    - Clue 1: An absurd, comical snippet or sentence fragment that includes a subtle, clever hint referencing both the original landmark/location and the wordplay of the pun, giving players a fair chance to solve the puzzle on the very first clue.
+                    - Clue 2: Another short comical snippet or sentence fragment providing additional details/hints about either the original landmark's actual features/location or the wordplay behind the pun.
+                    - Clue 3: A final short comical snippet or sentence fragment that makes the connection between the original landmark and the pun name very obvious (without explicitly naming either).
                     
                     Also generate a funny review title.
                     Also generate a funny Reviewer Username (reviewer_name) that is thematically related to the parodied location or the complaint (e.g., 'SyrupSlinger' for Waffle Tower, 'SoggySouffle' for Eiffel Shower, 'BitterSingle' for Lover Museum). Do not include the '@' symbol in the JSON value.
@@ -710,7 +726,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     Actual Landmark: Eiffel Tower
                     Pun Name: Eiffel Towel
                     Reviewer Username: DampCroissant
-                    Reviewer Complaint: "Tried to dry off after my shower with it, but it's made of wrought iron and completely non-absorbent."
+                    Reviewer Complaint: "Too drafty... holes everywhere... tried to dry off after my shower but it's made of wrought iron!"
                     Response from the Owner: "Listen, @DampCroissant, if you are using 10,000 tons of 19th-century iron to dry your hair, you have significantly bigger problems than a slight draft."
                     
                     Return a JSON object matching exactly this schema:
@@ -720,7 +736,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                       "clue1": "Clue 1 text",
                       "clue2": "Clue 2 text",
                       "clue3": "Clue 3 text",
-                      "owner_response": "Owner response here"
+                      "owner_response": "Owner response here",
+                      "page_theme": "The most appropriate travel theme name for this location out of: road_trip, air_mail, train_passage, gondola_ride, boat_voyage, mountain_trek, desert_safari, sightseeing, tropical_island, winter_lodge, metro_transit"
                     }}
                     """
                     response = client.models.generate_content(
@@ -741,6 +758,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         "clue2": generated.get("clue2", ""),
                         "clue3": generated.get("clue3", ""),
                         "owner_response": generated.get("owner_response", ""),
+                        "page_theme": generated.get("page_theme", "road_trip"),
                         "status": "pending"
                     })
                     new_clues_count += 1
@@ -757,7 +775,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/generate_postcards', '/api/touristtraps/generate_postcards']:
+        elif req_path in ['/api/generate_postcards', '/api/travelreviews/generate_postcards']:
             if not gemini_available:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
@@ -852,6 +870,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         "image_path": image_path,
                         "art_style": style_key,
                         "owner_response": c['owner_response'],
+                        "page_theme": c.get('page_theme', 'road_trip'),
                         "status": "pending"
                     }
                     
@@ -874,7 +893,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/regenerate_owner_reply', '/api/touristtraps/regenerate_owner_reply']:
+        elif req_path in ['/api/regenerate_owner_reply', '/api/travelreviews/regenerate_owner_reply']:
             if not gemini_available:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')

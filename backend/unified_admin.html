@@ -997,7 +997,7 @@
                 <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-secondary);">Active Pipeline:</span>
                 <select id="game-pipeline-select" onchange="switchPipeline(this.value)" style="padding: 8px 16px; border: 2px solid #2D3436; border-radius: 6px; font-weight: 800; font-family: inherit; font-size: 0.9rem; cursor: pointer; box-shadow: 2px 2px 0 #2D3436;">
                     <option value="boxoffice">Box Office Blunders 🎬</option>
-                    <option value="touristtraps">Tourist Traps 🗺️</option>
+                    <option value="travelreviews">1-Star Travel Reviews 🗺️</option>
                 </select>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="openActiveGame()">🎮 Play Active Game</button>
             </div>
@@ -1022,22 +1022,22 @@
             </button>
         </nav>
 
-        <!-- Tourist Traps Navigation -->
-        <nav class="pipeline-nav" id="nav-touristtraps" style="width: 100%; display: none;">
+        <!-- 1-Star Travel Reviews Navigation -->
+        <nav class="pipeline-nav" id="nav-travelreviews" style="width: 100%; display: none;">
             <button class="pipeline-btn active" data-tab="tt-landmarks">
-                📍 Landmarks
+                📍 Landmarks <span class="badge" id="badge-tt-landmarks">0</span>
             </button>
             <button class="pipeline-btn" data-tab="tt-puns">
-                🌭 Puns
+                🌭 Puns <span class="badge" id="badge-tt-puns">0</span>
             </button>
             <button class="pipeline-btn" data-tab="tt-clues">
-                ✍️ Clues
+                ✍️ Clues <span class="badge" id="badge-tt-clues">0</span>
             </button>
             <button class="pipeline-btn" data-tab="tt-postcards">
-                🖼️ Postcards
+                🖼️ Postcards <span class="badge" id="badge-tt-postcards">0</span>
             </button>
             <button class="pipeline-btn" data-tab="tt-puzzles">
-                📅 Daily Challenges
+                📅 Daily Challenges <span class="badge" id="badge-tt-puzzles">0</span>
             </button>
         </nav>
     </header>
@@ -1242,7 +1242,7 @@
 
         </div> <!-- /#boxoffice-pipeline-views -->
 
-        <div id="touristtraps-pipeline-views" style="display: none;">
+        <div id="travelreviews-pipeline-views" style="display: none;">
 
         <!-- ================= TOURIST TRAPS TABS ================= -->
         <!-- 1. LANDMARKS TAB -->
@@ -1270,7 +1270,7 @@
                     <h2>🌭 Location Pun Candidates</h2>
                     <div style="display: flex; gap: 10px;">
                         <button class="btn btn-secondary" onclick="tt_generatePuns()">⚡ Generate Puns (Gemini)</button>
-                        <button class="btn btn-primary" onclick="tt_saveData('puns', tt_puns)">💾 Save Puns</button>
+                        <button class="btn btn-primary" onclick="tt_savePuns()">💾 Save Puns</button>
                     </div>
                 </div>
                 <div class="item-list" id="tt_puns-list"></div>
@@ -1284,7 +1284,7 @@
                     <h2>✍️ progressive Clues Generator</h2>
                     <div style="display: flex; gap: 10px;">
                         <button class="btn btn-secondary" onclick="tt_generateClues()">⚡ Generate Clues (Gemini)</button>
-                        <button class="btn btn-primary" onclick="tt_saveData('clues', tt_clues)">💾 Save Clues</button>
+                        <button class="btn btn-primary" onclick="tt_saveClues()">💾 Save Clues</button>
                     </div>
                 </div>
                 <div class="item-list" id="tt_clues-list"></div>
@@ -1310,7 +1310,7 @@
                             </select>
                         </div>
                         <button class="btn btn-secondary" onclick="tt_generatePostcards()">⚡ Generate Postcards</button>
-                        <button class="btn btn-primary" onclick="tt_saveData('postcards', tt_postcards)">💾 Save Postcards</button>
+                        <button class="btn btn-primary" onclick="tt_savePostcards()">💾 Save Postcards</button>
                     </div>
                 </div>
                 <div class="item-list" id="tt_postcards-list"></div>
@@ -1397,7 +1397,7 @@
             </div>
         </div>
 
-        </div> <!-- /#touristtraps-pipeline-views -->
+        </div> <!-- /#travelreviews-pipeline-views -->
     </div> <!-- /container -->
 
     <!-- Image lightbox modal for postcards preview zoom -->
@@ -3347,12 +3347,15 @@
         function switchPipeline(game) {
             currentPipeline = game;
             document.getElementById('game-pipeline-select').value = game;
+            try {
+                localStorage.setItem('punfiction_curation_active_pipeline', game);
+            } catch (e) {}
             
             if (game === 'boxoffice') {
                 document.getElementById('nav-boxoffice').style.display = 'flex';
-                document.getElementById('nav-touristtraps').style.display = 'none';
+                document.getElementById('nav-travelreviews').style.display = 'none';
                 document.getElementById('boxoffice-pipeline-views').style.display = 'block';
-                document.getElementById('touristtraps-pipeline-views').style.display = 'none';
+                document.getElementById('travelreviews-pipeline-views').style.display = 'none';
                 
                 // Toggle active buttons inside nav-boxoffice
                 const activeBtn = document.querySelector('#nav-boxoffice .pipeline-btn.active');
@@ -3363,18 +3366,18 @@
                     if (defaultBtn) defaultBtn.click();
                 }
                 loadAllData();
-            } else if (game === 'touristtraps') {
+            } else if (game === 'travelreviews') {
                 document.getElementById('nav-boxoffice').style.display = 'none';
-                document.getElementById('nav-touristtraps').style.display = 'flex';
+                document.getElementById('nav-travelreviews').style.display = 'flex';
                 document.getElementById('boxoffice-pipeline-views').style.display = 'none';
-                document.getElementById('touristtraps-pipeline-views').style.display = 'block';
+                document.getElementById('travelreviews-pipeline-views').style.display = 'block';
                 
-                // Toggle active buttons inside nav-touristtraps
-                const activeBtn = document.querySelector('#nav-touristtraps .pipeline-btn.active');
+                // Toggle active buttons inside nav-travelreviews
+                const activeBtn = document.querySelector('#nav-travelreviews .pipeline-btn.active');
                 if (activeBtn) {
                     activeBtn.click();
                 } else {
-                    const defaultBtn = document.querySelector('#nav-touristtraps .pipeline-btn[data-tab="tt-landmarks"]');
+                    const defaultBtn = document.querySelector('#nav-travelreviews .pipeline-btn[data-tab="tt-landmarks"]');
                     if (defaultBtn) defaultBtn.click();
                 }
                 tt_init();
@@ -3385,7 +3388,7 @@
             if (currentPipeline === 'boxoffice') {
                 window.open('/', '_blank');
             } else {
-                window.open('/touristtraps/', '_blank');
+                window.open('/travelreviews/', '_blank');
             }
         }
 
@@ -3403,7 +3406,7 @@
                     if (currentPipeline === 'boxoffice') {
                         document.querySelectorAll('#nav-boxoffice .pipeline-btn').forEach(b => b.classList.remove('active'));
                     } else {
-                        document.querySelectorAll('#nav-touristtraps .pipeline-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelectorAll('#nav-travelreviews .pipeline-btn').forEach(b => b.classList.remove('active'));
                     }
                     btn.classList.add('active');
 
@@ -3423,9 +3426,17 @@
                 });
             });
 
-            // Read starting pipeline from query param or default to touristtraps
+            // Read starting pipeline: URL query param > localStorage > default ('travelreviews')
             const urlParams = new URLSearchParams(window.location.search);
-            const game = urlParams.get('game') || 'touristtraps';
+            let game = urlParams.get('game');
+            if (!game) {
+                try {
+                    game = localStorage.getItem('punfiction_curation_active_pipeline');
+                } catch (e) {}
+            }
+            if (!game) {
+                game = 'travelreviews';
+            }
             switchPipeline(game);
         });
 
@@ -3451,7 +3462,7 @@
         async function tt_loadData(type) {
             try {
                 let apiType = type.startsWith('tt_') ? type.replace('tt_', '') : type;
-                let res = await fetch(`/api/touristtraps/${apiType}`);
+                let res = await fetch(`/api/travelreviews/${apiType}`);
                 let data = await res.json();
                 if (type === 'tt_landmarks') tt_landmarks = data;
                 else if (type === 'tt_puns') tt_puns = data;
@@ -3466,7 +3477,7 @@
         async function tt_saveData(type, data) {
             try {
                 let apiType = type.startsWith('tt_') ? type.replace('tt_', '') : type;
-                await fetch(`/api/touristtraps/${apiType}`, {
+                await fetch(`/api/travelreviews/${apiType}`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
@@ -3557,6 +3568,7 @@
                 boss_pitch: item.owner_response,
                 boss_poster_url: item.image_path,
                 difficulty_tier: 1,
+                page_theme: item.page_theme || (matchingClue ? matchingClue.page_theme : 'road_trip'),
                 status: "approved",
                 tt_puzzles: []
             });
@@ -3566,14 +3578,14 @@
 
         // --- GENERATION CALLS ---
         async function tt_generatePuns() {
-            let res = await fetch('/api/touristtraps/generate_puns', {method: 'POST'});
+            let res = await fetch('/api/travelreviews/generate_puns', {method: 'POST'});
             let data = await res.json();
             alert(`Puns generated! New tt_puns added: ${data.generated_count}`);
             await tt_init();
         }
 
         async function tt_generateClues() {
-            let res = await fetch('/api/touristtraps/generate_clues', {method: 'POST'});
+            let res = await fetch('/api/travelreviews/generate_clues', {method: 'POST'});
             let data = await res.json();
             alert(`Reviews and Clues generated! New items: ${data.generated_count}`);
             await tt_init();
@@ -3581,7 +3593,7 @@
 
         async function tt_generatePostcards() {
             const style = document.getElementById('tt_art_style_select').value;
-            let res = await fetch('/api/touristtraps/generate_postcards', {
+            let res = await fetch('/api/travelreviews/generate_postcards', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ art_style: style })
@@ -3603,6 +3615,34 @@
             tt_renderClues();
             tt_renderPostcards();
             tt_renderPuzzles();
+            tt_updateBadges();
+        }
+
+        function tt_updateBadges() {
+            // 1. Landmarks count: approved landmarks waiting for puns to be generated
+            const pendingLandmarks = tt_landmarks.filter(lm => lm.status === 'approved' && !tt_puns.some(p => p.original_name === lm.name)).length;
+            const elLandmarks = document.getElementById('badge-tt-landmarks');
+            if (elLandmarks) elLandmarks.innerText = pendingLandmarks;
+
+            // 2. Puns count: approved puns waiting for clues to be generated
+            const pendingPuns = tt_puns.filter(p => p.status === 'approved' && !tt_clues.some(c => c.pun_name === p.pun_name)).length;
+            const elPuns = document.getElementById('badge-tt-puns');
+            if (elPuns) elPuns.innerText = pendingPuns;
+
+            // 3. Clues count: approved clues waiting for postcards/owner response to be generated
+            const pendingClues = tt_clues.filter(c => c.status === 'approved' && !tt_postcards.some(p => p.clue_id === c.id)).length;
+            const elClues = document.getElementById('badge-tt-clues');
+            if (elClues) elClues.innerText = pendingClues;
+
+            // 4. Postcards count: approved postcards waiting for puzzles to be assembled
+            const pendingPostcards = tt_postcards.filter(p => p.status === 'approved' && !tt_puzzles.some(pz => pz.boss_id === p.id)).length;
+            const elPostcards = document.getElementById('badge-tt-postcards');
+            if (elPostcards) elPostcards.innerText = pendingPostcards;
+
+            // 5. Approved Daily challenges count
+            const approvedChallengesCount = tt_puzzles.filter(p => p.status === 'approved').length;
+            const elPuzzles = document.getElementById('badge-tt-puzzles');
+            if (elPuzzles) elPuzzles.innerText = approvedChallengesCount;
         }
 
         function tt_renderLandmarks() {
@@ -3660,6 +3700,24 @@
             }
         }
 
+        function tt_savePuns() {
+            tt_puns = tt_puns.filter(p => p.status !== 'rejected');
+            tt_saveData('tt_puns', tt_puns);
+            tt_renderPuns();
+        }
+
+        function tt_saveClues() {
+            tt_clues = tt_clues.filter(c => c.status !== 'rejected');
+            tt_saveData('tt_clues', tt_clues);
+            tt_renderClues();
+        }
+
+        function tt_savePostcards() {
+            tt_postcards = tt_postcards.filter(p => p.status !== 'rejected');
+            tt_saveData('tt_postcards', tt_postcards);
+            tt_renderPostcards();
+        }
+
         function tt_renderClues() {
             let el = document.getElementById('tt_clues-list');
             el.innerHTML = tt_clues.map(c => `
@@ -3677,6 +3735,14 @@
                         <div style="margin-top: 4px;"><strong>Clue 1:</strong> ${c.clue1}</div>
                         <div><strong>Clue 2:</strong> ${c.clue2}</div>
                         <div><strong>Clue 3:</strong> ${c.clue3}</div>
+                        <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
+                            <strong>Theme:</strong>
+                            <select onchange="tt_updateClueTheme('${c.id}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
+                                ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
+                                    <option value="${t}" ${c.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
+                                `).join('')}
+                            </select>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -3690,6 +3756,14 @@
                     <div class="item-details">
                         <strong>${p.pun_name}</strong>
                         <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Prompt: ${p.image_prompt}</div>
+                        <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 6px;">
+                            <strong>Theme:</strong>
+                            <select onchange="tt_updatePostcardTheme('${p.id}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
+                                ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
+                                    <option value="${t}" ${p.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
+                                `).join('')}
+                            </select>
+                        </div>
                         <div style="font-size: 0.9rem; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-base); padding: 12px 15px; border-radius: 8px; color: var(--text-secondary); margin-top: 8px;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed var(--border-base); padding-bottom: 4px;">
                                 <strong>Owner Reply:</strong>
@@ -3717,7 +3791,7 @@
             btn.innerText = "⏳ Writing...";
             
             try {
-                let res = await fetch('/api/touristtraps/regenerate_owner_reply', {
+                let res = await fetch('/api/travelreviews/regenerate_owner_reply', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ clue_id: clueId })
@@ -3751,7 +3825,7 @@
             btn.innerText = "⏳ Generating...";
             
             try {
-                let res = await fetch('/api/touristtraps/generate_postcards', {
+                let res = await fetch('/api/travelreviews/generate_postcards', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ clue_id: clueId, art_style: artStyle })
@@ -3928,6 +4002,14 @@
                                     <label>Reviewer Username</label>
                                     <input type="text" value="${p.reviewer_name || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'reviewer_name', this.value)">
                                 </div>
+                                <div class="field-group">
+                                    <label>Page Theme</label>
+                                    <select onchange="tt_updatePuzzleField(${puzzleIdx}, 'page_theme', this.value)" style="width: 100%; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.9rem; font-weight: 500;">
+                                        ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
+                                            <option value="${t}" ${p.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
+                                        `).join('')}
+                                    </select>
+                                </div>
                                 <div class="field-group" style="grid-column: span 2;">
                                     <label>Review Title</label>
                                     <textarea style="min-height: 40px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'review_title', this.value)">${p.review_title || ''}</textarea>
@@ -3967,6 +4049,34 @@
             gridEl.querySelectorAll('textarea').forEach(tx => {
                 tt_autoResize(tx);
             });
+        }
+
+        function tt_updateClueTheme(clueId, newTheme) {
+            let clue = tt_clues.find(c => c.id === clueId);
+            if (clue) {
+                clue.page_theme = newTheme;
+                tt_saveData('tt_clues', tt_clues);
+                // Also update any matching postcard if it has been generated
+                let pc = tt_postcards.find(p => p.clue_id === clueId);
+                if (pc) {
+                    pc.page_theme = newTheme;
+                    tt_saveData('tt_postcards', tt_postcards);
+                }
+            }
+        }
+
+        function tt_updatePostcardTheme(cardId, newTheme) {
+            let pc = tt_postcards.find(p => p.id === cardId);
+            if (pc) {
+                pc.page_theme = newTheme;
+                tt_saveData('tt_postcards', tt_postcards);
+                // Also update matching clue
+                let clue = tt_clues.find(c => c.id === pc.clue_id);
+                if (clue) {
+                    clue.page_theme = newTheme;
+                    tt_saveData('tt_clues', tt_clues);
+                }
+            }
         }
 
         function tt_updatePuzzleField(idx, key, val) {

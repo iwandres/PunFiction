@@ -1,5 +1,5 @@
 /**
- * PunFiction: Tourist Traps - Core Gameplay Application
+ * PunFiction: 1-Star Travel Reviews - Core Gameplay Application
  * 
  * DESIGN & DEPLOYMENT ARCHITECTURE:
  * 
@@ -35,7 +35,7 @@ function prewarmBackend() {
     if (isLocal) return;
     
     console.log("Initiating asynchronous backend pre-warm ping...");
-    fetch(`${BACKEND_API_URL}/api/touristtraps/records?puzzle_number=001`, { mode: 'cors' })
+    fetch(`${BACKEND_API_URL}/api/travelreviews/records?puzzle_number=001`, { mode: 'cors' })
         .then(res => {
             if (res.ok) {
                 console.log("Render backend container warmed up and awake!");
@@ -150,6 +150,29 @@ const ui = {
 // ================= INITIALIZATION & SCHEDULING =================
  
 window.onload = async () => {
+    // Migrate local storage keys from tourist_traps_* to travelreviews_*
+    const keysToMigrate = [
+        'solved_puzzles',
+        'solved_hints',
+        'attempted_puzzles',
+        'puzzle_attempts',
+        'max_streak',
+        'profile_id'
+    ];
+    try {
+        keysToMigrate.forEach(k => {
+            const oldVal = localStorage.getItem('tourist_traps_' + k);
+            if (oldVal !== null) {
+                if (localStorage.getItem('travelreviews_' + k) === null) {
+                    localStorage.setItem('travelreviews_' + k, oldVal);
+                }
+                localStorage.removeItem('tourist_traps_' + k);
+            }
+        });
+    } catch (e) {
+        console.error("Local storage migration error:", e);
+    }
+
     // Detect environment (CrazyGames, itch.io, or standard play)
     const hostname = window.location.hostname;
     const referrer = document.referrer || "";
@@ -607,11 +630,11 @@ window.onload = async () => {
             const confirmReset = confirm("⚠️ Are you sure you want to reset all your progress? This will delete all your local solving statistics and cannot be undone.");
             if (confirmReset) {
                 try {
-                    localStorage.removeItem('tourist_traps_solved_puzzles');
-                    localStorage.removeItem('tourist_traps_solved_hints');
-                    localStorage.removeItem('tourist_traps_attempted_puzzles');
-                    localStorage.removeItem('tourist_traps_puzzle_attempts');
-                    localStorage.removeItem('tourist_traps_max_streak');
+                    localStorage.removeItem('travelreviews_solved_puzzles');
+                    localStorage.removeItem('travelreviews_solved_hints');
+                    localStorage.removeItem('travelreviews_attempted_puzzles');
+                    localStorage.removeItem('travelreviews_puzzle_attempts');
+                    localStorage.removeItem('travelreviews_max_streak');
                     showToast("🗑️ All progress has been reset.");
                     setTimeout(() => {
                         window.location.reload();
@@ -657,7 +680,7 @@ async function loadPuzzleDatabase() {
     
     // Try fetching from public GitHub RAW content CDN first
     try {
-        const cdnUrl = `${GITHUB_REPO_URL}/touristtraps_daily_games.json?t=${Date.now()}`;
+        const cdnUrl = `${GITHUB_REPO_URL}/travelreviews_daily_games.json?t=${Date.now()}`;
         const res = await fetch(cdnUrl);
         if (res.ok) {
             rawData = await res.json();
@@ -749,7 +772,7 @@ async function loadPuzzleDatabase() {
 
 function getSolvedPuzzlesList() {
     try {
-        const data = localStorage.getItem('tourist_traps_solved_puzzles');
+        const data = localStorage.getItem('travelreviews_solved_puzzles');
         const list = data ? JSON.parse(data) : [];
         return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
@@ -759,7 +782,7 @@ function getSolvedPuzzlesList() {
 
 function getSolvedHintsMap() {
     try {
-        const data = localStorage.getItem('tourist_traps_solved_hints');
+        const data = localStorage.getItem('travelreviews_solved_hints');
         const map = data ? JSON.parse(data) : {};
         const sanitized = {};
         Object.keys(map).forEach(k => {
@@ -776,12 +799,12 @@ function savePuzzleSolved(puzzleNum) {
         const paddedNum = padPuzzleNumber(puzzleNum);
         const solved = getSolvedPuzzlesList();
         solved.add(paddedNum);
-        localStorage.setItem('tourist_traps_solved_puzzles', JSON.stringify([...solved]));
+        localStorage.setItem('travelreviews_solved_puzzles', JSON.stringify([...solved]));
         
         // Save the number of hints used for this puzzle
         const solvedHints = getSolvedHintsMap();
         solvedHints[paddedNum] = hintsUsed;
-        localStorage.setItem('tourist_traps_solved_hints', JSON.stringify(solvedHints));
+        localStorage.setItem('travelreviews_solved_hints', JSON.stringify(solvedHints));
 
         // Push solved status to backend profile sync
         postUserProfile();
@@ -793,7 +816,7 @@ function savePuzzleSolved(puzzleNum) {
 // Generate a profile sync ID (PF-XXXXXX)
 function getOrGenerateProfileId() {
     try {
-        let profileId = localStorage.getItem('tourist_traps_profile_id');
+        let profileId = localStorage.getItem('travelreviews_profile_id');
         if (!profileId) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let randomCode = '';
@@ -801,7 +824,7 @@ function getOrGenerateProfileId() {
                 randomCode += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             profileId = `PF-${randomCode}`;
-            localStorage.setItem('tourist_traps_profile_id', profileId);
+            localStorage.setItem('travelreviews_profile_id', profileId);
         }
         return profileId;
     } catch (e) {
@@ -811,7 +834,7 @@ function getOrGenerateProfileId() {
 
 function getAttemptedPuzzles() {
     try {
-        const data = localStorage.getItem('tourist_traps_attempted_puzzles');
+        const data = localStorage.getItem('travelreviews_attempted_puzzles');
         const list = data ? JSON.parse(data) : [];
         return new Set(list.map(p => padPuzzleNumber(p)));
     } catch (e) {
@@ -821,7 +844,7 @@ function getAttemptedPuzzles() {
 
 function getPuzzleAttemptsMap() {
     try {
-        const data = localStorage.getItem('tourist_traps_puzzle_attempts');
+        const data = localStorage.getItem('travelreviews_puzzle_attempts');
         const map = data ? JSON.parse(data) : {};
         const sanitized = {};
         Object.keys(map).forEach(k => {
@@ -838,7 +861,7 @@ function incrementPuzzleAttempts(puzzleNum) {
         const paddedNum = padPuzzleNumber(puzzleNum);
         const attemptsMap = getPuzzleAttemptsMap();
         attemptsMap[paddedNum] = (attemptsMap[paddedNum] || 0) + 1;
-        localStorage.setItem('tourist_traps_puzzle_attempts', JSON.stringify(attemptsMap));
+        localStorage.setItem('travelreviews_puzzle_attempts', JSON.stringify(attemptsMap));
     } catch (e) {
         console.error("Could not write attempts progress to local storage", e);
     }
@@ -850,7 +873,7 @@ function savePuzzleAttempted(puzzleNum) {
         const attempted = getAttemptedPuzzles();
         if (!attempted.has(paddedNum)) {
             attempted.add(paddedNum);
-            localStorage.setItem('tourist_traps_attempted_puzzles', JSON.stringify([...attempted]));
+            localStorage.setItem('travelreviews_attempted_puzzles', JSON.stringify([...attempted]));
             
             // Push attempted status to backend profile sync
             postUserProfile();
@@ -866,7 +889,7 @@ function calculateStreakMetrics(solvedList) {
     let maxStreak = 0;
     
     try {
-        maxStreak = parseInt(localStorage.getItem('tourist_traps_max_streak')) || 0;
+        maxStreak = parseInt(localStorage.getItem('travelreviews_max_streak')) || 0;
     } catch (e) {}
 
     // Trace backwards starting from natural today
@@ -894,7 +917,7 @@ function calculateStreakMetrics(solvedList) {
     if (currentStreak > maxStreak) {
         maxStreak = currentStreak;
         try {
-            localStorage.setItem('tourist_traps_max_streak', maxStreak.toString());
+            localStorage.setItem('travelreviews_max_streak', maxStreak.toString());
         } catch (e) {}
     }
     
@@ -922,7 +945,7 @@ async function postUserProfile() {
     try {
         const userUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? '/api/user'
-            : `${BACKEND_API_URL}/api/touristtraps/user`;
+            : `${BACKEND_API_URL}/api/travelreviews/user`;
             
         await fetch(userUrl, {
             method: 'POST',
@@ -942,7 +965,7 @@ async function fetchAndMergeProfile(serverProfileId) {
     try {
         const userUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? `/api/user?profile_id=${serverProfileId.trim().toUpperCase()}`
-            : `${BACKEND_API_URL}/api/touristtraps/user?profile_id=${serverProfileId.trim().toUpperCase()}`;
+            : `${BACKEND_API_URL}/api/travelreviews/user?profile_id=${serverProfileId.trim().toUpperCase()}`;
             
         const res = await fetch(userUrl, {
             mode: 'cors'
@@ -956,7 +979,7 @@ async function fetchAndMergeProfile(serverProfileId) {
         const localSolved = getSolvedPuzzlesList();
         const serverSolved = data.solved_puzzles || [];
         serverSolved.forEach(p => localSolved.add(padPuzzleNumber(p)));
-        localStorage.setItem('tourist_traps_solved_puzzles', JSON.stringify([...localSolved]));
+        localStorage.setItem('travelreviews_solved_puzzles', JSON.stringify([...localSolved]));
         
         // 2. Merge Solved Hints (take minimum hints used)
         const localHints = getSolvedHintsMap();
@@ -969,23 +992,23 @@ async function fetchAndMergeProfile(serverProfileId) {
                 localHints[paddedP] = serverH;
             }
         });
-        localStorage.setItem('tourist_traps_solved_hints', JSON.stringify(localHints));
+        localStorage.setItem('travelreviews_solved_hints', JSON.stringify(localHints));
         
         // 3. Merge Attempted Puzzles
         const localAttempted = getAttemptedPuzzles();
         const serverAttempted = data.attempted_puzzles || [];
         serverAttempted.forEach(p => localAttempted.add(padPuzzleNumber(p)));
-        localStorage.setItem('tourist_traps_attempted_puzzles', JSON.stringify([...localAttempted]));
+        localStorage.setItem('travelreviews_attempted_puzzles', JSON.stringify([...localAttempted]));
         
         // 4. Merge Max Streak
-        let localMaxStreak = parseInt(localStorage.getItem('tourist_traps_max_streak')) || 0;
+        let localMaxStreak = parseInt(localStorage.getItem('travelreviews_max_streak')) || 0;
         const serverMaxStreak = data.max_streak || 0;
         if (serverMaxStreak > localMaxStreak) {
-            localStorage.setItem('tourist_traps_max_streak', serverMaxStreak.toString());
+            localStorage.setItem('travelreviews_max_streak', serverMaxStreak.toString());
         }
         
         // 5. Update local profile ID to the synced one
-        localStorage.setItem('tourist_traps_profile_id', serverProfileId.toUpperCase());
+        localStorage.setItem('travelreviews_profile_id', serverProfileId.toUpperCase());
         
         // 6. Push merged state back to server to make it fully synchronous
         await postUserProfile();
@@ -1065,8 +1088,8 @@ function getCorrectPosterUrl(urlPath) {
     const cleanPath = urlPath.startsWith('/') ? urlPath.substring(1) : urlPath;
     
     if (activeFetchedFromCDN) {
-        // Load poster illustration from raw public GitHub CDN under the touristtraps subfolder
-        const rawRepoUrl = "https://raw.githubusercontent.com/iwandres/PunFiction/main/touristtraps";
+        // Load poster illustration from raw public GitHub CDN under the travelreviews subfolder
+        const rawRepoUrl = "https://raw.githubusercontent.com/iwandres/PunFiction/main/travelreviews";
         return `${rawRepoUrl}/${cleanPath}`;
     }
     // Sandbox local wrapper load
@@ -1099,14 +1122,26 @@ function updateBackgroundGradient(puzzleNum) {
     // Premium, ultra-soft travel pastel gradients (lightness ~96-98%)
     // reflecting different vacation resort aesthetics (alpine, coastal, desert, etc.)
     const themes = [
-        { bg: '#FAF8F5', end: '#E6F4EA', accent: '#00AA6C' }, // Alpine Forest / TripAdvisor Green
-        { bg: '#FAF8F5', end: '#E8F0FE', accent: '#1A73E8' }, // Coastal Resort / Google Blue
-        { bg: '#FAF8F5', end: '#FDF2E9', accent: '#E67E22' }, // Desert Oasis / Terracotta
-        { bg: '#FAF8F5', end: '#F3E5F5', accent: '#9B59B6' }, // Lavender Field / Violet
-        { bg: '#FAF8F5', end: '#FEF9E7', accent: '#F1C40F' }  // Sunny Beach / Golden Amber
+        { name: 'road_trip', bg: '#FAF8F5', end: '#E6F4EA', accent: '#00AA6C' },       // Road Trip / Alpine Green
+        { name: 'air_mail', bg: '#FAF8F5', end: '#E8F0FE', accent: '#1A73E8' },        // Air Mail / Coastal Blue
+        { name: 'train_passage', bg: '#FAF8F5', end: '#FDF2E9', accent: '#E67E22' },   // Train Passage / Terracotta Orange
+        { name: 'gondola_ride', bg: '#FAF8F5', end: '#F3E5F5', accent: '#9B59B6' },    // Gondola Ride / Lavender Violet
+        { name: 'boat_voyage', bg: '#FAF8F5', end: '#FEF9E7', accent: '#F1C40F' },     // Boat Voyage / Golden Amber
+        { name: 'mountain_trek', bg: '#FAF8F5', end: '#E8EFE9', accent: '#3E6B4B' },    // Mountain Trek / Sage Green
+        { name: 'desert_safari', bg: '#FAF8F5', end: '#F7EFE2', accent: '#D48D3B' },    // Desert Safari / Warm Sand
+        { name: 'sightseeing', bg: '#FAF8F5', end: '#ECEFF1', accent: '#607D8B' },      // Sightseeing / Slate Gray
+        { name: 'tropical_island', bg: '#FAF8F5', end: '#E0F7FA', accent: '#00ACC1' },  // Tropical Island / Turquoise Blue
+        { name: 'winter_lodge', bg: '#FAF8F5', end: '#E3F2FD', accent: '#0288D1' },     // Winter Lodge / Frost Blue
+        { name: 'metro_transit', bg: '#FAF8F5', end: '#EFEBE9', accent: '#5D4037' }     // Metro Transit / Charcoal Brown
     ];
     
-    const theme = themes[(num - 1) % themes.length];
+    let theme = null;
+    if (activeChallenge && activeChallenge.page_theme) {
+        theme = themes.find(t => t.name === activeChallenge.page_theme);
+    }
+    if (!theme) {
+        theme = themes[(num - 1) % themes.length];
+    }
     
     document.documentElement.style.setProperty('--bg-color', theme.bg);
     document.documentElement.style.setProperty('--bg-gradient-end', theme.end);
@@ -1116,16 +1151,39 @@ function updateBackgroundGradient(puzzleNum) {
 function updateBackgroundStamps(puzzleNum) {
     const num = parseInt(puzzleNum) || 1;
     
-    // Cycle through generated stamp assets
-    const stampFiles = [
-        'stamp_airplane.png',
-        'stamp_nautical.png',
-        'stamp_compass.png'
+    const themes = [
+        { name: 'road_trip' },
+        { name: 'air_mail' },
+        { name: 'train_passage' },
+        { name: 'gondola_ride' },
+        { name: 'boat_voyage' },
+        { name: 'mountain_trek' },
+        { name: 'desert_safari' },
+        { name: 'sightseeing' },
+        { name: 'tropical_island' },
+        { name: 'winter_lodge' },
+        { name: 'metro_transit' }
     ];
     
-    // Select different stamps for left and right based on challenge number
-    const leftFile = stampFiles[(num - 1) % stampFiles.length];
-    const rightFile = stampFiles[num % stampFiles.length];
+    const theme = themes[(num - 1) % themes.length];
+    
+    const themeStamps = {
+        'road_trip': ['stamp_roadtrip_car.png', 'stamp_roadtrip_car.png'],
+        'air_mail': ['stamp_airplane.png', 'stamp_airplane.png'],
+        'train_passage': ['stamp_train.png', 'stamp_train.png'],
+        'gondola_ride': ['stamp_gondola.png', 'stamp_gondola.png'],
+        'boat_voyage': ['stamp_nautical.png', 'stamp_nautical.png'],
+        'mountain_trek': ['stamp_trek.png', 'stamp_trek.png'],
+        'desert_safari': ['stamp_safari.png', 'stamp_safari.png'],
+        'sightseeing': ['stamp_compass.png', 'stamp_compass.png'],
+        'tropical_island': ['stamp_tropical.png', 'stamp_tropical.png'],
+        'winter_lodge': ['stamp_winter.png', 'stamp_winter.png'],
+        'metro_transit': ['stamp_metro.png', 'stamp_metro.png']
+    };
+    
+    const files = themeStamps[theme.name];
+    const leftFile = files[0];
+    const rightFile = files[1];
     
     // Resolve correct paths for raw GitHub CDN or local development
     const leftUrl = getCorrectPosterUrl(`assets/stamps/${leftFile}`);
@@ -1824,7 +1882,7 @@ function triggerVictory() {
             lobbyBtn.innerHTML = `🎮 PLAY ALL & TRACK STREAK ➔`;
             lobbyBtn.classList.remove('hidden');
             lobbyBtn.onclick = () => {
-                window.open('https://iwandres.github.io/PunFiction/touristtraps/', '_blank');
+                window.open('https://iwandres.github.io/PunFiction/travelreviews/', '_blank');
             };
         } else {
             const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
@@ -2047,7 +2105,7 @@ function shareSolvedScore() {
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🎬\n` + 
                      `Parody Solved: "${getMaskedParodyTitle(activeChallenge.boss_pun_title)}" 🍿\n` +
                      `Stats: ${hintText}\n` +
-                     `Play daily challenge at: https://iwandres.github.io/PunFiction/touristtraps/`;
+                     `Play daily challenge at: https://iwandres.github.io/PunFiction/travelreviews/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
@@ -2378,7 +2436,7 @@ async function sendTelemetryEvent(event, hints = 0) {
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? '/api/records'
-            : `${BACKEND_API_URL}/api/touristtraps/records`;
+            : `${BACKEND_API_URL}/api/travelreviews/records`;
         
         await fetch(telemetryUrl, {
             method: 'POST',
@@ -2432,7 +2490,7 @@ async function fetchAllTelemetryStats() {
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? '/api/records'
-            : `${BACKEND_API_URL}/api/touristtraps/records`;
+            : `${BACKEND_API_URL}/api/travelreviews/records`;
             
         const response = await fetchWithTimeout(telemetryUrl, { timeout: 3500 });
         if (response.ok) {
@@ -2447,7 +2505,7 @@ async function fetchAllTelemetryStats() {
     }
     
     try {
-        const staticUrl = `${GITHUB_REPO_URL}/touristtraps_records.json?t=${Date.now()}`;
+        const staticUrl = `${GITHUB_REPO_URL}/travelreviews_records.json?t=${Date.now()}`;
         const response = await fetchWithTimeout(staticUrl, { timeout: 3500 });
         if (response.ok) {
             const data = await response.json();
@@ -2619,7 +2677,7 @@ async function openStatsSelectModal() {
                     <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-color); margin-bottom: 20px;">
                         The itch.io edition only displays today's puzzle. Visit the official portal to play all historical challenges, view leaderboards, and track your daily streak!
                     </p>
-                    <a href="https://iwandres.github.io/PunFiction/touristtraps/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
+                    <a href="https://iwandres.github.io/PunFiction/travelreviews/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
                 </div>
             `;
             return;

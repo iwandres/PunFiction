@@ -7,10 +7,10 @@ from pymongo import MongoClient
 mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 client = MongoClient(mongo_uri)
 
-db = client["tourist_traps_db"]
+db = client["travelreviews_db"]
 production_pool = db["boss_puzzle_sets"]
 staging_pool = db["raw_combinator_pool"]
-telemetry_pool = db["PunFiction_TouristTraps"]
+telemetry_pool = db["PunFiction_TravelReviews"]
 
 def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
     """Records a telemetry event in the MongoDB collection using atomic increments."""
