@@ -1327,7 +1327,7 @@ function revealHint2() {
     triggerStartTelemetry();
     ui.btnShowHint2.classList.add('hidden');
     
-    // Reveal Hint 2 section (Original Location) inside the consolidated Hint Box
+    // Reveal Hint 2 section (Real Location) inside the consolidated Hint Box
     if (ui.hintDisplayBox) ui.hintDisplayBox.classList.remove('hidden');
     if (ui.hintMovieSection) ui.hintMovieSection.classList.remove('hidden');
     
@@ -1824,7 +1824,7 @@ function triggerVictory() {
     // Render victory postcard frame immediately
     ui.victoryPosterImg.src = getCorrectPosterUrl(activeChallenge.boss_poster_url);
     ui.finalBossTitle.innerText = activeChallenge.boss_pun_title;
-    ui.finalBossMovie.innerText = `Original Location: ${activeChallenge.boss_original_title}`;
+    ui.finalBossMovie.innerText = `Real Location: ${activeChallenge.boss_original_title}`;
     
     // Response from the Owner
     ui.finalBossPitch.innerHTML = `
