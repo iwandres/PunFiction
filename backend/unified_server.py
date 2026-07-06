@@ -847,7 +847,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         config=types.GenerateImagesConfig(
                             number_of_images=1,
                             output_mime_type="image/png",
-                            aspect_ratio="3:2"
+                            aspect_ratio="4:3"
                         )
                     )
                     
