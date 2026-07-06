@@ -3454,7 +3454,7 @@
         async function tt_loadData(type) {
             try {
                 let apiType = type.startsWith('tt_') ? type.replace('tt_', '') : type;
-                let res = await fetch(`/api/travelreviews/${apiType}`);
+                let res = await fetch(`/api/travelreviews/${apiType}?t=${Date.now()}`);
                 let data = await res.json();
                 if (type === 'tt_landmarks') tt_landmarks = data;
                 else if (type === 'tt_puns') tt_puns = data;
