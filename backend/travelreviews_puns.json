@@ -259,20 +259,6 @@
     "status": "approved"
   },
   {
-    "id": "pun_st._peter's_basilica_1783298874_821",
-    "original_name": "St. Peter's Basilica",
-    "location": "Vatican City",
-    "pun_name": "St. Peter's Basilisk-a",
-    "status": "pending"
-  },
-  {
-    "id": "pun_st._peter's_basilica_1783298874_739",
-    "original_name": "St. Peter's Basilica",
-    "location": "Vatican City",
-    "pun_name": "St. Peter's Basic-a",
-    "status": "pending"
-  },
-  {
     "id": "pun_empire_state_building_1783298887_454",
     "original_name": "Empire State Building",
     "location": "New York, USA",
@@ -357,13 +343,6 @@
     "status": "approved"
   },
   {
-    "id": "pun_great_barrier_reef_1783298920_577",
-    "original_name": "Great Barrier Reef",
-    "location": "Queensland, Australia",
-    "pun_name": "Great Beer Reef",
-    "status": "pending"
-  },
-  {
     "id": "pun_great_barrier_reef_1783298920_807",
     "original_name": "Great Barrier Reef",
     "location": "Queensland, Australia",
@@ -375,28 +354,7 @@
     "original_name": "Loch Ness",
     "location": "Highlands, Scotland",
     "pun_name": "Loch Mess",
-    "status": "pending"
-  },
-  {
-    "id": "pun_loch_ness_1783298929_678",
-    "original_name": "Loch Ness",
-    "location": "Highlands, Scotland",
-    "pun_name": "Mock Ness",
-    "status": "pending"
-  },
-  {
-    "id": "pun_loch_ness_1783298929_522",
-    "original_name": "Loch Ness",
-    "location": "Highlands, Scotland",
-    "pun_name": "Loch Guess",
-    "status": "pending"
-  },
-  {
-    "id": "pun_mount_kilimanjaro_1783298934_350",
-    "original_name": "Mount Kilimanjaro",
-    "location": "Kilimanjaro Region, Tanzania",
-    "pun_name": "Mount Killy-Many-Jars-Oh!",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_big_ben_1783298937_847",
@@ -434,18 +392,11 @@
     "status": "approved"
   },
   {
-    "id": "pun_palace_of_versailles_1783298947_921",
-    "original_name": "Palace of Versailles",
-    "location": "Versailles, France",
-    "pun_name": "Palace of Ver-sighs",
-    "status": "pending"
-  },
-  {
     "id": "pun_palace_of_versailles_1783298947_521",
     "original_name": "Palace of Versailles",
     "location": "Versailles, France",
     "pun_name": "Palace of Ver-size",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_panama_canal_1783298954_571",
@@ -466,42 +417,14 @@
     "original_name": "Alcatraz Island",
     "location": "San Francisco, USA",
     "pun_name": "Alca-trousers Island",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_alcatraz_island_1783312897_470",
     "original_name": "Alcatraz Island",
     "location": "San Francisco, USA",
     "pun_name": "Alcohol-traz Island",
-    "status": "pending"
-  },
-  {
-    "id": "pun_alcatraz_island_1783312897_582",
-    "original_name": "Alcatraz Island",
-    "location": "San Francisco, USA",
-    "pun_name": "Alka-razz Island",
-    "status": "pending"
-  },
-  {
-    "id": "pun_eiffel_tower_1783313702_915",
-    "original_name": "Eiffel Tower",
-    "location": "Paris, France",
-    "pun_name": "Waffle Tower",
-    "status": "pending"
-  },
-  {
-    "id": "pun_eiffel_tower_1783313702_538",
-    "original_name": "Eiffel Tower",
-    "location": "Paris, France",
-    "pun_name": "Eyeful Tower",
-    "status": "pending"
-  },
-  {
-    "id": "pun_eiffel_tower_1783313702_736",
-    "original_name": "Eiffel Tower",
-    "location": "Paris, France",
-    "pun_name": "Awful Tower",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_landmark_1_1783199003_0_1783199786",
@@ -625,14 +548,14 @@
     "original_name": "Amalfi Coast",
     "location": "Campania, Italy",
     "pun_name": "A Muffin Toast",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_amalfi_coast_1783313857_963",
     "original_name": "Amalfi Coast",
     "location": "Campania, Italy",
     "pun_name": "A Mighty Roast",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_amalfi_coast_1783313857_130",
@@ -1041,38 +964,311 @@
     "status": "pending"
   },
   {
-    "id": "pun_arc_de_triomphe_1783314173_930",
+    "id": "pun_arc_de_triomphe_1783314356_298",
     "original_name": "Arc de Triomphe",
     "location": "Paris, France",
     "pun_name": "Bark de Triomphe",
     "status": "pending"
   },
   {
-    "id": "pun_arc_de_triomphe_1783314173_930",
+    "id": "pun_arc_de_triomphe_1783314356_788",
     "original_name": "Arc de Triomphe",
     "location": "Paris, France",
-    "pun_name": "Arc de Trifle",
+    "pun_name": "Arc de Grumpy",
     "status": "pending"
   },
   {
-    "id": "pun_arc_de_triomphe_1783314173_817",
+    "id": "pun_arc_de_triomphe_1783314356_435",
     "original_name": "Arc de Triomphe",
     "location": "Paris, France",
-    "pun_name": "Arc de Trumpet",
+    "pun_name": "Park de Triomphe",
     "status": "pending"
   },
   {
-    "id": "pun_landmark_14_1783199003_manual",
-    "landmark_id": "landmark_14_1783199003",
-    "pun_name": "Trevi Mountain",
-    "original_name": "Trevi Fountain",
+    "id": "pun_mont_saint-michel_1783314461_654",
+    "original_name": "Mont Saint-Michel",
+    "location": "Normandy, France",
+    "pun_name": "Mont Saint-Pickle",
     "status": "pending"
   },
   {
-    "id": "pun_landmark_12_1783199003_manual",
-    "landmark_id": "landmark_12_1783199003",
-    "pun_name": "St. Peter's Bazooka",
-    "original_name": "St. Peter's Basilica",
+    "id": "pun_mont_saint-michel_1783314461_845",
+    "original_name": "Mont Saint-Michel",
+    "location": "Normandy, France",
+    "pun_name": "Munch Sand-Mussel",
+    "status": "pending"
+  },
+  {
+    "id": "pun_mont_saint-michel_1783314461_153",
+    "original_name": "Mont Saint-Michel",
+    "location": "Normandy, France",
+    "pun_name": "Mont Faint-Michel",
+    "status": "pending"
+  },
+  {
+    "id": "pun_vatican_museums_1783314469_128",
+    "original_name": "Vatican Museums",
+    "location": "Vatican City",
+    "pun_name": "Vatican Amuse-eums",
+    "status": "pending"
+  },
+  {
+    "id": "pun_vatican_museums_1783314469_344",
+    "original_name": "Vatican Museums",
+    "location": "Vatican City",
+    "pun_name": "Vatican't Snooze-eums",
+    "status": "pending"
+  },
+  {
+    "id": "pun_vatican_museums_1783314469_188",
+    "original_name": "Vatican Museums",
+    "location": "Vatican City",
+    "pun_name": "Batty-can Museums",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_forum_1783314474_706",
+    "original_name": "Roman Forum",
+    "location": "Rome, Italy",
+    "pun_name": "Ramen Forum",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_forum_1783314474_596",
+    "original_name": "Roman Forum",
+    "location": "Rome, Italy",
+    "pun_name": "Roamin' Forum",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_forum_1783314474_366",
+    "original_name": "Roman Forum",
+    "location": "Rome, Italy",
+    "pun_name": "Ramen For 'em",
+    "status": "pending"
+  },
+  {
+    "id": "pun_milan_cathedral_1783314490_172",
+    "original_name": "Milan Cathedral",
+    "location": "Milan, Italy",
+    "pun_name": "Meal-on Cathedral",
+    "status": "pending"
+  },
+  {
+    "id": "pun_milan_cathedral_1783314490_668",
+    "original_name": "Milan Cathedral",
+    "location": "Milan, Italy",
+    "pun_name": "Milan Cat-Heard-All",
+    "status": "pending"
+  },
+  {
+    "id": "pun_the_shard_1783314500_507",
+    "original_name": "The Shard",
+    "location": "London, England",
+    "pun_name": "The Shart",
+    "status": "pending"
+  },
+  {
+    "id": "pun_the_shard_1783314500_828",
+    "original_name": "The Shard",
+    "location": "London, England",
+    "pun_name": "The Stared",
+    "status": "pending"
+  },
+  {
+    "id": "pun_the_shard_1783314500_558",
+    "original_name": "The Shard",
+    "location": "London, England",
+    "pun_name": "The Shared",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_baths_1783314503_505",
+    "original_name": "Roman Baths",
+    "location": "Bath, England",
+    "pun_name": "Ramen Baths",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_baths_1783314503_232",
+    "original_name": "Roman Baths",
+    "location": "Bath, England",
+    "pun_name": "Roamin' Baths",
+    "status": "pending"
+  },
+  {
+    "id": "pun_roman_baths_1783314503_763",
+    "original_name": "Roman Baths",
+    "location": "Bath, England",
+    "pun_name": "Roman Maths",
+    "status": "pending"
+  },
+  {
+    "id": "pun_giant's_causeway_1783314507_385",
+    "original_name": "Giant's Causeway",
+    "location": "County Antrim, Northern Ireland",
+    "pun_name": "Giant's Cosplay",
+    "status": "pending"
+  },
+  {
+    "id": "pun_giant's_causeway_1783314507_439",
+    "original_name": "Giant's Causeway",
+    "location": "County Antrim, Northern Ireland",
+    "pun_name": "Giant's Pauseway",
+    "status": "pending"
+  },
+  {
+    "id": "pun_giant's_causeway_1783314507_647",
+    "original_name": "Giant's Causeway",
+    "location": "County Antrim, Northern Ireland",
+    "pun_name": "G Rant's Causeway",
+    "status": "pending"
+  },
+  {
+    "id": "pun_la_rambla_1783314514_261",
+    "original_name": "La Rambla",
+    "location": "Barcelona, Spain",
+    "pun_name": "La Scrambla",
+    "status": "pending"
+  },
+  {
+    "id": "pun_la_rambla_1783314514_182",
+    "original_name": "La Rambla",
+    "location": "Barcelona, Spain",
+    "pun_name": "La Gamble-a",
+    "status": "pending"
+  },
+  {
+    "id": "pun_la_rambla_1783314514_569",
+    "original_name": "La Rambla",
+    "location": "Barcelona, Spain",
+    "pun_name": "La Blah-Blah",
+    "status": "pending"
+  },
+  {
+    "id": "pun_guggenheim_museum_bilbao_1783314521_318",
+    "original_name": "Guggenheim Museum Bilbao",
+    "location": "Bilbao, Spain",
+    "pun_name": "Guggle-gum Moo-seum Bilbao",
+    "status": "pending"
+  },
+  {
+    "id": "pun_guggenheim_museum_bilbao_1783314521_189",
+    "original_name": "Guggenheim Museum Bilbao",
+    "location": "Bilbao, Spain",
+    "pun_name": "Giggleheim Museum Chill-bao",
+    "status": "pending"
+  },
+  {
+    "id": "pun_guggenheim_museum_bilbao_1783314521_392",
+    "original_name": "Guggenheim Museum Bilbao",
+    "location": "Bilbao, Spain",
+    "pun_name": "Guggenheim Booze-um Bilbao",
+    "status": "pending"
+  },
+  {
+    "id": "pun_alcázar_of_seville_1783314525_686",
+    "original_name": "Alcázar of Seville",
+    "location": "Seville, Spain",
+    "pun_name": "Alka-Seltzer of Seville",
+    "status": "pending"
+  },
+  {
+    "id": "pun_alcázar_of_seville_1783314525_763",
+    "original_name": "Alcázar of Seville",
+    "location": "Seville, Spain",
+    "pun_name": "All Kazoo of Seville",
+    "status": "pending"
+  },
+  {
+    "id": "pun_alcázar_of_seville_1783314525_983",
+    "original_name": "Alcázar of Seville",
+    "location": "Seville, Spain",
+    "pun_name": "Al Cat-zar of Seville",
+    "status": "pending"
+  },
+  {
+    "id": "pun_mount_kilimanjaro_1783314627_697",
+    "original_name": "Mount Kilimanjaro",
+    "location": "Kilimanjaro Region, Tanzania",
+    "pun_name": "Mount Chili-man-jaro",
+    "status": "pending"
+  },
+  {
+    "id": "pun_mount_kilimanjaro_1783314627_363",
+    "original_name": "Mount Kilimanjaro",
+    "location": "Kilimanjaro Region, Tanzania",
+    "pun_name": "Mount Kilimanjaroast",
+    "status": "pending"
+  },
+  {
+    "id": "pun_mount_kilimanjaro_1783314627_569",
+    "original_name": "Mount Kilimanjaro",
+    "location": "Kilimanjaro Region, Tanzania",
+    "pun_name": "Mount Kili-man-jam-o",
+    "status": "pending"
+  },
+  {
+    "id": "pun_brandenburg_gate_1783314632_111",
+    "original_name": "Brandenburg Gate",
+    "location": "Berlin, Germany",
+    "pun_name": "Brandy-burg Gate",
+    "status": "pending"
+  },
+  {
+    "id": "pun_brandenburg_gate_1783314632_491",
+    "original_name": "Brandenburg Gate",
+    "location": "Berlin, Germany",
+    "pun_name": "Bargain-burg Gate",
+    "status": "pending"
+  },
+  {
+    "id": "pun_brandenburg_gate_1783314632_382",
+    "original_name": "Brandenburg Gate",
+    "location": "Berlin, Germany",
+    "pun_name": "Brandenburg Grate",
+    "status": "pending"
+  },
+  {
+    "id": "pun_reichstag_building_1783314641_591",
+    "original_name": "Reichstag Building",
+    "location": "Berlin, Germany",
+    "pun_name": "Rice Tag Building",
+    "status": "pending"
+  },
+  {
+    "id": "pun_reichstag_building_1783314641_360",
+    "original_name": "Reichstag Building",
+    "location": "Berlin, Germany",
+    "pun_name": "Reach Tag Building",
+    "status": "pending"
+  },
+  {
+    "id": "pun_reichstag_building_1783314641_834",
+    "original_name": "Reichstag Building",
+    "location": "Berlin, Germany",
+    "pun_name": "Rage Stack Building",
+    "status": "pending"
+  },
+  {
+    "id": "pun_berlin_wall_memorial_1783314648_186",
+    "original_name": "Berlin Wall Memorial",
+    "location": "Berlin, Germany",
+    "pun_name": "Berlin Whale Memorial",
+    "status": "pending"
+  },
+  {
+    "id": "pun_berlin_wall_memorial_1783314648_279",
+    "original_name": "Berlin Wall Memorial",
+    "location": "Berlin, Germany",
+    "pun_name": "Berlin Wall Meme-orial",
+    "status": "pending"
+  },
+  {
+    "id": "pun_berlin_wall_memorial_1783314648_780",
+    "original_name": "Berlin Wall Memorial",
+    "location": "Berlin, Germany",
+    "pun_name": "Beer-lin Wall Memorial",
     "status": "pending"
   }
 ]
