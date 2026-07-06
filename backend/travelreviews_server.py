@@ -6,22 +6,22 @@ import urllib.parse
 import time
 import sys
 import subprocess
-import touristtraps_database as database
+import travelreviews_database as database
 
 PORT = int(os.environ.get("PORT", 8001))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DIR_PATH)
 
 # File Paths
-DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'touristtraps_daily_games.json')
-LANDMARKS_FILE = os.path.join(DIR_PATH, 'touristtraps_landmarks.json')
-PUNS_FILE = os.path.join(DIR_PATH, 'touristtraps_puns.json')
-CLUES_FILE = os.path.join(DIR_PATH, 'touristtraps_clues.json')
-POSTCARDS_FILE = os.path.join(DIR_PATH, 'touristtraps_postcards.json')
-RECORDS_FILE = os.path.join(DIR_PATH, 'touristtraps_records.json')
-HTML_FILE = os.path.join(DIR_PATH, 'touristtraps_admin.html')
+DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'travelreviews_daily_games.json')
+LANDMARKS_FILE = os.path.join(DIR_PATH, 'travelreviews_landmarks.json')
+PUNS_FILE = os.path.join(DIR_PATH, 'travelreviews_puns.json')
+CLUES_FILE = os.path.join(DIR_PATH, 'travelreviews_clues.json')
+POSTCARDS_FILE = os.path.join(DIR_PATH, 'travelreviews_postcards.json')
+RECORDS_FILE = os.path.join(DIR_PATH, 'travelreviews_records.json')
+HTML_FILE = os.path.join(DIR_PATH, 'travelreviews_admin.html')
 
-CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'touristtraps', 'assets', 'cartoons')
+CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'travelreviews', 'assets', 'cartoons')
 os.makedirs(CARTOONS_DIR, exist_ok=True)
 
 # Helper to load/save JSON
@@ -47,7 +47,7 @@ def save_json(filepath, data):
 gemini_key = os.environ.get("GEMINI_API_KEY")
 gemini_available = bool(gemini_key)
 
-class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
+class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
@@ -154,11 +154,11 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
             else:
                 self.wfile.write(json.dumps({"error": "profile_id is required"}).encode('utf-8'))
                 
-        # 3. Serve Client Files Directly (e.g. /touristtraps/index.html, /touristtraps/app.js)
-        elif req_path.startswith('/touristtraps/') or req_path.startswith('/assets/'):
+        # 3. Serve Client Files Directly (e.g. /travelreviews/index.html, /travelreviews/app.js)
+        elif req_path.startswith('/travelreviews/') or req_path.startswith('/assets/'):
             clean_path = urllib.parse.unquote(req_path.strip('/'))
             if req_path.startswith('/assets/'):
-                file_path = os.path.join(PROJECT_ROOT, 'touristtraps', *clean_path.split('/'))
+                file_path = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
             else:
                 file_path = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
             if os.path.exists(file_path) and not os.path.isdir(file_path):
@@ -664,6 +664,6 @@ class TouristTrapsRequestHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     socketserver.ThreadingTCPServer.allow_reuse_address = True
-    with socketserver.ThreadingTCPServer(("", PORT), TouristTrapsRequestHandler) as httpd:
-        print(f"Serving PunFiction: Tourist Traps Curation Server at http://localhost:{PORT}")
+    with socketserver.ThreadingTCPServer(("", PORT), TravelReviewsRequestHandler) as httpd:
+        print(f"Serving PunFiction: 1-Star Travel Reviews Curation Server at http://localhost:{PORT}")
         httpd.serve_forever()
