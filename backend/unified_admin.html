@@ -3811,10 +3811,15 @@
             el.innerHTML = displayList.map(p => `
                 <div class="tt-list-item" style="gap: 15px;">
                     <img class="img-preview" src="${p.image_path}" alt="Postcard preview" onclick="tt_openPostcardModal('${p.image_path}')">
-                    <div class="item-details">
+                    <div class="item-details" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
                         <strong>${p.pun_name}</strong>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Prompt: ${p.image_prompt}</div>
-                        <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 6px;">
+                        
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary);">Image Generation Prompt:</label>
+                            <textarea style="width: 100%; min-height: 60px; font-size: 0.85rem; padding: 8px 12px; border: 1px solid var(--border-base); border-radius: 6px; background: var(--bg-input); color: var(--text-primary); font-family: inherit; resize: vertical; line-height: 1.4;" onchange="tt_updatePostcardPrompt('${p.id}', this.value)">${p.image_prompt}</textarea>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem;">
                             <strong>Theme:</strong>
                             <select onchange="tt_updatePostcardTheme('${p.id}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
                                 ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
@@ -3822,7 +3827,7 @@
                                 `).join('')}
                             </select>
                         </div>
-                        <div style="font-size: 0.9rem; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-base); padding: 12px 15px; border-radius: 8px; color: var(--text-secondary); margin-top: 8px;">
+                        <div style="font-size: 0.9rem; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-base); padding: 12px 15px; border-radius: 8px; color: var(--text-secondary); margin-top: 4px;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed var(--border-base); padding-bottom: 4px;">
                                 <strong>Owner Reply:</strong>
                                 <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8rem; " onclick="tt_regenerateOwnerReply('${p.clue_id}')">🔄 Regenerate Reply</button>
@@ -3838,6 +3843,14 @@
                     </div>
                 </div>
             `).join('');
+        }
+
+        function tt_updatePostcardPrompt(id, newValue) {
+            let pc = tt_postcards.find(x => x.id === id);
+            if (pc) {
+                pc.image_prompt = newValue.trim();
+                tt_saveData('tt_postcards', tt_postcards);
+            }
         }
 
         async function tt_regenerateOwnerReply(clueId) {
@@ -3875,18 +3888,22 @@
         }
 
         async function tt_regeneratePostcard(clueId, artStyle) {
-            if (!confirm("Are you sure you want to regenerate this postcard art using Gemini 3 Pro?")) return;
+            if (!confirm("Are you sure you want to regenerate this postcard art?")) return;
             
             let btn = event.target;
             let origText = btn.innerText;
             btn.disabled = true;
             btn.innerText = "⏳ Generating...";
             
+            // Extract custom prompt from the active postcards array
+            let pc = tt_postcards.find(p => p.clue_id === clueId);
+            let customPrompt = pc ? pc.image_prompt : "";
+            
             try {
                 let res = await fetch('/api/travelreviews/generate_postcards', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ clue_id: clueId, art_style: artStyle })
+                    body: JSON.stringify({ clue_id: clueId, art_style: artStyle, prompt: customPrompt })
                 });
                 let data = await res.json();
                 if (data.success) {

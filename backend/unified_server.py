@@ -812,29 +812,35 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 client = genai.Client(api_key=gemini_key)
                 new_postcards_count = 0
                 for c in approved_clues[:5]:
-                    style_key = random.choice(list(styles_dict.keys()))
-                    style_prompt = styles_dict[style_key]
-                    
-                    prompt_gen = f"""
-                    Create a single-sentence descriptive text-to-image prompt for a parodied travel postcard based on the location pun "{c['pun_name']}" (derived from "{c['original_name']}").
-                    The prompt should describe a funny, comical scene matching this art style: "{style_prompt}".
-                    Example for "The Grand Crayon":
-                    "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
-                    
-                    Return a JSON object exactly matching this schema:
-                    {{
-                      "image_prompt": "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
-                    }}
-                    """
-                    prompt_res = client.models.generate_content(
-                        model='gemini-2.5-flash',
-                        contents=prompt_gen,
-                        config=types.GenerateContentConfig(
-                            response_mime_type="application/json"
+                    custom_prompt = payload.get('prompt')
+                    if custom_prompt:
+                        image_prompt = custom_prompt
+                        style_prompt = ""
+                        style_key = "custom"
+                    else:
+                        style_key = random.choice(list(styles_dict.keys()))
+                        style_prompt = styles_dict[style_key]
+                        
+                        prompt_gen = f"""
+                        Create a single-sentence descriptive text-to-image prompt for a parodied travel postcard based on the location pun "{c['pun_name']}" (derived from "{c['original_name']}").
+                        The prompt should describe a funny, comical scene matching this art style: "{style_prompt}".
+                        Example for "The Grand Crayon":
+                        "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
+                        
+                        Return a JSON object exactly matching this schema:
+                        {{
+                          "image_prompt": "A giant yellow crayon laying inside the rocky Grand Canyon, comical cartoon illustration."
+                        }}
+                        """
+                        prompt_res = client.models.generate_content(
+                            model='gemini-2.5-flash',
+                            contents=prompt_gen,
+                            config=types.GenerateContentConfig(
+                                response_mime_type="application/json"
+                            )
                         )
-                    )
-                    prompt_data = json.loads(prompt_res.text)
-                    image_prompt = prompt_data.get("image_prompt", f"A funny cartoon of {c['pun_name']}, comical illustration.")
+                        prompt_data = json.loads(prompt_res.text)
+                        image_prompt = prompt_data.get("image_prompt", f"A funny cartoon of {c['pun_name']}, comical illustration.")
                     
                     safe_filename = c['pun_name'].lower().replace(' ', '_').replace('-', '_').replace(':', '') + f"_{int(time.time())}.png"
                     image_path = f"/assets/cartoons/{safe_filename}"
@@ -843,7 +849,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     print(f"Generating postcard for '{c['pun_name']}' in style '{style_key}' using imagen-4.0-generate-001...")
                     response = client.models.generate_images(
                         model='imagen-4.0-generate-001',
-                        prompt=f"{style_prompt} {image_prompt}",
+                        prompt=f"{style_prompt} {image_prompt}".strip(),
                         config=types.GenerateImagesConfig(
                             number_of_images=1,
                             output_mime_type="image/png",
