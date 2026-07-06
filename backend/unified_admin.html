@@ -3516,13 +3516,27 @@
                     tt_clues = tt_clues.filter(x => x.id !== id);
                     tt_saveData(type, tt_clues);
                 } else if (type === 'tt_postcards') {
+                    let pcItem = tt_postcards.find(x => x.id === id);
+                    let clueId = pcItem ? pcItem.clue_id : null;
+                    let punName = pcItem ? pcItem.pun_name : null;
+                    
                     tt_postcards = tt_postcards.filter(x => x.id !== id);
-                    tt_puzzles = tt_puzzles.filter(pz => pz.puzzle_id !== id);
+                    tt_saveData('tt_postcards', tt_postcards);
+                    
+                    if (clueId) {
+                        tt_clues = tt_clues.filter(c => c.id !== clueId);
+                        tt_saveData('tt_clues', tt_clues);
+                    }
+                    if (punName) {
+                        tt_puns = tt_puns.filter(p => p.pun_name !== punName);
+                        tt_saveData('tt_puns', tt_puns);
+                    }
+                    
+                    tt_puzzles = tt_puzzles.filter(pz => pz.puzzle_id !== clueId);
                     tt_puzzles.forEach((pz, idx) => {
                         pz.puzzle_number = String(idx + 1).padStart(3, '0');
                     });
                     tt_saveData('tt_puzzles', tt_puzzles);
-                    tt_saveData(type, tt_postcards);
                 } else if (type === 'tt_landmarks') {
                     tt_landmarks = tt_landmarks.filter(x => x.id !== id);
                     tt_saveData(type, tt_landmarks);
@@ -4162,12 +4176,30 @@
             });
             
             tt_saveData('tt_puzzles', tt_puzzles);
-            tt_renderPuzzles();
+            tt_renderAll();
         }
 
         function tt_removePuzzle(puzzleIdx) {
-            if (confirm("Are you sure you want to permanently delete this challenge from the schedule?")) {
+            if (confirm("Are you sure you want to permanently delete this challenge from the schedule? This will also remove the postcard, progressive clue, and approved pun candidates associated with it.")) {
+                let pzItem = tt_puzzles[puzzleIdx];
+                let clueId = pzItem ? pzItem.puzzle_id : null;
+                let punName = pzItem ? pzItem.boss_pun_title : null;
+                
                 tt_puzzles.splice(puzzleIdx, 1);
+                
+                if (clueId) {
+                    tt_postcards = tt_postcards.filter(p => p.clue_id !== clueId);
+                    tt_saveData('tt_postcards', tt_postcards);
+                    
+                    tt_clues = tt_clues.filter(c => c.id !== clueId);
+                    tt_saveData('tt_clues', tt_clues);
+                }
+                
+                if (punName) {
+                    tt_puns = tt_puns.filter(p => p.pun_name !== punName);
+                    tt_saveData('tt_puns', tt_puns);
+                }
+                
                 tt_autoProcessCurationSchedule();
             }
         }
