@@ -1192,17 +1192,31 @@ function updateBackgroundStamps(puzzleNum) {
     const leftEl = document.getElementById('bg-stamp-left');
     const rightEl = document.getElementById('bg-stamp-right');
     
+    // Deterministically vary positions and rotations per puzzle number
+    const leftTop = 8 + ((num * 13) % 35); // 8% to 43%
+    const leftShift = -80 + ((num * 91) % 50); // -80px to -30px
+    const leftRot = -15 - ((num * 7) % 25); // -15 to -40 deg
+    
+    const rightBottom = 12 + ((num * 17) % 35); // 12% to 47%
+    const rightShift = -80 + ((num * 73) % 50); // -80px to -30px
+    const rightRot = 15 + ((num * 9) % 25); // 15 to 40 deg
+
     if (leftEl) {
         leftEl.style.backgroundImage = `url('${leftUrl}')`;
-        // Apply slight randomized rotation angle per level so stamps feel hand-pressed
-        const rot = -10 - ((num * 7) % 20);
-        leftEl.style.transform = `rotate(${rot}deg)`;
+        leftEl.style.setProperty('--stamp-left-top', `${leftTop}%`);
+        leftEl.style.setProperty('--stamp-left-left', `${leftShift}px`);
+        leftEl.style.setProperty('--stamp-left-left-desktop', `calc(50% - 440px + ${leftShift + 60}px)`);
+        leftEl.style.setProperty('--stamp-left-left-desktop-wide', `calc(50% - 500px + ${leftShift + 60}px)`);
+        leftEl.style.transform = `rotate(${leftRot}deg)`;
     }
     
     if (rightEl) {
         rightEl.style.backgroundImage = `url('${rightUrl}')`;
-        const rot = 10 + ((num * 9) % 20);
-        rightEl.style.transform = `rotate(${rot}deg)`;
+        rightEl.style.setProperty('--stamp-right-bottom', `${rightBottom}%`);
+        rightEl.style.setProperty('--stamp-right-right', `${rightShift}px`);
+        rightEl.style.setProperty('--stamp-right-right-desktop', `calc(50% - 440px + ${rightShift + 60}px)`);
+        rightEl.style.setProperty('--stamp-right-right-desktop-wide', `calc(50% - 500px + ${rightShift + 60}px)`);
+        rightEl.style.transform = `rotate(${rightRot}deg)`;
     }
 }
 

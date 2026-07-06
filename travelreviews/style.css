@@ -2076,32 +2076,32 @@ body.crazygames-env .settings-footer-tos {
 }
 
 .stamp-left {
-    top: 15%;
-    left: -60px;
+    top: var(--stamp-left-top, 15%);
+    left: var(--stamp-left-left, -60px);
     transform: rotate(-15deg);
 }
 
 .stamp-right {
-    bottom: 20%;
-    right: -60px;
+    bottom: var(--stamp-right-bottom, 20%);
+    right: var(--stamp-right-right, -60px);
     transform: rotate(20deg);
 }
 
 /* Push stamps outwards on larger displays so they frame the main app container card */
 @media (min-width: 900px) {
     .stamp-left {
-        left: calc(50% - 440px);
+        left: var(--stamp-left-left-desktop, calc(50% - 440px));
     }
     .stamp-right {
-        right: calc(50% - 440px);
+        right: var(--stamp-right-right-desktop, calc(50% - 440px));
     }
 }
 @media (min-width: 1200px) {
     .stamp-left {
-        left: calc(50% - 500px);
+        left: var(--stamp-left-left-desktop-wide, calc(50% - 500px));
     }
     .stamp-right {
-        right: calc(50% - 500px);
+        right: var(--stamp-right-right-desktop-wide, calc(50% - 500px));
     }
 }
 
