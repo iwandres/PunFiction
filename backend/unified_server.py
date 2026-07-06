@@ -976,8 +976,148 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         else:
             self.send_error(404)
 
+def pipeline_listener():
+    import threading
+    import time
+    
+    print("[Pipeline Listener] Background thread started.")
+    
+    while True:
+        # Check environment variable
+        gemini_key = os.environ.get("GEMINI_API_KEY")
+        if not gemini_key:
+            time.sleep(10)
+            continue
+            
+        try:
+            # 1. Puns Generation Curation Cycle
+            landmarks = load_json(LANDMARKS_FILE, [])
+            puns = load_json(PUNS_FILE, [])
+            approved_landmarks = [lm for lm in landmarks if lm.get('status') == 'approved']
+            existing_puns_landmarks = {p['original_name'] for p in puns}
+            new_landmarks = [lm for lm in approved_landmarks if lm['name'] not in existing_puns_landmarks]
+            
+            if new_landmarks:
+                print(f"[Pipeline Listener] Found {len(new_landmarks)} pending approved landmarks. Generating puns in a batch of 5...")
+                from google import genai
+                from google.genai import types
+                client = genai.Client(api_key=gemini_key)
+                new_puns_count = 0
+                for lm in new_landmarks[:5]:
+                    prompt = f"""
+                    Create a list of 2-3 funny, clever wordplay puns based on the famous historical landmark or travel destination "{lm['name']}" (located in {lm.get('location', 'Unknown')}).
+                    A location pun should sound very similar to the original name but replace parts of it with a funny word (e.g. Waffle Tower instead of Eiffel Tower, Lover Museum instead of Louvre Museum, St. Peter's Bazooka instead of St. Peter's Basilica).
+                    
+                    Return a JSON array of strings exactly matching this schema:
+                    [
+                      "Pun Name 1",
+                      "Pun Name 2"
+                    ]
+                    """
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json"
+                        )
+                    )
+                    pun_candidates = json.loads(response.text)
+                    for candidate in pun_candidates:
+                        puns.append({
+                            "id": f"pun_{lm['name'].lower().replace(' ', '_')}_{int(time.time())}_{random.randint(100,999)}",
+                            "original_name": lm['name'],
+                            "location": lm.get('location', 'Unknown'),
+                            "pun_name": candidate,
+                            "status": "pending"
+                        })
+                        new_puns_count += 1
+                save_json(PUNS_FILE, puns)
+                print(f"[Pipeline Listener] Successfully generated {new_puns_count} puns.")
+                time.sleep(3) # Cool down
+                continue # Re-evaluate immediately
+                
+            # 2. Clues/Reviews Generation Curation Cycle
+            puns = load_json(PUNS_FILE, [])
+            clues = load_json(CLUES_FILE, [])
+            approved_puns = [p for p in puns if p.get('status') == 'approved']
+            existing_clues_puns = {c['pun_name'] for c in clues}
+            new_puns = [p for p in approved_puns if p['pun_name'] not in existing_clues_puns]
+            
+            if new_puns:
+                print(f"[Pipeline Listener] Found {len(new_puns)} pending approved puns. Generating reviews/clues in a batch of 5...")
+                from google import genai
+                from google.genai import types
+                client = genai.Client(api_key=gemini_key)
+                new_clues_count = 0
+                for p in new_puns[:5]:
+                    prompt = f"""
+                    We are building a comedy travel puzzle game. 
+                    The player needs to guess a location pun.
+                    The target location pun name is: "{p['pun_name']}" (which is a pun on the real landmark "{p['original_name']}").
+                    
+                    Your job is to generate 3 progressive clues (reviews) complaining about this location in an unhinged, comedic way.
+                    CRITICAL CONSTRAINT: Each clue MUST be a very short snippet, phrase, or sentence fragment (under 12-15 words). You can use sentence fragments noted/separated using '...' or similar punctuation (e.g., 'So drafty... holes everywhere... completely non-functional!'). Do NOT write long paragraphs or multiple full sentences.
+                    - Clue 1: An absurd, comical snippet or sentence fragment that includes a subtle, clever hint referencing both the geographical/cultural location of the original landmark (e.g. Paris/France for Eiffel Tower) and the wordplay of the pun, giving players a fair chance to solve the puzzle on the very first clue.
+                    - Clue 2: Another short comical snippet or sentence fragment providing additional details/hints about either the original landmark's actual features/location or the wordplay behind the pun.
+                    - Clue 3: A final short comical snippet or sentence fragment that makes the connection between the original landmark and the pun name very obvious (without explicitly naming either).
+                    
+                    Also generate a funny review title.
+                    Also generate a funny Reviewer Username (reviewer_name) that is thematically related to the parodied location or the complaint (e.g., 'SyrupSlinger' for Waffle Tower, 'SoggySouffle' for Eiffel Shower, 'BitterSingle' for Lover Museum). Do not include the '@' symbol in the JSON value.
+                    
+                    Also generate a 'Response from the Owner' (flavor text reply from management).
+                    CRITICAL: The Owner's POV is the manager of the ACTUAL historical landmark (e.g. the Eiffel Tower, the Louvre Museum, etc.). You are responding to a ridiculous 1-star TripAdvisor review from a traveler who has confused your actual historical landmark with a silly, literal pun name (e.g., Eiffel Towel, Waffle Tower, Lover Museum).
+                    The response must be short (under 2 sentences), highly sarcastic, and punchy, correcting the reviewer's absurd confusion by pointing out the actual nature of your landmark (e.g. that it is a 300-meter iron monument, a fine art museum, etc.) and why their complaint makes no sense.
+                    To bolster the response and make it highly contextual, the owner can directly reference a specific notable complaint or mistake made by the reviewer in the clues (e.g., trying to dry off with wrought iron, complaining about square indentations or wanting maple syrup on the girders). Do NOT mention the original landmark name in the response itself.
+                    The owner should occasionally reference the reviewer's username (reviewer_name) directly in their reply prefixed with '@' (e.g. 'Listen here, @DampCroissant...', 'Dear @DampCroissant...'), but vary it sometimes with general greetings like 'Dear Traveler' or 'Dear Adventurer'.
+                    
+                    Return a JSON object matching exactly this schema:
+                    {{
+                      "reviewer_name": "Username",
+                      "review_title": "Avoid at all costs!",
+                      "clue1": "Clue 1 text",
+                      "clue2": "Clue 2 text",
+                      "clue3": "Clue 3 text",
+                      "owner_response": "Owner response here"
+                    }}
+                    """
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json"
+                        )
+                    )
+                    generated = json.loads(response.text)
+                    clues.append({
+                        "id": f"clue_{p['id']}_{int(time.time())}_{random.randint(100,999)}",
+                        "pun_id": p['id'],
+                        "pun_name": p['pun_name'],
+                        "original_name": p['original_name'],
+                        "reviewer_name": generated.get("reviewer_name", "Anonymous"),
+                        "review_title": generated.get("review_title", "Avoid at all costs!"),
+                        "clue1": generated.get("clue1", ""),
+                        "clue2": generated.get("clue2", ""),
+                        "clue3": generated.get("clue3", ""),
+                        "clue4": generated.get("clue4", ""),
+                        "owner_response": generated.get("owner_response", "")
+                    })
+                    new_clues_count += 1
+                save_json(CLUES_FILE, clues)
+                print(f"[Pipeline Listener] Successfully generated {new_clues_count} clues.")
+                time.sleep(3) # Cool down
+                continue # Re-evaluate immediately
+                
+        except Exception as e:
+            print(f"[Pipeline Listener] Error in generation cycle: {e}")
+            
+        time.sleep(10) # check every 10 seconds if idle
+
 if __name__ == '__main__':
     socketserver.ThreadingTCPServer.allow_reuse_address = True
+    import threading
+    t = threading.Thread(target=pipeline_listener, daemon=True)
+    t.start()
     with socketserver.ThreadingTCPServer(("", PORT), UnifiedRequestHandler) as httpd:
         print(f"Serving Consolidated Curation Server at http://localhost:{PORT}")
         httpd.serve_forever()
+
