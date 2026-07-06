@@ -1243,6 +1243,13 @@
         </div> <!-- /#boxoffice-pipeline-views -->
 
         <div id="travelreviews-pipeline-views" style="display: none;">
+            <div style="background: rgba(8, 12, 20, 0.6); border: 1px solid var(--border-base); padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.95rem; color: var(--text-secondary);">🧹 <strong>Pipeline Sweeper:</strong> Approved items automatically transition to the next stage and clear from your view.</span>
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; color: var(--text-primary);">
+                    <input type="checkbox" id="tt_sweeper_mode" checked onchange="tt_renderAll()" style="width: 18px; height: 18px; cursor: pointer;">
+                    Sweeper Mode (Show Pending Only)
+                </label>
+            </div>
 
         <!-- ================= TOURIST TRAPS TABS ================= -->
         <!-- 1. LANDMARKS TAB -->
@@ -3654,13 +3661,18 @@
 
         function tt_renderLandmarks() {
             let el = document.getElementById('tt_landmarks-list');
-            el.innerHTML = tt_landmarks.map((lm, idx) => `
+            const showPendingOnly = document.getElementById('tt_sweeper_mode')?.checked ?? true;
+            let displayList = tt_landmarks;
+            if (showPendingOnly) {
+                displayList = tt_landmarks.filter(lm => lm.status === 'pending' || !lm.status);
+            }
+            el.innerHTML = displayList.map((lm, idx) => `
                 <div class="tt-list-item">
                     <div class="item-details">
                         <strong>${lm.name}</strong> (${lm.location})
                     </div>
                     <div class="item-actions">
-                        <span class="status-badge status-${lm.status}">${lm.status}</span>
+                        <span class="status-badge status-${lm.status || 'pending'}">${lm.status || 'pending'}</span>
                         <button class="btn btn-secondary" onclick="tt_setStatus(tt_landmarks, '${lm.id}', 'approved', 'tt_landmarks')">Approve</button>
                         <button class="btn btn-danger" style="padding: 10px;" onclick="tt_deleteLandmark(${idx})">X</button>
                     </div>
@@ -3678,14 +3690,19 @@
 
         function tt_renderPuns() {
             let el = document.getElementById('tt_puns-list');
-            el.innerHTML = tt_puns.map((p, idx) => `
+            const showPendingOnly = document.getElementById('tt_sweeper_mode')?.checked ?? true;
+            let displayList = tt_puns;
+            if (showPendingOnly) {
+                displayList = tt_puns.filter(p => p.status === 'pending' || !p.status);
+            }
+            el.innerHTML = displayList.map((p, idx) => `
                 <div class="tt-list-item" style="gap: 15px;">
                     <div class="item-details" style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
                         <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: bold;">Original: ${p.original_name}</div>
                         <input type="text" value="${p.pun_name}" onchange="updatePunName(${idx}, this.value)" style="width: 100%; max-width: 400px; padding: 6px 10px; border: 2px solid #2D3436; border-radius: 6px; font-weight: bold; font-family: inherit;">
                     </div>
                     <div class="item-actions" style="align-items: center; gap: 8px;">
-                        <span class="status-badge status-${p.status}">${p.status}</span>
+                        <span class="status-badge status-${p.status || 'pending'}">${p.status || 'pending'}</span>
                         <button class="btn btn-secondary" onclick="tt_setStatus(tt_puns, '${p.id}', 'approved', 'tt_puns')">Approve</button>
                         <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_puns, '${p.id}', 'rejected', 'tt_puns')">Reject</button>
                         <button class="btn btn-danger" style="padding: 10px 14px; background-color: #d63031; font-size: 0.85rem;" onclick="deletePun(${idx})">Delete</button>
@@ -3707,32 +3724,19 @@
             }
         }
 
-        function tt_savePuns() {
-            tt_puns = tt_puns.filter(p => p.status !== 'rejected');
-            tt_saveData('tt_puns', tt_puns);
-            tt_renderPuns();
-        }
-
-        function tt_saveClues() {
-            tt_clues = tt_clues.filter(c => c.status !== 'rejected');
-            tt_saveData('tt_clues', tt_clues);
-            tt_renderClues();
-        }
-
-        function tt_savePostcards() {
-            tt_postcards = tt_postcards.filter(p => p.status !== 'rejected');
-            tt_saveData('tt_postcards', tt_postcards);
-            tt_renderPostcards();
-        }
-
         function tt_renderClues() {
             let el = document.getElementById('tt_clues-list');
-            el.innerHTML = tt_clues.map(c => `
+            const showPendingOnly = document.getElementById('tt_sweeper_mode')?.checked ?? true;
+            let displayList = tt_clues;
+            if (showPendingOnly) {
+                displayList = tt_clues.filter(c => c.status === 'pending' || !c.status);
+            }
+            el.innerHTML = displayList.map(c => `
                 <div class="tt-list-item" style="flex-direction: column; align-items: flex-start; gap: 10px;">
                     <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                         <strong>${c.pun_name} (from ${c.original_name})</strong>
                         <div>
-                            <span class="status-badge status-${c.status}">${c.status}</span>
+                            <span class="status-badge status-${c.status || 'pending'}">${c.status || 'pending'}</span>
                             <button class="btn btn-secondary" onclick="tt_setStatus(tt_clues, '${c.id}', 'approved', 'tt_clues')">Approve</button>
                             <button class="btn btn-danger" style="padding: 10px;" onclick="tt_setStatus(tt_clues, '${c.id}', 'rejected', 'tt_clues')">X</button>
                         </div>
@@ -3757,7 +3761,12 @@
 
         function tt_renderPostcards() {
             let el = document.getElementById('tt_postcards-list');
-            el.innerHTML = tt_postcards.map(p => `
+            const showPendingOnly = document.getElementById('tt_sweeper_mode')?.checked ?? true;
+            let displayList = tt_postcards;
+            if (showPendingOnly) {
+                displayList = tt_postcards.filter(p => p.status === 'pending' || !p.status);
+            }
+            el.innerHTML = displayList.map(p => `
                 <div class="tt-list-item" style="gap: 15px;">
                     <img class="img-preview" src="${p.image_path}" alt="Postcard preview" onclick="tt_openPostcardModal('${p.image_path}')">
                     <div class="item-details">
@@ -3780,7 +3789,7 @@
                         </div>
                     </div>
                     <div class="item-actions" style="gap: 8px;">
-                        <span class="status-badge status-${p.status}">${p.status}</span>
+                        <span class="status-badge status-${p.status || 'pending'}">${p.status || 'pending'}</span>
                         <button class="btn btn-secondary" onclick="tt_setStatus(tt_postcards, '${p.id}', 'approved', 'tt_postcards')">Approve</button>
                         <button class="btn btn-secondary" style="" onclick="tt_regeneratePostcard('${p.clue_id}', '${p.art_style}')">🔄 Regenerate Image</button>
                         <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_postcards, '${p.id}', 'rejected', 'tt_postcards')">X</button>
