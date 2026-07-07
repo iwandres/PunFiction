@@ -1220,23 +1220,23 @@ input:focus {
 }
 
 .funnel-bar-fill.no-hints {
-    background: var(--success); /* #10ac84 */
+    background: #0be881; /* Vibrant Mint Green */
 }
 
 .funnel-bar-fill.one-hint {
-    background: var(--text-secondary); /* #5f27cd */
+    background: #34e7e4; /* Vibrant Cyan */
 }
 
 .funnel-bar-fill.two-hints {
-    background: var(--bg-gradient-end); /* #ff914d */
+    background: #ffd215; /* Golden Yellow */
 }
 
 .funnel-bar-fill.three-hints {
-    background: var(--accent-main); /* #ff4757 */
+    background: #ff9f43; /* Vibrant Orange */
 }
 
 .funnel-bar-fill.four-hints {
-    background: #54a0ff;
+    background: #ff4757; /* Crimson Red */
 }
 
 .funnel-pct {
