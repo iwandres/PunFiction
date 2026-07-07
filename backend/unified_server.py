@@ -806,6 +806,18 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 
                 if target_clue_id:
                     approved_clues = [c for c in clues if c['id'] == target_clue_id]
+                    if not approved_clues:
+                        # Fallback to constructing a temporary clue object from postcards if clue has been cleaned up/deleted
+                        fallback_pc = next((p for p in postcards if p['clue_id'] == target_clue_id), None)
+                        if fallback_pc:
+                            approved_clues = [{
+                                'id': fallback_pc['clue_id'],
+                                'pun_name': fallback_pc['pun_name'],
+                                'original_name': fallback_pc['original_name'],
+                                'owner_response': fallback_pc['owner_response'],
+                                'page_theme': fallback_pc.get('page_theme', 'road_trip'),
+                                'status': fallback_pc.get('status', 'pending')
+                            }]
                 else:
                     existing_clues_in_postcards = {p['clue_id'] for p in postcards}
                     approved_clues = [c for c in clues if c.get('status') == 'approved' and c['id'] not in existing_clues_in_postcards]
@@ -1085,7 +1097,8 @@ def pipeline_listener():
                       "clue1": "Clue 1 text",
                       "clue2": "Clue 2 text",
                       "clue3": "Clue 3 text",
-                      "owner_response": "Owner response here"
+                      "owner_response": "Owner response here",
+                      "page_theme": "The most appropriate travel theme name for this location out of: road_trip, air_mail, train_passage, gondola_ride, boat_voyage, mountain_trek, desert_safari, sightseeing, tropical_island, winter_lodge, metro_transit"
                     }}
                     """
                     response = client.models.generate_content(
@@ -1108,6 +1121,7 @@ def pipeline_listener():
                         "clue3": generated.get("clue3", ""),
                         "clue4": generated.get("clue4", ""),
                         "owner_response": generated.get("owner_response", ""),
+                        "page_theme": generated.get("page_theme", "road_trip"),
                         "status": "pending"
                     })
                     new_clues_count += 1
