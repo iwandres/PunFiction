@@ -1176,18 +1176,6 @@ function loadLevel() {
     renderGuessSlots();
     // Re-render after a short delay to ensure browser layout has stabilized (prevents mobile layout shifting)
     setTimeout(renderGuessSlots, 50);
-
-    // Automatically focus input on desktop direct play (skip on initial load or inside portal frames/iframes to prevent keyboard shifts and scrollbar jumps)
-    const isIframe = window.self !== window.top;
-    if (!isInitialLoad && window.innerWidth >= 768 && !isIframe && !isCrazyGames && !isItch) {
-        setTimeout(() => {
-            try {
-                ui.guessInput.focus({ preventScroll: true });
-            } catch (e) {
-                ui.guessInput.focus();
-            }
-        }, 100);
-    }
 }
 
 function revealHint1() {
