@@ -147,15 +147,15 @@
     "status": "approved"
   },
   {
-    "id": "pun_sagrada_família_1783295364_613",
-    "original_name": "Sagrada Família",
+    "id": "pun_sagrada_fam\u00edlia_1783295364_613",
+    "original_name": "Sagrada Fam\u00edlia",
     "location": "Barcelona, Spain",
-    "pun_name": "Sangria Família",
+    "pun_name": "Sangria Fam\u00edlia",
     "status": "approved"
   },
   {
-    "id": "pun_sagrada_família_1783295364_269",
-    "original_name": "Sagrada Família",
+    "id": "pun_sagrada_fam\u00edlia_1783295364_269",
+    "original_name": "Sagrada Fam\u00edlia",
     "location": "Barcelona, Spain",
     "pun_name": "Sagrada Formula",
     "status": "approved"
@@ -588,14 +588,14 @@
   {
     "id": "pun_black_forest_1783313903_591",
     "original_name": "Black Forest",
-    "location": "Baden-Württemberg, Germany",
+    "location": "Baden-W\u00fcrttemberg, Germany",
     "pun_name": "Snack Forest",
     "status": "approved"
   },
   {
     "id": "pun_black_forest_1783313903_237",
     "original_name": "Black Forest",
-    "location": "Baden-Württemberg, Germany",
+    "location": "Baden-W\u00fcrttemberg, Germany",
     "pun_name": "Quack Forest",
     "status": "approved"
   },
@@ -740,13 +740,6 @@
     "status": "pending"
   },
   {
-    "id": "pun_milan_cathedral_1783314490_668",
-    "original_name": "Milan Cathedral",
-    "location": "Milan, Italy",
-    "pun_name": "Milan Cat-Heard-All",
-    "status": "pending"
-  },
-  {
     "id": "pun_roman_baths_1783314503_505",
     "original_name": "Roman Baths",
     "location": "Bath, England",
@@ -758,35 +751,28 @@
     "original_name": "Giant's Causeway",
     "location": "County Antrim, Northern Ireland",
     "pun_name": "Giant's Cosplay",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_giant's_causeway_1783314507_439",
     "original_name": "Giant's Causeway",
     "location": "County Antrim, Northern Ireland",
     "pun_name": "Giant's Pauseway",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_giant's_causeway_1783314507_647",
     "original_name": "Giant's Causeway",
     "location": "County Antrim, Northern Ireland",
     "pun_name": "G Rant's Causeway",
-    "status": "pending"
+    "status": "rejected"
   },
   {
     "id": "pun_la_rambla_1783314514_261",
     "original_name": "La Rambla",
     "location": "Barcelona, Spain",
     "pun_name": "La Scrambla",
-    "status": "pending"
-  },
-  {
-    "id": "pun_la_rambla_1783314514_182",
-    "original_name": "La Rambla",
-    "location": "Barcelona, Spain",
-    "pun_name": "La Gamble-a",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "pun_la_rambla_1783314514_569",
@@ -796,43 +782,22 @@
     "status": "pending"
   },
   {
-    "id": "pun_guggenheim_museum_bilbao_1783314521_318",
-    "original_name": "Guggenheim Museum Bilbao",
-    "location": "Bilbao, Spain",
-    "pun_name": "Guggle-gum Moo-seum Bilbao",
-    "status": "pending"
-  },
-  {
-    "id": "pun_guggenheim_museum_bilbao_1783314521_189",
-    "original_name": "Guggenheim Museum Bilbao",
-    "location": "Bilbao, Spain",
-    "pun_name": "Giggleheim Museum Chill-bao",
-    "status": "pending"
-  },
-  {
-    "id": "pun_guggenheim_museum_bilbao_1783314521_392",
-    "original_name": "Guggenheim Museum Bilbao",
-    "location": "Bilbao, Spain",
-    "pun_name": "Guggenheim Booze-um Bilbao",
-    "status": "pending"
-  },
-  {
-    "id": "pun_alcázar_of_seville_1783314525_686",
-    "original_name": "Alcázar of Seville",
+    "id": "pun_alc\u00e1zar_of_seville_1783314525_686",
+    "original_name": "Alc\u00e1zar of Seville",
     "location": "Seville, Spain",
     "pun_name": "Alka-Seltzer of Seville",
     "status": "pending"
   },
   {
-    "id": "pun_alcázar_of_seville_1783314525_763",
-    "original_name": "Alcázar of Seville",
+    "id": "pun_alc\u00e1zar_of_seville_1783314525_763",
+    "original_name": "Alc\u00e1zar of Seville",
     "location": "Seville, Spain",
     "pun_name": "All Kazoo of Seville",
     "status": "pending"
   },
   {
-    "id": "pun_alcázar_of_seville_1783314525_983",
-    "original_name": "Alcázar of Seville",
+    "id": "pun_alc\u00e1zar_of_seville_1783314525_983",
+    "original_name": "Alc\u00e1zar of Seville",
     "location": "Seville, Spain",
     "pun_name": "Al Cat-zar of Seville",
     "status": "pending"
@@ -936,24 +901,24 @@
     "status": "pending"
   },
   {
-    "id": "pun_hofbräuhaus_münchen_1783314708_626",
-    "original_name": "Hofbräuhaus München",
+    "id": "pun_hofbr\u00e4uhaus_m\u00fcnchen_1783314708_626",
+    "original_name": "Hofbr\u00e4uhaus M\u00fcnchen",
     "location": "Munich, Germany",
-    "pun_name": "Hofbräuhaus Munchies",
+    "pun_name": "Hofbr\u00e4uhaus Munchies",
     "status": "pending"
   },
   {
-    "id": "pun_hofbräuhaus_münchen_1783314708_525",
-    "original_name": "Hofbräuhaus München",
+    "id": "pun_hofbr\u00e4uhaus_m\u00fcnchen_1783314708_525",
+    "original_name": "Hofbr\u00e4uhaus M\u00fcnchen",
     "location": "Munich, Germany",
-    "pun_name": "Hoofbräuhaus München",
+    "pun_name": "Hoofbr\u00e4uhaus M\u00fcnchen",
     "status": "pending"
   },
   {
-    "id": "pun_hofbräuhaus_münchen_1783314708_799",
-    "original_name": "Hofbräuhaus München",
+    "id": "pun_hofbr\u00e4uhaus_m\u00fcnchen_1783314708_799",
+    "original_name": "Hofbr\u00e4uhaus M\u00fcnchen",
     "location": "Munich, Germany",
-    "pun_name": "Hof-Brawl-Haus München",
+    "pun_name": "Hof-Brawl-Haus M\u00fcnchen",
     "status": "pending"
   },
   {
@@ -1197,21 +1162,21 @@
   {
     "id": "pun_wawel_castle_1783314802_622",
     "original_name": "Wawel Castle",
-    "location": "Kraków, Poland",
+    "location": "Krak\u00f3w, Poland",
     "pun_name": "Waffle Castle",
     "status": "pending"
   },
   {
     "id": "pun_wawel_castle_1783314802_184",
     "original_name": "Wawel Castle",
-    "location": "Kraków, Poland",
+    "location": "Krak\u00f3w, Poland",
     "pun_name": "Wobble Castle",
     "status": "pending"
   },
   {
     "id": "pun_wawel_castle_1783314802_562",
     "original_name": "Wawel Castle",
-    "location": "Kraków, Poland",
+    "location": "Krak\u00f3w, Poland",
     "pun_name": "Wah-wah Castle",
     "status": "pending"
   },
@@ -1507,6 +1472,48 @@
     "original_name": "Parliament Hill",
     "location": "Ottawa, Ontario, Canada",
     "pun_name": "Parliament Chill",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315505_241",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "St. Peter's Bazooka",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315505_313",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "St. Peter's Basilisk-a",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315505_436",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "Saint Pizza's Basilica",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315508_474",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "St. Peter's Bazooka",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315508_418",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "St. Peter's Basilisk-a",
+    "status": "pending"
+  },
+  {
+    "id": "pun_st._peter's_basilica_1783315508_978",
+    "original_name": "St. Peter's Basilica",
+    "location": "Vatican City",
+    "pun_name": "St. Peter's Basic-a",
     "status": "pending"
   }
 ]

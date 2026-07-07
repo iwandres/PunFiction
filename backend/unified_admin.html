@@ -1477,6 +1477,10 @@
 
     <!-- ================= FRONTEND JAVASCRIPT ================= -->
     <script>
+        function eq(str) {
+            return (str || '').replace(/'/g, "\\'");
+        }
+
         // Core State
         let quotes = [];
         let punnedQuotes = [];
@@ -1750,7 +1754,7 @@
             listEl.innerHTML = pendingQuotes.map(q => {
                 const isActive = q.id === activeQuoteId;
                 return `
-                    <div class="list-item ${isActive ? 'active' : ''}" onclick="selectRhymeQuote('${q.id}')">
+                    <div class="list-item ${isActive ? 'active' : ''}" onclick="selectRhymeQuote('${eq(q.id)}')">
                         <div class="list-item-title">${q.movie} (${q.year})</div>
                         <div class="list-item-subtitle">${q.id} | Replaced: ${q.rhyme1 || 'None'}, ${q.rhyme2 || 'None'}</div>
                     </div>
@@ -1805,10 +1809,10 @@
                                 <div class="pun-card" style="gap:15px; width:100%;">
                                     <div style="flex-grow:1; display:flex; flex-direction:column; gap:6px;">
                                         <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Punned Quote Text (Editable)</label>
-                                        <input type="text" value="${p.text.replace(/"/g, '&quot;')}" onchange="updateGeneratedPunText('${p.pun_id}', this.value)" style="padding:6px 12px; font-size:14px;">
+                                        <input type="text" value="${p.text.replace(/"/g, '&quot;')}" onchange="updateGeneratedPunText('${eq(p.pun_id)}', this.value)" style="padding:6px 12px; font-size:14px;">
                                         <div class="pun-card-meta">[ Replaced '${p.replaced_word}' with '${p.rhyme_used}' ]</div>
                                     </div>
-                                    <button class="btn btn-danger" style="padding: 6px 10px;" onclick="deletePun('${p.pun_id}')">🗑️</button>
+                                    <button class="btn btn-danger" style="padding: 6px 10px;" onclick="deletePun('${eq(p.pun_id)}')">🗑️</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -1824,7 +1828,7 @@
                         <p style="color:var(--text-secondary); font-size:13px; margin-top:4px;">Character: ${q.character} | ID: ${q.id}</p>
                     </div>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn btn-danger" onclick="deleteRhymeQuote('${q.id}')">🗑️ Delete Quote</button>
+                        <button class="btn btn-danger" onclick="deleteRhymeQuote('${eq(q.id)}')">🗑️ Delete Quote</button>
                         <button class="btn btn-primary" onclick="saveRhymesData()">💾 Save All Puns & Cleanup</button>
                     </div>
                 </div>
@@ -2114,11 +2118,11 @@
                                 <div class="panel-section-title">Parody Details (Editable)</div>
                                 <div style="display:flex; flex-direction:column; gap:8px;">
                                     <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Parody Title</label>
-                                    <input type="text" id="p-title-${p.pun_id}" value="${p.parody_title.replace(/"/g, '&quot;')}" onchange="syncParodyField('${p.pun_id}', 'title')">
+                                    <input type="text" id="p-title-${p.pun_id}" value="${p.parody_title.replace(/"/g, '&quot;')}" onchange="syncParodyField('${eq(p.pun_id)}', 'title')">
                                 </div>
                                 <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
                                     <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Punned Quote</label>
-                                    <input type="text" id="p-quote-${p.pun_id}" value="${p.text.replace(/"/g, '&quot;')}" onchange="syncParodyField('${p.pun_id}', 'quote')">
+                                    <input type="text" id="p-quote-${p.pun_id}" value="${p.text.replace(/"/g, '&quot;')}" onchange="syncParodyField('${eq(p.pun_id)}', 'quote')">
                                 </div>
                             </div>
                         </div>
@@ -2129,10 +2133,10 @@
 
                         <div class="card-actions">
                             ${parodyView === 'pending' ? `
-                                <button class="btn btn-danger" onclick="decideParody('${p.pun_id}', 'rejected')">🗑️ Reject</button>
-                                <button class="btn btn-emerald" onclick="decideParody('${p.pun_id}', 'approved')">✅ Approve</button>
+                                <button class="btn btn-danger" onclick="decideParody('${eq(p.pun_id)}', 'rejected')">🗑️ Reject</button>
+                                <button class="btn btn-emerald" onclick="decideParody('${eq(p.pun_id)}', 'approved')">✅ Approve</button>
                             ` : `
-                                <button class="btn btn-danger" onclick="decideParody('${p.pun_id}', 'rejected')">🗑️ Move to Rejected</button>
+                                <button class="btn btn-danger" onclick="decideParody('${eq(p.pun_id)}', 'rejected')">🗑️ Move to Rejected</button>
                             `}
                         </div>
                     </div>
@@ -2248,16 +2252,16 @@
                             <p style="font-size:12px; color:var(--text-muted); font-style:italic;">Original: ${p.original_movie}</p>
                             ${quoteText ? `<div style="font-size:12px; color:var(--text-secondary); background:rgba(255,255,255,0.02); padding:8px; border-radius:4px; border-left:3px solid var(--purple);">"${quoteText}"</div>` : ''}
                             <div class="panel-section-title" style="margin-top:5px; margin-bottom:0;">Generator Prompt</div>
-                                      <div class="card-actions" style="margin-top:auto; padding-top:10px; display:flex; flex-direction:column; gap:8px;">
+                            <div class="card-actions" style="margin-top:auto; padding-top:10px; display:flex; flex-direction:column; gap:8px;">
                                 <div style="display:flex; gap:8px; width:100%;">
                                     ${posterView === 'pending' ? `
-                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'rejected')">🔄 Reject</button>
-                                        <button class="btn btn-emerald" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'approved')">✅ Approve</button>
+                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${eq(p.pun_id)}', 'rejected')">🔄 Reject</button>
+                                        <button class="btn btn-emerald" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${eq(p.pun_id)}', 'approved')">✅ Approve</button>
                                     ` : `
-                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${p.pun_id}', 'rejected')">🔄 Reject & Redo</button>
+                                        <button class="btn btn-danger" style="flex-grow:1; justify-content:center;" onclick="decidePoster('${eq(p.pun_id)}', 'rejected')">🔄 Reject & Redo</button>
                                     `}
                                 </div>
-                                <button class="btn btn-danger" style="width:100%; justify-content:center; padding:6px 12px; margin-top:2px;" onclick="deletePosterEntirely('${p.pun_id}')">🗑️ Delete Entirely</button>
+                                <button class="btn btn-danger" style="width:100%; justify-content:center; padding:6px 12px; margin-top:2px;" onclick="deletePosterEntirely('${eq(p.pun_id)}')">🗑️ Delete Entirely</button>
                             </div>
                         </div>
                     </div>
@@ -3729,8 +3733,8 @@
                     </div>
                     <div class="item-actions">
                         <span class="status-badge status-${lm.status || 'pending'}">${lm.status || 'pending'}</span>
-                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_landmarks, '${lm.id}', 'approved', 'tt_landmarks')">Approve</button>
-                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_landmarks, '${lm.id}', 'rejected', 'tt_landmarks')">Reject</button>
+                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_landmarks, '${eq(lm.id)}', 'approved', 'tt_landmarks')">Approve</button>
+                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_landmarks, '${eq(lm.id)}', 'rejected', 'tt_landmarks')">Reject</button>
                     </div>
                 </div>
             `).join('');
@@ -3747,12 +3751,12 @@
                 <div class="tt-list-item" style="gap: 15px;">
                     <div class="item-details" style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
                         <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: bold;">Original: ${p.original_name}</div>
-                        <input type="text" value="${p.pun_name}" onchange="updatePunName('${p.id}', this.value)" style="width: 100%; max-width: 400px; padding: 6px 10px; border: 2px solid #2D3436; border-radius: 6px; font-weight: bold; font-family: inherit;">
+                        <input type="text" value="${p.pun_name}" onchange="updatePunName('${eq(p.id)}', this.value)" style="width: 100%; max-width: 400px; padding: 6px 10px; border: 2px solid #2D3436; border-radius: 6px; font-weight: bold; font-family: inherit;">
                     </div>
                     <div class="item-actions" style="align-items: center; gap: 8px;">
                         <span class="status-badge status-${p.status || 'pending'}">${p.status || 'pending'}</span>
-                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_puns, '${p.id}', 'approved', 'tt_puns')">Approve</button>
-                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_puns, '${p.id}', 'rejected', 'tt_puns')">Reject</button>
+                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_puns, '${eq(p.id)}', 'approved', 'tt_puns')">Approve</button>
+                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_puns, '${eq(p.id)}', 'rejected', 'tt_puns')">Reject</button>
                     </div>
                 </div>
             `).join('');
@@ -3779,8 +3783,8 @@
                         <strong>${c.pun_name} (from ${c.original_name})</strong>
                         <div>
                             <span class="status-badge status-${c.status || 'pending'}">${c.status || 'pending'}</span>
-                            <button class="btn btn-secondary" onclick="tt_setStatus(tt_clues, '${c.id}', 'approved', 'tt_clues')">Approve</button>
-                            <button class="btn btn-danger" style="padding: 10px;" onclick="tt_setStatus(tt_clues, '${c.id}', 'rejected', 'tt_clues')">X</button>
+                            <button class="btn btn-secondary" onclick="tt_setStatus(tt_clues, '${eq(c.id)}', 'approved', 'tt_clues')">Approve</button>
+                            <button class="btn btn-danger" style="padding: 10px;" onclick="tt_setStatus(tt_clues, '${eq(c.id)}', 'rejected', 'tt_clues')">X</button>
                         </div>
                     </div>
                     <div style="background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-base); padding: 12px 15px; border-radius: 8px; width: 100%; font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px;">
@@ -3790,7 +3794,7 @@
                         <div><strong>Clue 3:</strong> ${c.clue3}</div>
                         <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
                             <strong>Theme:</strong>
-                            <select onchange="tt_updateClueTheme('${c.id}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
+                            <select onchange="tt_updateClueTheme('${eq(c.id)}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
                                 ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
                                     <option value="${t}" ${c.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
                                 `).join('')}
@@ -3810,18 +3814,18 @@
             }
             el.innerHTML = displayList.map(p => `
                 <div class="tt-list-item" style="gap: 15px;">
-                    <img class="img-preview" src="${p.image_path}" alt="Postcard preview" onclick="tt_openPostcardModal('${p.image_path}')">
+                    <img class="img-preview" src="${p.image_path}" alt="Postcard preview" onclick="tt_openPostcardModal('${eq(p.image_path)}')">
                     <div class="item-details" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
                         <strong>${p.pun_name}</strong>
                         
                         <div style="display: flex; flex-direction: column; gap: 4px;">
                             <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary);">Image Generation Prompt:</label>
-                            <textarea style="width: 100%; min-height: 60px; font-size: 0.85rem; padding: 8px 12px; border: 1px solid var(--border-base); border-radius: 6px; background: var(--bg-input); color: var(--text-primary); font-family: inherit; resize: vertical; line-height: 1.4;" onchange="tt_updatePostcardPrompt('${p.id}', this.value)">${p.image_prompt}</textarea>
+                            <textarea style="width: 100%; min-height: 60px; font-size: 0.85rem; padding: 8px 12px; border: 1px solid var(--border-base); border-radius: 6px; background: var(--bg-input); color: var(--text-primary); font-family: inherit; resize: vertical; line-height: 1.4;" onchange="tt_updatePostcardPrompt('${eq(p.id)}', this.value)">${p.image_prompt}</textarea>
                         </div>
 
                         <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem;">
                             <strong>Theme:</strong>
-                            <select onchange="tt_updatePostcardTheme('${p.id}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
+                            <select onchange="tt_updatePostcardTheme('${eq(p.id)}', this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.85rem;">
                                 ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
                                     <option value="${t}" ${p.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
                                 `).join('')}
@@ -3830,16 +3834,16 @@
                         <div style="font-size: 0.9rem; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-base); padding: 12px 15px; border-radius: 8px; color: var(--text-secondary); margin-top: 4px;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed var(--border-base); padding-bottom: 4px;">
                                 <strong>Owner Reply:</strong>
-                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8rem; " onclick="tt_regenerateOwnerReply('${p.clue_id}')">🔄 Regenerate Reply</button>
+                                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8rem; " onclick="tt_regenerateOwnerReply('${eq(p.clue_id)}')">🔄 Regenerate Reply</button>
                             </div>
                             <div id="reply-text-${p.clue_id}">${p.owner_response}</div>
                         </div>
                     </div>
                     <div class="item-actions" style="gap: 8px;">
                         <span class="status-badge status-${p.status || 'pending'}">${p.status || 'pending'}</span>
-                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_postcards, '${p.id}', 'approved', 'tt_postcards')">Approve</button>
-                        <button class="btn btn-secondary" style="" onclick="tt_regeneratePostcard('${p.clue_id}', '${p.art_style}')">🔄 Regenerate Image</button>
-                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_postcards, '${p.id}', 'rejected', 'tt_postcards')">X</button>
+                        <button class="btn btn-secondary" onclick="tt_setStatus(tt_postcards, '${eq(p.id)}', 'approved', 'tt_postcards')">Approve</button>
+                        <button class="btn btn-secondary" style="" onclick="tt_regeneratePostcard('${eq(p.clue_id)}', '${eq(p.art_style)}')">🔄 Regenerate Image</button>
+                        <button class="btn btn-danger" style="padding: 10px 14px;" onclick="tt_setStatus(tt_postcards, '${eq(p.id)}', 'rejected', 'tt_postcards')">X</button>
                     </div>
                 </div>
             `).join('');
