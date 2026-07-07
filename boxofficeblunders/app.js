@@ -1050,7 +1050,8 @@ function startGame(challenge) {
     if (typeof gtag === 'function') {
         gtag('config', 'G-41EV4HJ1LH', {
             'page_title': `Challenge #${challenge.puzzle_number}`,
-            'page_path': `${window.location.pathname}?challenge=${challenge.puzzle_number}`
+            'page_path': `${window.location.pathname}?challenge=${challenge.puzzle_number}`,
+            'game_name': 'box_office'
         });
     }
 }

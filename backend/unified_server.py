@@ -18,28 +18,53 @@ import travelreviews_database as travelreviews_database
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DIR_PATH)
+PARENT_DIR = os.path.dirname(PROJECT_ROOT)
+
+# Determine paths for Box Office repository (dynamic resolution)
+boxoffice_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-BoxOffice'))
+if not os.path.exists(boxoffice_root):
+    boxoffice_root = PROJECT_ROOT
+
+boxoffice_backend = os.path.join(boxoffice_root, 'backend')
+if not os.path.exists(boxoffice_backend):
+    boxoffice_backend = DIR_PATH
+
+# Determine paths for Travel Reviews repository (dynamic resolution)
+travelreviews_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-TravelReviews'))
+if not os.path.exists(travelreviews_root):
+    travelreviews_root = PROJECT_ROOT
+
+travelreviews_backend = os.path.join(travelreviews_root, 'backend')
+if not os.path.exists(travelreviews_backend):
+    travelreviews_backend = DIR_PATH
+
+# Add both backend directories to sys.path to ensure imports work regardless of CWD
+if travelreviews_backend not in sys.path:
+    sys.path.insert(0, travelreviews_backend)
+if boxoffice_backend not in sys.path:
+    sys.path.insert(0, boxoffice_backend)
 
 # File paths - Box Office
-BOXOFFICE_PUZZLES_FILE = os.path.join(DIR_PATH, 'production_daily_games.json')
-BOXOFFICE_QUOTES_FILE = os.path.join(DIR_PATH, 'phase2_quotes.json')
-BOXOFFICE_INCOMPLETE_FILE = os.path.join(DIR_PATH, 'incomplete_quotes.json')
-BOXOFFICE_PUNNED_FILE = os.path.join(DIR_PATH, 'punned_quotes.json')
-BOXOFFICE_REVIEWED_FILE = os.path.join(DIR_PATH, 'reviewed_parodies.json')
-BOXOFFICE_POSTERS_FILE = os.path.join(DIR_PATH, 'poster_prompts_state.json')
-BOXOFFICE_RECORDS_FILE = os.path.join(DIR_PATH, 'records.json')
+BOXOFFICE_PUZZLES_FILE = os.path.join(boxoffice_backend, 'production_daily_games.json')
+BOXOFFICE_QUOTES_FILE = os.path.join(boxoffice_backend, 'phase2_quotes.json')
+BOXOFFICE_INCOMPLETE_FILE = os.path.join(boxoffice_backend, 'incomplete_quotes.json')
+BOXOFFICE_PUNNED_FILE = os.path.join(boxoffice_backend, 'punned_quotes.json')
+BOXOFFICE_REVIEWED_FILE = os.path.join(boxoffice_backend, 'reviewed_parodies.json')
+BOXOFFICE_POSTERS_FILE = os.path.join(boxoffice_backend, 'poster_prompts_state.json')
+BOXOFFICE_RECORDS_FILE = os.path.join(boxoffice_backend, 'records.json')
 
 # File paths - 1-Star Travel Reviews
-CLUES_FILE = os.path.join(DIR_PATH, 'travelreviews_clues.json')
-POSTCARDS_FILE = os.path.join(DIR_PATH, 'travelreviews_postcards.json')
-DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'travelreviews_daily_games.json')
-LANDMARKS_FILE = os.path.join(DIR_PATH, 'travelreviews_landmarks.json')
-PUNS_FILE = os.path.join(DIR_PATH, 'travelreviews_puns.json')
-TRAVELREVIEWS_RECORDS_FILE = os.path.join(DIR_PATH, 'travelreviews_records.json')
+CLUES_FILE = os.path.join(travelreviews_backend, 'travelreviews_clues.json')
+POSTCARDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_postcards.json')
+DAILY_GAMES_FILE = os.path.join(travelreviews_backend, 'travelreviews_daily_games.json')
+LANDMARKS_FILE = os.path.join(travelreviews_backend, 'travelreviews_landmarks.json')
+PUNS_FILE = os.path.join(travelreviews_backend, 'travelreviews_puns.json')
+TRAVELREVIEWS_RECORDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_records.json')
 
-if os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
-    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'travelreviews', 'assets', 'cartoons')
+if os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
+    CARTOONS_DIR = os.path.join(travelreviews_root, 'travelreviews', 'assets', 'cartoons')
 else:
-    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'assets', 'cartoons')
+    CARTOONS_DIR = os.path.join(travelreviews_root, 'assets', 'cartoons')
 os.makedirs(CARTOONS_DIR, exist_ok=True)
 UNIFIED_HTML_FILE = os.path.join(DIR_PATH, 'unified_admin.html')
 
@@ -247,21 +272,28 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             # Smart asset directory check
             if req_path.startswith('/assets/'):
                 # Try 1-Star Travel Reviews folder first
-                file_path_tt = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
-                file_path_root = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
+                file_path_tt = os.path.join(travelreviews_root, 'travelreviews', *clean_path.split('/'))
+                file_path_root = os.path.join(travelreviews_root, *clean_path.split('/'))
                 if os.path.exists(file_path_tt) and not os.path.isdir(file_path_tt):
                     file_path = file_path_tt
                 elif os.path.exists(file_path_root) and not os.path.isdir(file_path_root):
                     file_path = file_path_root
                 else:
                     # Fallback to Box Office assets folder
-                    file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
+                    file_path_bo_assets = os.path.join(boxoffice_root, *clean_path.split('/'))
+                    file_path_bo_backend = os.path.join(boxoffice_backend, *clean_path.split('/'))
+                    if os.path.exists(file_path_bo_assets) and not os.path.isdir(file_path_bo_assets):
+                        file_path = file_path_bo_assets
+                    elif os.path.exists(file_path_bo_backend) and not os.path.isdir(file_path_bo_backend):
+                        file_path = file_path_bo_backend
+                    else:
+                        file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
             else:
                 # Regular travelreviews files
                 parts = clean_path.split('/')
-                if parts and parts[0] == 'travelreviews' and not os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
+                if parts and parts[0] == 'travelreviews' and not os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
                     parts = parts[1:]
-                file_path = os.path.join(PROJECT_ROOT, *parts)
+                file_path = os.path.join(travelreviews_root, *parts)
                 
             if os.path.exists(file_path) and not os.path.isdir(file_path):
                 self.send_response(200)
@@ -469,7 +501,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                                 old_path = old_item['image_path']
                                 if old_path and old_path.startswith('/assets/'):
                                     clean_path = urllib.parse.unquote(old_path.strip('/'))
-                                    file_to_delete = os.path.join(DIR_PATH, *clean_path.split('/'))
+                                    file_to_delete_bo = os.path.join(boxoffice_backend, *clean_path.split('/'))
+                                    file_to_delete_root = os.path.join(boxoffice_root, *clean_path.split('/'))
+                                    file_to_delete = file_to_delete_bo if os.path.exists(file_to_delete_bo) else file_to_delete_root
                                     if os.path.exists(file_to_delete):
                                         try:
                                             os.remove(file_to_delete)
@@ -491,9 +525,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         # --- Box Office Generator Scripts ---
         elif req_path in ['/api/generate_parodies', '/api/boxoffice/generate_parodies']:
             try:
-                script_path = os.path.join(DIR_PATH, 'thematic_generator.py')
+                script_path = os.path.join(boxoffice_backend, 'thematic_generator.py')
                 print(f"Running Box Office Parodies generator: {script_path}")
-                result = subprocess.run([sys.executable, script_path], capture_output=True, text=True)
+                result = subprocess.run([sys.executable, script_path], cwd=boxoffice_backend, capture_output=True, text=True)
                 print("Generator output:", result.stdout)
                 if result.returncode != 0:
                     raise Exception(result.stderr)
@@ -517,9 +551,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             return
         elif req_path in ['/api/generate_posters', '/api/boxoffice/generate_posters']:
             try:
-                script_path = os.path.join(DIR_PATH, 'generate_posters.py')
+                script_path = os.path.join(boxoffice_backend, 'generate_posters.py')
                 print(f"Running Box Office Posters generator: {script_path}")
-                result = subprocess.run([sys.executable, script_path], capture_output=True, text=True)
+                result = subprocess.run([sys.executable, script_path], cwd=boxoffice_backend, capture_output=True, text=True)
                 print("Generator output:", result.stdout)
                 if result.returncode != 0:
                     raise Exception(result.stderr)
@@ -590,10 +624,10 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                             img_path = item.get('image_path')
                             if img_path and img_path.startswith('/assets/'):
                                 clean_path = urllib.parse.unquote(img_path.strip('/'))
-                                if os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
-                                    file_to_delete = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
+                                if os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
+                                    file_to_delete = os.path.join(travelreviews_root, 'travelreviews', *clean_path.split('/'))
                                 else:
-                                    file_to_delete = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
+                                    file_to_delete = os.path.join(travelreviews_root, *clean_path.split('/'))
                                 if os.path.exists(file_to_delete):
                                     try:
                                         os.remove(file_to_delete)
