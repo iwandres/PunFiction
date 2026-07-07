@@ -2713,8 +2713,8 @@ async function openStatsSelectModal() {
                 row.style.background = '#f1eafd';
             }
             
-            const displayNum = parseInt(c.puzzle_number);
-            const chalQuote = c.boss_punned_quote ? `"${c.boss_punned_quote}"` : '"Quote Text Missing"';
+            const displayNum = c.puzzle_number;
+            const chalQuote = c.review_title ? `"${c.review_title}"` : '"Review Title Missing"';
             
             let statusBadgeHtml = '';
             if (solvedList.has(c.puzzle_number)) {
