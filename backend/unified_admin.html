@@ -172,6 +172,62 @@
             color: var(--bg-main);
         }
 
+        /* Travel Reviews Active Tab States */
+        .pipeline-btn.active[data-tab="tt-landmarks"] {
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+        }
+        .pipeline-btn.active[data-tab="tt-landmarks"] .badge {
+            background: var(--cyan);
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="tt-puns"] {
+            background: rgba(127, 0, 255, 0.12);
+            color: #b066ff;
+            box-shadow: 0 0 15px rgba(127, 0, 255, 0.1);
+            border: 1px solid rgba(127, 0, 255, 0.25);
+        }
+        .pipeline-btn.active[data-tab="tt-puns"] .badge {
+            background: #b066ff;
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="tt-clues"] {
+            background: rgba(255, 0, 127, 0.12);
+            color: #ff55a3;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
+            border: 1px solid rgba(255, 0, 127, 0.25);
+        }
+        .pipeline-btn.active[data-tab="tt-clues"] .badge {
+            background: #ff55a3;
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="tt-postcards"] {
+            background: rgba(0, 245, 212, 0.12);
+            color: var(--emerald);
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
+            border: 1px solid rgba(0, 245, 212, 0.25);
+        }
+        .pipeline-btn.active[data-tab="tt-postcards"] .badge {
+            background: var(--emerald);
+            color: var(--bg-main);
+        }
+
+        .pipeline-btn.active[data-tab="tt-puzzles"] {
+            background: rgba(255, 159, 67, 0.12);
+            color: #ff9f43;
+            box-shadow: 0 0 15px rgba(255, 159, 67, 0.1);
+            border: 1px solid rgba(255, 159, 67, 0.25);
+        }
+        .pipeline-btn.active[data-tab="tt-puzzles"] .badge {
+            background: #ff9f43;
+            color: var(--bg-main);
+        }
+
         /* Container & Tabs Layout */
         .container {
             max-width: 1400px;
@@ -1617,14 +1673,24 @@
             }).length;
             document.getElementById('badge-rhymes').innerText = pendingRhymes;
 
+            // Parodies pending gen
+            const pendingParodyGen = punnedQuotes.filter(p => !p.parody_title || !p.parody_pitch).length;
+            document.getElementById('count-pending-parodies').innerText = pendingParodyGen;
+
             // Parodies: pending parodies to review
             const reviewedIds = new Set(reviewedParodies.map(r => r.pun_id));
             const pendingParodies = punnedQuotes.filter(p => p.parody_title && !reviewedIds.has(p.pun_id)).length;
-            document.getElementById('badge-parody').innerText = pendingParodies;
+            document.getElementById('badge-parody').innerText = pendingParodies + (pendingParodyGen > 0 ? " | Awaiting: " + pendingParodyGen : "");
+
+            // Posters pending gen
+            const approvedParodies = reviewedParodies.filter(r => r.status === 'approved');
+            const generatedPosterIds = new Set(postersState.filter(p => p.generated === true).map(p => p.pun_id));
+            const pendingPosterGen = approvedParodies.filter(r => !generatedPosterIds.has(r.pun_id)).length;
+            document.getElementById('count-pending-posters').innerText = pendingPosterGen;
 
             // Posters: pending generated posters to review
             const pendingPosters = postersState.filter(p => p.generated === true && p.status !== 'approved' && p.status !== 'rejected').length;
-            document.getElementById('badge-posters').innerText = pendingPosters;
+            document.getElementById('badge-posters').innerText = pendingPosters + (pendingPosterGen > 0 ? " | Awaiting: " + pendingPosterGen : "");
 
             // Compiled puzzles count for Game Assembler (unapproved/pending)
             const approvedPuzzleIdsSet = new Set(
@@ -1657,15 +1723,6 @@
             // Approved daily challenges count (5th tab)
             const approvedChallengesCount = puzzles.filter(p => p.status === 'approved').length;
             document.getElementById('badge-approved-puzzles').innerText = approvedChallengesCount;
-
-            // Pipeline Control Room: Pending counts
-            const pendingParodyGen = punnedQuotes.filter(p => !p.parody_title || !p.parody_pitch).length;
-            document.getElementById('count-pending-parodies').innerText = pendingParodyGen;
-
-            const approvedParodies = reviewedParodies.filter(r => r.status === 'approved');
-            const generatedPosterIds = new Set(postersState.filter(p => p.generated === true).map(p => p.pun_id));
-            const pendingPosterGen = approvedParodies.filter(r => !generatedPosterIds.has(r.pun_id)).length;
-            document.getElementById('count-pending-posters').innerText = pendingPosterGen;
         }
 
         async function triggerParodyGeneration() {
@@ -3709,18 +3766,36 @@
 
             // 2. Puns pending count
             const pendingPuns = tt_puns.filter(p => !p.status || p.status === 'pending').length;
+            const approvedLms = new Set(tt_landmarks.filter(lm => lm.status === 'approved').map(lm => lm.name));
+            const existingPunsLms = new Set(tt_puns.map(p => p.original_name));
+            const pendingPunsGen = [...approvedLms].filter(name => !existingPunsLms.has(name)).length;
+            
             const elPuns = document.getElementById('badge-tt-puns');
-            if (elPuns) elPuns.innerText = pendingPuns;
+            if (elPuns) {
+                elPuns.innerText = pendingPuns + (pendingPunsGen > 0 ? " | Awaiting: " + pendingPunsGen : "");
+            }
 
             // 3. Clues pending count
             const pendingClues = tt_clues.filter(c => !c.status || c.status === 'pending').length;
+            const approvedPunsSet = new Set(tt_puns.filter(p => p.status === 'approved').map(p => p.pun_name));
+            const existingCluesPuns = new Set(tt_clues.map(c => c.pun_name));
+            const pendingCluesGen = [...approvedPunsSet].filter(pun => !existingCluesPuns.has(pun)).length;
+            
             const elClues = document.getElementById('badge-tt-clues');
-            if (elClues) elClues.innerText = pendingClues;
+            if (elClues) {
+                elClues.innerText = pendingClues + (pendingCluesGen > 0 ? " | Awaiting: " + pendingCluesGen : "");
+            }
 
             // 4. Postcards pending count
             const pendingPostcards = tt_postcards.filter(p => !p.status || p.status === 'pending').length;
+            const approvedCluesSet = new Set(tt_clues.filter(c => c.status === 'approved').map(c => c.id));
+            const existingPostcardsClues = new Set(tt_postcards.map(pc => pc.clue_id));
+            const pendingPostcardsGen = [...approvedCluesSet].filter(clueId => !existingPostcardsClues.has(clueId)).length;
+            
             const elPostcards = document.getElementById('badge-tt-postcards');
-            if (elPostcards) elPostcards.innerText = pendingPostcards;
+            if (elPostcards) {
+                elPostcards.innerText = pendingPostcards + (pendingPostcardsGen > 0 ? " | Awaiting: " + pendingPostcardsGen : "");
+            }
 
             // 5. Total Daily challenges count
             const totalPuzzles = tt_puzzles.length;
