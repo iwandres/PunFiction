@@ -29,6 +29,9 @@ const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/m
 const BACKEND_API_URL = "https://punfiction.onrender.com";
 const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
+// Global flag to prevent scroll/keyboard focus jumps on initial page load
+let isInitialLoad = true;
+
 // Pre-warm the backend Render service in the background as early as possible
 function prewarmBackend() {
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -740,6 +743,9 @@ async function loadPuzzleDatabase() {
         // Otherwise, start Today's challenge automatically on load!
         startGame(todayChallenge);
     }
+    
+    // Clear initial load state so future game starts can focus elements normally
+    isInitialLoad = false;
 }
 
 
@@ -1171,9 +1177,9 @@ function loadLevel() {
     // Re-render after a short delay to ensure browser layout has stabilized (prevents mobile layout shifting)
     setTimeout(renderGuessSlots, 50);
 
-    // Automatically focus input on desktop direct play (skip inside portal frames/iframes to prevent keyboard shifts and scrollbar jumps)
+    // Automatically focus input on desktop direct play (skip on initial load or inside portal frames/iframes to prevent keyboard shifts and scrollbar jumps)
     const isIframe = window.self !== window.top;
-    if (window.innerWidth >= 768 && !isIframe && !isCrazyGames && !isItch) {
+    if (!isInitialLoad && window.innerWidth >= 768 && !isIframe && !isCrazyGames && !isItch) {
         setTimeout(() => {
             try {
                 ui.guessInput.focus({ preventScroll: true });
