@@ -1556,6 +1556,16 @@
             return String(Math.max(0, daysElapsed) + 1).padStart(3, '0');
         }
 
+        function tt_getTodayChallengeStr() {
+            const START_DATE_PT = new Date("2026-07-04T02:00:00-07:00");
+            const now = new Date();
+            const nowInPT = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+            const startInPT = new Date(START_DATE_PT.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+            const diffMs = nowInPT.getTime() - startInPT.getTime();
+            const daysElapsed = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+            return String(Math.max(0, daysElapsed) + 1).padStart(3, '0');
+        }
+
         // UI State
         let activeQuoteId = null;
         let activeSelectionWord = null;
@@ -4060,18 +4070,47 @@
                 if (activeChallenges.length === 0) {
                     sortListEl.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:20px;">No scheduled challenges.</td></tr>';
                 } else {
+                    const todayChallengeStr = tt_getTodayChallengeStr();
                     sortListEl.innerHTML = activeChallenges.map((p, idx) => {
                         const puzzleIdx = tt_puzzles.indexOf(p);
+                        const isToday = p.puzzle_number === todayChallengeStr;
+                        const isPrevious = parseInt(p.puzzle_number) < parseInt(todayChallengeStr);
+
+                        let rowStyles = '';
+                        let badgeHtml = '';
+                        let inputHtml = '';
+                        let actionsHtml = '';
+
+                        if (isPrevious) {
+                            rowStyles = 'background: rgba(0, 0, 0, 0.02); opacity: 0.8; border-left: 4px solid var(--text-muted);';
+                            badgeHtml = `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); color: var(--text-muted); font-weight:700; margin-left: 8px;">🔒 LOCKED</span>`;
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" style="width:50px; text-align:center; padding:3px 6px; font-weight: 700; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-muted); opacity: 0.6;" disabled>`;
+                            actionsHtml = `<span style="font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing:0.5px;">🔒 FIXED</span>`;
+                        } else if (isToday) {
+                            rowStyles = 'background: rgba(0, 245, 212, 0.04); border-left: 4px solid var(--emerald);';
+                            badgeHtml = `<span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(0, 245, 212, 0.2); color: var(--emerald); font-weight:700; margin-left: 8px;">⭐ TODAY</span>`;
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" style="width:50px; text-align:center; padding:3px 6px; font-weight: 800; border-radius: 4px; border: 2px solid var(--emerald); background: var(--bg-input); color: var(--text-primary);" onchange="tt_updateChallengeNumber(${puzzleIdx}, this.value)">`;
+                            actionsHtml = `
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px; margin-right:4px;" onclick="tt_movePuzzleInTable(${idx}, -1)">🔼</button>
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px;" onclick="tt_movePuzzleInTable(${idx}, 1)">🔽</button>
+                            `;
+                        } else {
+                            inputHtml = `<input type="text" value="${p.puzzle_number || ''}" style="width:50px; text-align:center; padding:3px 6px; font-weight: 700; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary);" onchange="tt_updateChallengeNumber(${puzzleIdx}, this.value)">`;
+                            actionsHtml = `
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px; margin-right:4px;" onclick="tt_movePuzzleInTable(${idx}, -1)">🔼</button>
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px;" onclick="tt_movePuzzleInTable(${idx}, 1)">🔽</button>
+                            `;
+                        }
+
                         return `
-                            <tr onclick="if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'BUTTON') tt_scrollToPuzzleCard(${idx})">
+                            <tr style="${rowStyles}" onclick="if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'BUTTON') tt_scrollToPuzzleCard(${idx})">
                                 <td style="padding: 10px; font-weight:700; color:var(--text-muted);">${idx + 1}</td>
                                 <td style="padding: 10px;">
-                                    <input type="text" value="${p.puzzle_number || ''}" style="width:50px; text-align:center; padding:3px 6px; font-weight: 700; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary);" onchange="tt_updateChallengeNumber(${puzzleIdx}, this.value)">
+                                    ${inputHtml}
                                 </td>
-                                <td style="padding: 10px; font-weight:600; color:var(--cyan);">${p.boss_pun_title}</td>
+                                <td style="padding: 10px; font-weight:600; color:var(--cyan);">${p.boss_pun_title}${badgeHtml}</td>
                                 <td style="padding: 10px; text-align: center;">
-                                    <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px; margin-right:4px;" onclick="tt_movePuzzleInTable(${idx}, -1)">🔼</button>
-                                    <button class="btn btn-secondary" style="padding:4px 8px; font-size:10px;" onclick="tt_movePuzzleInTable(${idx}, 1)">🔽</button>
+                                    ${actionsHtml}
                                 </td>
                             </tr>
                         `;
@@ -4101,17 +4140,27 @@
 
             // Combine both lists for the right-hand side detail cards
             const combinedChallenges = [...activeChallenges, ...backlogChallenges];
+            const todayChallengeStr = tt_getTodayChallengeStr();
 
             gridEl.innerHTML = combinedChallenges.map((p, idx) => {
                 const puzzleIdx = tt_puzzles.indexOf(p);
                 const isBacklog = p.puzzle_number === "";
 
+                const isToday = !isBacklog && p.puzzle_number === todayChallengeStr;
+                const isPrevious = !isBacklog && parseInt(p.puzzle_number) < parseInt(todayChallengeStr);
+
                 let cardStyle = '';
                 if (isBacklog) {
                     cardStyle = 'border-left: 4px solid #ff7684; background: rgba(220,53,69,0.01);';
+                } else if (isToday) {
+                    cardStyle = 'border: 3px solid var(--emerald); background: rgba(0, 245, 212, 0.035); box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);';
+                } else if (isPrevious) {
+                    cardStyle = 'border-left: 4px solid var(--text-muted); background: rgba(0, 0, 0, 0.015); opacity: 0.85;';
                 } else {
                     cardStyle = 'border-left: 4px solid var(--cyan); background: rgba(0, 242, 254, 0.01);';
                 }
+
+                const disabledAttr = isPrevious ? 'disabled' : '';
 
                 return `
                     <div class="puzzle-card approved ${isBacklog ? 'backlog-card' : ''}" id="tt-approved-set-${idx}" style="${cardStyle}">
@@ -4120,19 +4169,21 @@
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <div style="display: flex; align-items: center; gap: 6px;">
                                     <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-secondary);">Challenge #</span>
-                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="Backlog" style="width: 75px; text-align: center;" onchange="tt_updateChallengeNumber(${puzzleIdx}, this.value)">
+                                    <input type="text" value="${p.puzzle_number || ''}" placeholder="Backlog" style="width: 75px; text-align: center; ${isPrevious ? 'color: var(--text-muted); opacity: 0.6;' : ''}" onchange="tt_updateChallengeNumber(${puzzleIdx}, this.value)" ${disabledAttr}>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 6px;">
                                     <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-secondary);">Puzzle ID</span>
-                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puzzle_id" style="width: 140px;" onchange="tt_updatePuzzleField(${puzzleIdx}, 'puzzle_id', this.value)">
+                                    <input type="text" value="${p.puzzle_id || ''}" placeholder="e.g. puzzle_id" style="width: 140px;" onchange="tt_updatePuzzleField(${puzzleIdx}, 'puzzle_id', this.value)" ${disabledAttr}>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <div style="display: flex; align-items: center; gap: 6px;">
                                     <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700;">Tier:</span>
-                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 1}" style="width: 60px;" onchange="tt_updatePuzzleField(${puzzleIdx}, 'difficulty_tier', parseInt(this.value) || 1)">
+                                    <input type="number" min="1" max="5" value="${p.difficulty_tier || 1}" style="width: 60px;" onchange="tt_updatePuzzleField(${puzzleIdx}, 'difficulty_tier', parseInt(this.value) || 1)" ${disabledAttr}>
                                 </div>
-                                <span class="status-badge status-approved">APPROVED</span>
+                                <span class="status-badge" style="${isBacklog ? 'background:rgba(220, 53, 69, 0.15); color:#ff7684;' : (isToday ? 'background:rgba(0, 245, 212, 0.2); color:var(--emerald); border: 1px solid var(--emerald);' : (isPrevious ? 'background:rgba(255,255,255,0.08); color:var(--text-muted);' : 'background:rgba(0, 242, 254, 0.15); color:var(--cyan);'))}">
+                                    ${isBacklog ? '📦 BACKLOG' : (isToday ? '🎯 TODAY' : (isPrevious ? '🔒 LOCKED' : '🗓️ SCHEDULED'))}
+                                </span>
                             </div>
                         </div>
 
@@ -4145,35 +4196,35 @@
                             <div class="puzzle-fields-grid">
                                 <div class="field-group">
                                     <label>Pun Name (Answer)</label>
-                                    <input type="text" value="${p.boss_pun_title || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_pun_title', this.value)">
+                                    <input type="text" value="${p.boss_pun_title || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_pun_title', this.value)" ${disabledAttr}>
                                 </div>
                                 <div class="field-group">
                                     <label>Original Landmark</label>
-                                    <input type="text" value="${p.boss_original_title || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_original_title', this.value)">
+                                    <input type="text" value="${p.boss_original_title || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_original_title', this.value)" ${disabledAttr}>
                                 </div>
                                 <div class="field-group">
                                     <label>Answer Pattern Blanks (Auto-Syncs)</label>
-                                    <input type="text" value="${p.answer || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'answer', this.value)">
+                                    <input type="text" value="${p.answer || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'answer', this.value)" ${disabledAttr}>
                                 </div>
                                 <div class="field-group">
                                     <label>First Letters Hint (Auto-Syncs)</label>
-                                    <input type="text" value="${p.boss_hint2 || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_hint2', this.value)">
+                                    <input type="text" value="${p.boss_hint2 || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_hint2', this.value)" ${disabledAttr}>
                                 </div>
                                 <div class="field-group">
                                     <label>Reviewer Username</label>
-                                    <input type="text" value="${p.reviewer_name || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'reviewer_name', this.value)">
+                                    <input type="text" value="${p.reviewer_name || ''}" onchange="tt_updatePuzzleField(${puzzleIdx}, 'reviewer_name', this.value)" ${disabledAttr}>
                                 </div>
                                 <div class="field-group">
                                     <label>Page Theme</label>
-                                    <select onchange="tt_updatePuzzleField(${puzzleIdx}, 'page_theme', this.value)" style="width: 100%; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.9rem; font-weight: 500;">
-                                        ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
-                                            <option value="${t}" ${p.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
-                                        `).join('')}
+                                    <select onchange="tt_updatePuzzleField(${puzzleIdx}, 'page_theme', this.value)" style="width: 100%; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-base); background: var(--bg-input); color: var(--text-primary); font-size: 0.9rem; font-weight: 500;" ${disabledAttr}>
+                                         ${['road_trip', 'air_mail', 'train_passage', 'gondola_ride', 'boat_voyage', 'mountain_trek', 'desert_safari', 'sightseeing', 'tropical_island', 'winter_lodge', 'metro_transit'].map(t => `
+                                             <option value="${t}" ${p.page_theme === t ? 'selected' : ''}>${t.replace('_', ' ')}</option>
+                                         `).join('')}
                                     </select>
                                 </div>
                                 <div class="field-group" style="grid-column: span 2;">
                                     <label>Review Title</label>
-                                    <textarea style="min-height: 40px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'review_title', this.value)">${p.review_title || ''}</textarea>
+                                    <textarea style="min-height: 40px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'review_title', this.value)" ${disabledAttr}>${p.review_title || ''}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -4182,25 +4233,32 @@
                         <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed var(--border-base); padding-top: 12px;">
                             <div class="field-group">
                                 <label>Clue 1 (Comical obscure review)</label>
-                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue1', this.value)">${p.clue1 || ''}</textarea>
+                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue1', this.value)" ${disabledAttr}>${p.clue1 || ''}</textarea>
                             </div>
                             <div class="field-group">
                                 <label>Clue 2 (Comical landmark-related review)</label>
-                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue2', this.value)">${p.clue2 || ''}</textarea>
+                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue2', this.value)" ${disabledAttr}>${p.clue2 || ''}</textarea>
                             </div>
                             <div class="field-group">
                                 <label>Clue 3 (Comical pun-revealing review)</label>
-                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue3', this.value)">${p.clue3 || ''}</textarea>
+                                <textarea style="min-height: 50px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'clue3', this.value)" ${disabledAttr}>${p.clue3 || ''}</textarea>
                             </div>
                             <div class="field-group">
                                 <label>Owner Reply (Boss Pitch)</label>
-                                <textarea style="min-height: 60px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_pitch', this.value)">${p.boss_pitch || ''}</textarea>
+                                <textarea style="min-height: 60px; line-height: 1.4; padding: 8px 12px; overflow-y: hidden; resize: none;" oninput="tt_autoResize(this)" onchange="tt_updatePuzzleField(${puzzleIdx}, 'boss_pitch', this.value)" ${disabledAttr}>${p.boss_pitch || ''}</textarea>
                             </div>
                         </div>
 
                         <!-- Card Actions -->
                         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed var(--border-base); padding-top: 10px; margin-top: 4px;">
-                            <button class="btn btn-danger" style="padding: 8px 16px; font-size: 0.9rem;" onclick="tt_removePuzzle(${puzzleIdx})">🗑️ Delete Challenge</button>
+                            ${isPrevious ? `
+                                <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px;">
+                                    🔒 HISTORICAL PUZZLE (LOCKED & FIXED IN POSITION)
+                                </div>
+                                <div></div>
+                            ` : `
+                                <button class="btn btn-danger" style="padding: 8px 16px; font-size: 0.9rem;" onclick="tt_removePuzzle(${puzzleIdx})">🗑️ Delete Challenge</button>
+                            `}
                         </div>
                     </div>
                 `;
@@ -4242,6 +4300,13 @@
 
         function tt_updatePuzzleField(idx, key, val) {
             if (tt_puzzles[idx]) {
+                if (tt_puzzles[idx].puzzle_number) {
+                    const todayChallengeStr = tt_getTodayChallengeStr();
+                    if (parseInt(tt_puzzles[idx].puzzle_number) < parseInt(todayChallengeStr)) {
+                        showToast("Cannot edit a historical puzzle!", "error");
+                        return;
+                    }
+                }
                 tt_puzzles[idx][key] = val;
                 if (key === 'boss_pun_title') {
                     tt_puzzles[idx].answer = val.toUpperCase();
@@ -4260,6 +4325,13 @@
 
         function tt_updateChallengeNumber(puzzleIdx, val) {
             if (tt_puzzles[puzzleIdx]) {
+                if (tt_puzzles[puzzleIdx].puzzle_number) {
+                    const todayChallengeStr = tt_getTodayChallengeStr();
+                    if (parseInt(tt_puzzles[puzzleIdx].puzzle_number) < parseInt(todayChallengeStr)) {
+                        showToast("Cannot edit a historical puzzle!", "error");
+                        return;
+                    }
+                }
                 tt_puzzles[puzzleIdx].puzzle_number = val.trim();
                 tt_saveData('tt_puzzles', tt_puzzles);
                 tt_renderPuzzles();
@@ -4289,6 +4361,15 @@
             
             let targetIdx = idx + direction;
             if (targetIdx < 0 || targetIdx >= activeChallenges.length) return;
+
+            const todayChallengeStr = tt_getTodayChallengeStr();
+            const p1 = activeChallenges[idx];
+            const p2 = activeChallenges[targetIdx];
+            if ((p1.puzzle_number && parseInt(p1.puzzle_number) < parseInt(todayChallengeStr)) ||
+                (p2.puzzle_number && parseInt(p2.puzzle_number) < parseInt(todayChallengeStr))) {
+                showToast("Cannot move historical puzzles as they are fixed in position!", "error");
+                return;
+            }
             
             let temp = activeChallenges[idx].puzzle_number;
             activeChallenges[idx].puzzle_number = activeChallenges[targetIdx].puzzle_number;
@@ -4311,8 +4392,15 @@
         }
 
         function tt_removePuzzle(puzzleIdx) {
+            const pzItem = tt_puzzles[puzzleIdx];
+            if (pzItem && pzItem.puzzle_number) {
+                const todayChallengeStr = tt_getTodayChallengeStr();
+                if (parseInt(pzItem.puzzle_number) < parseInt(todayChallengeStr)) {
+                    showToast("Cannot delete a historical puzzle!", "error");
+                    return;
+                }
+            }
             if (confirm("Are you sure you want to permanently delete this challenge from the schedule? This will also remove the postcard, progressive clue, and approved pun candidates associated with it.")) {
-                let pzItem = tt_puzzles[puzzleIdx];
                 let clueId = pzItem ? pzItem.puzzle_id : null;
                 let punName = pzItem ? pzItem.boss_pun_title : null;
                 
