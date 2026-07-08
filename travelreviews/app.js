@@ -1165,13 +1165,13 @@ function updateBackgroundStamps(puzzleNum) {
     }
     
     const themeStamps = {
-        'ancient_ruins': ['stamp_safari.png', 'stamp_safari.png'],
-        'natural_wonders': ['stamp_trek.png', 'stamp_trek.png'],
-        'historic_monuments': ['stamp_gondola.png', 'stamp_gondola.png'],
-        'castles_cathedrals': ['stamp_compass.png', 'stamp_compass.png'],
-        'bridges_canals': ['stamp_nautical.png', 'stamp_nautical.png'],
-        'streets_squares': ['stamp_roadtrip_car.png', 'stamp_roadtrip_car.png'],
-        'modern_skyscrapers': ['stamp_airplane.png', 'stamp_airplane.png']
+        'ancient_ruins': ['stamp_ancient_pyramid.png', 'stamp_ancient_temple.png'],
+        'natural_wonders': ['stamp_natural_mountain.png', 'stamp_natural_forest.png'],
+        'historic_monuments': ['stamp_monument_tower.png', 'stamp_monument_statue.png'],
+        'castles_cathedrals': ['stamp_castle_turret.png', 'stamp_cathedral_window.png'],
+        'bridges_canals': ['stamp_bridge_arch.png', 'stamp_nautical_anchor.png'],
+        'streets_squares': ['stamp_street_lamp.png', 'stamp_vintage_car.png'],
+        'modern_skyscrapers': ['stamp_modern_skyline.png', 'stamp_modern_jet.png']
     };
     
     const files = themeStamps[themeName];
