@@ -1193,67 +1193,61 @@ function updateBackgroundStamps(puzzleNum) {
     // Clear existing stamps
     container.innerHTML = '';
     
-    const cellW = 280;
-    const cellH = 280;
-    const cols = Math.ceil(window.innerWidth / cellW);
-    const rows = Math.ceil(window.innerHeight / cellH);
+    // Deterministically vary positions and rotations per puzzle number
+    const leftTop = 15 + ((num * 13) % 30); // 15% to 45%
+    const leftShift = -70 + ((num * 91) % 40); // -70px to -30px
+    const leftRot = -15 - ((num * 7) % 25); // -15 to -40 deg
+    const leftScale = 0.9 + ((num % 3) * 0.05); // 0.9 to 1.0
     
-    let stampIndex = 0;
+    const rightBottom = 20 + ((num * 17) % 30); // 20% to 50%
+    const rightShift = -70 + ((num * 73) % 40); // -70px to -30px
+    const rightRot = 15 + ((num * 9) % 25); // 15 to 40 deg
+    const rightScale = 0.9 + (((num + 1) % 3) * 0.05); // 0.9 to 1.0
     
-    for (let c = 0; c < cols; c++) {
-        for (let r = 0; r < rows; r++) {
-            const x = c * cellW + cellW / 2;
-            const y = r * cellH + cellH / 2;
+    // Create Left Stamp
+    const leftEl = document.createElement('div');
+    leftEl.className = 'bg-stamp stamp-left';
+    leftEl.style.backgroundImage = `url('${leftUrl}')`;
+    
+    leftEl.style.setProperty('--stamp-left-top', `${leftTop}%`);
+    leftEl.style.setProperty('--stamp-left-left', `${leftShift}px`);
+    leftEl.style.setProperty('--stamp-left-left-desktop', `calc(50% - 440px + ${leftShift + 60}px)`);
+    leftEl.style.setProperty('--stamp-left-left-desktop-wide', `calc(50% - 500px + ${leftShift + 60}px)`);
+    
+    leftEl.style.opacity = '0';
+    leftEl.style.transform = `rotate(0deg) scale(0.2)`;
+    leftEl.style.transition = 'opacity 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    leftEl.style.transitionDelay = '0s';
+    
+    container.appendChild(leftEl);
+    
+    // Create Right Stamp
+    const rightEl = document.createElement('div');
+    rightEl.className = 'bg-stamp stamp-right';
+    rightEl.style.backgroundImage = `url('${rightUrl}')`;
+    
+    rightEl.style.setProperty('--stamp-right-bottom', `${rightBottom}%`);
+    rightEl.style.setProperty('--stamp-right-right', `${rightShift}px`);
+    rightEl.style.setProperty('--stamp-right-right-desktop', `calc(50% - 440px + ${rightShift + 60}px)`);
+    rightEl.style.setProperty('--stamp-right-right-desktop-wide', `calc(50% - 500px + ${rightShift + 60}px)`);
+    
+    rightEl.style.opacity = '0';
+    rightEl.style.transform = `rotate(0deg) scale(0.2)`;
+    rightEl.style.transition = 'opacity 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    rightEl.style.transitionDelay = '0.08s'; // Staggered entry
+    
+    container.appendChild(rightEl);
+    
+    // Trigger animation transitions
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            leftEl.style.opacity = '0.18'; // Muted watermark opacity
+            leftEl.style.transform = `rotate(${leftRot}deg) scale(${leftScale})`;
             
-            // Check if this cell overlaps the center column (where the app card sits) on desktop
-            const isWideScreen = window.innerWidth >= 800;
-            const inCenterWidth = x > (window.innerWidth / 2 - 280) && x < (window.innerWidth / 2 + 280);
-            const inCenterHeight = y > 150 && y < (window.innerHeight - 150);
-            
-            if (isWideScreen && inCenterWidth && inCenterHeight) {
-                // Skip drawing stamp here as it would be covered by the central app card
-                continue;
-            }
-            
-            // Deterministic selection and offsets per cell + puzzle number
-            const seed = c * 17 + r * 23 + num * 7;
-            const stampUrl = (seed % 2 === 0) ? leftUrl : rightUrl;
-            
-            const offsetX = -35 + (seed % 70); // -35px to +35px
-            const offsetY = -35 + ((c * 29 + r * 13 + num * 11) % 70); // -35px to +35px
-            const rot = -40 + ((c * 31 + r * 19 + num * 13) % 80); // -40 to +40 deg
-            const scale = 0.8 + ((c * 7 + r * 11 + num) % 4) * 0.08; // scale 0.8 to 1.04
-            const targetOpacity = 0.08 + ((c * r + num) % 3) * 0.03; // opacity 0.08 to 0.14
-            
-            const stamp = document.createElement('div');
-            stamp.className = 'bg-stamp';
-            stamp.style.backgroundImage = `url('${stampUrl}')`;
-            stamp.style.left = `${x + offsetX - 110}px`;
-            stamp.style.top = `${y + offsetY - 110}px`;
-            
-            // Initial animation state (compact, rotated straight, invisible)
-            stamp.style.opacity = '0';
-            stamp.style.transform = `rotate(0deg) scale(0.2)`;
-            stamp.style.transition = 'opacity 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            stamp.style.transitionDelay = `${stampIndex * 0.04}s`;
-            
-            container.appendChild(stamp);
-            
-            // Trigger animation in microtask
-            const currentOpacity = targetOpacity;
-            const currentRot = rot;
-            const currentScale = scale;
-            
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    stamp.style.opacity = currentOpacity;
-                    stamp.style.transform = `rotate(${currentRot}deg) scale(${currentScale})`;
-                }, 30);
-            });
-            
-            stampIndex++;
-        }
-    }
+            rightEl.style.opacity = '0.18';
+            rightEl.style.transform = `rotate(${rightRot}deg) scale(${rightScale})`;
+        }, 30);
+    });
 }
 
 function loadLevel() {
