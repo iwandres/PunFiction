@@ -1287,7 +1287,13 @@ function loadLevel() {
         <span style="color: #ff4757; display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 800;">1-Star Review</span>
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-family: var(--font-body);">
             <span style="font-weight: 800; font-size: 0.9rem; color: #555;">@${reviewerName}</span>
-            <span style="color: #ff4757; font-size: 1rem; letter-spacing: -2px; font-weight: bold;">🔴⚪⚪⚪⚪</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+                <span style="width: 12px; height: 12px; border-radius: 50%; background-color: #ff4757; border: 2px solid #ff4757; display: inline-block; box-sizing: border-box;"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background-color: transparent; border: 2px solid #ff4757; display: inline-block; box-sizing: border-box;"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background-color: transparent; border: 2px solid #ff4757; display: inline-block; box-sizing: border-box;"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background-color: transparent; border: 2px solid #ff4757; display: inline-block; box-sizing: border-box;"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background-color: transparent; border: 2px solid #ff4757; display: inline-block; box-sizing: border-box;"></span>
+            </div>
         </div>
         <div style="font-weight: 800; font-size: 1.1rem; color: var(--border-color); line-height: 1.25; font-family: var(--font-body); margin-bottom: 10px;">${reviewTitle}</div>
         <div style="font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: #444; line-height: 1.5; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 10px;">"${clue1Text}"</div>
