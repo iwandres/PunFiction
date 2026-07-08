@@ -157,6 +157,36 @@ def load_json(filepath, default_val=None):
             print(f"Error loading {filepath}: {e}")
     return default_val
 
+def sanitize_travelreviews_puzzles(puzzles):
+    if not isinstance(puzzles, list):
+        return puzzles
+    # Sort scheduled puzzles by puzzle_number
+    scheduled = [p for p in puzzles if p.get('puzzle_number')]
+    scheduled.sort(key=lambda x: int(x['puzzle_number']) if str(x['puzzle_number']).isdigit() else 999)
+    
+    seen = set()
+    changed = False
+    for p in scheduled:
+        orig = p.get('boss_original_title', '').strip().lower()
+        if orig in seen:
+            p['puzzle_number'] = ''
+            changed = True
+        else:
+            seen.add(orig)
+            
+    if changed:
+        # Resequence scheduled puzzles
+        active_puzzles = [p for p in puzzles if p.get('puzzle_number')]
+        active_puzzles.sort(key=lambda x: int(x['puzzle_number']) if str(x['puzzle_number']).isdigit() else 999)
+        
+        backlog_puzzles = [p for p in puzzles if not p.get('puzzle_number')]
+        
+        for idx, p in enumerate(active_puzzles):
+            p['puzzle_number'] = f"{idx + 1:03d}"
+            
+        puzzles = active_puzzles + backlog_puzzles
+    return puzzles
+
 def save_json(filepath, data):
     try:
         # Write to the primary file path first
@@ -420,6 +450,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
             try:
                 data = json.loads(post_data.decode('utf-8'))
+                if file == DAILY_GAMES_FILE and isinstance(data, list):
+                    data = sanitize_travelreviews_puzzles(data)
                 save_json(file, data)
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
