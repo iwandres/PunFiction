@@ -3768,9 +3768,27 @@
             tt_updateBadges();
         }
 
+        function normalizeName(name) {
+            if (!name) return "";
+            return name.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^a-z0-9]/g, "");
+        }
+
         function tt_updateBadges() {
             // 1. Landmarks pending count
-            const pendingLandmarks = tt_landmarks.filter(lm => !lm.status || lm.status === 'pending').length;
+            const approvedNames = new Set(
+                tt_landmarks.filter(lm => lm.status === 'approved').map(lm => normalizeName(lm.name))
+            );
+            const puzzleNames = new Set(
+                tt_puzzles.map(p => normalizeName(p.boss_original_title))
+            );
+            const pendingLandmarks = tt_landmarks.filter(lm => 
+                (!lm.status || lm.status === 'pending') && 
+                !approvedNames.has(normalizeName(lm.name)) && 
+                !puzzleNames.has(normalizeName(lm.name))
+            ).length;
             const elLandmarks = document.getElementById('badge-tt-landmarks');
             if (elLandmarks) elLandmarks.innerText = pendingLandmarks;
 
@@ -3818,7 +3836,17 @@
             const showPendingOnly = document.getElementById('tt_sweeper_mode')?.checked ?? true;
             let displayList = tt_landmarks;
             if (showPendingOnly) {
-                displayList = tt_landmarks.filter(lm => lm.status === 'pending' || !lm.status);
+                const approvedNames = new Set(
+                    tt_landmarks.filter(lm => lm.status === 'approved').map(lm => normalizeName(lm.name))
+                );
+                const puzzleNames = new Set(
+                    tt_puzzles.map(p => normalizeName(p.boss_original_title))
+                );
+                displayList = tt_landmarks.filter(lm => 
+                    (lm.status === 'pending' || !lm.status) && 
+                    !approvedNames.has(normalizeName(lm.name)) && 
+                    !puzzleNames.has(normalizeName(lm.name))
+                );
             }
             el.innerHTML = displayList.map((lm, idx) => `
                 <div class="tt-list-item">
