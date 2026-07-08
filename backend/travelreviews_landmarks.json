@@ -1,20 +1,8 @@
 [
   {
-    "id": "landmark_1783200000001",
-    "name": "Eiffel Tower",
-    "location": "Paris, France",
-    "status": "approved"
-  },
-  {
     "id": "landmark_1783200000002",
     "name": "Great Wall of China",
     "location": "Huairou, China",
-    "status": "approved"
-  },
-  {
-    "id": "landmark_1783200000003",
-    "name": "Taj Mahal",
-    "location": "Agra, India",
     "status": "approved"
   },
   {
@@ -91,7 +79,7 @@
   },
   {
     "id": "landmark_1783200000016",
-    "name": "Sagrada Família",
+    "name": "Sagrada Fam\u00edlia",
     "location": "Barcelona, Spain",
     "status": "approved"
   },
@@ -243,49 +231,25 @@
     "id": "landmark_3_1783199003",
     "name": "Notre-Dame Cathedral",
     "location": "Paris, France",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_4_1783199003",
     "name": "Palace of Versailles",
     "location": "Versailles, France",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_5_1783199003",
     "name": "Arc de Triomphe",
     "location": "Paris, France",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_6_1783199003",
     "name": "Mont Saint-Michel",
     "location": "Normandy, France",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_7_1783199003",
-    "name": "Château de Chambord",
-    "location": "Chambord, France",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_8_1783199003",
-    "name": "Pont du Gard",
-    "location": "Vers-Pont-du-Gard, France",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_9_1783199003",
-    "name": "Musée d'Orsay",
-    "location": "Paris, France",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_10_1783199003",
-    "name": "Sacré-Cœur Basilica",
-    "location": "Paris, France",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_11_1783199003",
@@ -303,7 +267,7 @@
     "id": "landmark_13_1783199003",
     "name": "Vatican Museums",
     "location": "Vatican City",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_14_1783199003",
@@ -321,7 +285,7 @@
     "id": "landmark_16_1783199003",
     "name": "Roman Forum",
     "location": "Rome, Italy",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_17_1783199003",
@@ -330,28 +294,10 @@
     "status": "approved"
   },
   {
-    "id": "landmark_18_1783199003",
-    "name": "Duomo di Firenze",
-    "location": "Florence, Italy",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_19_1783199003",
-    "name": "Uffizi Gallery",
-    "location": "Florence, Italy",
-    "status": "pending"
-  },
-  {
     "id": "landmark_20_1783199003",
     "name": "Grand Canal",
     "location": "Venice, Italy",
     "status": "approved"
-  },
-  {
-    "id": "landmark_21_1783199003",
-    "name": "Doge's Palace",
-    "location": "Venice, Italy",
-    "status": "pending"
   },
   {
     "id": "landmark_22_1783199003",
@@ -369,25 +315,13 @@
     "id": "landmark_24_1783199003",
     "name": "Milan Cathedral",
     "location": "Milan, Italy",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_25_1783199003",
     "name": "Amalfi Coast",
     "location": "Campania, Italy",
     "status": "approved"
-  },
-  {
-    "id": "landmark_26_1783199003",
-    "name": "Rialto Bridge",
-    "location": "Venice, Italy",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_27_1783199003",
-    "name": "Piazza San Marco",
-    "location": "Venice, Italy",
-    "status": "pending"
   },
   {
     "id": "landmark_28_1783199003",
@@ -408,18 +342,6 @@
     "status": "approved"
   },
   {
-    "id": "landmark_31_1783199003",
-    "name": "British Museum",
-    "location": "London, England",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_32_1783199003",
-    "name": "Houses of Parliament and Big Ben",
-    "location": "London, England",
-    "status": "pending"
-  },
-  {
     "id": "landmark_33_1783199003",
     "name": "Westminster Abbey",
     "location": "London, England",
@@ -435,25 +357,25 @@
     "id": "landmark_35_1783199003",
     "name": "Loch Ness",
     "location": "Scottish Highlands, Scotland",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_36_1783199003",
     "name": "The Shard",
     "location": "London, England",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_37_1783199003",
     "name": "Roman Baths",
     "location": "Bath, England",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_38_1783199003",
     "name": "Giant's Causeway",
     "location": "County Antrim, Northern Ireland",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_39_1783199003",
@@ -463,7 +385,7 @@
   },
   {
     "id": "landmark_40_1783199003",
-    "name": "Sagrada Família",
+    "name": "Sagrada Fam\u00edlia",
     "location": "Barcelona, Spain",
     "status": "approved"
   },
@@ -474,64 +396,34 @@
     "status": "approved"
   },
   {
-    "id": "landmark_42_1783199003",
-    "name": "Park Güell",
-    "location": "Barcelona, Spain",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_43_1783199003",
-    "name": "Museo del Prado",
-    "location": "Madrid, Spain",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_44_1783199003",
-    "name": "Royal Palace of Madrid",
-    "location": "Madrid, Spain",
-    "status": "pending"
-  },
-  {
     "id": "landmark_45_1783199003",
     "name": "La Rambla",
     "location": "Barcelona, Spain",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_46_1783199003",
-    "name": "Seville Cathedral and Giralda",
-    "location": "Seville, Spain",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_47_1783199003",
-    "name": "Mezquita-Cathedral of Córdoba",
-    "location": "Córdoba, Spain",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_48_1783199003",
     "name": "Guggenheim Museum Bilbao",
     "location": "Bilbao, Spain",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_49_1783199003",
-    "name": "Alcázar of Seville",
+    "name": "Alc\u00e1zar of Seville",
     "location": "Seville, Spain",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_50_1783199003",
     "name": "Brandenburg Gate",
     "location": "Berlin, Germany",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_51_1783199003",
     "name": "Reichstag Building",
     "location": "Berlin, Germany",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_52_1783199003",
@@ -543,37 +435,25 @@
     "id": "landmark_53_1783199003",
     "name": "Berlin Wall Memorial",
     "location": "Berlin, Germany",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_54_1783199003",
     "name": "Cologne Cathedral",
     "location": "Cologne, Germany",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_55_1783199003",
     "name": "Black Forest",
-    "location": "Baden-Württemberg, Germany",
+    "location": "Baden-W\u00fcrttemberg, Germany",
     "status": "approved"
   },
   {
     "id": "landmark_56_1783199003",
-    "name": "Hofbräuhaus München",
+    "name": "Hofbr\u00e4uhaus M\u00fcnchen",
     "location": "Munich, Germany",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_57_1783199003",
-    "name": "Pergamon Museum",
-    "location": "Berlin, Germany",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_58_1783199003",
-    "name": "Heidelberg Castle",
-    "location": "Heidelberg, Germany",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_59_1783199003",
@@ -585,13 +465,13 @@
     "id": "landmark_60_1783199003",
     "name": "Parthenon",
     "location": "Athens, Greece",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_61_1783199003",
     "name": "Santorini",
     "location": "Cycladic Islands, Greece",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_62_1783199003",
@@ -603,55 +483,19 @@
     "id": "landmark_63_1783199003",
     "name": "Meteora",
     "location": "Thessaly, Greece",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_64_1783199003",
     "name": "Palace of Knossos",
     "location": "Heraklion, Crete, Greece",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_65_1783199003",
     "name": "Mykonos Windmills",
     "location": "Mykonos, Greece",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_66_1783199003",
-    "name": "Belém Tower",
-    "location": "Lisbon, Portugal",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_67_1783199003",
-    "name": "Jerónimos Monastery",
-    "location": "Lisbon, Portugal",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_68_1783199003",
-    "name": "Pena Palace",
-    "location": "Sintra, Portugal",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_69_1783199003",
-    "name": "Douro Valley",
-    "location": "Porto, Portugal",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_70_1783199003",
-    "name": "Alfama District",
-    "location": "Lisbon, Portugal",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_71_1783199003",
-    "name": "Rijksmuseum",
-    "location": "Amsterdam, Netherlands",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_72_1783199003",
@@ -660,16 +504,10 @@
     "status": "approved"
   },
   {
-    "id": "landmark_73_1783199003",
-    "name": "Van Gogh Museum",
-    "location": "Amsterdam, Netherlands",
-    "status": "pending"
-  },
-  {
     "id": "landmark_74_1783199003",
     "name": "Canals of Amsterdam",
     "location": "Amsterdam, Netherlands",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_75_1783199003",
@@ -678,64 +516,16 @@
     "status": "approved"
   },
   {
-    "id": "landmark_76_1783199003",
-    "name": "Zaanse Schans",
-    "location": "Zaandam, Netherlands",
-    "status": "pending"
-  },
-  {
     "id": "landmark_77_1783199003",
     "name": "Grand Place",
     "location": "Brussels, Belgium",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_78_1783199003",
     "name": "Atomium",
     "location": "Brussels, Belgium",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_79_1783199003",
-    "name": "Manneken Pis",
-    "location": "Brussels, Belgium",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_80_1783199003",
-    "name": "Bruges Canals",
-    "location": "Bruges, Belgium",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_81_1783199003",
-    "name": "Schönbrunn Palace",
-    "location": "Vienna, Austria",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_82_1783199003",
-    "name": "St. Stephen's Cathedral",
-    "location": "Vienna, Austria",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_83_1783199003",
-    "name": "Hofburg Palace",
-    "location": "Vienna, Austria",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_84_1783199003",
-    "name": "Hallstatt",
-    "location": "Hallstatt, Austria",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_85_1783199003",
-    "name": "Salzburg Old Town",
-    "location": "Salzburg, Austria",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_86_1783199003",
@@ -747,73 +537,7 @@
     "id": "landmark_87_1783199003",
     "name": "Lake Geneva",
     "location": "Geneva, Switzerland",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_88_1783199003",
-    "name": "Jungfraujoch",
-    "location": "Bernese Alps, Switzerland",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_89_1783199003",
-    "name": "Charles Bridge",
-    "location": "Prague, Czech Republic",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_90_1783199003",
-    "name": "Prague Castle",
-    "location": "Prague, Czech Republic",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_91_1783199003",
-    "name": "Old Town Square",
-    "location": "Prague, Czech Republic",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_92_1783199003",
-    "name": "St. Vitus Cathedral",
-    "location": "Prague, Czech Republic",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_93_1783199003",
-    "name": "Old Town Hall with Astronomical Clock",
-    "location": "Prague, Czech Republic",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_94_1783199003",
-    "name": "Parliament Building",
-    "location": "Budapest, Hungary",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_95_1783199003",
-    "name": "Chain Bridge",
-    "location": "Budapest, Hungary",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_96_1783199003",
-    "name": "Buda Castle",
-    "location": "Budapest, Hungary",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_97_1783199003",
-    "name": "Fisherman's Bastion",
-    "location": "Budapest, Hungary",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_98_1783199003",
-    "name": "Szechenyi Thermal Bath",
-    "location": "Budapest, Hungary",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_99_1783199003",
@@ -825,49 +549,13 @@
     "id": "landmark_100_1783199003",
     "name": "Dublin Castle",
     "location": "Dublin, Ireland",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_101_1783199003",
-    "name": "Trinity College and Book of Kells",
-    "location": "Dublin, Ireland",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_102_1783199003",
     "name": "Blarney Castle",
     "location": "Blarney, Ireland",
     "status": "approved"
-  },
-  {
-    "id": "landmark_103_1783199003",
-    "name": "Nyhavn",
-    "location": "Copenhagen, Denmark",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_104_1783199003",
-    "name": "Little Mermaid statue",
-    "location": "Copenhagen, Denmark",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_105_1783199003",
-    "name": "Geirangerfjord",
-    "location": "Møre og Romsdal, Norway",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_106_1783199003",
-    "name": "Akershus Fortress",
-    "location": "Oslo, Norway",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_107_1783199003",
-    "name": "Vasa Museum",
-    "location": "Stockholm, Sweden",
-    "status": "pending"
   },
   {
     "id": "landmark_108_1783199003",
@@ -885,37 +573,19 @@
     "id": "landmark_110_1783199003",
     "name": "St. Basil's Cathedral",
     "location": "Moscow, Russia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_111_1783199003",
     "name": "Kremlin",
     "location": "Moscow, Russia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_112_1783199003",
     "name": "Wawel Castle",
-    "location": "Kraków, Poland",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_113_1783199003",
-    "name": "Auschwitz-Birkenau Memorial and Museum",
-    "location": "Oświęcim, Poland",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_114_1783199003",
-    "name": "Dubrovnik Old Town",
-    "location": "Dubrovnik, Croatia",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_115_1783199003",
-    "name": "Plitvice Lakes National Park",
-    "location": "Plitvička Jezera, Croatia",
-    "status": "pending"
+    "location": "Krak\u00f3w, Poland",
+    "status": "approved"
   },
   {
     "id": "landmark_116_1783199003",
@@ -1029,7 +699,7 @@
     "id": "landmark_134_1783199069",
     "name": "Alcatraz Island",
     "location": "San Francisco, California, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_135_1783199069",
@@ -1041,7 +711,7 @@
     "id": "landmark_136_1783199069",
     "name": "Hoover Dam",
     "location": "Boulder City, Nevada, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_137_1783199069",
@@ -1065,7 +735,7 @@
     "id": "landmark_140_1783199069",
     "name": "Rocky Mountains",
     "location": "Colorado, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_141_1783199069",
@@ -1077,7 +747,7 @@
     "id": "landmark_142_1783199069",
     "name": "Liberty Bell",
     "location": "Philadelphia, Pennsylvania, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_143_1783199069",
@@ -1119,13 +789,13 @@
     "id": "landmark_149_1783199069",
     "name": "Mesa Verde National Park",
     "location": "Colorado, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_150_1783199069",
     "name": "Kennedy Space Center",
     "location": "Merritt Island, Florida, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_151_1783199069",
@@ -1161,7 +831,7 @@
     "id": "landmark_156_1783199069",
     "name": "Mount St. Helens",
     "location": "Washington, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_157_1783199069",
@@ -1170,46 +840,28 @@
     "status": "pending"
   },
   {
-    "id": "landmark_158_1783199069",
-    "name": "USS Arizona Memorial",
-    "location": "Pearl Harbor, Hawaii, USA",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_159_1783199069",
-    "name": "The Strip",
-    "location": "Las Vegas, Nevada, USA",
-    "status": "pending"
-  },
-  {
     "id": "landmark_160_1783199069",
     "name": "CN Tower",
     "location": "Toronto, Ontario, Canada",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_161_1783199069",
     "name": "Banff National Park",
     "location": "Alberta, Canada",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_162_1783199069",
     "name": "Lake Louise",
     "location": "Banff National Park, Alberta, Canada",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_163_1783199069",
     "name": "Parliament Hill",
     "location": "Ottawa, Ontario, Canada",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_164_1783199069",
-    "name": "Old Quebec",
-    "location": "Quebec City, Quebec, Canada",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_165_1783199069",
@@ -1239,7 +891,7 @@
     "id": "landmark_169_1783199069",
     "name": "Chichen Itza",
     "location": "Yucatan, Mexico",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_170_1783199069",
@@ -1251,24 +903,6 @@
     "id": "landmark_171_1783199069",
     "name": "Palenque",
     "location": "Chiapas, Mexico",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_172_1783199069",
-    "name": "Tulum Ruins",
-    "location": "Tulum, Quintana Roo, Mexico",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_173_1783199069",
-    "name": "Copper Canyon",
-    "location": "Chihuahua, Mexico",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_174_1783199069",
-    "name": "Cenote Ik Kil",
-    "location": "Yucatan, Mexico",
     "status": "pending"
   },
   {
@@ -1287,7 +921,7 @@
     "id": "landmark_177_1783199069",
     "name": "Panama Canal",
     "location": "Panama City, Panama",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_178_1783199069",
@@ -1296,28 +930,16 @@
     "status": "pending"
   },
   {
-    "id": "landmark_179_1783199069",
-    "name": "Arenal Volcano",
-    "location": "La Fortuna, Costa Rica",
-    "status": "pending"
-  },
-  {
     "id": "landmark_180_1783199069",
     "name": "Tikal",
     "location": "Peten, Guatemala",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_181_1783199069",
-    "name": "El Morro",
-    "location": "San Juan, Puerto Rico",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_182_1783199069",
     "name": "Great Blue Hole",
     "location": "Belize Barrier Reef, Belize",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_183_1783199069",
@@ -1346,7 +968,7 @@
   {
     "id": "landmark_187_1783199069",
     "name": "Iguazu Falls",
-    "location": "Foz do Iguaçu, Brazil",
+    "location": "Foz do Igua\u00e7u, Brazil",
     "status": "pending"
   },
   {
@@ -1363,8 +985,8 @@
   },
   {
     "id": "landmark_190_1783199069",
-    "name": "Lençóis Maranhenses National Park",
-    "location": "Maranhão, Brazil",
+    "name": "Len\u00e7\u00f3is Maranhenses National Park",
+    "location": "Maranh\u00e3o, Brazil",
     "status": "pending"
   },
   {
@@ -1471,7 +1093,7 @@
   },
   {
     "id": "landmark_208_1783199069",
-    "name": "Valdés Peninsula",
+    "name": "Vald\u00e9s Peninsula",
     "location": "Chubut, Argentina",
     "status": "pending"
   },
@@ -1507,8 +1129,8 @@
   },
   {
     "id": "landmark_214_1783199069",
-    "name": "Valparaíso Historic Quarter",
-    "location": "Valparaíso, Chile",
+    "name": "Valpara\u00edso Historic Quarter",
+    "location": "Valpara\u00edso, Chile",
     "status": "pending"
   },
   {
@@ -1574,7 +1196,7 @@
   {
     "id": "landmark_225_1783199069",
     "name": "Ingapirca Ruins",
-    "location": "Cañar Province, Ecuador",
+    "location": "Ca\u00f1ar Province, Ecuador",
     "status": "pending"
   },
   {
@@ -1591,19 +1213,19 @@
   },
   {
     "id": "landmark_228_1783199069",
-    "name": "El Peñón de Guatapé",
+    "name": "El Pe\u00f1\u00f3n de Guatap\u00e9",
     "location": "Antioquia, Colombia",
     "status": "pending"
   },
   {
     "id": "landmark_229_1783199069",
     "name": "Cocora Valley",
-    "location": "Quindío, Colombia",
+    "location": "Quind\u00edo, Colombia",
     "status": "pending"
   },
   {
     "id": "landmark_230_1783199069",
-    "name": "Caño Cristales",
+    "name": "Ca\u00f1o Cristales",
     "location": "Meta, Colombia",
     "status": "pending"
   },
@@ -1633,8 +1255,8 @@
   },
   {
     "id": "landmark_235_1783199069",
-    "name": "Jesuit Missions of La Santísima Trinidad de Paraná",
-    "location": "Itapúa, Paraguay",
+    "name": "Jesuit Missions of La Sant\u00edsima Trinidad de Paran\u00e1",
+    "location": "Itap\u00faa, Paraguay",
     "status": "pending"
   },
   {
@@ -2449,8 +2071,8 @@
   },
   {
     "id": "landmark_371_1783199138",
-    "name": "Great Mosque of Djenné",
-    "location": "Djenné, Mali",
+    "name": "Great Mosque of Djenn\u00e9",
+    "location": "Djenn\u00e9, Mali",
     "status": "pending"
   },
   {
@@ -2545,7 +2167,7 @@
   },
   {
     "id": "landmark_387_1783199138",
-    "name": "Pyramids of Meroë",
+    "name": "Pyramids of Mero\u00eb",
     "location": "Shendi, Sudan",
     "status": "pending"
   },
@@ -2714,7 +2336,7 @@
   {
     "id": "landmark_415_1783199138",
     "name": "Goreme National Park and the Rock Sites of Cappadocia",
-    "location": "Nevşehir, Turkey",
+    "location": "Nev\u015fehir, Turkey",
     "status": "pending"
   },
   {
@@ -2774,7 +2396,7 @@
   {
     "id": "landmark_425_1783199138",
     "name": "Ganvie",
-    "location": "Ouémé Department, Benin",
+    "location": "Ou\u00e9m\u00e9 Department, Benin",
     "status": "pending"
   },
   {
@@ -3026,7 +2648,7 @@
   {
     "id": "landmark_467_1783199162",
     "name": "Jean-Marie Tjibaou Cultural Centre",
-    "location": "Nouméa, New Caledonia",
+    "location": "Noum\u00e9a, New Caledonia",
     "status": "pending"
   },
   {
@@ -3085,7 +2707,7 @@
   },
   {
     "id": "landmark_477_1783199162",
-    "name": "Pu'uhonua o Hōnaunau National Historical Park",
+    "name": "Pu'uhonua o H\u014dnaunau National Historical Park",
     "location": "Hawaii (Big Island), USA",
     "status": "pending"
   },
@@ -3199,7 +2821,7 @@
   },
   {
     "id": "landmark_496_1783199193",
-    "name": "Kapellbrücke (Chapel Bridge)",
+    "name": "Kapellbr\u00fccke (Chapel Bridge)",
     "location": "Lucerne, Switzerland",
     "status": "pending"
   },
