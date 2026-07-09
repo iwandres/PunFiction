@@ -561,7 +561,7 @@
     "id": "landmark_108_1783199003",
     "name": "Gamla Stan",
     "location": "Stockholm, Sweden",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_109_1783199003",
@@ -729,7 +729,7 @@
     "id": "landmark_139_1783199069",
     "name": "Zion National Park",
     "location": "Springdale, Utah, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_140_1783199069",
@@ -741,7 +741,7 @@
     "id": "landmark_141_1783199069",
     "name": "Brooklyn Bridge",
     "location": "New York City, New York, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_142_1783199069",
@@ -759,7 +759,7 @@
     "id": "landmark_144_1783199069",
     "name": "Cloud Gate",
     "location": "Chicago, Illinois, USA",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_145_1783199069",
@@ -975,13 +975,13 @@
     "id": "landmark_188_1783199069",
     "name": "Amazon Rainforest",
     "location": "Amazonas, Brazil",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_189_1783199069",
     "name": "Copacabana Beach",
     "location": "Rio de Janeiro, Brazil",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_190_1783199069",
@@ -1023,13 +1023,13 @@
     "id": "landmark_196_1783199069",
     "name": "Nazca Lines",
     "location": "Nazca, Peru",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_197_1783199069",
     "name": "Lake Titicaca",
     "location": "Puno, Peru",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_198_1783199069",
@@ -1047,7 +1047,7 @@
     "id": "landmark_200_1783199069",
     "name": "Sacred Valley of the Incas",
     "location": "Cusco Region, Peru",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_201_1783199069",
@@ -1125,7 +1125,7 @@
     "id": "landmark_213_1783199069",
     "name": "Atacama Desert",
     "location": "Northern Chile",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_214_1783199069",
@@ -1173,13 +1173,13 @@
     "id": "landmark_221_1783199069",
     "name": "Galapagos Islands",
     "location": "Ecuador",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_222_1783199069",
     "name": "Cotopaxi Volcano",
     "location": "Cotopaxi Province, Ecuador",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_223_1783199069",
@@ -1992,16 +1992,10 @@
     "status": "pending"
   },
   {
-    "id": "landmark_358_1783199138",
-    "name": "Giza Pyramids and Sphinx",
-    "location": "Giza, Egypt",
-    "status": "pending"
-  },
-  {
     "id": "landmark_359_1783199138",
     "name": "Valley of the Kings",
     "location": "Luxor, Egypt",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_360_1783199138",
@@ -2025,19 +2019,19 @@
     "id": "landmark_363_1783199138",
     "name": "Victoria Falls",
     "location": "Livingstone, Zambia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_364_1783199138",
     "name": "Serengeti National Park",
     "location": "Tanzania",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_365_1783199138",
     "name": "Mount Kilimanjaro",
     "location": "Tanzania",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_366_1783199138",
@@ -2151,7 +2145,7 @@
     "id": "landmark_384_1783199138",
     "name": "Volcanoes National Park",
     "location": "Musanze, Rwanda",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_385_1783199138",
@@ -2166,22 +2160,10 @@
     "status": "pending"
   },
   {
-    "id": "landmark_387_1783199138",
-    "name": "Pyramids of Mero\u00eb",
-    "location": "Shendi, Sudan",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_388_1783199138",
-    "name": "Great Zimbabwe National Monument",
-    "location": "Masvingo Province, Zimbabwe",
-    "status": "pending"
-  },
-  {
     "id": "landmark_389_1783199138",
     "name": "Cape of Good Hope",
     "location": "Western Cape, South Africa",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_390_1783199138",
@@ -2193,7 +2175,7 @@
     "id": "landmark_391_1783199138",
     "name": "Luxor Temple",
     "location": "Luxor, Egypt",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_392_1783199138",
@@ -2229,7 +2211,7 @@
     "id": "landmark_397_1783199138",
     "name": "Avenue of the Baobabs",
     "location": "Menabe Region, Madagascar",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_398_1783199138",
@@ -2259,7 +2241,7 @@
     "id": "landmark_402_1783199138",
     "name": "Old City of Jerusalem",
     "location": "Jerusalem, Israel/Palestine",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_403_1783199138",
@@ -2325,7 +2307,7 @@
     "id": "landmark_413_1783199138",
     "name": "Persepolis",
     "location": "Fars Province, Iran",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_414_1783199138",
@@ -2361,7 +2343,7 @@
     "id": "landmark_419_1783199138",
     "name": "Siwa Oasis",
     "location": "Matruh Governorate, Egypt",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_420_1783199138",
@@ -2373,7 +2355,7 @@
     "id": "landmark_421_1783199138",
     "name": "Blue Nile Falls",
     "location": "Bahir Dar, Ethiopia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_422_1783199138",
@@ -2385,7 +2367,7 @@
     "id": "landmark_423_1783199138",
     "name": "Mount Sinai",
     "location": "South Sinai Governorate, Egypt",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_424_1783199138",
@@ -2445,7 +2427,7 @@
     "id": "landmark_433_1783199162",
     "name": "Bondi Beach",
     "location": "Sydney, Australia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_434_1783199162",
@@ -2457,7 +2439,7 @@
     "id": "landmark_435_1783199162",
     "name": "Daintree Rainforest",
     "location": "Queensland, Australia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_436_1783199162",
@@ -2475,7 +2457,7 @@
     "id": "landmark_438_1783199162",
     "name": "Pinnacles Desert",
     "location": "Cervantes, Australia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_439_1783199162",
@@ -2556,12 +2538,6 @@
     "status": "pending"
   },
   {
-    "id": "landmark_452_1783199162",
-    "name": "Hobbiton Movie Set",
-    "location": "Matamata, New Zealand",
-    "status": "pending"
-  },
-  {
     "id": "landmark_453_1783199162",
     "name": "Rotorua Geothermal Parks",
     "location": "Rotorua, New Zealand",
@@ -2589,7 +2565,7 @@
     "id": "landmark_457_1783199162",
     "name": "Cathedral Cove",
     "location": "Coromandel Peninsula, New Zealand",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_458_1783199162",
@@ -2604,16 +2580,10 @@
     "status": "pending"
   },
   {
-    "id": "landmark_460_1783199162",
-    "name": "Te Papa Museum",
-    "location": "Wellington, New Zealand",
-    "status": "pending"
-  },
-  {
     "id": "landmark_461_1783199162",
     "name": "Lake Taupo",
     "location": "North Island, New Zealand",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_462_1783199162",
@@ -2727,19 +2697,13 @@
     "id": "landmark_480_1783199162",
     "name": "Port Lockroy",
     "location": "Wiencke Island, Antarctica",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_481_1783199162",
     "name": "Paradise Bay",
     "location": "Antarctic Peninsula, Antarctica",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_482_1783199162",
-    "name": "Amundsen-Scott South Pole Station",
-    "location": "South Pole, Antarctica",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_483_1783199162",
@@ -2787,66 +2751,54 @@
     "id": "landmark_490_1783199193",
     "name": "Mount Everest",
     "location": "Himalayas, Nepal/China",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_491_1783199193",
     "name": "Red Square",
     "location": "Moscow, Russia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_492_1783199193",
     "name": "Hagia Sophia",
     "location": "Istanbul, Turkey",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_493_1783199193",
     "name": "The Kremlin",
     "location": "Moscow, Russia",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_494_1783199193",
     "name": "Pulpit Rock (Preikestolen)",
     "location": "Rogaland, Norway",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_495_1783199193",
     "name": "Burj Al Arab",
     "location": "Dubai, United Arab Emirates",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_496_1783199193",
-    "name": "Kapellbr\u00fccke (Chapel Bridge)",
-    "location": "Lucerne, Switzerland",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_497_1783199193",
     "name": "Great Sphinx of Giza",
     "location": "Giza, Egypt",
-    "status": "pending"
-  },
-  {
-    "id": "landmark_498_1783199193",
-    "name": "Millau Viaduct",
-    "location": "Tarn, France",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_499_1783199224",
     "name": "The Acropolis of Athens",
     "location": "Athens, Greece",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "landmark_500_1783199224",
     "name": "Tower Bridge",
     "location": "London, United Kingdom",
-    "status": "pending"
+    "status": "approved"
   }
 ]

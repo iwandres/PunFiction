@@ -641,8 +641,8 @@
         "pun_name": "Brandenburg Goat",
         "original_name": "Brandenburg Gate",
         "image_prompt": "A majestic, slightly stern goat, adorned with a small crown, standing grandly at the center of a triumphal arch constructed entirely from other whimsically stacked and posing goats, humorously parodying the Brandenburg Gate, depicted in an old school vintage travel illustration style, rooted in 1930s WPA-era silk-screened travel posters and 1960s lithographs, featuring bold shapes, muted earthy color palettes, and hand-drawn typography.",
-        "image_path": "/assets/cartoons/brandenburg_goat_1783436305.png",
-        "art_style": "wpa",
+        "image_path": "/assets/cartoons/brandenburg_goat_1783488792.png",
+        "art_style": "custom",
         "owner_response": "Dear @GrumpyGrazer, our iconic neoclassical triumphal arch is renowned for its quadriga, not 'incessant bleating' or any 'goaty' odor you encountered.",
         "page_theme": "historic_monuments",
         "status": "pending"
@@ -789,7 +789,7 @@
         "art_style": "watercolor",
         "owner_response": "Dear @ScribbleSavant, our 13th-century governmental fortress is indeed 'cold stone,' not a 'sketchbook' for your potato drawings or melting crayons. Perhaps you've confused us with a different kind of 'castle'?",
         "page_theme": "historic_monuments",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_st._basil's_cathedral_1783314799_512_1783395049_842_1783436538",
@@ -801,7 +801,7 @@
         "art_style": "watercolor",
         "owner_response": "Dear Adventurer, it seems you've confused our vibrant, historic monument with a pet shop. Our magnificent architecture has never featured 'shedding hairballs' nor offered 'clawed pews', @FelineFiasco.",
         "page_theme": "historic_monuments",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_mesa_verde_national_park_1783314853_736_1783395057_404_1783436565",
@@ -813,7 +813,7 @@
         "art_style": "cartoon",
         "owner_response": "Dear @PutterPioneer, this is a UNESCO World Heritage Site preserving Ancestral Puebloan cliff dwellings, not a poorly maintained golf course. Perhaps 'Verde' (green) should have clued you in that it's a *green* table land, not a *green* tee box.",
         "page_theme": "historic_monuments",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_neuschwanstein_castle_1783298915_674_1783396082_348_1783436582",
@@ -825,19 +825,7 @@
         "art_style": "wpa",
         "owner_response": "Dear @StainRemover77, our majestic 19th-century Romanesque Revival palace is not a public bird bath. We assure you, our historic walls have no 'stains' needing removal.",
         "page_theme": "historic_monuments",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_neuschwanstein_castle_1783298915_975_1783396095_175_1783436599",
-        "clue_id": "clue_pun_neuschwanstein_castle_1783298915_975_1783396095_175",
-        "pun_name": "No-Swine-Stain Castle",
-        "original_name": "Neuschwanstein Castle",
-        "image_prompt": "A magnificent, sparkling 'No-Swine-Stain Castle' stands pristine, while a queue of comically fastidious pigs obsessively polish their trotters on a colossal doormat, ensuring absolute cleanliness, comical cartoon illustration, bold lines, bright vibrant colors, humorous caricature, white postcard border.",
-        "image_path": "/assets/cartoons/no_swine_stain_castle_1783436592.png",
-        "art_style": "cartoon",
-        "owner_response": "Dear @PorkPurityPoliceman, this is a meticulously preserved 19th-century royal castle, not a farm. Our historic halls do not feature 'oinks' or 'pig muck'.",
-        "page_theme": "historic_monuments",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_palace_of_versailles_1783298947_521_1783396104_172_1783436620",
@@ -864,18 +852,6 @@
         "status": "pending"
     },
     {
-        "id": "postcard_clue_pun_landmark_1_1783199003_0_1783199786_1783396118_976_1783436650",
-        "clue_id": "clue_pun_landmark_1_1783199003_0_1783199786_1783396118_976",
-        "pun_name": "Waffle Tower",
-        "original_name": "Eiffel Tower",
-        "image_prompt": "A towering structure resembling the Eiffel Tower, meticulously crafted from giant golden waffles with cascading maple syrup, stands comically over a stylized Parisian cityscape, depicted in a humorous vintage 1950s travel poster style, featuring retro flat vector design, bold colors, and a screen-printed poster aesthetic.",
-        "image_path": "/assets/cartoons/waffle_tower_1783436643.png",
-        "art_style": "retro",
-        "owner_response": "Dear @BatterBurned, we're a 330-meter wrought-iron monument, not a breakfast buffet. Perhaps you're confusing us with a different kind of 'tower' altogether?",
-        "page_theme": "historic_monuments",
-        "status": "pending"
-    },
-    {
         "id": "postcard_clue_pun_landmark_1_1783199003_1_1783199786_1783396136_180_1783436665",
         "clue_id": "clue_pun_landmark_1_1783199003_1_1783199786_1783396136_180",
         "pun_name": "Eiffel Shower",
@@ -897,43 +873,7 @@
         "art_style": "pop-art",
         "owner_response": "Dear @SoggySpud, we are a medieval fortress with an ancient stone, not a culinary establishment. I assure you, our structure has never served 'lumpy, congealed surprises,' just breathtaking views and history.",
         "page_theme": "historic_monuments",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_gateway_arch_1783313952_212_1783396695_456_1783436696",
-        "clue_id": "clue_pun_gateway_arch_1783313952_212_1783396695_456",
-        "pun_name": "Gator-way Arch",
-        "original_name": "Gateway Arch",
-        "image_prompt": "A towering arch made from a whimsical stack of grinning, green alligators, humorously parodying the Gateway Arch, rendered in a comical cartoon illustration with bold lines, bright vibrant colors, humorous caricature, and a white postcard border.",
-        "image_path": "/assets/cartoons/gator_way_arch_1783436689.png",
-        "art_style": "cartoon",
-        "owner_response": "Dear @SwampCritter, our 630-foot stainless steel monument has never hissed or bitten. It is a national monument, not a swamp creature, designed for views, not for 'gator teeth'.",
-        "page_theme": "historic_monuments",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_space_needle_1783313958_228_1783396704_174_1783436710",
-        "clue_id": "clue_pun_space_needle_1783313958_228_1783396704_174",
-        "pun_name": "Space Poodle",
-        "original_name": "Space Needle",
-        "image_prompt": "A giant, towering poodle with a rocket-shaped head and a curly, antenna-like tail stands proudly on a moon crater, as tiny spaceships buzz around its fluffy 'needle' body, rendered in a comical Vibrant Pop Art style with bold outlines, screen print dot texture, retro comic book feel, and high contrast colors.",
-        "image_path": "/assets/cartoons/space_poodle_1783436702.png",
-        "art_style": "pop-art",
-        "owner_response": "Dear @SheddingStargazer, our 605-foot observation tower is an architectural marvel providing unparalleled city views, not a pet grooming facility. We highly recommend a professional groomer for any static electricity or matted fur concerns.",
-        "page_theme": "modern_skyscrapers",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_machu_picchu_1783281661_692_1783397058_492_1783436726",
-        "clue_id": "clue_pun_machu_picchu_1783281661_692_1783397058_492",
-        "pun_name": "My Shoe Picchu",
-        "original_name": "Machu Picchu",
-        "image_prompt": "A comical travel postcard illustration of \"My Shoe Picchu,\" an ancient terraced mountain city shaped like a giant, worn hiking boot, depicted in a vintage 1930s WPA-era silk-screened travel poster style with bold shapes and muted earthy colors.",
-        "image_path": "/assets/cartoons/my_shoe_picchu_1783436719.png",
-        "art_style": "wpa",
-        "owner_response": "Dear @StinkyFoot, our ancient Inca citadel is a breathtaking wonder of stone masonry, not a shoe to develop 'ancient shoe funk' or to tie. Perhaps you've confused us with a lost-and-found bin?",
-        "page_theme": "ancient_ruins",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_statue_of_liberty_1783282169_216_1783397064_589_1783436750",
@@ -941,8 +881,8 @@
         "pun_name": "Stash-you of Liberty",
         "original_name": "Statue of Liberty",
         "image_prompt": "A comical, old-school vintage travel illustration, in the style of 1930s WPA-era silk-screened travel posters with bold shapes and a muted earthy color palette, depicting a mischievous Statue of Liberty whose entire body is a slightly ajar, giant storage container comically overflowing with an eclectic 'stash' of whimsical, everyday items.",
-        "image_path": "/assets/cartoons/stash_you_of_liberty_1783436740.png",
-        "art_style": "wpa",
+        "image_path": "/assets/cartoons/stash_you_of_liberty_1783488856.png",
+        "art_style": "custom",
         "owner_response": "Dear @LooseChangeLarry, our monumental sculpture is a symbol of freedom, not a public storage unit for your 'emergency snacks' or 'contraband'. Perhaps you mistook our 300-foot copper icon for a giant safe?",
         "page_theme": "historic_monuments",
         "status": "pending"
@@ -957,19 +897,7 @@
         "art_style": "watercolor",
         "owner_response": "Dear @PrunePicker, we are a natural geological formation millions of years old, not a relative's home. Expecting Werther's Originals or knitwear in a chasm carved by the Colorado River is simply... grandly mistaken.",
         "page_theme": "natural_wonders",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_niagara_falls_1783298853_701_1783397084_255_1783436783",
-        "clue_id": "clue_pun_niagara_falls_1783298853_701_1783397084_255",
-        "pun_name": "Niagara Fails",
-        "original_name": "Niagara Falls",
-        "image_prompt": "A comical travel postcard for \"Niagara Fails\" shows anthropomorphic water droplets comically tripping, stumbling, and struggling to fall down a dry cliff face, rendered in a vibrant Pop Art style with bold outlines, high contrast colors, and a retro comic book screen print dot texture.",
-        "image_path": "/assets/cartoons/niagara_fails_1783436774.png",
-        "art_style": "pop-art",
-        "owner_response": "Dear Traveler, our multi-ton natural phenomenon has been spectacularly 'falling' for thousands of years. We assure you, @NoFlowJoe, gravity is very much employed here, full-time, unlike your expectations.",
-        "page_theme": "historic_monuments",
-        "status": "pending"
+        "status": "approved"
     },
     {
         "id": "postcard_clue_pun_niagara_falls_1783298853_274_1783397093_114_1783436801",
@@ -981,18 +909,6 @@
         "art_style": "cartoon",
         "owner_response": "Dear @StaticSue, we apologize your 'calls' kept dropping, but as a magnificent natural waterfall, our primary function is awe-inspiring cascades, not robust phone service. Perhaps you confused our thundering roar for a busy signal?",
         "page_theme": "historic_monuments",
-        "status": "pending"
-    },
-    {
-        "id": "postcard_clue_pun_chichen_itza_1783298859_956_1783397109_267_1783436817",
-        "clue_id": "clue_pun_chichen_itza_1783298859_956_1783397109_267",
-        "pun_name": "Itchin' Itza",
-        "original_name": "Chichen Itza",
-        "image_prompt": "A comically exaggerated Mayan pyramid at 'Itchin' Itza' using a colossal back-scratcher to scratch its side, rendered in a humorous Vintage 1950s travel poster style, retro flat vector design, bold colors, screen-printed poster aesthetic.",
-        "image_path": "/assets/cartoons/itchin_itza_1783436809.png",
-        "art_style": "retro",
-        "owner_response": "Dear @PricklyPete, our magnificent archaeological site is an ancient stone monument, not a clinic for treating 'chickenpox' or other dermatological woes. Perhaps you should consult a doctor?",
-        "page_theme": "ancient_ruins",
         "status": "pending"
     },
     {
