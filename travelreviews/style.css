@@ -1156,19 +1156,22 @@ input:focus {
     font-size: 0.88rem;
     font-weight: 800;
     cursor: pointer;
-    padding: 5px 10px;
-    margin: 10px auto 5px auto;
+    padding: 5px 0;
+    margin: 10px 0 5px 0;
     display: block;
+    width: 100%;
+    text-align: left;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: color 0.1s ease, transform 0.1s ease;
+    transform-origin: left center;
 }
 .toggle-reviews-btn:hover {
     color: var(--accent-dark);
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 .toggle-reviews-btn:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
 .victory-pitch-box {
