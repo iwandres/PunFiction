@@ -107,6 +107,7 @@ let inventory = []; // accumulated target words
 let currentPuzzleIndex = 0; // index in local puzzles array
 let activeFetchedFromCDN = false; // flag to trace assets loading
 let allTelemetry = null; // cached telemetry stats for all puzzles
+let liveTelemetryFetched = false; // true if live telemetry was successfully fetched (not timed out/failed)
 let telemetryStartSent = false; // flag to ensure start event is only sent once per session on interaction
 
 // DOM Elements Mapping
@@ -2388,7 +2389,7 @@ function requestNextRewardedAd() {
 // ================= STATS & LEVEL SELECT CONTROLLER =================
 
 async function fetchAllTelemetryStats() {
-    if (allTelemetry) return allTelemetry;
+    if (liveTelemetryFetched && allTelemetry) return allTelemetry;
     
     let liveData = {};
     let staticData = {};
@@ -2425,7 +2426,7 @@ async function fetchAllTelemetryStats() {
     }
     
     // Merge live and static data (with auto-detect to prevent double-counting)
-    allTelemetry = {};
+    const merged = {};
     const allKeys = new Set([...Object.keys(liveData), ...Object.keys(staticData)]);
     allKeys.forEach(key => {
         const live = liveData[key] || {};
@@ -2436,7 +2437,7 @@ async function fetchAllTelemetryStats() {
         
         if (liveStart >= statStart) {
             // Live database has more or equal starts (contains full history). Use live to prevent double-counting.
-            allTelemetry[key] = {
+            merged[key] = {
                 start: liveStart,
                 attempts: parseInt(live.attempts) || 0,
                 solve_0: parseInt(live.solve_0) || 0,
@@ -2452,7 +2453,7 @@ async function fetchAllTelemetryStats() {
             };
         } else {
             // Live database is smaller (indicates a database reset). Sum them to recover history.
-            allTelemetry[key] = {
+            merged[key] = {
                 start: liveStart + statStart,
                 attempts: (parseInt(live.attempts) || 0) + (parseInt(stat.attempts) || 0),
                 solve_0: (parseInt(live.solve_0) || 0) + (parseInt(stat.solve_0) || 0),
@@ -2469,7 +2470,13 @@ async function fetchAllTelemetryStats() {
         }
     });
     
-    return allTelemetry;
+    // Only cache globally and set success flag if the live telemetry was successfully retrieved
+    if (Object.keys(liveData).length > 0) {
+        allTelemetry = merged;
+        liveTelemetryFetched = true;
+    }
+    
+    return merged;
 }
 
 function getPuzzleTelemetryStats(puzzleNum) {
