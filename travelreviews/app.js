@@ -355,7 +355,7 @@ window.onload = async () => {
     if (toggleReviewsBtn && finalBossQuote) {
         toggleReviewsBtn.onclick = () => {
             const isHidden = finalBossQuote.classList.toggle('hidden');
-            toggleReviewsBtn.innerText = isHidden ? 'See 1-Star Reviews ▼' : 'Hide 1-Star Reviews ▲';
+            toggleReviewsBtn.innerText = isHidden ? '1-Star Reviews ▼' : '1-Star Reviews ▲';
         };
     }
 
@@ -1915,7 +1915,7 @@ function triggerVictory() {
     const finalBossQuote = document.getElementById('final-boss-quote');
     if (toggleReviewsBtn && finalBossQuote) {
         finalBossQuote.classList.add('hidden');
-        toggleReviewsBtn.innerText = 'See 1-Star Reviews ▼';
+        toggleReviewsBtn.innerText = '1-Star Reviews ▼';
     }
 
     const quoteEl = document.getElementById('final-boss-quote');
