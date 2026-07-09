@@ -1177,6 +1177,13 @@ function loadLevel() {
     renderGuessSlots();
     // Re-render after a short delay to ensure browser layout has stabilized (prevents mobile layout shifting)
     setTimeout(renderGuessSlots, 50);
+
+    // Auto-focus the input on desktop to allow typing immediately on level load
+    if (window.innerWidth >= 768) {
+        setTimeout(() => {
+            ui.guessInput.focus();
+        }, 100);
+    }
 }
 
 function revealHint1() {
