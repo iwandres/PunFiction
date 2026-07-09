@@ -1921,12 +1921,12 @@ function triggerVictory() {
     const quoteEl = document.getElementById('final-boss-quote');
     if (quoteEl) {
         quoteEl.innerHTML = `
-            <div style="font-family: var(--font-body); font-size: 0.9rem; line-height: 1.4; color: #4a5568; text-align: left;">
-                <strong>1-Star Reviews:</strong>
-                <ul style="margin: 5px 0 0 15px; padding: 0;">
-                    <li>"${activeChallenge.clue1}"</li>
-                    <li>"${activeChallenge.clue2}"</li>
-                    <li>"${activeChallenge.clue3}"</li>
+            <div style="font-family: var(--font-body); font-size: 0.9rem; line-height: 1.4; color: #ff4757; text-align: left;">
+                <strong style="color: #ff4757; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">1-Star Reviews:</strong>
+                <ul style="margin: 5px 0 0 15px; padding: 0; color: #ff4757; font-weight: 700; list-style-type: disc;">
+                    <li style="margin-bottom: 6px;">"${activeChallenge.clue1}"</li>
+                    <li style="margin-bottom: 6px;">"${activeChallenge.clue2}"</li>
+                    <li style="margin-bottom: 0;">"${activeChallenge.clue3}"</li>
                 </ul>
             </div>
         `;
