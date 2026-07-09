@@ -1167,7 +1167,7 @@ input:focus {
     transform-origin: 18px center;
 }
 .toggle-reviews-btn:hover {
-    color: var(--accent-dark);
+    color: #ff4757;
     transform: scale(1.02);
 }
 .toggle-reviews-btn:active {
