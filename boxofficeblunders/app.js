@@ -246,7 +246,7 @@ window.onload = async () => {
         }, 150);
     });
     if (ui.guessSlotsContainer) {
-        ui.guessSlotsContainer.onclick = () => ui.guessInput.focus();
+        ui.guessSlotsContainer.onclick = () => ui.guessInput.focus({ preventScroll: true });
     }
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
@@ -1181,7 +1181,7 @@ function loadLevel() {
     // Auto-focus the input on desktop to allow typing immediately on level load
     if (window.innerWidth >= 768) {
         setTimeout(() => {
-            ui.guessInput.focus();
+            ui.guessInput.focus({ preventScroll: true });
         }, 100);
     }
 }
@@ -1271,7 +1271,7 @@ function revealHint3() {
     // Auto-focus input on desktop (skip on mobile to prevent focus-mode styling from immediately hiding the unlocked hint)
     if (window.innerWidth >= 768) {
         setTimeout(() => {
-            ui.guessInput.focus();
+            ui.guessInput.focus({ preventScroll: true });
         }, 100);
     }
 }
@@ -1306,7 +1306,7 @@ function revealHint4() {
     // Auto-focus input on desktop (skip on mobile to prevent focus-mode styling from immediately hiding the vowel rush reveal)
     if (window.innerWidth >= 768) {
         setTimeout(() => {
-            ui.guessInput.focus();
+            ui.guessInput.focus({ preventScroll: true });
         }, 100);
     }
 }
@@ -1609,7 +1609,7 @@ function handleGuessSubmit() {
         
         // Auto-refocus on mobile so the software keyboard doesn't collapse
         setTimeout(() => {
-            ui.guessInput.focus();
+            ui.guessInput.focus({ preventScroll: true });
         }, 100);
     }
 }
