@@ -1104,7 +1104,7 @@ input:focus {
     color: var(--accent-main);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin: 15px auto;
+    margin: 10px auto;
     border: 2.5px dashed var(--accent-main);
     border-radius: 12px;
     padding: 10px 20px;
@@ -1185,7 +1185,7 @@ input:focus {
     border-left: 4px solid var(--accent-main);
     text-align: left;
     margin-top: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
