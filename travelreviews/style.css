@@ -630,6 +630,23 @@ body {
     animation: pulseActive 0.8s infinite alternate;
 }
 
+@keyframes hintNudgeAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(0, 170, 108, 0.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hint-nudge-active {
+    animation: hintNudgeAnimation 0.6s ease-in-out;
+}
+
 .guess-separator-space {
     width: var(--slot-space-width, 14px);
     display: inline-block;
