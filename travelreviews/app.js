@@ -1815,7 +1815,7 @@ function handleGuessSubmit() {
             }
         }
 
-        ui.feedbackMsg.innerText = "❌ INCORRECT TITLE! TRY AGAIN!";
+        ui.feedbackMsg.innerText = "Incorrect.  Try again!";
         ui.feedbackMsg.className = "feedback error";
         ui.guessInput.value = '';
         renderGuessSlots();
