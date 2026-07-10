@@ -1567,6 +1567,35 @@ const sanitizeText = (str) => {
     return str.toLowerCase().replace(/[^a-z]/g, '');
 };
 
+// Get the next active progressive hint button currently visible to the user
+function getActiveHintButton() {
+    const ids = ['btn-show-hint1', 'btn-show-hint2', 'btn-show-hint3', 'btn-show-hint4'];
+    for (const id of ids) {
+        const btn = document.getElementById(id);
+        if (btn && !btn.classList.contains('hidden')) {
+            return btn;
+        }
+    }
+    return null;
+}
+// Triggers a gentle horizontal vibration nudge on the active hint button
+function triggerHintNudge() {
+    const activeBtn = getActiveHintButton();
+    if (!activeBtn) return;
+    
+    // Remove the class first to reset the animation if it was already running
+    activeBtn.classList.remove('hint-nudge-active');
+    // Force a browser reflow to reset the animation state
+    void activeBtn.offsetWidth;
+    // Add the animation class
+    activeBtn.classList.add('hint-nudge-active');
+    
+    // Clean up class when animation finishes
+    activeBtn.addEventListener('animationend', () => {
+        activeBtn.classList.remove('hint-nudge-active');
+    }, { once: true });
+}
+
 function handleGuessSubmit() {
     if (!activeChallenge) return;
     triggerStartTelemetry();
@@ -1610,6 +1639,9 @@ function handleGuessSubmit() {
         ui.guessInput.value = '';
         renderGuessSlots();
         shakeInput();
+        
+        // Vibrate the current active hint button after a 1.2 second delay
+        setTimeout(triggerHintNudge, 1200);
         
         // Auto-refocus on mobile so the software keyboard doesn't collapse
         setTimeout(() => {
