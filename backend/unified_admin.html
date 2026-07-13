@@ -3609,7 +3609,7 @@
             tt_renderLandmarks();
         }
 
-        function tt_setStatus(type, id, status) {
+        async function tt_setStatus(type, id, status) {
             let list;
             if (type === 'tt_landmarks') list = tt_landmarks;
             else if (type === 'tt_puns') list = tt_puns;
@@ -3625,104 +3625,106 @@
                     let lmName = lmItem ? lmItem.name : null;
                     
                     tt_landmarks = tt_landmarks.filter(x => x.id !== id);
-                    tt_saveData('tt_landmarks', tt_landmarks);
+                    await tt_saveData('tt_landmarks', tt_landmarks);
                     
                     if (lmName) {
                         // Delete associated puns
                         let punItems = tt_puns.filter(p => p.original_name === lmName);
                         let punNames = punItems.map(p => p.pun_name);
                         tt_puns = tt_puns.filter(p => p.original_name !== lmName);
-                        tt_saveData('tt_puns', tt_puns);
+                        await tt_saveData('tt_puns', tt_puns);
                         
                         // Delete associated clues
                         let clueItems = tt_clues.filter(c => c.original_name === lmName);
                         let clueIds = clueItems.map(c => c.id);
                         tt_clues = tt_clues.filter(c => c.original_name !== lmName);
-                        tt_saveData('tt_clues', tt_clues);
+                        await tt_saveData('tt_clues', tt_clues);
                         
                         // Delete associated postcards
                         tt_postcards = tt_postcards.filter(pc => !clueIds.includes(pc.clue_id));
-                        tt_saveData('tt_postcards', tt_postcards);
+                        await tt_saveData('tt_postcards', tt_postcards);
                         
                         // Delete associated puzzles
                         tt_puzzles = tt_puzzles.filter(pz => !clueIds.includes(pz.puzzle_id));
                         tt_puzzles.forEach((pz, idx) => {
                             pz.puzzle_number = String(idx + 1).padStart(3, '0');
                         });
-                        tt_saveData('tt_puzzles', tt_puzzles);
+                        await tt_saveData('tt_puzzles', tt_puzzles);
                     }
                 } else if (type === 'tt_puns') {
                     let punItem = tt_puns.find(x => x.id === id);
                     let punName = punItem ? punItem.pun_name : null;
                     
                     tt_puns = tt_puns.filter(x => x.id !== id);
-                    tt_saveData('tt_puns', tt_puns);
+                    await tt_saveData('tt_puns', tt_puns);
                     
                     if (punName) {
                         // Delete associated clues
                         let clueItems = tt_clues.filter(c => c.pun_name === punName);
                         let clueIds = clueItems.map(c => c.id);
                         tt_clues = tt_clues.filter(c => c.pun_name !== punName);
-                        tt_saveData('tt_clues', tt_clues);
+                        await tt_saveData('tt_clues', tt_clues);
                         
                         // Delete associated postcards
                         tt_postcards = tt_postcards.filter(pc => !clueIds.includes(pc.clue_id));
-                        tt_saveData('tt_postcards', tt_postcards);
+                        await tt_saveData('tt_postcards', tt_postcards);
                         
                         // Delete associated puzzles
                         tt_puzzles = tt_puzzles.filter(pz => !clueIds.includes(pz.puzzle_id));
                         tt_puzzles.forEach((pz, idx) => {
                             pz.puzzle_number = String(idx + 1).padStart(3, '0');
                         });
-                        tt_saveData('tt_puzzles', tt_puzzles);
+                        await tt_saveData('tt_puzzles', tt_puzzles);
                     }
                 } else if (type === 'tt_clues') {
                     let clueItem = tt_clues.find(x => x.id === id);
                     let clueId = clueItem ? clueItem.id : null;
                     let punName = clueItem ? clueItem.pun_name : null;
                     
+                    // 1. Delete associated pun first so the background thread doesn't regenerate clues for it!
+                    if (punName) {
+                        tt_puns = tt_puns.filter(p => p.pun_name !== punName);
+                        await tt_saveData('tt_puns', tt_puns);
+                    }
+                    
+                    // 2. Now delete the clue
                     tt_clues = tt_clues.filter(x => x.id !== id);
-                    tt_saveData('tt_clues', tt_clues);
+                    await tt_saveData('tt_clues', tt_clues);
                     
                     if (clueId) {
                         // Delete associated postcards
                         tt_postcards = tt_postcards.filter(pc => pc.clue_id !== clueId);
-                        tt_saveData('tt_postcards', tt_postcards);
+                        await tt_saveData('tt_postcards', tt_postcards);
                         
                         // Delete associated puzzles
                         tt_puzzles = tt_puzzles.filter(pz => pz.puzzle_id !== clueId);
                         tt_puzzles.forEach((pz, idx) => {
                             pz.puzzle_number = String(idx + 1).padStart(3, '0');
                         });
-                        tt_saveData('tt_puzzles', tt_puzzles);
-                    }
-                    if (punName) {
-                        // Delete associated pun so the background thread doesn't regenerate clues for it!
-                        tt_puns = tt_puns.filter(p => p.pun_name !== punName);
-                        tt_saveData('tt_puns', tt_puns);
+                        await tt_saveData('tt_puzzles', tt_puzzles);
                     }
                 } else if (type === 'tt_postcards') {
                     let pcItem = tt_postcards.find(x => x.id === id);
                     let clueId = pcItem ? pcItem.clue_id : null;
                     let punName = pcItem ? pcItem.pun_name : null;
                     
-                    tt_postcards = tt_postcards.filter(x => x.id !== id);
-                    tt_saveData('tt_postcards', tt_postcards);
-                    
-                    if (clueId) {
-                        tt_clues = tt_clues.filter(c => c.id !== clueId);
-                        tt_saveData('tt_clues', tt_clues);
-                    }
                     if (punName) {
                         tt_puns = tt_puns.filter(p => p.pun_name !== punName);
-                        tt_saveData('tt_puns', tt_puns);
+                        await tt_saveData('tt_puns', tt_puns);
                     }
+                    if (clueId) {
+                        tt_clues = tt_clues.filter(c => c.id !== clueId);
+                        await tt_saveData('tt_clues', tt_clues);
+                    }
+                    
+                    tt_postcards = tt_postcards.filter(x => x.id !== id);
+                    await tt_saveData('tt_postcards', tt_postcards);
                     
                     tt_puzzles = tt_puzzles.filter(pz => pz.puzzle_id !== clueId);
                     tt_puzzles.forEach((pz, idx) => {
                         pz.puzzle_number = String(idx + 1).padStart(3, '0');
                     });
-                    tt_saveData('tt_puzzles', tt_puzzles);
+                    await tt_saveData('tt_puzzles', tt_puzzles);
                 }
                 tt_renderAll();
                 return;
@@ -3731,7 +3733,7 @@
             let item = list.find(x => x.id === id);
             if (item) {
                 item.status = status;
-                tt_saveData(type, list);
+                await tt_saveData(type, list);
                 
                 // Automate Step 5 daily queue insertion when a postcard is approved
                 if (type === 'tt_postcards' && status === 'approved') {
@@ -3747,11 +3749,12 @@
                             pz.puzzle_number = String(activeCount).padStart(3, '0');
                         }
                     });
-                    tt_saveData('tt_puzzles', tt_puzzles);
+                    await tt_saveData('tt_puzzles', tt_puzzles);
                 }
                 
                 tt_renderAll();
             }
+        }
         }
 
         function tt_compilePuzzleFromPostcard(item) {

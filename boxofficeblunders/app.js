@@ -150,8 +150,8 @@ window.onload = async () => {
         document.body.classList.add('itch-env');
     }
 
-    // Load Google AdSense only on the production GitHub Pages domain
-    if (hostname === 'iwandres.github.io') {
+    // Load Google AdSense only on the production GitHub Pages domain or custom domain
+    if (hostname === 'iwandres.github.io' || hostname === 'punfiction.io') {
         const adsenseScript = document.createElement('script');
         adsenseScript.async = true;
         adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1900802133351015';
