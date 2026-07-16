@@ -2184,7 +2184,7 @@ body.crazygames-env .settings-footer-tos {
 
 /* ================= VIEW PREVIOUS BANNER ================= */
 .previous-banner-container {
-    position: fixed;
+    position: absolute;
     top: 15px;
     left: 15px;
     z-index: 1000;
@@ -2259,7 +2259,7 @@ body.crazygames-env .settings-footer-tos {
 
 @media (max-width: 768px) {
     .previous-banner-container {
-        position: fixed;
+        position: absolute;
         top: 15px;
         left: -45px;
         transform: rotate(-45deg);
