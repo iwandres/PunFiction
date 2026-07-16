@@ -2125,7 +2125,12 @@ function triggerVictory() {
 
     if (isViewingPrevious) {
         if (lobbyBtn) {
-            lobbyBtn.innerHTML = `🎯 BACK TO TODAY'S CHALLENGE`;
+            const isToday = todayChallenge && activeChallenge && activeChallenge.puzzle_number === todayChallenge.puzzle_number;
+            if (isToday && !solvedList.has(todayChallenge.puzzle_number)) {
+                lobbyBtn.innerHTML = `🎯 TRY AGAIN`;
+            } else {
+                lobbyBtn.innerHTML = `🎯 BACK TO TODAY'S CHALLENGE`;
+            }
             lobbyBtn.classList.remove('hidden');
             lobbyBtn.onclick = () => {
                 startGame(todayChallenge);
@@ -2264,14 +2269,30 @@ async function loadAndRenderGlobalStats(puzzleNum) {
         funnelContainer.classList.remove('loading');
     }
     
-    let stats = getPuzzleTelemetryStats(puzzleNum);
+    const originalStats = getPuzzleTelemetryStats(puzzleNum);
+    // Clone stats object to avoid modifying cached reference directly
+    const stats = { ...originalStats };
     
-    // Ensure the current user's solve is immediately accounted for in the rendered stats
-    // to prevent showing 0 solves or outdated numbers before the POST request completes.
-    if (!isViewingPrevious && stats) {
-        stats.start = (stats.start || 0) + 1;
-        const clampedHints = Math.max(0, Math.min(4, parseInt(hintsUsed) || 0));
-        stats[`solve_${clampedHints}`] = (stats[`solve_${clampedHints}`] || 0) + 1;
+    // Ensure the current user's solve is accounted for if they solved it (either in this session or in the past)
+    const solvedList = getSolvedPuzzlesList();
+    const solvedHints = getSolvedHintsMap();
+    const isPuzzleSolved = solvedList.has(puzzleNum);
+    
+    if (stats) {
+        const wasSolvedThisSession = !isViewingPrevious;
+        const wasSolvedPast = isViewingPrevious && isPuzzleSolved;
+        
+        if (wasSolvedThisSession || wasSolvedPast) {
+            stats.start = (stats.start || 0) + 1;
+            
+            let usedHints = hintsUsed;
+            if (wasSolvedPast) {
+                usedHints = solvedHints[puzzleNum] !== undefined ? solvedHints[puzzleNum] : 0;
+            }
+            
+            const clampedHints = Math.max(0, Math.min(4, parseInt(usedHints) || 0));
+            stats[`solve_${clampedHints}`] = (stats[`solve_${clampedHints}`] || 0) + 1;
+        }
     }
     
     // Calculate percentages
