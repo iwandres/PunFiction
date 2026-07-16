@@ -105,6 +105,7 @@ let inventory = []; // accumulated target words
 let currentPuzzleIndex = 0; // index in local puzzles array
 let activeFetchedFromCDN = false; // flag to trace assets loading
 let allTelemetry = null; // cached telemetry stats for all puzzles
+let telemetryFetchSucceeded = false; // flag indicating whether fetch succeeded
 let telemetryStartSent = false; // flag to ensure start event is only sent once per session on interaction
 
 // DOM Elements Mapping
@@ -2783,6 +2784,7 @@ async function fetchAllTelemetryStats(force = false) {
     
     let liveData = {};
     let staticData = {};
+    let fetchSuccess = false;
     
     try {
         const telemetryUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -2794,6 +2796,7 @@ async function fetchAllTelemetryStats(force = false) {
             const data = await response.json();
             if (data && typeof data === 'object' && !data.hasOwnProperty('start')) {
                 liveData = data;
+                fetchSuccess = true;
                 console.log("Live telemetry fetched successfully for merging.");
             }
         }
@@ -2808,12 +2811,15 @@ async function fetchAllTelemetryStats(force = false) {
             const data = await response.json();
             if (data && typeof data === 'object') {
                 staticData = data;
+                fetchSuccess = true;
                 console.log("Static telemetry fetched successfully for merging.");
             }
         }
     } catch (staticE) {
         console.log("Static telemetry fetch for merging failed.", staticE);
     }
+    
+    telemetryFetchSucceeded = fetchSuccess;
     
     // Merge live and static data (with auto-detect to prevent double-counting)
     allTelemetry = {};
@@ -2864,9 +2870,29 @@ async function fetchAllTelemetryStats(force = false) {
 }
 
 function getPuzzleTelemetryStats(puzzleNum) {
-    if (allTelemetry && allTelemetry[puzzleNum] && allTelemetry[puzzleNum].start > 0) {
-        return allTelemetry[puzzleNum];
+    if (allTelemetry && allTelemetry[puzzleNum]) {
+        if (allTelemetry[puzzleNum].start > 0 || telemetryFetchSucceeded) {
+            return allTelemetry[puzzleNum];
+        }
     }
+    
+    if (telemetryFetchSucceeded) {
+        return {
+            start: 0,
+            attempts: 0,
+            solve_0: 0,
+            solve_1: 0,
+            solve_2: 0,
+            solve_3: 0,
+            solve_4: 0,
+            solve_att_1: 0,
+            solve_att_2: 0,
+            solve_att_3: 0,
+            solve_att_4: 0,
+            solve_att_5: 0
+        };
+    }
+    
     return getDeterministicMockMetrics(puzzleNum);
 }
 
