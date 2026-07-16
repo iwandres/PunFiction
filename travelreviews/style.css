@@ -2187,12 +2187,19 @@ body.crazygames-env .settings-footer-tos {
     position: absolute;
     top: -10px;
     left: -15px;
-    width: 350px;
-    height: 28px;
+    right: -15px;
+    width: auto;
+    height: 5.24vw; /* Mobile default: 3deg angle on viewport width */
     z-index: 1000;
     cursor: pointer;
     overflow: visible;
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (min-width: 1024px) {
+    .previous-banner-container {
+        height: 25px; /* Desktop override: 3deg angle on 480px width */
+    }
 }
 
 .previous-banner-bg {
@@ -2217,13 +2224,19 @@ body.crazygames-env .settings-footer-tos {
 
 /* Tucked / Shrunk state */
 .previous-banner-container.shrunk {
-    width: 55px;
-    height: 22px;
+    right: calc(100% - 40px);
+    height: 15px;
 }
 
 .previous-banner-container.shrunk:hover {
-    width: 350px;
-    height: 28px;
+    right: -15px;
+    height: 5.24vw;
+}
+
+@media (min-width: 1024px) {
+    .previous-banner-container.shrunk:hover {
+        height: 25px;
+    }
 }
 
 .previous-banner-text {
