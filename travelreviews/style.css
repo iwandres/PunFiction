@@ -2259,8 +2259,90 @@ body.crazygames-env .settings-footer-tos {
 
 @media (max-width: 768px) {
     .previous-banner-container {
-        top: 10px;
-        left: 10px;
+        position: fixed;
+        top: 15px;
+        left: -45px;
+        transform: rotate(-45deg);
+        transform-origin: center;
+        background: var(--accent-main);
+        color: #ffffff;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 7.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 6px 0;
+        border-radius: 0;
+        width: 140px;
+        height: 24px;
+        max-width: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: max-width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, border-radius 0.3s ease, transform 0.3s ease, top 0.3s ease, left 0.3s ease, background-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .previous-banner-container .previous-banner-icon {
+        display: none !important;
+    }
+    
+    .previous-banner-container .previous-banner-text {
+        margin-left: 0;
+        font-size: 7.5px;
+        white-space: nowrap;
+        opacity: 1;
+        display: inline-block;
+    }
+    
+    /* Shrunk state on mobile: a clean white circle with the suitcase icon */
+    .previous-banner-container.shrunk {
+        top: 12px;
+        left: 12px;
+        transform: rotate(0deg);
+        width: 38px;
+        height: 38px;
+        max-width: 38px;
+        border-radius: 50%;
+        background: #ffffff;
+        color: var(--text-primary);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        padding: 0;
+    }
+    
+    .previous-banner-container.shrunk .previous-banner-icon {
+        display: inline-flex !important;
+        font-size: 16px;
+    }
+    
+    .previous-banner-container.shrunk .previous-banner-text {
+        display: none !important;
+        opacity: 0;
+    }
+    
+    /* Expanded on hover on mobile */
+    .previous-banner-container.shrunk:hover {
+        top: 15px;
+        left: -45px;
+        transform: rotate(-45deg);
+        width: 140px;
+        height: 24px;
+        max-width: 140px;
+        border-radius: 0;
+        background: var(--accent-main);
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        padding: 6px 0;
+    }
+    
+    .previous-banner-container.shrunk:hover .previous-banner-icon {
+        display: none !important;
+    }
+    
+    .previous-banner-container.shrunk:hover .previous-banner-text {
+        display: inline-block !important;
+        opacity: 1;
     }
 }
 
