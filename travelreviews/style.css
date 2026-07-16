@@ -2190,33 +2190,47 @@ body.crazygames-env .settings-footer-tos {
     width: 180px;
     height: 35px;
     z-index: 1000;
+    cursor: pointer;
+    overflow: visible;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.previous-banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: var(--accent-main);
     clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
-    cursor: pointer;
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), clip-path 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
+    transition: clip-path 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
+    z-index: 1;
 }
 
-.previous-banner-container:hover {
-    width: 180px;
-    height: 35px;
-    clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
+.previous-banner-container:hover .previous-banner-bg {
     background: var(--accent-dark);
 }
 
-.previous-banner-container:active {
+.previous-banner-container:active .previous-banner-bg {
     background: var(--accent-dark);
 }
 
-/* Tucked / Shrunk state: shrinks back into the corner as a smaller shallow wedge */
+/* Tucked / Shrunk state */
 .previous-banner-container.shrunk {
     width: 45px;
     height: 30px;
+}
+
+.previous-banner-container.shrunk .previous-banner-bg {
     clip-path: polygon(0 0, 100% 0, 100% 24px, 0 26px);
 }
 
 .previous-banner-container.shrunk:hover {
     width: 180px;
     height: 35px;
+}
+
+.previous-banner-container.shrunk:hover .previous-banner-bg {
     clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
     background: var(--accent-dark);
 }
@@ -2239,6 +2253,7 @@ body.crazygames-env .settings-footer-tos {
     opacity: 1;
     pointer-events: none;
     white-space: nowrap;
+    z-index: 2; /* Render on top of background shape */
 }
 
 .previous-banner-container.shrunk .previous-banner-text {
