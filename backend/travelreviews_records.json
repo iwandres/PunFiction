@@ -1,1 +1,56 @@
-{}
+{
+  "011": {
+    "start": 0,
+    "attempts": 0,
+    "solve_0": 0,
+    "solve_1": 0,
+    "solve_2": 0,
+    "solve_3": 0,
+    "solve_4": 0,
+    "solve_att_1": 0,
+    "solve_att_2": 0,
+    "solve_att_3": 0,
+    "solve_att_4": 0,
+    "solve_att_5": 0,
+    "click_profile": 0,
+    "click_stats": 0,
+    "click_help": 0,
+    "challenge_view": 4
+  },
+  "010": {
+    "start": 0,
+    "attempts": 0,
+    "solve_0": 0,
+    "solve_1": 0,
+    "solve_2": 0,
+    "solve_3": 0,
+    "solve_4": 0,
+    "solve_att_1": 0,
+    "solve_att_2": 0,
+    "solve_att_3": 0,
+    "solve_att_4": 0,
+    "solve_att_5": 0,
+    "click_profile": 0,
+    "click_stats": 0,
+    "click_help": 0,
+    "challenge_view": 1
+  },
+  "012": {
+    "start": 1,
+    "attempts": 3,
+    "solve_0": 0,
+    "solve_1": 0,
+    "solve_2": 0,
+    "solve_3": 0,
+    "solve_4": 0,
+    "solve_att_1": 0,
+    "solve_att_2": 0,
+    "solve_att_3": 0,
+    "solve_att_4": 0,
+    "solve_att_5": 0,
+    "click_profile": 0,
+    "click_stats": 0,
+    "click_help": 0,
+    "challenge_view": 0
+  }
+}

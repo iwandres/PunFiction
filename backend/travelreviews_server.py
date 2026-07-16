@@ -231,7 +231,7 @@ class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     telemetry[puzzle_number] = {
                         "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0,
                         "solve_att_1": 0, "solve_att_2": 0, "solve_att_3": 0, "solve_att_4": 0, "solve_att_5": 0,
-                        "click_profile": 0, "click_stats": 0, "click_help": 0
+                        "click_profile": 0, "click_stats": 0, "click_help": 0, "challenge_view": 0
                     }
                 
                 if event == 'start':
@@ -243,8 +243,8 @@ class TravelReviewsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     attempts = max(1, min(5, attempts))
                     telemetry[puzzle_number][f"solve_{hints_used}"] += 1
                     telemetry[puzzle_number][f"solve_att_{attempts}"] += 1
-                elif event in ['click_profile', 'click_stats', 'click_help']:
-                    telemetry[puzzle_number][event] += 1
+                elif event in ['click_profile', 'click_stats', 'click_help', 'challenge_view']:
+                    telemetry[puzzle_number][event] = telemetry[puzzle_number].get(event, 0) + 1
                     
                 save_json(RECORDS_FILE, telemetry)
                 
