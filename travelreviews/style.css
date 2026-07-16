@@ -2185,8 +2185,8 @@ body.crazygames-env .settings-footer-tos {
 /* ================= VIEW PREVIOUS BANNER (CORNER TRIANGLE BOOKMARK) ================= */
 .previous-banner-container {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -10px;
+    left: -15px;
     width: 110px;
     height: 110px;
     z-index: 1000;
@@ -2222,9 +2222,9 @@ body.crazygames-env .settings-footer-tos {
     position: absolute;
     transform: rotate(-45deg);
     transform-origin: center;
-    top: 36px;
-    left: -15px;
-    width: 130px;
+    top: 65px;
+    left: 5px;
+    width: 140px;
     text-align: center;
     font-family: var(--font-body);
     font-weight: 800;
@@ -2240,15 +2240,15 @@ body.crazygames-env .settings-footer-tos {
 
 .previous-banner-container.shrunk .previous-banner-text {
     opacity: 0;
-    top: 18px;
-    left: -25px;
+    top: 30px;
+    left: -15px;
 }
 
 .previous-banner-container:hover .previous-banner-text,
 .previous-banner-container.shrunk:hover .previous-banner-text {
     opacity: 1;
-    top: 36px;
-    left: -15px;
+    top: 65px;
+    left: 5px;
 }
 
 /* ================= I GIVE UP BUTTON ================= */
