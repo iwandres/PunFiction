@@ -2182,59 +2182,40 @@ body.crazygames-env .settings-footer-tos {
     }
 }
 
-/* ================= VIEW PREVIOUS BANNER (DIAGONAL CORNER RIBBON) ================= */
+/* ================= VIEW PREVIOUS BANNER (CORNER TRIANGLE BOOKMARK) ================= */
 .previous-banner-container {
     position: absolute;
-    top: 18px;
-    left: -45px;
-    transform: rotate(-45deg);
-    transform-origin: center;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 110px;
     z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: var(--accent-main);
-    color: #ffffff;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    font-family: var(--font-body);
-    font-weight: 800;
-    font-size: 7.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 6px 0;
-    width: 150px;
-    height: 24px;
-    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
     cursor: pointer;
-    transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
-    white-space: nowrap;
-    overflow: hidden;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
 }
 
 .previous-banner-container:hover {
-    top: 18px;
-    left: -45px;
+    width: 110px;
+    height: 110px;
     background: var(--accent-dark);
-    box-shadow: 0 4px 12px rgba(0, 170, 108, 0.4);
 }
 
 .previous-banner-container:active {
     background: var(--accent-dark);
 }
 
-/* Tucked / Shrunk state: slides up and left into the corner */
+/* Tucked / Shrunk state: slides up and left into the corner as a smaller triangle */
 .previous-banner-container.shrunk {
-    top: 6px;
-    left: -57px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    width: 65px;
+    height: 65px;
 }
 
 .previous-banner-container.shrunk:hover {
-    top: 18px;
-    left: -45px;
+    width: 110px;
+    height: 110px;
     background: var(--accent-dark);
-    box-shadow: 0 4px 12px rgba(0, 170, 108, 0.4);
 }
 
 .previous-banner-icon {
@@ -2242,12 +2223,36 @@ body.crazygames-env .settings-footer-tos {
 }
 
 .previous-banner-text {
-    margin-left: 0;
-    font-size: 7.5px;
-    display: inline-block;
-    white-space: nowrap;
+    position: absolute;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    top: 36px;
+    left: -15px;
+    width: 130px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 7.2px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+    transition: opacity 0.3s ease, top 0.4s ease, left 0.4s ease;
     opacity: 1;
     pointer-events: none;
+    white-space: nowrap;
+}
+
+.previous-banner-container.shrunk .previous-banner-text {
+    opacity: 0;
+    top: 18px;
+    left: -25px;
+}
+
+.previous-banner-container:hover .previous-banner-text,
+.previous-banner-container.shrunk:hover .previous-banner-text {
+    opacity: 1;
+    top: 36px;
+    left: -15px;
 }
 
 /* ================= I GIVE UP BUTTON ================= */
