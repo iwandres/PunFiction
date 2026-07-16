@@ -2218,10 +2218,6 @@ body.crazygames-env .settings-footer-tos {
     background: var(--accent-dark);
 }
 
-.previous-banner-icon {
-    display: none !important; /* Hide the emoji completely */
-}
-
 .previous-banner-text {
     position: absolute;
     transform: rotate(-45deg);
