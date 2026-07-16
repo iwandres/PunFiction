@@ -242,7 +242,8 @@ window.onload = async () => {
     }
     const giveUpBtn = document.getElementById('btn-give-up');
     if (giveUpBtn) {
-        giveUpBtn.onclick = () => {
+        giveUpBtn.onclick = (e) => {
+            e.preventDefault();
             giveUpChallenge();
         };
     }
