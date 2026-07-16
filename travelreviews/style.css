@@ -2182,23 +2182,24 @@ body.crazygames-env .settings-footer-tos {
     }
 }
 
-/* ================= VIEW PREVIOUS BANNER (CORNER TRIANGLE BOOKMARK) ================= */
+/* ================= VIEW PREVIOUS BANNER (CORNER WEDGE) ================= */
 .previous-banner-container {
     position: absolute;
     top: -10px;
     left: -15px;
-    width: 110px;
-    height: 110px;
+    width: 180px;
+    height: 35px;
     z-index: 1000;
     background: var(--accent-main);
-    clip-path: polygon(0 0, 100% 0, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
     cursor: pointer;
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), clip-path 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
 }
 
 .previous-banner-container:hover {
-    width: 110px;
-    height: 110px;
+    width: 180px;
+    height: 35px;
+    clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
     background: var(--accent-dark);
 }
 
@@ -2206,33 +2207,35 @@ body.crazygames-env .settings-footer-tos {
     background: var(--accent-dark);
 }
 
-/* Tucked / Shrunk state: slides up and left into the corner as a smaller triangle */
+/* Tucked / Shrunk state: shrinks back into the corner as a smaller shallow wedge */
 .previous-banner-container.shrunk {
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 30px;
+    clip-path: polygon(0 0, 100% 0, 100% 24px, 0 26px);
 }
 
 .previous-banner-container.shrunk:hover {
-    width: 110px;
-    height: 110px;
+    width: 180px;
+    height: 35px;
+    clip-path: polygon(0 0, 100% 0, 100% 18px, 0 28px);
     background: var(--accent-dark);
 }
 
 .previous-banner-text {
     position: absolute;
-    transform: rotate(-45deg);
+    transform: rotate(-3deg);
     transform-origin: center;
-    top: 65px;
-    left: 5px;
-    width: 140px;
+    top: 6px;
+    left: 10px;
+    width: 160px;
     text-align: center;
     font-family: var(--font-body);
     font-weight: 800;
-    font-size: 7.2px;
+    font-size: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
     color: #ffffff;
-    transition: opacity 0.3s ease, top 0.4s ease, left 0.4s ease;
+    transition: opacity 0.3s ease, transform 0.4s ease;
     opacity: 1;
     pointer-events: none;
     white-space: nowrap;
@@ -2240,15 +2243,13 @@ body.crazygames-env .settings-footer-tos {
 
 .previous-banner-container.shrunk .previous-banner-text {
     opacity: 0;
-    top: 30px;
-    left: -15px;
+    transform: rotate(-3deg) translateX(-20px);
 }
 
 .previous-banner-container:hover .previous-banner-text,
 .previous-banner-container.shrunk:hover .previous-banner-text {
     opacity: 1;
-    top: 65px;
-    left: 5px;
+    transform: rotate(-3deg) translateX(0);
 }
 
 /* ================= I GIVE UP BUTTON ================= */
