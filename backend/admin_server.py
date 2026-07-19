@@ -300,6 +300,68 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     self.wfile.write(json.dumps(telemetry).encode('utf-8'))
             return
+        elif req_path == '/api/admin/migrate_stats':
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            secret = query_params.get('secret', [None])[0]
+            if secret != 'migrate123':
+                self.send_response(403)
+                self.end_headers()
+                self.wfile.write(b"Unauthorized")
+                return
+                
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            
+            results = {}
+            try:
+                from pymongo import MongoClient
+                mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+                client = MongoClient(mongo_uri)
+                
+                # Old database and collection
+                old_db = client["tourist_traps_db"]
+                old_telemetry = old_db["PunFiction_TouristTraps"]
+                old_profiles = old_db["UserProfiles"]
+                
+                # New database and collection
+                new_db = client["travelreviews_db"]
+                new_telemetry = new_db["PunFiction_TravelReviews"]
+                new_profiles = new_db["UserProfiles"]
+                
+                # Fetch old telemetry docs
+                telemetry_docs = list(old_telemetry.find({}))
+                telemetry_count = 0
+                for doc in telemetry_docs:
+                    new_telemetry.update_one(
+                        {"_id": doc["_id"]},
+                        {"$set": {k: v for k, v in doc.items() if k != "_id"}},
+                        upsert=True
+                    )
+                    telemetry_count += 1
+                
+                # Fetch old profiles docs
+                profile_docs = list(old_profiles.find({}))
+                profile_count = 0
+                for doc in profile_docs:
+                    new_profiles.update_one(
+                        {"_id": doc["_id"]},
+                        {"$set": {k: v for k, v in doc.items() if k != "_id"}},
+                        upsert=True
+                    )
+                    profile_count += 1
+                    
+                results = {
+                    "status": "success",
+                    "telemetry_migrated": telemetry_count,
+                    "profiles_migrated": profile_count
+                }
+            except Exception as e:
+                results = {"status": "error", "error": str(e)}
+                
+            self.wfile.write(json.dumps(results).encode('utf-8'))
+            return
             
         elif req_path in ['/api/user', '/api/boxoffice/user', '/api/travelreviews/user']:
             parsed_url = urllib.parse.urlparse(self.path)
