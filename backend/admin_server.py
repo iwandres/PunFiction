@@ -320,26 +320,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
                 client = MongoClient(mongo_uri)
                 
-        elif req_path == '/api/admin/migrate_stats':
-            parsed_url = urllib.parse.urlparse(self.path)
-            query_params = urllib.parse.parse_qs(parsed_url.query)
-            secret = query_params.get('secret', [None])[0]
-            if secret != 'migrate123':
-                self.send_response(403)
-                self.end_headers()
-                self.wfile.write(b"Unauthorized")
-                return
-                
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            
-            results = {}
-            try:
-                from pymongo import MongoClient
-                mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
-                client = MongoClient(mongo_uri)
-                
                 # List databases and collections to see what exists
                 db_structure = {}
                 db_names = client.list_database_names()
