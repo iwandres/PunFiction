@@ -181,3 +181,21 @@ To make curation changes live on the public website:
    ```
 3. The site will deploy automatically via GitHub Pages at:
    `https://iwandres.github.io/PunFiction/travelreviews/`
+
+---
+
+## 🧪 Local Curation Server & Testing
+
+### 1. Running the Curation Server Locally
+The curation and pipeline dashboard can be run locally on port `8000`:
+```bash
+python backend/admin_server.py
+```
+Open `http://localhost:8000/` in your browser to access the pipeline curation interface.
+
+### 2. Running the Test Suite
+A regression test suite covers the API routing logic, context-selection handlers, CORS headers, and database utility helper functions. To execute the tests locally:
+```bash
+python -m unittest discover -s backend/tests
+```
+All tests run with mocked MongoDB database connections and execute offline in milliseconds.
