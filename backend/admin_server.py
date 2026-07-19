@@ -320,42 +320,87 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
                 client = MongoClient(mongo_uri)
                 
-                # Old database and collection
-                old_db = client["tourist_traps_db"]
-                old_telemetry = old_db["PunFiction_TouristTraps"]
-                old_profiles = old_db["UserProfiles"]
+        elif req_path == '/api/admin/migrate_stats':
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            secret = query_params.get('secret', [None])[0]
+            if secret != 'migrate123':
+                self.send_response(403)
+                self.end_headers()
+                self.wfile.write(b"Unauthorized")
+                return
+                
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            
+            results = {}
+            try:
+                from pymongo import MongoClient
+                mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+                client = MongoClient(mongo_uri)
+                
+                # List databases and collections to see what exists
+                db_structure = {}
+                db_names = client.list_database_names()
+                for db_name in db_names:
+                    try:
+                        db_structure[db_name] = client[db_name].list_collection_names()
+                    except Exception as list_e:
+                        db_structure[db_name] = f"Error listing collections: {list_e}"
+                
+                # Find old telemetry and profiles collections
+                old_telemetry_source = None
+                old_profiles_source = None
+                
+                for db_name, collections in db_structure.items():
+                    if isinstance(collections, list):
+                        if "PunFiction_TouristTraps" in collections:
+                            old_telemetry_source = client[db_name]["PunFiction_TouristTraps"]
+                        if "UserProfiles" in collections and db_name != "travelreviews_db" and db_name != "movie_puzzle_db":
+                            old_profiles_source = client[db_name]["UserProfiles"]
+                        elif "UserProfiles" in collections and db_name == "tourist_traps_db":
+                            old_profiles_source = client[db_name]["UserProfiles"]
+
+                if not old_profiles_source and "tourist_traps_db" in db_names:
+                    old_profiles_source = client["tourist_traps_db"]["UserProfiles"]
+                if not old_telemetry_source and "tourist_traps_db" in db_names:
+                    old_telemetry_source = client["tourist_traps_db"]["PunFiction_TouristTraps"]
                 
                 # New database and collection
                 new_db = client["travelreviews_db"]
                 new_telemetry = new_db["PunFiction_TravelReviews"]
                 new_profiles = new_db["UserProfiles"]
                 
-                # Fetch old telemetry docs
-                telemetry_docs = list(old_telemetry.find({}))
                 telemetry_count = 0
-                for doc in telemetry_docs:
-                    new_telemetry.update_one(
-                        {"_id": doc["_id"]},
-                        {"$set": {k: v for k, v in doc.items() if k != "_id"}},
-                        upsert=True
-                    )
-                    telemetry_count += 1
+                if old_telemetry_source:
+                    telemetry_docs = list(old_telemetry_source.find({}))
+                    for doc in telemetry_docs:
+                        new_telemetry.update_one(
+                            {"_id": doc["_id"]},
+                            {"$set": {k: v for k, v in doc.items() if k != "_id"}},
+                            upsert=True
+                        )
+                        telemetry_count += 1
                 
-                # Fetch old profiles docs
-                profile_docs = list(old_profiles.find({}))
                 profile_count = 0
-                for doc in profile_docs:
-                    new_profiles.update_one(
-                        {"_id": doc["_id"]},
-                        {"$set": {k: v for k, v in doc.items() if k != "_id"}},
-                        upsert=True
-                    )
-                    profile_count += 1
-                    
+                if old_profiles_source:
+                    profile_docs = list(old_profiles_source.find({}))
+                    for doc in profile_docs:
+                        new_profiles.update_one(
+                            {"_id": doc["_id"]},
+                            {"$set": {k: v for k, v in doc.items() if k != "_id"}},
+                            upsert=True
+                        )
+                        profile_count += 1
+                        
                 results = {
                     "status": "success",
                     "telemetry_migrated": telemetry_count,
-                    "profiles_migrated": profile_count
+                    "profiles_migrated": profile_count,
+                    "telemetry_source_found": old_telemetry_source.full_name if old_telemetry_source else None,
+                    "profiles_source_found": old_profiles_source.full_name if old_profiles_source else None,
+                    "cluster_structure": db_structure
                 }
             except Exception as e:
                 results = {"status": "error", "error": str(e)}
