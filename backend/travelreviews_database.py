@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 # Use the MONGO_URI from the environment, defaulting to localhost for local testing if missing
 mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
-client = MongoClient(mongo_uri)
+client = MongoClient(mongo_uri, serverSelectionTimeoutMS=1500)
 
 db = client["travelreviews_db"]
 production_pool = db["boss_puzzle_sets"]
@@ -28,7 +28,7 @@ def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
                 f"solve_att_{clamped_attempts}": 1
             }
         }
-    elif event_type in ['click_profile', 'click_stats', 'click_help', 'challenge_view']:
+    elif event_type in ['click_profile', 'click_stats', 'click_help']:
         update_query = {"$inc": {event_type: 1}}
         
     if update_query:

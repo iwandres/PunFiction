@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 # Use the MONGO_URI from the environment, defaulting to localhost for local testing if missing
 mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
-client = MongoClient(mongo_uri)
+client = MongoClient(mongo_uri, serverSelectionTimeoutMS=1500)
 
 db = client["movie_puzzle_db"]
 production_pool = db["boss_puzzle_sets"]
