@@ -2295,13 +2295,21 @@ body.crazygames-env .settings-footer-tos {
 }
 
 /* ================= PROFILE STREAK BADGE FOR RETURNING USERS ================= */
+.settings-btn .person-icon {
+    transition: opacity 1s ease-in-out;
+}
+
 .settings-btn .person-icon.hidden {
-    display: none !important;
+    /* Keep it in layout but transparent so it can fade in later */
+    display: block !important;
+    opacity: 0;
+    pointer-events: none;
+    animation: settings-profile-fade-in 1s ease-in-out 4s forwards;
 }
 
 .settings-streak-count {
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 900;
     line-height: 1;
     color: #ff4757;
@@ -2309,90 +2317,91 @@ body.crazygames-env .settings-footer-tos {
     align-items: center;
     justify-content: center;
     z-index: 2;
+    transform-origin: center;
+    animation: 
+        settings-fire-flicker 0.15s infinite alternate,
+        settings-streak-fade-out 1s ease-in-out 4s forwards;
 }
 
-/* Concentric Orbit Paths for Streak Circling Animation */
+/* Confetti Burst Container (replaces the orbit container class) */
 .settings-streak-orbit {
     position: absolute;
-    border-radius: 50%;
-    box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
     pointer-events: none;
     z-index: 1;
 }
 
-/* Inner orbit: 44px diameter, clockwise rotation for 2 cycles, then fades out */
-.settings-streak-orbit.orbit-1 {
-    width: 44px;
-    height: 44px;
-    top: -7px;
-    left: -7px;
-    border: 1.5px dashed rgba(45, 52, 54, 0.25);
-    animation: 
-        settings-spin-clockwise 3s linear 2,
-        settings-orbit-fade-out 0.8s ease-out 6s forwards;
-}
-
-/* Outer orbit: 52px diameter, counter-clockwise rotation for 2 cycles, then fades out */
-.settings-streak-orbit.orbit-2 {
-    width: 52px;
-    height: 52px;
-    top: -11px;
-    left: -11px;
-    border: 1.5px dashed rgba(45, 52, 54, 0.15);
-    animation: 
-        settings-spin-counter 3s linear 2,
-        settings-orbit-fade-out 0.8s ease-out 6s forwards;
-}
-
-/* Orbiting Dots styling */
-.settings-orbit-dot {
+/* Confetti particle base */
+.settings-confetti-particle {
     position: absolute;
     width: 6px;
     height: 6px;
     border-radius: 50%;
+    opacity: 0;
 }
 
-/* Clockwise orange/red dot starting at the top */
-.settings-streak-orbit.orbit-1 .settings-orbit-dot {
-    top: -3px;
-    left: calc(50% - 3px);
-    background: #ffa502;
-    box-shadow: 0 0 6px #ff4757, 0 0 12px #ffa502;
-}
+/* Confetti particle colors & specific burst vectors */
+.settings-confetti-particle.p-1  { background: #ff4757; animation: confetti-shoot-1 1.5s ease-out forwards; }
+.settings-confetti-particle.p-2  { background: #2ed573; animation: confetti-shoot-2 1.5s ease-out forwards; }
+.settings-confetti-particle.p-3  { background: #1e90ff; animation: confetti-shoot-3 1.5s ease-out forwards; }
+.settings-confetti-particle.p-4  { background: #ffa502; animation: confetti-shoot-4 1.5s ease-out forwards; }
+.settings-confetti-particle.p-5  { background: #ff4757; animation: confetti-shoot-5 1.5s ease-out forwards; }
+.settings-confetti-particle.p-6  { background: #2ed573; animation: confetti-shoot-6 1.5s ease-out forwards; }
+.settings-confetti-particle.p-7  { background: #1e90ff; animation: confetti-shoot-7 1.5s ease-out forwards; }
+.settings-confetti-particle.p-8  { background: #ffa502; animation: confetti-shoot-8 1.5s ease-out forwards; }
+.settings-confetti-particle.p-9  { background: #ff6b81; animation: confetti-shoot-9 1.5s ease-out forwards; }
+.settings-confetti-particle.p-10 { background: #3742fa; animation: confetti-shoot-10 1.5s ease-out forwards; }
 
-/* Counter-clockwise green/teal dot starting at the bottom */
-.settings-streak-orbit.orbit-2 .settings-orbit-dot {
-    bottom: -3px;
-    left: calc(50% - 3px);
-    background: var(--accent-main);
-    box-shadow: 0 0 6px var(--accent-dark), 0 0 12px var(--accent-main);
-}
+/* Confetti shoot keyframe animations */
+@keyframes confetti-shoot-1  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-25px, -20px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-2  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(25px, -20px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-3  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-30px, 10px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-4  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(30px, 10px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-5  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-10px, -30px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-6  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(10px, -30px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-7  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-20px, 25px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-8  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(20px, 25px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-9  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-35px, -5px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-10 { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(35px, -5px) scale(0.5); opacity: 0; } }
 
-@keyframes settings-spin-clockwise {
+/* Flickering Fire Text-Shadow & Subtle Jitter Animation */
+@keyframes settings-fire-flicker {
     0% {
-        transform: rotate(0deg);
+        text-shadow: 
+            0 0 4px #ff4757, 
+            0 -1px 3px #ffa502, 
+            0 -3px 6px #ff7f50;
+        transform: scale(1) rotate(-1deg);
     }
     100% {
-        transform: rotate(360deg);
+        text-shadow: 
+            0 0 6px #ff4757, 
+            0 -2px 5px #ff7f50, 
+            0 -4px 10px #ffa502;
+        transform: scale(1.08) rotate(1deg);
     }
 }
 
-@keyframes settings-spin-counter {
-    0% {
-        transform: rotate(360deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes settings-orbit-fade-out {
+@keyframes settings-streak-fade-out {
     0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
         visibility: hidden;
+    }
+}
+
+@keyframes settings-profile-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        pointer-events: auto;
     }
 }
 
