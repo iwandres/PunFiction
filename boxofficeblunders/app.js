@@ -74,6 +74,7 @@ let hintsUsed = 0; // Number of progressive hints used
 let activeRewardedEvent = null;
 let rewardedSlot = null;
 let isInputFocused = false;
+let isViewingPrevious = false;
 
 let isItch = false;
 
@@ -273,6 +274,29 @@ window.onload = async () => {
             handleGuessSubmit();
         }
     });
+
+    const prevBanner = document.getElementById('previous-banner');
+    if (prevBanner) {
+        prevBanner.onclick = () => {
+            const approved = getApprovedChallenges();
+            const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
+            if (currentIndex <= 0) return;
+
+            const yesterdayChallenge = approved[currentIndex - 1];
+            
+            // Set state flags
+            isViewingPrevious = true;  
+            activeChallenge = yesterdayChallenge;
+            hintsUsed = 0;
+            
+            // Report view-only telemetry
+            sendTelemetryEvent('challenge_view');
+            
+            // Direct transition to victory view (postcard & answers rendered)
+            triggerVictory();
+        };
+    }
+
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
@@ -1010,6 +1034,38 @@ async function fetchAndMergeProfile(serverProfileId) {
 function switchScreen(screenName) {
     Object.values(screens).forEach(s => s.classList.remove('active'));
     screens[screenName].classList.add('active');
+    manageBannerVisibility(screenName);
+}
+
+function manageBannerVisibility(screenName) {
+    const prevBanner = document.getElementById('previous-banner');
+    if (!prevBanner) return;
+
+    if (screenName === 'game') {
+        const approvedChallenges = getApprovedChallenges();
+        const isToday = todayChallenge && activeChallenge && activeChallenge.puzzle_number === todayChallenge.puzzle_number;
+        const hasYesterday = approvedChallenges.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number) > 0;
+        
+        if (isToday && hasYesterday) {
+            prevBanner.classList.remove('hidden');
+            prevBanner.classList.remove('shrunk');
+            
+            // Start 5s auto-shrink timer
+            if (!prevBanner.dataset.timeoutActive) {
+                prevBanner.dataset.timeoutActive = 'true';
+                setTimeout(() => {
+                    if (screens.game.classList.contains('active')) {
+                        prevBanner.classList.add('shrunk');
+                    }
+                    delete prevBanner.dataset.timeoutActive;
+                }, 5000);
+            }
+        } else {
+            prevBanner.classList.add('hidden');
+        }
+    } else {
+        prevBanner.classList.add('hidden');
+    }
 }
 
 
@@ -1026,6 +1082,7 @@ function startGame(challenge) {
     currentLevel = 4; // Start directly at Boss Level!
     inventory = [];
     telemetryStartSent = false; // Reset start telemetry flag for new session
+    isViewingPrevious = false; // Reset passive viewing mode
 
     if (challenge.puzzle_number) {
         updateBackgroundGradient(challenge.puzzle_number);
@@ -1188,6 +1245,8 @@ function loadLevel() {
             ui.guessInput.focus({ preventScroll: true });
         }, 100);
     }
+
+    manageBannerVisibility('game');
 }
 
 function revealHint1() {
@@ -1757,6 +1816,31 @@ function renderStreakCalendar() {
     }
 }
 
+function setupVictoryScreenForPassiveView() {
+    const shareBtn = document.getElementById('btn-share-score');
+    if (shareBtn) shareBtn.classList.add('hidden');
+    const shareNudge = document.getElementById('share-nudge');
+    if (shareNudge) shareNudge.classList.add('hidden');
+    
+    const streakGrid = document.getElementById('streak-grid');
+    if (streakGrid) streakGrid.classList.add('hidden');
+
+    const lobbyBtn = document.getElementById('btn-victory-lobby');
+    if (lobbyBtn && todayChallenge) {
+        lobbyBtn.innerHTML = `🎯 PLAY TODAY'S CHALLENGE`;
+        lobbyBtn.classList.remove('hidden');
+        lobbyBtn.onclick = () => {
+            startGame(todayChallenge);
+            history.replaceState(null, "", `?challenge=${todayChallenge.puzzle_number}`);
+        };
+    }
+    
+    const playRandomBtn = document.getElementById('btn-play-random');
+    if (playRandomBtn) playRandomBtn.classList.add('hidden');
+    const allCompletedMsg = document.getElementById('all-completed-msg');
+    if (allCompletedMsg) allCompletedMsg.classList.add('hidden');
+}
+
 function triggerVictory() {
 
     currentLevel = 5;
@@ -1776,6 +1860,47 @@ function triggerVictory() {
         ui.challengeHeaderVictory.innerHTML = `<span class="challenge-label">Challenge</span> #<span class="level-indicator-num">${activeChallenge.puzzle_number}</span>`;
     }
     updateChallengeNavButtons();
+
+    // Render solved status badge above poster
+    const solvedStatus = document.getElementById('victory-solved-status');
+    if (solvedStatus) {
+        if (isViewingPrevious) {
+            solvedStatus.innerText = `Viewing Yesterday's Answer`;
+            solvedStatus.classList.remove('hidden');
+        } else {
+            const solvedList = getSolvedPuzzlesList();
+            if (solvedList.has(activeChallenge.puzzle_number)) {
+                const solvedHints = getSolvedHintsMap();
+                const used = solvedHints[activeChallenge.puzzle_number] !== undefined ? solvedHints[activeChallenge.puzzle_number] : hintsUsed;
+                
+                const attemptsMap = getPuzzleAttemptsMap();
+                const attemptsCount = attemptsMap[activeChallenge.puzzle_number] || 1;
+                
+                const hintText = used === 0 ? "No Hints" : `${used} Hint${used > 1 ? 's' : ''}`;
+                const attemptText = `${attemptsCount} Attempt${attemptsCount > 1 ? 's' : ''}`;
+                
+                solvedStatus.innerText = `Solved! ${hintText} • ${attemptText}`;
+                solvedStatus.classList.remove('hidden');
+            } else {
+                solvedStatus.classList.add('hidden');
+            }
+        }
+    }
+
+    // Restore controls visibility by default (if they were hidden by previous passive views)
+    const shareBtn = document.getElementById('btn-share-score');
+    if (shareBtn) shareBtn.classList.remove('hidden');
+    const shareNudge = document.getElementById('share-nudge');
+    if (shareNudge) shareNudge.classList.remove('hidden');
+    const streakGrid = document.getElementById('streak-grid');
+    if (streakGrid) streakGrid.classList.remove('hidden');
+
+    if (isViewingPrevious) {
+        setupVictoryScreenForPassiveView();
+        switchScreen('victory');
+        loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+        return;
+    }
 
     // Render the rolling 7-day streak calendar grid
     renderStreakCalendar();
@@ -1857,27 +1982,6 @@ function triggerVictory() {
                     history.replaceState(null, "", `?challenge=${randomChallenge.puzzle_number}`);
                 };
             }
-        }
-    }
-
-    // Render solved status badge above poster
-    const solvedStatus = document.getElementById('victory-solved-status');
-    if (solvedStatus) {
-        const solvedList = getSolvedPuzzlesList();
-        if (solvedList.has(activeChallenge.puzzle_number)) {
-            const solvedHints = getSolvedHintsMap();
-            const used = solvedHints[activeChallenge.puzzle_number] !== undefined ? solvedHints[activeChallenge.puzzle_number] : hintsUsed;
-            
-            const attemptsMap = getPuzzleAttemptsMap();
-            const attemptsCount = attemptsMap[activeChallenge.puzzle_number] || 1;
-            
-            const hintText = used === 0 ? "No Hints" : `${used} Hint${used > 1 ? 's' : ''}`;
-            const attemptText = `${attemptsCount} Attempt${attemptsCount > 1 ? 's' : ''}`;
-            
-            solvedStatus.innerText = `Solved! ${hintText} • ${attemptText}`;
-            solvedStatus.classList.remove('hidden');
-        } else {
-            solvedStatus.classList.add('hidden');
         }
     }
 
