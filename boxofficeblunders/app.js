@@ -867,6 +867,9 @@ function savePuzzleSolved(puzzleNum) {
         if (isToday) {
             streakAnimationPlayed = false;
         }
+
+        // Update daily solve streak badge next to the app header/settings
+        updateHeaderStreak();
     } catch (e) {
         console.error("Could not write solved progress to local storage", e);
     }
@@ -2030,9 +2033,6 @@ function triggerVictory() {
     // Switch screen to Victory instantly!
     switchScreen('victory');
     loadAndRenderGlobalStats(activeChallenge.puzzle_number);
-    
-    // Sync daily solve streak badge
-    updateHeaderStreak();
 }
 
 async function loadAndRenderGlobalStats(puzzleNum) {
