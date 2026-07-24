@@ -1119,9 +1119,6 @@ function startGame(challenge) {
             'game_name': 'box_office'
         });
     }
-
-    // Sync header solve streak indicator
-    updateHeaderStreak();
 }
 
 function getCorrectPosterUrl(urlPath) {
