@@ -423,6 +423,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.send_header('Content-type', 'text/css')
                 elif file_path.endswith('.png'):
                     self.send_header('Content-type', 'image/png')
+                elif file_path.endswith('.webp'):
+                    self.send_header('Content-type', 'image/webp')
                 elif file_path.endswith('.jpg') or file_path.endswith('.jpeg'):
                     self.send_header('Content-type', 'image/jpeg')
                 self.end_headers()
@@ -1023,7 +1025,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         prompt_data = json.loads(prompt_res.text)
                         image_prompt = prompt_data.get("image_prompt", f"A funny cartoon of {c['pun_name']}, comical illustration.")
                     
-                    safe_filename = c['pun_name'].lower().replace(' ', '_').replace('-', '_').replace(':', '') + f"_{int(time.time())}.png"
+                    safe_filename = c['pun_name'].lower().replace(' ', '_').replace('-', '_').replace(':', '') + f"_{int(time.time())}.webp"
                     image_path = f"/assets/cartoons/{safe_filename}"
                     local_image_path = os.path.join(CARTOONS_DIR, safe_filename)
                     
@@ -1043,7 +1045,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         image_bytes = generated_image.image.image_bytes
                         from PIL import Image
                         image = Image.open(io.BytesIO(image_bytes))
-                        image.save(local_image_path)
+                        image.save(local_image_path, 'WEBP', quality=95)
                         print(f"Saved generated image: {local_image_path}")
                         
                         # Also save copy to Box Office repository if different
@@ -1055,7 +1057,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                             os.makedirs(bo_cartoons_dir, exist_ok=True)
                             bo_image_path = os.path.join(bo_cartoons_dir, safe_filename)
                             try:
-                                image.save(bo_image_path)
+                                image.save(bo_image_path, 'WEBP', quality=95)
                                 print(f"Saved generated image copy to Box Office: {bo_image_path}")
                             except Exception as bo_save_e:
                                 print(f"Failed to save copy of generated image to Box Office: {bo_save_e}")
