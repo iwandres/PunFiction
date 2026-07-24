@@ -2299,6 +2299,17 @@ body.crazygames-env .settings-footer-tos {
     display: none !important;
 }
 
+/* Disable animations once played in this session */
+.settings-btn.animation-played .settings-streak-orbit {
+    display: none !important;
+}
+
+.settings-btn.animation-played .settings-streak-count {
+    animation: none !important;
+    text-shadow: none !important;
+    transform: scale(1) rotate(0deg) !important;
+}
+
 .settings-streak-count {
     font-family: var(--font-body);
     font-size: 18px;

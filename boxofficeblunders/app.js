@@ -2953,9 +2953,24 @@ function updateHeaderStreak() {
             const { currentStreak } = calculateStreakMetrics(solvedList);
             const streakStr = currentStreak.toLocaleString();
             
+            // Check if animation has already played in this session
+            const animationPlayed = sessionStorage.getItem('streak_animation_played') === 'true';
+            
             // Hide normal profile icons, show streak counts and set their values
-            if (profileIcon) profileIcon.classList.add('hidden');
-            if (profileIconVic) profileIconVic.classList.add('hidden');
+            if (profileIcon) {
+                profileIcon.classList.add('hidden');
+                if (animationPlayed) {
+                    const btn = profileIcon.closest('.settings-btn');
+                    if (btn) btn.classList.add('animation-played');
+                }
+            }
+            if (profileIconVic) {
+                profileIconVic.classList.add('hidden');
+                if (animationPlayed) {
+                    const btn = profileIconVic.closest('.settings-btn');
+                    if (btn) btn.classList.add('animation-played');
+                }
+            }
             
             if (streakCountEl) {
                 streakCountEl.innerText = streakStr;
@@ -2968,6 +2983,11 @@ function updateHeaderStreak() {
             
             // Show the confetti orbits
             orbits.forEach(orbit => orbit.classList.remove('hidden'));
+            
+            // Mark animation as played for this session after the first run
+            if (!animationPlayed) {
+                sessionStorage.setItem('streak_animation_played', 'true');
+            }
         } else {
             // Show normal profile icons, hide streak counts and orbits
             if (profileIcon) profileIcon.classList.remove('hidden');

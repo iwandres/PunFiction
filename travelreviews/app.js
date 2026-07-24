@@ -3252,14 +3252,28 @@ function updateHeaderStreak() {
         
         if (hasSolvedAny) {
             const { currentStreak } = calculateStreakMetrics(solvedList);
+            const streakStr = currentStreak.toLocaleString();
+            
+            // Check if animation has already played in this session
+            const animationPlayed = sessionStorage.getItem('streak_animation_played') === 'true';
             
             // Hide normal profile icon, show streak count and set its value
             profileIcon.classList.add('hidden');
-            streakCountEl.innerText = currentStreak.toLocaleString();
+            if (animationPlayed) {
+                const btn = profileIcon.closest('.settings-btn');
+                if (btn) btn.classList.add('animation-played');
+            }
+            
+            streakCountEl.innerText = streakStr;
             streakCountEl.classList.remove('hidden');
             
-            // Show the 2 orbits
+            // Show the confetti orbits
             orbits.forEach(orbit => orbit.classList.remove('hidden'));
+            
+            // Mark animation as played for this session after the first run
+            if (!animationPlayed) {
+                sessionStorage.setItem('streak_animation_played', 'true');
+            }
         } else {
             // Show normal profile icon, hide streak count and orbits
             profileIcon.classList.remove('hidden');
