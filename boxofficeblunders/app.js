@@ -73,6 +73,7 @@ let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on 
 let hintsUsed = 0; // Number of progressive hints used
 let activeRewardedEvent = null;
 let rewardedSlot = null;
+let isInputFocused = false;
 
 let isItch = false;
 
@@ -188,6 +189,8 @@ window.onload = async () => {
     
     let keyboardFocusTimeout = null;
     ui.guessInput.addEventListener('focus', () => {
+        isInputFocused = true;
+        renderGuessSlots();
         if (keyboardFocusTimeout) {
             clearTimeout(keyboardFocusTimeout);
             keyboardFocusTimeout = null;
@@ -207,6 +210,8 @@ window.onload = async () => {
         }
     });
     ui.guessInput.addEventListener('blur', () => {
+        isInputFocused = false;
+        renderGuessSlots();
         keyboardFocusTimeout = setTimeout(() => {
             document.body.classList.remove('keyboard-focused');
             keyboardFocusTimeout = null;
@@ -215,6 +220,59 @@ window.onload = async () => {
     if (ui.guessSlotsContainer) {
         ui.guessSlotsContainer.onclick = () => ui.guessInput.focus({ preventScroll: true });
     }
+
+    // Global keydown listener to redirect typing to the guess input on desktop
+    window.addEventListener('keydown', (e) => {
+        // Only redirect on desktop/tablet (non-mobile viewports)
+        if (window.innerWidth < 768) return;
+        
+        // Ignore if any modal is active
+        const modals = ['settings-modal', 'stats-select-modal', 'how-to-play-modal', 'poster-modal'];
+        const anyModalActive = modals.some(id => {
+            const el = document.getElementById(id);
+            return el && el.classList.contains('active');
+        });
+        if (anyModalActive) return;
+        
+        // Ignore if we are currently focused on a valid input/button/select/textarea
+        if (document.activeElement && (
+            document.activeElement.tagName === 'INPUT' || 
+            document.activeElement.tagName === 'TEXTAREA' || 
+            document.activeElement.tagName === 'BUTTON' ||
+            document.activeElement.tagName === 'SELECT'
+        )) {
+            return;
+        }
+
+        // Ignore helper keys like Ctrl, Alt, Meta, Tab, Escape, etc.
+        if (e.ctrlKey || e.altKey || e.metaKey || e.key === 'Tab' || e.key === 'Escape') {
+            return;
+        }
+
+        // Redirect focus and keystroke to guess input
+        if (/^[a-zA-Z]$/.test(e.key)) {
+            e.preventDefault();
+            ui.guessInput.focus({ preventScroll: true });
+            isInputFocused = true;
+            if (ui.guessInput.value.length < ui.guessInput.maxLength) {
+                ui.guessInput.value += e.key;
+                handleGuessInput(); // Trigger UI slots rendering
+            }
+        } else if (e.key === 'Backspace') {
+            e.preventDefault();
+            ui.guessInput.focus({ preventScroll: true });
+            isInputFocused = true;
+            if (ui.guessInput.value.length > 0) {
+                ui.guessInput.value = ui.guessInput.value.slice(0, -1);
+                handleGuessInput();
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            ui.guessInput.focus({ preventScroll: true });
+            isInputFocused = true;
+            handleGuessSubmit();
+        }
+    });
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
@@ -1468,7 +1526,7 @@ function renderGuessSlots() {
                         }
                     }
                     
-                    const isLetterActive = !isFilled && !activeHighlighted;
+                    const isLetterActive = !isFilled && !activeHighlighted && isInputFocused;
                     
                     let classes = 'guess-letter-slot';
                     if (isFilled) classes += ' filled';
