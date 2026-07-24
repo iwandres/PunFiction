@@ -672,6 +672,9 @@ window.onload = async () => {
     // 3. Initialize hover-based daily streak tooltip for desktop users
     initStreakTooltip();
     initNextButtonVictoryTooltip();
+    
+    // Update daily solve streak badge next to the app header/settings
+    updateHeaderStreak();
 };
 
 function getDaysElapsedSinceStart() {
@@ -1115,6 +1118,9 @@ function startGame(challenge) {
             'game_name': 'box_office'
         });
     }
+
+    // Sync header solve streak indicator
+    updateHeaderStreak();
 }
 
 function getCorrectPosterUrl(urlPath) {
@@ -1988,6 +1994,9 @@ function triggerVictory() {
     // Switch screen to Victory instantly!
     switchScreen('victory');
     loadAndRenderGlobalStats(activeChallenge.puzzle_number);
+    
+    // Sync daily solve streak badge
+    updateHeaderStreak();
 }
 
 async function loadAndRenderGlobalStats(puzzleNum) {
@@ -2783,6 +2792,9 @@ function initStreakTooltip() {
     const buttons = document.querySelectorAll('.settings-btn');
     buttons.forEach(btn => {
         btn.addEventListener('mouseenter', () => {
+            const solvedList = getSolvedPuzzlesList();
+            if (solvedList.size === 0) return; // Only show tooltip for returning players with solved puzzles
+            
             renderTooltipGrid();
             
             const rect = btn.getBoundingClientRect();
@@ -2921,5 +2933,52 @@ function initNextButtonVictoryTooltip() {
         nextBtnVic.addEventListener('mouseleave', () => {
             tooltip.classList.add('hidden');
         });
+    }
+}
+
+// Update the daily solve streak badge inside the profile settings icons
+function updateHeaderStreak() {
+    try {
+        const solvedList = getSolvedPuzzlesList();
+        
+        const profileIcon = document.getElementById('settings-profile-icon');
+        const profileIconVic = document.getElementById('settings-profile-icon-victory');
+        const streakCountEl = document.getElementById('settings-streak-count');
+        const streakCountElVic = document.getElementById('settings-streak-count-victory');
+        const orbits = document.querySelectorAll('.settings-streak-orbit');
+        
+        const hasSolvedAny = solvedList.size > 0;
+        
+        if (hasSolvedAny) {
+            const { currentStreak } = calculateStreakMetrics(solvedList);
+            const streakStr = currentStreak.toLocaleString();
+            
+            // Hide normal profile icons, show streak counts and set their values
+            if (profileIcon) profileIcon.classList.add('hidden');
+            if (profileIconVic) profileIconVic.classList.add('hidden');
+            
+            if (streakCountEl) {
+                streakCountEl.innerText = streakStr;
+                streakCountEl.classList.remove('hidden');
+            }
+            if (streakCountElVic) {
+                streakCountElVic.innerText = streakStr;
+                streakCountElVic.classList.remove('hidden');
+            }
+            
+            // Show the confetti orbits
+            orbits.forEach(orbit => orbit.classList.remove('hidden'));
+        } else {
+            // Show normal profile icons, hide streak counts and orbits
+            if (profileIcon) profileIcon.classList.remove('hidden');
+            if (profileIconVic) profileIconVic.classList.remove('hidden');
+            
+            if (streakCountEl) streakCountEl.classList.add('hidden');
+            if (streakCountElVic) streakCountElVic.classList.add('hidden');
+            
+            orbits.forEach(orbit => orbit.classList.add('hidden'));
+        }
+    } catch (e) {
+        console.error("Failed to update profile streak:", e);
     }
 }

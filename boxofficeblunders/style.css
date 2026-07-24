@@ -2113,3 +2113,113 @@ body.itch-env .desktop-sidebar-ad {
     transform: rotate(-3deg) translateX(0);
 }
 
+/* ================= PROFILE STREAK BADGE FOR RETURNING USERS ================= */
+.settings-btn .person-icon {
+    transition: opacity 1s ease-in-out;
+}
+
+.settings-btn .person-icon.hidden {
+    /* Keep it in layout but transparent so it can fade in later */
+    display: block !important;
+    opacity: 0;
+    pointer-events: none;
+    animation: settings-profile-fade-in 1s ease-in-out 4s forwards;
+}
+
+.settings-streak-count {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+    color: #ff4757;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transform-origin: center;
+    /* Rapid fire flickering wiggles infinitely, then fades the fire text-shadow to normal after 4 seconds */
+    animation: 
+        settings-fire-flicker 0.15s linear infinite alternate,
+        settings-fire-fade-out 1s ease-in-out 4s forwards;
+}
+
+/* Confetti Burst Container (replaces the orbit container class) */
+.settings-streak-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Confetti particle base */
+.settings-confetti-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+/* Confetti particle colors & specific burst vectors */
+.settings-confetti-particle.p-1  { background: #ff4757; animation: confetti-shoot-1 1.5s ease-out forwards; }
+.settings-confetti-particle.p-2  { background: #2ed573; animation: confetti-shoot-2 1.5s ease-out forwards; }
+.settings-confetti-particle.p-3  { background: #1e90ff; animation: confetti-shoot-3 1.5s ease-out forwards; }
+.settings-confetti-particle.p-4  { background: #ffa502; animation: confetti-shoot-4 1.5s ease-out forwards; }
+.settings-confetti-particle.p-5  { background: #ff4757; animation: confetti-shoot-5 1.5s ease-out forwards; }
+.settings-confetti-particle.p-6  { background: #2ed573; animation: confetti-shoot-6 1.5s ease-out forwards; }
+.settings-confetti-particle.p-7  { background: #1e90ff; animation: confetti-shoot-7 1.5s ease-out forwards; }
+.settings-confetti-particle.p-8  { background: #ffa502; animation: confetti-shoot-8 1.5s ease-out forwards; }
+.settings-confetti-particle.p-9  { background: #ff6b81; animation: confetti-shoot-9 1.5s ease-out forwards; }
+.settings-confetti-particle.p-10 { background: #3742fa; animation: confetti-shoot-10 1.5s ease-out forwards; }
+
+/* Confetti shoot keyframe animations */
+@keyframes confetti-shoot-1  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-25px, -20px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-2  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(25px, -20px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-3  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-30px, 10px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-4  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(30px, 10px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-5  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-10px, -30px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-6  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(10px, -30px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-7  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-20px, 25px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-8  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(20px, 25px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-9  { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-35px, -5px) scale(0.5); opacity: 0; } }
+@keyframes confetti-shoot-10 { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(35px, -5px) scale(0.5); opacity: 0; } }
+
+/* Flickering Fire Text-Shadow & Subtle Jitter Animation */
+@keyframes settings-fire-flicker {
+    0% {
+        text-shadow: 
+            0 0 4px #ff4757, 
+            0 -1px 3px #ffa502, 
+            0 -3px 6px #ff7f50;
+        transform: scale(1) rotate(-1deg);
+    }
+    100% {
+        text-shadow: 
+            0 0 6px #ff4757, 
+            0 -2px 5px #ff7f50, 
+            0 -4px 10px #ffa502;
+        transform: scale(1.08) rotate(1deg);
+    }
+}
+
+@keyframes settings-fire-fade-out {
+    100% {
+        text-shadow: none;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes settings-profile-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
