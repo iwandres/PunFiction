@@ -75,6 +75,7 @@ let activeRewardedEvent = null;
 let rewardedSlot = null;
 let isInputFocused = false;
 let isViewingPrevious = false;
+let streakAnimationPlayed = false;
 
 let isItch = false;
 
@@ -2953,8 +2954,8 @@ function updateHeaderStreak() {
             const { currentStreak } = calculateStreakMetrics(solvedList);
             const streakStr = currentStreak.toLocaleString();
             
-            // Check if animation has already played in this session
-            const animationPlayed = sessionStorage.getItem('streak_animation_played') === 'true';
+            // Check if animation has already played in this page load lifetime
+            const animationPlayed = streakAnimationPlayed;
             
             // Hide normal profile icons, show streak counts and set their values
             if (profileIcon) {
@@ -2984,9 +2985,9 @@ function updateHeaderStreak() {
             // Show the confetti orbits
             orbits.forEach(orbit => orbit.classList.remove('hidden'));
             
-            // Mark animation as played for this session after the first run
+            // Mark animation as played for this page load lifetime
             if (!animationPlayed) {
-                sessionStorage.setItem('streak_animation_played', 'true');
+                streakAnimationPlayed = true;
             }
         } else {
             // Show normal profile icons, hide streak counts and orbits

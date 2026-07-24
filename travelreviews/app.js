@@ -80,6 +80,7 @@ let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on 
 let hintsUsed = 0; // Number of progressive hints used
 let activeRewardedEvent = null;
 let rewardedSlot = null;
+let streakAnimationPlayed = false;
 
 let isCrazyGames = false;
 let isItch = false;
@@ -3254,8 +3255,8 @@ function updateHeaderStreak() {
             const { currentStreak } = calculateStreakMetrics(solvedList);
             const streakStr = currentStreak.toLocaleString();
             
-            // Check if animation has already played in this session
-            const animationPlayed = sessionStorage.getItem('streak_animation_played') === 'true';
+            // Check if animation has already played in this page load lifetime
+            const animationPlayed = streakAnimationPlayed;
             
             // Hide normal profile icon, show streak count and set its value
             profileIcon.classList.add('hidden');
@@ -3270,9 +3271,9 @@ function updateHeaderStreak() {
             // Show the confetti orbits
             orbits.forEach(orbit => orbit.classList.remove('hidden'));
             
-            // Mark animation as played for this session after the first run
+            // Mark animation as played for this page load lifetime
             if (!animationPlayed) {
-                sessionStorage.setItem('streak_animation_played', 'true');
+                streakAnimationPlayed = true;
             }
         } else {
             // Show normal profile icon, hide streak count and orbits
