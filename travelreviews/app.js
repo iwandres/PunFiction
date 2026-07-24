@@ -3282,10 +3282,10 @@ function updateHeaderStreak() {
         const solvedList = getSolvedPuzzlesList();
         
         const profileIcon = document.getElementById('settings-profile-icon');
+        const profileIconVic = document.getElementById('settings-profile-icon-victory');
         const streakCountEl = document.getElementById('settings-streak-count');
+        const streakCountElVic = document.getElementById('settings-streak-count-victory');
         const orbits = document.querySelectorAll('.settings-streak-orbit');
-        
-        if (!profileIcon || !streakCountEl) return;
         
         const hasSolvedAny = solvedList.size > 0;
         const { currentStreak } = calculateStreakMetrics(solvedList);
@@ -3296,18 +3296,34 @@ function updateHeaderStreak() {
             // Check if animation has already played in this page load lifetime
             const animationPlayed = streakAnimationPlayed;
             
-            // Hide normal profile icon, show streak count and set its value
-            profileIcon.classList.add('hidden');
-            
-            const btn = profileIcon.closest('.settings-btn');
-            if (animationPlayed) {
-                if (btn) btn.classList.add('animation-played');
-            } else {
-                if (btn) btn.classList.remove('animation-played');
+            // Hide normal profile icons, show streak counts and set their values
+            if (profileIcon) {
+                profileIcon.classList.add('hidden');
+                const btn = profileIcon.closest('.settings-btn');
+                if (animationPlayed) {
+                    if (btn) btn.classList.add('animation-played');
+                } else {
+                    if (btn) btn.classList.remove('animation-played');
+                }
+            }
+            if (profileIconVic) {
+                profileIconVic.classList.add('hidden');
+                const btn = profileIconVic.closest('.settings-btn');
+                if (animationPlayed) {
+                    if (btn) btn.classList.add('animation-played');
+                } else {
+                    if (btn) btn.classList.remove('animation-played');
+                }
             }
             
-            streakCountEl.innerText = streakStr;
-            streakCountEl.classList.remove('hidden');
+            if (streakCountEl) {
+                streakCountEl.innerText = streakStr;
+                streakCountEl.classList.remove('hidden');
+            }
+            if (streakCountElVic) {
+                streakCountElVic.innerText = streakStr;
+                streakCountElVic.classList.remove('hidden');
+            }
             
             // Show the confetti orbits
             orbits.forEach(orbit => orbit.classList.remove('hidden'));
@@ -3317,13 +3333,22 @@ function updateHeaderStreak() {
                 streakAnimationPlayed = true;
             }
         } else {
-            // Show normal profile icon, hide streak count and orbits
-            profileIcon.classList.remove('hidden');
-            streakCountEl.classList.add('hidden');
-            orbits.forEach(orbit => orbit.classList.add('hidden'));
+            // Show normal profile icons, hide streak counts and orbits
+            if (profileIcon) {
+                profileIcon.classList.remove('hidden');
+                const btn = profileIcon.closest('.settings-btn');
+                if (btn) btn.classList.remove('animation-played');
+            }
+            if (profileIconVic) {
+                profileIconVic.classList.remove('hidden');
+                const btn = profileIconVic.closest('.settings-btn');
+                if (btn) btn.classList.remove('animation-played');
+            }
             
-            const btn = profileIcon.closest('.settings-btn');
-            if (btn) btn.classList.remove('animation-played');
+            if (streakCountEl) streakCountEl.classList.add('hidden');
+            if (streakCountElVic) streakCountElVic.classList.add('hidden');
+            
+            orbits.forEach(orbit => orbit.classList.add('hidden'));
         }
     } catch (e) {
         console.error("Failed to update profile streak:", e);
