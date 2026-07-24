@@ -2299,6 +2299,18 @@ body.crazygames-env .settings-footer-tos {
     display: none !important;
 }
 
+.person-icon.hidden {
+    display: none !important;
+}
+
+svg.hidden {
+    display: none !important;
+}
+
+.settings-btn:has(.settings-streak-count:not(.hidden)) .person-icon {
+    display: none !important;
+}
+
 /* Disable animations once played in this session */
 .settings-btn.animation-played .settings-streak-orbit {
     display: none !important;
