@@ -2295,16 +2295,8 @@ body.crazygames-env .settings-footer-tos {
 }
 
 /* ================= PROFILE STREAK BADGE FOR RETURNING USERS ================= */
-.settings-btn .person-icon {
-    transition: opacity 1s ease-in-out;
-}
-
 .settings-btn .person-icon.hidden {
-    /* Keep it in layout but transparent so it can fade in later */
-    display: block !important;
-    opacity: 0;
-    pointer-events: none;
-    animation: settings-profile-fade-in 1s ease-in-out 4s forwards;
+    display: none !important;
 }
 
 .settings-streak-count {
@@ -2318,9 +2310,10 @@ body.crazygames-env .settings-footer-tos {
     justify-content: center;
     z-index: 2;
     transform-origin: center;
+    /* Rapid fire flickering wiggles infinitely, then fades the fire text-shadow to normal after 4 seconds */
     animation: 
-        settings-fire-flicker 0.15s infinite alternate,
-        settings-streak-fade-out 1s ease-in-out 4s forwards;
+        settings-fire-flicker 0.15s linear infinite alternate,
+        settings-fire-fade-out 1s ease-in-out 4s forwards;
 }
 
 /* Confetti Burst Container (replaces the orbit container class) */
@@ -2385,23 +2378,10 @@ body.crazygames-env .settings-footer-tos {
     }
 }
 
-@keyframes settings-streak-fade-out {
-    0% {
-        opacity: 1;
-    }
+@keyframes settings-fire-fade-out {
     100% {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-@keyframes settings-profile-fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-        pointer-events: auto;
+        text-shadow: none;
+        transform: scale(1) rotate(0deg);
     }
 }
 
