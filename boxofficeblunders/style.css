@@ -2090,7 +2090,7 @@ body.itch-env .desktop-sidebar-ad {
     left: 10px;
     width: 180px;
     font-size: 9px;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-weight: 800;
     text-transform: uppercase;
     color: #ffffff;
