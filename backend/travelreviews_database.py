@@ -28,7 +28,7 @@ def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
                 f"solve_att_{clamped_attempts}": 1
             }
         }
-    elif event_type in ['click_profile', 'click_stats', 'click_help']:
+    elif event_type in ['click_profile', 'click_stats', 'click_help', 'challenge_view']:
         update_query = {"$inc": {event_type: 1}}
         
     if update_query:
@@ -55,7 +55,8 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_att_2": doc.get("solve_att_2", 0),
                 "solve_att_3": doc.get("solve_att_3", 0),
                 "solve_att_4": doc.get("solve_att_4", 0),
-                "solve_att_5": doc.get("solve_att_5", 0)
+                "solve_att_5": doc.get("solve_att_5", 0),
+                "challenge_view": doc.get("challenge_view", 0)
             }
         else:
             return {
@@ -70,7 +71,8 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_att_2": 0,
                 "solve_att_3": 0,
                 "solve_att_4": 0,
-                "solve_att_5": 0
+                "solve_att_5": 0,
+                "challenge_view": 0
             }
     else:
         # Fetch all stats and build mapped dictionary
@@ -90,7 +92,8 @@ def get_telemetry_stats(puzzle_number=None):
                 "solve_att_2": doc.get("solve_att_2", 0),
                 "solve_att_3": doc.get("solve_att_3", 0),
                 "solve_att_4": doc.get("solve_att_4", 0),
-                "solve_att_5": doc.get("solve_att_5", 0)
+                "solve_att_5": doc.get("solve_att_5", 0),
+                "challenge_view": doc.get("challenge_view", 0)
             }
         return stats_map
 

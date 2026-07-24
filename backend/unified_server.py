@@ -505,7 +505,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         telemetry_data[puzzle_number] = {
                             "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0,
                             "solve_att_1": 0, "solve_att_2": 0, "solve_att_3": 0, "solve_att_4": 0, "solve_att_5": 0,
-                            "click_profile": 0, "click_stats": 0, "click_help": 0
+                            "click_profile": 0, "click_stats": 0, "click_help": 0, "challenge_view": 0
                         }
                     if event == 'start':
                         telemetry_data[puzzle_number]["start"] += 1
@@ -516,7 +516,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         telemetry_data[puzzle_number][f"solve_{clamped_hints}"] += 1
                         clamped_attempts = max(1, min(5, attempts))
                         telemetry_data[puzzle_number][f"solve_att_{clamped_attempts}"] = telemetry_data[puzzle_number].get(f"solve_att_{clamped_attempts}", 0) + 1
-                    elif event in ['click_profile', 'click_stats', 'click_help']:
+                    elif event in ['click_profile', 'click_stats', 'click_help', 'challenge_view']:
                         telemetry_data[puzzle_number][event] = telemetry_data[puzzle_number].get(event, 0) + 1
                     save_json(rec_file, telemetry_data)
                 
