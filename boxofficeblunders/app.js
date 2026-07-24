@@ -1589,7 +1589,7 @@ function renderGuessSlots() {
                         }
                     }
                     
-                    const isLetterActive = !isFilled && !activeHighlighted && isInputFocused;
+                    const isLetterActive = !isFilled && !activeHighlighted;
                     
                     let classes = 'guess-letter-slot';
                     if (isFilled) classes += ' filled';
