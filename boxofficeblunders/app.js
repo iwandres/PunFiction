@@ -829,6 +829,12 @@ function savePuzzleSolved(puzzleNum) {
 
         // Push solved status to backend profile sync
         postUserProfile();
+
+        // If this is today's puzzle, reset animation flag to trigger the celebration animation on solve
+        const isToday = todayChallenge && paddedNum === padPuzzleNumber(todayChallenge.puzzle_number);
+        if (isToday) {
+            streakAnimationPlayed = false;
+        }
     } catch (e) {
         console.error("Could not write solved progress to local storage", e);
     }
@@ -2946,9 +2952,9 @@ function updateHeaderStreak() {
         const orbits = document.querySelectorAll('.settings-streak-orbit');
         
         const hasSolvedAny = solvedList.size > 0;
+        const { currentStreak } = calculateStreakMetrics(solvedList);
         
-        if (hasSolvedAny) {
-            const { currentStreak } = calculateStreakMetrics(solvedList);
+        if (hasSolvedAny && currentStreak > 0) {
             const streakStr = currentStreak.toLocaleString();
             
             // Check if animation has already played in this page load lifetime
@@ -2957,16 +2963,20 @@ function updateHeaderStreak() {
             // Hide normal profile icons, show streak counts and set their values
             if (profileIcon) {
                 profileIcon.classList.add('hidden');
+                const btn = profileIcon.closest('.settings-btn');
                 if (animationPlayed) {
-                    const btn = profileIcon.closest('.settings-btn');
                     if (btn) btn.classList.add('animation-played');
+                } else {
+                    if (btn) btn.classList.remove('animation-played');
                 }
             }
             if (profileIconVic) {
                 profileIconVic.classList.add('hidden');
+                const btn = profileIconVic.closest('.settings-btn');
                 if (animationPlayed) {
-                    const btn = profileIconVic.closest('.settings-btn');
                     if (btn) btn.classList.add('animation-played');
+                } else {
+                    if (btn) btn.classList.remove('animation-played');
                 }
             }
             
@@ -2988,8 +2998,16 @@ function updateHeaderStreak() {
             }
         } else {
             // Show normal profile icons, hide streak counts and orbits
-            if (profileIcon) profileIcon.classList.remove('hidden');
-            if (profileIconVic) profileIconVic.classList.remove('hidden');
+            if (profileIcon) {
+                profileIcon.classList.remove('hidden');
+                const btn = profileIcon.closest('.settings-btn');
+                if (btn) btn.classList.remove('animation-played');
+            }
+            if (profileIconVic) {
+                profileIconVic.classList.remove('hidden');
+                const btn = profileIconVic.closest('.settings-btn');
+                if (btn) btn.classList.remove('animation-played');
+            }
             
             if (streakCountEl) streakCountEl.classList.add('hidden');
             if (streakCountElVic) streakCountElVic.classList.add('hidden');

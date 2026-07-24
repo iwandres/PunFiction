@@ -852,6 +852,12 @@ function savePuzzleSolved(puzzleNum) {
         // Push solved status to backend profile sync
         postUserProfile();
 
+        // If this is today's puzzle, reset animation flag to trigger the celebration animation on solve
+        const isToday = todayChallenge && paddedNum === padPuzzleNumber(todayChallenge.puzzle_number);
+        if (isToday) {
+            streakAnimationPlayed = false;
+        }
+
         // Update daily solve streak badge next to the app header
         updateHeaderStreak();
     } catch (e) {
@@ -3250,9 +3256,9 @@ function updateHeaderStreak() {
         if (!profileIcon || !streakCountEl) return;
         
         const hasSolvedAny = solvedList.size > 0;
+        const { currentStreak } = calculateStreakMetrics(solvedList);
         
-        if (hasSolvedAny) {
-            const { currentStreak } = calculateStreakMetrics(solvedList);
+        if (hasSolvedAny && currentStreak > 0) {
             const streakStr = currentStreak.toLocaleString();
             
             // Check if animation has already played in this page load lifetime
@@ -3260,9 +3266,12 @@ function updateHeaderStreak() {
             
             // Hide normal profile icon, show streak count and set its value
             profileIcon.classList.add('hidden');
+            
+            const btn = profileIcon.closest('.settings-btn');
             if (animationPlayed) {
-                const btn = profileIcon.closest('.settings-btn');
                 if (btn) btn.classList.add('animation-played');
+            } else {
+                if (btn) btn.classList.remove('animation-played');
             }
             
             streakCountEl.innerText = streakStr;
@@ -3280,6 +3289,9 @@ function updateHeaderStreak() {
             profileIcon.classList.remove('hidden');
             streakCountEl.classList.add('hidden');
             orbits.forEach(orbit => orbit.classList.add('hidden'));
+            
+            const btn = profileIcon.closest('.settings-btn');
+            if (btn) btn.classList.remove('animation-played');
         }
     } catch (e) {
         console.error("Failed to update profile streak:", e);
