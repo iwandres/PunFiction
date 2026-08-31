@@ -1918,7 +1918,7 @@
     "clue4": "",
     "owner_response": "Dear @NightHootNuisance, The Alhambra is a historic Moorish palace, not a nocturnal avian habitat. We regret your confusion, but perhaps you mistook our exquisite Mudejar carvings for a perch.",
     "page_theme": "historic_monuments",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "clue_pun_la_rambla_1783832486_907_1788148542_887",
@@ -1933,7 +1933,7 @@
     "clue4": "",
     "owner_response": "Dear @CombatTourist, our historic Barcelona promenade is famous for its vibrant kiosks and beautiful trees, not for weapon-wielding street artists. We encourage peaceful walks, not combat training.",
     "page_theme": "streets_squares",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "clue_pun_st._basil's_cathedral_1783832681_895_1788148570_196",
@@ -1948,7 +1948,7 @@
     "clue4": "",
     "owner_response": "Dear @HoleyTerror, our 16th-century cathedral is a protected architectural masterpiece, not a deli. We assure you its unique onion domes are made of brick and stone, not dough, and certainly aren't meant to be 'chewy' or full of literal holes.",
     "page_theme": "historic_monuments",
-    "status": "pending"
+    "status": "approved"
   },
   {
     "id": "clue_pun_st._basil's_cathedral_1783832681_810_1788148579_235",
@@ -1963,6 +1963,6 @@
     "clue4": "",
     "owner_response": "Dear @SourKraut, it seems you've confused our 16th-century architectural marvel with a culinary dish. Our vibrant onion domes are made of brick and mortar, not 'boiled greens' or 'vegetable parcels' designed for consumption.",
     "page_theme": "historic_monuments",
-    "status": "pending"
+    "status": "approved"
   }
 ]
