@@ -18,7 +18,7 @@
 // Core Constants & CDN Paths
 const GITHUB_REPO_URL = "https://raw.githubusercontent.com/iwandres/PunFiction/main/backend";
 const BACKEND_API_URL = "https://punfiction.onrender.com";
-const START_DATE_PT = new Date("2026-05-24T02:00:00-07:00"); // Launch date: 2am Pacific Time
+const START_DATE_PT = new Date("2026-06-14T02:00:00-07:00"); // Launch date: 2am Pacific Time
 
 // Global flag to prevent scroll/keyboard focus jumps on initial page load
 let isInitialLoad = true;
@@ -682,8 +682,8 @@ function getDaysElapsedSinceStart() {
     try {
         const now = new Date();
         const START_YEAR = 2026;
-        const START_MONTH = 5; // May
-        const START_DAY = 24;
+        const START_MONTH = 6; // June
+        const START_DAY = 14;
         const START_HOUR = 2;
 
         const formatter = new Intl.DateTimeFormat("en-US", {
