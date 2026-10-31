@@ -7,28 +7,29 @@ import time
 import urllib.request
 import urllib.parse
 import io
-import subprocess
 import sys
-
-# Import database wrappers
-import database as boxoffice_database
-import travelreviews_database as travelreviews_database
 
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DIR_PATH)
 PARENT_DIR = os.path.dirname(PROJECT_ROOT)
 
-# Determine paths for Box Office repository (dynamic resolution)
-boxoffice_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-BoxOffice'))
-if not os.path.exists(boxoffice_root):
-    boxoffice_root = PROJECT_ROOT
+# Ensure DIR_PATH is on sys.path before importing local modules
+if DIR_PATH not in sys.path:
+    sys.path.insert(0, DIR_PATH)
 
-boxoffice_backend = os.path.join(boxoffice_root, 'backend')
-if not os.path.exists(boxoffice_backend):
-    boxoffice_backend = DIR_PATH
+import travelreviews_database as travelreviews_database
 
-# Determine paths for Travel Reviews repository (dynamic resolution)
+# Determine paths for portal repository (dynamic resolution for local mirroring)
+portal_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-BoxOffice'))
+if not os.path.exists(portal_root):
+    portal_root = PROJECT_ROOT
+
+portal_backend = os.path.join(portal_root, 'backend')
+if not os.path.exists(portal_backend):
+    portal_backend = DIR_PATH
+
+# Determine paths for Travel Reviews standalone repository (dynamic resolution)
 travelreviews_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-TravelReviews'))
 if not os.path.exists(travelreviews_root):
     travelreviews_root = PROJECT_ROOT
@@ -37,26 +38,18 @@ travelreviews_backend = os.path.join(travelreviews_root, 'backend')
 if not os.path.exists(travelreviews_backend):
     travelreviews_backend = DIR_PATH
 
-# Add both backend directories to sys.path to ensure imports work regardless of CWD
 if travelreviews_backend not in sys.path:
     sys.path.insert(0, travelreviews_backend)
-if boxoffice_backend not in sys.path:
-    sys.path.insert(0, boxoffice_backend)
-
-# File paths - Box Office
-BOXOFFICE_PUZZLES_FILE = os.path.join(boxoffice_backend, 'production_daily_games.json')
-BOXOFFICE_QUOTES_FILE = os.path.join(boxoffice_backend, 'phase2_quotes.json')
-BOXOFFICE_INCOMPLETE_FILE = os.path.join(boxoffice_backend, 'incomplete_quotes.json')
-BOXOFFICE_PUNNED_FILE = os.path.join(boxoffice_backend, 'punned_quotes.json')
-BOXOFFICE_REVIEWED_FILE = os.path.join(boxoffice_backend, 'reviewed_parodies.json')
-BOXOFFICE_POSTERS_FILE = os.path.join(boxoffice_backend, 'poster_prompts_state.json')
-BOXOFFICE_RECORDS_FILE = os.path.join(boxoffice_backend, 'records.json')
+if portal_backend not in sys.path:
+    sys.path.insert(0, portal_backend)
 
 # File paths - 1-Star Travel Reviews
-CLUES_FILE = os.path.join(travelreviews_backend, 'travelreviews_clues.json')
-POSTCARDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_postcards.json')
-DAILY_GAMES_FILE = os.path.join(travelreviews_backend, 'travelreviews_daily_games.json')
-LANDMARKS_FILE = os.path.join(travelreviews_backend, 'travelreviews_landmarks.json')
+CLUES_FILE = os.path.join(DIR_PATH, 'travelreviews_clues.json')
+POSTCARDS_FILE = os.path.join(DIR_PATH, 'travelreviews_postcards.json')
+DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'travelreviews_daily_games.json')
+LANDMARKS_FILE = os.path.join(DIR_PATH, 'travelreviews_landmarks.json')
+PUNS_FILE = os.path.join(DIR_PATH, 'travelreviews_puns.json')
+TRAVELREVIEWS_RECORDS_FILE = os.path.join(DIR_PATH, 'travelreviews_records.json')
 
 LANDMARK_THEME_MAPPING = {
     # Ancient Ruins & Archaeological Sites
@@ -121,13 +114,11 @@ def get_theme_for_landmark(landmark_name):
         return "historic_monuments"
     name = landmark_name.strip()
     return LANDMARK_THEME_MAPPING.get(name, "historic_monuments")
-PUNS_FILE = os.path.join(travelreviews_backend, 'travelreviews_puns.json')
-TRAVELREVIEWS_RECORDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_records.json')
 
-if os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
-    CARTOONS_DIR = os.path.join(travelreviews_root, 'travelreviews', 'assets', 'cartoons')
+if os.path.exists(os.path.join(PROJECT_ROOT, 'travelreviews')):
+    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'travelreviews', 'assets', 'cartoons')
 else:
-    CARTOONS_DIR = os.path.join(travelreviews_root, 'assets', 'cartoons')
+    CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'assets', 'cartoons')
 os.makedirs(CARTOONS_DIR, exist_ok=True)
 UNIFIED_HTML_FILE = os.path.join(DIR_PATH, 'unified_admin.html')
 
@@ -196,18 +187,16 @@ def save_json(filepath, data):
         filename = os.path.basename(filepath)
         primary_dir = os.path.abspath(os.path.dirname(filepath))
         
-        # If we are saving in travelreviews_backend, mirror to boxoffice_backend
-        if primary_dir == os.path.abspath(travelreviews_backend) and boxoffice_backend != travelreviews_backend:
-            mirror_path = os.path.join(boxoffice_backend, filename)
+        if primary_dir == os.path.abspath(travelreviews_backend) and portal_backend != travelreviews_backend:
+            mirror_path = os.path.join(portal_backend, filename)
             try:
                 with open(mirror_path, 'w', encoding='utf-8') as f:
                     json.dump(data, f, indent=2)
-                print(f"Mirrored save of {filename} to Box Office repository backend.")
+                print(f"Mirrored save of {filename} to portal repository backend.")
             except Exception as e:
-                print(f"Failed to mirror {filename} to Box Office: {e}")
+                print(f"Failed to mirror {filename} to portal backend: {e}")
                 
-        # If we are saving in boxoffice_backend, mirror to travelreviews_backend
-        elif primary_dir == os.path.abspath(boxoffice_backend) and boxoffice_backend != travelreviews_backend:
+        elif primary_dir == os.path.abspath(portal_backend) and portal_backend != travelreviews_backend:
             mirror_path = os.path.join(travelreviews_backend, filename)
             try:
                 with open(mirror_path, 'w', encoding='utf-8') as f:
@@ -222,6 +211,13 @@ def save_json(filepath, data):
         return False
 
 class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, format, *args):
+        sys.stderr.write("%s - - [%s] %s\n" %
+                         (self.address_string(),
+                          self.log_date_time_string(),
+                          format % args))
+        sys.stderr.flush()
+
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
@@ -233,13 +229,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def is_travelreviews_context(self, req_path):
-        """Determine if request is for 1-Star Travel Reviews based on prefix or Referer header."""
-        if '/travelreviews/' in req_path:
-            return True
-        referer = self.headers.get('Referer', '')
-        if '/travelreviews/' in referer:
-            return True
-        return False
+        """All active game requests resolve to 1-Star Travel Reviews."""
+        return True
 
     def do_GET(self):
         req_path = self.path.split('?')[0]
@@ -256,20 +247,16 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
             return
 
-        # 2. Unified File Router based on paths
-        is_tt = self.is_travelreviews_context(req_path)
-        
-        # --- Shared APIs (puzzles, records, user) ---
-        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/travelreviews/puzzles']:
+        # 2. Core APIs (puzzles, records, user)
+        if req_path in ['/api/puzzles', '/api/travelreviews/puzzles']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
-            data = load_json(file, [])
+            data = load_json(DAILY_GAMES_FILE, [])
             self.wfile.write(json.dumps(data).encode('utf-8'))
             return
             
-        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/travelreviews/records']:
+        elif req_path in ['/api/records', '/api/travelreviews/records']:
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
             puzzle_number = query_params.get('puzzle_number', [None])[0]
@@ -278,20 +265,17 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             
-            use_tt_db = is_tt or 'travelreviews' in req_path
-            db_module = travelreviews_database if use_tt_db else boxoffice_database
-            rec_file = TRAVELREVIEWS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
-            
             try:
                 if puzzle_number:
-                    stats = db_module.get_telemetry_stats(puzzle_number)
+                    stats = travelreviews_database.get_telemetry_stats(puzzle_number)
                 else:
-                    stats = db_module.get_telemetry_stats()
-                    save_json(rec_file, stats)
+                    stats = travelreviews_database.get_telemetry_stats()
+                    if stats:
+                        save_json(TRAVELREVIEWS_RECORDS_FILE, stats)
                 self.wfile.write(json.dumps(stats).encode('utf-8'))
             except Exception as e:
                 print(f"Database error: {e}, falling back to local file")
-                telemetry = load_json(rec_file, {})
+                telemetry = load_json(TRAVELREVIEWS_RECORDS_FILE, {})
                 if puzzle_number:
                     self.wfile.write(json.dumps(telemetry.get(puzzle_number, {
                         "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0,
@@ -300,7 +284,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     self.wfile.write(json.dumps(telemetry).encode('utf-8'))
             return
-        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/travelreviews/user']:
+
+        elif req_path in ['/api/user', '/api/travelreviews/user']:
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
             profile_id = query_params.get('profile_id', [None])[0]
@@ -309,12 +294,9 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             
-            use_tt_db = is_tt or 'travelreviews' in req_path
-            db_module = travelreviews_database if use_tt_db else boxoffice_database
-            
             if profile_id:
                 try:
-                    profile = db_module.get_user_profile(profile_id)
+                    profile = travelreviews_database.get_user_profile(profile_id)
                     if profile:
                         self.wfile.write(json.dumps(profile).encode('utf-8'))
                     else:
@@ -325,39 +307,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "profile_id is required"}).encode('utf-8'))
             return
 
-        # --- Box Office Specific APIs ---
-        elif req_path in ['/api/quotes', '/api/boxoffice/quotes']:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(load_json(BOXOFFICE_QUOTES_FILE, [])).encode('utf-8'))
-            return
-        elif req_path in ['/api/incomplete_quotes', '/api/boxoffice/incomplete_quotes']:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(load_json(BOXOFFICE_INCOMPLETE_FILE, [])).encode('utf-8'))
-            return
-        elif req_path in ['/api/punned_quotes', '/api/boxoffice/punned_quotes']:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(load_json(BOXOFFICE_PUNNED_FILE, [])).encode('utf-8'))
-            return
-        elif req_path in ['/api/reviewed_parodies', '/api/boxoffice/reviewed_parodies']:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(load_json(BOXOFFICE_REVIEWED_FILE, [])).encode('utf-8'))
-            return
-        elif req_path in ['/api/posters_state', '/api/boxoffice/posters_state']:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(load_json(BOXOFFICE_POSTERS_FILE, [])).encode('utf-8'))
-            return
-
-        # --- 1-Star Travel Reviews Specific APIs ---
+        # 3. 1-Star Travel Reviews Curation APIs
         elif req_path in ['/api/landmarks', '/api/travelreviews/landmarks']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -383,31 +333,23 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(load_json(POSTCARDS_FILE, [])).encode('utf-8'))
             return
 
-        # --- Static Assets and Client Files Router ---
+        # 4. Static Assets and Client Files Router
         elif req_path.startswith('/travelreviews/') or req_path.startswith('/assets/'):
             clean_path = urllib.parse.unquote(req_path.strip('/'))
             
-            # Smart asset directory check
             if req_path.startswith('/assets/'):
-                # Try 1-Star Travel Reviews folder first
                 file_path_tt = os.path.join(travelreviews_root, 'travelreviews', *clean_path.split('/'))
                 file_path_root = os.path.join(travelreviews_root, *clean_path.split('/'))
+                file_path_portal_tt = os.path.join(portal_root, 'travelreviews', *clean_path.split('/'))
                 if os.path.exists(file_path_tt) and not os.path.isdir(file_path_tt):
                     file_path = file_path_tt
                 elif os.path.exists(file_path_root) and not os.path.isdir(file_path_root):
                     file_path = file_path_root
+                elif os.path.exists(file_path_portal_tt) and not os.path.isdir(file_path_portal_tt):
+                    file_path = file_path_portal_tt
                 else:
-                    # Fallback to Box Office assets folder
-                    file_path_bo_assets = os.path.join(boxoffice_root, *clean_path.split('/'))
-                    file_path_bo_backend = os.path.join(boxoffice_backend, *clean_path.split('/'))
-                    if os.path.exists(file_path_bo_assets) and not os.path.isdir(file_path_bo_assets):
-                        file_path = file_path_bo_assets
-                    elif os.path.exists(file_path_bo_backend) and not os.path.isdir(file_path_bo_backend):
-                        file_path = file_path_bo_backend
-                    else:
-                        file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
+                    file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
             else:
-                # Regular travelreviews files
                 parts = clean_path.split('/')
                 if parts and parts[0] == 'travelreviews' and not os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
                     parts = parts[1:]
@@ -435,7 +377,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         else:
-            # Let standard SimpleHTTPRequestHandler handle other static content (like Box Office client)
             super().do_GET()
 
     def do_POST(self):
@@ -443,16 +384,13 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         req_path = self.path.split('?')[0]
         
-        is_tt = self.is_travelreviews_context(req_path)
-        
-        # --- Shared POST Save APIs ---
-        if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/travelreviews/puzzles']:
-            file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
+        # 1. Core POST Save APIs
+        if req_path in ['/api/puzzles', '/api/travelreviews/puzzles']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
-                if file == DAILY_GAMES_FILE and isinstance(data, list):
+                if isinstance(data, list):
                     data = sanitize_travelreviews_puzzles(data)
-                save_json(file, data)
+                save_json(DAILY_GAMES_FILE, data)
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
@@ -464,11 +402,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/records', '/api/boxoffice/records', '/api/travelreviews/records']:
-            use_tt_db = is_tt or 'travelreviews' in req_path
-            db_module = travelreviews_database if use_tt_db else boxoffice_database
-            rec_file = TRAVELREVIEWS_RECORDS_FILE if use_tt_db else BOXOFFICE_RECORDS_FILE
-            
+        elif req_path in ['/api/records', '/api/travelreviews/records']:
             try:
                 payload = json.loads(post_data.decode('utf-8'))
                 event = payload.get('event')
@@ -481,19 +415,18 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 
                 db_success = True
                 try:
-                    db_module.record_telemetry_event(puzzle_number, event, hints_used, attempts)
-                    # Sync copy
+                    travelreviews_database.record_telemetry_event(puzzle_number, event, hints_used, attempts)
                     try:
-                        all_stats = db_module.get_telemetry_stats()
-                        save_json(rec_file, all_stats)
+                        all_stats = travelreviews_database.get_telemetry_stats()
+                        if all_stats:
+                            save_json(TRAVELREVIEWS_RECORDS_FILE, all_stats)
                     except Exception as sync_e:
                         print(f"Error syncing local telemetry: {sync_e}")
                 except Exception as db_e:
                     print(f"Database write failed, writing locally. Error: {db_e}")
                     db_success = False
                     
-                    # Local fallback update
-                    telemetry_data = load_json(rec_file, {})
+                    telemetry_data = load_json(TRAVELREVIEWS_RECORDS_FILE, {})
                     if puzzle_number not in telemetry_data:
                         telemetry_data[puzzle_number] = {
                             "start": 0, "attempts": 0, "solve_0": 0, "solve_1": 0, "solve_2": 0, "solve_3": 0, "solve_4": 0,
@@ -511,7 +444,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         telemetry_data[puzzle_number][f"solve_att_{clamped_attempts}"] = telemetry_data[puzzle_number].get(f"solve_att_{clamped_attempts}", 0) + 1
                     elif event in ['click_profile', 'click_stats', 'click_help', 'challenge_view']:
                         telemetry_data[puzzle_number][event] = telemetry_data[puzzle_number].get(event, 0) + 1
-                    save_json(rec_file, telemetry_data)
+                    save_json(TRAVELREVIEWS_RECORDS_FILE, telemetry_data)
                 
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
@@ -524,10 +457,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
             
-        elif req_path in ['/api/user', '/api/boxoffice/user', '/api/travelreviews/user']:
-            use_tt_db = is_tt or 'travelreviews' in req_path
-            db_module = travelreviews_database if use_tt_db else boxoffice_database
-            
+        elif req_path in ['/api/user', '/api/travelreviews/user']:
             try:
                 payload = json.loads(post_data.decode('utf-8'))
                 profile_id = payload.get('profile_id')
@@ -539,7 +469,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if not profile_id:
                     raise ValueError("profile_id is required")
                 
-                success = db_module.upsert_user_profile(
+                success = travelreviews_database.upsert_user_profile(
                     profile_id, solved_puzzles, solved_hints, attempted_puzzles, max_streak
                 )
                 self.send_response(200)
@@ -553,145 +483,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
 
-        # --- Box Office Specific POST Save APIs ---
-        elif req_path in ['/api/quotes', '/api/boxoffice/quotes']:
-            try:
-                data = json.loads(post_data.decode('utf-8'))
-                save_json(BOXOFFICE_QUOTES_FILE, data)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-        elif req_path in ['/api/incomplete_quotes', '/api/boxoffice/incomplete_quotes']:
-            try:
-                data = json.loads(post_data.decode('utf-8'))
-                save_json(BOXOFFICE_INCOMPLETE_FILE, data)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-        elif req_path in ['/api/punned_quotes', '/api/boxoffice/punned_quotes']:
-            try:
-                data = json.loads(post_data.decode('utf-8'))
-                save_json(BOXOFFICE_PUNNED_FILE, data)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-        elif req_path in ['/api/reviewed_parodies', '/api/boxoffice/reviewed_parodies']:
-            try:
-                data = json.loads(post_data.decode('utf-8'))
-                save_json(BOXOFFICE_REVIEWED_FILE, data)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-        elif req_path in ['/api/posters_state', '/api/boxoffice/posters_state']:
-            try:
-                new_data = json.loads(post_data.decode('utf-8'))
-                if os.path.exists(BOXOFFICE_POSTERS_FILE):
-                    old_data = load_json(BOXOFFICE_POSTERS_FILE, [])
-                    old_dict = {item['pun_id']: item for item in old_data}
-                    for item in new_data:
-                        if item.get('status') == 'rejected':
-                            old_item = old_dict.get(item['pun_id'])
-                            if old_item and old_item.get('image_path'):
-                                old_path = old_item['image_path']
-                                if old_path and old_path.startswith('/assets/'):
-                                    clean_path = urllib.parse.unquote(old_path.strip('/'))
-                                    file_to_delete_bo = os.path.join(boxoffice_backend, *clean_path.split('/'))
-                                    file_to_delete_root = os.path.join(boxoffice_root, *clean_path.split('/'))
-                                    file_to_delete = file_to_delete_bo if os.path.exists(file_to_delete_bo) else file_to_delete_root
-                                    if os.path.exists(file_to_delete):
-                                        try:
-                                            os.remove(file_to_delete)
-                                            print(f"Deleted Box Office rejected poster: {file_to_delete}")
-                                        except Exception as delete_e:
-                                            print(f"Failed to delete {file_to_delete}: {delete_e}")
-                save_json(BOXOFFICE_POSTERS_FILE, new_data)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-
-        # --- Box Office Generator Scripts ---
-        elif req_path in ['/api/generate_parodies', '/api/boxoffice/generate_parodies']:
-            try:
-                script_path = os.path.join(boxoffice_backend, 'thematic_generator.py')
-                print(f"Running Box Office Parodies generator: {script_path}")
-                result = subprocess.run([sys.executable, script_path], cwd=boxoffice_backend, capture_output=True, text=True)
-                print("Generator output:", result.stdout)
-                if result.returncode != 0:
-                    raise Exception(result.stderr)
-                count = 0
-                for line in result.stdout.split('\n'):
-                    if "Successfully generated" in line:
-                        try:
-                            count = int(line.split()[-2])
-                        except:
-                            pass
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True, "generated_count": count or 5}).encode('utf-8'))
-            except Exception as e:
-                print(f"Error running generate_parodies: {e}")
-                self.send_response(500)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-        elif req_path in ['/api/generate_posters', '/api/boxoffice/generate_posters']:
-            try:
-                script_path = os.path.join(boxoffice_backend, 'generate_posters.py')
-                print(f"Running Box Office Posters generator: {script_path}")
-                result = subprocess.run([sys.executable, script_path], cwd=boxoffice_backend, capture_output=True, text=True)
-                print("Generator output:", result.stdout)
-                if result.returncode != 0:
-                    raise Exception(result.stderr)
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": True, "generated_count": 5}).encode('utf-8'))
-            except Exception as e:
-                print(f"Error running generate_posters: {e}")
-                self.send_response(500)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
-            return
-
-        # --- 1-Star Travel Reviews Specific POST Save APIs ---
+        # 2. 1-Star Travel Reviews Specific POST Save APIs
         elif req_path in ['/api/landmarks', '/api/travelreviews/landmarks']:
             try:
                 data = json.loads(post_data.decode('utf-8'))
@@ -739,7 +531,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 data = json.loads(post_data.decode('utf-8'))
                 if os.path.exists(POSTCARDS_FILE):
                     old_data = load_json(POSTCARDS_FILE, [])
-                    old_dict = {item['id']: item for item in old_data}
                     new_ids = {item['id'] for item in data}
                     for item in old_data:
                         if item['id'] not in new_ids or next((x for x in data if x['id'] == item['id']), {}).get('status') == 'rejected':
@@ -757,18 +548,17 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                                     except Exception as delete_e:
                                         print(f"Failed to delete {file_to_delete}: {delete_e}")
                                         
-                                # Also delete copy from Box Office repository if different
-                                if boxoffice_root != travelreviews_root:
-                                    if os.path.exists(os.path.join(boxoffice_root, 'travelreviews')):
-                                        bo_file_to_delete = os.path.join(boxoffice_root, 'travelreviews', *clean_path.split('/'))
+                                if portal_root != travelreviews_root:
+                                    if os.path.exists(os.path.join(portal_root, 'travelreviews')):
+                                        portal_file_to_delete = os.path.join(portal_root, 'travelreviews', *clean_path.split('/'))
                                     else:
-                                        bo_file_to_delete = os.path.join(boxoffice_root, *clean_path.split('/'))
-                                    if os.path.exists(bo_file_to_delete):
+                                        portal_file_to_delete = os.path.join(portal_root, *clean_path.split('/'))
+                                    if os.path.exists(portal_file_to_delete):
                                         try:
-                                            os.remove(bo_file_to_delete)
-                                            print(f"Deleted 1-Star Travel Reviews rejected/removed image copy from Box Office: {bo_file_to_delete}")
-                                        except Exception as bo_delete_e:
-                                            print(f"Failed to delete Box Office copy {bo_file_to_delete}: {bo_delete_e}")
+                                            os.remove(portal_file_to_delete)
+                                            print(f"Deleted 1-Star Travel Reviews rejected/removed image copy from portal: {portal_file_to_delete}")
+                                        except Exception as portal_delete_e:
+                                            print(f"Failed to delete portal copy {portal_file_to_delete}: {portal_delete_e}")
                 save_json(POSTCARDS_FILE, data)
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
@@ -781,7 +571,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
             return
 
-        # --- 1-Star Travel Reviews Gemini Inline Generation Routines ---
+        # 3. 1-Star Travel Reviews Gemini Inline Generation Routines
         elif req_path in ['/api/generate_puns', '/api/travelreviews/generate_puns']:
             if not gemini_available:
                 self.send_response(500)
@@ -825,7 +615,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         )
                     )
                     pun_candidates = json.loads(response.text)
-                    # Reload the latest puns list from disk to avoid overwriting concurrent edits
                     puns = load_json(PUNS_FILE, [])
                     for candidate in pun_candidates:
                         puns.append({
@@ -918,7 +707,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         )
                     )
                     generated = json.loads(response.text)
-                    # Reload the latest clues list from disk to avoid overwriting concurrent edits
                     clues = load_json(CLUES_FILE, [])
                     clues.append({
                         "id": f"clue_{p['pun_name'].lower().replace(' ', '_')}_{int(time.time())}",
@@ -960,7 +748,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     payload = json.loads(post_data.decode('utf-8'))
                 except:
                     pass
-                selected_style = payload.get('art_style', 'random')
                 
                 styles_dict = {
                     "cartoon": "Comical cartoon illustration, bold lines, bright vibrant colors, humorous caricature, white postcard border.",
@@ -978,7 +765,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if target_clue_id:
                     approved_clues = [c for c in clues if c['id'] == target_clue_id]
                     if not approved_clues:
-                        # Fallback to constructing a temporary clue object from postcards if clue has been cleaned up/deleted
                         fallback_pc = next((p for p in postcards if p['clue_id'] == target_clue_id), None)
                         if fallback_pc:
                             approved_clues = [{
@@ -1048,26 +834,24 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                         image.save(local_image_path, 'WEBP', quality=95)
                         print(f"Saved generated image: {local_image_path}")
                         
-                        # Also save copy to Box Office repository if different
-                        if boxoffice_root != travelreviews_root:
-                            if os.path.exists(os.path.join(boxoffice_root, 'travelreviews')):
-                                bo_cartoons_dir = os.path.join(boxoffice_root, 'travelreviews', 'assets', 'cartoons')
+                        if portal_root != travelreviews_root:
+                            if os.path.exists(os.path.join(portal_root, 'travelreviews')):
+                                portal_cartoons_dir = os.path.join(portal_root, 'travelreviews', 'assets', 'cartoons')
                             else:
-                                bo_cartoons_dir = os.path.join(boxoffice_root, 'assets', 'cartoons')
-                            os.makedirs(bo_cartoons_dir, exist_ok=True)
-                            bo_image_path = os.path.join(bo_cartoons_dir, safe_filename)
+                                portal_cartoons_dir = os.path.join(portal_root, 'assets', 'cartoons')
+                            os.makedirs(portal_cartoons_dir, exist_ok=True)
+                            portal_image_path = os.path.join(portal_cartoons_dir, safe_filename)
                             try:
-                                image.save(bo_image_path, 'WEBP', quality=95)
-                                print(f"Saved generated image copy to Box Office: {bo_image_path}")
-                            except Exception as bo_save_e:
-                                print(f"Failed to save copy of generated image to Box Office: {bo_save_e}")
+                                image.save(portal_image_path, 'WEBP', quality=95)
+                                print(f"Saved generated image copy to portal: {portal_image_path}")
+                            except Exception as portal_save_e:
+                                print(f"Failed to save copy of generated image to portal: {portal_save_e}")
                                 
                         saved_image = True
                         break
                     if not saved_image:
                         raise Exception("No image returned in response parts from imagen-4.0-generate-001")
                         
-                    # Reload the latest postcards list from disk to avoid overwriting concurrent edits
                     postcards = load_json(POSTCARDS_FILE, [])
                     existing_idx = next((i for i, p in enumerate(postcards) if p['clue_id'] == c['id']), None)
                     postcard_entry = {
@@ -1185,13 +969,15 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404)
 
 def pipeline_listener():
-    import threading
     import time
     
     print("[Pipeline Listener] Background thread started.")
     
+    # Drop legacy Box Office Blunders MongoDB tables on startup if MONGO_URI is configured
+    if os.environ.get("MONGO_URI"):
+        travelreviews_database.drop_boxoffice_database()
+    
     while True:
-        # Check environment variable
         gemini_key = os.environ.get("GEMINI_API_KEY")
         if not gemini_key:
             time.sleep(10)
@@ -1241,8 +1027,8 @@ def pipeline_listener():
                         new_puns_count += 1
                 save_json(PUNS_FILE, puns)
                 print(f"[Pipeline Listener] Successfully generated {new_puns_count} puns.")
-                time.sleep(3) # Cool down
-                continue # Re-evaluate immediately
+                time.sleep(3)
+                continue
                 
             # 2. Clues/Reviews Generation Curation Cycle
             puns = load_json(PUNS_FILE, [])
@@ -1315,13 +1101,13 @@ def pipeline_listener():
                     new_clues_count += 1
                 save_json(CLUES_FILE, clues)
                 print(f"[Pipeline Listener] Successfully generated {new_clues_count} clues.")
-                time.sleep(3) # Cool down
-                continue # Re-evaluate immediately
+                time.sleep(3)
+                continue
                 
         except Exception as e:
             print(f"[Pipeline Listener] Error in generation cycle: {e}")
             
-        time.sleep(10) # check every 10 seconds if idle
+        time.sleep(10)
 
 if __name__ == '__main__':
     socketserver.ThreadingTCPServer.allow_reuse_address = True
@@ -1329,6 +1115,5 @@ if __name__ == '__main__':
     t = threading.Thread(target=pipeline_listener, daemon=True)
     t.start()
     with socketserver.ThreadingTCPServer(("", PORT), UnifiedRequestHandler) as httpd:
-        print(f"Serving Consolidated Curation Server at http://localhost:{PORT}")
+        print(f"Serving 1-Star Travel Reviews Curation Server at http://localhost:{PORT}")
         httpd.serve_forever()
-
