@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 160px; height: 600px; margin: 0; padding: 0; overflow: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=160, initial-scale=1.0">
+    <title>Advertisement</title>
+    <style>
+        html, body {
+            width: 160px !important;
+            height: 600px !important;
+            max-width: 160px !important;
+            max-height: 600px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            background: transparent !important;
+            position: relative !important;
+        }
+        body > iframe,
+        html > iframe,
+        [id^="atContainer-"] {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 160px !important;
+            max-width: 160px !important;
+            height: 600px !important;
+            max-height: 600px !important;
+            margin: 0 !important;
+            border: none !important;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function() {
+            // 1. Keep Monetag Vignette strictly inside this 160x600 iframe (prevent breakout to window.top)
+            try {
+                if (window.top && window.top !== window && window.top.document) {
+                    var topBody = window.top.document.body;
+                    if (topBody && (topBody.classList.contains('crazygames-env') || topBody.classList.contains('itch-env'))) {
+                        return;
+                    }
+                    if (window.top.innerWidth < 1024) {
+                        return;
+                    }
+                    var topRoot = window.top.document.documentElement;
+                    var origAppend = topRoot.appendChild;
+                    topRoot.appendChild = function(node) {
+                        if (node && node.tagName === 'SCRIPT' && !node.src && !node.textContent) {
+                            throw new Error('Contained in 160x600 ad slot');
+                        }
+                        return origAppend.apply(this, arguments);
+                    };
+                }
+            } catch (e) {}
+
+            // 2. Adapt inner vignette srcdoc iframe to fit 160x600 vertical skyscraper cleanly
+            var styleInnerIframe = function(iframe) {
+                try {
+                    var doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+                    if (!doc || !doc.head || doc.getElementById('skyscraper-160x600-override')) return;
+                    var style = doc.createElement('style');
+                    style.id = 'skyscraper-160x600-override';
+                    style.textContent = [
+                        'html, body { width: 160px !important; height: 600px !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; }',
+                        'body > div { width: 160px !important; height: 600px !important; max-width: 160px !important; position: relative !important; }',
+                        'body > div > div { min-width: 148px !important; max-width: 148px !important; width: 148px !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; padding: 12px 10px !important; box-sizing: border-box !important; }',
+                        'body > div > div > div { flex-direction: column !important; align-items: center !important; text-align: center !important; }',
+                        'body > div > div > div > div { max-width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; text-align: center !important; }'
+                    ].join('\n');
+                    doc.head.appendChild(style);
+                } catch (e) {}
+            };
+
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(m) {
+                    m.addedNodes.forEach(function(node) {
+                        if (node && node.tagName === 'IFRAME') {
+                            styleInnerIframe(node);
+                            node.addEventListener('load', function() { styleInnerIframe(node); });
+                            setTimeout(function() { styleInnerIframe(node); }, 300);
+                            setTimeout(function() { styleInnerIframe(node); }, 1000);
+                        }
+                    });
+                });
+            });
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+        })();
+    </script>
+    <script>(function(s){s.dataset.zone='12164249',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>

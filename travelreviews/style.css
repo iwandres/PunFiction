@@ -1812,10 +1812,15 @@ input:focus {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        width: 320px;
-        min-width: 320px;
-        height: 620px;
+        justify-content: flex-start;
+        width: 186px;
+        min-width: 186px;
+        max-width: 186px;
+        height: 646px;
+        min-height: 646px;
+        max-height: 646px;
+        flex-shrink: 0;
+        overflow: hidden;
         position: sticky;
         top: 20px;
         margin-top: 165px; /* Align with the top edge of the navigation controls (which sit at top: -16px relative to the card) */
@@ -1823,6 +1828,28 @@ input:focus {
         border: 3px dashed rgba(255, 255, 255, 0.15);
         border-radius: 12px;
         padding: 10px;
+    }
+
+    .sidebar-ad-slot {
+        width: 160px;
+        min-width: 160px;
+        max-width: 160px;
+        height: 600px;
+        min-height: 600px;
+        max-height: 600px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-ad-slot iframe {
+        width: 160px;
+        height: 600px;
+        border: 0;
+        overflow: hidden;
+        display: block;
     }
     
     /* Add a neat placeholder label inside the ad box during local testing */
