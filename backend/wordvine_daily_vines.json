@@ -2,6 +2,7 @@
   {
     "vineNumber": 142,
     "dateKey": "2026-11-01",
+    "lexiconVersion": "v5_cross_domain_guardrail",
     "themeId": 0,
     "title": "Midnight Bioluminescence",
     "chainSetIndex": 0,
@@ -16,26 +17,26 @@
         "part2Hint": "PEANUT + BUTTER = Peanut butter",
         "part3Hint": "BUTTER + CUP = Buttercup (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "SHELL",
-          "CRUST",
-          "GRAVY",
-          "GLAZE"
+          "SHUTTER",
+          "CLUTTER",
+          "FLUTTER",
+          "MUTTER"
         ],
         "part3Decoys": [
-          "PLATE",
-          "FORK",
-          "TRAY",
-          "SAUCER"
+          "PUP",
+          "HICCUP",
+          "STIRRUP",
+          "GALLOP"
         ],
         "thematicLink": {
           "nextPart1": "COFFEE",
           "connection": "Drinkware Link (Cup -> Coffee)",
           "hint": "CUP \u2194 COFFEE = Coffee cup (Links to COFFEE \u2192 TABLE \u2192 BOOK)",
           "decoys": [
-            "WATER",
-            "JUICE",
-            "GRAVY",
-            "CIDER"
+            "TOFFEE",
+            "TROPHY",
+            "DOLPHIN",
+            "COFFIN"
           ]
         }
       },
@@ -49,26 +50,26 @@
         "part2Hint": "COFFEE + TABLE = Coffee table",
         "part3Hint": "TABLE + BOOK = Table book (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "CHAIRS",
-          "SOFA",
-          "STOOL",
-          "DESK"
+          "FABLE",
+          "CABLE",
+          "GABLE",
+          "SABLE"
         ],
         "part3Decoys": [
-          "LAMP",
-          "VASE",
-          "CLOCK",
-          "RUG"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ],
         "thematicLink": {
           "nextPart1": "MATCH",
           "connection": "Matchbook Link (Book -> Match)",
           "hint": "BOOK \u2194 MATCH = Matchbook (Links to MATCH \u2192 BOX \u2192 CAR)",
           "decoys": [
-            "TORCH",
-            "FLAME",
-            "SPARK",
-            "EMBER"
+            "HATCH",
+            "LATCH",
+            "THATCH",
+            "SNATCH"
           ]
         }
       },
@@ -82,26 +83,26 @@
         "part2Hint": "MATCH + BOX = Matchbox",
         "part3Hint": "BOX + CAR = Boxcar (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "BAG",
-          "JAR",
-          "CAN",
-          "TIN"
+          "FOX",
+          "OX",
+          "PHLOX",
+          "PARADOX"
         ],
         "part3Decoys": [
-          "TRUCK",
-          "TRAIN",
-          "BIKE",
-          "BOAT"
+          "SCAR",
+          "CZAR",
+          "GUITAR",
+          "RADAR"
         ],
         "thematicLink": {
           "nextPart1": "POOL",
           "connection": "Carpool Link (Car -> Pool)",
           "hint": "CAR + POOL = Carpool (Links to POOL \u2192 TABLE \u2192 TOP)",
           "decoys": [
-            "POND",
-            "LAKE",
-            "MOAT",
-            "WELL"
+            "SPOOL",
+            "DROOL",
+            "FOOL",
+            "GHOUL"
           ]
         }
       },
@@ -115,26 +116,26 @@
         "part2Hint": "POOL + TABLE = Pool table",
         "part3Hint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "CHAIR",
-          "BENCH",
-          "COUCH",
-          "STOOL"
+          "FABLE",
+          "GABLE",
+          "SABLE",
+          "CRADLE"
         ],
         "part3Decoys": [
-          "EDGE",
-          "BASE",
-          "RIM",
-          "CORNER"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ],
         "thematicLink": {
           "nextPart1": "DOG",
           "connection": "Zone 2 Bridge (Top -> Dog)",
           "hint": "TOP + DOG = Top dog (Enters Zone 2: The Stem)",
           "decoys": [
-            "WOLF",
-            "BEAR",
-            "LION",
-            "HAWK"
+            "FOG",
+            "BOG",
+            "CLOG",
+            "FROG"
           ]
         }
       }
@@ -145,10 +146,10 @@
         "target": "HOUSE",
         "hint": "DOG + HOUSE = Doghouse",
         "decoys": [
-          "COLLAR",
-          "LEASH",
-          "KENNEL",
-          "BONE"
+          "BLOUSE",
+          "GROUSE",
+          "SPOUSE",
+          "DOUSE"
         ]
       },
       {
@@ -156,10 +157,10 @@
         "target": "FLY",
         "hint": "HOUSE + FLY = Housefly",
         "decoys": [
-          "MOTH",
-          "WASP",
-          "BEETLE",
-          "SPIDER"
+          "SHY",
+          "SLY",
+          "PRY",
+          "WRY"
         ]
       },
       {
@@ -167,10 +168,10 @@
         "target": "TRAP",
         "hint": "FLY + TRAP = Flytrap",
         "decoys": [
-          "CAGE",
-          "SNARE",
-          "HOOK",
-          "BAIT"
+          "CLAP",
+          "SLAP",
+          "SCRAP",
+          "CHAP"
         ]
       },
       {
@@ -178,10 +179,10 @@
         "target": "DOOR",
         "hint": "TRAP + DOOR = Trapdoor",
         "decoys": [
-          "GATE",
-          "WALL",
-          "ROOF",
-          "FLOOR"
+          "SNORE",
+          "CHORE",
+          "SPORE",
+          "ROAR"
         ]
       },
       {
@@ -189,10 +190,10 @@
         "target": "BELL",
         "hint": "DOOR + BELL = Doorbell",
         "decoys": [
-          "CHIME",
-          "GONG",
-          "HORN",
-          "SIREN"
+          "SPELL",
+          "YELL",
+          "SMELL",
+          "DWELL"
         ]
       },
       {
@@ -200,10 +201,10 @@
         "target": "PEPPER",
         "hint": "BELL + PEPPER = Bell pepper",
         "decoys": [
-          "ONION",
-          "GARLIC",
-          "CARROT",
-          "CELERY"
+          "LEPER",
+          "STEPPER",
+          "ZIPPER",
+          "SLIPPER"
         ]
       },
       {
@@ -211,10 +212,10 @@
         "target": "MINT",
         "hint": "PEPPER + MINT = Peppermint",
         "decoys": [
-          "SAGE",
-          "THYME",
-          "BASIL",
-          "CLOVE"
+          "LINT",
+          "FLINT",
+          "SQUINT",
+          "SPRINT"
         ]
       },
       {
@@ -222,10 +223,10 @@
         "target": "GREEN",
         "hint": "MINT + GREEN = Mint green",
         "decoys": [
-          "BLUE",
-          "PINK",
-          "GOLD",
-          "GRAY"
+          "QUEEN",
+          "SCREEN",
+          "SPLEEN",
+          "PREEN"
         ]
       },
       {
@@ -233,10 +234,10 @@
         "target": "LIGHT",
         "hint": "GREEN + LIGHT = Greenlight",
         "decoys": [
-          "FLAME",
-          "SPARK",
-          "TORCH",
-          "GLOW"
+          "FRIGHT",
+          "KNIGHT",
+          "PLIGHT",
+          "FLIGHT"
         ]
       },
       {
@@ -244,10 +245,10 @@
         "target": "YEAR",
         "hint": "LIGHT + YEAR = Lightyear",
         "decoys": [
-          "MONTH",
-          "WEEK",
-          "HOUR",
-          "SECOND"
+          "SPEAR",
+          "SMEAR",
+          "SHEAR",
+          "TEAR"
         ]
       },
       {
@@ -255,10 +256,10 @@
         "target": "BOOK",
         "hint": "YEAR + BOOK = Yearbook",
         "decoys": [
-          "PAGE",
-          "CARD",
-          "NOTE",
-          "LIST"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ]
       },
       {
@@ -266,10 +267,10 @@
         "target": "WORM",
         "hint": "BOOK + WORM = Bookworm",
         "decoys": [
-          "SLUG",
-          "MOTH",
-          "TOAD",
-          "CRAB"
+          "STORM",
+          "GERM",
+          "TERM",
+          "FIRM"
         ]
       },
       {
@@ -277,10 +278,10 @@
         "target": "HOLE",
         "hint": "WORM + HOLE = Wormhole",
         "decoys": [
-          "CAVE",
-          "PIT",
-          "DITCH",
-          "WELL"
+          "MOLE",
+          "FOAL",
+          "SHOAL",
+          "STOLE"
         ]
       },
       {
@@ -288,10 +289,10 @@
         "target": "CARD",
         "hint": "HOLE + CARD = Hole card",
         "decoys": [
-          "DECK",
-          "CHIP",
-          "DICE",
-          "COIN"
+          "LARD",
+          "BARD",
+          "SHARD",
+          "GUARD"
         ]
       },
       {
@@ -299,10 +300,10 @@
         "target": "SHARK",
         "hint": "CARD + SHARK = Cardsharp / Card shark",
         "decoys": [
-          "WHALE",
-          "TROUT",
-          "SQUID",
-          "CORAL"
+          "LARK",
+          "SPARK",
+          "BARK",
+          "DARK"
         ]
       },
       {
@@ -310,10 +311,10 @@
         "target": "TANK",
         "hint": "SHARK + TANK = Shark tank",
         "decoys": [
-          "POOL",
-          "POND",
-          "BOWL",
-          "LAKE"
+          "PRANK",
+          "CRANK",
+          "PLANK",
+          "FLANK"
         ]
       }
     ],
@@ -323,10 +324,10 @@
         "target": "TOP",
         "hint": "TANK + TOP = Tank top",
         "decoys": [
-          "HAT",
-          "CAP",
-          "COAT",
-          "BELT"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ]
       },
       {
@@ -334,10 +335,10 @@
         "target": "COAT",
         "hint": "TOP + COAT = Topcoat",
         "decoys": [
-          "VEST",
-          "SHIRT",
-          "SCARF",
-          "GLOVE"
+          "GOAT",
+          "MOAT",
+          "THROAT",
+          "GLOAT"
         ]
       },
       {
@@ -345,10 +346,10 @@
         "target": "RACK",
         "hint": "COAT + RACK = Coatrack",
         "decoys": [
-          "HOOK",
-          "SHELF",
-          "STAND",
-          "TRAY"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ]
       },
       {
@@ -356,10 +357,10 @@
         "target": "UP",
         "hint": "RACK + UP = Rack up",
         "decoys": [
-          "IN",
-          "ON",
-          "BY",
-          "AT"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ]
       },
       {
@@ -367,10 +368,10 @@
         "target": "BEAT",
         "hint": "UP + BEAT = Upbeat",
         "decoys": [
-          "SONG",
-          "NOTE",
-          "DRUM",
-          "CHORD"
+          "WHEAT",
+          "CHEAT",
+          "TREAT",
+          "PLEAT"
         ]
       },
       {
@@ -378,10 +379,10 @@
         "target": "DOWN",
         "hint": "BEAT + DOWN = Beatdown",
         "decoys": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ]
       },
       {
@@ -389,10 +390,10 @@
         "target": "POUR",
         "hint": "DOWN + POUR = Downpour",
         "decoys": [
-          "DRIP",
-          "DROP",
-          "MIST",
-          "SOAK"
+          "SNORE",
+          "CHORE",
+          "SPORE",
+          "ROAR"
         ]
       },
       {
@@ -400,10 +401,10 @@
         "target": "OVER",
         "hint": "POUR + OVER = Pour-over",
         "decoys": [
-          "INTO",
-          "UPON",
-          "UNTO",
-          "FROM"
+          "CLOVER",
+          "PLOVER",
+          "ROVER",
+          "DROVER"
         ]
       },
       {
@@ -411,10 +412,10 @@
         "target": "SLEEP",
         "hint": "OVER + SLEEP = Oversleep",
         "decoys": [
-          "DREAM",
-          "SNORE",
-          "YAWN",
-          "NAP"
+          "SHEEP",
+          "SWEEP",
+          "CREEP",
+          "STEEP"
         ]
       },
       {
@@ -422,10 +423,10 @@
         "target": "WALK",
         "hint": "SLEEP + WALK = Sleepwalk",
         "decoys": [
-          "PACE",
-          "DASH",
-          "JOG",
-          "SKIP"
+          "CHALK",
+          "HAWK",
+          "STALK",
+          "SQUAWK"
         ]
       },
       {
@@ -433,10 +434,10 @@
         "target": "OUT",
         "hint": "WALK + OUT = Walkout",
         "decoys": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ]
       },
       {
@@ -444,10 +445,10 @@
         "target": "BURST",
         "hint": "OUT + BURST = Outburst",
         "decoys": [
-          "BLAST",
-          "SPARK",
-          "FLASH",
-          "PULSE"
+          "THIRST",
+          "FIRST",
+          "WORST",
+          "HEARSE"
         ]
       }
     ],
@@ -461,12 +462,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
         "correctWord": "BUTTER",
         "decoyPool": [
-          "SHELL",
-          "CRUST",
-          "GRAVY",
-          "GLAZE"
+          "SHUTTER",
+          "CLUTTER",
+          "FLUTTER",
+          "MUTTER"
         ],
-        "decoyWord": "SHELL",
+        "decoyWord": "SHUTTER",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 CUP",
@@ -488,12 +489,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
         "correctWord": "CUP",
         "decoyPool": [
-          "PLATE",
-          "FORK",
-          "TRAY",
-          "SAUCER"
+          "PUP",
+          "HICCUP",
+          "STIRRUP",
+          "GALLOP"
         ],
-        "decoyWord": "PLATE",
+        "decoyWord": "PUP",
         "faintAbove": {
           "label": "THEMATIC LINK VIA CUP",
           "word": "\ud83d\udd17 COFFEE \u2192 TABLE \u2192 BOOK",
@@ -515,12 +516,12 @@
         "stemBadge": "\ud83d\udd17 DRINKWARE LINK (CUP -> COFFEE)",
         "correctWord": "COFFEE",
         "decoyPool": [
-          "WATER",
-          "JUICE",
-          "GRAVY",
-          "CIDER"
+          "TOFFEE",
+          "TROPHY",
+          "DOLPHIN",
+          "COFFIN"
         ],
-        "decoyWord": "WATER",
+        "decoyWord": "TOFFEE",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 2/4",
           "word": "[ ? ] \u2192 TABLE \u2192 BOOK",
@@ -542,12 +543,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
         "correctWord": "TABLE",
         "decoyPool": [
-          "CHAIRS",
-          "SOFA",
-          "STOOL",
-          "DESK"
+          "FABLE",
+          "CABLE",
+          "GABLE",
+          "SABLE"
         ],
-        "decoyWord": "CHAIRS",
+        "decoyWord": "FABLE",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 BOOK",
@@ -569,12 +570,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
         "correctWord": "BOOK",
         "decoyPool": [
-          "LAMP",
-          "VASE",
-          "CLOCK",
-          "RUG"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ],
-        "decoyWord": "LAMP",
+        "decoyWord": "BROOK",
         "faintAbove": {
           "label": "THEMATIC LINK VIA BOOK",
           "word": "\ud83d\udd17 MATCH \u2192 BOX \u2192 CAR",
@@ -596,12 +597,12 @@
         "stemBadge": "\ud83d\udd17 MATCHBOOK LINK (BOOK -> MATCH)",
         "correctWord": "MATCH",
         "decoyPool": [
-          "TORCH",
-          "FLAME",
-          "SPARK",
-          "EMBER"
+          "HATCH",
+          "LATCH",
+          "THATCH",
+          "SNATCH"
         ],
-        "decoyWord": "TORCH",
+        "decoyWord": "HATCH",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 3/4",
           "word": "[ ? ] \u2192 BOX \u2192 CAR",
@@ -623,12 +624,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
         "correctWord": "BOX",
         "decoyPool": [
-          "BAG",
-          "JAR",
-          "CAN",
-          "TIN"
+          "FOX",
+          "OX",
+          "PHLOX",
+          "PARADOX"
         ],
-        "decoyWord": "BAG",
+        "decoyWord": "FOX",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 CAR",
@@ -650,12 +651,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
         "correctWord": "CAR",
         "decoyPool": [
-          "TRUCK",
-          "TRAIN",
-          "BIKE",
-          "BOAT"
+          "SCAR",
+          "CZAR",
+          "GUITAR",
+          "RADAR"
         ],
-        "decoyWord": "TRUCK",
+        "decoyWord": "SCAR",
         "faintAbove": {
           "label": "THEMATIC LINK VIA CAR",
           "word": "\ud83d\udd17 POOL \u2192 TABLE \u2192 TOP",
@@ -677,12 +678,12 @@
         "stemBadge": "\ud83d\udd17 CARPOOL LINK (CAR -> POOL)",
         "correctWord": "POOL",
         "decoyPool": [
-          "POND",
-          "LAKE",
-          "MOAT",
-          "WELL"
+          "SPOOL",
+          "DROOL",
+          "FOOL",
+          "GHOUL"
         ],
-        "decoyWord": "POND",
+        "decoyWord": "SPOOL",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 4/4",
           "word": "[ ? ] \u2192 TABLE \u2192 TOP",
@@ -704,12 +705,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
         "correctWord": "TABLE",
         "decoyPool": [
-          "CHAIR",
-          "BENCH",
-          "COUCH",
-          "STOOL"
+          "FABLE",
+          "GABLE",
+          "SABLE",
+          "CRADLE"
         ],
-        "decoyWord": "CHAIR",
+        "decoyWord": "FABLE",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 TOP",
@@ -731,12 +732,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
         "correctWord": "TOP",
         "decoyPool": [
-          "EDGE",
-          "BASE",
-          "RIM",
-          "CORNER"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ],
-        "decoyWord": "EDGE",
+        "decoyWord": "MOP",
         "faintAbove": {
           "label": "THEMATIC LINK VIA TOP",
           "word": "\ud83d\udd17 + ZONE 2: DOG",
@@ -758,12 +759,12 @@
         "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TOP -> DOG)",
         "correctWord": "DOG",
         "decoyPool": [
-          "WOLF",
-          "BEAR",
-          "LION",
-          "HAWK"
+          "FOG",
+          "BOG",
+          "CLOG",
+          "FROG"
         ],
-        "decoyWord": "WOLF",
+        "decoyWord": "FOG",
         "faintAbove": {
           "label": "BRIDGING TO ZONE 2 STEM",
           "word": "DOG \u2192 HOUSE",
@@ -784,12 +785,12 @@
         "displayStem": "DOG",
         "correctWord": "HOUSE",
         "decoyPool": [
-          "COLLAR",
-          "LEASH",
-          "KENNEL",
-          "BONE"
+          "BLOUSE",
+          "GROUSE",
+          "SPOUSE",
+          "DOUSE"
         ],
-        "decoyWord": "COLLAR",
+        "decoyWord": "BLOUSE",
         "compoundHint": "DOG + HOUSE = Doghouse"
       },
       {
@@ -800,12 +801,12 @@
         "displayStem": "HOUSE",
         "correctWord": "FLY",
         "decoyPool": [
-          "MOTH",
-          "WASP",
-          "BEETLE",
-          "SPIDER"
+          "SHY",
+          "SLY",
+          "PRY",
+          "WRY"
         ],
-        "decoyWord": "MOTH",
+        "decoyWord": "SHY",
         "compoundHint": "HOUSE + FLY = Housefly"
       },
       {
@@ -816,12 +817,12 @@
         "displayStem": "FLY",
         "correctWord": "TRAP",
         "decoyPool": [
-          "CAGE",
-          "SNARE",
-          "HOOK",
-          "BAIT"
+          "CLAP",
+          "SLAP",
+          "SCRAP",
+          "CHAP"
         ],
-        "decoyWord": "CAGE",
+        "decoyWord": "CLAP",
         "compoundHint": "FLY + TRAP = Flytrap"
       },
       {
@@ -832,12 +833,12 @@
         "displayStem": "TRAP",
         "correctWord": "DOOR",
         "decoyPool": [
-          "GATE",
-          "WALL",
-          "ROOF",
-          "FLOOR"
+          "SNORE",
+          "CHORE",
+          "SPORE",
+          "ROAR"
         ],
-        "decoyWord": "GATE",
+        "decoyWord": "SNORE",
         "compoundHint": "TRAP + DOOR = Trapdoor"
       },
       {
@@ -848,12 +849,12 @@
         "displayStem": "DOOR",
         "correctWord": "BELL",
         "decoyPool": [
-          "CHIME",
-          "GONG",
-          "HORN",
-          "SIREN"
+          "SPELL",
+          "YELL",
+          "SMELL",
+          "DWELL"
         ],
-        "decoyWord": "CHIME",
+        "decoyWord": "SPELL",
         "compoundHint": "DOOR + BELL = Doorbell"
       },
       {
@@ -864,12 +865,12 @@
         "displayStem": "BELL",
         "correctWord": "PEPPER",
         "decoyPool": [
-          "ONION",
-          "GARLIC",
-          "CARROT",
-          "CELERY"
+          "LEPER",
+          "STEPPER",
+          "ZIPPER",
+          "SLIPPER"
         ],
-        "decoyWord": "ONION",
+        "decoyWord": "LEPER",
         "compoundHint": "BELL + PEPPER = Bell pepper"
       },
       {
@@ -880,12 +881,12 @@
         "displayStem": "PEPPER",
         "correctWord": "MINT",
         "decoyPool": [
-          "SAGE",
-          "THYME",
-          "BASIL",
-          "CLOVE"
+          "LINT",
+          "FLINT",
+          "SQUINT",
+          "SPRINT"
         ],
-        "decoyWord": "SAGE",
+        "decoyWord": "LINT",
         "compoundHint": "PEPPER + MINT = Peppermint"
       },
       {
@@ -896,12 +897,12 @@
         "displayStem": "MINT",
         "correctWord": "GREEN",
         "decoyPool": [
-          "BLUE",
-          "PINK",
-          "GOLD",
-          "GRAY"
+          "QUEEN",
+          "SCREEN",
+          "SPLEEN",
+          "PREEN"
         ],
-        "decoyWord": "BLUE",
+        "decoyWord": "QUEEN",
         "compoundHint": "MINT + GREEN = Mint green"
       },
       {
@@ -912,12 +913,12 @@
         "displayStem": "GREEN",
         "correctWord": "LIGHT",
         "decoyPool": [
-          "FLAME",
-          "SPARK",
-          "TORCH",
-          "GLOW"
+          "FRIGHT",
+          "KNIGHT",
+          "PLIGHT",
+          "FLIGHT"
         ],
-        "decoyWord": "FLAME",
+        "decoyWord": "FRIGHT",
         "compoundHint": "GREEN + LIGHT = Greenlight"
       },
       {
@@ -928,12 +929,12 @@
         "displayStem": "LIGHT",
         "correctWord": "YEAR",
         "decoyPool": [
-          "MONTH",
-          "WEEK",
-          "HOUR",
-          "SECOND"
+          "SPEAR",
+          "SMEAR",
+          "SHEAR",
+          "TEAR"
         ],
-        "decoyWord": "MONTH",
+        "decoyWord": "SPEAR",
         "compoundHint": "LIGHT + YEAR = Lightyear"
       },
       {
@@ -944,12 +945,12 @@
         "displayStem": "YEAR",
         "correctWord": "BOOK",
         "decoyPool": [
-          "PAGE",
-          "CARD",
-          "NOTE",
-          "LIST"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ],
-        "decoyWord": "PAGE",
+        "decoyWord": "BROOK",
         "compoundHint": "YEAR + BOOK = Yearbook"
       },
       {
@@ -960,12 +961,12 @@
         "displayStem": "BOOK",
         "correctWord": "WORM",
         "decoyPool": [
-          "SLUG",
-          "MOTH",
-          "TOAD",
-          "CRAB"
+          "STORM",
+          "GERM",
+          "TERM",
+          "FIRM"
         ],
-        "decoyWord": "SLUG",
+        "decoyWord": "STORM",
         "compoundHint": "BOOK + WORM = Bookworm"
       },
       {
@@ -976,12 +977,12 @@
         "displayStem": "WORM",
         "correctWord": "HOLE",
         "decoyPool": [
-          "CAVE",
-          "PIT",
-          "DITCH",
-          "WELL"
+          "MOLE",
+          "FOAL",
+          "SHOAL",
+          "STOLE"
         ],
-        "decoyWord": "CAVE",
+        "decoyWord": "MOLE",
         "compoundHint": "WORM + HOLE = Wormhole"
       },
       {
@@ -992,12 +993,12 @@
         "displayStem": "HOLE",
         "correctWord": "CARD",
         "decoyPool": [
-          "DECK",
-          "CHIP",
-          "DICE",
-          "COIN"
+          "LARD",
+          "BARD",
+          "SHARD",
+          "GUARD"
         ],
-        "decoyWord": "DECK",
+        "decoyWord": "LARD",
         "compoundHint": "HOLE + CARD = Hole card"
       },
       {
@@ -1008,12 +1009,12 @@
         "displayStem": "CARD",
         "correctWord": "SHARK",
         "decoyPool": [
-          "WHALE",
-          "TROUT",
-          "SQUID",
-          "CORAL"
+          "LARK",
+          "SPARK",
+          "BARK",
+          "DARK"
         ],
-        "decoyWord": "WHALE",
+        "decoyWord": "LARK",
         "compoundHint": "CARD + SHARK = Cardsharp / Card shark"
       },
       {
@@ -1024,12 +1025,12 @@
         "displayStem": "SHARK",
         "correctWord": "TANK",
         "decoyPool": [
-          "POOL",
-          "POND",
-          "BOWL",
-          "LAKE"
+          "PRANK",
+          "CRANK",
+          "PLANK",
+          "FLANK"
         ],
-        "decoyWord": "POOL",
+        "decoyWord": "PRANK",
         "compoundHint": "SHARK + TANK = Shark tank"
       },
       {
@@ -1040,12 +1041,12 @@
         "displayStem": "TANK",
         "correctWord": "TOP",
         "decoyPool": [
-          "HAT",
-          "CAP",
-          "COAT",
-          "BELT"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ],
-        "decoyWord": "HAT",
+        "decoyWord": "MOP",
         "compoundHint": "TANK + TOP = Tank top"
       },
       {
@@ -1056,12 +1057,12 @@
         "displayStem": "TOP",
         "correctWord": "COAT",
         "decoyPool": [
-          "VEST",
-          "SHIRT",
-          "SCARF",
-          "GLOVE"
+          "GOAT",
+          "MOAT",
+          "THROAT",
+          "GLOAT"
         ],
-        "decoyWord": "VEST",
+        "decoyWord": "GOAT",
         "compoundHint": "TOP + COAT = Topcoat"
       },
       {
@@ -1072,12 +1073,12 @@
         "displayStem": "COAT",
         "correctWord": "RACK",
         "decoyPool": [
-          "HOOK",
-          "SHELF",
-          "STAND",
-          "TRAY"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ],
-        "decoyWord": "HOOK",
+        "decoyWord": "QUACK",
         "compoundHint": "COAT + RACK = Coatrack"
       },
       {
@@ -1088,12 +1089,12 @@
         "displayStem": "RACK",
         "correctWord": "UP",
         "decoyPool": [
-          "IN",
-          "ON",
-          "BY",
-          "AT"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ],
-        "decoyWord": "IN",
+        "decoyWord": "PUP",
         "compoundHint": "RACK + UP = Rack up"
       },
       {
@@ -1104,12 +1105,12 @@
         "displayStem": "UP",
         "correctWord": "BEAT",
         "decoyPool": [
-          "SONG",
-          "NOTE",
-          "DRUM",
-          "CHORD"
+          "WHEAT",
+          "CHEAT",
+          "TREAT",
+          "PLEAT"
         ],
-        "decoyWord": "SONG",
+        "decoyWord": "WHEAT",
         "compoundHint": "UP + BEAT = Upbeat"
       },
       {
@@ -1120,12 +1121,12 @@
         "displayStem": "BEAT",
         "correctWord": "DOWN",
         "decoyPool": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ],
-        "decoyWord": "AWAY",
+        "decoyWord": "CLOWN",
         "compoundHint": "BEAT + DOWN = Beatdown"
       },
       {
@@ -1136,12 +1137,12 @@
         "displayStem": "DOWN",
         "correctWord": "POUR",
         "decoyPool": [
-          "DRIP",
-          "DROP",
-          "MIST",
-          "SOAK"
+          "SNORE",
+          "CHORE",
+          "SPORE",
+          "ROAR"
         ],
-        "decoyWord": "DRIP",
+        "decoyWord": "SNORE",
         "compoundHint": "DOWN + POUR = Downpour"
       },
       {
@@ -1152,12 +1153,12 @@
         "displayStem": "POUR",
         "correctWord": "OVER",
         "decoyPool": [
-          "INTO",
-          "UPON",
-          "UNTO",
-          "FROM"
+          "CLOVER",
+          "PLOVER",
+          "ROVER",
+          "DROVER"
         ],
-        "decoyWord": "INTO",
+        "decoyWord": "CLOVER",
         "compoundHint": "POUR + OVER = Pour-over"
       },
       {
@@ -1168,12 +1169,12 @@
         "displayStem": "OVER",
         "correctWord": "SLEEP",
         "decoyPool": [
-          "DREAM",
-          "SNORE",
-          "YAWN",
-          "NAP"
+          "SHEEP",
+          "SWEEP",
+          "CREEP",
+          "STEEP"
         ],
-        "decoyWord": "DREAM",
+        "decoyWord": "SHEEP",
         "compoundHint": "OVER + SLEEP = Oversleep"
       },
       {
@@ -1184,12 +1185,12 @@
         "displayStem": "SLEEP",
         "correctWord": "WALK",
         "decoyPool": [
-          "PACE",
-          "DASH",
-          "JOG",
-          "SKIP"
+          "CHALK",
+          "HAWK",
+          "STALK",
+          "SQUAWK"
         ],
-        "decoyWord": "PACE",
+        "decoyWord": "CHALK",
         "compoundHint": "SLEEP + WALK = Sleepwalk"
       },
       {
@@ -1200,12 +1201,12 @@
         "displayStem": "WALK",
         "correctWord": "OUT",
         "decoyPool": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ],
-        "decoyWord": "OFF",
+        "decoyWord": "TROUT",
         "compoundHint": "WALK + OUT = Walkout"
       },
       {
@@ -1216,12 +1217,12 @@
         "displayStem": "OUT",
         "correctWord": "BURST",
         "decoyPool": [
-          "BLAST",
-          "SPARK",
-          "FLASH",
-          "PULSE"
+          "THIRST",
+          "FIRST",
+          "WORST",
+          "HEARSE"
         ],
-        "decoyWord": "BLAST",
+        "decoyWord": "THIRST",
         "compoundHint": "OUT + BURST = Outburst"
       }
     ]
@@ -1229,6 +1230,7 @@
   {
     "vineNumber": 143,
     "dateKey": "2026-11-02",
+    "lexiconVersion": "v5_cross_domain_guardrail",
     "themeId": 1,
     "title": "Sunlit Conservatory",
     "chainSetIndex": 1,
@@ -1243,26 +1245,26 @@
         "part2Hint": "SUN + FLOWER = Sunflower",
         "part3Hint": "FLOWER + POT = Flowerpot (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "GARDEN",
-          "PETAL",
-          "LEAF",
-          "BRANCH"
+          "TOWER",
+          "COWARD",
+          "CHOWDER",
+          "POWDER"
         ],
         "part3Decoys": [
-          "VASE",
-          "BOWL",
-          "TRAY",
-          "JUG"
+          "BLOT",
+          "KNOT",
+          "TROT",
+          "YACHT"
         ],
         "thematicLink": {
           "nextPart1": "BELLY",
           "connection": "Compound Link (Pot -> Belly)",
           "hint": "POT + BELLY = Potbelly (Links to BELLY \u2192 BUTTON \u2192 HOLE)",
           "decoys": [
-            "ELBOW",
-            "ANKLE",
-            "WRIST",
-            "THUMB"
+            "JELLY",
+            "CELLO",
+            "FELLOW",
+            "TRELLIS"
           ]
         }
       },
@@ -1276,26 +1278,26 @@
         "part2Hint": "BELLY + BUTTON = Belly button",
         "part3Hint": "BUTTON + HOLE = Buttonhole (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "ZIPPER",
-          "BUCKLE",
-          "COLLAR",
-          "POCKET"
+          "MUTTON",
+          "GLUTTON",
+          "CARTON",
+          "PISTON"
         ],
         "part3Decoys": [
-          "LOOP",
-          "SEAM",
-          "KNOT",
-          "STITCH"
+          "MOLE",
+          "FOAL",
+          "SHOAL",
+          "STOLE"
         ],
         "thematicLink": {
           "nextPart1": "PUNCH",
           "connection": "Tool Link (Hole -> Punch)",
           "hint": "HOLE + PUNCH = Hole punch (Links to PUNCH \u2192 BOWL \u2192 CUT)",
           "decoys": [
-            "STAMP",
-            "PRESS",
-            "CLAMP",
-            "DRILL"
+            "LUNCH",
+            "HUNCH",
+            "CRUNCH",
+            "BRUNCH"
           ]
         }
       },
@@ -1309,26 +1311,26 @@
         "part2Hint": "PUNCH + BOWL = Punch bowl",
         "part3Hint": "BOWL + CUT = Bowl cut (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "PLATE",
-          "SPOON",
-          "PITCHER",
-          "SAUCER"
+          "OWL",
+          "HOWL",
+          "SCOWL",
+          "PROWL"
         ],
         "part3Decoys": [
-          "TRIM",
-          "CURL",
-          "BRAID",
-          "PART"
+          "HUT",
+          "STRUT",
+          "GLUT",
+          "SMUT"
         ],
         "thematicLink": {
           "nextPart1": "BACK",
           "connection": "Compound Link (Cut -> Back)",
           "hint": "CUT + BACK = Cutback (Links to BACK \u2192 STAGE \u2192 COACH)",
           "decoys": [
-            "FRONT",
-            "LEFT",
-            "NEAR",
-            "HIGH"
+            "QUACK",
+            "SNACK",
+            "SHACK",
+            "PLAQUE"
           ]
         }
       },
@@ -1342,26 +1344,26 @@
         "part2Hint": "BACK + STAGE = Backstage",
         "part3Hint": "STAGE + COACH = Stagecoach (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "SCENE",
-          "DRAMA",
-          "ACTOR",
-          "SCRIPT"
+          "CAGE",
+          "SAGE",
+          "WAGE",
+          "GAUGE"
         ],
         "part3Decoys": [
-          "WAGON",
-          "TRAIN",
-          "TRUCK",
-          "CABIN"
+          "ROACH",
+          "POACH",
+          "BROOCH",
+          "LOACH"
         ],
         "thematicLink": {
           "nextPart1": "CLASS",
           "connection": "Zone 2 Bridge (Coach -> Class)",
           "hint": "COACH + CLASS = Coach class (Enters Zone 2: The Stem)",
           "decoys": [
-            "GRADE",
-            "GROUP",
-            "LEVEL",
-            "RANK"
+            "BRASS",
+            "LASS",
+            "CRASS",
+            "MORASS"
           ]
         }
       }
@@ -1372,10 +1374,10 @@
         "target": "ROOM",
         "hint": "CLASS + ROOM = Classroom",
         "decoys": [
-          "HALL",
-          "DESK",
-          "YARD",
-          "WING"
+          "BROOM",
+          "GROOM",
+          "GLOOM",
+          "LOOM"
         ]
       },
       {
@@ -1383,10 +1385,10 @@
         "target": "MATE",
         "hint": "ROOM + MATE = Roommate",
         "decoys": [
-          "GUEST",
-          "HOST",
-          "BOSS",
-          "PEER"
+          "CRATE",
+          "SKATE",
+          "SLATE",
+          "GRATE"
         ]
       },
       {
@@ -1394,10 +1396,10 @@
         "target": "SHIP",
         "hint": "MATE + SHIP = Mateship / Shipmate",
         "decoys": [
-          "BOAT",
-          "RAFT",
-          "DECK",
-          "BARGE"
+          "CHIP",
+          "WHIP",
+          "DRIP",
+          "BLIP"
         ]
       },
       {
@@ -1405,10 +1407,10 @@
         "target": "WRECK",
         "hint": "SHIP + WRECK = Shipwreck",
         "decoys": [
-          "CRASH",
-          "STORM",
-          "FLOOD",
-          "SHOAL"
+          "SPECK",
+          "FLECK",
+          "PECK",
+          "NECK"
         ]
       },
       {
@@ -1416,10 +1418,10 @@
         "target": "BALL",
         "hint": "WRECK + BALL = Wrecking ball",
         "decoys": [
-          "ROCK",
-          "IRON",
-          "BEAM",
-          "CHAIN"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ]
       },
       {
@@ -1427,10 +1429,10 @@
         "target": "POINT",
         "hint": "BALL + POINT = Ballpoint",
         "decoys": [
-          "EDGE",
-          "TIP",
-          "MARK",
-          "DOT"
+          "JOINT",
+          "ANOINT",
+          "CONJOINT",
+          "DISJOINT"
         ]
       },
       {
@@ -1438,10 +1440,10 @@
         "target": "BLANK",
         "hint": "POINT + BLANK = Point-blank",
         "decoys": [
-          "EMPTY",
-          "CLEAR",
-          "PLAIN",
-          "SHARP"
+          "PRANK",
+          "CRANK",
+          "PLANK",
+          "FLANK"
         ]
       },
       {
@@ -1449,10 +1451,10 @@
         "target": "CHECK",
         "hint": "BLANK + CHECK = Blank check",
         "decoys": [
-          "BILL",
-          "COIN",
-          "NOTE",
-          "LOAN"
+          "SPECK",
+          "FLECK",
+          "PECK",
+          "NECK"
         ]
       },
       {
@@ -1460,10 +1462,10 @@
         "target": "POINT",
         "hint": "CHECK + POINT = Checkpoint",
         "decoys": [
-          "GATE",
-          "POST",
-          "STOP",
-          "SIGN"
+          "JOINT",
+          "ANOINT",
+          "CONJOINT",
+          "DISJOINT"
         ]
       },
       {
@@ -1471,10 +1473,10 @@
         "target": "GUARD",
         "hint": "POINT + GUARD = Point guard",
         "decoys": [
-          "COACH",
-          "SCOUT",
-          "JUDGE",
-          "REFEREE"
+          "LARD",
+          "BARD",
+          "SHARD",
+          "CHARD"
         ]
       },
       {
@@ -1482,10 +1484,10 @@
         "target": "RAIL",
         "hint": "GUARD + RAIL = Guardrail",
         "decoys": [
-          "WALL",
-          "GATE",
-          "POST",
-          "BEAM"
+          "SNAIL",
+          "QUAIL",
+          "FLAIL",
+          "GRAIL"
         ]
       },
       {
@@ -1493,10 +1495,10 @@
         "target": "ROAD",
         "hint": "RAIL + ROAD = Railroad",
         "decoys": [
-          "PATH",
-          "LANE",
-          "TRAIL",
-          "STREET"
+          "TOAD",
+          "GOAD",
+          "ABODE",
+          "EPISODE"
         ]
       },
       {
@@ -1504,10 +1506,10 @@
         "target": "BLOCK",
         "hint": "ROAD + BLOCK = Roadblock",
         "decoys": [
-          "CONE",
-          "DITCH",
-          "CURB",
-          "FENCE"
+          "FLOCK",
+          "CLOCK",
+          "SMOCK",
+          "CROCK"
         ]
       },
       {
@@ -1515,10 +1517,10 @@
         "target": "HEAD",
         "hint": "BLOCK + HEAD = Blockhead",
         "decoys": [
-          "MIND",
-          "FACE",
-          "CHIN",
-          "NECK"
+          "BREAD",
+          "THREAD",
+          "DREAD",
+          "TREAD"
         ]
       },
       {
@@ -1526,10 +1528,10 @@
         "target": "START",
         "hint": "HEAD + START = Head start",
         "decoys": [
-          "PACE",
-          "JUMP",
-          "STEP",
-          "DASH"
+          "TART",
+          "DART",
+          "CART",
+          "CHART"
         ]
       },
       {
@@ -1537,10 +1539,10 @@
         "target": "UP",
         "hint": "START + UP = Startup",
         "decoys": [
-          "ON",
-          "IN",
-          "BY",
-          "TO"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ]
       }
     ],
@@ -1550,10 +1552,10 @@
         "target": "TURN",
         "hint": "UP + TURN = Upturn",
         "decoys": [
-          "SPIN",
-          "ROLL",
-          "TWIST",
-          "BEND"
+          "CHURN",
+          "FERN",
+          "STERN",
+          "YEARN"
         ]
       },
       {
@@ -1561,10 +1563,10 @@
         "target": "OVER",
         "hint": "TURN + OVER = Turnover",
         "decoys": [
-          "INTO",
-          "FROM",
-          "UPON",
-          "WITH"
+          "CLOVER",
+          "PLOVER",
+          "ROVER",
+          "DROVER"
         ]
       },
       {
@@ -1572,10 +1574,10 @@
         "target": "LOOK",
         "hint": "OVER + LOOK = Overlook",
         "decoys": [
-          "GAZE",
-          "PEEK",
-          "STARE",
-          "BLINK"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ]
       },
       {
@@ -1583,10 +1585,10 @@
         "target": "OUT",
         "hint": "LOOK + OUT = Lookout",
         "decoys": [
-          "FAR",
-          "LOW",
-          "OFF",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ]
       },
       {
@@ -1594,10 +1596,10 @@
         "target": "LINE",
         "hint": "OUT + LINE = Outline",
         "decoys": [
-          "PATH",
-          "MARK",
-          "EDGE",
-          "LOOP"
+          "PINE",
+          "VINE",
+          "SWINE",
+          "TWINE"
         ]
       },
       {
@@ -1605,10 +1607,10 @@
         "target": "UP",
         "hint": "LINE + UP = Lineup",
         "decoys": [
-          "ON",
-          "AT",
-          "TO",
-          "OF"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ]
       },
       {
@@ -1616,10 +1618,10 @@
         "target": "HOLD",
         "hint": "UP + HOLD = Uphold",
         "decoys": [
-          "GRIP",
-          "GRASP",
-          "CLASP",
-          "CLING"
+          "MOLD",
+          "GOLD",
+          "SCOLD",
+          "SCALD"
         ]
       },
       {
@@ -1627,10 +1629,10 @@
         "target": "BACK",
         "hint": "HOLD + BACK = Holdback",
         "decoys": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ]
       },
       {
@@ -1638,10 +1640,10 @@
         "target": "FIRE",
         "hint": "BACK + FIRE = Backfire",
         "decoys": [
-          "HEAT",
-          "COAL",
-          "FLAME",
-          "SPARK"
+          "CHOIR",
+          "BRIAR",
+          "FRIAR",
+          "SPIRE"
         ]
       },
       {
@@ -1649,10 +1651,10 @@
         "target": "WORK",
         "hint": "FIRE + WORK = Firework",
         "decoys": [
-          "PLAY",
-          "SHOW",
-          "GLOW",
-          "BOOM"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ]
       },
       {
@@ -1660,10 +1662,10 @@
         "target": "OUT",
         "hint": "WORK + OUT = Workout",
         "decoys": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ]
       },
       {
@@ -1671,10 +1673,10 @@
         "target": "RUN",
         "hint": "OUT + RUN = Outrun",
         "decoys": [
-          "JOG",
-          "HOP",
-          "SKIP",
-          "DASH"
+          "BUN",
+          "NUN",
+          "PUN",
+          "STUN"
         ]
       }
     ],
@@ -1688,12 +1690,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
         "correctWord": "FLOWER",
         "decoyPool": [
-          "GARDEN",
-          "PETAL",
-          "LEAF",
-          "BRANCH"
+          "TOWER",
+          "COWARD",
+          "CHOWDER",
+          "POWDER"
         ],
-        "decoyWord": "GARDEN",
+        "decoyWord": "TOWER",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 POT",
@@ -1715,12 +1717,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
         "correctWord": "POT",
         "decoyPool": [
-          "VASE",
-          "BOWL",
-          "TRAY",
-          "JUG"
+          "BLOT",
+          "KNOT",
+          "TROT",
+          "YACHT"
         ],
-        "decoyWord": "VASE",
+        "decoyWord": "BLOT",
         "faintAbove": {
           "label": "THEMATIC LINK VIA POT",
           "word": "\ud83d\udd17 BELLY \u2192 BUTTON \u2192 HOLE",
@@ -1742,12 +1744,12 @@
         "stemBadge": "\ud83d\udd17 COMPOUND LINK (POT -> BELLY)",
         "correctWord": "BELLY",
         "decoyPool": [
-          "ELBOW",
-          "ANKLE",
-          "WRIST",
-          "THUMB"
+          "JELLY",
+          "CELLO",
+          "FELLOW",
+          "TRELLIS"
         ],
-        "decoyWord": "ELBOW",
+        "decoyWord": "JELLY",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 2/4",
           "word": "[ ? ] \u2192 BUTTON \u2192 HOLE",
@@ -1769,12 +1771,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
         "correctWord": "BUTTON",
         "decoyPool": [
-          "ZIPPER",
-          "BUCKLE",
-          "COLLAR",
-          "POCKET"
+          "MUTTON",
+          "GLUTTON",
+          "CARTON",
+          "PISTON"
         ],
-        "decoyWord": "ZIPPER",
+        "decoyWord": "MUTTON",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 HOLE",
@@ -1796,12 +1798,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
         "correctWord": "HOLE",
         "decoyPool": [
-          "LOOP",
-          "SEAM",
-          "KNOT",
-          "STITCH"
+          "MOLE",
+          "FOAL",
+          "SHOAL",
+          "STOLE"
         ],
-        "decoyWord": "LOOP",
+        "decoyWord": "MOLE",
         "faintAbove": {
           "label": "THEMATIC LINK VIA HOLE",
           "word": "\ud83d\udd17 PUNCH \u2192 BOWL \u2192 CUT",
@@ -1823,12 +1825,12 @@
         "stemBadge": "\ud83d\udd17 TOOL LINK (HOLE -> PUNCH)",
         "correctWord": "PUNCH",
         "decoyPool": [
-          "STAMP",
-          "PRESS",
-          "CLAMP",
-          "DRILL"
+          "LUNCH",
+          "HUNCH",
+          "CRUNCH",
+          "BRUNCH"
         ],
-        "decoyWord": "STAMP",
+        "decoyWord": "LUNCH",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 3/4",
           "word": "[ ? ] \u2192 BOWL \u2192 CUT",
@@ -1850,12 +1852,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
         "correctWord": "BOWL",
         "decoyPool": [
-          "PLATE",
-          "SPOON",
-          "PITCHER",
-          "SAUCER"
+          "OWL",
+          "HOWL",
+          "SCOWL",
+          "PROWL"
         ],
-        "decoyWord": "PLATE",
+        "decoyWord": "OWL",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 CUT",
@@ -1877,12 +1879,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
         "correctWord": "CUT",
         "decoyPool": [
-          "TRIM",
-          "CURL",
-          "BRAID",
-          "PART"
+          "HUT",
+          "STRUT",
+          "GLUT",
+          "SMUT"
         ],
-        "decoyWord": "TRIM",
+        "decoyWord": "HUT",
         "faintAbove": {
           "label": "THEMATIC LINK VIA CUT",
           "word": "\ud83d\udd17 BACK \u2192 STAGE \u2192 COACH",
@@ -1904,12 +1906,12 @@
         "stemBadge": "\ud83d\udd17 COMPOUND LINK (CUT -> BACK)",
         "correctWord": "BACK",
         "decoyPool": [
-          "FRONT",
-          "LEFT",
-          "NEAR",
-          "HIGH"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ],
-        "decoyWord": "FRONT",
+        "decoyWord": "QUACK",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 4/4",
           "word": "[ ? ] \u2192 STAGE \u2192 COACH",
@@ -1931,12 +1933,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
         "correctWord": "STAGE",
         "decoyPool": [
-          "SCENE",
-          "DRAMA",
-          "ACTOR",
-          "SCRIPT"
+          "CAGE",
+          "SAGE",
+          "WAGE",
+          "GAUGE"
         ],
-        "decoyWord": "SCENE",
+        "decoyWord": "CAGE",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 COACH",
@@ -1958,12 +1960,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
         "correctWord": "COACH",
         "decoyPool": [
-          "WAGON",
-          "TRAIN",
-          "TRUCK",
-          "CABIN"
+          "ROACH",
+          "POACH",
+          "BROOCH",
+          "LOACH"
         ],
-        "decoyWord": "WAGON",
+        "decoyWord": "ROACH",
         "faintAbove": {
           "label": "THEMATIC LINK VIA COACH",
           "word": "\ud83d\udd17 + ZONE 2: CLASS",
@@ -1985,12 +1987,12 @@
         "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (COACH -> CLASS)",
         "correctWord": "CLASS",
         "decoyPool": [
-          "GRADE",
-          "GROUP",
-          "LEVEL",
-          "RANK"
+          "BRASS",
+          "LASS",
+          "CRASS",
+          "MORASS"
         ],
-        "decoyWord": "GRADE",
+        "decoyWord": "BRASS",
         "faintAbove": {
           "label": "BRIDGING TO ZONE 2 STEM",
           "word": "CLASS \u2192 ROOM",
@@ -2011,12 +2013,12 @@
         "displayStem": "CLASS",
         "correctWord": "ROOM",
         "decoyPool": [
-          "HALL",
-          "DESK",
-          "YARD",
-          "WING"
+          "BROOM",
+          "GROOM",
+          "GLOOM",
+          "LOOM"
         ],
-        "decoyWord": "HALL",
+        "decoyWord": "BROOM",
         "compoundHint": "CLASS + ROOM = Classroom"
       },
       {
@@ -2027,12 +2029,12 @@
         "displayStem": "ROOM",
         "correctWord": "MATE",
         "decoyPool": [
-          "GUEST",
-          "HOST",
-          "BOSS",
-          "PEER"
+          "CRATE",
+          "SKATE",
+          "SLATE",
+          "GRATE"
         ],
-        "decoyWord": "GUEST",
+        "decoyWord": "CRATE",
         "compoundHint": "ROOM + MATE = Roommate"
       },
       {
@@ -2043,12 +2045,12 @@
         "displayStem": "MATE",
         "correctWord": "SHIP",
         "decoyPool": [
-          "BOAT",
-          "RAFT",
-          "DECK",
-          "BARGE"
+          "CHIP",
+          "WHIP",
+          "DRIP",
+          "BLIP"
         ],
-        "decoyWord": "BOAT",
+        "decoyWord": "CHIP",
         "compoundHint": "MATE + SHIP = Mateship / Shipmate"
       },
       {
@@ -2059,12 +2061,12 @@
         "displayStem": "SHIP",
         "correctWord": "WRECK",
         "decoyPool": [
-          "CRASH",
-          "STORM",
-          "FLOOD",
-          "SHOAL"
+          "SPECK",
+          "FLECK",
+          "PECK",
+          "NECK"
         ],
-        "decoyWord": "CRASH",
+        "decoyWord": "SPECK",
         "compoundHint": "SHIP + WRECK = Shipwreck"
       },
       {
@@ -2075,12 +2077,12 @@
         "displayStem": "WRECK",
         "correctWord": "BALL",
         "decoyPool": [
-          "ROCK",
-          "IRON",
-          "BEAM",
-          "CHAIN"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ],
-        "decoyWord": "ROCK",
+        "decoyWord": "SHAWL",
         "compoundHint": "WRECK + BALL = Wrecking ball"
       },
       {
@@ -2091,12 +2093,12 @@
         "displayStem": "BALL",
         "correctWord": "POINT",
         "decoyPool": [
-          "EDGE",
-          "TIP",
-          "MARK",
-          "DOT"
+          "JOINT",
+          "ANOINT",
+          "CONJOINT",
+          "DISJOINT"
         ],
-        "decoyWord": "EDGE",
+        "decoyWord": "JOINT",
         "compoundHint": "BALL + POINT = Ballpoint"
       },
       {
@@ -2107,12 +2109,12 @@
         "displayStem": "POINT",
         "correctWord": "BLANK",
         "decoyPool": [
-          "EMPTY",
-          "CLEAR",
-          "PLAIN",
-          "SHARP"
+          "PRANK",
+          "CRANK",
+          "PLANK",
+          "FLANK"
         ],
-        "decoyWord": "EMPTY",
+        "decoyWord": "PRANK",
         "compoundHint": "POINT + BLANK = Point-blank"
       },
       {
@@ -2123,12 +2125,12 @@
         "displayStem": "BLANK",
         "correctWord": "CHECK",
         "decoyPool": [
-          "BILL",
-          "COIN",
-          "NOTE",
-          "LOAN"
+          "SPECK",
+          "FLECK",
+          "PECK",
+          "NECK"
         ],
-        "decoyWord": "BILL",
+        "decoyWord": "SPECK",
         "compoundHint": "BLANK + CHECK = Blank check"
       },
       {
@@ -2139,12 +2141,12 @@
         "displayStem": "CHECK",
         "correctWord": "POINT",
         "decoyPool": [
-          "GATE",
-          "POST",
-          "STOP",
-          "SIGN"
+          "JOINT",
+          "ANOINT",
+          "CONJOINT",
+          "DISJOINT"
         ],
-        "decoyWord": "GATE",
+        "decoyWord": "JOINT",
         "compoundHint": "CHECK + POINT = Checkpoint"
       },
       {
@@ -2155,12 +2157,12 @@
         "displayStem": "POINT",
         "correctWord": "GUARD",
         "decoyPool": [
-          "COACH",
-          "SCOUT",
-          "JUDGE",
-          "REFEREE"
+          "LARD",
+          "BARD",
+          "SHARD",
+          "CHARD"
         ],
-        "decoyWord": "COACH",
+        "decoyWord": "LARD",
         "compoundHint": "POINT + GUARD = Point guard"
       },
       {
@@ -2171,12 +2173,12 @@
         "displayStem": "GUARD",
         "correctWord": "RAIL",
         "decoyPool": [
-          "WALL",
-          "GATE",
-          "POST",
-          "BEAM"
+          "SNAIL",
+          "QUAIL",
+          "FLAIL",
+          "GRAIL"
         ],
-        "decoyWord": "WALL",
+        "decoyWord": "SNAIL",
         "compoundHint": "GUARD + RAIL = Guardrail"
       },
       {
@@ -2187,12 +2189,12 @@
         "displayStem": "RAIL",
         "correctWord": "ROAD",
         "decoyPool": [
-          "PATH",
-          "LANE",
-          "TRAIL",
-          "STREET"
+          "TOAD",
+          "GOAD",
+          "ABODE",
+          "EPISODE"
         ],
-        "decoyWord": "PATH",
+        "decoyWord": "TOAD",
         "compoundHint": "RAIL + ROAD = Railroad"
       },
       {
@@ -2203,12 +2205,12 @@
         "displayStem": "ROAD",
         "correctWord": "BLOCK",
         "decoyPool": [
-          "CONE",
-          "DITCH",
-          "CURB",
-          "FENCE"
+          "FLOCK",
+          "CLOCK",
+          "SMOCK",
+          "CROCK"
         ],
-        "decoyWord": "CONE",
+        "decoyWord": "FLOCK",
         "compoundHint": "ROAD + BLOCK = Roadblock"
       },
       {
@@ -2219,12 +2221,12 @@
         "displayStem": "BLOCK",
         "correctWord": "HEAD",
         "decoyPool": [
-          "MIND",
-          "FACE",
-          "CHIN",
-          "NECK"
+          "BREAD",
+          "THREAD",
+          "DREAD",
+          "TREAD"
         ],
-        "decoyWord": "MIND",
+        "decoyWord": "BREAD",
         "compoundHint": "BLOCK + HEAD = Blockhead"
       },
       {
@@ -2235,12 +2237,12 @@
         "displayStem": "HEAD",
         "correctWord": "START",
         "decoyPool": [
-          "PACE",
-          "JUMP",
-          "STEP",
-          "DASH"
+          "TART",
+          "DART",
+          "CART",
+          "CHART"
         ],
-        "decoyWord": "PACE",
+        "decoyWord": "TART",
         "compoundHint": "HEAD + START = Head start"
       },
       {
@@ -2251,12 +2253,12 @@
         "displayStem": "START",
         "correctWord": "UP",
         "decoyPool": [
-          "ON",
-          "IN",
-          "BY",
-          "TO"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ],
-        "decoyWord": "ON",
+        "decoyWord": "PUP",
         "compoundHint": "START + UP = Startup"
       },
       {
@@ -2267,12 +2269,12 @@
         "displayStem": "UP",
         "correctWord": "TURN",
         "decoyPool": [
-          "SPIN",
-          "ROLL",
-          "TWIST",
-          "BEND"
+          "CHURN",
+          "FERN",
+          "STERN",
+          "YEARN"
         ],
-        "decoyWord": "SPIN",
+        "decoyWord": "CHURN",
         "compoundHint": "UP + TURN = Upturn"
       },
       {
@@ -2283,12 +2285,12 @@
         "displayStem": "TURN",
         "correctWord": "OVER",
         "decoyPool": [
-          "INTO",
-          "FROM",
-          "UPON",
-          "WITH"
+          "CLOVER",
+          "PLOVER",
+          "ROVER",
+          "DROVER"
         ],
-        "decoyWord": "INTO",
+        "decoyWord": "CLOVER",
         "compoundHint": "TURN + OVER = Turnover"
       },
       {
@@ -2299,12 +2301,12 @@
         "displayStem": "OVER",
         "correctWord": "LOOK",
         "decoyPool": [
-          "GAZE",
-          "PEEK",
-          "STARE",
-          "BLINK"
+          "BROOK",
+          "CROOK",
+          "ROOK",
+          "SHOOK"
         ],
-        "decoyWord": "GAZE",
+        "decoyWord": "BROOK",
         "compoundHint": "OVER + LOOK = Overlook"
       },
       {
@@ -2315,12 +2317,12 @@
         "displayStem": "LOOK",
         "correctWord": "OUT",
         "decoyPool": [
-          "FAR",
-          "LOW",
-          "OFF",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ],
-        "decoyWord": "FAR",
+        "decoyWord": "TROUT",
         "compoundHint": "LOOK + OUT = Lookout"
       },
       {
@@ -2331,12 +2333,12 @@
         "displayStem": "OUT",
         "correctWord": "LINE",
         "decoyPool": [
-          "PATH",
-          "MARK",
-          "EDGE",
-          "LOOP"
+          "PINE",
+          "VINE",
+          "SWINE",
+          "TWINE"
         ],
-        "decoyWord": "PATH",
+        "decoyWord": "PINE",
         "compoundHint": "OUT + LINE = Outline"
       },
       {
@@ -2347,12 +2349,12 @@
         "displayStem": "LINE",
         "correctWord": "UP",
         "decoyPool": [
-          "ON",
-          "AT",
-          "TO",
-          "OF"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ],
-        "decoyWord": "ON",
+        "decoyWord": "PUP",
         "compoundHint": "LINE + UP = Lineup"
       },
       {
@@ -2363,12 +2365,12 @@
         "displayStem": "UP",
         "correctWord": "HOLD",
         "decoyPool": [
-          "GRIP",
-          "GRASP",
-          "CLASP",
-          "CLING"
+          "MOLD",
+          "GOLD",
+          "SCOLD",
+          "SCALD"
         ],
-        "decoyWord": "GRIP",
+        "decoyWord": "MOLD",
         "compoundHint": "UP + HOLD = Uphold"
       },
       {
@@ -2379,12 +2381,12 @@
         "displayStem": "HOLD",
         "correctWord": "BACK",
         "decoyPool": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ],
-        "decoyWord": "AWAY",
+        "decoyWord": "QUACK",
         "compoundHint": "HOLD + BACK = Holdback"
       },
       {
@@ -2395,12 +2397,12 @@
         "displayStem": "BACK",
         "correctWord": "FIRE",
         "decoyPool": [
-          "HEAT",
-          "COAL",
-          "FLAME",
-          "SPARK"
+          "CHOIR",
+          "BRIAR",
+          "FRIAR",
+          "SPIRE"
         ],
-        "decoyWord": "HEAT",
+        "decoyWord": "CHOIR",
         "compoundHint": "BACK + FIRE = Backfire"
       },
       {
@@ -2411,12 +2413,12 @@
         "displayStem": "FIRE",
         "correctWord": "WORK",
         "decoyPool": [
-          "PLAY",
-          "SHOW",
-          "GLOW",
-          "BOOM"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ],
-        "decoyWord": "PLAY",
+        "decoyWord": "SMIRK",
         "compoundHint": "FIRE + WORK = Firework"
       },
       {
@@ -2427,12 +2429,12 @@
         "displayStem": "WORK",
         "correctWord": "OUT",
         "decoyPool": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ],
-        "decoyWord": "OFF",
+        "decoyWord": "TROUT",
         "compoundHint": "WORK + OUT = Workout"
       },
       {
@@ -2443,12 +2445,12 @@
         "displayStem": "OUT",
         "correctWord": "RUN",
         "decoyPool": [
-          "JOG",
-          "HOP",
-          "SKIP",
-          "DASH"
+          "BUN",
+          "NUN",
+          "PUN",
+          "STUN"
         ],
-        "decoyWord": "JOG",
+        "decoyWord": "BUN",
         "compoundHint": "OUT + RUN = Outrun"
       }
     ]
@@ -2456,6 +2458,7 @@
   {
     "vineNumber": 144,
     "dateKey": "2026-11-03",
+    "lexiconVersion": "v5_cross_domain_guardrail",
     "themeId": 2,
     "title": "Crimson Canopy (Ukiyo-e)",
     "chainSetIndex": 2,
@@ -2470,26 +2473,26 @@
         "part2Hint": "SNOW + BALL = Snowball",
         "part3Hint": "BALL + PARK = Ballpark (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "PUCK",
-          "HOOP",
-          "CLUB",
-          "MITT"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ],
         "part3Decoys": [
-          "LAWN",
-          "YARD",
-          "RINK",
-          "LANE"
+          "SHARK",
+          "LARK",
+          "SPARK",
+          "BARK"
         ],
         "thematicLink": {
           "nextPart1": "BENCH",
           "connection": "Setting Link (Park -> Bench)",
           "hint": "PARK + BENCH = Park bench (Links to BENCH \u2192 MARK \u2192 DOWN)",
           "decoys": [
-            "CHAIR",
-            "STOOL",
-            "COUCH",
-            "TABLE"
+            "WRENCH",
+            "TRENCH",
+            "STENCH",
+            "QUENCH"
           ]
         }
       },
@@ -2503,26 +2506,26 @@
         "part2Hint": "BENCH + MARK = Benchmark",
         "part3Hint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "SIGN",
-          "NOTE",
-          "SPOT",
-          "LINE"
+          "SHARK",
+          "LARK",
+          "SPARK",
+          "BARK"
         ],
         "part3Decoys": [
-          "AWAY",
-          "BACK",
-          "LEFT",
-          "HIGH"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ],
         "thematicLink": {
           "nextPart1": "TOWN",
           "connection": "Compound Link (Down -> Town)",
           "hint": "DOWN + TOWN = Downtown (Links to TOWN \u2192 HOUSE \u2192 BOAT)",
           "decoys": [
-            "CITY",
-            "PORT",
-            "FORT",
-            "CAMP"
+            "CLOWN",
+            "CROWN",
+            "GOWN",
+            "FROWN"
           ]
         }
       },
@@ -2536,26 +2539,26 @@
         "part2Hint": "TOWN + HOUSE = Townhouse",
         "part3Hint": "HOUSE + BOAT = Houseboat (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "CABIN",
-          "TOWER",
-          "VILLA",
-          "MANOR"
+          "BLOUSE",
+          "GROUSE",
+          "SPOUSE",
+          "MOUSE"
         ],
         "part3Decoys": [
-          "RAFT",
-          "YACHT",
-          "BARGE",
-          "CANOE"
+          "GOAT",
+          "MOAT",
+          "THROAT",
+          "GLOAT"
         ],
         "thematicLink": {
           "nextPart1": "SHOW",
           "connection": "Compound Link (Boat -> Show)",
           "hint": "BOAT + SHOW = Boat show (Links to SHOW \u2192 CASE \u2192 WORK)",
           "decoys": [
-            "TOUR",
-            "FAIR",
-            "RACE",
-            "MEET"
+            "CROW",
+            "GLOW",
+            "DOUGH",
+            "TOE"
           ]
         }
       },
@@ -2569,26 +2572,26 @@
         "part2Hint": "SHOW + CASE = Showcase",
         "part3Hint": "CASE + WORK = Casework (\ud83c\udf38 3-Part Compound Complete!)",
         "part2Decoys": [
-          "CRATE",
-          "CHEST",
-          "TRUNK",
-          "VAULT"
+          "VASE",
+          "LACE",
+          "MACE",
+          "BRACE"
         ],
         "part3Decoys": [
-          "PLAN",
-          "TASK",
-          "DUTY",
-          "JOB"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ],
         "thematicLink": {
           "nextPart1": "HORSE",
           "connection": "Zone 2 Bridge (Work -> Horse)",
           "hint": "WORK + HORSE = Workhorse (Enters Zone 2: The Stem)",
           "decoys": [
-            "MULE",
-            "GOAT",
-            "DEER",
-            "BULL"
+            "MORSE",
+            "CORPSE",
+            "REMORSE",
+            "GORSE"
           ]
         }
       }
@@ -2599,10 +2602,10 @@
         "target": "SHOE",
         "hint": "HORSE + SHOE = Horseshoe",
         "decoys": [
-          "BOOT",
-          "SOCK",
-          "SPUR",
-          "REIN"
+          "CANOE",
+          "IGLOO",
+          "BAMBOO",
+          "KAZOO"
         ]
       },
       {
@@ -2610,10 +2613,10 @@
         "target": "STRING",
         "hint": "SHOE + STRING = Shoestring",
         "decoys": [
-          "RIBBON",
-          "BUCKLE",
-          "BUTTON",
-          "ZIPPER"
+          "SPRING",
+          "SWING",
+          "FLING",
+          "CLING"
         ]
       },
       {
@@ -2621,10 +2624,10 @@
         "target": "BEAN",
         "hint": "STRING + BEAN = String bean",
         "decoys": [
-          "PEA",
-          "CORN",
-          "BEET",
-          "KALE"
+          "QUEEN",
+          "DEAN",
+          "SPLEEN",
+          "PREEN"
         ]
       },
       {
@@ -2632,10 +2635,10 @@
         "target": "BAG",
         "hint": "BEAN + BAG = Beanbag",
         "decoys": [
-          "BOX",
-          "JAR",
-          "TUB",
-          "TIN"
+          "STAG",
+          "CRAG",
+          "BRAG",
+          "SNAG"
         ]
       },
       {
@@ -2643,10 +2646,10 @@
         "target": "PIPE",
         "hint": "BAG + PIPE = Bagpipe",
         "decoys": [
-          "DRUM",
-          "HORN",
-          "BELL",
-          "LUTE"
+          "SNIPE",
+          "STRIPE",
+          "GRIPE",
+          "SWIPE"
         ]
       },
       {
@@ -2654,10 +2657,10 @@
         "target": "DREAM",
         "hint": "PIPE + DREAM = Pipe dream",
         "decoys": [
-          "WISH",
-          "HOPE",
-          "GOAL",
-          "IDEA"
+          "CREAM",
+          "STEAM",
+          "GLEAM",
+          "SEAM"
         ]
       },
       {
@@ -2665,10 +2668,10 @@
         "target": "LAND",
         "hint": "DREAM + LAND = Dreamland",
         "decoys": [
-          "TOWN",
-          "CITY",
-          "PARK",
-          "ZONE"
+          "STRAND",
+          "BRAND",
+          "GLAND",
+          "BLAND"
         ]
       },
       {
@@ -2676,10 +2679,10 @@
         "target": "SLIDE",
         "hint": "LAND + SLIDE = Landslide",
         "decoys": [
-          "DRIFT",
-          "SHIFT",
-          "SLOPE",
-          "CLIFF"
+          "BRIDE",
+          "PRIDE",
+          "GLIDE",
+          "STRIDE"
         ]
       },
       {
@@ -2687,10 +2690,10 @@
         "target": "SHOW",
         "hint": "SLIDE + SHOW = Slideshow",
         "decoys": [
-          "FILM",
-          "PLAY",
-          "VIEW",
-          "CLIP"
+          "CROW",
+          "GLOW",
+          "DOUGH",
+          "TOE"
         ]
       },
       {
@@ -2698,10 +2701,10 @@
         "target": "DOWN",
         "hint": "SHOW + DOWN = Showdown",
         "decoys": [
-          "AWAY",
-          "BACK",
-          "LEFT",
-          "HIGH"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ]
       },
       {
@@ -2709,10 +2712,10 @@
         "target": "FALL",
         "hint": "DOWN + FALL = Downfall",
         "decoys": [
-          "DROP",
-          "SLIP",
-          "TRIP",
-          "DIVE"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ]
       },
       {
@@ -2720,10 +2723,10 @@
         "target": "BACK",
         "hint": "FALL + BACK = Fallback",
         "decoys": [
-          "LEFT",
-          "HIGH",
-          "NEAR",
-          "DEEP"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ]
       },
       {
@@ -2731,10 +2734,10 @@
         "target": "BONE",
         "hint": "BACK + BONE = Backbone",
         "decoys": [
-          "RIB",
-          "VEIN",
-          "SKIN",
-          "LUNG"
+          "CONE",
+          "DRONE",
+          "THRONE",
+          "SCONE"
         ]
       },
       {
@@ -2742,10 +2745,10 @@
         "target": "DRY",
         "hint": "BONE + DRY = Bone-dry",
         "decoys": [
-          "HOT",
-          "RAW",
-          "OLD",
-          "DIM"
+          "SHY",
+          "SLY",
+          "PRY",
+          "WRY"
         ]
       },
       {
@@ -2753,10 +2756,10 @@
         "target": "CLEAN",
         "hint": "DRY + CLEAN = Dry-clean",
         "decoys": [
-          "WASH",
-          "WIPE",
-          "RINSE",
-          "SCRUB"
+          "QUEEN",
+          "DEAN",
+          "SPLEEN",
+          "PREEN"
         ]
       },
       {
@@ -2764,10 +2767,10 @@
         "target": "UP",
         "hint": "CLEAN + UP = Cleanup",
         "decoys": [
-          "ON",
-          "IN",
-          "BY",
-          "TO"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ]
       }
     ],
@@ -2777,10 +2780,10 @@
         "target": "LIFT",
         "hint": "UP + LIFT = Uplift",
         "decoys": [
-          "DROP",
-          "DRAG",
-          "BEND",
-          "SINK"
+          "DRIFT",
+          "SWIFT",
+          "THRIFT",
+          "GIFT"
         ]
       },
       {
@@ -2788,10 +2791,10 @@
         "target": "OFF",
         "hint": "LIFT + OFF = Liftoff",
         "decoys": [
-          "FAR",
-          "LOW",
-          "NEAR",
-          "AWAY"
+          "COUGH",
+          "TROUGH",
+          "SCOFF",
+          "GOLF"
         ]
       },
       {
@@ -2799,10 +2802,10 @@
         "target": "SET",
         "hint": "OFF + SET = Offset",
         "decoys": [
-          "FIX",
-          "MIX",
-          "FIT",
-          "AIM"
+          "JET",
+          "PET",
+          "VET",
+          "FRET"
         ]
       },
       {
@@ -2810,10 +2813,10 @@
         "target": "BACK",
         "hint": "SET + BACK = Setback",
         "decoys": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ]
       },
       {
@@ -2821,10 +2824,10 @@
         "target": "DROP",
         "hint": "BACK + DROP = Backdrop",
         "decoys": [
-          "DIVE",
-          "SLIP",
-          "DRIP",
-          "LEAP"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ]
       },
       {
@@ -2832,10 +2835,10 @@
         "target": "OUT",
         "hint": "DROP + OUT = Dropout",
         "decoys": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ]
       },
       {
@@ -2843,10 +2846,10 @@
         "target": "BREAK",
         "hint": "OUT + BREAK = Outbreak",
         "decoys": [
-          "CRACK",
-          "SPLIT",
-          "SMASH",
-          "SNAP"
+          "STEAK",
+          "DRAKE",
+          "SNAKE",
+          "FLAKE"
         ]
       },
       {
@@ -2854,10 +2857,10 @@
         "target": "DOWN",
         "hint": "BREAK + DOWN = Breakdown",
         "decoys": [
-          "BACK",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ]
       },
       {
@@ -2865,10 +2868,10 @@
         "target": "SHIFT",
         "hint": "DOWN + SHIFT = Downshift",
         "decoys": [
-          "SPIN",
-          "ROLL",
           "DRIFT",
-          "GLIDE"
+          "SWIFT",
+          "THRIFT",
+          "GIFT"
         ]
       },
       {
@@ -2876,10 +2879,10 @@
         "target": "WORK",
         "hint": "SHIFT + WORK = Shiftwork",
         "decoys": [
-          "TASK",
-          "DUTY",
-          "PLAN",
-          "ROLE"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ]
       },
       {
@@ -2887,10 +2890,10 @@
         "target": "FLOW",
         "hint": "WORK + FLOW = Workflow",
         "decoys": [
-          "WAVE",
-          "TIDE",
-          "POUR",
-          "DRIP"
+          "CROW",
+          "GLOW",
+          "DOUGH",
+          "TOE"
         ]
       },
       {
@@ -2898,10 +2901,10 @@
         "target": "CHART",
         "hint": "FLOW + CHART = Flowchart",
         "decoys": [
-          "GRAPH",
-          "TABLE",
-          "SCALE",
-          "INDEX"
+          "TART",
+          "DART",
+          "CART",
+          "SMART"
         ]
       }
     ],
@@ -2915,12 +2918,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
         "correctWord": "BALL",
         "decoyPool": [
-          "PUCK",
-          "HOOP",
-          "CLUB",
-          "MITT"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ],
-        "decoyWord": "PUCK",
+        "decoyWord": "SHAWL",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 PARK",
@@ -2942,12 +2945,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
         "correctWord": "PARK",
         "decoyPool": [
-          "LAWN",
-          "YARD",
-          "RINK",
-          "LANE"
+          "SHARK",
+          "LARK",
+          "SPARK",
+          "BARK"
         ],
-        "decoyWord": "LAWN",
+        "decoyWord": "SHARK",
         "faintAbove": {
           "label": "THEMATIC LINK VIA PARK",
           "word": "\ud83d\udd17 BENCH \u2192 MARK \u2192 DOWN",
@@ -2969,12 +2972,12 @@
         "stemBadge": "\ud83d\udd17 SETTING LINK (PARK -> BENCH)",
         "correctWord": "BENCH",
         "decoyPool": [
-          "CHAIR",
-          "STOOL",
-          "COUCH",
-          "TABLE"
+          "WRENCH",
+          "TRENCH",
+          "STENCH",
+          "QUENCH"
         ],
-        "decoyWord": "CHAIR",
+        "decoyWord": "WRENCH",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 2/4",
           "word": "[ ? ] \u2192 MARK \u2192 DOWN",
@@ -2996,12 +2999,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
         "correctWord": "MARK",
         "decoyPool": [
-          "SIGN",
-          "NOTE",
-          "SPOT",
-          "LINE"
+          "SHARK",
+          "LARK",
+          "SPARK",
+          "BARK"
         ],
-        "decoyWord": "SIGN",
+        "decoyWord": "SHARK",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 DOWN",
@@ -3023,12 +3026,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
         "correctWord": "DOWN",
         "decoyPool": [
-          "AWAY",
-          "BACK",
-          "LEFT",
-          "HIGH"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ],
-        "decoyWord": "AWAY",
+        "decoyWord": "CLOWN",
         "faintAbove": {
           "label": "THEMATIC LINK VIA DOWN",
           "word": "\ud83d\udd17 TOWN \u2192 HOUSE \u2192 BOAT",
@@ -3050,12 +3053,12 @@
         "stemBadge": "\ud83d\udd17 COMPOUND LINK (DOWN -> TOWN)",
         "correctWord": "TOWN",
         "decoyPool": [
-          "CITY",
-          "PORT",
-          "FORT",
-          "CAMP"
+          "CLOWN",
+          "CROWN",
+          "GOWN",
+          "FROWN"
         ],
-        "decoyWord": "CITY",
+        "decoyWord": "CLOWN",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 3/4",
           "word": "[ ? ] \u2192 HOUSE \u2192 BOAT",
@@ -3077,12 +3080,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
         "correctWord": "HOUSE",
         "decoyPool": [
-          "CABIN",
-          "TOWER",
-          "VILLA",
-          "MANOR"
+          "BLOUSE",
+          "GROUSE",
+          "SPOUSE",
+          "MOUSE"
         ],
-        "decoyWord": "CABIN",
+        "decoyWord": "BLOUSE",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 BOAT",
@@ -3104,12 +3107,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
         "correctWord": "BOAT",
         "decoyPool": [
-          "RAFT",
-          "YACHT",
-          "BARGE",
-          "CANOE"
+          "GOAT",
+          "MOAT",
+          "THROAT",
+          "GLOAT"
         ],
-        "decoyWord": "RAFT",
+        "decoyWord": "GOAT",
         "faintAbove": {
           "label": "THEMATIC LINK VIA BOAT",
           "word": "\ud83d\udd17 SHOW \u2192 CASE \u2192 WORK",
@@ -3131,12 +3134,12 @@
         "stemBadge": "\ud83d\udd17 COMPOUND LINK (BOAT -> SHOW)",
         "correctWord": "SHOW",
         "decoyPool": [
-          "TOUR",
-          "FAIR",
-          "RACE",
-          "MEET"
+          "CROW",
+          "GLOW",
+          "DOUGH",
+          "TOE"
         ],
-        "decoyWord": "TOUR",
+        "decoyWord": "CROW",
         "faintAbove": {
           "label": "LINKING TO TRIPLET 4/4",
           "word": "[ ? ] \u2192 CASE \u2192 WORK",
@@ -3158,12 +3161,12 @@
         "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
         "correctWord": "CASE",
         "decoyPool": [
-          "CRATE",
-          "CHEST",
-          "TRUNK",
-          "VAULT"
+          "VASE",
+          "LACE",
+          "MACE",
+          "BRACE"
         ],
-        "decoyWord": "CRATE",
+        "decoyWord": "VASE",
         "faintAbove": {
           "label": "NODE 3 AHEAD \u2022 3-PART LINK",
           "word": "\ud83c\udf38 WORK",
@@ -3185,12 +3188,12 @@
         "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
         "correctWord": "WORK",
         "decoyPool": [
-          "PLAN",
-          "TASK",
-          "DUTY",
-          "JOB"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ],
-        "decoyWord": "PLAN",
+        "decoyWord": "SMIRK",
         "faintAbove": {
           "label": "THEMATIC LINK VIA WORK",
           "word": "\ud83d\udd17 + ZONE 2: HORSE",
@@ -3212,12 +3215,12 @@
         "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (WORK -> HORSE)",
         "correctWord": "HORSE",
         "decoyPool": [
-          "MULE",
-          "GOAT",
-          "DEER",
-          "BULL"
+          "MORSE",
+          "CORPSE",
+          "REMORSE",
+          "GORSE"
         ],
-        "decoyWord": "MULE",
+        "decoyWord": "MORSE",
         "faintAbove": {
           "label": "BRIDGING TO ZONE 2 STEM",
           "word": "HORSE \u2192 SHOE",
@@ -3238,12 +3241,12 @@
         "displayStem": "HORSE",
         "correctWord": "SHOE",
         "decoyPool": [
-          "BOOT",
-          "SOCK",
-          "SPUR",
-          "REIN"
+          "CANOE",
+          "IGLOO",
+          "BAMBOO",
+          "KAZOO"
         ],
-        "decoyWord": "BOOT",
+        "decoyWord": "CANOE",
         "compoundHint": "HORSE + SHOE = Horseshoe"
       },
       {
@@ -3254,12 +3257,12 @@
         "displayStem": "SHOE",
         "correctWord": "STRING",
         "decoyPool": [
-          "RIBBON",
-          "BUCKLE",
-          "BUTTON",
-          "ZIPPER"
+          "SPRING",
+          "SWING",
+          "FLING",
+          "CLING"
         ],
-        "decoyWord": "RIBBON",
+        "decoyWord": "SPRING",
         "compoundHint": "SHOE + STRING = Shoestring"
       },
       {
@@ -3270,12 +3273,12 @@
         "displayStem": "STRING",
         "correctWord": "BEAN",
         "decoyPool": [
-          "PEA",
-          "CORN",
-          "BEET",
-          "KALE"
+          "QUEEN",
+          "DEAN",
+          "SPLEEN",
+          "PREEN"
         ],
-        "decoyWord": "PEA",
+        "decoyWord": "QUEEN",
         "compoundHint": "STRING + BEAN = String bean"
       },
       {
@@ -3286,12 +3289,12 @@
         "displayStem": "BEAN",
         "correctWord": "BAG",
         "decoyPool": [
-          "BOX",
-          "JAR",
-          "TUB",
-          "TIN"
+          "STAG",
+          "CRAG",
+          "BRAG",
+          "SNAG"
         ],
-        "decoyWord": "BOX",
+        "decoyWord": "STAG",
         "compoundHint": "BEAN + BAG = Beanbag"
       },
       {
@@ -3302,12 +3305,12 @@
         "displayStem": "BAG",
         "correctWord": "PIPE",
         "decoyPool": [
-          "DRUM",
-          "HORN",
-          "BELL",
-          "LUTE"
+          "SNIPE",
+          "STRIPE",
+          "GRIPE",
+          "SWIPE"
         ],
-        "decoyWord": "DRUM",
+        "decoyWord": "SNIPE",
         "compoundHint": "BAG + PIPE = Bagpipe"
       },
       {
@@ -3318,12 +3321,12 @@
         "displayStem": "PIPE",
         "correctWord": "DREAM",
         "decoyPool": [
-          "WISH",
-          "HOPE",
-          "GOAL",
-          "IDEA"
+          "CREAM",
+          "STEAM",
+          "GLEAM",
+          "SEAM"
         ],
-        "decoyWord": "WISH",
+        "decoyWord": "CREAM",
         "compoundHint": "PIPE + DREAM = Pipe dream"
       },
       {
@@ -3334,12 +3337,12 @@
         "displayStem": "DREAM",
         "correctWord": "LAND",
         "decoyPool": [
-          "TOWN",
-          "CITY",
-          "PARK",
-          "ZONE"
+          "STRAND",
+          "BRAND",
+          "GLAND",
+          "BLAND"
         ],
-        "decoyWord": "TOWN",
+        "decoyWord": "STRAND",
         "compoundHint": "DREAM + LAND = Dreamland"
       },
       {
@@ -3350,12 +3353,12 @@
         "displayStem": "LAND",
         "correctWord": "SLIDE",
         "decoyPool": [
-          "DRIFT",
-          "SHIFT",
-          "SLOPE",
-          "CLIFF"
+          "BRIDE",
+          "PRIDE",
+          "GLIDE",
+          "STRIDE"
         ],
-        "decoyWord": "DRIFT",
+        "decoyWord": "BRIDE",
         "compoundHint": "LAND + SLIDE = Landslide"
       },
       {
@@ -3366,12 +3369,12 @@
         "displayStem": "SLIDE",
         "correctWord": "SHOW",
         "decoyPool": [
-          "FILM",
-          "PLAY",
-          "VIEW",
-          "CLIP"
+          "CROW",
+          "GLOW",
+          "DOUGH",
+          "TOE"
         ],
-        "decoyWord": "FILM",
+        "decoyWord": "CROW",
         "compoundHint": "SLIDE + SHOW = Slideshow"
       },
       {
@@ -3382,12 +3385,12 @@
         "displayStem": "SHOW",
         "correctWord": "DOWN",
         "decoyPool": [
-          "AWAY",
-          "BACK",
-          "LEFT",
-          "HIGH"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ],
-        "decoyWord": "AWAY",
+        "decoyWord": "CLOWN",
         "compoundHint": "SHOW + DOWN = Showdown"
       },
       {
@@ -3398,12 +3401,12 @@
         "displayStem": "DOWN",
         "correctWord": "FALL",
         "decoyPool": [
-          "DROP",
-          "SLIP",
-          "TRIP",
-          "DIVE"
+          "SHAWL",
+          "BRAWL",
+          "SCRAWL",
+          "DRAWL"
         ],
-        "decoyWord": "DROP",
+        "decoyWord": "SHAWL",
         "compoundHint": "DOWN + FALL = Downfall"
       },
       {
@@ -3414,12 +3417,12 @@
         "displayStem": "FALL",
         "correctWord": "BACK",
         "decoyPool": [
-          "LEFT",
-          "HIGH",
-          "NEAR",
-          "DEEP"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ],
-        "decoyWord": "LEFT",
+        "decoyWord": "QUACK",
         "compoundHint": "FALL + BACK = Fallback"
       },
       {
@@ -3430,12 +3433,12 @@
         "displayStem": "BACK",
         "correctWord": "BONE",
         "decoyPool": [
-          "RIB",
-          "VEIN",
-          "SKIN",
-          "LUNG"
+          "CONE",
+          "DRONE",
+          "THRONE",
+          "SCONE"
         ],
-        "decoyWord": "RIB",
+        "decoyWord": "CONE",
         "compoundHint": "BACK + BONE = Backbone"
       },
       {
@@ -3446,12 +3449,12 @@
         "displayStem": "BONE",
         "correctWord": "DRY",
         "decoyPool": [
-          "HOT",
-          "RAW",
-          "OLD",
-          "DIM"
+          "SHY",
+          "SLY",
+          "PRY",
+          "WRY"
         ],
-        "decoyWord": "HOT",
+        "decoyWord": "SHY",
         "compoundHint": "BONE + DRY = Bone-dry"
       },
       {
@@ -3462,12 +3465,12 @@
         "displayStem": "DRY",
         "correctWord": "CLEAN",
         "decoyPool": [
-          "WASH",
-          "WIPE",
-          "RINSE",
-          "SCRUB"
+          "QUEEN",
+          "DEAN",
+          "SPLEEN",
+          "PREEN"
         ],
-        "decoyWord": "WASH",
+        "decoyWord": "QUEEN",
         "compoundHint": "DRY + CLEAN = Dry-clean"
       },
       {
@@ -3478,12 +3481,12 @@
         "displayStem": "CLEAN",
         "correctWord": "UP",
         "decoyPool": [
-          "ON",
-          "IN",
-          "BY",
-          "TO"
+          "PUP",
+          "SUP",
+          "HICCUP",
+          "SYRUP"
         ],
-        "decoyWord": "ON",
+        "decoyWord": "PUP",
         "compoundHint": "CLEAN + UP = Cleanup"
       },
       {
@@ -3494,12 +3497,12 @@
         "displayStem": "UP",
         "correctWord": "LIFT",
         "decoyPool": [
-          "DROP",
-          "DRAG",
-          "BEND",
-          "SINK"
+          "DRIFT",
+          "SWIFT",
+          "THRIFT",
+          "GIFT"
         ],
-        "decoyWord": "DROP",
+        "decoyWord": "DRIFT",
         "compoundHint": "UP + LIFT = Uplift"
       },
       {
@@ -3510,12 +3513,12 @@
         "displayStem": "LIFT",
         "correctWord": "OFF",
         "decoyPool": [
-          "FAR",
-          "LOW",
-          "NEAR",
-          "AWAY"
+          "COUGH",
+          "TROUGH",
+          "SCOFF",
+          "GOLF"
         ],
-        "decoyWord": "FAR",
+        "decoyWord": "COUGH",
         "compoundHint": "LIFT + OFF = Liftoff"
       },
       {
@@ -3526,12 +3529,12 @@
         "displayStem": "OFF",
         "correctWord": "SET",
         "decoyPool": [
-          "FIX",
-          "MIX",
-          "FIT",
-          "AIM"
+          "JET",
+          "PET",
+          "VET",
+          "FRET"
         ],
-        "decoyWord": "FIX",
+        "decoyWord": "JET",
         "compoundHint": "OFF + SET = Offset"
       },
       {
@@ -3542,12 +3545,12 @@
         "displayStem": "SET",
         "correctWord": "BACK",
         "decoyPool": [
-          "AWAY",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "QUACK",
+          "SNACK",
+          "SHACK",
+          "PLAQUE"
         ],
-        "decoyWord": "AWAY",
+        "decoyWord": "QUACK",
         "compoundHint": "SET + BACK = Setback"
       },
       {
@@ -3558,12 +3561,12 @@
         "displayStem": "BACK",
         "correctWord": "DROP",
         "decoyPool": [
-          "DIVE",
-          "SLIP",
-          "DRIP",
-          "LEAP"
+          "MOP",
+          "CHOP",
+          "CROP",
+          "PLOP"
         ],
-        "decoyWord": "DIVE",
+        "decoyWord": "MOP",
         "compoundHint": "BACK + DROP = Backdrop"
       },
       {
@@ -3574,12 +3577,12 @@
         "displayStem": "DROP",
         "correctWord": "OUT",
         "decoyPool": [
-          "OFF",
-          "FAR",
-          "LOW",
-          "NEAR"
+          "TROUT",
+          "SPROUT",
+          "SNOUT",
+          "GROUT"
         ],
-        "decoyWord": "OFF",
+        "decoyWord": "TROUT",
         "compoundHint": "DROP + OUT = Dropout"
       },
       {
@@ -3590,12 +3593,12 @@
         "displayStem": "OUT",
         "correctWord": "BREAK",
         "decoyPool": [
-          "CRACK",
-          "SPLIT",
-          "SMASH",
-          "SNAP"
+          "STEAK",
+          "DRAKE",
+          "SNAKE",
+          "FLAKE"
         ],
-        "decoyWord": "CRACK",
+        "decoyWord": "STEAK",
         "compoundHint": "OUT + BREAK = Outbreak"
       },
       {
@@ -3606,12 +3609,12 @@
         "displayStem": "BREAK",
         "correctWord": "DOWN",
         "decoyPool": [
-          "BACK",
-          "LEFT",
-          "HIGH",
-          "NEAR"
+          "CLOWN",
+          "FROWN",
+          "CROWN",
+          "GOWN"
         ],
-        "decoyWord": "BACK",
+        "decoyWord": "CLOWN",
         "compoundHint": "BREAK + DOWN = Breakdown"
       },
       {
@@ -3622,12 +3625,12 @@
         "displayStem": "DOWN",
         "correctWord": "SHIFT",
         "decoyPool": [
-          "SPIN",
-          "ROLL",
           "DRIFT",
-          "GLIDE"
+          "SWIFT",
+          "THRIFT",
+          "GIFT"
         ],
-        "decoyWord": "SPIN",
+        "decoyWord": "DRIFT",
         "compoundHint": "DOWN + SHIFT = Downshift"
       },
       {
@@ -3638,12 +3641,12 @@
         "displayStem": "SHIFT",
         "correctWord": "WORK",
         "decoyPool": [
-          "TASK",
-          "DUTY",
-          "PLAN",
-          "ROLE"
+          "SMIRK",
+          "QUIRK",
+          "CLERK",
+          "PERK"
         ],
-        "decoyWord": "TASK",
+        "decoyWord": "SMIRK",
         "compoundHint": "SHIFT + WORK = Shiftwork"
       },
       {
@@ -3654,12 +3657,12 @@
         "displayStem": "WORK",
         "correctWord": "FLOW",
         "decoyPool": [
-          "WAVE",
-          "TIDE",
-          "POUR",
-          "DRIP"
+          "CROW",
+          "GLOW",
+          "DOUGH",
+          "TOE"
         ],
-        "decoyWord": "WAVE",
+        "decoyWord": "CROW",
         "compoundHint": "WORK + FLOW = Workflow"
       },
       {
@@ -3670,12 +3673,12 @@
         "displayStem": "FLOW",
         "correctWord": "CHART",
         "decoyPool": [
-          "GRAPH",
-          "TABLE",
-          "SCALE",
-          "INDEX"
+          "TART",
+          "DART",
+          "CART",
+          "SMART"
         ],
-        "decoyWord": "GRAPH",
+        "decoyWord": "TART",
         "compoundHint": "FLOW + CHART = Flowchart"
       }
     ]

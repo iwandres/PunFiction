@@ -223,18 +223,30 @@ def load_local_vines():
 def get_daily_vine(date_key=None):
     keys = get_calendar_keys(date_key)
     target_date = keys["dateKey"]
+    local_vines = load_local_vines()
+    local_match = None
+    for v in local_vines:
+        if v.get("dateKey") == target_date:
+            local_match = v
+            break
+    if not local_match and local_vines:
+        local_match = local_vines[0]
+
     try:
         doc = vines_col.find_one({"dateKey": target_date}, {"_id": 0})
         if doc:
+            expected_ver = local_match.get("lexiconVersion") if local_match else None
+            if expected_ver and doc.get("lexiconVersion") != expected_ver:
+                vines_col.update_one({"dateKey": target_date}, {"$set": local_match}, upsert=True)
+                return local_match
             return doc
+        elif local_match:
+            vines_col.update_one({"dateKey": local_match["dateKey"]}, {"$set": local_match}, upsert=True)
+            return local_match
     except Exception:
         pass
 
-    local_vines = load_local_vines()
-    for v in local_vines:
-        if v.get("dateKey") == target_date:
-            return v
-    return local_vines[0] if local_vines else None
+    return local_match
 
 
 def save_daily_vines(vines_list):

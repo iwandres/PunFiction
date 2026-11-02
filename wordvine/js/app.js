@@ -148,7 +148,12 @@
       fetch(`${API_BASE}/vine/today`, { mode: 'cors' })
         .then((res) => res.ok && res.json())
         .then((remoteVine) => {
-          if (remoteVine && Array.isArray(remoteVine.zone1Triplets) && remoteVine.zone1Triplets.length > 0) {
+          if (
+            remoteVine &&
+            remoteVine.lexiconVersion === Data.LEXICON_VERSION &&
+            Array.isArray(remoteVine.zone1Triplets) &&
+            remoteVine.zone1Triplets.length > 0
+          ) {
             const existingIdx = this.dailyVines.findIndex((v) => v.dateKey === remoteVine.dateKey);
             if (existingIdx >= 0) {
               this.dailyVines[existingIdx] = remoteVine;
