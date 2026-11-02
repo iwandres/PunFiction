@@ -13,6 +13,11 @@ import sys
 # Import database wrappers
 import database as boxoffice_database
 import travelreviews_database as travelreviews_database
+try:
+    import wordvine_database as wordvine_database
+except Exception as e:
+    print(f"Warning importing wordvine_database: {e}")
+    wordvine_database = None
 
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -334,6 +339,29 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
             return
 
+        # --- Word Vine APIs (/api/wordvine/...) ---
+        if req_path in ['/api/wordvine/vine/today', '/api/vine/today'] and wordvine_database:
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            date_key = query_params.get('dateKey', [None])[0]
+            vine = wordvine_database.get_daily_vine(date_key)
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(vine or {}).encode('utf-8'))
+            return
+        elif (req_path.startswith('/api/wordvine/leaderboard/') or req_path.startswith('/api/leaderboard/')) and wordvine_database:
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            date_key = query_params.get('dateKey', [None])[0]
+            tier = req_path.rstrip('/').split('/')[-1]
+            lb = wordvine_database.get_leaderboard(tier, date_key)
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(lb).encode('utf-8'))
+            return
+
         # 2. Unified File Router based on paths
         is_tt = self.is_travelreviews_context(req_path)
         
@@ -572,6 +600,44 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         
         is_tt = self.is_travelreviews_context(req_path)
         
+        # --- Word Vine POST APIs (/api/wordvine/...) ---
+        if req_path in ['/api/wordvine/vine/submit', '/api/vine/submit'] and wordvine_database:
+            try:
+                payload = json.loads(post_data.decode('utf-8'))
+                res_obj = wordvine_database.record_run_submission(
+                    payload.get('deviceToken'),
+                    payload.get('handle'),
+                    payload.get('dateKey'),
+                    payload.get('choices', []),
+                    payload.get('deltasMs', []),
+                    payload.get('finalWaitMs', 0)
+                )
+                status_code = 200 if res_obj.get('accepted') else 422
+                self.send_response(status_code)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(res_obj).encode('utf-8'))
+            except Exception as e:
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"accepted": False, "error": str(e)}).encode('utf-8'))
+            return
+        elif req_path in ['/api/wordvine/admin/vines', '/api/admin/vines'] and wordvine_database:
+            try:
+                vines_data = json.loads(post_data.decode('utf-8'))
+                wordvine_database.save_daily_vines(vines_data)
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "count": len(vines_data)}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+            return
+
         # --- Shared POST Save APIs ---
         if req_path in ['/api/puzzles', '/api/boxoffice/puzzles', '/api/travelreviews/puzzles']:
             file = DAILY_GAMES_FILE if (is_tt or 'travelreviews' in req_path) else BOXOFFICE_PUZZLES_FILE
