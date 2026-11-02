@@ -111,6 +111,13 @@
     }
 
     loadAvailableVines() {
+      // Clear stale localStorage cache if lexicon version was upgraded
+      if (Data.LEXICON_VERSION && localStorage.getItem('wordvine_lexicon_version') !== Data.LEXICON_VERSION) {
+        localStorage.removeItem('wordvine_admin_vines');
+        localStorage.removeItem('wordvine_official_2026-11-01');
+        localStorage.setItem('wordvine_lexicon_version', Data.LEXICON_VERSION);
+      }
+
       // Check if Admin Studio saved custom preview vines in localStorage
       try {
         const customRaw = localStorage.getItem('wordvine_admin_vines');

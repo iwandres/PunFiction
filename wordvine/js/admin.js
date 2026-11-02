@@ -30,6 +30,10 @@
     }
 
     loadVines() {
+      if (Data.LEXICON_VERSION && localStorage.getItem('wordvine_lexicon_version') !== Data.LEXICON_VERSION) {
+        localStorage.removeItem('wordvine_admin_vines');
+        localStorage.setItem('wordvine_lexicon_version', Data.LEXICON_VERSION);
+      }
       try {
         const saved = localStorage.getItem('wordvine_admin_vines');
         if (saved) {
