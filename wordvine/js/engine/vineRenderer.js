@@ -622,6 +622,35 @@
       ctx.quadraticCurveTo(tipX + 38, tipY - 24, tipX + 88, tipY - 54);
       ctx.stroke();
 
+      // Zone 1 Faint Upper Tendril connecting the Fork up to the Faint Node 3 Preview above
+      if (simState.zoneId === 1) {
+        ctx.save();
+        ctx.setLineDash([5, 5]);
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = activePalette.vein;
+        ctx.globalAlpha = 0.42;
+
+        // Left fork -> Faint Node 3 above
+        ctx.beginPath();
+        ctx.moveTo(tipX - 68, tipY - 64);
+        ctx.quadraticCurveTo(tipX - 32, tipY - 96, tipX, tipY - 122);
+        ctx.stroke();
+
+        // Right fork -> Faint Node 3 above
+        ctx.beginPath();
+        ctx.moveTo(tipX + 68, tipY - 64);
+        ctx.quadraticCurveTo(tipX + 32, tipY - 96, tipX, tipY - 122);
+        ctx.stroke();
+
+        // Faint Node 3 meristem bud
+        ctx.setLineDash([]);
+        ctx.fillStyle = activePalette.vein;
+        ctx.beginPath();
+        ctx.arc(tipX, tipY - 122, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
       // Glowing apical meristem bud at active tip
       ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : activePalette.vein;
       ctx.beginPath();

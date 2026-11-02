@@ -49,6 +49,9 @@
 
       // DOM elements
       this.fovealAnchor = document.getElementById('foveal-anchor');
+      this.fovealNode3Wrap = document.getElementById('foveal-node3-wrap');
+      this.fovealNode3Label = document.getElementById('foveal-node3-label');
+      this.fovealNode3Word = document.getElementById('foveal-node3-word');
       this.leftPill = document.getElementById('left-pill');
       this.rightPill = document.getElementById('right-pill');
       this.leftWordEl = document.getElementById('left-word');
@@ -56,6 +59,11 @@
       this.stemWordEl = document.getElementById('stem-word');
       this.stemZoneBadge = document.getElementById('stem-zone-badge');
       this.tripletPipBar = document.getElementById('triplet-pip-bar');
+      this.tripletSlotEls = [
+        document.getElementById('triplet-slot-1'),
+        document.getElementById('triplet-slot-2'),
+        document.getElementById('triplet-slot-3')
+      ];
       this.pipBuds = [
         document.getElementById('pip-1'),
         document.getElementById('pip-2'),
@@ -453,7 +461,7 @@
     }
 
     /**
-     * Synchronizes the Foveal Choice words, Zone classes, and 3-Part Triplet Pip Bar
+     * Synchronizes the Foveal Choice words, Faint Node 3 Preview above, Zone classes, and 3-Part Linked Compound Chain Bar
      */
     syncFovealDOM() {
       const node = this.activeVine.nodes[this.simState.nodeIndex];
@@ -462,7 +470,7 @@
       document.body.classList.remove('zone-1', 'zone-2', 'zone-3');
       document.body.classList.add(`zone-${node.zoneId}`);
 
-      this.stemWordEl.textContent = node.stemWord;
+      this.stemWordEl.textContent = node.displayStem || node.stemWord;
 
       // Determine left vs right words from node.leftRightSeed
       const leftWord = node.leftRightSeed === 0 ? node.correctWord : node.decoyWord;
@@ -470,23 +478,72 @@
       this.leftWordEl.textContent = leftWord;
       this.rightWordEl.textContent = rightWord;
 
-      // Update Stem Zone Badge
+      // Update Stem Zone Badge, Faint Node 3 Above, and 3-Part Linked Slots
       if (node.zoneId === 1) {
-        this.stemZoneBadge.textContent = 'ZONE 1 • 3-PART ROOTS';
+        const nextNode = this.activeVine.nodes[this.simState.nodeIndex + 1];
+        const step = node.tripletStep || 2;
+        this.stemZoneBadge.textContent = node.stemBadge || 'ZONE 1 • 3-PART COMPOUND';
         this.tripletPipBar.classList.remove('hidden');
-        // Highlight buds (● ● ○) according to tripletStep (1, 2, 3)
-        const step = node.tripletStep || 1;
+
+        // 1. Update Faint Node 3 Preview floating above the Left/Right fork
+        if (this.fovealNode3Wrap) {
+          this.fovealNode3Wrap.classList.remove('hidden');
+          const faint = node.faintAbove || {
+            label: step === 2 ? 'NODE 3 AHEAD • 3-PART LINK' : 'NEXT LINKED TRIPLET',
+            word: nextNode ? `🌸 ${nextNode.correctWord}` : '🌸 BLOOM',
+            isNextTriplet: step !== 2
+          };
+          this.fovealNode3Wrap.classList.toggle('is-next-triplet', Boolean(faint.isNextTriplet));
+          if (this.fovealNode3Label) this.fovealNode3Label.textContent = faint.label;
+          if (this.fovealNode3Word) this.fovealNode3Word.textContent = faint.word;
+        }
+
+        // 2. Update 3-Part Linked Word Slots beneath the stem card
+        const slots = node.tripletSlots || [
+          node.stemWord,
+          step === 2 ? '[ ? ]' : node.correctWord,
+          step === 3 ? '🌸 [ ? ]' : (nextNode ? `🌸 ${nextNode.correctWord}` : '🌸')
+        ];
+        this.tripletSlotEls.forEach((slotEl, idx) => {
+          if (!slotEl) return;
+          slotEl.textContent = slots[idx] || '';
+          slotEl.classList.remove('filled', 'active-pick', 'faint-preview');
+          if (step === 2) {
+            // Choosing Part 2 of 3: Slot 0 is filled, Slot 1 is active [ ? ], Slot 2 is faint Node 3 preview
+            if (idx === 0) slotEl.classList.add('filled');
+            else if (idx === 1) slotEl.classList.add('active-pick');
+            else slotEl.classList.add('faint-preview');
+          } else if (step === 3) {
+            // Choosing Part 3 of 3 (Bloom): Slots 0 & 1 are filled, Slot 2 is active [ ? ]
+            if (idx < 2) slotEl.classList.add('filled');
+            else slotEl.classList.add('active-pick');
+          } else {
+            // Step 1 (Thematic Link Bridge between Triplet N's 3rd word and Triplet N+1's 1st word)
+            if (idx === 0) slotEl.classList.add('filled');
+            else if (idx === 1) slotEl.classList.add('active-pick');
+            else slotEl.classList.add('faint-preview');
+          }
+        });
+
+        // 3. Highlight buds (● ● ○) according to tripletStep
         this.pipBuds.forEach((bud, idx) => {
           bud.classList.toggle('filled', idx < step);
           bud.classList.toggle('bloom-step', idx === 2);
         });
-        this.pipLabel.textContent = step === 3 ? '🌸 BLOOM' : `${step}/3`;
+        this.pipLabel.textContent =
+          step === 3
+            ? '🌸 PART 3 OF 3 (BLOOM)'
+            : step === 2
+              ? 'PART 2 OF 3'
+              : '🔗 LINK TO NEXT TRIPLET';
       } else if (node.zoneId === 2) {
         this.stemZoneBadge.textContent = '+ ZONE 2 • 2-PART PIVOT';
         this.tripletPipBar.classList.add('hidden');
+        if (this.fovealNode3Wrap) this.fovealNode3Wrap.classList.add('hidden');
       } else {
         this.stemZoneBadge.textContent = '~ ZONE 3 • PARTICLE SPRINT';
         this.tripletPipBar.classList.add('hidden');
+        if (this.fovealNode3Wrap) this.fovealNode3Wrap.classList.add('hidden');
       }
     }
 
@@ -550,7 +607,8 @@
         this.simState.yVine,
         this.simState.yCam
       );
-      const clampedScreenY = Math.max(135, Math.min(window.innerHeight - 115, tipScreenY - 38));
+      const minTopY = this.simState.zoneId === 1 ? 195 : 135;
+      const clampedScreenY = Math.max(minTopY, Math.min(window.innerHeight - 125, tipScreenY - 38));
       this.fovealAnchor.style.top = `${clampedScreenY}px`;
 
       // Render HD Canvas

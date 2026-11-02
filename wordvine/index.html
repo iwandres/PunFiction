@@ -50,6 +50,15 @@
 
   <!-- Foveal Choice Layout (Tracks Active Vine Tip Y_vine in Real Time) -->
   <main id="foveal-anchor">
+    <!-- Zone 1 Faint Node 3 Preview Above the Active Fork -->
+    <div id="foveal-node3-wrap" class="foveal-node3-wrap">
+      <div id="foveal-node3-card" class="foveal-node3-card">
+        <span id="foveal-node3-label" class="foveal-node3-label">NODE 3 AHEAD • 3-PART LINK</span>
+        <div id="foveal-node3-word" class="foveal-node3-word">🌸 CUP</div>
+      </div>
+      <div class="foveal-node3-connector" aria-hidden="true"></div>
+    </div>
+
     <div class="candidate-row">
       <button id="left-pill" class="word-pill left-pill" type="button">
         <span class="pill-key-hint">← LEFT / A</span>
@@ -64,16 +73,25 @@
 
     <div class="stem-node-wrap">
       <div class="stem-card">
-        <span id="stem-zone-badge" class="stem-zone-badge">ZONE 1 • 3-PART ROOTS</span>
+        <span id="stem-zone-badge" class="stem-zone-badge">ZONE 1 • 3-PART COMPOUND (1/4)</span>
         <div id="stem-word" class="stem-word-text">PEANUT</div>
       </div>
 
-      <!-- Zone 1 3-Part Triplet Pip Bar (● ● ○) -->
+      <!-- Zone 1 3-Part Linked Compound Chain Bar -->
       <div id="triplet-pip-bar" class="triplet-pip-bar">
-        <span id="pip-1" class="pip-bud filled"></span>
-        <span id="pip-2" class="pip-bud"></span>
-        <span id="pip-3" class="pip-bud bloom-step"></span>
-        <span id="pip-label" class="pip-label">1/3</span>
+        <div class="triplet-slots-row">
+          <span id="triplet-slot-1" class="triplet-slot filled">PEANUT</span>
+          <span class="triplet-arrow">→</span>
+          <span id="triplet-slot-2" class="triplet-slot active-pick">?</span>
+          <span class="triplet-arrow">→</span>
+          <span id="triplet-slot-3" class="triplet-slot faint-preview">🌸 CUP</span>
+        </div>
+        <div class="triplet-pips-mini">
+          <span id="pip-1" class="pip-bud filled"></span>
+          <span id="pip-2" class="pip-bud"></span>
+          <span id="pip-3" class="pip-bud bloom-step"></span>
+          <span id="pip-label" class="pip-label">PART 2 OF 3</span>
+        </div>
       </div>
     </div>
   </main>
@@ -91,9 +109,9 @@
         <div class="zone-guide-item">
           <div>
             <strong>🌱 Zone 1: The Roots (Nodes 1–12)</strong>
-            <span>3-Part Triplets with 🌸 Triple-Bloom Boosts</span>
+            <span>Linked 3-Part Compounds with Faint Node 3 Preview &amp; 🌸 Bloom Boosts</span>
           </div>
-          <span class="zone-example">PEANUT → BUTTER → CUP</span>
+          <span class="zone-example">PEANUT → BUTTER → CUP 🔗 COFFEE → TABLE → BOOK</span>
         </div>
 
         <div class="zone-guide-item">
