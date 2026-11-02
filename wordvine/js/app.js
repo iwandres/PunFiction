@@ -36,6 +36,8 @@
       this.dailyVines = this.loadAvailableVines();
       this.currentVineIndex = 0;
       this.activeVine = this.dailyVines[0];
+      this.runAttemptCount = 0;
+      this.rebuildActivePuzzle(0);
       this.simState = Physics.createSimulationState(0);
 
       // Replay telemetry for server-side verification
@@ -146,21 +148,27 @@
       fetch(`${API_BASE}/vine/today`, { mode: 'cors' })
         .then((res) => res.ok && res.json())
         .then((remoteVine) => {
-          if (remoteVine && Array.isArray(remoteVine.nodes) && remoteVine.nodes.length > 0) {
+          if (remoteVine && Array.isArray(remoteVine.zone1Triplets) && remoteVine.zone1Triplets.length > 0) {
             const existingIdx = this.dailyVines.findIndex((v) => v.dateKey === remoteVine.dateKey);
             if (existingIdx >= 0) {
               this.dailyVines[existingIdx] = remoteVine;
+              if (this.currentVineIndex === existingIdx && this.simState.nodesCompleted === 0) {
+                this.activeVine = this.dailyVines[existingIdx];
+                this.rebuildActivePuzzle(this.runAttemptCount);
+                this.syncFovealDOM();
+              }
             }
           }
         })
         .catch(() => {});
 
-      // Check URL params for Admin Test-Play overrides (?vine=0&zone=2)
+      // Check URL params for day selection (?vine=0)
       const params = new URLSearchParams(window.location.search);
       const vineIdxParam = Number(params.get('vine'));
       if (Number.isInteger(vineIdxParam) && this.dailyVines[vineIdxParam]) {
         this.currentVineIndex = vineIdxParam;
         this.activeVine = this.dailyVines[vineIdxParam];
+        this.rebuildActivePuzzle(0);
       }
 
       // Apply theme from active vine
@@ -256,14 +264,24 @@
       document.getElementById('btn-switch-vine').addEventListener('click', () => {
         this.currentVineIndex = (this.currentVineIndex + 1) % this.dailyVines.length;
         this.activeVine = this.dailyVines[this.currentVineIndex];
+        this.runAttemptCount = 0;
+        this.rebuildActivePuzzle(0);
         this.renderer.setTheme(this.activeVine.themeId || 0);
         this.updateThemeButtonLabel();
         this.syncStartModalMetadata();
         this.syncFovealDOM();
       });
 
+      const startLbBtn = document.getElementById('btn-start-leaderboard');
+      if (startLbBtn) {
+        startLbBtn.addEventListener('click', () => {
+          this.openLeaderboardModal('daily');
+        });
+      }
+
       document.getElementById('btn-retry-practice').addEventListener('click', () => {
         this.deathModal.classList.add('hidden');
+        this.runAttemptCount += 1;
         this.startNewRun(0);
       });
 
@@ -292,6 +310,20 @@
           this.openLeaderboardModal(tier);
         });
       });
+    }
+
+    /**
+     * Dynamically creates a fresh puzzle node chain for the active vine:
+     * - Places correct & decoy words in randomized Left (0) or Right (1) positions on every run
+     * - Samples fresh decoys from each compound's validated decoyPool
+     * - Rotates across linked 3-part compound chains on second-chance / practice replays
+     */
+    rebuildActivePuzzle(attemptCount = 0) {
+      if (this.activeVine && typeof Data.createDynamicPuzzleNodes === 'function') {
+        this.activeVine.nodes = Data.createDynamicPuzzleNodes(this.activeVine, {
+          attemptCount
+        });
+      }
     }
 
     updateThemeButtonLabel() {
@@ -333,16 +365,20 @@
       this.leftPill.classList.remove('snipped-wrong', 'snipped-correct');
       this.rightPill.classList.remove('snipped-wrong', 'snipped-correct');
 
+      const alreadyPlayed = this.hasPlayedOfficialToday(this.activeVine.dateKey);
+      this.isOfficialAttempt = !alreadyPlayed && startNodeIndex === 0;
+      this.hudModeBadge.textContent = this.isOfficialAttempt ? 'OFFICIAL DAILY' : 'PRACTICE MODE';
+
+      // Build a fresh puzzle with randomized Left/Right positions & decoys (and rotated compound chain on replay)
+      const effectiveAttempt = this.isOfficialAttempt ? 0 : Math.max(1, this.runAttemptCount);
+      this.rebuildActivePuzzle(effectiveAttempt);
+
       this.simState = Physics.createSimulationState(startNodeIndex);
       this.runChoices = [];
       this.runDeltasMs = [];
       this.bufferedInput = null;
       this.lastKeystrokeTimeMs = performance.now();
       this.lastFrameTimeMs = performance.now();
-
-      const alreadyPlayed = this.hasPlayedOfficialToday(this.activeVine.dateKey);
-      this.isOfficialAttempt = !alreadyPlayed && startNodeIndex === 0;
-      this.hudModeBadge.textContent = this.isOfficialAttempt ? 'OFFICIAL DAILY' : 'PRACTICE MODE';
 
       this.renderer.resetVine(this.simState.yVine, this.simState.zoneId);
       this.syncFovealDOM();
@@ -384,7 +420,15 @@
       const dtKeystroke = Math.max(20, Math.round(nowMs - this.lastKeystrokeTimeMs));
       this.lastKeystrokeTimeMs = nowMs;
 
-      this.runChoices.push(choiceSide);
+      const currentNode = this.activeVine.nodes[this.simState.nodeIndex];
+      const pickedWord =
+        currentNode && choiceSide === currentNode.leftRightSeed
+          ? currentNode.correctWord
+          : currentNode
+            ? currentNode.decoyWord
+            : String(choiceSide);
+
+      this.runChoices.push(pickedWord);
       this.runDeltasMs.push(dtKeystroke);
 
       // Visual pill pop feedback

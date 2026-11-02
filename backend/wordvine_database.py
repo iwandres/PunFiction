@@ -146,7 +146,12 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
             break
 
         curr_node = vine_nodes[node_index]
-        is_correct = int(choice) == int(curr_node.get("leftRightSeed", 0))
+        if isinstance(choice, str) and not choice.strip().isdigit():
+            is_correct = choice.strip().upper() == str(curr_node.get("correctWord", "")).strip().upper()
+        elif "leftRightSeed" in curr_node:
+            is_correct = int(choice) == int(curr_node.get("leftRightSeed", 0))
+        else:
+            is_correct = bool(choice)
         if not is_correct:
             status = "SNIPPED"
             break

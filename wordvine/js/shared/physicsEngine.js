@@ -212,14 +212,17 @@
   }
 
   /**
-   * Processes a player binary choice (0 = Left, 1 = Right) on the current node
+   * Processes a player choice (0 = Left, 1 = Right, or chosen word string) on the current node
    */
   function applyPlayerChoice(state, vineNodes, choiceSide) {
     if (state.status !== 'PLAYING') return { accepted: false, state };
     const currentNode = vineNodes[state.nodeIndex];
     if (!currentNode) return { accepted: false, state };
 
-    const isCorrect = choiceSide === currentNode.leftRightSeed;
+    const isCorrect =
+      typeof choiceSide === 'string' && isNaN(Number(choiceSide))
+        ? choiceSide.trim().toUpperCase() === String(currentNode.correctWord || '').trim().toUpperCase()
+        : Number(choiceSide) === Number(currentNode.leftRightSeed);
 
     if (!isCorrect) {
       // Lexical Strike (Wrong Choice): instant stem snap

@@ -2,1863 +2,3681 @@
   {
     "vineNumber": 142,
     "dateKey": "2026-11-01",
-    "title": "The Midnight Circuit",
     "themeId": 0,
-    "startWord": "PEANUT",
-    "nodes": [
+    "title": "Midnight Bioluminescence",
+    "chainSetIndex": 0,
+    "zone1Triplets": [
       {
-        "index": 0,
-        "stemWord": "PEANUT",
-        "correctWord": "BUTTER",
-        "decoyWord": "WALNUT",
-        "leftRightSeed": 0,
-        "zoneId": 1,
-        "edgeType": "triplet_1_2",
-        "tripletStep": 2,
-        "compoundHint": "Peanut butter cup",
-        "explanation": "PEANUT + BUTTER + CUP forms the 3-part compound Peanut butter cup; WALNUT is another nut.",
-        "displayStem": "PEANUT",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
-        "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 CUP"
-        },
-        "tripletSlots": [
+        "id": "peanut_butter_cup",
+        "parts": [
           "PEANUT",
-          "?",
+          "BUTTER",
           "CUP"
+        ],
+        "part2Hint": "PEANUT + BUTTER = Peanut butter",
+        "part3Hint": "BUTTER + CUP = Buttercup (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "SHELL",
+          "CRUST",
+          "GRAVY",
+          "GLAZE"
+        ],
+        "part3Decoys": [
+          "PLATE",
+          "FORK",
+          "TRAY",
+          "SAUCER"
+        ],
+        "thematicLink": {
+          "nextPart1": "COFFEE",
+          "connection": "Drinkware Link (Cup -> Coffee)",
+          "hint": "CUP \u2194 COFFEE = Coffee cup (Links to COFFEE \u2192 TABLE \u2192 BOOK)",
+          "decoys": [
+            "WATER",
+            "JUICE",
+            "GRAVY",
+            "CIDER"
+          ]
+        }
+      },
+      {
+        "id": "coffee_table_book",
+        "parts": [
+          "COFFEE",
+          "TABLE",
+          "BOOK"
+        ],
+        "part2Hint": "COFFEE + TABLE = Coffee table",
+        "part3Hint": "TABLE + BOOK = Table book (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "CHAIRS",
+          "SOFA",
+          "STOOL",
+          "DESK"
+        ],
+        "part3Decoys": [
+          "LAMP",
+          "VASE",
+          "CLOCK",
+          "RUG"
+        ],
+        "thematicLink": {
+          "nextPart1": "MATCH",
+          "connection": "Matchbook Link (Book -> Match)",
+          "hint": "BOOK \u2194 MATCH = Matchbook (Links to MATCH \u2192 BOX \u2192 CAR)",
+          "decoys": [
+            "TORCH",
+            "FLAME",
+            "SPARK",
+            "EMBER"
+          ]
+        }
+      },
+      {
+        "id": "match_box_car",
+        "parts": [
+          "MATCH",
+          "BOX",
+          "CAR"
+        ],
+        "part2Hint": "MATCH + BOX = Matchbox",
+        "part3Hint": "BOX + CAR = Boxcar (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "BAG",
+          "JAR",
+          "CAN",
+          "TIN"
+        ],
+        "part3Decoys": [
+          "TRUCK",
+          "TRAIN",
+          "BIKE",
+          "BOAT"
+        ],
+        "thematicLink": {
+          "nextPart1": "POOL",
+          "connection": "Carpool Link (Car -> Pool)",
+          "hint": "CAR + POOL = Carpool (Links to POOL \u2192 TABLE \u2192 TOP)",
+          "decoys": [
+            "POND",
+            "LAKE",
+            "MOAT",
+            "WELL"
+          ]
+        }
+      },
+      {
+        "id": "pool_table_top",
+        "parts": [
+          "POOL",
+          "TABLE",
+          "TOP"
+        ],
+        "part2Hint": "POOL + TABLE = Pool table",
+        "part3Hint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "CHAIR",
+          "BENCH",
+          "COUCH",
+          "STOOL"
+        ],
+        "part3Decoys": [
+          "EDGE",
+          "BASE",
+          "RIM",
+          "CORNER"
+        ],
+        "thematicLink": {
+          "nextPart1": "DOG",
+          "connection": "Zone 2 Bridge (Top -> Dog)",
+          "hint": "TOP + DOG = Top dog (Enters Zone 2: The Stem)",
+          "decoys": [
+            "WOLF",
+            "BEAR",
+            "LION",
+            "HAWK"
+          ]
+        }
+      }
+    ],
+    "zone2Compounds": [
+      {
+        "stem": "DOG",
+        "target": "HOUSE",
+        "hint": "DOG + HOUSE = Doghouse",
+        "decoys": [
+          "COLLAR",
+          "LEASH",
+          "KENNEL",
+          "BONE"
         ]
       },
       {
-        "index": 1,
-        "stemWord": "BUTTER",
-        "correctWord": "CUP",
-        "decoyWord": "MARGARINE",
-        "leftRightSeed": 1,
+        "stem": "HOUSE",
+        "target": "FLY",
+        "hint": "HOUSE + FLY = Housefly",
+        "decoys": [
+          "MOTH",
+          "WASP",
+          "BEETLE",
+          "SPIDER"
+        ]
+      },
+      {
+        "stem": "FLY",
+        "target": "TRAP",
+        "hint": "FLY + TRAP = Flytrap",
+        "decoys": [
+          "CAGE",
+          "SNARE",
+          "HOOK",
+          "BAIT"
+        ]
+      },
+      {
+        "stem": "TRAP",
+        "target": "DOOR",
+        "hint": "TRAP + DOOR = Trapdoor",
+        "decoys": [
+          "GATE",
+          "WALL",
+          "ROOF",
+          "FLOOR"
+        ]
+      },
+      {
+        "stem": "DOOR",
+        "target": "BELL",
+        "hint": "DOOR + BELL = Doorbell",
+        "decoys": [
+          "CHIME",
+          "GONG",
+          "HORN",
+          "SIREN"
+        ]
+      },
+      {
+        "stem": "BELL",
+        "target": "PEPPER",
+        "hint": "BELL + PEPPER = Bell pepper",
+        "decoys": [
+          "ONION",
+          "GARLIC",
+          "CARROT",
+          "CELERY"
+        ]
+      },
+      {
+        "stem": "PEPPER",
+        "target": "MINT",
+        "hint": "PEPPER + MINT = Peppermint",
+        "decoys": [
+          "SAGE",
+          "THYME",
+          "BASIL",
+          "CLOVE"
+        ]
+      },
+      {
+        "stem": "MINT",
+        "target": "GREEN",
+        "hint": "MINT + GREEN = Mint green",
+        "decoys": [
+          "BLUE",
+          "PINK",
+          "GOLD",
+          "GRAY"
+        ]
+      },
+      {
+        "stem": "GREEN",
+        "target": "LIGHT",
+        "hint": "GREEN + LIGHT = Greenlight",
+        "decoys": [
+          "FLAME",
+          "SPARK",
+          "TORCH",
+          "GLOW"
+        ]
+      },
+      {
+        "stem": "LIGHT",
+        "target": "YEAR",
+        "hint": "LIGHT + YEAR = Lightyear",
+        "decoys": [
+          "MONTH",
+          "WEEK",
+          "HOUR",
+          "SECOND"
+        ]
+      },
+      {
+        "stem": "YEAR",
+        "target": "BOOK",
+        "hint": "YEAR + BOOK = Yearbook",
+        "decoys": [
+          "PAGE",
+          "CARD",
+          "NOTE",
+          "LIST"
+        ]
+      },
+      {
+        "stem": "BOOK",
+        "target": "WORM",
+        "hint": "BOOK + WORM = Bookworm",
+        "decoys": [
+          "SLUG",
+          "MOTH",
+          "TOAD",
+          "CRAB"
+        ]
+      },
+      {
+        "stem": "WORM",
+        "target": "HOLE",
+        "hint": "WORM + HOLE = Wormhole",
+        "decoys": [
+          "CAVE",
+          "PIT",
+          "DITCH",
+          "WELL"
+        ]
+      },
+      {
+        "stem": "HOLE",
+        "target": "CARD",
+        "hint": "HOLE + CARD = Hole card",
+        "decoys": [
+          "DECK",
+          "CHIP",
+          "DICE",
+          "COIN"
+        ]
+      },
+      {
+        "stem": "CARD",
+        "target": "SHARK",
+        "hint": "CARD + SHARK = Cardsharp / Card shark",
+        "decoys": [
+          "WHALE",
+          "TROUT",
+          "SQUID",
+          "CORAL"
+        ]
+      },
+      {
+        "stem": "SHARK",
+        "target": "TANK",
+        "hint": "SHARK + TANK = Shark tank",
+        "decoys": [
+          "POOL",
+          "POND",
+          "BOWL",
+          "LAKE"
+        ]
+      }
+    ],
+    "zone3Compounds": [
+      {
+        "stem": "TANK",
+        "target": "TOP",
+        "hint": "TANK + TOP = Tank top",
+        "decoys": [
+          "HAT",
+          "CAP",
+          "COAT",
+          "BELT"
+        ]
+      },
+      {
+        "stem": "TOP",
+        "target": "COAT",
+        "hint": "TOP + COAT = Topcoat",
+        "decoys": [
+          "VEST",
+          "SHIRT",
+          "SCARF",
+          "GLOVE"
+        ]
+      },
+      {
+        "stem": "COAT",
+        "target": "RACK",
+        "hint": "COAT + RACK = Coatrack",
+        "decoys": [
+          "HOOK",
+          "SHELF",
+          "STAND",
+          "TRAY"
+        ]
+      },
+      {
+        "stem": "RACK",
+        "target": "UP",
+        "hint": "RACK + UP = Rack up",
+        "decoys": [
+          "IN",
+          "ON",
+          "BY",
+          "AT"
+        ]
+      },
+      {
+        "stem": "UP",
+        "target": "BEAT",
+        "hint": "UP + BEAT = Upbeat",
+        "decoys": [
+          "SONG",
+          "NOTE",
+          "DRUM",
+          "CHORD"
+        ]
+      },
+      {
+        "stem": "BEAT",
+        "target": "DOWN",
+        "hint": "BEAT + DOWN = Beatdown",
+        "decoys": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "DOWN",
+        "target": "POUR",
+        "hint": "DOWN + POUR = Downpour",
+        "decoys": [
+          "DRIP",
+          "DROP",
+          "MIST",
+          "SOAK"
+        ]
+      },
+      {
+        "stem": "POUR",
+        "target": "OVER",
+        "hint": "POUR + OVER = Pour-over",
+        "decoys": [
+          "INTO",
+          "UPON",
+          "UNTO",
+          "FROM"
+        ]
+      },
+      {
+        "stem": "OVER",
+        "target": "SLEEP",
+        "hint": "OVER + SLEEP = Oversleep",
+        "decoys": [
+          "DREAM",
+          "SNORE",
+          "YAWN",
+          "NAP"
+        ]
+      },
+      {
+        "stem": "SLEEP",
+        "target": "WALK",
+        "hint": "SLEEP + WALK = Sleepwalk",
+        "decoys": [
+          "PACE",
+          "DASH",
+          "JOG",
+          "SKIP"
+        ]
+      },
+      {
+        "stem": "WALK",
+        "target": "OUT",
+        "hint": "WALK + OUT = Walkout",
+        "decoys": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "OUT",
+        "target": "BURST",
+        "hint": "OUT + BURST = Outburst",
+        "decoys": [
+          "BLAST",
+          "SPARK",
+          "FLASH",
+          "PULSE"
+        ]
+      }
+    ],
+    "nodes": [
+      {
+        "index": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
-        "tripletStep": 3,
-        "compoundHint": "Peanut butter cup (Triple-Bloom!)",
-        "explanation": "PEANUT + BUTTER + CUP completes Peanut butter cup! MARGARINE is a butter substitute.",
-        "displayStem": "PEANUT \u2192 BUTTER",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "tripletStep": 2,
+        "stemWord": "PEANUT",
+        "displayStem": "PEANUT",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "correctWord": "BUTTER",
+        "decoyPool": [
+          "SHELL",
+          "CRUST",
+          "GRAVY",
+          "GLAZE"
+        ],
+        "decoyWord": "SHELL",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 CUP \u2794 COFFEE"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 CUP",
+          "isNextTriplet": false
+        },
+        "tripletSlots": [
+          "PEANUT",
+          "[ ? ]",
+          "\ud83c\udf38 CUP"
+        ],
+        "compoundHint": "PEANUT + BUTTER = Peanut butter"
+      },
+      {
+        "index": 1,
+        "zoneId": 1,
+        "tripletStep": 3,
+        "stemWord": "BUTTER",
+        "displayStem": "PEANUT \u2192 BUTTER",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "correctWord": "CUP",
+        "decoyPool": [
+          "PLATE",
+          "FORK",
+          "TRAY",
+          "SAUCER"
+        ],
+        "decoyWord": "PLATE",
+        "faintAbove": {
+          "label": "THEMATIC LINK VIA CUP",
+          "word": "\ud83d\udd17 COFFEE \u2192 TABLE \u2192 BOOK",
+          "isNextTriplet": true
         },
         "tripletSlots": [
           "PEANUT",
           "BUTTER",
-          "?"
-        ]
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "BUTTER + CUP = Buttercup (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 2,
-        "stemWord": "CUP",
-        "correctWord": "COFFEE",
-        "decoyWord": "ANCHOR",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Coffee cup -> Coffee table book",
-        "explanation": "CUP links thematically to COFFEE (Coffee cup), starting the next 3-part compound COFFEE \u2192 TABLE \u2192 BOOK!",
+        "stemWord": "CUP",
         "displayStem": "CUP",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemBadge": "\ud83d\udd17 DRINKWARE LINK (CUP -> COFFEE)",
+        "correctWord": "COFFEE",
+        "decoyPool": [
+          "WATER",
+          "JUICE",
+          "GRAVY",
+          "CIDER"
+        ],
+        "decoyWord": "WATER",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 TABLE \u2192 BOOK"
+          "label": "LINKING TO TRIPLET 2/4",
+          "word": "[ ? ] \u2192 TABLE \u2192 BOOK",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "TABLE",
-          "BOOK"
-        ]
+          "\ud83d\udd17 CUP",
+          "[ ? (1/3) ]",
+          "TABLE \u2192 BOOK"
+        ],
+        "compoundHint": "CUP \u2194 COFFEE = Coffee cup (Links to COFFEE \u2192 TABLE \u2192 BOOK)"
       },
       {
         "index": 3,
-        "stemWord": "COFFEE",
-        "correctWord": "TABLE",
-        "decoyWord": "ESPRESSO",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Coffee table book",
-        "explanation": "COFFEE + TABLE + BOOK forms the 3-part compound Coffee table book; ESPRESSO is a drink synonym.",
+        "stemWord": "COFFEE",
         "displayStem": "COFFEE",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "correctWord": "TABLE",
+        "decoyPool": [
+          "CHAIRS",
+          "SOFA",
+          "STOOL",
+          "DESK"
+        ],
+        "decoyWord": "CHAIRS",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 BOOK"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 BOOK",
+          "isNextTriplet": false
         },
         "tripletSlots": [
           "COFFEE",
-          "?",
-          "BOOK"
-        ]
+          "[ ? ]",
+          "\ud83c\udf38 BOOK"
+        ],
+        "compoundHint": "COFFEE + TABLE = Coffee table"
       },
       {
         "index": 4,
-        "stemWord": "TABLE",
-        "correctWord": "BOOK",
-        "decoyWord": "STOOL",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Coffee table book (Triple-Bloom!)",
-        "explanation": "COFFEE + TABLE + BOOK completes Coffee table book! STOOL is a seating sibling.",
+        "stemWord": "TABLE",
         "displayStem": "COFFEE \u2192 TABLE",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "correctWord": "BOOK",
+        "decoyPool": [
+          "LAMP",
+          "VASE",
+          "CLOCK",
+          "RUG"
+        ],
+        "decoyWord": "LAMP",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 BOOK \u2794 MATCH"
+          "label": "THEMATIC LINK VIA BOOK",
+          "word": "\ud83d\udd17 MATCH \u2192 BOX \u2192 CAR",
+          "isNextTriplet": true
         },
         "tripletSlots": [
           "COFFEE",
           "TABLE",
-          "?"
-        ]
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "TABLE + BOOK = Table book (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 5,
-        "stemWord": "BOOK",
-        "correctWord": "MATCH",
-        "decoyWord": "HELMET",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Matchbook -> Matchbox car",
-        "explanation": "BOOK links to MATCH (Matchbook), starting the next 3-part compound MATCH \u2192 BOX \u2192 CAR!",
+        "stemWord": "BOOK",
         "displayStem": "BOOK",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemBadge": "\ud83d\udd17 MATCHBOOK LINK (BOOK -> MATCH)",
+        "correctWord": "MATCH",
+        "decoyPool": [
+          "TORCH",
+          "FLAME",
+          "SPARK",
+          "EMBER"
+        ],
+        "decoyWord": "TORCH",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 BOX \u2192 CAR"
+          "label": "LINKING TO TRIPLET 3/4",
+          "word": "[ ? ] \u2192 BOX \u2192 CAR",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "BOX",
-          "CAR"
-        ]
+          "\ud83d\udd17 BOOK",
+          "[ ? (1/3) ]",
+          "BOX \u2192 CAR"
+        ],
+        "compoundHint": "BOOK \u2194 MATCH = Matchbook (Links to MATCH \u2192 BOX \u2192 CAR)"
       },
       {
         "index": 6,
-        "stemWord": "MATCH",
-        "correctWord": "BOX",
-        "decoyWord": "TORCH",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Matchbox car",
-        "explanation": "MATCH + BOX + CAR forms Matchbox car; TORCH is a fire source sibling.",
+        "stemWord": "MATCH",
         "displayStem": "MATCH",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "correctWord": "BOX",
+        "decoyPool": [
+          "BAG",
+          "JAR",
+          "CAN",
+          "TIN"
+        ],
+        "decoyWord": "BAG",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 CAR"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 CAR",
+          "isNextTriplet": false
         },
         "tripletSlots": [
           "MATCH",
-          "?",
-          "CAR"
-        ]
+          "[ ? ]",
+          "\ud83c\udf38 CAR"
+        ],
+        "compoundHint": "MATCH + BOX = Matchbox"
       },
       {
         "index": 7,
-        "stemWord": "BOX",
-        "correctWord": "CAR",
-        "decoyWord": "CARTON",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Matchbox car (Triple-Bloom!)",
-        "explanation": "MATCH + BOX + CAR completes Matchbox car! CARTON is a box synonym.",
+        "stemWord": "BOX",
         "displayStem": "MATCH \u2192 BOX",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "correctWord": "CAR",
+        "decoyPool": [
+          "TRUCK",
+          "TRAIN",
+          "BIKE",
+          "BOAT"
+        ],
+        "decoyWord": "TRUCK",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 CAR \u2794 POOL"
+          "label": "THEMATIC LINK VIA CAR",
+          "word": "\ud83d\udd17 POOL \u2192 TABLE \u2192 TOP",
+          "isNextTriplet": true
         },
         "tripletSlots": [
           "MATCH",
           "BOX",
-          "?"
-        ]
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "BOX + CAR = Boxcar (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 8,
-        "stemWord": "CAR",
-        "correctWord": "POOL",
-        "decoyWord": "SEDAN",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Carpool -> Pool table top",
-        "explanation": "CAR links to POOL (Carpool), starting the next 3-part compound POOL \u2192 TABLE \u2192 TOP!",
+        "stemWord": "CAR",
         "displayStem": "CAR",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemBadge": "\ud83d\udd17 CARPOOL LINK (CAR -> POOL)",
+        "correctWord": "POOL",
+        "decoyPool": [
+          "POND",
+          "LAKE",
+          "MOAT",
+          "WELL"
+        ],
+        "decoyWord": "POND",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 TABLE \u2192 TOP"
+          "label": "LINKING TO TRIPLET 4/4",
+          "word": "[ ? ] \u2192 TABLE \u2192 TOP",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "TABLE",
-          "TOP"
-        ]
+          "\ud83d\udd17 CAR",
+          "[ ? (1/3) ]",
+          "TABLE \u2192 TOP"
+        ],
+        "compoundHint": "CAR + POOL = Carpool (Links to POOL \u2192 TABLE \u2192 TOP)"
       },
       {
         "index": 9,
-        "stemWord": "POOL",
-        "correctWord": "TABLE",
-        "decoyWord": "PUDDLE",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Pool table top",
-        "explanation": "POOL + TABLE + TOP forms Pool table top; PUDDLE is a water body sibling.",
+        "stemWord": "POOL",
         "displayStem": "POOL",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "correctWord": "TABLE",
+        "decoyPool": [
+          "CHAIR",
+          "BENCH",
+          "COUCH",
+          "STOOL"
+        ],
+        "decoyWord": "CHAIR",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 TOP"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 TOP",
+          "isNextTriplet": false
         },
         "tripletSlots": [
           "POOL",
-          "?",
-          "TOP"
-        ]
+          "[ ? ]",
+          "\ud83c\udf38 TOP"
+        ],
+        "compoundHint": "POOL + TABLE = Pool table"
       },
       {
         "index": 10,
-        "stemWord": "TABLE",
-        "correctWord": "TOP",
-        "decoyWord": "DESK",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Pool table top (Triple-Bloom!)",
-        "explanation": "POOL + TABLE + TOP completes Pool table top! DESK is a furniture sibling.",
+        "stemWord": "TABLE",
         "displayStem": "POOL \u2192 TABLE",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "correctWord": "TOP",
+        "decoyPool": [
+          "EDGE",
+          "BASE",
+          "RIM",
+          "CORNER"
+        ],
+        "decoyWord": "EDGE",
         "faintAbove": {
-          "label": "ZONE 2 GRAFT COLLAR AHEAD",
-          "word": "\ud83e\udeb5 TOP \u2794 DOG"
+          "label": "THEMATIC LINK VIA TOP",
+          "word": "\ud83d\udd17 + ZONE 2: DOG",
+          "isNextTriplet": true
         },
         "tripletSlots": [
           "POOL",
           "TABLE",
-          "?"
-        ]
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 11,
-        "stemWord": "TOP",
-        "correctWord": "DOG",
-        "decoyWord": "SUMMIT",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Top dog (Enters Zone 2!)",
-        "explanation": "TOP + DOG = Top dog, crossing the Graft Collar into Zone 2 2-Part Pivots!",
+        "stemWord": "TOP",
         "displayStem": "TOP",
-        "stemBadge": "\ud83d\udd17 BRIDGE INTO ZONE 2 STEM",
+        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TOP -> DOG)",
+        "correctWord": "DOG",
+        "decoyPool": [
+          "WOLF",
+          "BEAR",
+          "LION",
+          "HAWK"
+        ],
+        "decoyWord": "WOLF",
         "faintAbove": {
-          "label": "ZONE 2 \u2022 2-PART PIVOTS",
-          "word": "\ud83e\udeb5 DOG \u2192 HOUSE"
+          "label": "BRIDGING TO ZONE 2 STEM",
+          "word": "DOG \u2192 HOUSE",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "POOL",
-          "TABLE",
-          "TOP"
-        ]
+          "\ud83d\udd17 TOP",
+          "[ ? (1/3) ]",
+          "ZONE 2"
+        ],
+        "compoundHint": "TOP + DOG = Top dog (Enters Zone 2: The Stem)"
       },
       {
         "index": 12,
-        "stemWord": "DOG",
-        "correctWord": "HOUSE",
-        "decoyWord": "PUPPY",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Doghouse",
-        "explanation": "DOG + HOUSE = Doghouse; PUPPY baits the canine meaning of Top dog."
+        "stemWord": "DOG",
+        "displayStem": "DOG",
+        "correctWord": "HOUSE",
+        "decoyPool": [
+          "COLLAR",
+          "LEASH",
+          "KENNEL",
+          "BONE"
+        ],
+        "decoyWord": "COLLAR",
+        "compoundHint": "DOG + HOUSE = Doghouse"
       },
       {
         "index": 13,
-        "stemWord": "HOUSE",
-        "correctWord": "FLY",
-        "decoyWord": "MANSION",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Housefly",
-        "explanation": "HOUSE + FLY = Housefly; MANSION baits the building sense of Doghouse."
+        "stemWord": "HOUSE",
+        "displayStem": "HOUSE",
+        "correctWord": "FLY",
+        "decoyPool": [
+          "MOTH",
+          "WASP",
+          "BEETLE",
+          "SPIDER"
+        ],
+        "decoyWord": "MOTH",
+        "compoundHint": "HOUSE + FLY = Housefly"
       },
       {
         "index": 14,
-        "stemWord": "FLY",
-        "correctWord": "TRAP",
-        "decoyWord": "MOSQUITO",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Flytrap",
-        "explanation": "FLY + TRAP = Flytrap; MOSQUITO baits the insect sense of Housefly."
+        "stemWord": "FLY",
+        "displayStem": "FLY",
+        "correctWord": "TRAP",
+        "decoyPool": [
+          "CAGE",
+          "SNARE",
+          "HOOK",
+          "BAIT"
+        ],
+        "decoyWord": "CAGE",
+        "compoundHint": "FLY + TRAP = Flytrap"
       },
       {
         "index": 15,
-        "stemWord": "TRAP",
-        "correctWord": "DOOR",
-        "decoyWord": "AMBUSH",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Trapdoor",
-        "explanation": "TRAP + DOOR = Trapdoor; AMBUSH is a synonym for trap."
+        "stemWord": "TRAP",
+        "displayStem": "TRAP",
+        "correctWord": "DOOR",
+        "decoyPool": [
+          "GATE",
+          "WALL",
+          "ROOF",
+          "FLOOR"
+        ],
+        "decoyWord": "GATE",
+        "compoundHint": "TRAP + DOOR = Trapdoor"
       },
       {
         "index": 16,
-        "stemWord": "DOOR",
-        "correctWord": "BELL",
-        "decoyWord": "GATEWAY",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Doorbell",
-        "explanation": "DOOR + BELL = Doorbell; GATEWAY is a doorway synonym."
+        "stemWord": "DOOR",
+        "displayStem": "DOOR",
+        "correctWord": "BELL",
+        "decoyPool": [
+          "CHIME",
+          "GONG",
+          "HORN",
+          "SIREN"
+        ],
+        "decoyWord": "CHIME",
+        "compoundHint": "DOOR + BELL = Doorbell"
       },
       {
         "index": 17,
-        "stemWord": "BELL",
-        "correctWord": "HOP",
-        "decoyWord": "CHIME",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Bellhop",
-        "explanation": "BELL + HOP = Bellhop; CHIME baits the ringing sound of Doorbell."
+        "stemWord": "BELL",
+        "displayStem": "BELL",
+        "correctWord": "PEPPER",
+        "decoyPool": [
+          "ONION",
+          "GARLIC",
+          "CARROT",
+          "CELERY"
+        ],
+        "decoyWord": "ONION",
+        "compoundHint": "BELL + PEPPER = Bell pepper"
       },
       {
         "index": 18,
-        "stemWord": "HOP",
-        "correctWord": "SCOTCH",
-        "decoyWord": "BOUNCE",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Hopscotch",
-        "explanation": "HOP + SCOTCH = Hopscotch; BOUNCE is a synonym for hop."
+        "stemWord": "PEPPER",
+        "displayStem": "PEPPER",
+        "correctWord": "MINT",
+        "decoyPool": [
+          "SAGE",
+          "THYME",
+          "BASIL",
+          "CLOVE"
+        ],
+        "decoyWord": "SAGE",
+        "compoundHint": "PEPPER + MINT = Peppermint"
       },
       {
         "index": 19,
-        "stemWord": "SCOTCH",
-        "correctWord": "TAPE",
-        "decoyWord": "BOURBON",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Scotch tape",
-        "explanation": "SCOTCH + TAPE = Scotch tape; BOURBON baits the whisky meaning of Scotch."
+        "stemWord": "MINT",
+        "displayStem": "MINT",
+        "correctWord": "GREEN",
+        "decoyPool": [
+          "BLUE",
+          "PINK",
+          "GOLD",
+          "GRAY"
+        ],
+        "decoyWord": "BLUE",
+        "compoundHint": "MINT + GREEN = Mint green"
       },
       {
         "index": 20,
-        "stemWord": "TAPE",
-        "correctWord": "DECK",
-        "decoyWord": "RIBBON",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Tape deck",
-        "explanation": "TAPE + DECK = Tape deck; RIBBON is a strip sibling."
+        "stemWord": "GREEN",
+        "displayStem": "GREEN",
+        "correctWord": "LIGHT",
+        "decoyPool": [
+          "FLAME",
+          "SPARK",
+          "TORCH",
+          "GLOW"
+        ],
+        "decoyWord": "FLAME",
+        "compoundHint": "GREEN + LIGHT = Greenlight"
       },
       {
         "index": 21,
-        "stemWord": "DECK",
-        "correctWord": "CHAIR",
-        "decoyWord": "STEREO",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Deck chair",
-        "explanation": "DECK + CHAIR = Deck chair; STEREO baits the audio sense of Tape deck."
+        "stemWord": "LIGHT",
+        "displayStem": "LIGHT",
+        "correctWord": "YEAR",
+        "decoyPool": [
+          "MONTH",
+          "WEEK",
+          "HOUR",
+          "SECOND"
+        ],
+        "decoyWord": "MONTH",
+        "compoundHint": "LIGHT + YEAR = Lightyear"
       },
       {
         "index": 22,
-        "stemWord": "CHAIR",
-        "correctWord": "LIFT",
-        "decoyWord": "STOOL",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Chairlift",
-        "explanation": "CHAIR + LIFT = Chairlift; STOOL is a seating sibling."
+        "stemWord": "YEAR",
+        "displayStem": "YEAR",
+        "correctWord": "BOOK",
+        "decoyPool": [
+          "PAGE",
+          "CARD",
+          "NOTE",
+          "LIST"
+        ],
+        "decoyWord": "PAGE",
+        "compoundHint": "YEAR + BOOK = Yearbook"
       },
       {
         "index": 23,
-        "stemWord": "LIFT",
-        "correctWord": "OFF",
-        "decoyWord": "HOIST",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Liftoff",
-        "explanation": "LIFT + OFF = Liftoff; HOIST is a synonym for lift."
+        "stemWord": "BOOK",
+        "displayStem": "BOOK",
+        "correctWord": "WORM",
+        "decoyPool": [
+          "SLUG",
+          "MOTH",
+          "TOAD",
+          "CRAB"
+        ],
+        "decoyWord": "SLUG",
+        "compoundHint": "BOOK + WORM = Bookworm"
       },
       {
         "index": 24,
-        "stemWord": "OFF",
-        "correctWord": "SHOOT",
-        "decoyWord": "AWAY",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Offshoot",
-        "explanation": "OFF + SHOOT = Offshoot; Off away is not a compound."
+        "stemWord": "WORM",
+        "displayStem": "WORM",
+        "correctWord": "HOLE",
+        "decoyPool": [
+          "CAVE",
+          "PIT",
+          "DITCH",
+          "WELL"
+        ],
+        "decoyWord": "CAVE",
+        "compoundHint": "WORM + HOLE = Wormhole"
       },
       {
         "index": 25,
-        "stemWord": "SHOOT",
-        "correctWord": "OUT",
-        "decoyWord": "SPROUT",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Shootout",
-        "explanation": "SHOOT + OUT = Shootout; SPROUT baits the botanical sense of Offshoot."
+        "stemWord": "HOLE",
+        "displayStem": "HOLE",
+        "correctWord": "CARD",
+        "decoyPool": [
+          "DECK",
+          "CHIP",
+          "DICE",
+          "COIN"
+        ],
+        "decoyWord": "DECK",
+        "compoundHint": "HOLE + CARD = Hole card"
       },
       {
         "index": 26,
-        "stemWord": "OUT",
-        "correctWord": "COLD",
-        "decoyWord": "EXIT",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Out cold",
-        "explanation": "OUT + COLD = Out cold; EXIT is redundant with Out."
+        "stemWord": "CARD",
+        "displayStem": "CARD",
+        "correctWord": "SHARK",
+        "decoyPool": [
+          "WHALE",
+          "TROUT",
+          "SQUID",
+          "CORAL"
+        ],
+        "decoyWord": "WHALE",
+        "compoundHint": "CARD + SHARK = Cardsharp / Card shark"
       },
       {
         "index": 27,
-        "stemWord": "COLD",
-        "correctWord": "SHOULDER",
-        "decoyWord": "CHILLY",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Cold shoulder",
-        "explanation": "COLD + SHOULDER = Cold shoulder; crosses into Zone 3 Canopy!"
+        "stemWord": "SHARK",
+        "displayStem": "SHARK",
+        "correctWord": "TANK",
+        "decoyPool": [
+          "POOL",
+          "POND",
+          "BOWL",
+          "LAKE"
+        ],
+        "decoyWord": "POOL",
+        "compoundHint": "SHARK + TANK = Shark tank"
       },
       {
         "index": 28,
-        "stemWord": "SHOULDER",
-        "correctWord": "BLADE",
-        "decoyWord": "ELBOW",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Shoulder blade",
-        "explanation": "SHOULDER + BLADE = Shoulder blade; ELBOW is a joint sibling."
+        "stemWord": "TANK",
+        "displayStem": "TANK",
+        "correctWord": "TOP",
+        "decoyPool": [
+          "HAT",
+          "CAP",
+          "COAT",
+          "BELT"
+        ],
+        "decoyWord": "HAT",
+        "compoundHint": "TANK + TOP = Tank top"
       },
       {
         "index": 29,
-        "stemWord": "BLADE",
-        "correctWord": "RUNNER",
-        "decoyWord": "DAGGER",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Blade runner",
-        "explanation": "BLADE + RUNNER = Blade runner; DAGGER is a weapon synonym."
+        "stemWord": "TOP",
+        "displayStem": "TOP",
+        "correctWord": "COAT",
+        "decoyPool": [
+          "VEST",
+          "SHIRT",
+          "SCARF",
+          "GLOVE"
+        ],
+        "decoyWord": "VEST",
+        "compoundHint": "TOP + COAT = Topcoat"
       },
       {
         "index": 30,
-        "stemWord": "RUNNER",
-        "correctWord": "UP",
-        "decoyWord": "JOGGER",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Runner-up",
-        "explanation": "RUNNER + UP = Runner-up; JOGGER is a synonym decoy."
+        "stemWord": "COAT",
+        "displayStem": "COAT",
+        "correctWord": "RACK",
+        "decoyPool": [
+          "HOOK",
+          "SHELF",
+          "STAND",
+          "TRAY"
+        ],
+        "decoyWord": "HOOK",
+        "compoundHint": "COAT + RACK = Coatrack"
       },
       {
         "index": 31,
-        "stemWord": "UP",
-        "correctWord": "TURN",
-        "decoyWord": "ABOVE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Upturn",
-        "explanation": "UP + TURN = Upturn; ABOVE is a preposition trap."
+        "stemWord": "RACK",
+        "displayStem": "RACK",
+        "correctWord": "UP",
+        "decoyPool": [
+          "IN",
+          "ON",
+          "BY",
+          "AT"
+        ],
+        "decoyWord": "IN",
+        "compoundHint": "RACK + UP = Rack up"
       },
       {
         "index": 32,
-        "stemWord": "TURN",
-        "correctWord": "OVER",
-        "decoyWord": "ROTATE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Turnover",
-        "explanation": "TURN + OVER = Turnover; ROTATE is a verb synonym."
+        "stemWord": "UP",
+        "displayStem": "UP",
+        "correctWord": "BEAT",
+        "decoyPool": [
+          "SONG",
+          "NOTE",
+          "DRUM",
+          "CHORD"
+        ],
+        "decoyWord": "SONG",
+        "compoundHint": "UP + BEAT = Upbeat"
       },
       {
         "index": 33,
-        "stemWord": "OVER",
-        "correctWord": "CAST",
-        "decoyWord": "LEFT",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Overcast",
-        "explanation": "OVER + CAST = Overcast; LEFT is a reverse-compound trap (Leftover is backwards!)."
+        "stemWord": "BEAT",
+        "displayStem": "BEAT",
+        "correctWord": "DOWN",
+        "decoyPool": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ],
+        "decoyWord": "AWAY",
+        "compoundHint": "BEAT + DOWN = Beatdown"
       },
       {
         "index": 34,
-        "stemWord": "CAST",
-        "correctWord": "OFF",
-        "decoyWord": "FORE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Castoff",
-        "explanation": "CAST + OFF = Castoff; FORE is a reverse-compound trap (Forecast is backwards!)."
+        "stemWord": "DOWN",
+        "displayStem": "DOWN",
+        "correctWord": "POUR",
+        "decoyPool": [
+          "DRIP",
+          "DROP",
+          "MIST",
+          "SOAK"
+        ],
+        "decoyWord": "DRIP",
+        "compoundHint": "DOWN + POUR = Downpour"
       },
       {
         "index": 35,
-        "stemWord": "OFF",
-        "correctWord": "LINE",
-        "decoyWord": "MUTE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Offline",
-        "explanation": "OFF + LINE = Offline; MUTE is a status distractor."
+        "stemWord": "POUR",
+        "displayStem": "POUR",
+        "correctWord": "OVER",
+        "decoyPool": [
+          "INTO",
+          "UPON",
+          "UNTO",
+          "FROM"
+        ],
+        "decoyWord": "INTO",
+        "compoundHint": "POUR + OVER = Pour-over"
       },
       {
         "index": 36,
-        "stemWord": "LINE",
-        "correctWord": "BACK",
-        "decoyWord": "ROPE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Lineback / Linebacker",
-        "explanation": "LINE + BACK = Lineback; ROPE baits the cord sense of Line."
+        "stemWord": "OVER",
+        "displayStem": "OVER",
+        "correctWord": "SLEEP",
+        "decoyPool": [
+          "DREAM",
+          "SNORE",
+          "YAWN",
+          "NAP"
+        ],
+        "decoyWord": "DREAM",
+        "compoundHint": "OVER + SLEEP = Oversleep"
       },
       {
         "index": 37,
-        "stemWord": "BACK",
-        "correctWord": "FIRE",
-        "decoyWord": "TIRE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Backfire",
-        "explanation": "BACK + FIRE = Backfire; TIRE is a 1-letter lookalike trap!"
+        "stemWord": "SLEEP",
+        "displayStem": "SLEEP",
+        "correctWord": "WALK",
+        "decoyPool": [
+          "PACE",
+          "DASH",
+          "JOG",
+          "SKIP"
+        ],
+        "decoyWord": "PACE",
+        "compoundHint": "SLEEP + WALK = Sleepwalk"
       },
       {
         "index": 38,
-        "stemWord": "FIRE",
-        "correctWord": "WORK",
-        "decoyWord": "CAMP",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Firework",
-        "explanation": "FIRE + WORK = Firework; CAMP is a reverse-compound trap (Campfire is backwards!)."
+        "stemWord": "WALK",
+        "displayStem": "WALK",
+        "correctWord": "OUT",
+        "decoyPool": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ],
+        "decoyWord": "OFF",
+        "compoundHint": "WALK + OUT = Walkout"
       },
       {
         "index": 39,
-        "stemWord": "WORK",
-        "correctWord": "OUT",
-        "decoyWord": "CHORE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Workout (Canopy Cleared!)",
-        "explanation": "WORK + OUT = Workout to conquer the Midnight Canopy!"
+        "stemWord": "OUT",
+        "displayStem": "OUT",
+        "correctWord": "BURST",
+        "decoyPool": [
+          "BLAST",
+          "SPARK",
+          "FLASH",
+          "PULSE"
+        ],
+        "decoyWord": "BLAST",
+        "compoundHint": "OUT + BURST = Outburst"
       }
     ]
   },
   {
     "vineNumber": 143,
     "dateKey": "2026-11-02",
-    "title": "The Conservatory Loop",
     "themeId": 1,
-    "startWord": "ICE",
+    "title": "Sunlit Conservatory",
+    "chainSetIndex": 1,
+    "zone1Triplets": [
+      {
+        "id": "sun_flower_pot",
+        "parts": [
+          "SUN",
+          "FLOWER",
+          "POT"
+        ],
+        "part2Hint": "SUN + FLOWER = Sunflower",
+        "part3Hint": "FLOWER + POT = Flowerpot (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "GARDEN",
+          "PETAL",
+          "LEAF",
+          "BRANCH"
+        ],
+        "part3Decoys": [
+          "VASE",
+          "BOWL",
+          "TRAY",
+          "JUG"
+        ],
+        "thematicLink": {
+          "nextPart1": "BELLY",
+          "connection": "Compound Link (Pot -> Belly)",
+          "hint": "POT + BELLY = Potbelly (Links to BELLY \u2192 BUTTON \u2192 HOLE)",
+          "decoys": [
+            "ELBOW",
+            "ANKLE",
+            "WRIST",
+            "THUMB"
+          ]
+        }
+      },
+      {
+        "id": "belly_button_hole",
+        "parts": [
+          "BELLY",
+          "BUTTON",
+          "HOLE"
+        ],
+        "part2Hint": "BELLY + BUTTON = Belly button",
+        "part3Hint": "BUTTON + HOLE = Buttonhole (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "ZIPPER",
+          "BUCKLE",
+          "COLLAR",
+          "POCKET"
+        ],
+        "part3Decoys": [
+          "LOOP",
+          "SEAM",
+          "KNOT",
+          "STITCH"
+        ],
+        "thematicLink": {
+          "nextPart1": "PUNCH",
+          "connection": "Tool Link (Hole -> Punch)",
+          "hint": "HOLE + PUNCH = Hole punch (Links to PUNCH \u2192 BOWL \u2192 CUT)",
+          "decoys": [
+            "STAMP",
+            "PRESS",
+            "CLAMP",
+            "DRILL"
+          ]
+        }
+      },
+      {
+        "id": "punch_bowl_cut",
+        "parts": [
+          "PUNCH",
+          "BOWL",
+          "CUT"
+        ],
+        "part2Hint": "PUNCH + BOWL = Punch bowl",
+        "part3Hint": "BOWL + CUT = Bowl cut (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "PLATE",
+          "SPOON",
+          "PITCHER",
+          "SAUCER"
+        ],
+        "part3Decoys": [
+          "TRIM",
+          "CURL",
+          "BRAID",
+          "PART"
+        ],
+        "thematicLink": {
+          "nextPart1": "BACK",
+          "connection": "Compound Link (Cut -> Back)",
+          "hint": "CUT + BACK = Cutback (Links to BACK \u2192 STAGE \u2192 COACH)",
+          "decoys": [
+            "FRONT",
+            "LEFT",
+            "NEAR",
+            "HIGH"
+          ]
+        }
+      },
+      {
+        "id": "back_stage_coach",
+        "parts": [
+          "BACK",
+          "STAGE",
+          "COACH"
+        ],
+        "part2Hint": "BACK + STAGE = Backstage",
+        "part3Hint": "STAGE + COACH = Stagecoach (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "SCENE",
+          "DRAMA",
+          "ACTOR",
+          "SCRIPT"
+        ],
+        "part3Decoys": [
+          "WAGON",
+          "TRAIN",
+          "TRUCK",
+          "CABIN"
+        ],
+        "thematicLink": {
+          "nextPart1": "CLASS",
+          "connection": "Zone 2 Bridge (Coach -> Class)",
+          "hint": "COACH + CLASS = Coach class (Enters Zone 2: The Stem)",
+          "decoys": [
+            "GRADE",
+            "GROUP",
+            "LEVEL",
+            "RANK"
+          ]
+        }
+      }
+    ],
+    "zone2Compounds": [
+      {
+        "stem": "CLASS",
+        "target": "ROOM",
+        "hint": "CLASS + ROOM = Classroom",
+        "decoys": [
+          "HALL",
+          "DESK",
+          "YARD",
+          "WING"
+        ]
+      },
+      {
+        "stem": "ROOM",
+        "target": "MATE",
+        "hint": "ROOM + MATE = Roommate",
+        "decoys": [
+          "GUEST",
+          "HOST",
+          "BOSS",
+          "PEER"
+        ]
+      },
+      {
+        "stem": "MATE",
+        "target": "SHIP",
+        "hint": "MATE + SHIP = Mateship / Shipmate",
+        "decoys": [
+          "BOAT",
+          "RAFT",
+          "DECK",
+          "BARGE"
+        ]
+      },
+      {
+        "stem": "SHIP",
+        "target": "WRECK",
+        "hint": "SHIP + WRECK = Shipwreck",
+        "decoys": [
+          "CRASH",
+          "STORM",
+          "FLOOD",
+          "SHOAL"
+        ]
+      },
+      {
+        "stem": "WRECK",
+        "target": "BALL",
+        "hint": "WRECK + BALL = Wrecking ball",
+        "decoys": [
+          "ROCK",
+          "IRON",
+          "BEAM",
+          "CHAIN"
+        ]
+      },
+      {
+        "stem": "BALL",
+        "target": "POINT",
+        "hint": "BALL + POINT = Ballpoint",
+        "decoys": [
+          "EDGE",
+          "TIP",
+          "MARK",
+          "DOT"
+        ]
+      },
+      {
+        "stem": "POINT",
+        "target": "BLANK",
+        "hint": "POINT + BLANK = Point-blank",
+        "decoys": [
+          "EMPTY",
+          "CLEAR",
+          "PLAIN",
+          "SHARP"
+        ]
+      },
+      {
+        "stem": "BLANK",
+        "target": "CHECK",
+        "hint": "BLANK + CHECK = Blank check",
+        "decoys": [
+          "BILL",
+          "COIN",
+          "NOTE",
+          "LOAN"
+        ]
+      },
+      {
+        "stem": "CHECK",
+        "target": "POINT",
+        "hint": "CHECK + POINT = Checkpoint",
+        "decoys": [
+          "GATE",
+          "POST",
+          "STOP",
+          "SIGN"
+        ]
+      },
+      {
+        "stem": "POINT",
+        "target": "GUARD",
+        "hint": "POINT + GUARD = Point guard",
+        "decoys": [
+          "COACH",
+          "SCOUT",
+          "JUDGE",
+          "REFEREE"
+        ]
+      },
+      {
+        "stem": "GUARD",
+        "target": "RAIL",
+        "hint": "GUARD + RAIL = Guardrail",
+        "decoys": [
+          "WALL",
+          "GATE",
+          "POST",
+          "BEAM"
+        ]
+      },
+      {
+        "stem": "RAIL",
+        "target": "ROAD",
+        "hint": "RAIL + ROAD = Railroad",
+        "decoys": [
+          "PATH",
+          "LANE",
+          "TRAIL",
+          "STREET"
+        ]
+      },
+      {
+        "stem": "ROAD",
+        "target": "BLOCK",
+        "hint": "ROAD + BLOCK = Roadblock",
+        "decoys": [
+          "CONE",
+          "DITCH",
+          "CURB",
+          "FENCE"
+        ]
+      },
+      {
+        "stem": "BLOCK",
+        "target": "HEAD",
+        "hint": "BLOCK + HEAD = Blockhead",
+        "decoys": [
+          "MIND",
+          "FACE",
+          "CHIN",
+          "NECK"
+        ]
+      },
+      {
+        "stem": "HEAD",
+        "target": "START",
+        "hint": "HEAD + START = Head start",
+        "decoys": [
+          "PACE",
+          "JUMP",
+          "STEP",
+          "DASH"
+        ]
+      },
+      {
+        "stem": "START",
+        "target": "UP",
+        "hint": "START + UP = Startup",
+        "decoys": [
+          "ON",
+          "IN",
+          "BY",
+          "TO"
+        ]
+      }
+    ],
+    "zone3Compounds": [
+      {
+        "stem": "UP",
+        "target": "TURN",
+        "hint": "UP + TURN = Upturn",
+        "decoys": [
+          "SPIN",
+          "ROLL",
+          "TWIST",
+          "BEND"
+        ]
+      },
+      {
+        "stem": "TURN",
+        "target": "OVER",
+        "hint": "TURN + OVER = Turnover",
+        "decoys": [
+          "INTO",
+          "FROM",
+          "UPON",
+          "WITH"
+        ]
+      },
+      {
+        "stem": "OVER",
+        "target": "LOOK",
+        "hint": "OVER + LOOK = Overlook",
+        "decoys": [
+          "GAZE",
+          "PEEK",
+          "STARE",
+          "BLINK"
+        ]
+      },
+      {
+        "stem": "LOOK",
+        "target": "OUT",
+        "hint": "LOOK + OUT = Lookout",
+        "decoys": [
+          "FAR",
+          "LOW",
+          "OFF",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "OUT",
+        "target": "LINE",
+        "hint": "OUT + LINE = Outline",
+        "decoys": [
+          "PATH",
+          "MARK",
+          "EDGE",
+          "LOOP"
+        ]
+      },
+      {
+        "stem": "LINE",
+        "target": "UP",
+        "hint": "LINE + UP = Lineup",
+        "decoys": [
+          "ON",
+          "AT",
+          "TO",
+          "OF"
+        ]
+      },
+      {
+        "stem": "UP",
+        "target": "HOLD",
+        "hint": "UP + HOLD = Uphold",
+        "decoys": [
+          "GRIP",
+          "GRASP",
+          "CLASP",
+          "CLING"
+        ]
+      },
+      {
+        "stem": "HOLD",
+        "target": "BACK",
+        "hint": "HOLD + BACK = Holdback",
+        "decoys": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "BACK",
+        "target": "FIRE",
+        "hint": "BACK + FIRE = Backfire",
+        "decoys": [
+          "HEAT",
+          "COAL",
+          "FLAME",
+          "SPARK"
+        ]
+      },
+      {
+        "stem": "FIRE",
+        "target": "WORK",
+        "hint": "FIRE + WORK = Firework",
+        "decoys": [
+          "PLAY",
+          "SHOW",
+          "GLOW",
+          "BOOM"
+        ]
+      },
+      {
+        "stem": "WORK",
+        "target": "OUT",
+        "hint": "WORK + OUT = Workout",
+        "decoys": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "OUT",
+        "target": "RUN",
+        "hint": "OUT + RUN = Outrun",
+        "decoys": [
+          "JOG",
+          "HOP",
+          "SKIP",
+          "DASH"
+        ]
+      }
+    ],
     "nodes": [
       {
         "index": 0,
-        "stemWord": "ICE",
-        "correctWord": "CREAM",
-        "decoyWord": "FROST",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Ice cream cone",
-        "explanation": "ICE + CREAM + CONE forms the 3-part compound Ice cream cone; FROST is a cold weather noun.",
-        "displayStem": "ICE",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "SUN",
+        "displayStem": "SUN",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "correctWord": "FLOWER",
+        "decoyPool": [
+          "GARDEN",
+          "PETAL",
+          "LEAF",
+          "BRANCH"
+        ],
+        "decoyWord": "GARDEN",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 CONE"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 POT",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "ICE",
-          "?",
-          "CONE"
-        ]
+          "SUN",
+          "[ ? ]",
+          "\ud83c\udf38 POT"
+        ],
+        "compoundHint": "SUN + FLOWER = Sunflower"
       },
       {
         "index": 1,
-        "stemWord": "CREAM",
-        "correctWord": "CONE",
-        "decoyWord": "LOTION",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Ice cream cone (Triple-Bloom!)",
-        "explanation": "ICE + CREAM + CONE completes Ice cream cone! LOTION baits cosmetic cream.",
-        "displayStem": "ICE \u2192 CREAM",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "FLOWER",
+        "displayStem": "SUN \u2192 FLOWER",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "correctWord": "POT",
+        "decoyPool": [
+          "VASE",
+          "BOWL",
+          "TRAY",
+          "JUG"
+        ],
+        "decoyWord": "VASE",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 CONE \u2794 PINE"
+          "label": "THEMATIC LINK VIA POT",
+          "word": "\ud83d\udd17 BELLY \u2192 BUTTON \u2192 HOLE",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "ICE",
-          "CREAM",
-          "?"
-        ]
+          "SUN",
+          "FLOWER",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "FLOWER + POT = Flowerpot (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 2,
-        "stemWord": "CONE",
-        "correctWord": "PINE",
-        "decoyWord": "GRAVEL",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Pinecone -> Pineapple pie",
-        "explanation": "CONE links to PINE (Pinecone), starting the next 3-part compound PINE \u2192 APPLE \u2192 PIE!",
-        "displayStem": "CONE",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "POT",
+        "displayStem": "POT",
+        "stemBadge": "\ud83d\udd17 COMPOUND LINK (POT -> BELLY)",
+        "correctWord": "BELLY",
+        "decoyPool": [
+          "ELBOW",
+          "ANKLE",
+          "WRIST",
+          "THUMB"
+        ],
+        "decoyWord": "ELBOW",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 APPLE \u2192 PIE"
+          "label": "LINKING TO TRIPLET 2/4",
+          "word": "[ ? ] \u2192 BUTTON \u2192 HOLE",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "APPLE",
-          "PIE"
-        ]
+          "\ud83d\udd17 POT",
+          "[ ? (1/3) ]",
+          "BUTTON \u2192 HOLE"
+        ],
+        "compoundHint": "POT + BELLY = Potbelly (Links to BELLY \u2192 BUTTON \u2192 HOLE)"
       },
       {
         "index": 3,
-        "stemWord": "PINE",
-        "correctWord": "APPLE",
-        "decoyWord": "CEDAR",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Pineapple pie",
-        "explanation": "PINE + APPLE + PIE forms Pineapple pie; CEDAR is a tree sibling.",
-        "displayStem": "PINE",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "BELLY",
+        "displayStem": "BELLY",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "correctWord": "BUTTON",
+        "decoyPool": [
+          "ZIPPER",
+          "BUCKLE",
+          "COLLAR",
+          "POCKET"
+        ],
+        "decoyWord": "ZIPPER",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 PIE"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 HOLE",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "PINE",
-          "?",
-          "PIE"
-        ]
+          "BELLY",
+          "[ ? ]",
+          "\ud83c\udf38 HOLE"
+        ],
+        "compoundHint": "BELLY + BUTTON = Belly button"
       },
       {
         "index": 4,
-        "stemWord": "APPLE",
-        "correctWord": "PIE",
-        "decoyWord": "ORCHARD",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Pineapple pie (Triple-Bloom!)",
-        "explanation": "PINE + APPLE + PIE completes Pineapple pie! ORCHARD is a fruit grove noun.",
-        "displayStem": "PINE \u2192 APPLE",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "BUTTON",
+        "displayStem": "BELLY \u2192 BUTTON",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "correctWord": "HOLE",
+        "decoyPool": [
+          "LOOP",
+          "SEAM",
+          "KNOT",
+          "STITCH"
+        ],
+        "decoyWord": "LOOP",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 PIE \u2794 GINGER"
+          "label": "THEMATIC LINK VIA HOLE",
+          "word": "\ud83d\udd17 PUNCH \u2192 BOWL \u2192 CUT",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "PINE",
-          "APPLE",
-          "?"
-        ]
+          "BELLY",
+          "BUTTON",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "BUTTON + HOLE = Buttonhole (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 5,
-        "stemWord": "PIE",
-        "correctWord": "GINGER",
-        "decoyWord": "ANCHOR",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Spiced Bakery -> Gingerbread house",
-        "explanation": "PIE links thematically to GINGER (Spiced baking), starting the next 3-part compound GINGER \u2192 BREAD \u2192 HOUSE!",
-        "displayStem": "PIE",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "HOLE",
+        "displayStem": "HOLE",
+        "stemBadge": "\ud83d\udd17 TOOL LINK (HOLE -> PUNCH)",
+        "correctWord": "PUNCH",
+        "decoyPool": [
+          "STAMP",
+          "PRESS",
+          "CLAMP",
+          "DRILL"
+        ],
+        "decoyWord": "STAMP",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 BREAD \u2192 HOUSE"
+          "label": "LINKING TO TRIPLET 3/4",
+          "word": "[ ? ] \u2192 BOWL \u2192 CUT",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "BREAD",
-          "HOUSE"
-        ]
+          "\ud83d\udd17 HOLE",
+          "[ ? (1/3) ]",
+          "BOWL \u2192 CUT"
+        ],
+        "compoundHint": "HOLE + PUNCH = Hole punch (Links to PUNCH \u2192 BOWL \u2192 CUT)"
       },
       {
         "index": 6,
-        "stemWord": "GINGER",
-        "correctWord": "BREAD",
-        "decoyWord": "GARLIC",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Gingerbread house",
-        "explanation": "GINGER + BREAD + HOUSE forms Gingerbread house; GARLIC is a spice sibling.",
-        "displayStem": "GINGER",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "PUNCH",
+        "displayStem": "PUNCH",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "correctWord": "BOWL",
+        "decoyPool": [
+          "PLATE",
+          "SPOON",
+          "PITCHER",
+          "SAUCER"
+        ],
+        "decoyWord": "PLATE",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 HOUSE"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 CUT",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "GINGER",
-          "?",
-          "HOUSE"
-        ]
+          "PUNCH",
+          "[ ? ]",
+          "\ud83c\udf38 CUT"
+        ],
+        "compoundHint": "PUNCH + BOWL = Punch bowl"
       },
       {
         "index": 7,
-        "stemWord": "BREAD",
-        "correctWord": "HOUSE",
-        "decoyWord": "TOAST",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Gingerbread house (Triple-Bloom!)",
-        "explanation": "GINGER + BREAD + HOUSE completes Gingerbread house! TOAST is a bread sibling.",
-        "displayStem": "GINGER \u2192 BREAD",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "BOWL",
+        "displayStem": "PUNCH \u2192 BOWL",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "correctWord": "CUT",
+        "decoyPool": [
+          "TRIM",
+          "CURL",
+          "BRAID",
+          "PART"
+        ],
+        "decoyWord": "TRIM",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 HOUSE \u2794 FRONT"
+          "label": "THEMATIC LINK VIA CUT",
+          "word": "\ud83d\udd17 BACK \u2192 STAGE \u2192 COACH",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "GINGER",
-          "BREAD",
-          "?"
-        ]
+          "PUNCH",
+          "BOWL",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "BOWL + CUT = Bowl cut (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 8,
-        "stemWord": "HOUSE",
-        "correctWord": "FRONT",
-        "decoyWord": "CABIN",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Housefront -> Front doorstep",
-        "explanation": "HOUSE links to FRONT (Front of the house), starting the next 3-part compound FRONT \u2192 DOOR \u2192 STEP!",
-        "displayStem": "HOUSE",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "CUT",
+        "displayStem": "CUT",
+        "stemBadge": "\ud83d\udd17 COMPOUND LINK (CUT -> BACK)",
+        "correctWord": "BACK",
+        "decoyPool": [
+          "FRONT",
+          "LEFT",
+          "NEAR",
+          "HIGH"
+        ],
+        "decoyWord": "FRONT",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 DOOR \u2192 STEP"
+          "label": "LINKING TO TRIPLET 4/4",
+          "word": "[ ? ] \u2192 STAGE \u2192 COACH",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "DOOR",
-          "STEP"
-        ]
+          "\ud83d\udd17 CUT",
+          "[ ? (1/3) ]",
+          "STAGE \u2192 COACH"
+        ],
+        "compoundHint": "CUT + BACK = Cutback (Links to BACK \u2192 STAGE \u2192 COACH)"
       },
       {
         "index": 9,
-        "stemWord": "FRONT",
-        "correctWord": "DOOR",
-        "decoyWord": "REAR",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Front doorstep",
-        "explanation": "FRONT + DOOR + STEP forms Front doorstep; REAR is an antonym trap.",
-        "displayStem": "FRONT",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "BACK",
+        "displayStem": "BACK",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "correctWord": "STAGE",
+        "decoyPool": [
+          "SCENE",
+          "DRAMA",
+          "ACTOR",
+          "SCRIPT"
+        ],
+        "decoyWord": "SCENE",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 STEP"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 COACH",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "FRONT",
-          "?",
-          "STEP"
-        ]
+          "BACK",
+          "[ ? ]",
+          "\ud83c\udf38 COACH"
+        ],
+        "compoundHint": "BACK + STAGE = Backstage"
       },
       {
         "index": 10,
-        "stemWord": "DOOR",
-        "correctWord": "STEP",
-        "decoyWord": "PORTAL",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Front doorstep (Triple-Bloom!)",
-        "explanation": "FRONT + DOOR + STEP completes Front doorstep! PORTAL is a doorway synonym.",
-        "displayStem": "FRONT \u2192 DOOR",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "STAGE",
+        "displayStem": "BACK \u2192 STAGE",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "correctWord": "COACH",
+        "decoyPool": [
+          "WAGON",
+          "TRAIN",
+          "TRUCK",
+          "CABIN"
+        ],
+        "decoyWord": "WAGON",
         "faintAbove": {
-          "label": "ZONE 2 GRAFT COLLAR AHEAD",
-          "word": "\ud83e\udeb5 STEP \u2794 LADDER"
+          "label": "THEMATIC LINK VIA COACH",
+          "word": "\ud83d\udd17 + ZONE 2: CLASS",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "FRONT",
-          "DOOR",
-          "?"
-        ]
+          "BACK",
+          "STAGE",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "STAGE + COACH = Stagecoach (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 11,
-        "stemWord": "STEP",
-        "correctWord": "LADDER",
-        "decoyWord": "STAIR",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Stepladder (Enters Zone 2!)",
-        "explanation": "STEP + LADDER = Stepladder, crossing into Zone 2 2-Part Pivots!",
-        "displayStem": "STEP",
-        "stemBadge": "\ud83d\udd17 BRIDGE INTO ZONE 2 STEM",
+        "stemWord": "COACH",
+        "displayStem": "COACH",
+        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (COACH -> CLASS)",
+        "correctWord": "CLASS",
+        "decoyPool": [
+          "GRADE",
+          "GROUP",
+          "LEVEL",
+          "RANK"
+        ],
+        "decoyWord": "GRADE",
         "faintAbove": {
-          "label": "ZONE 2 \u2022 2-PART PIVOTS",
-          "word": "\ud83e\udeb5 LADDER \u2192 BACK"
+          "label": "BRIDGING TO ZONE 2 STEM",
+          "word": "CLASS \u2192 ROOM",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "FRONT",
-          "DOOR",
-          "STEP"
-        ]
+          "\ud83d\udd17 COACH",
+          "[ ? (1/3) ]",
+          "ZONE 2"
+        ],
+        "compoundHint": "COACH + CLASS = Coach class (Enters Zone 2: The Stem)"
       },
       {
         "index": 12,
-        "stemWord": "LADDER",
-        "correctWord": "BACK",
-        "decoyWord": "RUNG",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Ladder-back",
-        "explanation": "LADDER + BACK = Ladder-back; RUNG is a ladder part."
+        "stemWord": "CLASS",
+        "displayStem": "CLASS",
+        "correctWord": "ROOM",
+        "decoyPool": [
+          "HALL",
+          "DESK",
+          "YARD",
+          "WING"
+        ],
+        "decoyWord": "HALL",
+        "compoundHint": "CLASS + ROOM = Classroom"
       },
       {
         "index": 13,
-        "stemWord": "BACK",
-        "correctWord": "BONE",
-        "decoyWord": "REAR",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Backbone",
-        "explanation": "BACK + BONE = Backbone; REAR is a directional synonym."
+        "stemWord": "ROOM",
+        "displayStem": "ROOM",
+        "correctWord": "MATE",
+        "decoyPool": [
+          "GUEST",
+          "HOST",
+          "BOSS",
+          "PEER"
+        ],
+        "decoyWord": "GUEST",
+        "compoundHint": "ROOM + MATE = Roommate"
       },
       {
         "index": 14,
-        "stemWord": "BONE",
-        "correctWord": "DRY",
-        "decoyWord": "MARROW",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Bone-dry",
-        "explanation": "BONE + DRY = Bone-dry; MARROW baits the anatomical sense of Backbone."
+        "stemWord": "MATE",
+        "displayStem": "MATE",
+        "correctWord": "SHIP",
+        "decoyPool": [
+          "BOAT",
+          "RAFT",
+          "DECK",
+          "BARGE"
+        ],
+        "decoyWord": "BOAT",
+        "compoundHint": "MATE + SHIP = Mateship / Shipmate"
       },
       {
         "index": 15,
-        "stemWord": "DRY",
-        "correctWord": "DOCK",
-        "decoyWord": "ARID",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Drydock",
-        "explanation": "DRY + DOCK = Drydock; ARID is a synonym for dry."
+        "stemWord": "SHIP",
+        "displayStem": "SHIP",
+        "correctWord": "WRECK",
+        "decoyPool": [
+          "CRASH",
+          "STORM",
+          "FLOOD",
+          "SHOAL"
+        ],
+        "decoyWord": "CRASH",
+        "compoundHint": "SHIP + WRECK = Shipwreck"
       },
       {
         "index": 16,
-        "stemWord": "DOCK",
-        "correctWord": "YARD",
-        "decoyWord": "WHARF",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Dockyard",
-        "explanation": "DOCK + YARD = Dockyard; WHARF baits the harbor sense of Drydock."
+        "stemWord": "WRECK",
+        "displayStem": "WRECK",
+        "correctWord": "BALL",
+        "decoyPool": [
+          "ROCK",
+          "IRON",
+          "BEAM",
+          "CHAIN"
+        ],
+        "decoyWord": "ROCK",
+        "compoundHint": "WRECK + BALL = Wrecking ball"
       },
       {
         "index": 17,
-        "stemWord": "YARD",
-        "correctWord": "STICK",
-        "decoyWord": "ACRE",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Yardstick",
-        "explanation": "YARD + STICK = Yardstick; ACRE is a land unit sibling."
+        "stemWord": "BALL",
+        "displayStem": "BALL",
+        "correctWord": "POINT",
+        "decoyPool": [
+          "EDGE",
+          "TIP",
+          "MARK",
+          "DOT"
+        ],
+        "decoyWord": "EDGE",
+        "compoundHint": "BALL + POINT = Ballpoint"
       },
       {
         "index": 18,
-        "stemWord": "STICK",
-        "correctWord": "SHIFT",
-        "decoyWord": "TWIG",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Stick shift",
-        "explanation": "STICK + SHIFT = Stick shift; TWIG baits the wooden stick sense."
+        "stemWord": "POINT",
+        "displayStem": "POINT",
+        "correctWord": "BLANK",
+        "decoyPool": [
+          "EMPTY",
+          "CLEAR",
+          "PLAIN",
+          "SHARP"
+        ],
+        "decoyWord": "EMPTY",
+        "compoundHint": "POINT + BLANK = Point-blank"
       },
       {
         "index": 19,
-        "stemWord": "SHIFT",
-        "correctWord": "KEY",
-        "decoyWord": "CLUTCH",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Shift key",
-        "explanation": "SHIFT + KEY = Shift key; CLUTCH baits the car transmission sense."
+        "stemWord": "BLANK",
+        "displayStem": "BLANK",
+        "correctWord": "CHECK",
+        "decoyPool": [
+          "BILL",
+          "COIN",
+          "NOTE",
+          "LOAN"
+        ],
+        "decoyWord": "BILL",
+        "compoundHint": "BLANK + CHECK = Blank check"
       },
       {
         "index": 20,
-        "stemWord": "KEY",
-        "correctWord": "HOLE",
-        "decoyWord": "PADLOCK",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Keyhole",
-        "explanation": "KEY + HOLE = Keyhole; PADLOCK baits the lock-and-key association."
+        "stemWord": "CHECK",
+        "displayStem": "CHECK",
+        "correctWord": "POINT",
+        "decoyPool": [
+          "GATE",
+          "POST",
+          "STOP",
+          "SIGN"
+        ],
+        "decoyWord": "GATE",
+        "compoundHint": "CHECK + POINT = Checkpoint"
       },
       {
         "index": 21,
-        "stemWord": "HOLE",
-        "correctWord": "IN",
-        "decoyWord": "CAVITY",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Hole-in-one / Hole in",
-        "explanation": "HOLE + IN = Hole in; CAVITY is a synonym for hole."
+        "stemWord": "POINT",
+        "displayStem": "POINT",
+        "correctWord": "GUARD",
+        "decoyPool": [
+          "COACH",
+          "SCOUT",
+          "JUDGE",
+          "REFEREE"
+        ],
+        "decoyWord": "COACH",
+        "compoundHint": "POINT + GUARD = Point guard"
       },
       {
         "index": 22,
-        "stemWord": "IN",
-        "correctWord": "DOOR",
-        "decoyWord": "WITHIN",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Indoor",
-        "explanation": "IN + DOOR = Indoor; WITHIN is a preposition synonym."
+        "stemWord": "GUARD",
+        "displayStem": "GUARD",
+        "correctWord": "RAIL",
+        "decoyPool": [
+          "WALL",
+          "GATE",
+          "POST",
+          "BEAM"
+        ],
+        "decoyWord": "WALL",
+        "compoundHint": "GUARD + RAIL = Guardrail"
       },
       {
         "index": 23,
-        "stemWord": "DOOR",
-        "correctWord": "MAT",
-        "decoyWord": "PORTAL",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Doormat",
-        "explanation": "DOOR + MAT = Doormat; PORTAL is a doorway synonym."
+        "stemWord": "RAIL",
+        "displayStem": "RAIL",
+        "correctWord": "ROAD",
+        "decoyPool": [
+          "PATH",
+          "LANE",
+          "TRAIL",
+          "STREET"
+        ],
+        "decoyWord": "PATH",
+        "compoundHint": "RAIL + ROAD = Railroad"
       },
       {
         "index": 24,
-        "stemWord": "MAT",
-        "correctWord": "BOARD",
-        "decoyWord": "CARPET",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Matboard",
-        "explanation": "MAT + BOARD = Matboard; CARPET is a floor covering sibling."
+        "stemWord": "ROAD",
+        "displayStem": "ROAD",
+        "correctWord": "BLOCK",
+        "decoyPool": [
+          "CONE",
+          "DITCH",
+          "CURB",
+          "FENCE"
+        ],
+        "decoyWord": "CONE",
+        "compoundHint": "ROAD + BLOCK = Roadblock"
       },
       {
         "index": 25,
-        "stemWord": "BOARD",
-        "correctWord": "GAME",
-        "decoyWord": "TIMBER",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Board game",
-        "explanation": "BOARD + GAME = Board game; TIMBER baits the wood sense."
+        "stemWord": "BLOCK",
+        "displayStem": "BLOCK",
+        "correctWord": "HEAD",
+        "decoyPool": [
+          "MIND",
+          "FACE",
+          "CHIN",
+          "NECK"
+        ],
+        "decoyWord": "MIND",
+        "compoundHint": "BLOCK + HEAD = Blockhead"
       },
       {
         "index": 26,
-        "stemWord": "GAME",
-        "correctWord": "PLAN",
-        "decoyWord": "SPORT",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Game plan",
-        "explanation": "GAME + PLAN = Game plan; SPORT is a game synonym."
+        "stemWord": "HEAD",
+        "displayStem": "HEAD",
+        "correctWord": "START",
+        "decoyPool": [
+          "PACE",
+          "JUMP",
+          "STEP",
+          "DASH"
+        ],
+        "decoyWord": "PACE",
+        "compoundHint": "HEAD + START = Head start"
       },
       {
         "index": 27,
-        "stemWord": "PLAN",
-        "correctWord": "OUT",
-        "decoyWord": "IDEA",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Plan out",
-        "explanation": "PLAN + OUT = Plan out; crosses into Zone 3 Canopy!"
+        "stemWord": "START",
+        "displayStem": "START",
+        "correctWord": "UP",
+        "decoyPool": [
+          "ON",
+          "IN",
+          "BY",
+          "TO"
+        ],
+        "decoyWord": "ON",
+        "compoundHint": "START + UP = Startup"
       },
       {
         "index": 28,
-        "stemWord": "OUT",
-        "correctWord": "POUR",
-        "decoyWord": "POUT",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Outpour",
-        "explanation": "OUT + POUR = Outpour; POUT is a visual lookalike."
+        "stemWord": "UP",
+        "displayStem": "UP",
+        "correctWord": "TURN",
+        "decoyPool": [
+          "SPIN",
+          "ROLL",
+          "TWIST",
+          "BEND"
+        ],
+        "decoyWord": "SPIN",
+        "compoundHint": "UP + TURN = Upturn"
       },
       {
         "index": 29,
-        "stemWord": "POUR",
-        "correctWord": "OVER",
-        "decoyWord": "SPILL",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Pour-over",
-        "explanation": "POUR + OVER = Pour-over; SPILL is a verb synonym."
+        "stemWord": "TURN",
+        "displayStem": "TURN",
+        "correctWord": "OVER",
+        "decoyPool": [
+          "INTO",
+          "FROM",
+          "UPON",
+          "WITH"
+        ],
+        "decoyWord": "INTO",
+        "compoundHint": "TURN + OVER = Turnover"
       },
       {
         "index": 30,
-        "stemWord": "OVER",
-        "correctWord": "TURN",
-        "decoyWord": "MAKE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Overturn",
-        "explanation": "OVER + TURN = Overturn; MAKE is a reverse-compound trap (Makeover is backwards!)."
+        "stemWord": "OVER",
+        "displayStem": "OVER",
+        "correctWord": "LOOK",
+        "decoyPool": [
+          "GAZE",
+          "PEEK",
+          "STARE",
+          "BLINK"
+        ],
+        "decoyWord": "GAZE",
+        "compoundHint": "OVER + LOOK = Overlook"
       },
       {
         "index": 31,
-        "stemWord": "TURN",
-        "correctWord": "DOWN",
-        "decoyWord": "SPIN",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Turndown",
-        "explanation": "TURN + DOWN = Turndown; SPIN is a verb synonym."
+        "stemWord": "LOOK",
+        "displayStem": "LOOK",
+        "correctWord": "OUT",
+        "decoyPool": [
+          "FAR",
+          "LOW",
+          "OFF",
+          "NEAR"
+        ],
+        "decoyWord": "FAR",
+        "compoundHint": "LOOK + OUT = Lookout"
       },
       {
         "index": 32,
-        "stemWord": "DOWN",
-        "correctWord": "FALL",
-        "decoyWord": "MELT",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Downfall",
-        "explanation": "DOWN + FALL = Downfall; MELT is a reverse-compound trap (Meltdown is backwards!)."
+        "stemWord": "OUT",
+        "displayStem": "OUT",
+        "correctWord": "LINE",
+        "decoyPool": [
+          "PATH",
+          "MARK",
+          "EDGE",
+          "LOOP"
+        ],
+        "decoyWord": "PATH",
+        "compoundHint": "OUT + LINE = Outline"
       },
       {
         "index": 33,
-        "stemWord": "FALL",
-        "correctWord": "OUT",
-        "decoyWord": "TRIP",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Fallout",
-        "explanation": "FALL + OUT = Fallout; TRIP is a synonym trap."
+        "stemWord": "LINE",
+        "displayStem": "LINE",
+        "correctWord": "UP",
+        "decoyPool": [
+          "ON",
+          "AT",
+          "TO",
+          "OF"
+        ],
+        "decoyWord": "ON",
+        "compoundHint": "LINE + UP = Lineup"
       },
       {
         "index": 34,
-        "stemWord": "OUT",
-        "correctWord": "BREAK",
-        "decoyWord": "BROKE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Outbreak",
-        "explanation": "OUT + BREAK = Outbreak; BROKE is a past-tense trap."
+        "stemWord": "UP",
+        "displayStem": "UP",
+        "correctWord": "HOLD",
+        "decoyPool": [
+          "GRIP",
+          "GRASP",
+          "CLASP",
+          "CLING"
+        ],
+        "decoyWord": "GRIP",
+        "compoundHint": "UP + HOLD = Uphold"
       },
       {
         "index": 35,
-        "stemWord": "BREAK",
-        "correctWord": "DOWN",
-        "decoyWord": "SHATTER",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Breakdown",
-        "explanation": "BREAK + DOWN = Breakdown; SHATTER is a synonym decoy."
+        "stemWord": "HOLD",
+        "displayStem": "HOLD",
+        "correctWord": "BACK",
+        "decoyPool": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ],
+        "decoyWord": "AWAY",
+        "compoundHint": "HOLD + BACK = Holdback"
       },
       {
         "index": 36,
-        "stemWord": "DOWN",
-        "correctWord": "TURN",
-        "decoyWord": "SINK",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Downturn",
-        "explanation": "DOWN + TURN = Downturn; SINK is a verb distractor."
+        "stemWord": "BACK",
+        "displayStem": "BACK",
+        "correctWord": "FIRE",
+        "decoyPool": [
+          "HEAT",
+          "COAL",
+          "FLAME",
+          "SPARK"
+        ],
+        "decoyWord": "HEAT",
+        "compoundHint": "BACK + FIRE = Backfire"
       },
       {
         "index": 37,
-        "stemWord": "TURN",
-        "correctWord": "BACK",
-        "decoyWord": "SWERVE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Turnback",
-        "explanation": "TURN + BACK = Turnback; SWERVE is a verb synonym."
+        "stemWord": "FIRE",
+        "displayStem": "FIRE",
+        "correctWord": "WORK",
+        "decoyPool": [
+          "PLAY",
+          "SHOW",
+          "GLOW",
+          "BOOM"
+        ],
+        "decoyWord": "PLAY",
+        "compoundHint": "FIRE + WORK = Firework"
       },
       {
         "index": 38,
-        "stemWord": "BACK",
-        "correctWord": "LIGHT",
-        "decoyWord": "BRIGHT",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Backlight",
-        "explanation": "BACK + LIGHT = Backlight; BRIGHT is an adjective distractor."
+        "stemWord": "WORK",
+        "displayStem": "WORK",
+        "correctWord": "OUT",
+        "decoyPool": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ],
+        "decoyWord": "OFF",
+        "compoundHint": "WORK + OUT = Workout"
       },
       {
         "index": 39,
-        "stemWord": "LIGHT",
-        "correctWord": "OUT",
-        "decoyWord": "GLOW",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Light out (Conservatory Canopy Cleared!)",
-        "explanation": "LIGHT + OUT = Light out to conquer the Sunlit Conservatory!"
+        "stemWord": "OUT",
+        "displayStem": "OUT",
+        "correctWord": "RUN",
+        "decoyPool": [
+          "JOG",
+          "HOP",
+          "SKIP",
+          "DASH"
+        ],
+        "decoyWord": "JOG",
+        "compoundHint": "OUT + RUN = Outrun"
       }
     ]
   },
   {
     "vineNumber": 144,
     "dateKey": "2026-11-03",
-    "title": "Sumi-e Mountain Sprint",
     "themeId": 2,
-    "startWord": "GOLD",
+    "title": "Crimson Canopy (Ukiyo-e)",
+    "chainSetIndex": 2,
+    "zone1Triplets": [
+      {
+        "id": "snow_ball_park",
+        "parts": [
+          "SNOW",
+          "BALL",
+          "PARK"
+        ],
+        "part2Hint": "SNOW + BALL = Snowball",
+        "part3Hint": "BALL + PARK = Ballpark (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "PUCK",
+          "HOOP",
+          "CLUB",
+          "MITT"
+        ],
+        "part3Decoys": [
+          "LAWN",
+          "YARD",
+          "RINK",
+          "LANE"
+        ],
+        "thematicLink": {
+          "nextPart1": "BENCH",
+          "connection": "Setting Link (Park -> Bench)",
+          "hint": "PARK + BENCH = Park bench (Links to BENCH \u2192 MARK \u2192 DOWN)",
+          "decoys": [
+            "CHAIR",
+            "STOOL",
+            "COUCH",
+            "TABLE"
+          ]
+        }
+      },
+      {
+        "id": "bench_mark_down",
+        "parts": [
+          "BENCH",
+          "MARK",
+          "DOWN"
+        ],
+        "part2Hint": "BENCH + MARK = Benchmark",
+        "part3Hint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "SIGN",
+          "NOTE",
+          "SPOT",
+          "LINE"
+        ],
+        "part3Decoys": [
+          "AWAY",
+          "BACK",
+          "LEFT",
+          "HIGH"
+        ],
+        "thematicLink": {
+          "nextPart1": "TOWN",
+          "connection": "Compound Link (Down -> Town)",
+          "hint": "DOWN + TOWN = Downtown (Links to TOWN \u2192 HOUSE \u2192 BOAT)",
+          "decoys": [
+            "CITY",
+            "PORT",
+            "FORT",
+            "CAMP"
+          ]
+        }
+      },
+      {
+        "id": "town_house_boat",
+        "parts": [
+          "TOWN",
+          "HOUSE",
+          "BOAT"
+        ],
+        "part2Hint": "TOWN + HOUSE = Townhouse",
+        "part3Hint": "HOUSE + BOAT = Houseboat (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "CABIN",
+          "TOWER",
+          "VILLA",
+          "MANOR"
+        ],
+        "part3Decoys": [
+          "RAFT",
+          "YACHT",
+          "BARGE",
+          "CANOE"
+        ],
+        "thematicLink": {
+          "nextPart1": "SHOW",
+          "connection": "Compound Link (Boat -> Show)",
+          "hint": "BOAT + SHOW = Boat show (Links to SHOW \u2192 CASE \u2192 WORK)",
+          "decoys": [
+            "TOUR",
+            "FAIR",
+            "RACE",
+            "MEET"
+          ]
+        }
+      },
+      {
+        "id": "show_case_work",
+        "parts": [
+          "SHOW",
+          "CASE",
+          "WORK"
+        ],
+        "part2Hint": "SHOW + CASE = Showcase",
+        "part3Hint": "CASE + WORK = Casework (\ud83c\udf38 3-Part Compound Complete!)",
+        "part2Decoys": [
+          "CRATE",
+          "CHEST",
+          "TRUNK",
+          "VAULT"
+        ],
+        "part3Decoys": [
+          "PLAN",
+          "TASK",
+          "DUTY",
+          "JOB"
+        ],
+        "thematicLink": {
+          "nextPart1": "HORSE",
+          "connection": "Zone 2 Bridge (Work -> Horse)",
+          "hint": "WORK + HORSE = Workhorse (Enters Zone 2: The Stem)",
+          "decoys": [
+            "MULE",
+            "GOAT",
+            "DEER",
+            "BULL"
+          ]
+        }
+      }
+    ],
+    "zone2Compounds": [
+      {
+        "stem": "HORSE",
+        "target": "SHOE",
+        "hint": "HORSE + SHOE = Horseshoe",
+        "decoys": [
+          "BOOT",
+          "SOCK",
+          "SPUR",
+          "REIN"
+        ]
+      },
+      {
+        "stem": "SHOE",
+        "target": "STRING",
+        "hint": "SHOE + STRING = Shoestring",
+        "decoys": [
+          "RIBBON",
+          "BUCKLE",
+          "BUTTON",
+          "ZIPPER"
+        ]
+      },
+      {
+        "stem": "STRING",
+        "target": "BEAN",
+        "hint": "STRING + BEAN = String bean",
+        "decoys": [
+          "PEA",
+          "CORN",
+          "BEET",
+          "KALE"
+        ]
+      },
+      {
+        "stem": "BEAN",
+        "target": "BAG",
+        "hint": "BEAN + BAG = Beanbag",
+        "decoys": [
+          "BOX",
+          "JAR",
+          "TUB",
+          "TIN"
+        ]
+      },
+      {
+        "stem": "BAG",
+        "target": "PIPE",
+        "hint": "BAG + PIPE = Bagpipe",
+        "decoys": [
+          "DRUM",
+          "HORN",
+          "BELL",
+          "LUTE"
+        ]
+      },
+      {
+        "stem": "PIPE",
+        "target": "DREAM",
+        "hint": "PIPE + DREAM = Pipe dream",
+        "decoys": [
+          "WISH",
+          "HOPE",
+          "GOAL",
+          "IDEA"
+        ]
+      },
+      {
+        "stem": "DREAM",
+        "target": "LAND",
+        "hint": "DREAM + LAND = Dreamland",
+        "decoys": [
+          "TOWN",
+          "CITY",
+          "PARK",
+          "ZONE"
+        ]
+      },
+      {
+        "stem": "LAND",
+        "target": "SLIDE",
+        "hint": "LAND + SLIDE = Landslide",
+        "decoys": [
+          "DRIFT",
+          "SHIFT",
+          "SLOPE",
+          "CLIFF"
+        ]
+      },
+      {
+        "stem": "SLIDE",
+        "target": "SHOW",
+        "hint": "SLIDE + SHOW = Slideshow",
+        "decoys": [
+          "FILM",
+          "PLAY",
+          "VIEW",
+          "CLIP"
+        ]
+      },
+      {
+        "stem": "SHOW",
+        "target": "DOWN",
+        "hint": "SHOW + DOWN = Showdown",
+        "decoys": [
+          "AWAY",
+          "BACK",
+          "LEFT",
+          "HIGH"
+        ]
+      },
+      {
+        "stem": "DOWN",
+        "target": "FALL",
+        "hint": "DOWN + FALL = Downfall",
+        "decoys": [
+          "DROP",
+          "SLIP",
+          "TRIP",
+          "DIVE"
+        ]
+      },
+      {
+        "stem": "FALL",
+        "target": "BACK",
+        "hint": "FALL + BACK = Fallback",
+        "decoys": [
+          "LEFT",
+          "HIGH",
+          "NEAR",
+          "DEEP"
+        ]
+      },
+      {
+        "stem": "BACK",
+        "target": "BONE",
+        "hint": "BACK + BONE = Backbone",
+        "decoys": [
+          "RIB",
+          "VEIN",
+          "SKIN",
+          "LUNG"
+        ]
+      },
+      {
+        "stem": "BONE",
+        "target": "DRY",
+        "hint": "BONE + DRY = Bone-dry",
+        "decoys": [
+          "HOT",
+          "RAW",
+          "OLD",
+          "DIM"
+        ]
+      },
+      {
+        "stem": "DRY",
+        "target": "CLEAN",
+        "hint": "DRY + CLEAN = Dry-clean",
+        "decoys": [
+          "WASH",
+          "WIPE",
+          "RINSE",
+          "SCRUB"
+        ]
+      },
+      {
+        "stem": "CLEAN",
+        "target": "UP",
+        "hint": "CLEAN + UP = Cleanup",
+        "decoys": [
+          "ON",
+          "IN",
+          "BY",
+          "TO"
+        ]
+      }
+    ],
+    "zone3Compounds": [
+      {
+        "stem": "UP",
+        "target": "LIFT",
+        "hint": "UP + LIFT = Uplift",
+        "decoys": [
+          "DROP",
+          "DRAG",
+          "BEND",
+          "SINK"
+        ]
+      },
+      {
+        "stem": "LIFT",
+        "target": "OFF",
+        "hint": "LIFT + OFF = Liftoff",
+        "decoys": [
+          "FAR",
+          "LOW",
+          "NEAR",
+          "AWAY"
+        ]
+      },
+      {
+        "stem": "OFF",
+        "target": "SET",
+        "hint": "OFF + SET = Offset",
+        "decoys": [
+          "FIX",
+          "MIX",
+          "FIT",
+          "AIM"
+        ]
+      },
+      {
+        "stem": "SET",
+        "target": "BACK",
+        "hint": "SET + BACK = Setback",
+        "decoys": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "BACK",
+        "target": "DROP",
+        "hint": "BACK + DROP = Backdrop",
+        "decoys": [
+          "DIVE",
+          "SLIP",
+          "DRIP",
+          "LEAP"
+        ]
+      },
+      {
+        "stem": "DROP",
+        "target": "OUT",
+        "hint": "DROP + OUT = Dropout",
+        "decoys": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "OUT",
+        "target": "BREAK",
+        "hint": "OUT + BREAK = Outbreak",
+        "decoys": [
+          "CRACK",
+          "SPLIT",
+          "SMASH",
+          "SNAP"
+        ]
+      },
+      {
+        "stem": "BREAK",
+        "target": "DOWN",
+        "hint": "BREAK + DOWN = Breakdown",
+        "decoys": [
+          "BACK",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ]
+      },
+      {
+        "stem": "DOWN",
+        "target": "SHIFT",
+        "hint": "DOWN + SHIFT = Downshift",
+        "decoys": [
+          "SPIN",
+          "ROLL",
+          "DRIFT",
+          "GLIDE"
+        ]
+      },
+      {
+        "stem": "SHIFT",
+        "target": "WORK",
+        "hint": "SHIFT + WORK = Shiftwork",
+        "decoys": [
+          "TASK",
+          "DUTY",
+          "PLAN",
+          "ROLE"
+        ]
+      },
+      {
+        "stem": "WORK",
+        "target": "FLOW",
+        "hint": "WORK + FLOW = Workflow",
+        "decoys": [
+          "WAVE",
+          "TIDE",
+          "POUR",
+          "DRIP"
+        ]
+      },
+      {
+        "stem": "FLOW",
+        "target": "CHART",
+        "hint": "FLOW + CHART = Flowchart",
+        "decoys": [
+          "GRAPH",
+          "TABLE",
+          "SCALE",
+          "INDEX"
+        ]
+      }
+    ],
     "nodes": [
       {
         "index": 0,
-        "stemWord": "GOLD",
-        "correctWord": "FISH",
-        "decoyWord": "SILVER",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Goldfish bowl",
-        "explanation": "GOLD + FISH + BOWL forms the 3-part compound Goldfish bowl; SILVER is a precious metal sibling.",
-        "displayStem": "GOLD",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "SNOW",
+        "displayStem": "SNOW",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "correctWord": "BALL",
+        "decoyPool": [
+          "PUCK",
+          "HOOP",
+          "CLUB",
+          "MITT"
+        ],
+        "decoyWord": "PUCK",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 BOWL"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 PARK",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "GOLD",
-          "?",
-          "BOWL"
-        ]
+          "SNOW",
+          "[ ? ]",
+          "\ud83c\udf38 PARK"
+        ],
+        "compoundHint": "SNOW + BALL = Snowball"
       },
       {
         "index": 1,
-        "stemWord": "FISH",
-        "correctWord": "BOWL",
-        "decoyWord": "SALMON",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Goldfish bowl (Triple-Bloom!)",
-        "explanation": "GOLD + FISH + BOWL completes Goldfish bowl! SALMON is a fish species.",
-        "displayStem": "GOLD \u2192 FISH",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "BALL",
+        "displayStem": "SNOW \u2192 BALL",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "correctWord": "PARK",
+        "decoyPool": [
+          "LAWN",
+          "YARD",
+          "RINK",
+          "LANE"
+        ],
+        "decoyWord": "LAWN",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 BOWL \u2794 FRUIT"
+          "label": "THEMATIC LINK VIA PARK",
+          "word": "\ud83d\udd17 BENCH \u2192 MARK \u2192 DOWN",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "GOLD",
-          "FISH",
-          "?"
-        ]
+          "SNOW",
+          "BALL",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "BALL + PARK = Ballpark (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 2,
-        "stemWord": "BOWL",
-        "correctWord": "FRUIT",
-        "decoyWord": "PLATTER",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Fruit bowl -> Fruit fly trap",
-        "explanation": "BOWL links to FRUIT (Fruit bowl), starting the next 3-part compound FRUIT \u2192 FLY \u2192 TRAP!",
-        "displayStem": "BOWL",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "PARK",
+        "displayStem": "PARK",
+        "stemBadge": "\ud83d\udd17 SETTING LINK (PARK -> BENCH)",
+        "correctWord": "BENCH",
+        "decoyPool": [
+          "CHAIR",
+          "STOOL",
+          "COUCH",
+          "TABLE"
+        ],
+        "decoyWord": "CHAIR",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 FLY \u2192 TRAP"
+          "label": "LINKING TO TRIPLET 2/4",
+          "word": "[ ? ] \u2192 MARK \u2192 DOWN",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "FLY",
-          "TRAP"
-        ]
+          "\ud83d\udd17 PARK",
+          "[ ? (1/3) ]",
+          "MARK \u2192 DOWN"
+        ],
+        "compoundHint": "PARK + BENCH = Park bench (Links to BENCH \u2192 MARK \u2192 DOWN)"
       },
       {
         "index": 3,
-        "stemWord": "FRUIT",
-        "correctWord": "FLY",
-        "decoyWord": "MELON",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Fruit fly trap",
-        "explanation": "FRUIT + FLY + TRAP forms Fruit fly trap; MELON is a fruit sibling.",
-        "displayStem": "FRUIT",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "BENCH",
+        "displayStem": "BENCH",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "correctWord": "MARK",
+        "decoyPool": [
+          "SIGN",
+          "NOTE",
+          "SPOT",
+          "LINE"
+        ],
+        "decoyWord": "SIGN",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 TRAP"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 DOWN",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "FRUIT",
-          "?",
-          "TRAP"
-        ]
+          "BENCH",
+          "[ ? ]",
+          "\ud83c\udf38 DOWN"
+        ],
+        "compoundHint": "BENCH + MARK = Benchmark"
       },
       {
         "index": 4,
-        "stemWord": "FLY",
-        "correctWord": "TRAP",
-        "decoyWord": "MOSQUITO",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Fruit fly trap (Triple-Bloom!)",
-        "explanation": "FRUIT + FLY + TRAP completes Fruit fly trap! MOSQUITO is an insect sibling.",
-        "displayStem": "FRUIT \u2192 FLY",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "MARK",
+        "displayStem": "BENCH \u2192 MARK",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "correctWord": "DOWN",
+        "decoyPool": [
+          "AWAY",
+          "BACK",
+          "LEFT",
+          "HIGH"
+        ],
+        "decoyWord": "AWAY",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 TRAP \u2794 SAND"
+          "label": "THEMATIC LINK VIA DOWN",
+          "word": "\ud83d\udd17 TOWN \u2192 HOUSE \u2192 BOAT",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "FRUIT",
-          "FLY",
-          "?"
-        ]
+          "BENCH",
+          "MARK",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 5,
-        "stemWord": "TRAP",
-        "correctWord": "SAND",
-        "decoyWord": "AMBUSH",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Sand trap -> Sandcastle wall",
-        "explanation": "TRAP links to SAND (Golf sand trap), starting the next 3-part compound SAND \u2192 CASTLE \u2192 WALL!",
-        "displayStem": "TRAP",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "DOWN",
+        "displayStem": "DOWN",
+        "stemBadge": "\ud83d\udd17 COMPOUND LINK (DOWN -> TOWN)",
+        "correctWord": "TOWN",
+        "decoyPool": [
+          "CITY",
+          "PORT",
+          "FORT",
+          "CAMP"
+        ],
+        "decoyWord": "CITY",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 CASTLE \u2192 WALL"
+          "label": "LINKING TO TRIPLET 3/4",
+          "word": "[ ? ] \u2192 HOUSE \u2192 BOAT",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "CASTLE",
-          "WALL"
-        ]
+          "\ud83d\udd17 DOWN",
+          "[ ? (1/3) ]",
+          "HOUSE \u2192 BOAT"
+        ],
+        "compoundHint": "DOWN + TOWN = Downtown (Links to TOWN \u2192 HOUSE \u2192 BOAT)"
       },
       {
         "index": 6,
-        "stemWord": "SAND",
-        "correctWord": "CASTLE",
-        "decoyWord": "GRAVEL",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Sandcastle wall",
-        "explanation": "SAND + CASTLE + WALL forms Sandcastle wall; GRAVEL is a sediment sibling.",
-        "displayStem": "SAND",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "TOWN",
+        "displayStem": "TOWN",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "correctWord": "HOUSE",
+        "decoyPool": [
+          "CABIN",
+          "TOWER",
+          "VILLA",
+          "MANOR"
+        ],
+        "decoyWord": "CABIN",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 WALL"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 BOAT",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "SAND",
-          "?",
-          "WALL"
-        ]
+          "TOWN",
+          "[ ? ]",
+          "\ud83c\udf38 BOAT"
+        ],
+        "compoundHint": "TOWN + HOUSE = Townhouse"
       },
       {
         "index": 7,
-        "stemWord": "CASTLE",
-        "correctWord": "WALL",
-        "decoyWord": "PALACE",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Sandcastle wall (Triple-Bloom!)",
-        "explanation": "SAND + CASTLE + WALL completes Sandcastle wall! PALACE is a castle synonym.",
-        "displayStem": "SAND \u2192 CASTLE",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "HOUSE",
+        "displayStem": "TOWN \u2192 HOUSE",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "correctWord": "BOAT",
+        "decoyPool": [
+          "RAFT",
+          "YACHT",
+          "BARGE",
+          "CANOE"
+        ],
+        "decoyWord": "RAFT",
         "faintAbove": {
-          "label": "NEXT THEMATIC LINK",
-          "word": "\ud83d\udd17 WALL \u2794 POST"
+          "label": "THEMATIC LINK VIA BOAT",
+          "word": "\ud83d\udd17 SHOW \u2192 CASE \u2192 WORK",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "SAND",
-          "CASTLE",
-          "?"
-        ]
+          "TOWN",
+          "HOUSE",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "HOUSE + BOAT = Houseboat (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 8,
-        "stemWord": "WALL",
-        "correctWord": "POST",
-        "decoyWord": "FENCE",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Wall post -> Post office box",
-        "explanation": "WALL links to POST (Fencepost / Wall post), starting the next 3-part compound POST \u2192 OFFICE \u2192 BOX!",
-        "displayStem": "WALL",
-        "stemBadge": "\ud83d\udd17 LINK 3RD WORD \u2192 NEXT TRIPLET",
+        "stemWord": "BOAT",
+        "displayStem": "BOAT",
+        "stemBadge": "\ud83d\udd17 COMPOUND LINK (BOAT -> SHOW)",
+        "correctWord": "SHOW",
+        "decoyPool": [
+          "TOUR",
+          "FAIR",
+          "RACE",
+          "MEET"
+        ],
+        "decoyWord": "TOUR",
         "faintAbove": {
-          "label": "NEXT 3-PART COMPOUND",
-          "word": "[ ? ] \u2192 OFFICE \u2192 BOX"
+          "label": "LINKING TO TRIPLET 4/4",
+          "word": "[ ? ] \u2192 CASE \u2192 WORK",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "?",
-          "OFFICE",
-          "BOX"
-        ]
+          "\ud83d\udd17 BOAT",
+          "[ ? (1/3) ]",
+          "CASE \u2192 WORK"
+        ],
+        "compoundHint": "BOAT + SHOW = Boat show (Links to SHOW \u2192 CASE \u2192 WORK)"
       },
       {
         "index": 9,
-        "stemWord": "POST",
-        "correctWord": "OFFICE",
-        "decoyWord": "PILLAR",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "triplet_1_2",
         "tripletStep": 2,
-        "compoundHint": "Post office box",
-        "explanation": "POST + OFFICE + BOX forms Post office box; PILLAR is a structural post synonym.",
-        "displayStem": "POST",
-        "stemBadge": "PART 1 OF 3 \u2022 PICK PART 2",
+        "stemWord": "SHOW",
+        "displayStem": "SHOW",
+        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "correctWord": "CASE",
+        "decoyPool": [
+          "CRATE",
+          "CHEST",
+          "TRUNK",
+          "VAULT"
+        ],
+        "decoyWord": "CRATE",
         "faintAbove": {
-          "label": "PART 3 OF 3 (LINKED)",
-          "word": "\ud83c\udf38 BOX"
+          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
+          "word": "\ud83c\udf38 WORK",
+          "isNextTriplet": false
         },
         "tripletSlots": [
-          "POST",
-          "?",
-          "BOX"
-        ]
+          "SHOW",
+          "[ ? ]",
+          "\ud83c\udf38 WORK"
+        ],
+        "compoundHint": "SHOW + CASE = Showcase"
       },
       {
         "index": 10,
-        "stemWord": "OFFICE",
-        "correctWord": "BOX",
-        "decoyWord": "BUREAU",
-        "leftRightSeed": 0,
         "zoneId": 1,
-        "edgeType": "triplet_2_3",
         "tripletStep": 3,
-        "compoundHint": "Post office box (Triple-Bloom!)",
-        "explanation": "POST + OFFICE + BOX completes Post office box! BUREAU is an office synonym.",
-        "displayStem": "POST \u2192 OFFICE",
-        "stemBadge": "PARTS 1\u20132 \u2022 COMPLETE PART 3 \ud83c\udf38",
+        "stemWord": "CASE",
+        "displayStem": "SHOW \u2192 CASE",
+        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "correctWord": "WORK",
+        "decoyPool": [
+          "PLAN",
+          "TASK",
+          "DUTY",
+          "JOB"
+        ],
+        "decoyWord": "PLAN",
         "faintAbove": {
-          "label": "ZONE 2 GRAFT COLLAR AHEAD",
-          "word": "\ud83e\udeb5 BOX \u2794 SPRING"
+          "label": "THEMATIC LINK VIA WORK",
+          "word": "\ud83d\udd17 + ZONE 2: HORSE",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "POST",
-          "OFFICE",
-          "?"
-        ]
+          "SHOW",
+          "CASE",
+          "\ud83c\udf38 [ ? ]"
+        ],
+        "compoundHint": "CASE + WORK = Casework (\ud83c\udf38 3-Part Compound Complete!)"
       },
       {
         "index": 11,
-        "stemWord": "BOX",
-        "correctWord": "SPRING",
-        "decoyWord": "CARTON",
-        "leftRightSeed": 1,
         "zoneId": 1,
-        "edgeType": "bridge_2",
         "tripletStep": 1,
-        "compoundHint": "Box spring (Enters Zone 2!)",
-        "explanation": "BOX + SPRING = Box spring, crossing into Zone 2 2-Part Pivots!",
-        "displayStem": "BOX",
-        "stemBadge": "\ud83d\udd17 BRIDGE INTO ZONE 2 STEM",
+        "stemWord": "WORK",
+        "displayStem": "WORK",
+        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (WORK -> HORSE)",
+        "correctWord": "HORSE",
+        "decoyPool": [
+          "MULE",
+          "GOAT",
+          "DEER",
+          "BULL"
+        ],
+        "decoyWord": "MULE",
         "faintAbove": {
-          "label": "ZONE 2 \u2022 2-PART PIVOTS",
-          "word": "\ud83e\udeb5 SPRING \u2192 BOARD"
+          "label": "BRIDGING TO ZONE 2 STEM",
+          "word": "HORSE \u2192 SHOE",
+          "isNextTriplet": true
         },
         "tripletSlots": [
-          "POST",
-          "OFFICE",
-          "BOX"
-        ]
+          "\ud83d\udd17 WORK",
+          "[ ? (1/3) ]",
+          "ZONE 2"
+        ],
+        "compoundHint": "WORK + HORSE = Workhorse (Enters Zone 2: The Stem)"
       },
       {
         "index": 12,
-        "stemWord": "SPRING",
-        "correctWord": "BOARD",
-        "decoyWord": "AUTUMN",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Springboard",
-        "explanation": "SPRING + BOARD = Springboard; AUTUMN baits the season meaning of Spring."
+        "stemWord": "HORSE",
+        "displayStem": "HORSE",
+        "correctWord": "SHOE",
+        "decoyPool": [
+          "BOOT",
+          "SOCK",
+          "SPUR",
+          "REIN"
+        ],
+        "decoyWord": "BOOT",
+        "compoundHint": "HORSE + SHOE = Horseshoe"
       },
       {
         "index": 13,
-        "stemWord": "BOARD",
-        "correctWord": "WALK",
-        "decoyWord": "PLANK",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Boardwalk",
-        "explanation": "BOARD + WALK = Boardwalk; PLANK baits the lumber meaning of Board."
+        "stemWord": "SHOE",
+        "displayStem": "SHOE",
+        "correctWord": "STRING",
+        "decoyPool": [
+          "RIBBON",
+          "BUCKLE",
+          "BUTTON",
+          "ZIPPER"
+        ],
+        "decoyWord": "RIBBON",
+        "compoundHint": "SHOE + STRING = Shoestring"
       },
       {
         "index": 14,
-        "stemWord": "WALK",
-        "correctWord": "OUT",
-        "decoyWord": "STROLL",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Walkout",
-        "explanation": "WALK + OUT = Walkout; STROLL is a walking synonym."
+        "stemWord": "STRING",
+        "displayStem": "STRING",
+        "correctWord": "BEAN",
+        "decoyPool": [
+          "PEA",
+          "CORN",
+          "BEET",
+          "KALE"
+        ],
+        "decoyWord": "PEA",
+        "compoundHint": "STRING + BEAN = String bean"
       },
       {
         "index": 15,
-        "stemWord": "OUT",
-        "correctWord": "HOUSE",
-        "decoyWord": "EXIT",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Outhouse",
-        "explanation": "OUT + HOUSE = Outhouse; EXIT is redundant with Out."
+        "stemWord": "BEAN",
+        "displayStem": "BEAN",
+        "correctWord": "BAG",
+        "decoyPool": [
+          "BOX",
+          "JAR",
+          "TUB",
+          "TIN"
+        ],
+        "decoyWord": "BOX",
+        "compoundHint": "BEAN + BAG = Beanbag"
       },
       {
         "index": 16,
-        "stemWord": "HOUSE",
-        "correctWord": "WORK",
-        "decoyWord": "COTTAGE",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Housework",
-        "explanation": "HOUSE + WORK = Housework; COTTAGE is a house sibling."
+        "stemWord": "BAG",
+        "displayStem": "BAG",
+        "correctWord": "PIPE",
+        "decoyPool": [
+          "DRUM",
+          "HORN",
+          "BELL",
+          "LUTE"
+        ],
+        "decoyWord": "DRUM",
+        "compoundHint": "BAG + PIPE = Bagpipe"
       },
       {
         "index": 17,
-        "stemWord": "WORK",
-        "correctWord": "BENCH",
-        "decoyWord": "CHORE",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Workbench",
-        "explanation": "WORK + BENCH = Workbench; CHORE is a work synonym."
+        "stemWord": "PIPE",
+        "displayStem": "PIPE",
+        "correctWord": "DREAM",
+        "decoyPool": [
+          "WISH",
+          "HOPE",
+          "GOAL",
+          "IDEA"
+        ],
+        "decoyWord": "WISH",
+        "compoundHint": "PIPE + DREAM = Pipe dream"
       },
       {
         "index": 18,
-        "stemWord": "BENCH",
-        "correctWord": "MARK",
-        "decoyWord": "COUCH",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Benchmark",
-        "explanation": "BENCH + MARK = Benchmark; COUCH is a furniture sibling."
+        "stemWord": "DREAM",
+        "displayStem": "DREAM",
+        "correctWord": "LAND",
+        "decoyPool": [
+          "TOWN",
+          "CITY",
+          "PARK",
+          "ZONE"
+        ],
+        "decoyWord": "TOWN",
+        "compoundHint": "DREAM + LAND = Dreamland"
       },
       {
         "index": 19,
-        "stemWord": "MARK",
-        "correctWord": "DOWN",
-        "decoyWord": "SCORE",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Markdown",
-        "explanation": "MARK + DOWN = Markdown; SCORE is a synonym for mark."
+        "stemWord": "LAND",
+        "displayStem": "LAND",
+        "correctWord": "SLIDE",
+        "decoyPool": [
+          "DRIFT",
+          "SHIFT",
+          "SLOPE",
+          "CLIFF"
+        ],
+        "decoyWord": "DRIFT",
+        "compoundHint": "LAND + SLIDE = Landslide"
       },
       {
         "index": 20,
-        "stemWord": "DOWN",
-        "correctWord": "TOWN",
-        "decoyWord": "BELOW",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Downtown",
-        "explanation": "DOWN + TOWN = Downtown; BELOW is a directional synonym."
+        "stemWord": "SLIDE",
+        "displayStem": "SLIDE",
+        "correctWord": "SHOW",
+        "decoyPool": [
+          "FILM",
+          "PLAY",
+          "VIEW",
+          "CLIP"
+        ],
+        "decoyWord": "FILM",
+        "compoundHint": "SLIDE + SHOW = Slideshow"
       },
       {
         "index": 21,
-        "stemWord": "TOWN",
-        "correctWord": "SHIP",
-        "decoyWord": "VILLAGE",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Township",
-        "explanation": "TOWN + SHIP = Township; VILLAGE baits the municipality sense."
+        "stemWord": "SHOW",
+        "displayStem": "SHOW",
+        "correctWord": "DOWN",
+        "decoyPool": [
+          "AWAY",
+          "BACK",
+          "LEFT",
+          "HIGH"
+        ],
+        "decoyWord": "AWAY",
+        "compoundHint": "SHOW + DOWN = Showdown"
       },
       {
         "index": 22,
-        "stemWord": "SHIP",
-        "correctWord": "YARD",
-        "decoyWord": "VESSEL",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Shipyard",
-        "explanation": "SHIP + YARD = Shipyard; VESSEL baits the nautical sense."
+        "stemWord": "DOWN",
+        "displayStem": "DOWN",
+        "correctWord": "FALL",
+        "decoyPool": [
+          "DROP",
+          "SLIP",
+          "TRIP",
+          "DIVE"
+        ],
+        "decoyWord": "DROP",
+        "compoundHint": "DOWN + FALL = Downfall"
       },
       {
         "index": 23,
-        "stemWord": "YARD",
-        "correctWord": "SALE",
-        "decoyWord": "GARDEN",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Yard sale",
-        "explanation": "YARD + SALE = Yard sale; GARDEN is a backyard sibling."
+        "stemWord": "FALL",
+        "displayStem": "FALL",
+        "correctWord": "BACK",
+        "decoyPool": [
+          "LEFT",
+          "HIGH",
+          "NEAR",
+          "DEEP"
+        ],
+        "decoyWord": "LEFT",
+        "compoundHint": "FALL + BACK = Fallback"
       },
       {
         "index": 24,
-        "stemWord": "SALE",
-        "correctWord": "PRICE",
-        "decoyWord": "AUCTION",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Sale price",
-        "explanation": "SALE + PRICE = Sale price; AUCTION is a selling sibling."
+        "stemWord": "BACK",
+        "displayStem": "BACK",
+        "correctWord": "BONE",
+        "decoyPool": [
+          "RIB",
+          "VEIN",
+          "SKIN",
+          "LUNG"
+        ],
+        "decoyWord": "RIB",
+        "compoundHint": "BACK + BONE = Backbone"
       },
       {
         "index": 25,
-        "stemWord": "PRICE",
-        "correctWord": "TAG",
-        "decoyWord": "EXPENSE",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Price tag",
-        "explanation": "PRICE + TAG = Price tag; EXPENSE is a cost synonym."
+        "stemWord": "BONE",
+        "displayStem": "BONE",
+        "correctWord": "DRY",
+        "decoyPool": [
+          "HOT",
+          "RAW",
+          "OLD",
+          "DIM"
+        ],
+        "decoyWord": "HOT",
+        "compoundHint": "BONE + DRY = Bone-dry"
       },
       {
         "index": 26,
-        "stemWord": "TAG",
-        "correctWord": "TEAM",
-        "decoyWord": "STICKER",
-        "leftRightSeed": 0,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Tag team",
-        "explanation": "TAG + TEAM = Tag team; STICKER baits the retail label sense."
+        "stemWord": "DRY",
+        "displayStem": "DRY",
+        "correctWord": "CLEAN",
+        "decoyPool": [
+          "WASH",
+          "WIPE",
+          "RINSE",
+          "SCRUB"
+        ],
+        "decoyWord": "WASH",
+        "compoundHint": "DRY + CLEAN = Dry-clean"
       },
       {
         "index": 27,
-        "stemWord": "TEAM",
-        "correctWord": "WORK",
-        "decoyWord": "ROSTER",
-        "leftRightSeed": 1,
         "zoneId": 2,
-        "edgeType": "pivot_2",
         "tripletStep": 0,
-        "compoundHint": "Teamwork",
-        "explanation": "TEAM + WORK = Teamwork; crosses into Zone 3 Canopy!"
+        "stemWord": "CLEAN",
+        "displayStem": "CLEAN",
+        "correctWord": "UP",
+        "decoyPool": [
+          "ON",
+          "IN",
+          "BY",
+          "TO"
+        ],
+        "decoyWord": "ON",
+        "compoundHint": "CLEAN + UP = Cleanup"
       },
       {
         "index": 28,
-        "stemWord": "WORK",
-        "correctWord": "OUT",
-        "decoyWord": "CHORE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Workout",
-        "explanation": "WORK + OUT = Workout; CHORE is a work synonym."
+        "stemWord": "UP",
+        "displayStem": "UP",
+        "correctWord": "LIFT",
+        "decoyPool": [
+          "DROP",
+          "DRAG",
+          "BEND",
+          "SINK"
+        ],
+        "decoyWord": "DROP",
+        "compoundHint": "UP + LIFT = Uplift"
       },
       {
         "index": 29,
-        "stemWord": "OUT",
-        "correctWord": "RUN",
-        "decoyWord": "JOG",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Outrun",
-        "explanation": "OUT + RUN = Outrun; JOG is a slow running synonym."
+        "stemWord": "LIFT",
+        "displayStem": "LIFT",
+        "correctWord": "OFF",
+        "decoyPool": [
+          "FAR",
+          "LOW",
+          "NEAR",
+          "AWAY"
+        ],
+        "decoyWord": "FAR",
+        "compoundHint": "LIFT + OFF = Liftoff"
       },
       {
         "index": 30,
-        "stemWord": "RUN",
-        "correctWord": "DOWN",
-        "decoyWord": "SPRINT",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Rundown",
-        "explanation": "RUN + DOWN = Rundown; SPRINT is a running synonym."
+        "stemWord": "OFF",
+        "displayStem": "OFF",
+        "correctWord": "SET",
+        "decoyPool": [
+          "FIX",
+          "MIX",
+          "FIT",
+          "AIM"
+        ],
+        "decoyWord": "FIX",
+        "compoundHint": "OFF + SET = Offset"
       },
       {
         "index": 31,
-        "stemWord": "DOWN",
-        "correctWord": "TURN",
-        "decoyWord": "TOUCH",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Downturn",
-        "explanation": "DOWN + TURN = Downturn; TOUCH is a reverse-compound trap (Touchdown is backwards!)."
+        "stemWord": "SET",
+        "displayStem": "SET",
+        "correctWord": "BACK",
+        "decoyPool": [
+          "AWAY",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ],
+        "decoyWord": "AWAY",
+        "compoundHint": "SET + BACK = Setback"
       },
       {
         "index": 32,
-        "stemWord": "TURN",
-        "correctWord": "BACK",
-        "decoyWord": "SWERVE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Turnback",
-        "explanation": "TURN + BACK = Turnback; SWERVE is a verb synonym."
+        "stemWord": "BACK",
+        "displayStem": "BACK",
+        "correctWord": "DROP",
+        "decoyPool": [
+          "DIVE",
+          "SLIP",
+          "DRIP",
+          "LEAP"
+        ],
+        "decoyWord": "DIVE",
+        "compoundHint": "BACK + DROP = Backdrop"
       },
       {
         "index": 33,
-        "stemWord": "BACK",
-        "correctWord": "STOP",
-        "decoyWord": "HALT",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Backstop",
-        "explanation": "BACK + STOP = Backstop; HALT is a verb synonym."
+        "stemWord": "DROP",
+        "displayStem": "DROP",
+        "correctWord": "OUT",
+        "decoyPool": [
+          "OFF",
+          "FAR",
+          "LOW",
+          "NEAR"
+        ],
+        "decoyWord": "OFF",
+        "compoundHint": "DROP + OUT = Dropout"
       },
       {
         "index": 34,
-        "stemWord": "STOP",
-        "correctWord": "OVER",
-        "decoyWord": "PAUSE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Stopover",
-        "explanation": "STOP + OVER = Stopover; PAUSE is a synonym decoy."
+        "stemWord": "OUT",
+        "displayStem": "OUT",
+        "correctWord": "BREAK",
+        "decoyPool": [
+          "CRACK",
+          "SPLIT",
+          "SMASH",
+          "SNAP"
+        ],
+        "decoyWord": "CRACK",
+        "compoundHint": "OUT + BREAK = Outbreak"
       },
       {
         "index": 35,
-        "stemWord": "OVER",
-        "correctWord": "LOOK",
-        "decoyWord": "PEEK",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Overlook",
-        "explanation": "OVER + LOOK = Overlook; PEEK is a verb synonym."
+        "stemWord": "BREAK",
+        "displayStem": "BREAK",
+        "correctWord": "DOWN",
+        "decoyPool": [
+          "BACK",
+          "LEFT",
+          "HIGH",
+          "NEAR"
+        ],
+        "decoyWord": "BACK",
+        "compoundHint": "BREAK + DOWN = Breakdown"
       },
       {
         "index": 36,
-        "stemWord": "LOOK",
-        "correctWord": "OUT",
-        "decoyWord": "GAZE",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Lookout",
-        "explanation": "LOOK + OUT = Lookout; GAZE is a synonym trap."
+        "stemWord": "DOWN",
+        "displayStem": "DOWN",
+        "correctWord": "SHIFT",
+        "decoyPool": [
+          "SPIN",
+          "ROLL",
+          "DRIFT",
+          "GLIDE"
+        ],
+        "decoyWord": "SPIN",
+        "compoundHint": "DOWN + SHIFT = Downshift"
       },
       {
         "index": 37,
-        "stemWord": "OUT",
-        "correctWord": "SIDE",
-        "decoyWord": "WIDE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Outside",
-        "explanation": "OUT + SIDE = Outside; WIDE is a 1-letter rhyme lookalike trap."
+        "stemWord": "SHIFT",
+        "displayStem": "SHIFT",
+        "correctWord": "WORK",
+        "decoyPool": [
+          "TASK",
+          "DUTY",
+          "PLAN",
+          "ROLE"
+        ],
+        "decoyWord": "TASK",
+        "compoundHint": "SHIFT + WORK = Shiftwork"
       },
       {
         "index": 38,
-        "stemWord": "SIDE",
-        "correctWord": "LINE",
-        "decoyWord": "CURB",
-        "leftRightSeed": 0,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Sideline",
-        "explanation": "SIDE + LINE = Sideline; CURB is a reverse-compound trap (Curbside is backwards!)."
+        "stemWord": "WORK",
+        "displayStem": "WORK",
+        "correctWord": "FLOW",
+        "decoyPool": [
+          "WAVE",
+          "TIDE",
+          "POUR",
+          "DRIP"
+        ],
+        "decoyWord": "WAVE",
+        "compoundHint": "WORK + FLOW = Workflow"
       },
       {
         "index": 39,
-        "stemWord": "LINE",
-        "correctWord": "UP",
-        "decoyWord": "ROPE",
-        "leftRightSeed": 1,
         "zoneId": 3,
-        "edgeType": "particle_2",
         "tripletStep": 0,
-        "compoundHint": "Lineup (Sumi-e Canopy Cleared!)",
-        "explanation": "LINE + UP = Lineup to conquer the Sumi-e Canopy!"
+        "stemWord": "FLOW",
+        "displayStem": "FLOW",
+        "correctWord": "CHART",
+        "decoyPool": [
+          "GRAPH",
+          "TABLE",
+          "SCALE",
+          "INDEX"
+        ],
+        "decoyWord": "GRAPH",
+        "compoundHint": "FLOW + CHART = Flowchart"
       }
     ]
   }
