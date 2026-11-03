@@ -330,8 +330,8 @@
 
     updateThemeButtonLabel() {
       const theme = this.renderer.getTheme();
-      const icon = theme.id === 0 ? '✨' : theme.id === 2 ? '☀️' : theme.id === 3 ? '🌸' : '🌿';
-      const shortName = theme.id === 0 ? 'Biolum' : theme.name.split(' ')[0];
+      const icon = theme.id === 0 ? '✨' : theme.id === 1 ? '☀️' : theme.id === 2 ? '🌸' : '🌿';
+      const shortName = theme.id === 0 ? 'Biolum' : theme.id === 1 ? 'Sunlit' : theme.id === 2 ? 'Sakura' : 'Meadow';
       this.themeCycleBtn.textContent = `${icon} ${shortName}`;
     }
 
