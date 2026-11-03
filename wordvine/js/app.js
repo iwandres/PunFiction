@@ -329,7 +329,7 @@
 
     updateThemeButtonLabel() {
       const theme = this.renderer.getTheme();
-      this.themeCycleBtn.textContent = `🎨 Day ${theme.id + 1}: ${theme.name.split(' ')[0]}`;
+      this.themeCycleBtn.textContent = `🌿 ${theme.name.split(' ')[0]}`;
     }
 
     updateMuteButtonLabel() {

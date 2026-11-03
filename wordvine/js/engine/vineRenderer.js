@@ -1,13 +1,10 @@
 /**
- * Word Vine — High-Definition Procedural Botanical Canvas Renderer
- * Renders at native HiDPI (devicePixelRatio up to 3x) with:
- * - 3 Rotating Botanical Themes (Midnight Bioluminescence, Sunlit Conservatory, Ukiyo-e Ink & Sakura)
- * - 0.2x Slow-Scroll Parallax Architecture & Mountain Layers
- * - "Quiet Center" 40% Reading Lane Gutter & >180 u/s Velocity Desaturation
- * - Procedural Catmull-Rom / Cubic Bézier Climbing Stem with Braided Bark & Sumi-e Brushstrokes
- * - Rising Sap Center Vein Bleed (2 nodes before Zone Shift) & Glowing Graft Collars
- * - Blooming Flowers (Neon Orchids, Golden Marigolds, Pink Sakura) & Particle Systems
- * - Danger Vignette Creeping Roots when (Y_vine - Y_cam) <= 150 units
+ * Word Vine — Gentle Botanical Canvas Renderer
+ * Renders a soft, nature-inspired, long and flowy climbing vine at native HiDPI:
+ * - 3 Gentle Botanical Themes (Meadow & Sage, Sunlit Conservatory, Willow & Sakura)
+ * - Soft Watercolor / Herbarium Atmosphere & Drifting Botanical Spores / Petals
+ * - Long, Continuous S-Curve Sinuous Stem with Twining Tendrils & Breeze Sway
+ * - Delicate Curling Spiral Tendrils, Midrib Leaves & Wildflower Blooms
  */
 (function (root) {
   'use strict';
@@ -15,66 +12,66 @@
   const THEMES = [
     {
       id: 0,
-      name: 'Midnight Bioluminescence',
-      subtitle: 'Cavern to Starlit Canopy',
+      name: 'Meadow & Sage',
+      subtitle: 'Sunlit Garden to Airy Canopy',
       cssClass: 'theme-biolum',
-      bgLow: [10, 15, 36],
-      bgMid: [7, 19, 48],
-      bgHigh: [4, 8, 22],
+      bgLow: [244, 241, 231],
+      bgMid: [232, 240, 229],
+      bgHigh: [219, 233, 225],
       stemZones: {
-        1: { main: '#00F5D4', secondary: '#0A9396', vein: '#72EFDD', glow: 'rgba(0, 245, 212, 0.48)' },
-        2: { main: '#FFB703', secondary: '#CA6702', vein: '#FFE169', glow: 'rgba(255, 183, 3, 0.45)' },
-        3: { main: '#E0AAFF', secondary: '#9D4EDD', vein: '#FF9E00', glow: 'rgba(199, 125, 255, 0.55)' }
+        1: { main: '#4A7C59', secondary: '#76A682', vein: '#B5DFC4', glow: 'rgba(74, 124, 89, 0.14)' },
+        2: { main: '#587850', secondary: '#8C7A5B', vein: '#C9DCB3', glow: 'rgba(88, 120, 80, 0.15)' },
+        3: { main: '#3B6E52', secondary: '#639677', vein: '#BCE3C8', glow: 'rgba(59, 110, 82, 0.18)' }
       },
-      leafColor: '#00BBF9',
-      leafHighlight: '#90F1EF',
-      flowerPrimary: '#F72585',
-      flowerSecondary: '#B5179E',
-      flowerCenter: '#4CC9F0',
-      particleColor: '#72EFDD',
-      quietGutterColor: 'rgba(5, 9, 22, 0.52)'
+      leafColor: '#5D8E6B',
+      leafHighlight: '#9DC5A6',
+      flowerPrimary: '#E5989B',
+      flowerSecondary: '#D88286',
+      flowerCenter: '#F2C572',
+      particleColor: '#8FB996',
+      quietGutterColor: 'rgba(250, 248, 242, 0.25)'
     },
     {
       id: 1,
       name: 'Sunlit Conservatory',
-      subtitle: 'Victorian Glasshouse to Open Sky',
+      subtitle: 'Warm Parchment to Golden Glasshouse',
       cssClass: 'theme-conservatory',
-      bgLow: [42, 58, 49],
-      bgMid: [184, 125, 75],
-      bgHigh: [48, 96, 130],
+      bgLow: [248, 242, 230],
+      bgMid: [241, 231, 212],
+      bgHigh: [228, 237, 232],
       stemZones: {
-        1: { main: '#2D6A4F', secondary: '#B87333', vein: '#74C69D', glow: 'rgba(82, 183, 136, 0.35)' },
-        2: { main: '#D97706', secondary: '#92400E', vein: '#FDE68A', glow: 'rgba(245, 158, 11, 0.42)' },
-        3: { main: '#10B981', secondary: '#047857', vein: '#A7F3D0', glow: 'rgba(16, 185, 129, 0.48)' }
+        1: { main: '#456950', secondary: '#8F754F', vein: '#B7D3B0', glow: 'rgba(69, 105, 80, 0.14)' },
+        2: { main: '#6E6A44', secondary: '#9C7A4C', vein: '#E2D9A8', glow: 'rgba(110, 106, 68, 0.16)' },
+        3: { main: '#3D6B52', secondary: '#699474', vein: '#C2E5CD', glow: 'rgba(61, 107, 82, 0.18)' }
       },
-      leafColor: '#40916C',
-      leafHighlight: '#95D5B2',
-      flowerPrimary: '#FFB703',
-      flowerSecondary: '#FB8500',
-      flowerCenter: '#7F4F24',
-      particleColor: '#FFF3B0',
-      quietGutterColor: 'rgba(20, 28, 23, 0.34)'
+      leafColor: '#588163',
+      leafHighlight: '#A3C49E',
+      flowerPrimary: '#E8A855',
+      flowerSecondary: '#D98A3C',
+      flowerCenter: '#7A4E2D',
+      particleColor: '#D4B475',
+      quietGutterColor: 'rgba(252, 248, 238, 0.24)'
     },
     {
       id: 2,
-      name: 'Ukiyo-e Ink & Sakura',
-      subtitle: 'Sumi-e Scroll to Twilight Mountain',
+      name: 'Willow & Sakura',
+      subtitle: 'Soft Washi Scroll to Blossom Mist',
       cssClass: 'theme-ukiyoe',
-      bgLow: [242, 234, 221],
-      bgMid: [219, 196, 182],
-      bgHigh: [56, 36, 68],
+      bgLow: [248, 243, 236],
+      bgMid: [242, 233, 227],
+      bgHigh: [233, 226, 235],
       stemZones: {
-        1: { main: '#1C1917', secondary: '#44403C', vein: '#E11D48', glow: 'rgba(225, 29, 72, 0.25)' },
-        2: { main: '#9A3412', secondary: '#431407', vein: '#F97316', glow: 'rgba(234, 88, 12, 0.32)' },
-        3: { main: '#831843', secondary: '#3B0764', vein: '#F472B6', glow: 'rgba(244, 114, 182, 0.45)' }
+        1: { main: '#526656', secondary: '#7B907E', vein: '#C4D6C4', glow: 'rgba(82, 102, 86, 0.14)' },
+        2: { main: '#645D53', secondary: '#8E7F71', vein: '#D9C5B2', glow: 'rgba(100, 93, 83, 0.15)' },
+        3: { main: '#4D6459', secondary: '#7E8F85', vein: '#E8B8C6', glow: 'rgba(77, 100, 89, 0.16)' }
       },
-      leafColor: '#292524',
-      leafHighlight: '#78716C',
-      flowerPrimary: '#FFCAD4',
-      flowerSecondary: '#F472B6',
-      flowerCenter: '#D62828',
-      particleColor: '#FDA4AF',
-      quietGutterColor: 'rgba(245, 239, 230, 0.38)'
+      leafColor: '#677D6B',
+      leafHighlight: '#A5B8A8',
+      flowerPrimary: '#F2BAC9',
+      flowerSecondary: '#E598AF',
+      flowerCenter: '#D96B7E',
+      particleColor: '#E8A5B8',
+      quietGutterColor: 'rgba(250, 246, 240, 0.25)'
     }
   ];
 
@@ -87,7 +84,7 @@
       this.dpr = 1;
       this.themeId = 0;
 
-      // Ambient peripheral particles & burst splatters
+      // Ambient peripheral pollen/petals & burst particles
       this.ambientParticles = [];
       this.burstParticles = [];
       // Historical world anchors along the climbed vine
@@ -122,40 +119,43 @@
 
     initAmbientParticles() {
       this.ambientParticles = [];
-      for (let i = 0; i < 48; i++) {
-        // Place particles strictly in the outer 30% left/right lanes to respect the "Quiet Center" 40% gutter
+      for (let i = 0; i < 36; i++) {
         const side = i % 2 === 0 ? 0 : 1;
-        const xNorm = side === 0 ? Math.random() * 0.28 : 0.72 + Math.random() * 0.28;
+        const xNorm = side === 0 ? Math.random() * 0.34 : 0.66 + Math.random() * 0.34;
         this.ambientParticles.push({
           xNorm,
           yWorld: Math.random() * 2000,
-          radius: 1.8 + Math.random() * 3.5,
-          alpha: 0.25 + Math.random() * 0.65,
+          radius: 2 + Math.random() * 3.2,
+          alpha: 0.22 + Math.random() * 0.42,
           phase: Math.random() * Math.PI * 2,
-          speedFactor: 0.3 + Math.random() * 0.7
+          speedFactor: 0.25 + Math.random() * 0.55
         });
       }
     }
 
     /**
-     * Resets the vine geometry for a new run
+     * Resets the vine geometry for a new run with a long, graceful S-curve stem
      */
     resetVine(initialYVine = 360, startZone = 1) {
       this.stemAnchors = [];
       this.burstParticles = [];
       this.graftCollars = [];
 
-      // Seed root anchors from world Y = -120 up to initialYVine
-      const steps = 6;
+      // Seed 14 long, flowing S-curve anchors from world Y = -340 up to initialYVine
+      const steps = 14;
       for (let i = 0; i <= steps; i++) {
-        const y = -120 + ((initialYVine + 120) * i) / steps;
-        const sway = Math.sin(i * 1.1) * 14;
+        const y = -340 + ((initialYVine + 340) * i) / steps;
+        // Smooth, graceful sinusoidal wave that tapers toward 0 at the active tip
+        const taper = i === steps ? 0.25 : 1;
+        const sway = Math.sin(i * 0.68) * 28 * taper;
         this.stemAnchors.push({
           yWorld: y,
           xOffset: sway,
           zoneId: startZone,
           hasLeafLeft: i % 2 === 0,
           hasLeafRight: i % 2 === 1,
+          hasTendril: i % 3 === 1,
+          tendrilSide: i % 2 === 0 ? 1 : -1,
           isBloom: false,
           bloomScale: 1,
           word: i === steps ? 'ROOT' : null
@@ -164,7 +164,7 @@
     }
 
     /**
-     * Records a completed node anchor on the stem and triggers organic particle bursts
+     * Records a completed node anchor on the stem and triggers soft botanical petal/pollen drift
      */
     recordCompletedNode({
       yWorld,
@@ -174,13 +174,16 @@
       word,
       choiceSide
     }) {
-      const sway = (choiceSide === 0 ? -1 : 1) * (12 + Math.random() * 10);
+      const idx = this.stemAnchors.length;
+      const waveOffset = Math.sin(idx * 0.72) * 24 + (choiceSide === 0 ? -9 : 9);
       this.stemAnchors.push({
         yWorld,
-        xOffset: sway,
+        xOffset: waveOffset,
         zoneId,
         hasLeafLeft: true,
         hasLeafRight: true,
+        hasTendril: idx % 2 === 0,
+        tendrilSide: choiceSide === 0 ? 1 : -1,
         isBloom: Boolean(isTripleBloom),
         bloomTimestamp: performance.now(),
         word
@@ -194,49 +197,48 @@
         });
       }
 
-      // Spawn celebratory spores / ink splatters / golden pollen
+      // Spawn soft floating pollen / blossom petals
       const theme = this.getTheme();
-      const count = isTripleBloom ? 26 : 10;
+      const count = isTripleBloom ? 18 : 7;
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = (isTripleBloom ? 140 : 75) * (0.4 + Math.random() * 0.8);
+        const speed = (isTripleBloom ? 95 : 52) * (0.4 + Math.random() * 0.7);
         this.burstParticles.push({
-          xOffset: sway,
+          xOffset: waveOffset,
           yWorld,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: isTripleBloom ? 3.5 + Math.random() * 4 : 2 + Math.random() * 2.5,
+          size: isTripleBloom ? 3.2 + Math.random() * 3.2 : 2 + Math.random() * 2,
           color: isTripleBloom ? theme.flowerPrimary : theme.particleColor,
           life: 1.0,
-          decay: isTripleBloom ? 0.9 + Math.random() * 0.5 : 1.6 + Math.random() * 0.6
+          decay: isTripleBloom ? 0.85 + Math.random() * 0.4 : 1.3 + Math.random() * 0.5
         });
       }
     }
 
     /**
-     * Spawns charcoal fracture particles when a decoy word snaps the stem
+     * Spawns soft dry-leaf particles when a decoy word snips the stem
      */
     triggerLexicalSnapBurst(yWorld, choiceSide) {
       const dir = choiceSide === 0 ? -1 : 1;
-      for (let i = 0; i < 22; i++) {
-        const angle = (dir === -1 ? Math.PI * 0.75 : Math.PI * 0.25) + (Math.random() - 0.5) * 1.2;
-        const speed = 60 + Math.random() * 130;
+      for (let i = 0; i < 16; i++) {
+        const angle = (dir === -1 ? Math.PI * 0.75 : Math.PI * 0.25) + (Math.random() - 0.5) * 1.1;
+        const speed = 45 + Math.random() * 95;
         this.burstParticles.push({
-          xOffset: dir * 28,
-          yWorld: yWorld + 20,
+          xOffset: dir * 24,
+          yWorld: yWorld + 18,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: 2.5 + Math.random() * 3.5,
-          color: i % 2 === 0 ? '#EF4444' : '#52525B',
+          size: 2.2 + Math.random() * 3,
+          color: i % 2 === 0 ? '#C87D65' : '#8C7A6B',
           life: 1.0,
-          decay: 1.2 + Math.random() * 0.5
+          decay: 1.1 + Math.random() * 0.4
         });
       }
     }
 
     /**
      * Converts normalized world Y coordinate into screen Y pixel coordinate
-     * (World Y = yCam is at the bottom edge of the screen; yCam + 1000 is at the top edge)
      */
     worldToScreenY(yWorld, yCam) {
       const normY = (yWorld - yCam) / 1000;
@@ -254,20 +256,16 @@
       ctx.save();
       ctx.scale(this.dpr, this.dpr);
 
-      // 1. Velocity Desaturation factor (> 180 u/s dims & blurs background up to 20%)
       const vCam = simState ? simState.vCam : 45;
       const velocityDesat = Math.max(0, Math.min(1, (vCam - 180) / 100));
 
-      // 2. Draw 0.2x Parallax Background & Theme Atmosphere
+      // 1. Draw Soft Herbarium / Garden Background
       this.drawBackground(ctx, theme, simState, velocityDesat, nowMs);
 
-      // 3. Draw "Quiet Center" 40% Gutter Mask to protect word fork readability
-      this.drawQuietCenterGutter(ctx, theme, velocityDesat);
-
-      // 4. Draw Peripheral Reactive Particles (Fireflies / Sunbeams & Dust / Sakura Petals)
+      // 2. Draw Peripheral Drifting Pollen / Petals
       this.drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs);
 
-      // 5. Draw the Procedural Climbing Vine Stem, Leaves, Rising Sap Vein, Graft Collars & Blooms
+      // 3. Draw the Long, Flowy Climbing Vine, Curling Tendrils, Leaves & Wildflower Blooms
       if (simState) {
         this.drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode);
         this.drawBurstParticles(ctx, simState, dtMs);
@@ -279,11 +277,9 @@
 
     drawBackground(ctx, theme, simState, velocityDesat, nowMs) {
       const yCam = simState ? simState.yCam : 0;
-      // 0.2x Slow-Scroll Parallax altitude factor
       const parallaxY = yCam * 0.2;
       const altitudeBlend = Math.max(0, Math.min(1, parallaxY / 900));
 
-      // Interpolate low -> mid -> high background colors
       const lerpRgb = (c1, c2, t) => [
         Math.round(c1[0] + (c2[0] - c1[0]) * t),
         Math.round(c1[1] + (c2[1] - c1[1]) * t),
@@ -299,174 +295,69 @@
           ? lerpRgb(theme.bgLow, theme.bgMid, altitudeBlend * 2)
           : lerpRgb(theme.bgMid, theme.bgHigh, (altitudeBlend - 0.5) * 2);
 
-      // Apply 20% dimming at terminal velocity
-      const dim = 1 - velocityDesat * 0.22;
       const grad = ctx.createLinearGradient(0, 0, 0, this.height);
       grad.addColorStop(
         0,
-        `rgb(${Math.round(topColor[0] * dim)}, ${Math.round(topColor[1] * dim)}, ${Math.round(topColor[2] * dim)})`
+        `rgb(${topColor[0]}, ${topColor[1]}, ${topColor[2]})`
       );
       grad.addColorStop(
         1,
-        `rgb(${Math.round(bottomColor[0] * dim)}, ${Math.round(bottomColor[1] * dim)}, ${Math.round(bottomColor[2] * dim)})`
+        `rgb(${bottomColor[0]}, ${bottomColor[1]}, ${bottomColor[2]})`
       );
 
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.width, this.height);
 
-      // Theme-specific 0.2x parallax architectural / landscape silhouettes in periphery
-      if (theme.id === 0) {
-        // Midnight Bioluminescence: Cavern stone pillars on outer edges & distant starfield at high altitude
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.15 + altitudeBlend * 0.45})`;
-        for (let i = 0; i < 36; i++) {
-          const sx = ((i * 197) % this.width);
-          // Keep stars mostly outside center gutter or very faint
-          if (sx > this.width * 0.32 && sx < this.width * 0.68) continue;
-          const sy = ((i * 131 + parallaxY * 0.35) % this.height);
-          const r = (i % 3 === 0 ? 1.6 : 1.0);
-          ctx.beginPath();
-          ctx.arc(sx, sy, r, 0, Math.PI * 2);
-          ctx.fill();
+      // Soft, airy sunlit radial glow in the center of the garden
+      const sunGrad = ctx.createRadialGradient(
+        this.width * 0.5,
+        this.height * 0.38,
+        20,
+        this.width * 0.5,
+        this.height * 0.45,
+        Math.max(this.width, this.height) * 0.65
+      );
+      sunGrad.addColorStop(0, 'rgba(255, 253, 246, 0.52)');
+      sunGrad.addColorStop(1, 'rgba(255, 253, 246, 0)');
+      ctx.fillStyle = sunGrad;
+      ctx.fillRect(0, 0, this.width, this.height);
+
+      // Delicate out-of-focus background botanical stems in far periphery (0.15x parallax)
+      ctx.save();
+      ctx.strokeStyle = 'rgba(90, 128, 98, 0.07)';
+      ctx.lineWidth = 3;
+      const bgOffset = (parallaxY * 0.5) % 320;
+      for (let side of [-1, 1]) {
+        const baseX = side === -1 ? this.width * 0.12 : this.width * 0.88;
+        ctx.beginPath();
+        for (let y = -100; y <= this.height + 100; y += 24) {
+          const x = baseX + Math.sin((y + bgOffset) * 0.012 + side) * 26;
+          if (y === -100) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         }
-      } else if (theme.id === 1) {
-        // Sunlit Conservatory: Wrought-iron Victorian glasshouse arches on left & right margins
-        ctx.strokeStyle = `rgba(255, 240, 210, ${0.09 * (1 - velocityDesat * 0.4)})`;
-        ctx.lineWidth = 2;
-        const archSpacing = 220;
-        const offset = (parallaxY * 0.4) % archSpacing;
-        for (let y = -archSpacing + offset; y < this.height + archSpacing; y += archSpacing) {
-          // Left conservatory rib
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.quadraticCurveTo(this.width * 0.22, y - 60, this.width * 0.28, y + 40);
-          ctx.stroke();
-          // Right conservatory rib
-          ctx.beginPath();
-          ctx.moveTo(this.width, y);
-          ctx.quadraticCurveTo(this.width * 0.78, y - 60, this.width * 0.72, y + 40);
-          ctx.stroke();
-        }
-
-        // Diagonal shafts of volumetric sunlight outside the center lane
-        const rayAngleShift = Math.sin(altitudeBlend * Math.PI) * 40;
-        const rayGrad = ctx.createLinearGradient(0, 0, this.width * 0.35, this.height * 0.7);
-        rayGrad.addColorStop(0, `rgba(255, 236, 179, ${0.12 * dim})`);
-        rayGrad.addColorStop(1, 'rgba(255, 236, 179, 0)');
-        ctx.fillStyle = rayGrad;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(this.width * 0.28 + rayAngleShift, 0);
-        ctx.lineTo(this.width * 0.12 + rayAngleShift, this.height);
-        ctx.lineTo(0, this.height);
-        ctx.closePath();
-        ctx.fill();
-      } else if (theme.id === 2) {
-        // Ukiyo-e Ink & Sakura: Layered mountain washes & subtle washi grain
-        const ridgeOffset = (parallaxY * 0.25) % 360;
-        ctx.fillStyle = altitudeBlend > 0.6 ? 'rgba(30, 20, 40, 0.22)' : 'rgba(120, 105, 95, 0.12)';
-        // Left mountain silhouette
-        ctx.beginPath();
-        ctx.moveTo(0, this.height);
-        ctx.lineTo(0, this.height * 0.35 + ridgeOffset * 0.2);
-        ctx.quadraticCurveTo(this.width * 0.18, this.height * 0.42, this.width * 0.32, this.height);
-        ctx.closePath();
-        ctx.fill();
-
-        // Right mountain silhouette
-        ctx.beginPath();
-        ctx.moveTo(this.width, this.height);
-        ctx.lineTo(this.width, this.height * 0.28 + ridgeOffset * 0.2);
-        ctx.quadraticCurveTo(this.width * 0.82, this.height * 0.38, this.width * 0.68, this.height);
-        ctx.closePath();
-        ctx.fill();
-      }
-    }
-
-    drawQuietCenterGutter(ctx, theme, velocityDesat) {
-      const centerX = this.width * 0.5;
-      const gutterHalfWidth = Math.max(190, this.width * 0.23);
-      const grad = ctx.createLinearGradient(centerX - gutterHalfWidth * 1.4, 0, centerX + gutterHalfWidth * 1.4, 0);
-      grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      grad.addColorStop(0.25, theme.quietGutterColor);
-      grad.addColorStop(0.75, theme.quietGutterColor);
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-      ctx.fillStyle = grad;
-      ctx.fillRect(centerX - gutterHalfWidth * 1.4, 0, gutterHalfWidth * 2.8, this.height);
-
-      // Subtle vertical warp streaks on outer gutter borders in Zone 3 (>180 u/s)
-      if (velocityDesat > 0.05) {
-        ctx.strokeStyle =
-          theme.id === 2
-            ? `rgba(225, 29, 72, ${velocityDesat * 0.16})`
-            : `rgba(255, 255, 255, ${velocityDesat * 0.12})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(centerX - gutterHalfWidth, 0);
-        ctx.lineTo(centerX - gutterHalfWidth, this.height);
-        ctx.moveTo(centerX + gutterHalfWidth, 0);
-        ctx.lineTo(centerX + gutterHalfWidth, this.height);
         ctx.stroke();
       }
+      ctx.restore();
     }
 
     drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs) {
       const yCam = simState ? simState.yCam : 0;
-      const zoneId = simState ? simState.zoneId : 1;
-      const leadUnits = simState ? simState.yVine - simState.yCam : 360;
 
       this.ambientParticles.forEach((p, idx) => {
-        const px = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14;
-        const py = ((p.yWorld - yCam * 0.25 * p.speedFactor) % this.height + this.height) % this.height;
+        const px = p.xNorm * this.width + Math.sin(nowMs * 0.0009 + p.phase) * 16;
+        const py = ((p.yWorld - yCam * 0.2 * p.speedFactor) % this.height + this.height) % this.height;
 
         ctx.save();
-        if (theme.id === 0 && (zoneId === 3 || velocityDesat > 0.2)) {
-          // Day 1 Zone 3: Out-of-focus fireflies stretch into vertical warp-speed light streaks!
-          const streakLen = 14 + velocityDesat * 42;
-          ctx.strokeStyle = theme.particleColor;
-          ctx.globalAlpha = p.alpha * 0.75;
-          ctx.lineWidth = p.radius * 1.1;
-          ctx.lineCap = 'round';
-          ctx.beginPath();
-          ctx.moveTo(px, py);
-          ctx.lineTo(px, py + streakLen);
-          ctx.stroke();
-        } else if (theme.id === 2) {
-          // Day 3: Sakura blossom petals drifting in periphery
-          ctx.translate(px, py);
-          ctx.rotate(nowMs * 0.0015 + idx);
-          ctx.fillStyle = theme.particleColor;
-          ctx.globalAlpha = p.alpha * 0.8;
-          ctx.beginPath();
-          ctx.ellipse(0, 0, p.radius * 1.6, p.radius * 0.9, 0, 0, Math.PI * 2);
-          ctx.fill();
-        } else {
-          // Soft bokeh fireflies (Day 1) or golden conservatory dust motes (Day 2)
-          ctx.fillStyle = theme.particleColor;
-          ctx.globalAlpha = p.alpha * (0.5 + 0.5 * Math.sin(nowMs * 0.003 + p.phase));
-          ctx.beginPath();
-          ctx.arc(px, py, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        ctx.translate(px, py);
+        ctx.rotate(nowMs * 0.0008 + idx);
+        ctx.fillStyle = theme.particleColor;
+        ctx.globalAlpha = p.alpha * (0.6 + 0.4 * Math.sin(nowMs * 0.002 + p.phase));
+        ctx.beginPath();
+        // Soft oval botanical petal / seed spore
+        ctx.ellipse(0, 0, p.radius * 1.4, p.radius * 0.85, 0, 0, Math.PI * 2);
+        ctx.fill();
         ctx.restore();
       });
-
-      // Day 3 Ukiyo-e special reactivity: Swirling cherry blossom petals along bottom bezel when viewport is close!
-      if (theme.id === 2 && leadUnits < 220) {
-        const dangerIntensity = 1 - Math.max(0, leadUnits / 220);
-        const petalCount = Math.floor(12 * dangerIntensity);
-        ctx.save();
-        for (let i = 0; i < petalCount; i++) {
-          const sx = ((nowMs * 0.18 + i * 137) % this.width);
-          const sy = this.height - 10 - ((i * 29) % 55) - Math.sin(nowMs * 0.006 + i) * 12;
-          ctx.fillStyle = i % 2 === 0 ? '#FDA4AF' : '#FB7185';
-          ctx.globalAlpha = 0.55 + dangerIntensity * 0.4;
-          ctx.beginPath();
-          ctx.ellipse(sx, sy, 6, 3.2, nowMs * 0.004 + i, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.restore();
-      }
     }
 
     drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode = false) {
@@ -474,26 +365,26 @@
       const yCam = simState.yCam;
       const yVine = simState.yVine;
 
-      // Filter anchors near visible world range plus active tip
-      const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 220);
-      const lastAnchor =
-        visibleAnchors.length > 0
-          ? visibleAnchors[visibleAnchors.length - 1]
-          : { yWorld: yCam - 50, xOffset: 0, zoneId: simState.zoneId };
+      // Include anchors well below the bottom of the screen so the vine is always long and unbroken
+      const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 360);
 
-      // Build spline points up to active vine tip (centered at xOffset = 0 for Foveal Choice alignment)
-      const points = visibleAnchors.map((a) => ({
-        x: centerX + a.xOffset,
-        y: this.worldToScreenY(a.yWorld, yCam),
-        yWorld: a.yWorld,
-        zoneId: a.zoneId,
-        anchor: a
-      }));
+      // Build flowing spline points with gentle living breeze sway
+      const points = visibleAnchors.map((a, idx) => {
+        const breeze = Math.sin(nowMs * 0.0014 + a.yWorld * 0.007 + idx * 0.3) * 5.5;
+        return {
+          x: centerX + a.xOffset + breeze,
+          y: this.worldToScreenY(a.yWorld, yCam),
+          yWorld: a.yWorld,
+          zoneId: a.zoneId,
+          anchor: a
+        };
+      });
 
-      // Active growing tip point
+      // Active growing tip point (gently sways slightly less so the word fork stays steady)
       const tipScreenY = this.worldToScreenY(yVine, yCam);
+      const tipBreeze = Math.sin(nowMs * 0.0014 + yVine * 0.007) * 2.5;
       points.push({
-        x: centerX,
+        x: centerX + tipBreeze,
         y: tipScreenY,
         yWorld: yVine,
         zoneId: simState.zoneId,
@@ -504,176 +395,242 @@
 
       const activePalette = theme.stemZones[simState.zoneId] || theme.stemZones[1];
 
-      // 1. Draw Outer Stem Glow / Shadow
+      // 1. Draw Long, Smoothly Flowing Continuous Vine Stem & Twining Companion Tendril
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.shadowColor = activePalette.glow;
-      ctx.shadowBlur = theme.id === 0 ? 22 : 12;
+      ctx.shadowBlur = 10;
 
-      // Draw segment by segment so zone colors transition cleanly across Graft Collars
       for (let i = 0; i < points.length - 1; i++) {
         const p0 = points[i];
         const p1 = points[i + 1];
+        const pPrev = points[Math.max(0, i - 1)];
+        const pNext = points[Math.min(points.length - 1, i + 2)];
         const segPalette = theme.stemZones[p1.zoneId] || activePalette;
-        const midY = (p0.y + p1.y) * 0.5;
 
-        // Secondary braided vine / sumi-e dry brush stroke
+        // Catmull-Rom to Cubic Bezier control points for ultra-smooth, long flowy curves
+        const cp1x = p0.x + (p1.x - pPrev.x) * 0.22;
+        const cp1y = p0.y + (p1.y - pPrev.y) * 0.22;
+        const cp2x = p1.x - (pNext.x - p0.x) * 0.22;
+        const cp2y = p1.y - (pNext.y - p0.y) * 0.22;
+
+        // Delicate twining secondary vine tendril that wraps around the main stem
+        const twineWave = (i % 2 === 0 ? 1 : -1) * 11;
         ctx.strokeStyle = segPalette.secondary;
-        ctx.lineWidth = theme.id === 2 ? 15 : 13;
+        ctx.lineWidth = 3.2;
+        ctx.globalAlpha = 0.68;
         ctx.beginPath();
-        ctx.moveTo(p0.x, p0.y);
+        ctx.moveTo(p0.x + twineWave * 0.3, p0.y);
         ctx.bezierCurveTo(
-          p0.x + (i % 2 === 0 ? 10 : -10),
-          midY,
-          p1.x + (i % 2 === 0 ? -10 : 10),
-          midY,
-          p1.x,
+          cp1x + twineWave,
+          cp1y,
+          cp2x - twineWave,
+          cp2y,
+          p1.x - twineWave * 0.3,
           p1.y
         );
         ctx.stroke();
 
-        // Primary botanical stem
-        ctx.strokeStyle = simState.status === 'SNIPPED' && i === points.length - 2 ? '#4B5563' : segPalette.main;
-        ctx.lineWidth = theme.id === 2 ? 10 : 9;
+        // Primary supple botanical vine stem
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle =
+          simState.status === 'SNIPPED' && i === points.length - 2
+            ? '#9C7A6B'
+            : segPalette.main;
+        ctx.lineWidth = 7.5;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
-        ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p1.x, p1.y);
         ctx.stroke();
 
-        // Rising Sap Center Vein (bleeds next zone's signature color 2 nodes before a zone shift!)
+        // Soft inner sunlit sap vein
         const sapPalette =
           risingSapNextZone > 0 && theme.stemZones[risingSapNextZone]
             ? theme.stemZones[risingSapNextZone]
             : null;
-        const pulse = 0.55 + 0.45 * Math.sin(nowMs * 0.008 - i * 0.7);
         ctx.strokeStyle = sapPalette ? sapPalette.main : segPalette.vein;
-        ctx.lineWidth = sapPalette ? 4.2 : 2.4;
-        ctx.globalAlpha = sapPalette ? 0.92 : 0.65 * pulse;
+        ctx.lineWidth = 2.0;
+        ctx.globalAlpha = 0.72;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
-        ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p1.x, p1.y);
         ctx.stroke();
         ctx.globalAlpha = 1;
       }
       ctx.restore();
 
-      // 2. Draw Serrated Leaves & Triple-Bloom Flowers on Historical Nodes
+      // 2. Draw Curling Spiral Tendrils, Botanical Leaves & Wildflower Blooms along the Vine
       points.forEach((pt, idx) => {
         if (!pt.anchor) return;
-        const swayAngle = Math.sin(nowMs * 0.0025 + idx) * 0.08;
+        const swayAngle = Math.sin(nowMs * 0.0018 + idx * 0.8) * 0.09;
+        if (pt.anchor.hasTendril) {
+          this.drawCurlingTendril(
+            ctx,
+            activePalette.secondary,
+            pt.x,
+            pt.y,
+            pt.anchor.tendrilSide || 1,
+            swayAngle
+          );
+        }
         if (pt.anchor.hasLeafLeft) {
-          this.drawBotanicalLeaf(ctx, theme, pt.x - 6, pt.y, -1, swayAngle);
+          this.drawBotanicalLeaf(ctx, theme, pt.x - 4, pt.y, -1, swayAngle);
         }
         if (pt.anchor.hasLeafRight) {
-          this.drawBotanicalLeaf(ctx, theme, pt.x + 6, pt.y, 1, -swayAngle);
+          this.drawBotanicalLeaf(ctx, theme, pt.x + 4, pt.y, 1, -swayAngle);
         }
         if (pt.anchor.isBloom) {
           const ageMs = nowMs - (pt.anchor.bloomTimestamp || 0);
-          const scale = Math.min(1, ageMs / 280);
+          const scale = Math.min(1, ageMs / 320);
           this.drawTripleBloomFlower(ctx, theme, pt.x, pt.y, scale, nowMs);
         }
       });
 
-      // 3. Draw Glowing Graft Collars at Zone Transitions (Node 13 & Node 29)
+      // 3. Draw Organic Botanical Leaf Rings at Zone Transitions (instead of boxy HUD badges)
       this.graftCollars.forEach((collar) => {
         if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
         const cy = this.worldToScreenY(collar.yWorld, yCam);
-        const colPalette = theme.stemZones[collar.zoneId] || activePalette;
-
-        ctx.save();
-        ctx.shadowColor = colPalette.main;
-        ctx.shadowBlur = 18;
-        ctx.fillStyle = colPalette.secondary;
-        ctx.strokeStyle = colPalette.vein;
-        ctx.lineWidth = 2.5;
-
-        ctx.beginPath();
-        ctx.roundRect(centerX - 46, cy - 11, 92, 22, 11);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = '700 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(collar.zoneId === 2 ? '+ ZONE 2 STEM' : '~ ZONE 3 CANOPY', centerX, cy);
-        ctx.restore();
+        this.drawBotanicalLeaf(ctx, theme, centerX - 8, cy, -1, -0.2);
+        this.drawBotanicalLeaf(ctx, theme, centerX + 8, cy, 1, 0.2);
+        this.drawTripleBloomFlower(ctx, theme, centerX, cy, 0.85, nowMs);
       });
 
-      // 4. Draw Active Fork Tip Branch Stubs (Angled at +/- 30 degrees toward the candidate word pills)
-      const tipX = centerX;
+      // 4. Draw Long, Sweeping S-Curve Fork Tendrils Cradling the Left & Right Candidate Nodes
+      const tipX = points[points.length - 1].x;
       const tipY = tipScreenY;
       ctx.save();
       ctx.lineCap = 'round';
-      ctx.lineWidth = 5;
-
-      // Left fork tendril (-30 deg)
+      ctx.lineWidth = 4.2;
       ctx.strokeStyle =
-        simState.status === 'SNIPPED' ? '#4B5563' : activePalette.main;
+        simState.status === 'SNIPPED' ? '#9C7A6B' : activePalette.main;
+
+      // Left sweeping S-curve tendril
       ctx.beginPath();
       ctx.moveTo(tipX, tipY);
-      ctx.quadraticCurveTo(tipX - 38, tipY - 24, tipX - 88, tipY - 54);
+      ctx.bezierCurveTo(
+        tipX - 18,
+        tipY - 28,
+        tipX - 68,
+        tipY - 22,
+        tipX - 96,
+        tipY - 56
+      );
       ctx.stroke();
 
-      // Right fork tendril (+30 deg)
+      // Right sweeping S-curve tendril
       ctx.beginPath();
       ctx.moveTo(tipX, tipY);
-      ctx.quadraticCurveTo(tipX + 38, tipY - 24, tipX + 88, tipY - 54);
+      ctx.bezierCurveTo(
+        tipX + 18,
+        tipY - 28,
+        tipX + 68,
+        tipY - 22,
+        tipX + 96,
+        tipY - 56
+      );
       ctx.stroke();
+
+      // Small cradle leaves at the tips of the left & right fork tendrils
+      this.drawBotanicalLeaf(ctx, theme, tipX - 92, tipY - 52, -1, 0.15);
+      this.drawBotanicalLeaf(ctx, theme, tipX + 92, tipY - 52, 1, -0.15);
 
       // Subtle 3rd Node Upper Tendril (Drawn ONLY on Step 1 of a 3-Part Compound)
       if (showGhostThirdNode) {
         ctx.save();
         ctx.setLineDash([4, 6]);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = activePalette.vein;
-        ctx.globalAlpha = 0.34;
+        ctx.lineWidth = 1.8;
+        ctx.strokeStyle = activePalette.secondary;
+        ctx.globalAlpha = 0.42;
 
         // Left fork -> Subtle 3rd node bud above
         ctx.beginPath();
-        ctx.moveTo(tipX - 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX - 30, tipY - 94, tipX, tipY - 116);
+        ctx.moveTo(tipX - 72, tipY - 66);
+        ctx.bezierCurveTo(tipX - 36, tipY - 94, tipX - 12, tipY - 102, tipX, tipY - 116);
         ctx.stroke();
 
         // Right fork -> Subtle 3rd node bud above
         ctx.beginPath();
-        ctx.moveTo(tipX + 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX + 30, tipY - 94, tipX, tipY - 116);
+        ctx.moveTo(tipX + 72, tipY - 66);
+        ctx.bezierCurveTo(tipX + 36, tipY - 94, tipX + 12, tipY - 102, tipX, tipY - 116);
         ctx.stroke();
 
-        // Subtle hollow 3rd node meristem ring
+        // Subtle unopened botanical bud ring
         ctx.setLineDash([]);
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 1.6;
         ctx.beginPath();
         ctx.arc(tipX, tipY - 116, 4.5, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
       }
 
-      // Glowing apical meristem bud at active tip
-      ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : activePalette.vein;
+      // Soft botanical node bud at active stem tip
+      ctx.fillStyle = simState.status === 'SNIPPED' ? '#C87D65' : activePalette.secondary;
       ctx.beginPath();
-      ctx.arc(tipX, tipY, 7, 0, Math.PI * 2);
+      ctx.arc(tipX, tipY, 5.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
 
-    drawBotanicalLeaf(ctx, theme, x, y, side, swayAngle) {
+    /**
+     * Draws a delicate curling spiral vine tendril extending from a stem node
+     */
+    drawCurlingTendril(ctx, color, x, y, side, swayAngle) {
       ctx.save();
       ctx.translate(x, y);
-      ctx.rotate(side * 0.58 + swayAngle);
-
-      ctx.fillStyle = theme.leafColor;
-      ctx.strokeStyle = theme.leafHighlight;
-      ctx.lineWidth = 1.2;
+      ctx.rotate(swayAngle * 1.4);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.lineCap = 'round';
+      ctx.globalAlpha = 0.58;
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(side * 14, -10, side * 26, -4);
-      ctx.quadraticCurveTo(side * 14, 8, 0, 0);
+      ctx.bezierCurveTo(
+        side * 16,
+        -8,
+        side * 34,
+        -18,
+        side * 30,
+        -4
+      );
+      ctx.bezierCurveTo(
+        side * 26,
+        6,
+        side * 16,
+        -2,
+        side * 22,
+        -7
+      );
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /**
+     * Draws a soft tapered botanical leaf with a central midrib vein
+     */
+    drawBotanicalLeaf(ctx, theme, x, y, side, swayAngle) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(side * 0.52 + swayAngle);
+
+      ctx.fillStyle = theme.leafColor;
+      ctx.strokeStyle = theme.leafHighlight;
+      ctx.lineWidth = 1.1;
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(side * 15, -11, side * 30, -3);
+      ctx.quadraticCurveTo(side * 15, 9, 0, 0);
       ctx.fill();
       ctx.stroke();
+
+      // Central leaf midrib vein
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(side * 14, -2, side * 24, -2.5);
+      ctx.stroke();
+
       ctx.restore();
     }
 
@@ -681,7 +638,7 @@
       ctx.save();
       ctx.translate(x, y);
       ctx.scale(scale, scale);
-      ctx.rotate(nowMs * 0.0005);
+      ctx.rotate(nowMs * 0.0003);
 
       const petals = 6;
       for (let i = 0; i < petals; i++) {
@@ -689,14 +646,14 @@
         ctx.rotate((Math.PI * 2 * i) / petals);
         ctx.fillStyle = i % 2 === 0 ? theme.flowerPrimary : theme.flowerSecondary;
         ctx.beginPath();
-        ctx.ellipse(0, -12, 6.5, 11, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, -11, 6, 10, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
 
       ctx.fillStyle = theme.flowerCenter;
       ctx.beginPath();
-      ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+      ctx.arc(0, 0, 5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -721,7 +678,7 @@
         const sy = this.worldToScreenY(p.yWorld, yCam);
 
         ctx.save();
-        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.globalAlpha = Math.max(0, p.life * 0.85);
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(sx, sy, p.size, 0, Math.PI * 2);
@@ -738,44 +695,21 @@
         simState.status === 'OUTRUN'
           ? 1.0
           : Math.max(0, Math.min(1, 1 - leadUnits / 150));
-      const pulse = 0.65 + 0.35 * Math.sin(nowMs * (0.01 + urgency * 0.015));
+      const pulse = 0.65 + 0.35 * Math.sin(nowMs * (0.008 + urgency * 0.01));
 
       ctx.save();
       const grad = ctx.createRadialGradient(
         this.width * 0.5,
         this.height * 0.45,
-        this.height * 0.25,
+        this.height * 0.3,
         this.width * 0.5,
         this.height * 0.5,
-        this.height * 0.85
+        this.height * 0.88
       );
       grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      grad.addColorStop(1, `rgba(185, 28, 28, ${urgency * 0.58 * pulse})`);
+      grad.addColorStop(1, `rgba(180, 82, 62, ${urgency * 0.38 * pulse})`);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.width, this.height);
-
-      // Creeping crimson roots in the bottom corners
-      ctx.strokeStyle = `rgba(220, 38, 38, ${urgency * 0.75})`;
-      ctx.lineWidth = 3.5;
-      ctx.lineCap = 'round';
-      const rootReach = urgency * 130;
-
-      // Bottom-left root tendrils
-      ctx.beginPath();
-      ctx.moveTo(0, this.height);
-      ctx.quadraticCurveTo(rootReach * 0.6, this.height - rootReach * 0.8, rootReach, this.height - rootReach);
-      ctx.stroke();
-
-      // Bottom-right root tendrils
-      ctx.beginPath();
-      ctx.moveTo(this.width, this.height);
-      ctx.quadraticCurveTo(
-        this.width - rootReach * 0.6,
-        this.height - rootReach * 0.8,
-        this.width - rootReach,
-        this.height - rootReach
-      );
-      ctx.stroke();
       ctx.restore();
     }
   }
