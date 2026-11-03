@@ -50,16 +50,18 @@
 
     <div class="top-bar-group">
       <div id="hud-mode-badge" class="hud-chip">OFFICIAL DAILY</div>
+      <button id="btn-tutorial" class="hud-chip clickable" type="button" title="How to Play">❓ How to Play</button>
       <button id="btn-theme-cycle" class="hud-chip clickable" type="button">🌿 Meadow</button>
       <button id="btn-leaderboard" class="hud-chip clickable" type="button">🏆 Ranks</button>
       <button id="btn-mute" class="hud-chip clickable" type="button">🔊 Audio</button>
     </div>
   </header>
 
-  <!-- Gentle Botanical Gameplay Explainer -->
-  <div class="vine-explainer" aria-label="Game Instructions">
-    Link words to grow the vine. How high can you go?
-  </div>
+  <!-- Gentle Botanical Gameplay Explainer (Clickable to Open Brief Tutorial) -->
+  <button id="btn-explainer-tutorial" class="vine-explainer clickable" type="button" aria-label="How to Play Word Vine">
+    <span>Link words to grow the vine. How high can you go?</span>
+    <span class="explainer-help-pill">? How to Play</span>
+  </button>
 
   <!-- Foveal Choice Layout (Tracks Active Vine Tip Y_vine in Real Time) -->
   <main id="foveal-anchor">
@@ -152,13 +154,93 @@
       </button>
 
       <div class="action-row">
+        <button id="btn-start-tutorial" class="btn-secondary" type="button">
+          📖 How to Play
+        </button>
         <button id="btn-switch-vine" class="btn-secondary" type="button">
-          🔄 Switch Preview Day (1–12)
+          🔄 Preview Day (1–12)
         </button>
         <button id="btn-start-leaderboard" class="btn-secondary" type="button">
-          🏆 View Leaderboards
+          🏆 Ranks
         </button>
       </div>
+    </div>
+  </section>
+
+  <!-- Brief Interactive How-to-Play Tutorial Modal -->
+  <section id="tutorial-modal" class="modal-backdrop hidden" aria-labelledby="tutorial-modal-title">
+    <div class="modal-card tutorial-card">
+      <div class="brand-eyebrow">BOTANICAL FIELD GUIDE</div>
+      <h2 id="tutorial-modal-title" class="brand-title" style="font-size: 28px;">How to Play</h2>
+      <p class="brand-subtitle" style="margin-bottom: 14px;">
+        Link words to grow the vine. How high can you go?
+      </p>
+
+      <!-- Mini Visual Diagram of a Stem & Leaf Choice -->
+      <div class="tutorial-diagram" aria-hidden="true">
+        <div class="tut-fork-row">
+          <span class="tut-leaf correct">BUTTER ✓</span>
+          <span class="tut-leaf decoy">SHELL ✗</span>
+        </div>
+        <div class="tut-stem-pod">PEANUT</div>
+        <div class="tut-buds">
+          <span class="pip-bud filled"></span>
+          <span class="pip-connector active"></span>
+          <span class="pip-bud active-pick"></span>
+          <span class="pip-connector upcoming"></span>
+          <span class="pip-bud upcoming"></span>
+        </div>
+        <div class="tut-caption">
+          Pick <strong>BUTTER</strong> to link <em>PEANUT → BUTTER</em>. Next, <strong>BUTTER</strong> becomes the new stem word!
+        </div>
+      </div>
+
+      <div class="tutorial-steps">
+        <div class="tutorial-step">
+          <span class="tutorial-step-icon">🌿</span>
+          <div>
+            <strong>1. Link Forward Compounds</strong>
+            <p>Choose the <strong>Left</strong> or <strong>Right</strong> leaf that forms a compound word or familiar phrase with the stem word below it. Each correct pick becomes the next stem word.</p>
+          </div>
+        </div>
+
+        <div class="tutorial-step">
+          <span class="tutorial-step-icon">🌸</span>
+          <div>
+            <strong>2. Watch the 2-Node &amp; 3-Node Buds</strong>
+            <p>
+              <strong>2 Buds (●─◉):</strong> Standard 2-word link (<em>SUN → FLOWER → POT</em>).<br />
+              <strong>3 Buds (●─◉─○):</strong> 3-part chain (<em>PEANUT → BUTTER → CUP</em>) that blooms for <strong>+250 pts</strong> and a big upward boost!
+            </p>
+          </div>
+        </div>
+
+        <div class="tutorial-step">
+          <span class="tutorial-step-icon">☀️</span>
+          <div>
+            <strong>3. Don't Get Snipped or Outrun</strong>
+            <p>Picking the wrong word <strong>snips</strong> your vine immediately (✂️). Hesitating too long lets the rising screen <strong>outrun</strong> your vine tip (🌑). Climb up to <strong>40 nodes</strong>!</p>
+          </div>
+        </div>
+
+        <div class="tutorial-step">
+          <span class="tutorial-step-icon">🏆</span>
+          <div>
+            <strong>4. Daily Official Run + Unlimited Practice</strong>
+            <p>Your <strong>1st attempt each day</strong> locks in your official leaderboard score and shareable receipt. Replay anytime in <strong>Practice Mode</strong>!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tutorial-controls-bar">
+        <span>🖱️ Tap Left / Right Leaf</span>
+        <span>•</span>
+        <span>⌨️ Press ← / → or A / D</span>
+      </div>
+
+      <button id="btn-close-tutorial" class="btn-primary" type="button">
+        🌿 Got It — Let's Climb!
+      </button>
     </div>
   </section>
 

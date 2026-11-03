@@ -83,6 +83,8 @@
       this.startModal = document.getElementById('start-modal');
       this.deathModal = document.getElementById('death-modal');
       this.leaderboardModal = document.getElementById('leaderboard-modal');
+      this.tutorialModal = document.getElementById('tutorial-modal');
+      this.previousModalBeforeTutorial = null;
       this.handleInput = document.getElementById('player-handle-input');
 
       this.lastFrameTimeMs = performance.now();
@@ -207,6 +209,14 @@
       window.addEventListener('keydown', (e) => {
         if (document.activeElement === this.handleInput) return;
 
+        if (e.key === 'Escape') {
+          if (this.tutorialModal && !this.tutorialModal.classList.contains('hidden')) {
+            e.preventDefault();
+            this.closeTutorialModal();
+            return;
+          }
+        }
+
         if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
           e.preventDefault();
           this.handleBinaryInput(0);
@@ -214,7 +224,10 @@
           e.preventDefault();
           this.handleBinaryInput(1);
         } else if (e.key === 'Enter' || e.key === ' ') {
-          if (!this.startModal.classList.contains('hidden')) {
+          if (this.tutorialModal && !this.tutorialModal.classList.contains('hidden')) {
+            e.preventDefault();
+            this.closeTutorialModal();
+          } else if (!this.startModal.classList.contains('hidden')) {
             e.preventDefault();
             this.startNewRun(0);
           }
@@ -243,7 +256,7 @@
 
       // Top HUD Buttons
       this.themeCycleBtn.addEventListener('click', () => {
-        const totalThemes = (root.WordVineThemes && root.WordVineThemes.length) || 4;
+        const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
         const nextTheme = (this.renderer.themeId + 1) % totalThemes;
         this.renderer.setTheme(nextTheme);
         this.updateThemeButtonLabel();
@@ -257,6 +270,36 @@
       this.leaderboardBtn.addEventListener('click', () => {
         this.openLeaderboardModal('daily');
       });
+
+      // Tutorial Modal Triggers
+      const tutorialBtns = [
+        document.getElementById('btn-tutorial'),
+        document.getElementById('btn-explainer-tutorial'),
+        document.getElementById('btn-start-tutorial')
+      ];
+      tutorialBtns.forEach((btn) => {
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.openTutorialModal();
+          });
+        }
+      });
+
+      const closeTutorialBtn = document.getElementById('btn-close-tutorial');
+      if (closeTutorialBtn) {
+        closeTutorialBtn.addEventListener('click', () => {
+          this.closeTutorialModal();
+        });
+      }
+
+      if (this.tutorialModal) {
+        this.tutorialModal.addEventListener('click', (e) => {
+          if (e.target === this.tutorialModal) {
+            this.closeTutorialModal();
+          }
+        });
+      }
 
       // Start & Death Modal Buttons
       document.getElementById('btn-start-climb').addEventListener('click', () => {
@@ -365,6 +408,9 @@
       this.startModal.classList.add('hidden');
       this.deathModal.classList.add('hidden');
       this.leaderboardModal.classList.add('hidden');
+      if (this.tutorialModal) {
+        this.tutorialModal.classList.add('hidden');
+      }
 
       this.leftPill.classList.remove('snipped-wrong', 'snipped-correct');
       this.rightPill.classList.remove('snipped-wrong', 'snipped-correct');
@@ -396,7 +442,8 @@
       if (
         !this.startModal.classList.contains('hidden') ||
         !this.deathModal.classList.contains('hidden') ||
-        !this.leaderboardModal.classList.contains('hidden')
+        !this.leaderboardModal.classList.contains('hidden') ||
+        (this.tutorialModal && !this.tutorialModal.classList.contains('hidden'))
       ) {
         return;
       }
@@ -594,6 +641,7 @@
         this.startModal.classList.contains('hidden') &&
         this.deathModal.classList.contains('hidden') &&
         this.leaderboardModal.classList.contains('hidden') &&
+        (!this.tutorialModal || this.tutorialModal.classList.contains('hidden')) &&
         this.simState.status === 'PLAYING'
       ) {
         Physics.stepSimulation(this.simState, dtMs);
@@ -784,7 +832,40 @@
       });
     }
 
+    openTutorialModal() {
+      if (!this.tutorialModal) return;
+      if (!this.tutorialModal.classList.contains('hidden')) return;
+
+      if (!this.startModal.classList.contains('hidden')) {
+        this.previousModalBeforeTutorial = this.startModal;
+      } else if (!this.deathModal.classList.contains('hidden')) {
+        this.previousModalBeforeTutorial = this.deathModal;
+      } else if (!this.leaderboardModal.classList.contains('hidden')) {
+        this.previousModalBeforeTutorial = this.leaderboardModal;
+      } else {
+        this.previousModalBeforeTutorial = null;
+      }
+
+      this.startModal.classList.add('hidden');
+      this.deathModal.classList.add('hidden');
+      this.leaderboardModal.classList.add('hidden');
+      this.tutorialModal.classList.remove('hidden');
+    }
+
+    closeTutorialModal() {
+      if (!this.tutorialModal) return;
+      this.tutorialModal.classList.add('hidden');
+      if (this.previousModalBeforeTutorial) {
+        this.previousModalBeforeTutorial.classList.remove('hidden');
+        this.previousModalBeforeTutorial = null;
+      }
+      this.lastFrameTimeMs = performance.now();
+    }
+
     async openLeaderboardModal(tier = 'daily') {
+      if (this.tutorialModal) {
+        this.tutorialModal.classList.add('hidden');
+      }
       this.startModal.classList.add('hidden');
       this.deathModal.classList.add('hidden');
       this.leaderboardModal.classList.remove('hidden');
