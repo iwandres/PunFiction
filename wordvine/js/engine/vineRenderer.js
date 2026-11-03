@@ -12,9 +12,32 @@
   const THEMES = [
     {
       id: 0,
+      name: 'Bioluminescent Grove',
+      subtitle: 'Moonlit Fern Grotto to Starry Canopy',
+      cssClass: 'theme-biolum',
+      isDark: true,
+      bgLow: [14, 29, 31],
+      bgMid: [18, 40, 45],
+      bgHigh: [12, 25, 34],
+      stemZones: {
+        1: { main: '#38B29A', secondary: '#68D391', vein: '#B2F5EA', glow: 'rgba(94, 234, 212, 0.34)' },
+        2: { main: '#48BB78', secondary: '#D69E2E', vein: '#FEFCBF', glow: 'rgba(246, 224, 94, 0.28)' },
+        3: { main: '#4FD1C5', secondary: '#9F7AEA', vein: '#FBB6CE', glow: 'rgba(183, 148, 244, 0.36)' }
+      },
+      leafColor: '#2C7A7B',
+      leafHighlight: '#81E6D9',
+      flowerPrimary: '#F687B3',
+      flowerSecondary: '#B794F4',
+      flowerCenter: '#9DECF9',
+      particleColor: '#81E6D9',
+      quietGutterColor: 'rgba(14, 30, 32, 0.22)'
+    },
+    {
+      id: 1,
       name: 'Meadow & Sage',
       subtitle: 'Sunlit Garden to Airy Canopy',
-      cssClass: 'theme-biolum',
+      cssClass: 'theme-meadow',
+      isDark: false,
       bgLow: [244, 241, 231],
       bgMid: [232, 240, 229],
       bgHigh: [219, 233, 225],
@@ -32,10 +55,11 @@
       quietGutterColor: 'rgba(250, 248, 242, 0.25)'
     },
     {
-      id: 1,
+      id: 2,
       name: 'Sunlit Conservatory',
       subtitle: 'Warm Parchment to Golden Glasshouse',
       cssClass: 'theme-conservatory',
+      isDark: false,
       bgLow: [248, 242, 230],
       bgMid: [241, 231, 212],
       bgHigh: [228, 237, 232],
@@ -53,10 +77,11 @@
       quietGutterColor: 'rgba(252, 248, 238, 0.24)'
     },
     {
-      id: 2,
+      id: 3,
       name: 'Willow & Sakura',
       subtitle: 'Soft Washi Scroll to Blossom Mist',
       cssClass: 'theme-ukiyoe',
+      isDark: false,
       bgLow: [248, 243, 236],
       bgMid: [242, 233, 227],
       bgHigh: [233, 226, 235],
@@ -98,7 +123,7 @@
 
     setTheme(themeId) {
       this.themeId = ((themeId % THEMES.length) + THEMES.length) % THEMES.length;
-      document.body.classList.remove('theme-biolum', 'theme-conservatory', 'theme-ukiyoe');
+      document.body.classList.remove('theme-biolum', 'theme-meadow', 'theme-conservatory', 'theme-ukiyoe');
       document.body.classList.add(THEMES[this.themeId].cssClass);
       return THEMES[this.themeId];
     }
@@ -308,7 +333,7 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.width, this.height);
 
-      // Soft, airy sunlit radial glow in the center of the garden
+      // Soft radial glow in the center of the garden (moonlit seafoam in Bioluminescent Grove, sunlit cream in daylight themes)
       const sunGrad = ctx.createRadialGradient(
         this.width * 0.5,
         this.height * 0.38,
@@ -317,14 +342,19 @@
         this.height * 0.45,
         Math.max(this.width, this.height) * 0.65
       );
-      sunGrad.addColorStop(0, 'rgba(255, 253, 246, 0.52)');
-      sunGrad.addColorStop(1, 'rgba(255, 253, 246, 0)');
+      if (theme.isDark) {
+        sunGrad.addColorStop(0, 'rgba(94, 234, 212, 0.11)');
+        sunGrad.addColorStop(1, 'rgba(14, 30, 32, 0)');
+      } else {
+        sunGrad.addColorStop(0, 'rgba(255, 253, 246, 0.52)');
+        sunGrad.addColorStop(1, 'rgba(255, 253, 246, 0)');
+      }
       ctx.fillStyle = sunGrad;
       ctx.fillRect(0, 0, this.width, this.height);
 
       // Delicate out-of-focus background botanical stems in far periphery (0.15x parallax)
       ctx.save();
-      ctx.strokeStyle = 'rgba(90, 128, 98, 0.07)';
+      ctx.strokeStyle = theme.isDark ? 'rgba(94, 234, 212, 0.06)' : 'rgba(90, 128, 98, 0.07)';
       ctx.lineWidth = 3;
       const bgOffset = (parallaxY * 0.5) % 320;
       for (let side of [-1, 1]) {
@@ -349,13 +379,25 @@
 
         ctx.save();
         ctx.translate(px, py);
-        ctx.rotate(nowMs * 0.0008 + idx);
-        ctx.fillStyle = theme.particleColor;
-        ctx.globalAlpha = p.alpha * (0.6 + 0.4 * Math.sin(nowMs * 0.002 + p.phase));
-        ctx.beginPath();
-        // Soft oval botanical petal / seed spore
-        ctx.ellipse(0, 0, p.radius * 1.4, p.radius * 0.85, 0, 0, Math.PI * 2);
-        ctx.fill();
+        if (theme.isDark) {
+          // Softly glowing bioluminescent firefly spores
+          const pulse = 0.45 + 0.55 * Math.sin(nowMs * 0.0024 + p.phase);
+          ctx.fillStyle = idx % 3 === 0 ? '#F6E05E' : theme.particleColor;
+          ctx.shadowColor = idx % 3 === 0 ? '#F6E05E' : theme.particleColor;
+          ctx.shadowBlur = 8;
+          ctx.globalAlpha = p.alpha * pulse;
+          ctx.beginPath();
+          ctx.arc(0, 0, p.radius * 0.95, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.rotate(nowMs * 0.0008 + idx);
+          ctx.fillStyle = theme.particleColor;
+          ctx.globalAlpha = p.alpha * (0.6 + 0.4 * Math.sin(nowMs * 0.002 + p.phase));
+          ctx.beginPath();
+          // Soft oval botanical petal / seed spore
+          ctx.ellipse(0, 0, p.radius * 1.4, p.radius * 0.85, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
         ctx.restore();
       });
     }

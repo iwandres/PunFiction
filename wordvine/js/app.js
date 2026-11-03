@@ -243,7 +243,8 @@
 
       // Top HUD Buttons
       this.themeCycleBtn.addEventListener('click', () => {
-        const nextTheme = (this.renderer.themeId + 1) % 3;
+        const totalThemes = (root.WordVineThemes && root.WordVineThemes.length) || 4;
+        const nextTheme = (this.renderer.themeId + 1) % totalThemes;
         this.renderer.setTheme(nextTheme);
         this.updateThemeButtonLabel();
       });
@@ -329,7 +330,9 @@
 
     updateThemeButtonLabel() {
       const theme = this.renderer.getTheme();
-      this.themeCycleBtn.textContent = `🌿 ${theme.name.split(' ')[0]}`;
+      const icon = theme.id === 0 ? '✨' : theme.id === 2 ? '☀️' : theme.id === 3 ? '🌸' : '🌿';
+      const shortName = theme.id === 0 ? 'Biolum' : theme.name.split(' ')[0];
+      this.themeCycleBtn.textContent = `${icon} ${shortName}`;
     }
 
     updateMuteButtonLabel() {
