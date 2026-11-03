@@ -768,13 +768,11 @@
     }
 
     drawDangerVignette(ctx, theme, simState, nowMs) {
+      if (!simState || simState.status !== 'PLAYING') return;
       const leadUnits = simState.yVine - simState.yCam;
-      if (leadUnits > 150 && simState.status === 'PLAYING') return;
+      if (leadUnits > 150) return;
 
-      const urgency =
-        simState.status === 'OUTRUN'
-          ? 1.0
-          : Math.max(0, Math.min(1, 1 - leadUnits / 150));
+      const urgency = Math.max(0, Math.min(1, 1 - leadUnits / 150));
       const pulse = 0.65 + 0.35 * Math.sin(nowMs * (0.01 + urgency * 0.015));
 
       ctx.save();
