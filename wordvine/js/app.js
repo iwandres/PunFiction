@@ -90,14 +90,23 @@
       this.deviceToken = this.getOrCreateDeviceToken();
       this.playerHandle = this.getOrCreateHandle();
 
-      // Active daily vine & simulation state (rotates across the 12 daily themes by calendar date)
+      // Active daily vine & simulation state (rotates across the 12 daily themes by calendar date; same puzzle for all players)
       this.dailyVines = this.loadAvailableVines();
       const rotation =
         typeof Data.getRotationForDate === 'function'
           ? Data.getRotationForDate(undefined, this.dailyVines.length)
-          : { themeIndex: 0 };
+          : {
+              dateKey: new Date().toISOString().slice(0, 10),
+              themeIndex: 0,
+              vineNumber: 142
+            };
       this.currentVineIndex = rotation.themeIndex % this.dailyVines.length;
-      this.activeVine = this.dailyVines[this.currentVineIndex] || this.dailyVines[0];
+      const baseVine = this.dailyVines[this.currentVineIndex] || this.dailyVines[0];
+      this.activeVine = {
+        ...baseVine,
+        dateKey: rotation.dateKey,
+        vineNumber: rotation.vineNumber
+      };
       this.runAttemptCount = 0;
       this.rebuildActivePuzzle(0);
       this.simState = Physics.createSimulationState(0);
@@ -227,14 +236,7 @@
         })
         .catch(() => {});
 
-      // Check URL params for day selection (?vine=0)
       const params = new URLSearchParams(window.location.search);
-      const vineIdxParam = params.has('vine') ? Number(params.get('vine')) : NaN;
-      if (Number.isInteger(vineIdxParam) && this.dailyVines[vineIdxParam]) {
-        this.currentVineIndex = vineIdxParam;
-        this.activeVine = this.dailyVines[vineIdxParam];
-        this.rebuildActivePuzzle(0);
-      }
 
       // Apply saved visual palette (or default to Meadow & Sage = 3)
       const savedPaletteRaw = localStorage.getItem('wordvine_visual_palette');
@@ -390,19 +392,6 @@
           }
         });
       });
-
-      // Next Theme mini-button inside the Daily Theme spotlight card
-      const nextThemeBtn = document.getElementById('btn-next-theme');
-      if (nextThemeBtn) {
-        nextThemeBtn.addEventListener('click', () => {
-          this.currentVineIndex = (this.currentVineIndex + 1) % this.dailyVines.length;
-          this.activeVine = this.dailyVines[this.currentVineIndex];
-          this.runAttemptCount = 0;
-          this.rebuildActivePuzzle(0);
-          this.syncStartModalMetadata();
-          this.syncFovealDOM();
-        });
-      }
 
       const startLbBtn = document.getElementById('btn-start-leaderboard');
       if (startLbBtn) {
