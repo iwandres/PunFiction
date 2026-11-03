@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="p_green_white_bg.png">
     <title>PunFiction: The Ultimate Daily Wordplay Game</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f0f16;
@@ -208,6 +208,93 @@
             color: var(--primary);
         }
 
+        /* Word Vine — Gentle Botanical & Moonlit Fern Box Styling */
+        .game-card.wordvine-card {
+            font-family: 'Plus Jakarta Sans', 'Nunito', sans-serif;
+            background: radial-gradient(circle at 50% 24%, rgba(94, 234, 212, 0.11) 0%, rgba(18, 42, 42, 0) 68%),
+                        linear-gradient(165deg, #122a2a 0%, #0e2224 55%, #0b191d 100%);
+            border: 2px solid rgba(114, 239, 221, 0.42);
+            border-radius: 26px;
+            box-shadow: 0 18px 42px rgba(6, 18, 20, 0.52), 0 0 22px rgba(94, 234, 212, 0.12), 6px 6px 0px #18423d;
+        }
+
+        .game-card.wordvine-card:hover {
+            transform: translate(-2px, -2px);
+            border-color: rgba(114, 239, 221, 0.62);
+            box-shadow: 0 22px 48px rgba(6, 18, 20, 0.62), 0 0 28px rgba(94, 234, 212, 0.18), 8px 8px 0px #18423d;
+        }
+
+        .wordvine-card .game-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+            font-size: 2.65rem;
+            letter-spacing: 0.02em;
+            color: #ecfef9;
+            text-shadow: 0 2px 14px rgba(94, 234, 212, 0.22);
+        }
+
+        .wordvine-card .game-description {
+            color: #d7f5ec;
+            font-size: 1.1rem;
+            line-height: 1.65;
+        }
+
+        .wordvine-card .play-btn {
+            font-family: 'Plus Jakarta Sans', 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #4a7c59 0%, #2d6a5b 55%, #18423d 100%);
+            color: #ecfef9;
+            padding: 14px 38px;
+            border: 1.8px solid rgba(167, 243, 208, 0.55);
+            border-radius: 999px;
+            box-shadow: 0 10px 26px rgba(6, 18, 20, 0.45), 0 0 16px rgba(94, 234, 212, 0.16);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, filter 0.16s ease;
+        }
+
+        .wordvine-card .play-btn:hover {
+            border-color: #5eead4;
+            filter: brightness(1.08);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(6, 18, 20, 0.55), 0 0 22px rgba(94, 234, 212, 0.28);
+        }
+
+        .wordvine-card .play-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 6px 16px rgba(6, 18, 20, 0.45);
+        }
+
+        .wordvine-card .wordvine-howto-link {
+            color: #5eead4;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.05rem;
+            border-bottom: 1.5px dashed rgba(94, 234, 212, 0.55);
+            padding-bottom: 2px;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .wordvine-card .wordvine-howto-link:hover {
+            color: #ecfef9;
+            border-bottom-color: #ecfef9;
+        }
+
+        .wordvine-card .features-list {
+            background: rgba(15, 35, 36, 0.76);
+            border: 1px solid rgba(114, 239, 221, 0.24);
+            border-radius: 16px;
+            box-shadow: inset 0 1px 0 rgba(167, 243, 208, 0.08);
+        }
+
+        .wordvine-card .feature-text {
+            color: #d7f5ec;
+        }
+
+        .wordvine-card .feature-text strong {
+            color: #5eead4;
+        }
+
         footer {
             width: 100%;
             text-align: center;
@@ -298,15 +385,15 @@
 
             <!-- Right Column: Word Vine -->
             <div class="game-column">
-                <div class="game-card" style="border-color: #2c2c2c; box-shadow: 8px 8px 0px #00f5d4;">
-                    <h2 class="game-title" style="color: #00f5d4;">Word Vine 🌿</h2>
+                <div class="game-card wordvine-card">
+                    <h2 class="game-title">Word Vine 🌿</h2>
                     <p class="game-description">
                         Grow a climbing botanical vine by chaining forward compound words before a relentlessly rising viewport leaves you in the dirt!
                     </p>
-                    <a href="./wordvine/" class="play-btn" style="background-color: #00f5d4; color: #041311; box-shadow: 4px 4px 0px #2d3436;">Play Now ➔</a>
+                    <a href="./wordvine/" class="play-btn">Play Now ➔</a>
 
                     <div style="margin-top: 20px; margin-bottom: 24px; display: flex; justify-content: center; align-items: center;">
-                        <a href="./how-to-play-wordvine.html" style="color: #00f5d4; font-weight: 800; text-decoration: none; font-size: 1.1rem; border-bottom: 2px dashed #00f5d4; transition: color 0.1s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#00f5d4'">📖 How to Play</a>
+                        <a href="./how-to-play-wordvine.html" class="wordvine-howto-link">📖 How to Play</a>
                     </div>
 
                     <div class="features-list">
