@@ -230,7 +230,16 @@ def get_daily_vine(date_key=None):
             local_match = v
             break
     if not local_match and local_vines:
-        local_match = local_vines[0]
+        try:
+            epoch_dt = datetime(2026, 11, 1, tzinfo=timezone.utc)
+            target_dt = datetime.strptime(target_date[:10], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            day_offset = (target_dt - epoch_dt).days
+            rot_idx = day_offset % len(local_vines)
+            local_match = dict(local_vines[rot_idx])
+            local_match["dateKey"] = target_date
+            local_match["vineNumber"] = 142 + max(0, day_offset)
+        except Exception:
+            local_match = local_vines[0]
 
     try:
         doc = vines_col.find_one({"dateKey": target_date}, {"_id": 0})
@@ -299,24 +308,42 @@ def record_run_submission(device_token, handle, date_key, choices, deltas_ms, fi
             {"deviceToken": device_token},
             {
                 "$set": {"handle": clean_handle, "updatedAt": datetime.now(timezone.utc)},
-                "$max": {"bestSingleVineScore": verification["score"]}
+                "$max": {"bestSingleVineScore": verification["score"]},
+                "$inc": {"totalRunsLogged": 1}
             },
             upsert=True
         )
+        # Log every run to run_logs collection
+        db["run_logs"].insert_one(dict(run_doc))
+
         existing = runs_col.find_one({"dateKey": keys["dateKey"], "deviceToken": device_token})
         if existing:
+            prev_score = int(existing.get("score", 0))
+            prev_nodes = int(existing.get("nodesCompleted", 0))
+            is_better = (
+                verification["score"] > prev_score
+                or (verification["score"] == prev_score and verification["nodesCompleted"] >= prev_nodes)
+            )
+            if is_better:
+                runs_col.update_one(
+                    {"dateKey": keys["dateKey"], "deviceToken": device_token},
+                    {"$set": dict(run_doc)}
+                )
             return {
                 "accepted": True,
-                "mode": "PRACTICE_REPLAY",
+                "mode": "SCORE_LOGGED",
+                "isNewDailyBest": is_better,
                 "verifiedScore": verification["score"],
-                "officialScore": existing.get("score", verification["score"]),
+                "bestDailyScore": max(prev_score, verification["score"]),
                 "verification": verification
             }
         runs_col.insert_one(dict(run_doc))
         return {
             "accepted": True,
-            "mode": "OFFICIAL_LOCKED",
+            "mode": "SCORE_LOGGED",
+            "isNewDailyBest": True,
             "verifiedScore": verification["score"],
+            "bestDailyScore": verification["score"],
             "verification": verification
         }
     except Exception as e:
@@ -328,16 +355,23 @@ def record_run_submission(device_token, handle, date_key, choices, deltas_ms, fi
                     records = json.load(f)
             except Exception:
                 records = []
-        for r in records:
+        updated_existing = False
+        best_daily = verification["score"]
+        for idx, r in enumerate(records):
             if r.get("dateKey") == keys["dateKey"] and r.get("deviceToken") == device_token:
-                return {
-                    "accepted": True,
-                    "mode": "PRACTICE_REPLAY",
-                    "verifiedScore": verification["score"],
-                    "officialScore": r.get("score", verification["score"]),
-                    "verification": verification
-                }
-        records.append(run_doc)
+                updated_existing = True
+                prev_score = int(r.get("score", 0))
+                prev_nodes = int(r.get("nodesCompleted", 0))
+                if verification["score"] > prev_score or (
+                    verification["score"] == prev_score and verification["nodesCompleted"] >= prev_nodes
+                ):
+                    records[idx] = run_doc
+                    best_daily = verification["score"]
+                else:
+                    best_daily = prev_score
+                break
+        if not updated_existing:
+            records.append(run_doc)
         try:
             with open(LOCAL_RUNS_FILE, "w", encoding="utf-8") as f:
                 json.dump(records, f, indent=2)
@@ -345,8 +379,9 @@ def record_run_submission(device_token, handle, date_key, choices, deltas_ms, fi
             pass
         return {
             "accepted": True,
-            "mode": "OFFICIAL_LOCKED",
+            "mode": "SCORE_LOGGED",
             "verifiedScore": verification["score"],
+            "bestDailyScore": best_daily,
             "verification": verification
         }
 

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=9" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -104,11 +104,22 @@
   <!-- Start / Daily Briefing Modal -->
   <section id="start-modal" class="modal-backdrop">
     <div class="modal-card">
-      <div id="start-vine-eyebrow" class="brand-eyebrow">DAILY VINE #142 • 2026-11-01 • THEME 1/12</div>
-      <h1 id="start-vine-title" class="brand-title">🧁 Sweet Tooth &amp; Kitchen Table</h1>
-      <div id="start-theme-subtitle" class="theme-banner-pill">
-        Peanut butter cups, cupcakes, tabletops, bell peppers, peppermint &amp; punch bowls
+      <div id="start-vine-eyebrow" class="brand-eyebrow">DAILY VINE #142 • 2026-11-01</div>
+
+      <!-- Highlighted Daily Theme Card -->
+      <div class="theme-spotlight-card">
+        <div class="theme-spotlight-header">
+          <span id="start-theme-badge" class="theme-spotlight-badge">✨ TODAY'S THEME • DAY 1 OF 12</span>
+          <button id="btn-next-theme" class="theme-cycle-mini" type="button" title="Preview next daily word theme">
+            Next Theme ▸
+          </button>
+        </div>
+        <h1 id="start-vine-title" class="brand-title">🧁 Sweet Tooth &amp; Kitchen Table</h1>
+        <div id="start-theme-subtitle" class="theme-spotlight-desc">
+          Peanut butter cups, cupcakes, tabletops, bell peppers, peppermint &amp; punch bowls
+        </div>
       </div>
+
       <p class="brand-subtitle">
         Chain forward compound words (<strong>← Left</strong> or <strong>Right →</strong>) to grow your vine before the rising viewport leaves you in the dirt.
       </p>
@@ -117,29 +128,14 @@
         🏆 Personal Best: <strong>23/40 Nodes</strong>
       </div>
 
-      <div class="zone-guide-grid">
-        <div class="zone-guide-item">
-          <div>
-            <strong>🌱 Zone 1: The Roots (Nodes 1–12)</strong>
-            <span>3-Part &amp; 2-Part Linked Compounds with Subtle Node Clusters &amp; 🌸 Bloom Boosts</span>
-          </div>
-          <span class="zone-example">PEANUT → BUTTER → CUP 🔗 CAKE → WALK → WAY</span>
-        </div>
-
-        <div class="zone-guide-item">
-          <div>
-            <strong>🪵 Zone 2: The Stem (Nodes 13–28)</strong>
-            <span>2-Part Double-Meaning Forward Pivots</span>
-          </div>
-          <span class="zone-example">COLD → SHOULDER → BLADE</span>
-        </div>
-
-        <div class="zone-guide-item">
-          <div>
-            <strong>⚡ Zone 3: The Canopy (Nodes 29+)</strong>
-            <span>2-Part Particle Sprints at Terminal Velocity</span>
-          </div>
-          <span class="zone-example">BACK → FIRE → WORK</span>
+      <!-- Botanical Visual Palette Options -->
+      <div class="palette-picker-section">
+        <div class="palette-picker-label">🎨 VISUAL PALETTE</div>
+        <div id="palette-options-row" class="palette-options-grid" role="group" aria-label="Visual Palette Options">
+          <button class="palette-opt-btn" data-palette-id="3" type="button">🌿 Meadow</button>
+          <button class="palette-opt-btn" data-palette-id="0" type="button">✨ Biolum</button>
+          <button class="palette-opt-btn" data-palette-id="1" type="button">☀️ Sunlit</button>
+          <button class="palette-opt-btn" data-palette-id="2" type="button">🌸 Sakura</button>
         </div>
       </div>
 
@@ -150,7 +146,7 @@
       </div>
 
       <button id="btn-start-climb" class="btn-primary" type="button">
-        🌿 Start Official Daily Climb
+        🌿 Start Daily Climb
       </button>
 
       <div class="action-row">
@@ -158,7 +154,7 @@
           📖 How to Play
         </button>
         <button id="btn-switch-vine" class="btn-secondary" type="button">
-          🔄 Preview Day (1–12)
+          🎨 Palette: 🌿 Meadow
         </button>
         <button id="btn-start-leaderboard" class="btn-secondary" type="button">
           🏆 Ranks
@@ -226,8 +222,8 @@
         <div class="tutorial-step">
           <span class="tutorial-step-icon">🏆</span>
           <div>
-            <strong>4. Daily Official Run + Unlimited Practice</strong>
-            <p>Your <strong>1st attempt each day</strong> locks in your official leaderboard score. Replay anytime in <strong>Practice Mode</strong>!</p>
+            <strong>4. Score Logging &amp; Leaderboards</strong>
+            <p>Every climb is logged! Beat your high score to climb the <strong>Daily</strong>, <strong>Weekly</strong>, and <strong>Monthly</strong> leaderboards.</p>
           </div>
         </div>
       </div>
@@ -247,7 +243,7 @@
   <!-- Post-Run Summary Card -->
   <section id="death-modal" class="modal-backdrop hidden">
     <div class="modal-card">
-      <div id="death-modal-eyebrow" class="brand-eyebrow">OFFICIAL DAILY RUN LOCKED</div>
+      <div id="death-modal-eyebrow" class="brand-eyebrow">DAILY CLIMB LOGGED</div>
       <h2 id="death-modal-title" class="brand-title">Vine Height 18.4m</h2>
 
       <div id="death-explanation" class="death-explanation-box">
@@ -270,7 +266,7 @@
       </div>
 
       <button id="btn-retry-practice" class="btn-primary" type="button">
-        🌱 Practice Replay
+        🌿 Climb Again
       </button>
 
       <div class="action-row">
@@ -287,11 +283,11 @@
       <div class="brand-eyebrow">GLOBAL CANOPY RANKINGS</div>
       <h2 class="brand-title" style="font-size: 28px;">Leaderboards</h2>
       <p id="lb-tier-subtitle" class="brand-subtitle" style="margin-bottom: 10px;">
-        Daily Official Board • First Attempt Counts
+        Daily Leaderboard • Best Logged Score
       </p>
 
       <div class="lb-tabs">
-        <button class="lb-tab active" data-tier="daily" type="button">Daily (1st Run)</button>
+        <button class="lb-tab active" data-tier="daily" type="button">Daily</button>
         <button class="lb-tab" data-tier="weekly" type="button">Weekly (Best 5/7)</button>
         <button class="lb-tab" data-tier="monthly" type="button">Monthly (Top 20)</button>
       </div>
@@ -315,10 +311,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=11"></script>
-  <script src="js/data/dailyVines.js?v=11"></script>
-  <script src="js/engine/soundEngine.js?v=11"></script>
-  <script src="js/engine/vineRenderer.js?v=11"></script>
-  <script src="js/app.js?v=11"></script>
+  <script src="js/shared/physicsEngine.js?v=13"></script>
+  <script src="js/data/dailyVines.js?v=13"></script>
+  <script src="js/engine/soundEngine.js?v=13"></script>
+  <script src="js/engine/vineRenderer.js?v=13"></script>
+  <script src="js/app.js?v=13"></script>
 </body>
 </html>

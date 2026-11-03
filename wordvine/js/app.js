@@ -23,6 +23,64 @@
       ? 'http://localhost:8000/api/wordvine'
       : 'https://punfiction.onrender.com/api/wordvine');
 
+  const FALLBACK_DAILY_THEMES = [
+    {
+      themeName: '🧁 Sweet Tooth & Kitchen Table',
+      themeSubtitle: 'Peanut butter cups, cupcakes, tabletops, bell peppers, peppermint & punch bowls'
+    },
+    {
+      themeName: '🌊 Ocean Tide & Stormy Skies',
+      themeSubtitle: 'Seaweed, bedbugs, rainstorms, snowdrifts, driftwood & woodchucks'
+    },
+    {
+      themeName: '🌲 Campfire & Woodland Trail',
+      themeSubtitle: 'Campfires, pinecones, honeybees, beehives, waterfalls & wildcats'
+    },
+    {
+      themeName: '🌻 Sunlit Garden & Greenhouse',
+      themeSubtitle: 'Sunflowers, flowerpots, birdhouses, houseplants, blueberries & buttercups'
+    },
+    {
+      themeName: '❄️ Winter Frost & Starlight',
+      themeSubtitle: 'Snowflakes, icicles, starlight, lighthouses, moonbeams & nightcaps'
+    },
+    {
+      themeName: '🚂 Workshop, Forge & Iron Rail',
+      themeSubtitle: 'Railroads, roadblocks, chainsaws, sawdust, dustpans & windmills'
+    },
+    {
+      themeName: '🏰 Castle Keep & Dragon Lore',
+      themeSubtitle: 'Drawbridges, cobblestones, stonewalls, watchtowers, fireballs & swordfish'
+    },
+    {
+      themeName: '🏈 Stadium Lights & Game Day',
+      themeSubtitle: 'Touchdowns, basketballs, ballparks, scoreboards, boardwalks & racetracks'
+    },
+    {
+      themeName: '🕵️ Midnight Mystery & Headlines',
+      themeSubtitle: 'Footprints, passwords, newspapers, paperbacks, bookworms & timelines'
+    },
+    {
+      themeName: '🎸 Neon Stage & Silver Screen',
+      themeSubtitle: 'Spotlights, drumsticks, soundtracks, headphones, stagecoaches & showboats'
+    },
+    {
+      themeName: '⚓ Harbor Watch & High Seas',
+      themeSubtitle: 'Shipwrecks, coastlines, lifeboats, seashells, windstorms & thunderclouds'
+    },
+    {
+      themeName: '🏡 Cozy Hearth & Homestead',
+      themeSubtitle: 'Fireplaces, candlesticks, armchairs, bedrooms, doorsteps & farmyards'
+    }
+  ];
+
+  const PALETTE_META = {
+    0: { icon: '✨', short: 'Biolum', full: 'Midnight Biolum' },
+    1: { icon: '☀️', short: 'Sunlit', full: 'Sunlit Glass' },
+    2: { icon: '🌸', short: 'Sakura', full: 'Sakura Ink' },
+    3: { icon: '🌿', short: 'Meadow', full: 'Meadow & Sage' }
+  };
+
   class WordVineApp {
     constructor() {
       this.canvas = document.getElementById('vine-canvas');
@@ -32,10 +90,14 @@
       this.deviceToken = this.getOrCreateDeviceToken();
       this.playerHandle = this.getOrCreateHandle();
 
-      // Active daily vine & simulation state
+      // Active daily vine & simulation state (rotates across the 12 daily themes by calendar date)
       this.dailyVines = this.loadAvailableVines();
-      this.currentVineIndex = 0;
-      this.activeVine = this.dailyVines[0];
+      const rotation =
+        typeof Data.getRotationForDate === 'function'
+          ? Data.getRotationForDate(undefined, this.dailyVines.length)
+          : { themeIndex: 0 };
+      this.currentVineIndex = rotation.themeIndex % this.dailyVines.length;
+      this.activeVine = this.dailyVines[this.currentVineIndex] || this.dailyVines[0];
       this.runAttemptCount = 0;
       this.rebuildActivePuzzle(0);
       this.simState = Physics.createSimulationState(0);
@@ -167,17 +229,21 @@
 
       // Check URL params for day selection (?vine=0)
       const params = new URLSearchParams(window.location.search);
-      const vineIdxParam = Number(params.get('vine'));
+      const vineIdxParam = params.has('vine') ? Number(params.get('vine')) : NaN;
       if (Number.isInteger(vineIdxParam) && this.dailyVines[vineIdxParam]) {
         this.currentVineIndex = vineIdxParam;
         this.activeVine = this.dailyVines[vineIdxParam];
         this.rebuildActivePuzzle(0);
       }
 
-      // Apply theme from active vine
-      this.renderer.setTheme(this.activeVine.themeId || 0);
+      // Apply saved visual palette (or default to Meadow & Sage = 3)
+      const savedPaletteRaw = localStorage.getItem('wordvine_visual_palette');
+      const initialPalette =
+        savedPaletteRaw !== null && !Number.isNaN(Number(savedPaletteRaw))
+          ? Number(savedPaletteRaw)
+          : 3;
+      this.setVisualPalette(initialPalette);
       this.renderer.resetVine(Physics.PHYSICS_CONFIG.INITIAL_Y_VINE, 1);
-      this.updateThemeButtonLabel();
       this.updateMuteButtonLabel();
 
       if (this.handleInput) {
@@ -258,8 +324,7 @@
       this.themeCycleBtn.addEventListener('click', () => {
         const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
         const nextTheme = (this.renderer.themeId + 1) % totalThemes;
-        this.renderer.setTheme(nextTheme);
-        this.updateThemeButtonLabel();
+        this.setVisualPalette(nextTheme);
       });
 
       this.muteBtn.addEventListener('click', () => {
@@ -306,16 +371,38 @@
         this.startNewRun(0);
       });
 
-      document.getElementById('btn-switch-vine').addEventListener('click', () => {
-        this.currentVineIndex = (this.currentVineIndex + 1) % this.dailyVines.length;
-        this.activeVine = this.dailyVines[this.currentVineIndex];
-        this.runAttemptCount = 0;
-        this.rebuildActivePuzzle(0);
-        this.renderer.setTheme(this.activeVine.themeId || 0);
-        this.updateThemeButtonLabel();
-        this.syncStartModalMetadata();
-        this.syncFovealDOM();
+      // Switch Preview button in action row now cycles the Visual Palette options
+      const switchPaletteBtn = document.getElementById('btn-switch-vine');
+      if (switchPaletteBtn) {
+        switchPaletteBtn.addEventListener('click', () => {
+          const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
+          const nextTheme = (this.renderer.themeId + 1) % totalThemes;
+          this.setVisualPalette(nextTheme);
+        });
+      }
+
+      // Direct Palette Option Pills on the Getting Started modal
+      document.querySelectorAll('.palette-opt-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.getAttribute('data-palette-id'));
+          if (!Number.isNaN(id)) {
+            this.setVisualPalette(id);
+          }
+        });
       });
+
+      // Next Theme mini-button inside the Daily Theme spotlight card
+      const nextThemeBtn = document.getElementById('btn-next-theme');
+      if (nextThemeBtn) {
+        nextThemeBtn.addEventListener('click', () => {
+          this.currentVineIndex = (this.currentVineIndex + 1) % this.dailyVines.length;
+          this.activeVine = this.dailyVines[this.currentVineIndex];
+          this.runAttemptCount = 0;
+          this.rebuildActivePuzzle(0);
+          this.syncStartModalMetadata();
+          this.syncFovealDOM();
+        });
+      }
 
       const startLbBtn = document.getElementById('btn-start-leaderboard');
       if (startLbBtn) {
@@ -374,11 +461,26 @@
       }
     }
 
+    setVisualPalette(paletteId) {
+      const theme = this.renderer.setTheme(paletteId);
+      localStorage.setItem('wordvine_visual_palette', String(theme.id));
+      this.updateThemeButtonLabel();
+    }
+
     updateThemeButtonLabel() {
       const theme = this.renderer.getTheme();
-      const icon = theme.id === 0 ? '✨' : theme.id === 1 ? '☀️' : theme.id === 2 ? '🌸' : '🌿';
-      const shortName = theme.id === 0 ? 'Biolum' : theme.id === 1 ? 'Sunlit' : theme.id === 2 ? 'Sakura' : 'Meadow';
-      this.themeCycleBtn.textContent = `${icon} ${shortName}`;
+      const meta = PALETTE_META[theme.id] || PALETTE_META[3];
+      if (this.themeCycleBtn) {
+        this.themeCycleBtn.textContent = `${meta.icon} ${meta.short}`;
+      }
+      const switchPaletteBtn = document.getElementById('btn-switch-vine');
+      if (switchPaletteBtn) {
+        switchPaletteBtn.textContent = `🎨 Palette: ${meta.icon} ${meta.short}`;
+      }
+      document.querySelectorAll('.palette-opt-btn').forEach((btn) => {
+        const id = Number(btn.getAttribute('data-palette-id'));
+        btn.classList.toggle('active', id === theme.id);
+      });
     }
 
     updateMuteButtonLabel() {
@@ -389,16 +491,93 @@
       return Boolean(localStorage.getItem(`wordvine_official_${dateKey}`));
     }
 
+    getPersonalBest() {
+      const defaultPB = { maxNodes: 23, maxScore: 4180, maxAltitude: 26.8 };
+      try {
+        const raw = localStorage.getItem('wordvine_personal_best');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            maxNodes: Math.max(defaultPB.maxNodes, Number(parsed.maxNodes) || 0),
+            maxScore: Math.max(defaultPB.maxScore, Number(parsed.maxScore) || 0),
+            maxAltitude: Math.max(defaultPB.maxAltitude, Number(parsed.maxAltitude) || 0)
+          };
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+      return defaultPB;
+    }
+
+    updatePersonalBest(nodesCompleted, score, altitudeMeters) {
+      const current = this.getPersonalBest();
+      const updated = {
+        maxNodes: Math.max(current.maxNodes, Number(nodesCompleted) || 0),
+        maxScore: Math.max(current.maxScore, Number(score) || 0),
+        maxAltitude: Math.max(current.maxAltitude, Number(altitudeMeters) || 0)
+      };
+      localStorage.setItem('wordvine_personal_best', JSON.stringify(updated));
+      return updated;
+    }
+
+    resolveDailyThemeMeta(vine, index) {
+      const themeCatalog =
+        (Array.isArray(Data.DAILY_THEMES) && Data.DAILY_THEMES.length > 0
+          ? Data.DAILY_THEMES
+          : FALLBACK_DAILY_THEMES);
+      const catalogEntry = themeCatalog[index % themeCatalog.length] || FALLBACK_DAILY_THEMES[0];
+      const oldPaletteNames = new Set([
+        'Midnight Bioluminescence',
+        'Sunlit Conservatory',
+        'Ukiyo-e Ink & Sakura',
+        'Meadow & Sage'
+      ]);
+      const candidateTitle = vine && (vine.themeName || vine.title);
+      const themeName =
+        candidateTitle && !oldPaletteNames.has(candidateTitle)
+          ? candidateTitle
+          : catalogEntry.themeName;
+      const themeSubtitle =
+        (vine && vine.themeSubtitle) || catalogEntry.themeSubtitle || '';
+      return { themeName, themeSubtitle };
+    }
+
     syncStartModalMetadata() {
       const vine = this.activeVine;
       const alreadyPlayed = this.hasPlayedOfficialToday(vine.dateKey);
+      const totalThemes = this.dailyVines.length || 12;
+      const themeNum = (this.currentVineIndex % totalThemes) + 1;
+      const { themeName, themeSubtitle } = this.resolveDailyThemeMeta(
+        vine,
+        this.currentVineIndex
+      );
+
       document.getElementById('start-vine-eyebrow').textContent =
         `DAILY VINE #${vine.vineNumber} • ${vine.dateKey}`;
-      document.getElementById('start-vine-title').textContent = vine.title || 'Word Vine';
-      this.hudModeBadge.textContent = alreadyPlayed ? 'PRACTICE REPLAY' : 'OFFICIAL DAILY RUN';
+
+      const badgeEl = document.getElementById('start-theme-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `✨ TODAY'S THEME • DAY ${themeNum} OF ${totalThemes}`;
+      }
+
+      document.getElementById('start-vine-title').textContent = themeName;
+
+      const subEl = document.getElementById('start-theme-subtitle');
+      if (subEl) {
+        subEl.textContent = themeSubtitle;
+      }
+
+      const pb = this.getPersonalBest();
+      const pbEl = document.getElementById('personal-best-banner');
+      if (pbEl) {
+        const totalNodes = (vine.nodes && vine.nodes.length) || 40;
+        pbEl.innerHTML = `🏆 Personal Best: <strong>${pb.maxNodes}/${totalNodes} Nodes</strong> (${pb.maxAltitude}m • ${pb.maxScore.toLocaleString()} pts)`;
+      }
+
+      this.hudModeBadge.textContent = 'DAILY CLIMB';
       document.getElementById('btn-start-climb').textContent = alreadyPlayed
-        ? '🌱 Start Practice Replay'
-        : '🌿 Start Official Daily Climb';
+        ? '🌿 Climb Again'
+        : '🌿 Start Daily Climb';
     }
 
     startNewRun(startNodeIndex = 0) {
@@ -418,13 +597,11 @@
       this.leftPill.classList.remove('snipped-wrong', 'snipped-correct');
       this.rightPill.classList.remove('snipped-wrong', 'snipped-correct');
 
-      const alreadyPlayed = this.hasPlayedOfficialToday(this.activeVine.dateKey);
-      this.isOfficialAttempt = !alreadyPlayed && startNodeIndex === 0;
-      this.hudModeBadge.textContent = this.isOfficialAttempt ? 'OFFICIAL DAILY' : 'PRACTICE MODE';
+      this.isOfficialAttempt = true;
+      this.hudModeBadge.textContent = 'DAILY CLIMB';
 
-      // Build a fresh puzzle with randomized Left/Right positions & decoys (and rotated compound chain on replay)
-      const effectiveAttempt = this.isOfficialAttempt ? 0 : Math.max(1, this.runAttemptCount);
-      this.rebuildActivePuzzle(effectiveAttempt);
+      // Build a fresh puzzle with randomized Left/Right positions & decoys
+      this.rebuildActivePuzzle(this.runAttemptCount);
 
       this.simState = Physics.createSimulationState(startNodeIndex);
       this.runChoices = [];
@@ -709,9 +886,14 @@
       const eyebrowEl = document.getElementById('death-modal-eyebrow');
       const explainEl = document.getElementById('death-explanation');
 
-      eyebrowEl.textContent = this.isOfficialAttempt
-        ? `OFFICIAL DAILY RUN LOCKED • #${this.activeVine.vineNumber}`
-        : `PRACTICE REPLAY • #${this.activeVine.vineNumber}`;
+      const prevPB = this.getPersonalBest();
+      const isNewPB =
+        this.simState.nodesCompleted > prevPB.maxNodes ||
+        this.simState.score > prevPB.maxScore;
+
+      eyebrowEl.textContent = isNewPB
+        ? `🏆 NEW PERSONAL BEST LOGGED • #${this.activeVine.vineNumber}`
+        : `🌿 DAILY CLIMB LOGGED • #${this.activeVine.vineNumber}`;
 
       if (cause === 'COMPLETED') {
         titleEl.textContent = '🌸 Canopy Circuit Closed!';
@@ -758,28 +940,77 @@
     }
 
     async submitRunScore(runSummary) {
-      // Lock official first attempt in localStorage
-      if (runSummary.isOfficial) {
-        localStorage.setItem(
-          `wordvine_official_${runSummary.dateKey}`,
-          JSON.stringify(runSummary)
-        );
+      // 1. Track all-time personal best across all climbs
+      this.updatePersonalBest(
+        runSummary.nodesCompleted,
+        runSummary.score,
+        runSummary.altitudeMeters
+      );
+
+      const submittedAt = new Date().toISOString();
+      const { themeName } = this.resolveDailyThemeMeta(
+        this.activeVine,
+        this.currentVineIndex
+      );
+
+      const loggedEntry = {
+        ...runSummary,
+        themeName,
+        handle: this.playerHandle,
+        deviceToken: this.deviceToken,
+        submittedAt
+      };
+
+      // 2. Append every climb to full run history log (wordvine_run_history)
+      try {
+        const historyRaw = localStorage.getItem('wordvine_run_history');
+        const history = historyRaw ? JSON.parse(historyRaw) : [];
+        history.push(loggedEntry);
+        if (history.length > 200) {
+          history.splice(0, history.length - 200);
+        }
+        localStorage.setItem('wordvine_run_history', JSON.stringify(history));
+      } catch (e) {
+        // Ignore storage quota errors
       }
 
-      // Store in local leaderboard history for immediate offline/demo leaderboard feedback
-      const localRunsRaw = localStorage.getItem('wordvine_local_runs');
-      const localRuns = localRunsRaw ? JSON.parse(localRunsRaw) : [];
-      if (runSummary.isOfficial) {
-        localRuns.push({
-          ...runSummary,
-          handle: this.playerHandle,
-          deviceToken: this.deviceToken,
-          submittedAt: new Date().toISOString()
-        });
+      // 3. Keep best daily climb in wordvine_official_${dateKey} & wordvine_local_runs for leaderboards
+      try {
+        const existingDayRaw = localStorage.getItem(`wordvine_official_${runSummary.dateKey}`);
+        const existingDay = existingDayRaw ? JSON.parse(existingDayRaw) : null;
+        const isBetterToday =
+          !existingDay ||
+          runSummary.score > (Number(existingDay.score) || 0) ||
+          (runSummary.score === Number(existingDay.score) &&
+            runSummary.nodesCompleted >= (Number(existingDay.nodesCompleted) || 0));
+
+        if (isBetterToday) {
+          localStorage.setItem(
+            `wordvine_official_${runSummary.dateKey}`,
+            JSON.stringify(loggedEntry)
+          );
+        }
+
+        const localRunsRaw = localStorage.getItem('wordvine_local_runs');
+        const localRuns = localRunsRaw ? JSON.parse(localRunsRaw) : [];
+        const existingIdx = localRuns.findIndex((r) => r.dateKey === runSummary.dateKey);
+        if (existingIdx >= 0) {
+          if (
+            runSummary.score >= (Number(localRuns[existingIdx].score) || 0)
+          ) {
+            localRuns[existingIdx] = loggedEntry;
+          }
+        } else {
+          localRuns.push(loggedEntry);
+        }
         localStorage.setItem('wordvine_local_runs', JSON.stringify(localRuns));
+      } catch (e) {
+        // Ignore parse errors
       }
 
-      // Attempt to POST to Render backend API (/api/vine/submit) with keystroke replay deltas
+      this.syncStartModalMetadata();
+
+      // 4. POST to Render backend API (/api/vine/submit) with keystroke replay deltas
       try {
         await fetch(`${API_BASE}/vine/submit`, {
           method: 'POST',
@@ -793,7 +1024,7 @@
           })
         });
       } catch (err) {
-        // Offline or static GitHub Pages preview mode — handled seamlessly via local storage
+        // Offline or static GitHub Pages mode — logged seamlessly via local storage
       }
     }
 
@@ -852,9 +1083,9 @@
       });
 
       const subtitleMap = {
-        daily: `Daily Official Board (${this.activeVine.dateKey}) • First Attempt Counts`,
-        weekly: 'Weekly Crown (Sum of Best 5 of 7 Official Daily Scores)',
-        monthly: 'Monthly Mastery (Sum of Top 20 Official Daily Scores)'
+        daily: `Daily Leaderboard (${this.activeVine.dateKey}) • Best Logged Score`,
+        weekly: 'Weekly Crown (Sum of Best 5 of 7 Daily Scores)',
+        monthly: 'Monthly Mastery (Sum of Top 20 Daily Scores)'
       };
       document.getElementById('lb-tier-subtitle').textContent = subtitleMap[tier] || '';
 
