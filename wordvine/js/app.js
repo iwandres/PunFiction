@@ -630,7 +630,7 @@
         this.simState.yVine,
         this.simState.yCam
       );
-      const minTopY = this.showGhostThirdNode ? 175 : 135;
+      const minTopY = this.showGhostThirdNode ? 190 : 155;
       const clampedScreenY = Math.max(minTopY, Math.min(window.innerHeight - 125, tipScreenY - 38));
       this.fovealAnchor.style.top = `${clampedScreenY}px`;
 
