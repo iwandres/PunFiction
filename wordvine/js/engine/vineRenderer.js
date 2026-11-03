@@ -246,7 +246,7 @@
     /**
      * Main high-definition frame render entry point
      */
-    render(simState, dtMs, risingSapNextZone = 0) {
+    render(simState, dtMs, risingSapNextZone = 0, showGhostThirdNode = false) {
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
@@ -269,7 +269,7 @@
 
       // 5. Draw the Procedural Climbing Vine Stem, Leaves, Rising Sap Vein, Graft Collars & Blooms
       if (simState) {
-        this.drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs);
+        this.drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode);
         this.drawBurstParticles(ctx, simState, dtMs);
         this.drawDangerVignette(ctx, theme, simState, nowMs);
       }
@@ -469,7 +469,7 @@
       }
     }
 
-    drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs) {
+    drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode = false) {
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
       const yVine = simState.yVine;
@@ -622,32 +622,32 @@
       ctx.quadraticCurveTo(tipX + 38, tipY - 24, tipX + 88, tipY - 54);
       ctx.stroke();
 
-      // Zone 1 Faint Upper Tendril connecting the Fork up to the Faint Node 3 Preview above
-      if (simState.zoneId === 1) {
+      // Subtle 3rd Node Upper Tendril (Drawn ONLY on Step 1 of a 3-Part Compound)
+      if (showGhostThirdNode) {
         ctx.save();
-        ctx.setLineDash([5, 5]);
-        ctx.lineWidth = 2.5;
+        ctx.setLineDash([4, 6]);
+        ctx.lineWidth = 2;
         ctx.strokeStyle = activePalette.vein;
-        ctx.globalAlpha = 0.42;
+        ctx.globalAlpha = 0.34;
 
-        // Left fork -> Faint Node 3 above
+        // Left fork -> Subtle 3rd node bud above
         ctx.beginPath();
         ctx.moveTo(tipX - 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX - 32, tipY - 96, tipX, tipY - 122);
+        ctx.quadraticCurveTo(tipX - 30, tipY - 94, tipX, tipY - 116);
         ctx.stroke();
 
-        // Right fork -> Faint Node 3 above
+        // Right fork -> Subtle 3rd node bud above
         ctx.beginPath();
         ctx.moveTo(tipX + 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX + 32, tipY - 96, tipX, tipY - 122);
+        ctx.quadraticCurveTo(tipX + 30, tipY - 94, tipX, tipY - 116);
         ctx.stroke();
 
-        // Faint Node 3 meristem bud
+        // Subtle hollow 3rd node meristem ring
         ctx.setLineDash([]);
-        ctx.fillStyle = activePalette.vein;
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
-        ctx.arc(tipX, tipY - 122, 4.5, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(tipX, tipY - 116, 4.5, 0, Math.PI * 2);
+        ctx.stroke();
         ctx.restore();
       }
 

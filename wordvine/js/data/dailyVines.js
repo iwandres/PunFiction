@@ -14,7 +14,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const LEXICON_VERSION = 'v7_strict_forward_flow';
+  const LEXICON_VERSION = 'v8_subtle_node_links';
 
   const ZONE1_TRIPLET_CHAINS = [
   [
@@ -41,7 +41,7 @@
       ],
       "thematicLink": {
         "nextPart1": "CAKE",
-        "connection": "Forward Link (Cup + Cake)",
+        "connection": "2-Node Link",
         "hint": "CUP + CAKE = Cupcake",
         "decoys": [
           "SNAKE",
@@ -74,7 +74,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SIDE",
-        "connection": "Forward Link (Way + Side)",
+        "connection": "2-Node Link",
         "hint": "WAY + SIDE = Wayside",
         "decoys": [
           "BRIDE",
@@ -107,7 +107,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WORK",
-        "connection": "Forward Link (Case + Work)",
+        "connection": "2-Node Link",
         "hint": "CASE + WORK = Casework",
         "decoys": [
           "SMIRK",
@@ -140,7 +140,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DOG",
-        "connection": "Zone 2 Bridge (Top + Dog)",
+        "connection": "2-Node Link",
         "hint": "TOP + DOG = Top dog",
         "decoys": [
           "FOG",
@@ -175,7 +175,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BELLY",
-        "connection": "Forward Link (Pot + Belly)",
+        "connection": "2-Node Link",
         "hint": "POT + BELLY = Potbelly",
         "decoys": [
           "JELLY",
@@ -208,7 +208,7 @@
       ],
       "thematicLink": {
         "nextPart1": "PUNCH",
-        "connection": "Forward Link (Hole + Punch)",
+        "connection": "2-Node Link",
         "hint": "HOLE + PUNCH = Hole punch",
         "decoys": [
           "LUNCH",
@@ -241,7 +241,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BACK",
-        "connection": "Forward Link (Cut + Back)",
+        "connection": "2-Node Link",
         "hint": "CUT + BACK = Cutback",
         "decoys": [
           "QUACK",
@@ -274,7 +274,7 @@
       ],
       "thematicLink": {
         "nextPart1": "CLASS",
-        "connection": "Zone 2 Bridge (Coach + Class)",
+        "connection": "2-Node Link",
         "hint": "COACH + CLASS = Coach class",
         "decoys": [
           "BRASS",
@@ -309,7 +309,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BENCH",
-        "connection": "Forward Link (Park + Bench)",
+        "connection": "2-Node Link",
         "hint": "PARK + BENCH = Park bench",
         "decoys": [
           "WRENCH",
@@ -342,7 +342,7 @@
       ],
       "thematicLink": {
         "nextPart1": "TOWN",
-        "connection": "Forward Link (Down + Town)",
+        "connection": "2-Node Link",
         "hint": "DOWN + TOWN = Downtown",
         "decoys": [
           "CLOWN",
@@ -375,7 +375,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SHOW",
-        "connection": "Forward Link (Boat + Show)",
+        "connection": "2-Node Link",
         "hint": "BOAT + SHOW = Boat show",
         "decoys": [
           "CROW",
@@ -408,7 +408,7 @@
       ],
       "thematicLink": {
         "nextPart1": "HORSE",
-        "connection": "Zone 2 Bridge (Work + Horse)",
+        "connection": "2-Node Link",
         "hint": "WORK + HORSE = Workhorse",
         "decoys": [
           "MORSE",
@@ -443,7 +443,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BOARD",
-        "connection": "Forward Link (Mat + Board)",
+        "connection": "2-Node Link",
         "hint": "MAT + BOARD = Matboard",
         "decoys": [
           "CHORD",
@@ -476,7 +476,7 @@
       ],
       "thematicLink": {
         "nextPart1": "POST",
-        "connection": "Forward Link (Out + Post)",
+        "connection": "2-Node Link",
         "hint": "OUT + POST = Outpost",
         "decoys": [
           "GHOST",
@@ -509,7 +509,7 @@
       ],
       "thematicLink": {
         "nextPart1": "TIME",
-        "connection": "Forward Link (Down + Time)",
+        "connection": "2-Node Link",
         "hint": "DOWN + TIME = Downtime",
         "decoys": [
           "LIME",
@@ -542,7 +542,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DOG",
-        "connection": "Zone 2 Bridge (Top + Dog)",
+        "connection": "2-Node Link",
         "hint": "TOP + DOG = Top dog",
         "decoys": [
           "FOG",
@@ -577,7 +577,7 @@
       ],
       "thematicLink": {
         "nextPart1": "TIME",
-        "connection": "Forward Link (Down + Time)",
+        "connection": "2-Node Link",
         "hint": "DOWN + TIME = Downtime",
         "decoys": [
           "LIME",
@@ -610,7 +610,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SHOP",
-        "connection": "Forward Link (Work + Shop)",
+        "connection": "2-Node Link",
         "hint": "WORK + SHOP = Workshop",
         "decoys": [
           "MOP",
@@ -643,7 +643,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SET",
-        "connection": "Forward Link (Off + Set)",
+        "connection": "2-Node Link",
         "hint": "OFF + SET = Offset",
         "decoys": [
           "JET",
@@ -676,7 +676,7 @@
       ],
       "thematicLink": {
         "nextPart1": "FALL",
-        "connection": "Zone 2 Bridge (Water + Fall)",
+        "connection": "2-Node Link",
         "hint": "WATER + FALL = Waterfall",
         "decoys": [
           "SHAWL",
@@ -711,7 +711,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BED",
-        "connection": "Forward Link (Seed + Bed)",
+        "connection": "2-Node Link",
         "hint": "SEED + BED = Seedbed",
         "decoys": [
           "SLED",
@@ -744,7 +744,7 @@
       ],
       "thematicLink": {
         "nextPart1": "METAL",
-        "connection": "Forward Link (Sheet + Metal)",
+        "connection": "2-Node Link",
         "hint": "SHEET + METAL = Sheet metal",
         "decoys": [
           "PETAL",
@@ -777,7 +777,7 @@
       ],
       "thematicLink": {
         "nextPart1": "MARK",
-        "connection": "Forward Link (Bench + Mark)",
+        "connection": "2-Node Link",
         "hint": "BENCH + MARK = Benchmark",
         "decoys": [
           "SHARK",
@@ -810,7 +810,7 @@
       ],
       "thematicLink": {
         "nextPart1": "HOUSE",
-        "connection": "Zone 2 Bridge (Town + House)",
+        "connection": "2-Node Link",
         "hint": "TOWN + HOUSE = Townhouse",
         "decoys": [
           "BLOUSE",
@@ -845,7 +845,7 @@
       ],
       "thematicLink": {
         "nextPart1": "TRIP",
-        "connection": "Forward Link (Field + Trip)",
+        "connection": "2-Node Link",
         "hint": "FIELD + TRIP = Field trip",
         "decoys": [
           "CHIP",
@@ -878,7 +878,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DANCE",
-        "connection": "Forward Link (Tap + Dance)",
+        "connection": "2-Node Link",
         "hint": "TAP + DANCE = Tap dance",
         "decoys": [
           "LANCE",
@@ -911,7 +911,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WALK",
-        "connection": "Forward Link (Board + Walk)",
+        "connection": "2-Node Link",
         "hint": "BOARD + WALK = Boardwalk",
         "decoys": [
           "HAWK",
@@ -944,7 +944,7 @@
       ],
       "thematicLink": {
         "nextPart1": "PORT",
-        "connection": "Zone 2 Bridge (Sea + Port)",
+        "connection": "2-Node Link",
         "hint": "SEA + PORT = Seaport",
         "decoys": [
           "FORT",
@@ -979,7 +979,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WAVE",
-        "connection": "Forward Link (Shock + Wave)",
+        "connection": "2-Node Link",
         "hint": "SHOCK + WAVE = Shockwave",
         "decoys": [
           "CAVE",
@@ -1012,7 +1012,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SIDE",
-        "connection": "Forward Link (Way + Side)",
+        "connection": "2-Node Link",
         "hint": "WAY + SIDE = Wayside",
         "decoys": [
           "BRIDE",
@@ -1045,7 +1045,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WIND",
-        "connection": "Forward Link (Down + Wind)",
+        "connection": "2-Node Link",
         "hint": "DOWN + WIND = Downwind",
         "decoys": [
           "RIND",
@@ -1078,7 +1078,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WALL",
-        "connection": "Zone 2 Bridge (Stone + Wall)",
+        "connection": "2-Node Link",
         "hint": "STONE + WALL = Stonewall",
         "decoys": [
           "SHAWL",
@@ -1113,7 +1113,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DOOR",
-        "connection": "Forward Link (Out + Door)",
+        "connection": "2-Node Link",
         "hint": "OUT + DOOR = Outdoor",
         "decoys": [
           "CHORE",
@@ -1146,7 +1146,7 @@
       ],
       "thematicLink": {
         "nextPart1": "WALL",
-        "connection": "Forward Link (Stone + Wall)",
+        "connection": "2-Node Link",
         "hint": "STONE + WALL = Stonewall",
         "decoys": [
           "SHAWL",
@@ -1179,7 +1179,7 @@
       ],
       "thematicLink": {
         "nextPart1": "TIME",
-        "connection": "Forward Link (Bed + Time)",
+        "connection": "2-Node Link",
         "hint": "BED + TIME = Bedtime",
         "decoys": [
           "LIME",
@@ -1212,7 +1212,7 @@
       ],
       "thematicLink": {
         "nextPart1": "NOTE",
-        "connection": "Zone 2 Bridge (Key + Note)",
+        "connection": "2-Node Link",
         "hint": "KEY + NOTE = Keynote",
         "decoys": [
           "GOAT",
@@ -1247,7 +1247,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BOX",
-        "connection": "Forward Link (Lock + Box)",
+        "connection": "2-Node Link",
         "hint": "LOCK + BOX = Lockbox",
         "decoys": [
           "FOX",
@@ -1280,7 +1280,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SIDE",
-        "connection": "Forward Link (Pool + Side)",
+        "connection": "2-Node Link",
         "hint": "POOL + SIDE = Poolside",
         "decoys": [
           "BRIDE",
@@ -1313,7 +1313,7 @@
       ],
       "thematicLink": {
         "nextPart1": "OUT",
-        "connection": "Forward Link (Walk + Out)",
+        "connection": "2-Node Link",
         "hint": "WALK + OUT = Walkout",
         "decoys": [
           "TROUT",
@@ -1346,7 +1346,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SPACE",
-        "connection": "Zone 2 Bridge (Office + Space)",
+        "connection": "2-Node Link",
         "hint": "OFFICE + SPACE = Office space",
         "decoys": [
           "LACE",
@@ -1381,7 +1381,7 @@
       ],
       "thematicLink": {
         "nextPart1": "PAPER",
-        "connection": "Forward Link (Wall + Paper)",
+        "connection": "2-Node Link",
         "hint": "WALL + PAPER = Wallpaper",
         "decoys": [
           "CAPER",
@@ -1414,7 +1414,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DRY",
-        "connection": "Forward Link (Bone + Dry)",
+        "connection": "2-Node Link",
         "hint": "BONE + DRY = Bone-dry",
         "decoys": [
           "SHY",
@@ -1447,7 +1447,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SHOW",
-        "connection": "Forward Link (Slide + Show)",
+        "connection": "2-Node Link",
         "hint": "SLIDE + SHOW = Slideshow",
         "decoys": [
           "CROW",
@@ -1480,7 +1480,7 @@
       ],
       "thematicLink": {
         "nextPart1": "OUT",
-        "connection": "Zone 2 Bridge (Time + Out)",
+        "connection": "2-Node Link",
         "hint": "TIME + OUT = Timeout",
         "decoys": [
           "TROUT",
@@ -1515,7 +1515,7 @@
       ],
       "thematicLink": {
         "nextPart1": "DROP",
-        "connection": "Forward Link (Back + Drop)",
+        "connection": "2-Node Link",
         "hint": "BACK + DROP = Backdrop",
         "decoys": [
           "MOP",
@@ -1548,7 +1548,7 @@
       ],
       "thematicLink": {
         "nextPart1": "SHIP",
-        "connection": "Forward Link (Town + Ship)",
+        "connection": "2-Node Link",
         "hint": "TOWN + SHIP = Township",
         "decoys": [
           "CHIP",
@@ -1581,7 +1581,7 @@
       ],
       "thematicLink": {
         "nextPart1": "PARK",
-        "connection": "Forward Link (Ball + Park)",
+        "connection": "2-Node Link",
         "hint": "BALL + PARK = Ballpark",
         "decoys": [
           "SHARK",
@@ -1614,7 +1614,7 @@
       ],
       "thematicLink": {
         "nextPart1": "BIRD",
-        "connection": "Zone 2 Bridge (Game + Bird)",
+        "connection": "2-Node Link",
         "hint": "GAME + BIRD = Gamebird",
         "decoys": [
           "HERD",
@@ -5402,7 +5402,7 @@
   {
     "vineNumber": 142,
     "dateKey": "2026-11-01",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 0,
     "title": "Midnight Bioluminescence",
     "chainSetIndex": 0,
@@ -5430,7 +5430,7 @@
         ],
         "thematicLink": {
           "nextPart1": "CAKE",
-          "connection": "Forward Link (Cup + Cake)",
+          "connection": "2-Node Link",
           "hint": "CUP + CAKE = Cupcake",
           "decoys": [
             "SNAKE",
@@ -5463,7 +5463,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SIDE",
-          "connection": "Forward Link (Way + Side)",
+          "connection": "2-Node Link",
           "hint": "WAY + SIDE = Wayside",
           "decoys": [
             "BRIDE",
@@ -5496,7 +5496,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WORK",
-          "connection": "Forward Link (Case + Work)",
+          "connection": "2-Node Link",
           "hint": "CASE + WORK = Casework",
           "decoys": [
             "SMIRK",
@@ -5529,7 +5529,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DOG",
-          "connection": "Zone 2 Bridge (Top + Dog)",
+          "connection": "2-Node Link",
           "hint": "TOP + DOG = Top dog",
           "decoys": [
             "FOG",
@@ -5859,7 +5859,7 @@
         "tripletStep": 2,
         "stemWord": "PEANUT",
         "displayStem": "PEANUT",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BUTTER",
         "decoyPool": [
           "SHUTTER",
@@ -5868,25 +5868,18 @@
           "MUTTER"
         ],
         "decoyWord": "SHUTTER",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 CUP",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "PEANUT",
-          "[ ? ]",
-          "\ud83c\udf38 CUP"
-        ],
-        "compoundHint": "PEANUT + BUTTER = Peanut butter"
+        "compoundHint": "PEANUT + BUTTER = Peanut butter",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BUTTER",
-        "displayStem": "PEANUT \u2192 BUTTER",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "BUTTER",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CUP",
         "decoyPool": [
           "PUP",
@@ -5895,17 +5888,10 @@
           "GALLOP"
         ],
         "decoyWord": "PUP",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA CUP",
-          "word": "\ud83d\udd17 CAKE \u2192 WALK \u2192 WAY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "PEANUT",
-          "BUTTER",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BUTTER + CUP = Buttercup (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BUTTER + CUP = Buttercup (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -5913,7 +5899,7 @@
         "tripletStep": 1,
         "stemWord": "CUP",
         "displayStem": "CUP",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (CUP + CAKE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "CAKE",
         "decoyPool": [
           "SNAKE",
@@ -5922,17 +5908,10 @@
           "STEAK"
         ],
         "decoyWord": "SNAKE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 WALK \u2192 WAY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 CUP",
-          "[ ? (1/3) ]",
-          "WALK \u2192 WAY"
-        ],
-        "compoundHint": "CUP + CAKE = Cupcake"
+        "compoundHint": "CUP + CAKE = Cupcake",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -5940,7 +5919,7 @@
         "tripletStep": 2,
         "stemWord": "CAKE",
         "displayStem": "CAKE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WALK",
         "decoyPool": [
           "CHALK",
@@ -5949,25 +5928,18 @@
           "SQUAWK"
         ],
         "decoyWord": "CHALK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WAY",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "CAKE",
-          "[ ? ]",
-          "\ud83c\udf38 WAY"
-        ],
-        "compoundHint": "CAKE + WALK = Cakewalk"
+        "compoundHint": "CAKE + WALK = Cakewalk",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "WALK",
-        "displayStem": "CAKE \u2192 WALK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "WALK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WAY",
         "decoyPool": [
           "CLAY",
@@ -5976,17 +5948,10 @@
           "SPRAY"
         ],
         "decoyWord": "CLAY",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WAY",
-          "word": "\ud83d\udd17 SIDE \u2192 SHOW \u2192 CASE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "CAKE",
-          "WALK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "WALK + WAY = Walkway (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "WALK + WAY = Walkway (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -5994,7 +5959,7 @@
         "tripletStep": 1,
         "stemWord": "WAY",
         "displayStem": "WAY",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (WAY + SIDE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SIDE",
         "decoyPool": [
           "BRIDE",
@@ -6003,17 +5968,10 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 SHOW \u2192 CASE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WAY",
-          "[ ? (1/3) ]",
-          "SHOW \u2192 CASE"
-        ],
-        "compoundHint": "WAY + SIDE = Wayside"
+        "compoundHint": "WAY + SIDE = Wayside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -6021,7 +5979,7 @@
         "tripletStep": 2,
         "stemWord": "SIDE",
         "displayStem": "SIDE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHOW",
         "decoyPool": [
           "CROW",
@@ -6030,25 +5988,18 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 CASE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SIDE",
-          "[ ? ]",
-          "\ud83c\udf38 CASE"
-        ],
-        "compoundHint": "SIDE + SHOW = Sideshow"
+        "compoundHint": "SIDE + SHOW = Sideshow",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SHOW",
-        "displayStem": "SIDE \u2192 SHOW",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "SHOW",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CASE",
         "decoyPool": [
           "VASE",
@@ -6057,17 +6008,10 @@
           "BRACE"
         ],
         "decoyWord": "VASE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA CASE",
-          "word": "\ud83d\udd17 WORK \u2192 TABLE \u2192 TOP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SIDE",
-          "SHOW",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SHOW + CASE = Showcase (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SHOW + CASE = Showcase (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -6075,7 +6019,7 @@
         "tripletStep": 1,
         "stemWord": "CASE",
         "displayStem": "CASE",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (CASE + WORK)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WORK",
         "decoyPool": [
           "SMIRK",
@@ -6084,17 +6028,10 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 TABLE \u2192 TOP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 CASE",
-          "[ ? (1/3) ]",
-          "TABLE \u2192 TOP"
-        ],
-        "compoundHint": "CASE + WORK = Casework"
+        "compoundHint": "CASE + WORK = Casework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -6102,7 +6039,7 @@
         "tripletStep": 2,
         "stemWord": "WORK",
         "displayStem": "WORK",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TABLE",
         "decoyPool": [
           "FABLE",
@@ -6111,25 +6048,18 @@
           "SABLE"
         ],
         "decoyWord": "FABLE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TOP",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WORK",
-          "[ ? ]",
-          "\ud83c\udf38 TOP"
-        ],
-        "compoundHint": "WORK + TABLE = Worktable"
+        "compoundHint": "WORK + TABLE = Worktable",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "TABLE",
-        "displayStem": "WORK \u2192 TABLE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "TABLE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TOP",
         "decoyPool": [
           "MOP",
@@ -6138,17 +6068,10 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TOP",
-          "word": "\ud83d\udd17 + ZONE 2: DOG",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WORK",
-          "TABLE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -6156,7 +6079,7 @@
         "tripletStep": 1,
         "stemWord": "TOP",
         "displayStem": "TOP",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TOP + DOG)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DOG",
         "decoyPool": [
           "FOG",
@@ -6165,17 +6088,10 @@
           "FROG"
         ],
         "decoyWord": "FOG",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "DOG \u2192 HOUSE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TOP",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "TOP + DOG = Top dog"
+        "compoundHint": "TOP + DOG = Top dog",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -6191,7 +6107,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "DOG + HOUSE = Doghouse"
+        "compoundHint": "DOG + HOUSE = Doghouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -6207,7 +6127,11 @@
           "WRY"
         ],
         "decoyWord": "SHY",
-        "compoundHint": "HOUSE + FLY = Housefly"
+        "compoundHint": "HOUSE + FLY = Housefly",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -6223,7 +6147,11 @@
           "CHAP"
         ],
         "decoyWord": "CLAP",
-        "compoundHint": "FLY + TRAP = Flytrap"
+        "compoundHint": "FLY + TRAP = Flytrap",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -6239,7 +6167,11 @@
           "ROAR"
         ],
         "decoyWord": "SNORE",
-        "compoundHint": "TRAP + DOOR = Trapdoor"
+        "compoundHint": "TRAP + DOOR = Trapdoor",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -6255,7 +6187,11 @@
           "DWELL"
         ],
         "decoyWord": "SPELL",
-        "compoundHint": "DOOR + BELL = Doorbell"
+        "compoundHint": "DOOR + BELL = Doorbell",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -6271,7 +6207,11 @@
           "SLIPPER"
         ],
         "decoyWord": "LEPER",
-        "compoundHint": "BELL + PEPPER = Bell pepper"
+        "compoundHint": "BELL + PEPPER = Bell pepper",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -6287,7 +6227,11 @@
           "SPRINT"
         ],
         "decoyWord": "LINT",
-        "compoundHint": "PEPPER + MINT = Peppermint"
+        "compoundHint": "PEPPER + MINT = Peppermint",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -6303,7 +6247,11 @@
           "PREEN"
         ],
         "decoyWord": "QUEEN",
-        "compoundHint": "MINT + GREEN = Mint green"
+        "compoundHint": "MINT + GREEN = Mint green",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -6319,7 +6267,11 @@
           "FLIGHT"
         ],
         "decoyWord": "FRIGHT",
-        "compoundHint": "GREEN + LIGHT = Greenlight"
+        "compoundHint": "GREEN + LIGHT = Greenlight",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -6335,7 +6287,11 @@
           "TEAR"
         ],
         "decoyWord": "SPEAR",
-        "compoundHint": "LIGHT + YEAR = Lightyear"
+        "compoundHint": "LIGHT + YEAR = Lightyear",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -6351,7 +6307,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "YEAR + BOOK = Yearbook"
+        "compoundHint": "YEAR + BOOK = Yearbook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -6367,7 +6327,11 @@
           "FIRM"
         ],
         "decoyWord": "STORM",
-        "compoundHint": "BOOK + WORM = Bookworm"
+        "compoundHint": "BOOK + WORM = Bookworm",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -6383,7 +6347,11 @@
           "STOLE"
         ],
         "decoyWord": "MOLE",
-        "compoundHint": "WORM + HOLE = Wormhole"
+        "compoundHint": "WORM + HOLE = Wormhole",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -6399,7 +6367,11 @@
           "GUARD"
         ],
         "decoyWord": "LARD",
-        "compoundHint": "HOLE + CARD = Hole card"
+        "compoundHint": "HOLE + CARD = Hole card",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -6415,7 +6387,11 @@
           "DARK"
         ],
         "decoyWord": "LARK",
-        "compoundHint": "CARD + SHARK = Card shark"
+        "compoundHint": "CARD + SHARK = Card shark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -6431,7 +6407,11 @@
           "FLANK"
         ],
         "decoyWord": "PRANK",
-        "compoundHint": "SHARK + TANK = Shark tank"
+        "compoundHint": "SHARK + TANK = Shark tank",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -6447,7 +6427,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "TANK + TOP = Tank top"
+        "compoundHint": "TANK + TOP = Tank top",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -6463,7 +6447,11 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "compoundHint": "TOP + COAT = Topcoat"
+        "compoundHint": "TOP + COAT = Topcoat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -6479,7 +6467,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "COAT + RACK = Coatrack"
+        "compoundHint": "COAT + RACK = Coatrack",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -6495,7 +6487,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "RACK + UP = Rack up"
+        "compoundHint": "RACK + UP = Rack up",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -6511,7 +6507,11 @@
           "PLEAT"
         ],
         "decoyWord": "WHEAT",
-        "compoundHint": "UP + BEAT = Upbeat"
+        "compoundHint": "UP + BEAT = Upbeat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -6527,7 +6527,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "BEAT + DOWN = Beatdown"
+        "compoundHint": "BEAT + DOWN = Beatdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -6543,7 +6547,11 @@
           "ROAR"
         ],
         "decoyWord": "SNORE",
-        "compoundHint": "DOWN + POUR = Downpour"
+        "compoundHint": "DOWN + POUR = Downpour",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -6559,7 +6567,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "POUR + OVER = Pour-over"
+        "compoundHint": "POUR + OVER = Pour-over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -6575,7 +6587,11 @@
           "STEEP"
         ],
         "decoyWord": "SHEEP",
-        "compoundHint": "OVER + SLEEP = Oversleep"
+        "compoundHint": "OVER + SLEEP = Oversleep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -6591,7 +6607,11 @@
           "SQUAWK"
         ],
         "decoyWord": "CHALK",
-        "compoundHint": "SLEEP + WALK = Sleepwalk"
+        "compoundHint": "SLEEP + WALK = Sleepwalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -6607,7 +6627,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "WALK + OUT = Walkout"
+        "compoundHint": "WALK + OUT = Walkout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -6623,14 +6647,18 @@
           "HEARSE"
         ],
         "decoyWord": "THIRST",
-        "compoundHint": "OUT + BURST = Outburst"
+        "compoundHint": "OUT + BURST = Outburst",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 143,
     "dateKey": "2026-11-02",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 1,
     "title": "Sunlit Conservatory",
     "chainSetIndex": 1,
@@ -6658,7 +6686,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BELLY",
-          "connection": "Forward Link (Pot + Belly)",
+          "connection": "2-Node Link",
           "hint": "POT + BELLY = Potbelly",
           "decoys": [
             "JELLY",
@@ -6691,7 +6719,7 @@
         ],
         "thematicLink": {
           "nextPart1": "PUNCH",
-          "connection": "Forward Link (Hole + Punch)",
+          "connection": "2-Node Link",
           "hint": "HOLE + PUNCH = Hole punch",
           "decoys": [
             "LUNCH",
@@ -6724,7 +6752,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BACK",
-          "connection": "Forward Link (Cut + Back)",
+          "connection": "2-Node Link",
           "hint": "CUT + BACK = Cutback",
           "decoys": [
             "QUACK",
@@ -6757,7 +6785,7 @@
         ],
         "thematicLink": {
           "nextPart1": "CLASS",
-          "connection": "Zone 2 Bridge (Coach + Class)",
+          "connection": "2-Node Link",
           "hint": "COACH + CLASS = Coach class",
           "decoys": [
             "BRASS",
@@ -7087,7 +7115,7 @@
         "tripletStep": 2,
         "stemWord": "SUN",
         "displayStem": "SUN",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "FLOWER",
         "decoyPool": [
           "TOWER",
@@ -7096,25 +7124,18 @@
           "POWDER"
         ],
         "decoyWord": "TOWER",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 POT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SUN",
-          "[ ? ]",
-          "\ud83c\udf38 POT"
-        ],
-        "compoundHint": "SUN + FLOWER = Sunflower"
+        "compoundHint": "SUN + FLOWER = Sunflower",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "FLOWER",
-        "displayStem": "SUN \u2192 FLOWER",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "FLOWER",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "POT",
         "decoyPool": [
           "BLOT",
@@ -7123,17 +7144,10 @@
           "YACHT"
         ],
         "decoyWord": "BLOT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA POT",
-          "word": "\ud83d\udd17 BELLY \u2192 BUTTON \u2192 HOLE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SUN",
-          "FLOWER",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "FLOWER + POT = Flowerpot (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "FLOWER + POT = Flowerpot (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -7141,7 +7155,7 @@
         "tripletStep": 1,
         "stemWord": "POT",
         "displayStem": "POT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (POT + BELLY)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BELLY",
         "decoyPool": [
           "JELLY",
@@ -7150,17 +7164,10 @@
           "TRELLIS"
         ],
         "decoyWord": "JELLY",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 BUTTON \u2192 HOLE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 POT",
-          "[ ? (1/3) ]",
-          "BUTTON \u2192 HOLE"
-        ],
-        "compoundHint": "POT + BELLY = Potbelly"
+        "compoundHint": "POT + BELLY = Potbelly",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -7168,7 +7175,7 @@
         "tripletStep": 2,
         "stemWord": "BELLY",
         "displayStem": "BELLY",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BUTTON",
         "decoyPool": [
           "MUTTON",
@@ -7177,25 +7184,18 @@
           "PISTON"
         ],
         "decoyWord": "MUTTON",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 HOLE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BELLY",
-          "[ ? ]",
-          "\ud83c\udf38 HOLE"
-        ],
-        "compoundHint": "BELLY + BUTTON = Belly button"
+        "compoundHint": "BELLY + BUTTON = Belly button",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BUTTON",
-        "displayStem": "BELLY \u2192 BUTTON",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "BUTTON",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "HOLE",
         "decoyPool": [
           "MOLE",
@@ -7204,17 +7204,10 @@
           "STOLE"
         ],
         "decoyWord": "MOLE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA HOLE",
-          "word": "\ud83d\udd17 PUNCH \u2192 BOWL \u2192 CUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BELLY",
-          "BUTTON",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BUTTON + HOLE = Buttonhole (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BUTTON + HOLE = Buttonhole (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -7222,7 +7215,7 @@
         "tripletStep": 1,
         "stemWord": "HOLE",
         "displayStem": "HOLE",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (HOLE + PUNCH)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "PUNCH",
         "decoyPool": [
           "LUNCH",
@@ -7231,17 +7224,10 @@
           "BRUNCH"
         ],
         "decoyWord": "LUNCH",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 BOWL \u2192 CUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 HOLE",
-          "[ ? (1/3) ]",
-          "BOWL \u2192 CUT"
-        ],
-        "compoundHint": "HOLE + PUNCH = Hole punch"
+        "compoundHint": "HOLE + PUNCH = Hole punch",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -7249,7 +7235,7 @@
         "tripletStep": 2,
         "stemWord": "PUNCH",
         "displayStem": "PUNCH",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BOWL",
         "decoyPool": [
           "OWL",
@@ -7258,25 +7244,18 @@
           "PROWL"
         ],
         "decoyWord": "OWL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 CUT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "PUNCH",
-          "[ ? ]",
-          "\ud83c\udf38 CUT"
-        ],
-        "compoundHint": "PUNCH + BOWL = Punch bowl"
+        "compoundHint": "PUNCH + BOWL = Punch bowl",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BOWL",
-        "displayStem": "PUNCH \u2192 BOWL",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "BOWL",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CUT",
         "decoyPool": [
           "HUT",
@@ -7285,17 +7264,10 @@
           "SMUT"
         ],
         "decoyWord": "HUT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA CUT",
-          "word": "\ud83d\udd17 BACK \u2192 STAGE \u2192 COACH",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "PUNCH",
-          "BOWL",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BOWL + CUT = Bowl cut (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BOWL + CUT = Bowl cut (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -7303,7 +7275,7 @@
         "tripletStep": 1,
         "stemWord": "CUT",
         "displayStem": "CUT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (CUT + BACK)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BACK",
         "decoyPool": [
           "QUACK",
@@ -7312,17 +7284,10 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 STAGE \u2192 COACH",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 CUT",
-          "[ ? (1/3) ]",
-          "STAGE \u2192 COACH"
-        ],
-        "compoundHint": "CUT + BACK = Cutback"
+        "compoundHint": "CUT + BACK = Cutback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -7330,7 +7295,7 @@
         "tripletStep": 2,
         "stemWord": "BACK",
         "displayStem": "BACK",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "STAGE",
         "decoyPool": [
           "CAGE",
@@ -7339,25 +7304,18 @@
           "GAUGE"
         ],
         "decoyWord": "CAGE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 COACH",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BACK",
-          "[ ? ]",
-          "\ud83c\udf38 COACH"
-        ],
-        "compoundHint": "BACK + STAGE = Backstage"
+        "compoundHint": "BACK + STAGE = Backstage",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "STAGE",
-        "displayStem": "BACK \u2192 STAGE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "STAGE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "COACH",
         "decoyPool": [
           "ROACH",
@@ -7366,17 +7324,10 @@
           "LOACH"
         ],
         "decoyWord": "ROACH",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA COACH",
-          "word": "\ud83d\udd17 + ZONE 2: CLASS",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BACK",
-          "STAGE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "STAGE + COACH = Stagecoach (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "STAGE + COACH = Stagecoach (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -7384,7 +7335,7 @@
         "tripletStep": 1,
         "stemWord": "COACH",
         "displayStem": "COACH",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (COACH + CLASS)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "CLASS",
         "decoyPool": [
           "BRASS",
@@ -7393,17 +7344,10 @@
           "MORASS"
         ],
         "decoyWord": "BRASS",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "CLASS \u2192 WORK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 COACH",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "COACH + CLASS = Coach class"
+        "compoundHint": "COACH + CLASS = Coach class",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -7419,7 +7363,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "CLASS + WORK = Classwork"
+        "compoundHint": "CLASS + WORK = Classwork",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -7435,7 +7383,11 @@
           "VASE"
         ],
         "decoyWord": "MACE",
-        "compoundHint": "WORK + SPACE = Workspace"
+        "compoundHint": "WORK + SPACE = Workspace",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -7451,7 +7403,11 @@
           "BLIP"
         ],
         "decoyWord": "CHIP",
-        "compoundHint": "SPACE + SHIP = Spaceship"
+        "compoundHint": "SPACE + SHIP = Spaceship",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -7467,7 +7423,11 @@
           "NECK"
         ],
         "decoyWord": "SPECK",
-        "compoundHint": "SHIP + WRECK = Shipwreck"
+        "compoundHint": "SHIP + WRECK = Shipwreck",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -7483,7 +7443,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "WRECK + BALL = Wrecking ball"
+        "compoundHint": "WRECK + BALL = Wrecking ball",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -7499,7 +7463,11 @@
           "DISJOINT"
         ],
         "decoyWord": "JOINT",
-        "compoundHint": "BALL + POINT = Ballpoint"
+        "compoundHint": "BALL + POINT = Ballpoint",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -7515,7 +7483,11 @@
           "FLANK"
         ],
         "decoyWord": "PRANK",
-        "compoundHint": "POINT + BLANK = Point-blank"
+        "compoundHint": "POINT + BLANK = Point-blank",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -7531,7 +7503,11 @@
           "NECK"
         ],
         "decoyWord": "SPECK",
-        "compoundHint": "BLANK + CHECK = Blank check"
+        "compoundHint": "BLANK + CHECK = Blank check",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -7547,7 +7523,11 @@
           "DISJOINT"
         ],
         "decoyWord": "JOINT",
-        "compoundHint": "CHECK + POINT = Checkpoint"
+        "compoundHint": "CHECK + POINT = Checkpoint",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -7563,7 +7543,11 @@
           "CHARD"
         ],
         "decoyWord": "LARD",
-        "compoundHint": "POINT + GUARD = Point guard"
+        "compoundHint": "POINT + GUARD = Point guard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -7579,7 +7563,11 @@
           "GRAIL"
         ],
         "decoyWord": "SNAIL",
-        "compoundHint": "GUARD + RAIL = Guardrail"
+        "compoundHint": "GUARD + RAIL = Guardrail",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -7595,7 +7583,11 @@
           "EPISODE"
         ],
         "decoyWord": "TOAD",
-        "compoundHint": "RAIL + ROAD = Railroad"
+        "compoundHint": "RAIL + ROAD = Railroad",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -7611,7 +7603,11 @@
           "CROCK"
         ],
         "decoyWord": "FLOCK",
-        "compoundHint": "ROAD + BLOCK = Roadblock"
+        "compoundHint": "ROAD + BLOCK = Roadblock",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -7627,7 +7623,11 @@
           "TREAD"
         ],
         "decoyWord": "BREAD",
-        "compoundHint": "BLOCK + HEAD = Blockhead"
+        "compoundHint": "BLOCK + HEAD = Blockhead",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -7643,7 +7643,11 @@
           "CHART"
         ],
         "decoyWord": "TART",
-        "compoundHint": "HEAD + START = Head start"
+        "compoundHint": "HEAD + START = Head start",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -7659,7 +7663,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "START + UP = Startup"
+        "compoundHint": "START + UP = Startup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -7675,7 +7683,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "UP + TURN = Upturn"
+        "compoundHint": "UP + TURN = Upturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -7691,7 +7703,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "TURN + OVER = Turnover"
+        "compoundHint": "TURN + OVER = Turnover",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -7707,7 +7723,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "OVER + LOOK = Overlook"
+        "compoundHint": "OVER + LOOK = Overlook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -7723,7 +7743,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "LOOK + OUT = Lookout"
+        "compoundHint": "LOOK + OUT = Lookout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -7739,7 +7763,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "OUT + LINE = Outline"
+        "compoundHint": "OUT + LINE = Outline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -7755,7 +7783,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -7771,7 +7803,11 @@
           "SCALD"
         ],
         "decoyWord": "MOLD",
-        "compoundHint": "UP + HOLD = Uphold"
+        "compoundHint": "UP + HOLD = Uphold",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -7787,7 +7823,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "HOLD + BACK = Holdback"
+        "compoundHint": "HOLD + BACK = Holdback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -7803,7 +7843,11 @@
           "SPIRE"
         ],
         "decoyWord": "CHOIR",
-        "compoundHint": "BACK + FIRE = Backfire"
+        "compoundHint": "BACK + FIRE = Backfire",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -7819,7 +7863,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "FIRE + WORK = Firework"
+        "compoundHint": "FIRE + WORK = Firework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -7835,7 +7883,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "WORK + OUT = Workout"
+        "compoundHint": "WORK + OUT = Workout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -7851,14 +7903,18 @@
           "STUN"
         ],
         "decoyWord": "BUN",
-        "compoundHint": "OUT + RUN = Outrun"
+        "compoundHint": "OUT + RUN = Outrun",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 144,
     "dateKey": "2026-11-03",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 2,
     "title": "Crimson Canopy (Ukiyo-e)",
     "chainSetIndex": 2,
@@ -7886,7 +7942,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BENCH",
-          "connection": "Forward Link (Park + Bench)",
+          "connection": "2-Node Link",
           "hint": "PARK + BENCH = Park bench",
           "decoys": [
             "WRENCH",
@@ -7919,7 +7975,7 @@
         ],
         "thematicLink": {
           "nextPart1": "TOWN",
-          "connection": "Forward Link (Down + Town)",
+          "connection": "2-Node Link",
           "hint": "DOWN + TOWN = Downtown",
           "decoys": [
             "CLOWN",
@@ -7952,7 +8008,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SHOW",
-          "connection": "Forward Link (Boat + Show)",
+          "connection": "2-Node Link",
           "hint": "BOAT + SHOW = Boat show",
           "decoys": [
             "CROW",
@@ -7985,7 +8041,7 @@
         ],
         "thematicLink": {
           "nextPart1": "HORSE",
-          "connection": "Zone 2 Bridge (Work + Horse)",
+          "connection": "2-Node Link",
           "hint": "WORK + HORSE = Workhorse",
           "decoys": [
             "MORSE",
@@ -8315,7 +8371,7 @@
         "tripletStep": 2,
         "stemWord": "SNOW",
         "displayStem": "SNOW",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BALL",
         "decoyPool": [
           "SHAWL",
@@ -8324,25 +8380,18 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 PARK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SNOW",
-          "[ ? ]",
-          "\ud83c\udf38 PARK"
-        ],
-        "compoundHint": "SNOW + BALL = Snowball"
+        "compoundHint": "SNOW + BALL = Snowball",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BALL",
-        "displayStem": "SNOW \u2192 BALL",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "BALL",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "PARK",
         "decoyPool": [
           "SHARK",
@@ -8351,17 +8400,10 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA PARK",
-          "word": "\ud83d\udd17 BENCH \u2192 MARK \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SNOW",
-          "BALL",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BALL + PARK = Ballpark (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BALL + PARK = Ballpark (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -8369,7 +8411,7 @@
         "tripletStep": 1,
         "stemWord": "PARK",
         "displayStem": "PARK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (PARK + BENCH)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BENCH",
         "decoyPool": [
           "WRENCH",
@@ -8378,17 +8420,10 @@
           "QUENCH"
         ],
         "decoyWord": "WRENCH",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 MARK \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 PARK",
-          "[ ? (1/3) ]",
-          "MARK \u2192 DOWN"
-        ],
-        "compoundHint": "PARK + BENCH = Park bench"
+        "compoundHint": "PARK + BENCH = Park bench",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -8396,7 +8431,7 @@
         "tripletStep": 2,
         "stemWord": "BENCH",
         "displayStem": "BENCH",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MARK",
         "decoyPool": [
           "SHARK",
@@ -8405,25 +8440,18 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 DOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BENCH",
-          "[ ? ]",
-          "\ud83c\udf38 DOWN"
-        ],
-        "compoundHint": "BENCH + MARK = Benchmark"
+        "compoundHint": "BENCH + MARK = Benchmark",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "MARK",
-        "displayStem": "BENCH \u2192 MARK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "MARK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -8432,17 +8460,10 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA DOWN",
-          "word": "\ud83d\udd17 TOWN \u2192 HOUSE \u2192 BOAT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BENCH",
-          "MARK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -8450,7 +8471,7 @@
         "tripletStep": 1,
         "stemWord": "DOWN",
         "displayStem": "DOWN",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (DOWN + TOWN)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "TOWN",
         "decoyPool": [
           "CLOWN",
@@ -8459,17 +8480,10 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 HOUSE \u2192 BOAT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 DOWN",
-          "[ ? (1/3) ]",
-          "HOUSE \u2192 BOAT"
-        ],
-        "compoundHint": "DOWN + TOWN = Downtown"
+        "compoundHint": "DOWN + TOWN = Downtown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -8477,7 +8491,7 @@
         "tripletStep": 2,
         "stemWord": "TOWN",
         "displayStem": "TOWN",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "HOUSE",
         "decoyPool": [
           "BLOUSE",
@@ -8486,25 +8500,18 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BOAT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "TOWN",
-          "[ ? ]",
-          "\ud83c\udf38 BOAT"
-        ],
-        "compoundHint": "TOWN + HOUSE = Townhouse"
+        "compoundHint": "TOWN + HOUSE = Townhouse",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "HOUSE",
-        "displayStem": "TOWN \u2192 HOUSE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "HOUSE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BOAT",
         "decoyPool": [
           "GOAT",
@@ -8513,17 +8520,10 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BOAT",
-          "word": "\ud83d\udd17 SHOW \u2192 CASE \u2192 WORK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "TOWN",
-          "HOUSE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "HOUSE + BOAT = Houseboat (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "HOUSE + BOAT = Houseboat (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -8531,7 +8531,7 @@
         "tripletStep": 1,
         "stemWord": "BOAT",
         "displayStem": "BOAT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BOAT + SHOW)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SHOW",
         "decoyPool": [
           "CROW",
@@ -8540,17 +8540,10 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 CASE \u2192 WORK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BOAT",
-          "[ ? (1/3) ]",
-          "CASE \u2192 WORK"
-        ],
-        "compoundHint": "BOAT + SHOW = Boat show"
+        "compoundHint": "BOAT + SHOW = Boat show",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -8558,7 +8551,7 @@
         "tripletStep": 2,
         "stemWord": "SHOW",
         "displayStem": "SHOW",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CASE",
         "decoyPool": [
           "VASE",
@@ -8567,25 +8560,18 @@
           "BRACE"
         ],
         "decoyWord": "VASE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WORK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SHOW",
-          "[ ? ]",
-          "\ud83c\udf38 WORK"
-        ],
-        "compoundHint": "SHOW + CASE = Showcase"
+        "compoundHint": "SHOW + CASE = Showcase",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "CASE",
-        "displayStem": "SHOW \u2192 CASE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "CASE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WORK",
         "decoyPool": [
           "SMIRK",
@@ -8594,17 +8580,10 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WORK",
-          "word": "\ud83d\udd17 + ZONE 2: HORSE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SHOW",
-          "CASE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "CASE + WORK = Casework (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "CASE + WORK = Casework (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -8612,7 +8591,7 @@
         "tripletStep": 1,
         "stemWord": "WORK",
         "displayStem": "WORK",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (WORK + HORSE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "HORSE",
         "decoyPool": [
           "MORSE",
@@ -8621,17 +8600,10 @@
           "GORSE"
         ],
         "decoyWord": "MORSE",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "HORSE \u2192 SHOE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WORK",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "WORK + HORSE = Workhorse"
+        "compoundHint": "WORK + HORSE = Workhorse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -8647,7 +8619,11 @@
           "KAZOO"
         ],
         "decoyWord": "CANOE",
-        "compoundHint": "HORSE + SHOE = Horseshoe"
+        "compoundHint": "HORSE + SHOE = Horseshoe",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -8663,7 +8639,11 @@
           "CLING"
         ],
         "decoyWord": "SPRING",
-        "compoundHint": "SHOE + STRING = Shoestring"
+        "compoundHint": "SHOE + STRING = Shoestring",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -8679,7 +8659,11 @@
           "PREEN"
         ],
         "decoyWord": "QUEEN",
-        "compoundHint": "STRING + BEAN = String bean"
+        "compoundHint": "STRING + BEAN = String bean",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -8695,7 +8679,11 @@
           "SNAG"
         ],
         "decoyWord": "STAG",
-        "compoundHint": "BEAN + BAG = Beanbag"
+        "compoundHint": "BEAN + BAG = Beanbag",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -8711,7 +8699,11 @@
           "SWIPE"
         ],
         "decoyWord": "SNIPE",
-        "compoundHint": "BAG + PIPE = Bagpipe"
+        "compoundHint": "BAG + PIPE = Bagpipe",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -8727,7 +8719,11 @@
           "SEAM"
         ],
         "decoyWord": "CREAM",
-        "compoundHint": "PIPE + DREAM = Pipe dream"
+        "compoundHint": "PIPE + DREAM = Pipe dream",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -8743,7 +8739,11 @@
           "BLAND"
         ],
         "decoyWord": "STRAND",
-        "compoundHint": "DREAM + LAND = Dreamland"
+        "compoundHint": "DREAM + LAND = Dreamland",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -8759,7 +8759,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "LAND + SLIDE = Landslide"
+        "compoundHint": "LAND + SLIDE = Landslide",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -8775,7 +8779,11 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "SLIDE + SHOW = Slideshow"
+        "compoundHint": "SLIDE + SHOW = Slideshow",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -8791,7 +8799,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "SHOW + DOWN = Showdown"
+        "compoundHint": "SHOW + DOWN = Showdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -8807,7 +8819,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "DOWN + FALL = Downfall"
+        "compoundHint": "DOWN + FALL = Downfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -8823,7 +8839,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "FALL + BACK = Fallback"
+        "compoundHint": "FALL + BACK = Fallback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -8839,7 +8859,11 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "compoundHint": "BACK + BONE = Backbone"
+        "compoundHint": "BACK + BONE = Backbone",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -8855,7 +8879,11 @@
           "WRY"
         ],
         "decoyWord": "SHY",
-        "compoundHint": "BONE + DRY = Bone-dry"
+        "compoundHint": "BONE + DRY = Bone-dry",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -8871,7 +8899,11 @@
           "PREEN"
         ],
         "decoyWord": "QUEEN",
-        "compoundHint": "DRY + CLEAN = Dry-clean"
+        "compoundHint": "DRY + CLEAN = Dry-clean",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -8887,7 +8919,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "CLEAN + UP = Cleanup"
+        "compoundHint": "CLEAN + UP = Cleanup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -8903,7 +8939,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "UP + LIFT = Uplift"
+        "compoundHint": "UP + LIFT = Uplift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -8919,7 +8959,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "LIFT + OFF = Liftoff"
+        "compoundHint": "LIFT + OFF = Liftoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -8935,7 +8979,11 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "compoundHint": "OFF + SET = Offset"
+        "compoundHint": "OFF + SET = Offset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -8951,7 +8999,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "SET + BACK = Setback"
+        "compoundHint": "SET + BACK = Setback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -8967,7 +9019,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "BACK + DROP = Backdrop"
+        "compoundHint": "BACK + DROP = Backdrop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -8983,7 +9039,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "DROP + OUT = Dropout"
+        "compoundHint": "DROP + OUT = Dropout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -8999,7 +9059,11 @@
           "FLAKE"
         ],
         "decoyWord": "STEAK",
-        "compoundHint": "OUT + BREAK = Outbreak"
+        "compoundHint": "OUT + BREAK = Outbreak",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -9015,7 +9079,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "BREAK + DOWN = Breakdown"
+        "compoundHint": "BREAK + DOWN = Breakdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -9031,7 +9099,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "DOWN + SHIFT = Downshift"
+        "compoundHint": "DOWN + SHIFT = Downshift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -9047,7 +9119,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "SHIFT + WORK = Shiftwork"
+        "compoundHint": "SHIFT + WORK = Shiftwork",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -9063,7 +9139,11 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "WORK + FLOW = Workflow"
+        "compoundHint": "WORK + FLOW = Workflow",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -9079,14 +9159,18 @@
           "SMART"
         ],
         "decoyWord": "TART",
-        "compoundHint": "FLOW + CHART = Flowchart"
+        "compoundHint": "FLOW + CHART = Flowchart",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 145,
     "dateKey": "2026-11-04",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 0,
     "title": "Midnight Bioluminescence",
     "chainSetIndex": 3,
@@ -9114,7 +9198,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BOARD",
-          "connection": "Forward Link (Mat + Board)",
+          "connection": "2-Node Link",
           "hint": "MAT + BOARD = Matboard",
           "decoys": [
             "CHORD",
@@ -9147,7 +9231,7 @@
         ],
         "thematicLink": {
           "nextPart1": "POST",
-          "connection": "Forward Link (Out + Post)",
+          "connection": "2-Node Link",
           "hint": "OUT + POST = Outpost",
           "decoys": [
             "GHOST",
@@ -9180,7 +9264,7 @@
         ],
         "thematicLink": {
           "nextPart1": "TIME",
-          "connection": "Forward Link (Down + Time)",
+          "connection": "2-Node Link",
           "hint": "DOWN + TIME = Downtime",
           "decoys": [
             "LIME",
@@ -9213,7 +9297,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DOG",
-          "connection": "Zone 2 Bridge (Top + Dog)",
+          "connection": "2-Node Link",
           "hint": "TOP + DOG = Top dog",
           "decoys": [
             "FOG",
@@ -9543,7 +9627,7 @@
         "tripletStep": 2,
         "stemWord": "FIRE",
         "displayStem": "FIRE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "PLACE",
         "decoyPool": [
           "LACE",
@@ -9552,25 +9636,18 @@
           "GRACE"
         ],
         "decoyWord": "LACE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 MAT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "FIRE",
-          "[ ? ]",
-          "\ud83c\udf38 MAT"
-        ],
-        "compoundHint": "FIRE + PLACE = Fireplace"
+        "compoundHint": "FIRE + PLACE = Fireplace",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "PLACE",
-        "displayStem": "FIRE \u2192 PLACE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "PLACE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MAT",
         "decoyPool": [
           "BAT",
@@ -9579,17 +9656,10 @@
           "SPAT"
         ],
         "decoyWord": "BAT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA MAT",
-          "word": "\ud83d\udd17 BOARD \u2192 WALK \u2192 OUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "FIRE",
-          "PLACE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "PLACE + MAT = Placemat (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "PLACE + MAT = Placemat (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -9597,7 +9667,7 @@
         "tripletStep": 1,
         "stemWord": "MAT",
         "displayStem": "MAT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (MAT + BOARD)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BOARD",
         "decoyPool": [
           "CHORD",
@@ -9606,17 +9676,10 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 WALK \u2192 OUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 MAT",
-          "[ ? (1/3) ]",
-          "WALK \u2192 OUT"
-        ],
-        "compoundHint": "MAT + BOARD = Matboard"
+        "compoundHint": "MAT + BOARD = Matboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -9624,7 +9687,7 @@
         "tripletStep": 2,
         "stemWord": "BOARD",
         "displayStem": "BOARD",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WALK",
         "decoyPool": [
           "HAWK",
@@ -9633,25 +9696,18 @@
           "CAULK"
         ],
         "decoyWord": "HAWK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 OUT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BOARD",
-          "[ ? ]",
-          "\ud83c\udf38 OUT"
-        ],
-        "compoundHint": "BOARD + WALK = Boardwalk"
+        "compoundHint": "BOARD + WALK = Boardwalk",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "WALK",
-        "displayStem": "BOARD \u2192 WALK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "WALK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "OUT",
         "decoyPool": [
           "TROUT",
@@ -9660,17 +9716,10 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA OUT",
-          "word": "\ud83d\udd17 POST \u2192 MARK \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BOARD",
-          "WALK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "WALK + OUT = Walkout (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "WALK + OUT = Walkout (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -9678,7 +9727,7 @@
         "tripletStep": 1,
         "stemWord": "OUT",
         "displayStem": "OUT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (OUT + POST)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "POST",
         "decoyPool": [
           "GHOST",
@@ -9687,17 +9736,10 @@
           "COAST"
         ],
         "decoyWord": "GHOST",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 MARK \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 OUT",
-          "[ ? (1/3) ]",
-          "MARK \u2192 DOWN"
-        ],
-        "compoundHint": "OUT + POST = Outpost"
+        "compoundHint": "OUT + POST = Outpost",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -9705,7 +9747,7 @@
         "tripletStep": 2,
         "stemWord": "POST",
         "displayStem": "POST",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MARK",
         "decoyPool": [
           "SHARK",
@@ -9714,25 +9756,18 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 DOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "POST",
-          "[ ? ]",
-          "\ud83c\udf38 DOWN"
-        ],
-        "compoundHint": "POST + MARK = Postmark"
+        "compoundHint": "POST + MARK = Postmark",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "MARK",
-        "displayStem": "POST \u2192 MARK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "MARK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -9741,17 +9776,10 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA DOWN",
-          "word": "\ud83d\udd17 TIME \u2192 TABLE \u2192 TOP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "POST",
-          "MARK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "MARK + DOWN = Markdown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -9759,7 +9787,7 @@
         "tripletStep": 1,
         "stemWord": "DOWN",
         "displayStem": "DOWN",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (DOWN + TIME)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "TIME",
         "decoyPool": [
           "LIME",
@@ -9768,17 +9796,10 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 TABLE \u2192 TOP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 DOWN",
-          "[ ? (1/3) ]",
-          "TABLE \u2192 TOP"
-        ],
-        "compoundHint": "DOWN + TIME = Downtime"
+        "compoundHint": "DOWN + TIME = Downtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -9786,7 +9807,7 @@
         "tripletStep": 2,
         "stemWord": "TIME",
         "displayStem": "TIME",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TABLE",
         "decoyPool": [
           "FABLE",
@@ -9795,25 +9816,18 @@
           "SABLE"
         ],
         "decoyWord": "FABLE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TOP",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "TIME",
-          "[ ? ]",
-          "\ud83c\udf38 TOP"
-        ],
-        "compoundHint": "TIME + TABLE = Timetable"
+        "compoundHint": "TIME + TABLE = Timetable",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "TABLE",
-        "displayStem": "TIME \u2192 TABLE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "TABLE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TOP",
         "decoyPool": [
           "MOP",
@@ -9822,17 +9836,10 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TOP",
-          "word": "\ud83d\udd17 + ZONE 2: DOG",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "TIME",
-          "TABLE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "TABLE + TOP = Tabletop (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -9840,7 +9847,7 @@
         "tripletStep": 1,
         "stemWord": "TOP",
         "displayStem": "TOP",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TOP + DOG)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DOG",
         "decoyPool": [
           "FOG",
@@ -9849,17 +9856,10 @@
           "FROG"
         ],
         "decoyWord": "FOG",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "DOG \u2192 HOUSE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TOP",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "TOP + DOG = Top dog"
+        "compoundHint": "TOP + DOG = Top dog",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -9875,7 +9875,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "DOG + HOUSE = Doghouse"
+        "compoundHint": "DOG + HOUSE = Doghouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -9891,7 +9895,11 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "compoundHint": "HOUSE + BOAT = Houseboat"
+        "compoundHint": "HOUSE + BOAT = Houseboat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -9907,7 +9915,11 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "BOAT + SHOW = Boat show"
+        "compoundHint": "BOAT + SHOW = Boat show",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -9923,7 +9935,11 @@
           "LOOM"
         ],
         "decoyWord": "BROOM",
-        "compoundHint": "SHOW + ROOM = Showroom"
+        "compoundHint": "SHOW + ROOM = Showroom",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -9939,7 +9955,11 @@
           "GRATE"
         ],
         "decoyWord": "CRATE",
-        "compoundHint": "ROOM + MATE = Roommate"
+        "compoundHint": "ROOM + MATE = Roommate",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -9955,7 +9975,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "MATE + WORK = Matework"
+        "compoundHint": "MATE + WORK = Matework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -9971,7 +9995,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "WORK + SHOP = Workshop"
+        "compoundHint": "WORK + SHOP = Workshop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -9987,7 +10015,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "SHOP + LIFT = Shoplift"
+        "compoundHint": "SHOP + LIFT = Shoplift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -10003,7 +10035,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "LIFT + OFF = Liftoff"
+        "compoundHint": "LIFT + OFF = Liftoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -10019,7 +10055,11 @@
           "GAUGE"
         ],
         "decoyWord": "CAGE",
-        "compoundHint": "OFF + STAGE = Offstage"
+        "compoundHint": "OFF + STAGE = Offstage",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -10035,7 +10075,11 @@
           "LOACH"
         ],
         "decoyWord": "ROACH",
-        "compoundHint": "STAGE + COACH = Stagecoach"
+        "compoundHint": "STAGE + COACH = Stagecoach",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -10051,7 +10095,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "COACH + WORK = Coachwork"
+        "compoundHint": "COACH + WORK = Coachwork",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -10067,7 +10115,11 @@
           "QUENCH"
         ],
         "decoyWord": "WRENCH",
-        "compoundHint": "WORK + BENCH = Workbench"
+        "compoundHint": "WORK + BENCH = Workbench",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -10083,7 +10135,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "BENCH + MARK = Benchmark"
+        "compoundHint": "BENCH + MARK = Benchmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -10099,7 +10155,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "MARK + DOWN = Markdown"
+        "compoundHint": "MARK + DOWN = Markdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -10115,7 +10175,11 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "compoundHint": "DOWN + TIME = Downtime"
+        "compoundHint": "DOWN + TIME = Downtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -10131,7 +10195,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "TIME + OUT = Timeout"
+        "compoundHint": "TIME + OUT = Timeout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -10147,7 +10215,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "OUT + LOOK = Outlook"
+        "compoundHint": "OUT + LOOK = Outlook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -10163,7 +10235,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LOOK + UP = Lookup"
+        "compoundHint": "LOOK + UP = Lookup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -10179,7 +10255,11 @@
           "PART"
         ],
         "decoyWord": "CART",
-        "compoundHint": "UP + START = Upstart"
+        "compoundHint": "UP + START = Upstart",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -10195,7 +10275,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "START + OVER = Start over"
+        "compoundHint": "START + OVER = Start over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -10211,7 +10295,11 @@
           "STUN"
         ],
         "decoyWord": "BUN",
-        "compoundHint": "OVER + RUN = Overrun"
+        "compoundHint": "OVER + RUN = Overrun",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -10227,7 +10315,11 @@
           "SLEIGH"
         ],
         "decoyWord": "CLAY",
-        "compoundHint": "RUN + AWAY = Runaway"
+        "compoundHint": "RUN + AWAY = Runaway",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -10243,7 +10335,11 @@
           "FRAME"
         ],
         "decoyWord": "FLAME",
-        "compoundHint": "AWAY + GAME = Away game"
+        "compoundHint": "AWAY + GAME = Away game",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -10259,7 +10355,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "GAME + OVER = Game over"
+        "compoundHint": "GAME + OVER = Game over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -10275,7 +10375,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "OVER + TURN = Overturn"
+        "compoundHint": "OVER + TURN = Overturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -10291,7 +10395,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "TURN + OUT = Turnout"
+        "compoundHint": "TURN + OUT = Turnout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -10307,14 +10415,18 @@
           "HEARSE"
         ],
         "decoyWord": "THIRST",
-        "compoundHint": "OUT + BURST = Outburst"
+        "compoundHint": "OUT + BURST = Outburst",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 146,
     "dateKey": "2026-11-05",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 1,
     "title": "Sunlit Conservatory",
     "chainSetIndex": 4,
@@ -10342,7 +10454,7 @@
         ],
         "thematicLink": {
           "nextPart1": "TIME",
-          "connection": "Forward Link (Down + Time)",
+          "connection": "2-Node Link",
           "hint": "DOWN + TIME = Downtime",
           "decoys": [
             "LIME",
@@ -10375,7 +10487,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SHOP",
-          "connection": "Forward Link (Work + Shop)",
+          "connection": "2-Node Link",
           "hint": "WORK + SHOP = Workshop",
           "decoys": [
             "MOP",
@@ -10408,7 +10520,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SET",
-          "connection": "Forward Link (Off + Set)",
+          "connection": "2-Node Link",
           "hint": "OFF + SET = Offset",
           "decoys": [
             "JET",
@@ -10441,7 +10553,7 @@
         ],
         "thematicLink": {
           "nextPart1": "FALL",
-          "connection": "Zone 2 Bridge (Water + Fall)",
+          "connection": "2-Node Link",
           "hint": "WATER + FALL = Waterfall",
           "decoys": [
             "SHAWL",
@@ -10771,7 +10883,7 @@
         "tripletStep": 2,
         "stemWord": "HAND",
         "displayStem": "HAND",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHAKE",
         "decoyPool": [
           "SNAKE",
@@ -10780,25 +10892,18 @@
           "STEAK"
         ],
         "decoyWord": "SNAKE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 DOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "HAND",
-          "[ ? ]",
-          "\ud83c\udf38 DOWN"
-        ],
-        "compoundHint": "HAND + SHAKE = Handshake"
+        "compoundHint": "HAND + SHAKE = Handshake",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SHAKE",
-        "displayStem": "HAND \u2192 SHAKE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "SHAKE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -10807,17 +10912,10 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA DOWN",
-          "word": "\ud83d\udd17 TIME \u2192 CLOCK \u2192 WORK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "HAND",
-          "SHAKE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SHAKE + DOWN = Shakedown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SHAKE + DOWN = Shakedown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -10825,7 +10923,7 @@
         "tripletStep": 1,
         "stemWord": "DOWN",
         "displayStem": "DOWN",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (DOWN + TIME)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "TIME",
         "decoyPool": [
           "LIME",
@@ -10834,17 +10932,10 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 CLOCK \u2192 WORK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 DOWN",
-          "[ ? (1/3) ]",
-          "CLOCK \u2192 WORK"
-        ],
-        "compoundHint": "DOWN + TIME = Downtime"
+        "compoundHint": "DOWN + TIME = Downtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -10852,7 +10943,7 @@
         "tripletStep": 2,
         "stemWord": "TIME",
         "displayStem": "TIME",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CLOCK",
         "decoyPool": [
           "FLOCK",
@@ -10861,25 +10952,18 @@
           "SHOCK"
         ],
         "decoyWord": "FLOCK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WORK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "TIME",
-          "[ ? ]",
-          "\ud83c\udf38 WORK"
-        ],
-        "compoundHint": "TIME + CLOCK = Time clock"
+        "compoundHint": "TIME + CLOCK = Time clock",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "CLOCK",
-        "displayStem": "TIME \u2192 CLOCK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "CLOCK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WORK",
         "decoyPool": [
           "SMIRK",
@@ -10888,17 +10972,10 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WORK",
-          "word": "\ud83d\udd17 SHOP \u2192 LIFT \u2192 OFF",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "TIME",
-          "CLOCK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "CLOCK + WORK = Clockwork (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "CLOCK + WORK = Clockwork (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -10906,7 +10983,7 @@
         "tripletStep": 1,
         "stemWord": "WORK",
         "displayStem": "WORK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (WORK + SHOP)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SHOP",
         "decoyPool": [
           "MOP",
@@ -10915,17 +10992,10 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 LIFT \u2192 OFF",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WORK",
-          "[ ? (1/3) ]",
-          "LIFT \u2192 OFF"
-        ],
-        "compoundHint": "WORK + SHOP = Workshop"
+        "compoundHint": "WORK + SHOP = Workshop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -10933,7 +11003,7 @@
         "tripletStep": 2,
         "stemWord": "SHOP",
         "displayStem": "SHOP",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "LIFT",
         "decoyPool": [
           "DRIFT",
@@ -10942,25 +11012,18 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 OFF",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SHOP",
-          "[ ? ]",
-          "\ud83c\udf38 OFF"
-        ],
-        "compoundHint": "SHOP + LIFT = Shoplift"
+        "compoundHint": "SHOP + LIFT = Shoplift",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "LIFT",
-        "displayStem": "SHOP \u2192 LIFT",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "LIFT",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "OFF",
         "decoyPool": [
           "COUGH",
@@ -10969,17 +11032,10 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA OFF",
-          "word": "\ud83d\udd17 SET \u2192 BACK \u2192 WATER",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SHOP",
-          "LIFT",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "LIFT + OFF = Liftoff (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "LIFT + OFF = Liftoff (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -10987,7 +11043,7 @@
         "tripletStep": 1,
         "stemWord": "OFF",
         "displayStem": "OFF",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (OFF + SET)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SET",
         "decoyPool": [
           "JET",
@@ -10996,17 +11052,10 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 BACK \u2192 WATER",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 OFF",
-          "[ ? (1/3) ]",
-          "BACK \u2192 WATER"
-        ],
-        "compoundHint": "OFF + SET = Offset"
+        "compoundHint": "OFF + SET = Offset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -11014,7 +11063,7 @@
         "tripletStep": 2,
         "stemWord": "SET",
         "displayStem": "SET",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BACK",
         "decoyPool": [
           "QUACK",
@@ -11023,25 +11072,18 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WATER",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SET",
-          "[ ? ]",
-          "\ud83c\udf38 WATER"
-        ],
-        "compoundHint": "SET + BACK = Setback"
+        "compoundHint": "SET + BACK = Setback",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BACK",
-        "displayStem": "SET \u2192 BACK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "BACK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WATER",
         "decoyPool": [
           "OTTER",
@@ -11050,17 +11092,10 @@
           "BLOTTER"
         ],
         "decoyWord": "OTTER",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WATER",
-          "word": "\ud83d\udd17 + ZONE 2: FALL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SET",
-          "BACK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BACK + WATER = Backwater (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BACK + WATER = Backwater (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -11068,7 +11103,7 @@
         "tripletStep": 1,
         "stemWord": "WATER",
         "displayStem": "WATER",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (WATER + FALL)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "FALL",
         "decoyPool": [
           "SHAWL",
@@ -11077,17 +11112,10 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "FALL \u2192 OUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WATER",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "WATER + FALL = Waterfall"
+        "compoundHint": "WATER + FALL = Waterfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -11103,7 +11131,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "FALL + OUT = Fallout"
+        "compoundHint": "FALL + OUT = Fallout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -11119,7 +11151,11 @@
           "BLOUSE"
         ],
         "decoyWord": "CHORE",
-        "compoundHint": "OUT + DOOR = Outdoor"
+        "compoundHint": "OUT + DOOR = Outdoor",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -11135,7 +11171,11 @@
           "SPAT"
         ],
         "decoyWord": "BAT",
-        "compoundHint": "DOOR + MAT = Doormat"
+        "compoundHint": "DOOR + MAT = Doormat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -11151,7 +11191,11 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "compoundHint": "MAT + BOARD = Matboard"
+        "compoundHint": "MAT + BOARD = Matboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -11167,7 +11211,11 @@
           "LOOM"
         ],
         "decoyWord": "BROOM",
-        "compoundHint": "BOARD + ROOM = Boardroom"
+        "compoundHint": "BOARD + ROOM = Boardroom",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -11183,7 +11231,11 @@
           "GRATE"
         ],
         "decoyWord": "CRATE",
-        "compoundHint": "ROOM + MATE = Roommate"
+        "compoundHint": "ROOM + MATE = Roommate",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -11199,7 +11251,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "MATE + WORK = Matework"
+        "compoundHint": "MATE + WORK = Matework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -11215,7 +11271,11 @@
           "GORSE"
         ],
         "decoyWord": "MORSE",
-        "compoundHint": "WORK + HORSE = Workhorse"
+        "compoundHint": "WORK + HORSE = Workhorse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -11231,7 +11291,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "HORSE + BACK = Horseback"
+        "compoundHint": "HORSE + BACK = Horseback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -11247,7 +11311,11 @@
           "SPIRE"
         ],
         "decoyWord": "CHOIR",
-        "compoundHint": "BACK + FIRE = Backfire"
+        "compoundHint": "BACK + FIRE = Backfire",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -11263,7 +11331,11 @@
           "GRACE"
         ],
         "decoyWord": "LACE",
-        "compoundHint": "FIRE + PLACE = Fireplace"
+        "compoundHint": "FIRE + PLACE = Fireplace",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -11279,7 +11351,11 @@
           "SPAT"
         ],
         "decoyWord": "BAT",
-        "compoundHint": "PLACE + MAT = Placemat"
+        "compoundHint": "PLACE + MAT = Placemat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -11295,7 +11371,11 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "compoundHint": "MAT + BOARD = Matboard"
+        "compoundHint": "MAT + BOARD = Matboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -11311,7 +11391,11 @@
           "CAULK"
         ],
         "decoyWord": "HAWK",
-        "compoundHint": "BOARD + WALK = Boardwalk"
+        "compoundHint": "BOARD + WALK = Boardwalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -11327,7 +11411,11 @@
           "SPRAY"
         ],
         "decoyWord": "CLAY",
-        "compoundHint": "WALK + WAY = Walkway"
+        "compoundHint": "WALK + WAY = Walkway",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -11343,7 +11431,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "WAY + SIDE = Wayside"
+        "compoundHint": "WAY + SIDE = Wayside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -11359,7 +11451,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "SIDE + LINE = Sideline"
+        "compoundHint": "SIDE + LINE = Sideline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -11375,7 +11471,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -11391,7 +11491,11 @@
           "SCALD"
         ],
         "decoyWord": "MOLD",
-        "compoundHint": "UP + HOLD = Uphold"
+        "compoundHint": "UP + HOLD = Uphold",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -11407,7 +11511,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "HOLD + OUT = Holdout"
+        "compoundHint": "HOLD + OUT = Holdout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -11423,7 +11531,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "OUT + LINE = Outline"
+        "compoundHint": "OUT + LINE = Outline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -11439,7 +11551,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "LINE + DOWN = Linedown"
+        "compoundHint": "LINE + DOWN = Linedown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -11455,7 +11571,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "DOWN + TURN = Downturn"
+        "compoundHint": "DOWN + TURN = Downturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -11471,7 +11591,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "TURN + OFF = Turnoff"
+        "compoundHint": "TURN + OFF = Turnoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -11487,7 +11611,11 @@
           "PLEAT"
         ],
         "decoyWord": "WHEAT",
-        "compoundHint": "OFF + BEAT = Offbeat"
+        "compoundHint": "OFF + BEAT = Offbeat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -11503,7 +11631,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "BEAT + UP = Beat up"
+        "compoundHint": "BEAT + UP = Beat up",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -11519,7 +11651,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "UP + SIDE = Upside"
+        "compoundHint": "UP + SIDE = Upside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -11535,14 +11671,18 @@
           "SCHLEP"
         ],
         "decoyWord": "PREP",
-        "compoundHint": "SIDE + STEP = Sidestep"
+        "compoundHint": "SIDE + STEP = Sidestep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 147,
     "dateKey": "2026-11-06",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 2,
     "title": "Crimson Canopy (Ukiyo-e)",
     "chainSetIndex": 5,
@@ -11570,7 +11710,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BED",
-          "connection": "Forward Link (Seed + Bed)",
+          "connection": "2-Node Link",
           "hint": "SEED + BED = Seedbed",
           "decoys": [
             "SLED",
@@ -11603,7 +11743,7 @@
         ],
         "thematicLink": {
           "nextPart1": "METAL",
-          "connection": "Forward Link (Sheet + Metal)",
+          "connection": "2-Node Link",
           "hint": "SHEET + METAL = Sheet metal",
           "decoys": [
             "PETAL",
@@ -11636,7 +11776,7 @@
         ],
         "thematicLink": {
           "nextPart1": "MARK",
-          "connection": "Forward Link (Bench + Mark)",
+          "connection": "2-Node Link",
           "hint": "BENCH + MARK = Benchmark",
           "decoys": [
             "SHARK",
@@ -11669,7 +11809,7 @@
         ],
         "thematicLink": {
           "nextPart1": "HOUSE",
-          "connection": "Zone 2 Bridge (Town + House)",
+          "connection": "2-Node Link",
           "hint": "TOWN + HOUSE = Townhouse",
           "decoys": [
             "BLOUSE",
@@ -11999,7 +12139,7 @@
         "tripletStep": 2,
         "stemWord": "WATER",
         "displayStem": "WATER",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MELON",
         "decoyPool": [
           "FELON",
@@ -12008,25 +12148,18 @@
           "TALON"
         ],
         "decoyWord": "FELON",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 SEED",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WATER",
-          "[ ? ]",
-          "\ud83c\udf38 SEED"
-        ],
-        "compoundHint": "WATER + MELON = Watermelon"
+        "compoundHint": "WATER + MELON = Watermelon",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "MELON",
-        "displayStem": "WATER \u2192 MELON",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "MELON",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SEED",
         "decoyPool": [
           "STEED",
@@ -12035,17 +12168,10 @@
           "CREED"
         ],
         "decoyWord": "STEED",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA SEED",
-          "word": "\ud83d\udd17 BED \u2192 SPREAD \u2192 SHEET",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WATER",
-          "MELON",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "MELON + SEED = Melon seed (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "MELON + SEED = Melon seed (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -12053,7 +12179,7 @@
         "tripletStep": 1,
         "stemWord": "SEED",
         "displayStem": "SEED",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (SEED + BED)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BED",
         "decoyPool": [
           "SLED",
@@ -12062,17 +12188,10 @@
           "DREAD"
         ],
         "decoyWord": "SLED",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 SPREAD \u2192 SHEET",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 SEED",
-          "[ ? (1/3) ]",
-          "SPREAD \u2192 SHEET"
-        ],
-        "compoundHint": "SEED + BED = Seedbed"
+        "compoundHint": "SEED + BED = Seedbed",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -12080,7 +12199,7 @@
         "tripletStep": 2,
         "stemWord": "BED",
         "displayStem": "BED",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SPREAD",
         "decoyPool": [
           "SHRED",
@@ -12089,25 +12208,18 @@
           "TREAD"
         ],
         "decoyWord": "SHRED",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 SHEET",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BED",
-          "[ ? ]",
-          "\ud83c\udf38 SHEET"
-        ],
-        "compoundHint": "BED + SPREAD = Bedspread"
+        "compoundHint": "BED + SPREAD = Bedspread",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SPREAD",
-        "displayStem": "BED \u2192 SPREAD",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "SPREAD",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHEET",
         "decoyPool": [
           "SLEET",
@@ -12116,17 +12228,10 @@
           "PLEAT"
         ],
         "decoyWord": "SLEET",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA SHEET",
-          "word": "\ud83d\udd17 METAL \u2192 WORK \u2192 BENCH",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BED",
-          "SPREAD",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SPREAD + SHEET = Spreadsheet (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SPREAD + SHEET = Spreadsheet (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -12134,7 +12239,7 @@
         "tripletStep": 1,
         "stemWord": "SHEET",
         "displayStem": "SHEET",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (SHEET + METAL)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "METAL",
         "decoyPool": [
           "PETAL",
@@ -12143,17 +12248,10 @@
           "SETTLE"
         ],
         "decoyWord": "PETAL",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 WORK \u2192 BENCH",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 SHEET",
-          "[ ? (1/3) ]",
-          "WORK \u2192 BENCH"
-        ],
-        "compoundHint": "SHEET + METAL = Sheet metal"
+        "compoundHint": "SHEET + METAL = Sheet metal",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -12161,7 +12259,7 @@
         "tripletStep": 2,
         "stemWord": "METAL",
         "displayStem": "METAL",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WORK",
         "decoyPool": [
           "SMIRK",
@@ -12170,25 +12268,18 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BENCH",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "METAL",
-          "[ ? ]",
-          "\ud83c\udf38 BENCH"
-        ],
-        "compoundHint": "METAL + WORK = Metalwork"
+        "compoundHint": "METAL + WORK = Metalwork",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "WORK",
-        "displayStem": "METAL \u2192 WORK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "WORK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BENCH",
         "decoyPool": [
           "WRENCH",
@@ -12197,17 +12288,10 @@
           "QUENCH"
         ],
         "decoyWord": "WRENCH",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BENCH",
-          "word": "\ud83d\udd17 MARK \u2192 DOWN \u2192 TOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "METAL",
-          "WORK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "WORK + BENCH = Workbench (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "WORK + BENCH = Workbench (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -12215,7 +12299,7 @@
         "tripletStep": 1,
         "stemWord": "BENCH",
         "displayStem": "BENCH",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BENCH + MARK)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "MARK",
         "decoyPool": [
           "SHARK",
@@ -12224,17 +12308,10 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 DOWN \u2192 TOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BENCH",
-          "[ ? (1/3) ]",
-          "DOWN \u2192 TOWN"
-        ],
-        "compoundHint": "BENCH + MARK = Benchmark"
+        "compoundHint": "BENCH + MARK = Benchmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -12242,7 +12319,7 @@
         "tripletStep": 2,
         "stemWord": "MARK",
         "displayStem": "MARK",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -12251,25 +12328,18 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "MARK",
-          "[ ? ]",
-          "\ud83c\udf38 TOWN"
-        ],
-        "compoundHint": "MARK + DOWN = Markdown"
+        "compoundHint": "MARK + DOWN = Markdown",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "DOWN",
-        "displayStem": "MARK \u2192 DOWN",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "DOWN",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TOWN",
         "decoyPool": [
           "CLOWN",
@@ -12278,17 +12348,10 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TOWN",
-          "word": "\ud83d\udd17 + ZONE 2: HOUSE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "MARK",
-          "DOWN",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "DOWN + TOWN = Downtown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "DOWN + TOWN = Downtown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -12296,7 +12359,7 @@
         "tripletStep": 1,
         "stemWord": "TOWN",
         "displayStem": "TOWN",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TOWN + HOUSE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "HOUSE",
         "decoyPool": [
           "BLOUSE",
@@ -12305,17 +12368,10 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "HOUSE \u2192 HOLD",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TOWN",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "TOWN + HOUSE = Townhouse"
+        "compoundHint": "TOWN + HOUSE = Townhouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -12331,7 +12387,11 @@
           "SCALD"
         ],
         "decoyWord": "MOLD",
-        "compoundHint": "HOUSE + HOLD = Household"
+        "compoundHint": "HOUSE + HOLD = Household",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -12347,7 +12407,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "HOLD + OUT = Holdout"
+        "compoundHint": "HOLD + OUT = Holdout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -12363,7 +12427,11 @@
           "SEALED"
         ],
         "decoyWord": "SHIELD",
-        "compoundHint": "OUT + FIELD = Outfield"
+        "compoundHint": "OUT + FIELD = Outfield",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -12379,7 +12447,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "FIELD + WORK = Fieldwork"
+        "compoundHint": "FIELD + WORK = Fieldwork",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -12395,7 +12467,11 @@
           "SLEIGH"
         ],
         "decoyWord": "CLAY",
-        "compoundHint": "WORK + DAY = Workday"
+        "compoundHint": "WORK + DAY = Workday",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -12411,7 +12487,11 @@
           "FLIGHT"
         ],
         "decoyWord": "FRIGHT",
-        "compoundHint": "DAY + LIGHT = Daylight"
+        "compoundHint": "DAY + LIGHT = Daylight",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -12427,7 +12507,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "LIGHT + HOUSE = Lighthouse"
+        "compoundHint": "LIGHT + HOUSE = Lighthouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -12443,7 +12527,11 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "compoundHint": "HOUSE + BOAT = Houseboat"
+        "compoundHint": "HOUSE + BOAT = Houseboat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -12459,7 +12547,11 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "BOAT + SHOW = Boat show"
+        "compoundHint": "BOAT + SHOW = Boat show",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -12475,7 +12567,11 @@
           "BRACE"
         ],
         "decoyWord": "VASE",
-        "compoundHint": "SHOW + CASE = Showcase"
+        "compoundHint": "SHOW + CASE = Showcase",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -12491,7 +12587,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "CASE + BOOK = Casebook"
+        "compoundHint": "CASE + BOOK = Casebook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -12507,7 +12607,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "BOOK + MARK = Bookmark"
+        "compoundHint": "BOOK + MARK = Bookmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -12523,7 +12627,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "MARK + DOWN = Markdown"
+        "compoundHint": "MARK + DOWN = Markdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -12539,7 +12647,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "DOWN + FALL = Downfall"
+        "compoundHint": "DOWN + FALL = Downfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -12555,7 +12667,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "FALL + BACK = Fallback"
+        "compoundHint": "FALL + BACK = Fallback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -12571,7 +12687,11 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "compoundHint": "BACK + BONE = Backbone"
+        "compoundHint": "BACK + BONE = Backbone",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -12587,7 +12707,11 @@
           "WRY"
         ],
         "decoyWord": "SHY",
-        "compoundHint": "BONE + DRY = Bone-dry"
+        "compoundHint": "BONE + DRY = Bone-dry",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -12603,7 +12727,11 @@
           "PREEN"
         ],
         "decoyWord": "QUEEN",
-        "compoundHint": "DRY + CLEAN = Dry-clean"
+        "compoundHint": "DRY + CLEAN = Dry-clean",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -12619,7 +12747,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "CLEAN + UP = Cleanup"
+        "compoundHint": "CLEAN + UP = Cleanup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -12635,7 +12767,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "UP + TURN = Upturn"
+        "compoundHint": "UP + TURN = Upturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -12651,7 +12787,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "TURN + OVER = Turnover"
+        "compoundHint": "TURN + OVER = Turnover",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -12667,7 +12807,11 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "compoundHint": "OVER + TIME = Overtime"
+        "compoundHint": "OVER + TIME = Overtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -12683,7 +12827,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "TIME + LINE = Timeline"
+        "compoundHint": "TIME + LINE = Timeline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -12699,7 +12847,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "LINE + OUT = Lineout"
+        "compoundHint": "LINE + OUT = Lineout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -12715,7 +12867,11 @@
           "TRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "OUT + FALL = Outfall"
+        "compoundHint": "OUT + FALL = Outfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -12731,7 +12887,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "FALL + OFF = Falloff"
+        "compoundHint": "FALL + OFF = Falloff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -12747,7 +12907,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "OFF + SIDE = Offside"
+        "compoundHint": "OFF + SIDE = Offside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -12763,14 +12927,18 @@
           "SQUAWK"
         ],
         "decoyWord": "CHALK",
-        "compoundHint": "SIDE + WALK = Sidewalk"
+        "compoundHint": "SIDE + WALK = Sidewalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 148,
     "dateKey": "2026-11-07",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 0,
     "title": "Midnight Bioluminescence",
     "chainSetIndex": 6,
@@ -12798,7 +12966,7 @@
         ],
         "thematicLink": {
           "nextPart1": "TRIP",
-          "connection": "Forward Link (Field + Trip)",
+          "connection": "2-Node Link",
           "hint": "FIELD + TRIP = Field trip",
           "decoys": [
             "CHIP",
@@ -12831,7 +12999,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DANCE",
-          "connection": "Forward Link (Tap + Dance)",
+          "connection": "2-Node Link",
           "hint": "TAP + DANCE = Tap dance",
           "decoys": [
             "LANCE",
@@ -12864,7 +13032,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WALK",
-          "connection": "Forward Link (Board + Walk)",
+          "connection": "2-Node Link",
           "hint": "BOARD + WALK = Boardwalk",
           "decoys": [
             "HAWK",
@@ -12897,7 +13065,7 @@
         ],
         "thematicLink": {
           "nextPart1": "PORT",
-          "connection": "Zone 2 Bridge (Sea + Port)",
+          "connection": "2-Node Link",
           "hint": "SEA + PORT = Seaport",
           "decoys": [
             "FORT",
@@ -13227,7 +13395,7 @@
         "tripletStep": 2,
         "stemWord": "GOLD",
         "displayStem": "GOLD",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MINE",
         "decoyPool": [
           "PINE",
@@ -13236,25 +13404,18 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 FIELD",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "GOLD",
-          "[ ? ]",
-          "\ud83c\udf38 FIELD"
-        ],
-        "compoundHint": "GOLD + MINE = Goldmine"
+        "compoundHint": "GOLD + MINE = Goldmine",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "MINE",
-        "displayStem": "GOLD \u2192 MINE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "MINE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "FIELD",
         "decoyPool": [
           "SHIELD",
@@ -13263,17 +13424,10 @@
           "PEELED"
         ],
         "decoyWord": "SHIELD",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA FIELD",
-          "word": "\ud83d\udd17 TRIP \u2192 WIRE \u2192 TAP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "GOLD",
-          "MINE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "MINE + FIELD = Minefield (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "MINE + FIELD = Minefield (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -13281,7 +13435,7 @@
         "tripletStep": 1,
         "stemWord": "FIELD",
         "displayStem": "FIELD",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (FIELD + TRIP)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "TRIP",
         "decoyPool": [
           "CHIP",
@@ -13290,17 +13444,10 @@
           "BLIP"
         ],
         "decoyWord": "CHIP",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 WIRE \u2192 TAP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 FIELD",
-          "[ ? (1/3) ]",
-          "WIRE \u2192 TAP"
-        ],
-        "compoundHint": "FIELD + TRIP = Field trip"
+        "compoundHint": "FIELD + TRIP = Field trip",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -13308,7 +13455,7 @@
         "tripletStep": 2,
         "stemWord": "TRIP",
         "displayStem": "TRIP",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WIRE",
         "decoyPool": [
           "CHOIR",
@@ -13317,25 +13464,18 @@
           "SPIRE"
         ],
         "decoyWord": "CHOIR",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TAP",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "TRIP",
-          "[ ? ]",
-          "\ud83c\udf38 TAP"
-        ],
-        "compoundHint": "TRIP + WIRE = Tripwire"
+        "compoundHint": "TRIP + WIRE = Tripwire",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "WIRE",
-        "displayStem": "TRIP \u2192 WIRE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "WIRE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TAP",
         "decoyPool": [
           "CLAP",
@@ -13344,17 +13484,10 @@
           "CHAP"
         ],
         "decoyWord": "CLAP",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TAP",
-          "word": "\ud83d\udd17 DANCE \u2192 FLOOR \u2192 BOARD",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "TRIP",
-          "WIRE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "WIRE + TAP = Wiretap (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "WIRE + TAP = Wiretap (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -13362,7 +13495,7 @@
         "tripletStep": 1,
         "stemWord": "TAP",
         "displayStem": "TAP",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (TAP + DANCE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DANCE",
         "decoyPool": [
           "LANCE",
@@ -13371,17 +13504,10 @@
           "PRANCE"
         ],
         "decoyWord": "LANCE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 FLOOR \u2192 BOARD",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TAP",
-          "[ ? (1/3) ]",
-          "FLOOR \u2192 BOARD"
-        ],
-        "compoundHint": "TAP + DANCE = Tap dance"
+        "compoundHint": "TAP + DANCE = Tap dance",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -13389,7 +13515,7 @@
         "tripletStep": 2,
         "stemWord": "DANCE",
         "displayStem": "DANCE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "FLOOR",
         "decoyPool": [
           "SNORE",
@@ -13398,25 +13524,18 @@
           "ROAR"
         ],
         "decoyWord": "SNORE",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BOARD",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "DANCE",
-          "[ ? ]",
-          "\ud83c\udf38 BOARD"
-        ],
-        "compoundHint": "DANCE + FLOOR = Dance floor"
+        "compoundHint": "DANCE + FLOOR = Dance floor",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "FLOOR",
-        "displayStem": "DANCE \u2192 FLOOR",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "FLOOR",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BOARD",
         "decoyPool": [
           "CHORD",
@@ -13425,17 +13544,10 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BOARD",
-          "word": "\ud83d\udd17 WALK \u2192 OVER \u2192 SEA",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "DANCE",
-          "FLOOR",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "FLOOR + BOARD = Floorboard (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "FLOOR + BOARD = Floorboard (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -13443,7 +13555,7 @@
         "tripletStep": 1,
         "stemWord": "BOARD",
         "displayStem": "BOARD",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BOARD + WALK)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WALK",
         "decoyPool": [
           "HAWK",
@@ -13452,17 +13564,10 @@
           "CAULK"
         ],
         "decoyWord": "HAWK",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 OVER \u2192 SEA",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BOARD",
-          "[ ? (1/3) ]",
-          "OVER \u2192 SEA"
-        ],
-        "compoundHint": "BOARD + WALK = Boardwalk"
+        "compoundHint": "BOARD + WALK = Boardwalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -13470,7 +13575,7 @@
         "tripletStep": 2,
         "stemWord": "WALK",
         "displayStem": "WALK",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "OVER",
         "decoyPool": [
           "CLOVER",
@@ -13479,25 +13584,18 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 SEA",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WALK",
-          "[ ? ]",
-          "\ud83c\udf38 SEA"
-        ],
-        "compoundHint": "WALK + OVER = Walkover"
+        "compoundHint": "WALK + OVER = Walkover",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "OVER",
-        "displayStem": "WALK \u2192 OVER",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "OVER",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SEA",
         "decoyPool": [
           "SKI",
@@ -13506,17 +13604,10 @@
           "TEA"
         ],
         "decoyWord": "SKI",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA SEA",
-          "word": "\ud83d\udd17 + ZONE 2: PORT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WALK",
-          "OVER",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "OVER + SEA = Oversea (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "OVER + SEA = Oversea (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -13524,7 +13615,7 @@
         "tripletStep": 1,
         "stemWord": "SEA",
         "displayStem": "SEA",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (SEA + PORT)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "PORT",
         "decoyPool": [
           "FORT",
@@ -13533,17 +13624,10 @@
           "SHORT"
         ],
         "decoyWord": "FORT",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "PORT \u2192 HOLE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 SEA",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "SEA + PORT = Seaport"
+        "compoundHint": "SEA + PORT = Seaport",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -13559,7 +13643,11 @@
           "STOLE"
         ],
         "decoyWord": "MOLE",
-        "compoundHint": "PORT + HOLE = Porthole"
+        "compoundHint": "PORT + HOLE = Porthole",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -13575,7 +13663,11 @@
           "BRUNCH"
         ],
         "decoyWord": "LUNCH",
-        "compoundHint": "HOLE + PUNCH = Hole punch"
+        "compoundHint": "HOLE + PUNCH = Hole punch",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -13591,7 +13683,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "PUNCH + LINE = Punchline"
+        "compoundHint": "PUNCH + LINE = Punchline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -13607,7 +13703,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -13623,7 +13723,11 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "UP + TOWN = Uptown"
+        "compoundHint": "UP + TOWN = Uptown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -13639,7 +13743,11 @@
           "BLIP"
         ],
         "decoyWord": "CHIP",
-        "compoundHint": "TOWN + SHIP = Township"
+        "compoundHint": "TOWN + SHIP = Township",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -13655,7 +13763,11 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "compoundHint": "SHIP + BOARD = Shipboard"
+        "compoundHint": "SHIP + BOARD = Shipboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -13671,7 +13783,11 @@
           "FRAME"
         ],
         "decoyWord": "FLAME",
-        "compoundHint": "BOARD + GAME = Board game"
+        "compoundHint": "BOARD + GAME = Board game",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -13687,7 +13803,11 @@
           "FLAN"
         ],
         "decoyWord": "CLAN",
-        "compoundHint": "GAME + PLAN = Game plan"
+        "compoundHint": "GAME + PLAN = Game plan",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -13703,7 +13823,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "PLAN + OUT = Plan out"
+        "compoundHint": "PLAN + OUT = Plan out",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -13719,7 +13843,11 @@
           "COAST"
         ],
         "decoyWord": "GHOST",
-        "compoundHint": "OUT + POST = Outpost"
+        "compoundHint": "OUT + POST = Outpost",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -13735,7 +13863,11 @@
           "GUARD"
         ],
         "decoyWord": "LARD",
-        "compoundHint": "POST + CARD = Postcard"
+        "compoundHint": "POST + CARD = Postcard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -13751,7 +13883,11 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "compoundHint": "CARD + BOARD = Cardboard"
+        "compoundHint": "CARD + BOARD = Cardboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -13767,7 +13903,11 @@
           "LOOM"
         ],
         "decoyWord": "BROOM",
-        "compoundHint": "BOARD + ROOM = Boardroom"
+        "compoundHint": "BOARD + ROOM = Boardroom",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -13783,7 +13923,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "ROOM + WORK = Roomwork"
+        "compoundHint": "ROOM + WORK = Roomwork",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -13799,7 +13943,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "WORK + SHOP = Workshop"
+        "compoundHint": "WORK + SHOP = Workshop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -13815,7 +13963,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "SHOP + LIFT = Shoplift"
+        "compoundHint": "SHOP + LIFT = Shoplift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -13831,7 +13983,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "LIFT + OFF = Liftoff"
+        "compoundHint": "LIFT + OFF = Liftoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -13847,7 +14003,11 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "compoundHint": "OFF + SET = Offset"
+        "compoundHint": "OFF + SET = Offset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -13863,7 +14023,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "SET + UP = Setup"
+        "compoundHint": "SET + UP = Setup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -13879,7 +14043,11 @@
           "BLAND"
         ],
         "decoyWord": "STRAND",
-        "compoundHint": "UP + LAND = Upland"
+        "compoundHint": "UP + LAND = Upland",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -13895,7 +14063,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "LAND + MARK = Landmark"
+        "compoundHint": "LAND + MARK = Landmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -13911,7 +14083,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "MARK + DOWN = Markdown"
+        "compoundHint": "MARK + DOWN = Markdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -13927,7 +14103,11 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "DOWN + TOWN = Downtown"
+        "compoundHint": "DOWN + TOWN = Downtown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -13943,7 +14123,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "TOWN + HOUSE = Townhouse"
+        "compoundHint": "TOWN + HOUSE = Townhouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -13959,7 +14143,11 @@
           "SLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "HOUSE + TOP = Housetop"
+        "compoundHint": "HOUSE + TOP = Housetop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -13975,7 +14163,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "TOP + SIDE = Topside"
+        "compoundHint": "TOP + SIDE = Topside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -13991,14 +14183,18 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "SIDE + SHOW = Sideshow"
+        "compoundHint": "SIDE + SHOW = Sideshow",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 149,
     "dateKey": "2026-11-08",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 1,
     "title": "Sunlit Conservatory",
     "chainSetIndex": 7,
@@ -14026,7 +14222,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WAVE",
-          "connection": "Forward Link (Shock + Wave)",
+          "connection": "2-Node Link",
           "hint": "SHOCK + WAVE = Shockwave",
           "decoys": [
             "CAVE",
@@ -14059,7 +14255,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SIDE",
-          "connection": "Forward Link (Way + Side)",
+          "connection": "2-Node Link",
           "hint": "WAY + SIDE = Wayside",
           "decoys": [
             "BRIDE",
@@ -14092,7 +14288,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WIND",
-          "connection": "Forward Link (Down + Wind)",
+          "connection": "2-Node Link",
           "hint": "DOWN + WIND = Downwind",
           "decoys": [
             "RIND",
@@ -14125,7 +14321,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WALL",
-          "connection": "Zone 2 Bridge (Stone + Wall)",
+          "connection": "2-Node Link",
           "hint": "STONE + WALL = Stonewall",
           "decoys": [
             "SHAWL",
@@ -14455,7 +14651,7 @@
         "tripletStep": 2,
         "stemWord": "SEA",
         "displayStem": "SEA",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHELL",
         "decoyPool": [
           "SPELL",
@@ -14464,25 +14660,18 @@
           "DWELL"
         ],
         "decoyWord": "SPELL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 SHOCK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SEA",
-          "[ ? ]",
-          "\ud83c\udf38 SHOCK"
-        ],
-        "compoundHint": "SEA + SHELL = Seashell"
+        "compoundHint": "SEA + SHELL = Seashell",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SHELL",
-        "displayStem": "SEA \u2192 SHELL",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "SHELL",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHOCK",
         "decoyPool": [
           "FLOCK",
@@ -14491,17 +14680,10 @@
           "CLOCK"
         ],
         "decoyWord": "FLOCK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA SHOCK",
-          "word": "\ud83d\udd17 WAVE \u2192 LENGTH \u2192 WAY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SEA",
-          "SHELL",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SHELL + SHOCK = Shell shock (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SHELL + SHOCK = Shell shock (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -14509,7 +14691,7 @@
         "tripletStep": 1,
         "stemWord": "SHOCK",
         "displayStem": "SHOCK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (SHOCK + WAVE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WAVE",
         "decoyPool": [
           "CAVE",
@@ -14518,17 +14700,10 @@
           "SHAVE"
         ],
         "decoyWord": "CAVE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 LENGTH \u2192 WAY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 SHOCK",
-          "[ ? (1/3) ]",
-          "LENGTH \u2192 WAY"
-        ],
-        "compoundHint": "SHOCK + WAVE = Shockwave"
+        "compoundHint": "SHOCK + WAVE = Shockwave",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -14536,7 +14711,7 @@
         "tripletStep": 2,
         "stemWord": "WAVE",
         "displayStem": "WAVE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "LENGTH",
         "decoyPool": [
           "STRENGTH",
@@ -14545,25 +14720,18 @@
           "LABYRINTH"
         ],
         "decoyWord": "STRENGTH",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WAY",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WAVE",
-          "[ ? ]",
-          "\ud83c\udf38 WAY"
-        ],
-        "compoundHint": "WAVE + LENGTH = Wavelength"
+        "compoundHint": "WAVE + LENGTH = Wavelength",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "LENGTH",
-        "displayStem": "WAVE \u2192 LENGTH",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "LENGTH",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WAY",
         "decoyPool": [
           "CLAY",
@@ -14572,17 +14740,10 @@
           "SLEIGH"
         ],
         "decoyWord": "CLAY",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WAY",
-          "word": "\ud83d\udd17 SIDE \u2192 SHOW \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WAVE",
-          "LENGTH",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "LENGTH + WAY = Lengthway (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "LENGTH + WAY = Lengthway (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -14590,7 +14751,7 @@
         "tripletStep": 1,
         "stemWord": "WAY",
         "displayStem": "WAY",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (WAY + SIDE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SIDE",
         "decoyPool": [
           "BRIDE",
@@ -14599,17 +14760,10 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 SHOW \u2192 DOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WAY",
-          "[ ? (1/3) ]",
-          "SHOW \u2192 DOWN"
-        ],
-        "compoundHint": "WAY + SIDE = Wayside"
+        "compoundHint": "WAY + SIDE = Wayside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -14617,7 +14771,7 @@
         "tripletStep": 2,
         "stemWord": "SIDE",
         "displayStem": "SIDE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHOW",
         "decoyPool": [
           "CROW",
@@ -14626,25 +14780,18 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 DOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SIDE",
-          "[ ? ]",
-          "\ud83c\udf38 DOWN"
-        ],
-        "compoundHint": "SIDE + SHOW = Sideshow"
+        "compoundHint": "SIDE + SHOW = Sideshow",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SHOW",
-        "displayStem": "SIDE \u2192 SHOW",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "SHOW",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -14653,17 +14800,10 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA DOWN",
-          "word": "\ud83d\udd17 WIND \u2192 MILL \u2192 STONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SIDE",
-          "SHOW",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SHOW + DOWN = Showdown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SHOW + DOWN = Showdown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -14671,7 +14811,7 @@
         "tripletStep": 1,
         "stemWord": "DOWN",
         "displayStem": "DOWN",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (DOWN + WIND)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WIND",
         "decoyPool": [
           "RIND",
@@ -14680,17 +14820,10 @@
           "MIND"
         ],
         "decoyWord": "RIND",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 MILL \u2192 STONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 DOWN",
-          "[ ? (1/3) ]",
-          "MILL \u2192 STONE"
-        ],
-        "compoundHint": "DOWN + WIND = Downwind"
+        "compoundHint": "DOWN + WIND = Downwind",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -14698,7 +14831,7 @@
         "tripletStep": 2,
         "stemWord": "WIND",
         "displayStem": "WIND",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "MILL",
         "decoyPool": [
           "QUILL",
@@ -14707,25 +14840,18 @@
           "DRILL"
         ],
         "decoyWord": "QUILL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 STONE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WIND",
-          "[ ? ]",
-          "\ud83c\udf38 STONE"
-        ],
-        "compoundHint": "WIND + MILL = Windmill"
+        "compoundHint": "WIND + MILL = Windmill",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "MILL",
-        "displayStem": "WIND \u2192 MILL",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "MILL",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "STONE",
         "decoyPool": [
           "CONE",
@@ -14734,17 +14860,10 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA STONE",
-          "word": "\ud83d\udd17 + ZONE 2: WALL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WIND",
-          "MILL",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "MILL + STONE = Millstone (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "MILL + STONE = Millstone (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -14752,7 +14871,7 @@
         "tripletStep": 1,
         "stemWord": "STONE",
         "displayStem": "STONE",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (STONE + WALL)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WALL",
         "decoyPool": [
           "SHAWL",
@@ -14761,17 +14880,10 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "WALL \u2192 FLOWER",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 STONE",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "STONE + WALL = Stonewall"
+        "compoundHint": "STONE + WALL = Stonewall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -14787,7 +14899,11 @@
           "POWDER"
         ],
         "decoyWord": "TOWER",
-        "compoundHint": "WALL + FLOWER = Wallflower"
+        "compoundHint": "WALL + FLOWER = Wallflower",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -14803,7 +14919,11 @@
           "YACHT"
         ],
         "decoyWord": "BLOT",
-        "compoundHint": "FLOWER + POT = Flowerpot"
+        "compoundHint": "FLOWER + POT = Flowerpot",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -14819,7 +14939,11 @@
           "STOLE"
         ],
         "decoyWord": "MOLE",
-        "compoundHint": "POT + HOLE = Pothole"
+        "compoundHint": "POT + HOLE = Pothole",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -14835,7 +14959,11 @@
           "GUARD"
         ],
         "decoyWord": "LARD",
-        "compoundHint": "HOLE + CARD = Hole card"
+        "compoundHint": "HOLE + CARD = Hole card",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -14851,7 +14979,11 @@
           "DARK"
         ],
         "decoyWord": "LARK",
-        "compoundHint": "CARD + SHARK = Card shark"
+        "compoundHint": "CARD + SHARK = Card shark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -14867,7 +14999,11 @@
           "FLANK"
         ],
         "decoyWord": "PRANK",
-        "compoundHint": "SHARK + TANK = Shark tank"
+        "compoundHint": "SHARK + TANK = Shark tank",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -14883,7 +15019,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "TANK + TOP = Tank top"
+        "compoundHint": "TANK + TOP = Tank top",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -14899,7 +15039,11 @@
           "FROG"
         ],
         "decoyWord": "FOG",
-        "compoundHint": "TOP + DOG = Top dog"
+        "compoundHint": "TOP + DOG = Top dog",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -14915,7 +15059,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "DOG + HOUSE = Doghouse"
+        "compoundHint": "DOG + HOUSE = Doghouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -14931,7 +15079,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "HOUSE + WORK = Housework"
+        "compoundHint": "HOUSE + WORK = Housework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -14947,7 +15099,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "WORK + BOOK = Workbook"
+        "compoundHint": "WORK + BOOK = Workbook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -14963,7 +15119,11 @@
           "BRACE"
         ],
         "decoyWord": "VASE",
-        "compoundHint": "BOOK + CASE = Bookcase"
+        "compoundHint": "BOOK + CASE = Bookcase",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -14979,7 +15139,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "CASE + WORK = Casework"
+        "compoundHint": "CASE + WORK = Casework",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -14995,7 +15159,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "WORK + OUT = Workout"
+        "compoundHint": "WORK + OUT = Workout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -15011,7 +15179,11 @@
           "BLOUSE"
         ],
         "decoyWord": "CHORE",
-        "compoundHint": "OUT + DOOR = Outdoor"
+        "compoundHint": "OUT + DOOR = Outdoor",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -15027,7 +15199,11 @@
           "SCHLEP"
         ],
         "decoyWord": "PREP",
-        "compoundHint": "DOOR + STEP = Doorstep"
+        "compoundHint": "DOOR + STEP = Doorstep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -15043,7 +15219,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "STEP + DOWN = Stepdown"
+        "compoundHint": "STEP + DOWN = Stepdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -15059,7 +15239,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "DOWN + FALL = Downfall"
+        "compoundHint": "DOWN + FALL = Downfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -15075,7 +15259,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "FALL + BACK = Fallback"
+        "compoundHint": "FALL + BACK = Fallback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -15091,7 +15279,11 @@
           "BLAND"
         ],
         "decoyWord": "STRAND",
-        "compoundHint": "BACK + HAND = Backhand"
+        "compoundHint": "BACK + HAND = Backhand",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -15107,7 +15299,11 @@
           "SNAG"
         ],
         "decoyWord": "STAG",
-        "compoundHint": "HAND + BAG = Handbag"
+        "compoundHint": "HAND + BAG = Handbag",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -15123,7 +15319,11 @@
           "SWIPE"
         ],
         "decoyWord": "SNIPE",
-        "compoundHint": "BAG + PIPE = Bagpipe"
+        "compoundHint": "BAG + PIPE = Bagpipe",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -15139,7 +15339,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "PIPE + LINE = Pipeline"
+        "compoundHint": "PIPE + LINE = Pipeline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -15155,7 +15359,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -15171,7 +15379,11 @@
           "SCALD"
         ],
         "decoyWord": "MOLD",
-        "compoundHint": "UP + HOLD = Uphold"
+        "compoundHint": "UP + HOLD = Uphold",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -15187,7 +15399,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "HOLD + OVER = Holdover"
+        "compoundHint": "HOLD + OVER = Holdover",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -15203,7 +15419,11 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "compoundHint": "OVER + FLOW = Overflow"
+        "compoundHint": "OVER + FLOW = Overflow",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -15219,14 +15439,18 @@
           "SMART"
         ],
         "decoyWord": "TART",
-        "compoundHint": "FLOW + CHART = Flowchart"
+        "compoundHint": "FLOW + CHART = Flowchart",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 150,
     "dateKey": "2026-11-09",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 2,
     "title": "Crimson Canopy (Ukiyo-e)",
     "chainSetIndex": 8,
@@ -15254,7 +15478,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DOOR",
-          "connection": "Forward Link (Out + Door)",
+          "connection": "2-Node Link",
           "hint": "OUT + DOOR = Outdoor",
           "decoys": [
             "CHORE",
@@ -15287,7 +15511,7 @@
         ],
         "thematicLink": {
           "nextPart1": "WALL",
-          "connection": "Forward Link (Stone + Wall)",
+          "connection": "2-Node Link",
           "hint": "STONE + WALL = Stonewall",
           "decoys": [
             "SHAWL",
@@ -15320,7 +15544,7 @@
         ],
         "thematicLink": {
           "nextPart1": "TIME",
-          "connection": "Forward Link (Bed + Time)",
+          "connection": "2-Node Link",
           "hint": "BED + TIME = Bedtime",
           "decoys": [
             "LIME",
@@ -15353,7 +15577,7 @@
         ],
         "thematicLink": {
           "nextPart1": "NOTE",
-          "connection": "Zone 2 Bridge (Key + Note)",
+          "connection": "2-Node Link",
           "hint": "KEY + NOTE = Keynote",
           "decoys": [
             "GOAT",
@@ -15683,7 +15907,7 @@
         "tripletStep": 2,
         "stemWord": "WIND",
         "displayStem": "WIND",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "FALL",
         "decoyPool": [
           "SHAWL",
@@ -15692,25 +15916,18 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 OUT",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WIND",
-          "[ ? ]",
-          "\ud83c\udf38 OUT"
-        ],
-        "compoundHint": "WIND + FALL = Windfall"
+        "compoundHint": "WIND + FALL = Windfall",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "FALL",
-        "displayStem": "WIND \u2192 FALL",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "FALL",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "OUT",
         "decoyPool": [
           "TROUT",
@@ -15719,17 +15936,10 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA OUT",
-          "word": "\ud83d\udd17 DOOR \u2192 STEP \u2192 STONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WIND",
-          "FALL",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "FALL + OUT = Fallout (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "FALL + OUT = Fallout (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -15737,7 +15947,7 @@
         "tripletStep": 1,
         "stemWord": "OUT",
         "displayStem": "OUT",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (OUT + DOOR)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DOOR",
         "decoyPool": [
           "CHORE",
@@ -15746,17 +15956,10 @@
           "BLOUSE"
         ],
         "decoyWord": "CHORE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 STEP \u2192 STONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 OUT",
-          "[ ? (1/3) ]",
-          "STEP \u2192 STONE"
-        ],
-        "compoundHint": "OUT + DOOR = Outdoor"
+        "compoundHint": "OUT + DOOR = Outdoor",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -15764,7 +15967,7 @@
         "tripletStep": 2,
         "stemWord": "DOOR",
         "displayStem": "DOOR",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "STEP",
         "decoyPool": [
           "PREP",
@@ -15773,25 +15976,18 @@
           "SCHLEP"
         ],
         "decoyWord": "PREP",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 STONE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "DOOR",
-          "[ ? ]",
-          "\ud83c\udf38 STONE"
-        ],
-        "compoundHint": "DOOR + STEP = Doorstep"
+        "compoundHint": "DOOR + STEP = Doorstep",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "STEP",
-        "displayStem": "DOOR \u2192 STEP",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "STEP",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "STONE",
         "decoyPool": [
           "CONE",
@@ -15800,17 +15996,10 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA STONE",
-          "word": "\ud83d\udd17 WALL \u2192 FLOWER \u2192 BED",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "DOOR",
-          "STEP",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "STEP + STONE = Stepping stone (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "STEP + STONE = Stepping stone (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -15818,7 +16007,7 @@
         "tripletStep": 1,
         "stemWord": "STONE",
         "displayStem": "STONE",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (STONE + WALL)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "WALL",
         "decoyPool": [
           "SHAWL",
@@ -15827,17 +16016,10 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 FLOWER \u2192 BED",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 STONE",
-          "[ ? (1/3) ]",
-          "FLOWER \u2192 BED"
-        ],
-        "compoundHint": "STONE + WALL = Stonewall"
+        "compoundHint": "STONE + WALL = Stonewall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -15845,7 +16027,7 @@
         "tripletStep": 2,
         "stemWord": "WALL",
         "displayStem": "WALL",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "FLOWER",
         "decoyPool": [
           "TOWER",
@@ -15854,25 +16036,18 @@
           "POWDER"
         ],
         "decoyWord": "TOWER",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BED",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "WALL",
-          "[ ? ]",
-          "\ud83c\udf38 BED"
-        ],
-        "compoundHint": "WALL + FLOWER = Wallflower"
+        "compoundHint": "WALL + FLOWER = Wallflower",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "FLOWER",
-        "displayStem": "WALL \u2192 FLOWER",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "FLOWER",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BED",
         "decoyPool": [
           "SLED",
@@ -15881,17 +16056,10 @@
           "DREAD"
         ],
         "decoyWord": "SLED",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BED",
-          "word": "\ud83d\udd17 TIME \u2192 SHIFT \u2192 KEY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "WALL",
-          "FLOWER",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "FLOWER + BED = Flowerbed (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "FLOWER + BED = Flowerbed (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -15899,7 +16067,7 @@
         "tripletStep": 1,
         "stemWord": "BED",
         "displayStem": "BED",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BED + TIME)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "TIME",
         "decoyPool": [
           "LIME",
@@ -15908,17 +16076,10 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 SHIFT \u2192 KEY",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BED",
-          "[ ? (1/3) ]",
-          "SHIFT \u2192 KEY"
-        ],
-        "compoundHint": "BED + TIME = Bedtime"
+        "compoundHint": "BED + TIME = Bedtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -15926,7 +16087,7 @@
         "tripletStep": 2,
         "stemWord": "TIME",
         "displayStem": "TIME",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SHIFT",
         "decoyPool": [
           "DRIFT",
@@ -15935,25 +16096,18 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 KEY",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "TIME",
-          "[ ? ]",
-          "\ud83c\udf38 KEY"
-        ],
-        "compoundHint": "TIME + SHIFT = Timeshift"
+        "compoundHint": "TIME + SHIFT = Timeshift",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "SHIFT",
-        "displayStem": "TIME \u2192 SHIFT",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "SHIFT",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "KEY",
         "decoyPool": [
           "SKI",
@@ -15962,17 +16116,10 @@
           "TEA"
         ],
         "decoyWord": "SKI",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA KEY",
-          "word": "\ud83d\udd17 + ZONE 2: NOTE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "TIME",
-          "SHIFT",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "SHIFT + KEY = Shift key (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "SHIFT + KEY = Shift key (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -15980,7 +16127,7 @@
         "tripletStep": 1,
         "stemWord": "KEY",
         "displayStem": "KEY",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (KEY + NOTE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "NOTE",
         "decoyPool": [
           "GOAT",
@@ -15989,17 +16136,10 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "NOTE \u2192 BOOK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 KEY",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "KEY + NOTE = Keynote"
+        "compoundHint": "KEY + NOTE = Keynote",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -16015,7 +16155,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "NOTE + BOOK = Notebook"
+        "compoundHint": "NOTE + BOOK = Notebook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -16031,7 +16175,11 @@
           "FIRM"
         ],
         "decoyWord": "STORM",
-        "compoundHint": "BOOK + WORM = Bookworm"
+        "compoundHint": "BOOK + WORM = Bookworm",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -16047,7 +16195,11 @@
           "STOLE"
         ],
         "decoyWord": "MOLE",
-        "compoundHint": "WORM + HOLE = Wormhole"
+        "compoundHint": "WORM + HOLE = Wormhole",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -16063,7 +16215,11 @@
           "BRUNCH"
         ],
         "decoyWord": "LUNCH",
-        "compoundHint": "HOLE + PUNCH = Hole punch"
+        "compoundHint": "HOLE + PUNCH = Hole punch",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -16079,7 +16235,11 @@
           "PROWL"
         ],
         "decoyWord": "OWL",
-        "compoundHint": "PUNCH + BOWL = Punch bowl"
+        "compoundHint": "PUNCH + BOWL = Punch bowl",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -16095,7 +16255,11 @@
           "SMUT"
         ],
         "decoyWord": "HUT",
-        "compoundHint": "BOWL + CUT = Bowl cut"
+        "compoundHint": "BOWL + CUT = Bowl cut",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -16111,7 +16275,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "CUT + OUT = Cutout"
+        "compoundHint": "CUT + OUT = Cutout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -16127,7 +16295,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "OUT + BACK = Outback"
+        "compoundHint": "OUT + BACK = Outback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -16143,7 +16315,11 @@
           "HOARD"
         ],
         "decoyWord": "CHORD",
-        "compoundHint": "BACK + BOARD = Backboard"
+        "compoundHint": "BACK + BOARD = Backboard",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -16159,7 +16335,11 @@
           "CAULK"
         ],
         "decoyWord": "HAWK",
-        "compoundHint": "BOARD + WALK = Boardwalk"
+        "compoundHint": "BOARD + WALK = Boardwalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -16175,7 +16355,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "WALK + OUT = Walkout"
+        "compoundHint": "WALK + OUT = Walkout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -16191,7 +16375,11 @@
           "HEARSE"
         ],
         "decoyWord": "THIRST",
-        "compoundHint": "OUT + BURST = Outburst"
+        "compoundHint": "OUT + BURST = Outburst",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -16207,7 +16395,11 @@
           "GRIN"
         ],
         "decoyWord": "FIN",
-        "compoundHint": "BURST + IN = Burst in"
+        "compoundHint": "BURST + IN = Burst in",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -16223,7 +16415,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "IN + SIDE = Inside"
+        "compoundHint": "IN + SIDE = Inside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -16239,7 +16435,11 @@
           "SCHLEP"
         ],
         "decoyWord": "PREP",
-        "compoundHint": "SIDE + STEP = Sidestep"
+        "compoundHint": "SIDE + STEP = Sidestep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -16255,7 +16455,11 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "compoundHint": "STEP + STONE = Stepping stone"
+        "compoundHint": "STEP + STONE = Stepping stone",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -16271,7 +16475,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "STONE + WALL = Stonewall"
+        "compoundHint": "STONE + WALL = Stonewall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -16287,7 +16495,11 @@
           "SCRAPER"
         ],
         "decoyWord": "CAPER",
-        "compoundHint": "WALL + PAPER = Wallpaper"
+        "compoundHint": "WALL + PAPER = Wallpaper",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -16303,7 +16515,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "PAPER + BACK = Paperback"
+        "compoundHint": "PAPER + BACK = Paperback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -16319,7 +16535,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "BACK + DROP = Backdrop"
+        "compoundHint": "BACK + DROP = Backdrop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -16335,7 +16555,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "DROP + OUT = Dropout"
+        "compoundHint": "DROP + OUT = Dropout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -16351,7 +16575,11 @@
           "FLAKE"
         ],
         "decoyWord": "STEAK",
-        "compoundHint": "OUT + BREAK = Outbreak"
+        "compoundHint": "OUT + BREAK = Outbreak",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -16367,7 +16595,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "BREAK + UP = Breakup"
+        "compoundHint": "BREAK + UP = Breakup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -16383,7 +16615,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "UP + LIFT = Uplift"
+        "compoundHint": "UP + LIFT = Uplift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -16399,7 +16635,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "LIFT + OFF = Liftoff"
+        "compoundHint": "LIFT + OFF = Liftoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -16415,7 +16655,11 @@
           "PLEAT"
         ],
         "decoyWord": "WHEAT",
-        "compoundHint": "OFF + BEAT = Offbeat"
+        "compoundHint": "OFF + BEAT = Offbeat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -16431,7 +16675,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "BEAT + DOWN = Beatdown"
+        "compoundHint": "BEAT + DOWN = Beatdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -16447,14 +16695,18 @@
           "ROAR"
         ],
         "decoyWord": "SNORE",
-        "compoundHint": "DOWN + POUR = Downpour"
+        "compoundHint": "DOWN + POUR = Downpour",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 151,
     "dateKey": "2026-11-10",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 0,
     "title": "Midnight Bioluminescence",
     "chainSetIndex": 9,
@@ -16482,7 +16734,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BOX",
-          "connection": "Forward Link (Lock + Box)",
+          "connection": "2-Node Link",
           "hint": "LOCK + BOX = Lockbox",
           "decoys": [
             "FOX",
@@ -16515,7 +16767,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SIDE",
-          "connection": "Forward Link (Pool + Side)",
+          "connection": "2-Node Link",
           "hint": "POOL + SIDE = Poolside",
           "decoys": [
             "BRIDE",
@@ -16548,7 +16800,7 @@
         ],
         "thematicLink": {
           "nextPart1": "OUT",
-          "connection": "Forward Link (Walk + Out)",
+          "connection": "2-Node Link",
           "hint": "WALK + OUT = Walkout",
           "decoys": [
             "TROUT",
@@ -16581,7 +16833,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SPACE",
-          "connection": "Zone 2 Bridge (Office + Space)",
+          "connection": "2-Node Link",
           "hint": "OFFICE + SPACE = Office space",
           "decoys": [
             "LACE",
@@ -16911,7 +17163,7 @@
         "tripletStep": 2,
         "stemWord": "NOTE",
         "displayStem": "NOTE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "PAD",
         "decoyPool": [
           "PLAID",
@@ -16920,25 +17172,18 @@
           "BRAD"
         ],
         "decoyWord": "PLAID",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 LOCK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "NOTE",
-          "[ ? ]",
-          "\ud83c\udf38 LOCK"
-        ],
-        "compoundHint": "NOTE + PAD = Notepad"
+        "compoundHint": "NOTE + PAD = Notepad",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "PAD",
-        "displayStem": "NOTE \u2192 PAD",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "PAD",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "LOCK",
         "decoyPool": [
           "FLOCK",
@@ -16947,17 +17192,10 @@
           "SHOCK"
         ],
         "decoyWord": "FLOCK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA LOCK",
-          "word": "\ud83d\udd17 BOX \u2192 CAR \u2192 POOL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "NOTE",
-          "PAD",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "PAD + LOCK = Padlock (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "PAD + LOCK = Padlock (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -16965,7 +17203,7 @@
         "tripletStep": 1,
         "stemWord": "LOCK",
         "displayStem": "LOCK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (LOCK + BOX)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BOX",
         "decoyPool": [
           "FOX",
@@ -16974,17 +17212,10 @@
           "PARADOX"
         ],
         "decoyWord": "FOX",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 CAR \u2192 POOL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 LOCK",
-          "[ ? (1/3) ]",
-          "CAR \u2192 POOL"
-        ],
-        "compoundHint": "LOCK + BOX = Lockbox"
+        "compoundHint": "LOCK + BOX = Lockbox",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -16992,7 +17223,7 @@
         "tripletStep": 2,
         "stemWord": "BOX",
         "displayStem": "BOX",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CAR",
         "decoyPool": [
           "SCAR",
@@ -17001,25 +17232,18 @@
           "RADAR"
         ],
         "decoyWord": "SCAR",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 POOL",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "BOX",
-          "[ ? ]",
-          "\ud83c\udf38 POOL"
-        ],
-        "compoundHint": "BOX + CAR = Boxcar"
+        "compoundHint": "BOX + CAR = Boxcar",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "CAR",
-        "displayStem": "BOX \u2192 CAR",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "CAR",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "POOL",
         "decoyPool": [
           "SPOOL",
@@ -17028,17 +17252,10 @@
           "GHOUL"
         ],
         "decoyWord": "SPOOL",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA POOL",
-          "word": "\ud83d\udd17 SIDE \u2192 BOARD \u2192 WALK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "BOX",
-          "CAR",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "CAR + POOL = Carpool (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "CAR + POOL = Carpool (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -17046,7 +17263,7 @@
         "tripletStep": 1,
         "stemWord": "POOL",
         "displayStem": "POOL",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (POOL + SIDE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SIDE",
         "decoyPool": [
           "BRIDE",
@@ -17055,17 +17272,10 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 BOARD \u2192 WALK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 POOL",
-          "[ ? (1/3) ]",
-          "BOARD \u2192 WALK"
-        ],
-        "compoundHint": "POOL + SIDE = Poolside"
+        "compoundHint": "POOL + SIDE = Poolside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -17073,7 +17283,7 @@
         "tripletStep": 2,
         "stemWord": "SIDE",
         "displayStem": "SIDE",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BOARD",
         "decoyPool": [
           "CHORD",
@@ -17082,25 +17292,18 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WALK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SIDE",
-          "[ ? ]",
-          "\ud83c\udf38 WALK"
-        ],
-        "compoundHint": "SIDE + BOARD = Sideboard"
+        "compoundHint": "SIDE + BOARD = Sideboard",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BOARD",
-        "displayStem": "SIDE \u2192 BOARD",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "BOARD",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WALK",
         "decoyPool": [
           "HAWK",
@@ -17109,17 +17312,10 @@
           "CAULK"
         ],
         "decoyWord": "HAWK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WALK",
-          "word": "\ud83d\udd17 OUT \u2192 POST \u2192 OFFICE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SIDE",
-          "BOARD",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BOARD + WALK = Boardwalk (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BOARD + WALK = Boardwalk (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -17127,7 +17323,7 @@
         "tripletStep": 1,
         "stemWord": "WALK",
         "displayStem": "WALK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (WALK + OUT)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "OUT",
         "decoyPool": [
           "TROUT",
@@ -17136,17 +17332,10 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 POST \u2192 OFFICE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WALK",
-          "[ ? (1/3) ]",
-          "POST \u2192 OFFICE"
-        ],
-        "compoundHint": "WALK + OUT = Walkout"
+        "compoundHint": "WALK + OUT = Walkout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -17154,7 +17343,7 @@
         "tripletStep": 2,
         "stemWord": "OUT",
         "displayStem": "OUT",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "POST",
         "decoyPool": [
           "GHOST",
@@ -17163,25 +17352,18 @@
           "COAST"
         ],
         "decoyWord": "GHOST",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 OFFICE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "OUT",
-          "[ ? ]",
-          "\ud83c\udf38 OFFICE"
-        ],
-        "compoundHint": "OUT + POST = Outpost"
+        "compoundHint": "OUT + POST = Outpost",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "POST",
-        "displayStem": "OUT \u2192 POST",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "POST",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "OFFICE",
         "decoyPool": [
           "NOVICE",
@@ -17190,17 +17372,10 @@
           "MALICE"
         ],
         "decoyWord": "NOVICE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA OFFICE",
-          "word": "\ud83d\udd17 + ZONE 2: SPACE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "OUT",
-          "POST",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "POST + OFFICE = Post office (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "POST + OFFICE = Post office (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -17208,7 +17383,7 @@
         "tripletStep": 1,
         "stemWord": "OFFICE",
         "displayStem": "OFFICE",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (OFFICE + SPACE)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SPACE",
         "decoyPool": [
           "LACE",
@@ -17217,17 +17392,10 @@
           "GRACE"
         ],
         "decoyWord": "LACE",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "SPACE \u2192 SHIP",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 OFFICE",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "OFFICE + SPACE = Office space"
+        "compoundHint": "OFFICE + SPACE = Office space",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -17243,7 +17411,11 @@
           "BLIP"
         ],
         "decoyWord": "CHIP",
-        "compoundHint": "SPACE + SHIP = Spaceship"
+        "compoundHint": "SPACE + SHIP = Spaceship",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -17259,7 +17431,11 @@
           "NECK"
         ],
         "decoyWord": "SPECK",
-        "compoundHint": "SHIP + WRECK = Shipwreck"
+        "compoundHint": "SHIP + WRECK = Shipwreck",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -17275,7 +17451,11 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "WRECK + BALL = Wrecking ball"
+        "compoundHint": "WRECK + BALL = Wrecking ball",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -17291,7 +17471,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "BALL + PARK = Ballpark"
+        "compoundHint": "BALL + PARK = Ballpark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -17307,7 +17491,11 @@
           "SLEIGH"
         ],
         "decoyWord": "CLAY",
-        "compoundHint": "PARK + WAY = Parkway"
+        "compoundHint": "PARK + WAY = Parkway",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -17323,7 +17511,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "WAY + SIDE = Wayside"
+        "compoundHint": "WAY + SIDE = Wayside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -17339,7 +17531,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "SIDE + LINE = Sideline"
+        "compoundHint": "SIDE + LINE = Sideline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -17355,7 +17551,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -17371,7 +17571,11 @@
           "PLEAT"
         ],
         "decoyWord": "WHEAT",
-        "compoundHint": "UP + BEAT = Upbeat"
+        "compoundHint": "UP + BEAT = Upbeat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -17387,7 +17591,11 @@
           "PARADOX"
         ],
         "decoyWord": "FOX",
-        "compoundHint": "BEAT + BOX = Beatbox"
+        "compoundHint": "BEAT + BOX = Beatbox",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -17403,7 +17611,11 @@
           "MALICE"
         ],
         "decoyWord": "NOVICE",
-        "compoundHint": "BOX + OFFICE = Box office"
+        "compoundHint": "BOX + OFFICE = Box office",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -17419,7 +17631,11 @@
           "PERK"
         ],
         "decoyWord": "SMIRK",
-        "compoundHint": "OFFICE + WORK = Office work"
+        "compoundHint": "OFFICE + WORK = Office work",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -17435,7 +17651,11 @@
           "QUENCH"
         ],
         "decoyWord": "WRENCH",
-        "compoundHint": "WORK + BENCH = Workbench"
+        "compoundHint": "WORK + BENCH = Workbench",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -17451,7 +17671,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "BENCH + MARK = Benchmark"
+        "compoundHint": "BENCH + MARK = Benchmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -17467,7 +17691,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "MARK + UP = Markup"
+        "compoundHint": "MARK + UP = Markup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -17483,7 +17711,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "UP + TURN = Upturn"
+        "compoundHint": "UP + TURN = Upturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -17499,7 +17731,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "TURN + OUT = Turnout"
+        "compoundHint": "TURN + OUT = Turnout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -17515,7 +17751,11 @@
           "TRAWL"
         ],
         "decoyWord": "SHAWL",
-        "compoundHint": "OUT + FALL = Outfall"
+        "compoundHint": "OUT + FALL = Outfall",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -17531,7 +17771,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "FALL + DOWN = Fall down"
+        "compoundHint": "FALL + DOWN = Fall down",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -17547,7 +17791,11 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "compoundHint": "DOWN + TIME = Downtime"
+        "compoundHint": "DOWN + TIME = Downtime",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -17563,7 +17811,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "TIME + OVER = Time over"
+        "compoundHint": "TIME + OVER = Time over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -17579,7 +17831,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "OVER + LOOK = Overlook"
+        "compoundHint": "OVER + LOOK = Overlook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -17595,7 +17851,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "LOOK + OUT = Lookout"
+        "compoundHint": "LOOK + OUT = Lookout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -17611,7 +17871,11 @@
           "STUN"
         ],
         "decoyWord": "BUN",
-        "compoundHint": "OUT + RUN = Outrun"
+        "compoundHint": "OUT + RUN = Outrun",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -17627,7 +17891,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "RUN + OFF = Runoff"
+        "compoundHint": "RUN + OFF = Runoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -17643,7 +17911,11 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "compoundHint": "OFF + SET = Offset"
+        "compoundHint": "OFF + SET = Offset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -17659,7 +17931,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "SET + BACK = Setback"
+        "compoundHint": "SET + BACK = Setback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -17675,14 +17951,18 @@
           "SPIRE"
         ],
         "decoyWord": "CHOIR",
-        "compoundHint": "BACK + FIRE = Backfire"
+        "compoundHint": "BACK + FIRE = Backfire",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 152,
     "dateKey": "2026-11-11",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 1,
     "title": "Sunlit Conservatory",
     "chainSetIndex": 10,
@@ -17710,7 +17990,7 @@
         ],
         "thematicLink": {
           "nextPart1": "PAPER",
-          "connection": "Forward Link (Wall + Paper)",
+          "connection": "2-Node Link",
           "hint": "WALL + PAPER = Wallpaper",
           "decoys": [
             "CAPER",
@@ -17743,7 +18023,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DRY",
-          "connection": "Forward Link (Bone + Dry)",
+          "connection": "2-Node Link",
           "hint": "BONE + DRY = Bone-dry",
           "decoys": [
             "SHY",
@@ -17776,7 +18056,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SHOW",
-          "connection": "Forward Link (Slide + Show)",
+          "connection": "2-Node Link",
           "hint": "SLIDE + SHOW = Slideshow",
           "decoys": [
             "CROW",
@@ -17809,7 +18089,7 @@
         ],
         "thematicLink": {
           "nextPart1": "OUT",
-          "connection": "Zone 2 Bridge (Time + Out)",
+          "connection": "2-Node Link",
           "hint": "TIME + OUT = Timeout",
           "decoys": [
             "TROUT",
@@ -18139,7 +18419,7 @@
         "tripletStep": 2,
         "stemWord": "SAND",
         "displayStem": "SAND",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CASTLE",
         "decoyPool": [
           "TASSEL",
@@ -18148,25 +18428,18 @@
           "NESTLE"
         ],
         "decoyWord": "TASSEL",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 WALL",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SAND",
-          "[ ? ]",
-          "\ud83c\udf38 WALL"
-        ],
-        "compoundHint": "SAND + CASTLE = Sandcastle"
+        "compoundHint": "SAND + CASTLE = Sandcastle",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "CASTLE",
-        "displayStem": "SAND \u2192 CASTLE",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "CASTLE",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WALL",
         "decoyPool": [
           "SHAWL",
@@ -18175,17 +18448,10 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA WALL",
-          "word": "\ud83d\udd17 PAPER \u2192 BACK \u2192 BONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SAND",
-          "CASTLE",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "CASTLE + WALL = Castle wall (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "CASTLE + WALL = Castle wall (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -18193,7 +18459,7 @@
         "tripletStep": 1,
         "stemWord": "WALL",
         "displayStem": "WALL",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (WALL + PAPER)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "PAPER",
         "decoyPool": [
           "CAPER",
@@ -18202,17 +18468,10 @@
           "SCRAPER"
         ],
         "decoyWord": "CAPER",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 BACK \u2192 BONE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 WALL",
-          "[ ? (1/3) ]",
-          "BACK \u2192 BONE"
-        ],
-        "compoundHint": "WALL + PAPER = Wallpaper"
+        "compoundHint": "WALL + PAPER = Wallpaper",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -18220,7 +18479,7 @@
         "tripletStep": 2,
         "stemWord": "PAPER",
         "displayStem": "PAPER",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BACK",
         "decoyPool": [
           "QUACK",
@@ -18229,25 +18488,18 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BONE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "PAPER",
-          "[ ? ]",
-          "\ud83c\udf38 BONE"
-        ],
-        "compoundHint": "PAPER + BACK = Paperback"
+        "compoundHint": "PAPER + BACK = Paperback",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BACK",
-        "displayStem": "PAPER \u2192 BACK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "BACK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BONE",
         "decoyPool": [
           "CONE",
@@ -18256,17 +18508,10 @@
           "SCONE"
         ],
         "decoyWord": "CONE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BONE",
-          "word": "\ud83d\udd17 DRY \u2192 LAND \u2192 SLIDE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "PAPER",
-          "BACK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BACK + BONE = Backbone (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BACK + BONE = Backbone (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -18274,7 +18519,7 @@
         "tripletStep": 1,
         "stemWord": "BONE",
         "displayStem": "BONE",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BONE + DRY)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DRY",
         "decoyPool": [
           "SHY",
@@ -18283,17 +18528,10 @@
           "WRY"
         ],
         "decoyWord": "SHY",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 LAND \u2192 SLIDE",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BONE",
-          "[ ? (1/3) ]",
-          "LAND \u2192 SLIDE"
-        ],
-        "compoundHint": "BONE + DRY = Bone-dry"
+        "compoundHint": "BONE + DRY = Bone-dry",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -18301,7 +18539,7 @@
         "tripletStep": 2,
         "stemWord": "DRY",
         "displayStem": "DRY",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "LAND",
         "decoyPool": [
           "STRAND",
@@ -18310,25 +18548,18 @@
           "BLAND"
         ],
         "decoyWord": "STRAND",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 SLIDE",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "DRY",
-          "[ ? ]",
-          "\ud83c\udf38 SLIDE"
-        ],
-        "compoundHint": "DRY + LAND = Dryland"
+        "compoundHint": "DRY + LAND = Dryland",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "LAND",
-        "displayStem": "DRY \u2192 LAND",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "LAND",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "SLIDE",
         "decoyPool": [
           "BRIDE",
@@ -18337,17 +18568,10 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA SLIDE",
-          "word": "\ud83d\udd17 SHOW \u2192 DOWN \u2192 TIME",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "DRY",
-          "LAND",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "LAND + SLIDE = Landslide (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "LAND + SLIDE = Landslide (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -18355,7 +18579,7 @@
         "tripletStep": 1,
         "stemWord": "SLIDE",
         "displayStem": "SLIDE",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (SLIDE + SHOW)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SHOW",
         "decoyPool": [
           "CROW",
@@ -18364,17 +18588,10 @@
           "TOE"
         ],
         "decoyWord": "CROW",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 DOWN \u2192 TIME",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 SLIDE",
-          "[ ? (1/3) ]",
-          "DOWN \u2192 TIME"
-        ],
-        "compoundHint": "SLIDE + SHOW = Slideshow"
+        "compoundHint": "SLIDE + SHOW = Slideshow",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -18382,7 +18599,7 @@
         "tripletStep": 2,
         "stemWord": "SHOW",
         "displayStem": "SHOW",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -18391,25 +18608,18 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TIME",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SHOW",
-          "[ ? ]",
-          "\ud83c\udf38 TIME"
-        ],
-        "compoundHint": "SHOW + DOWN = Showdown"
+        "compoundHint": "SHOW + DOWN = Showdown",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "DOWN",
-        "displayStem": "SHOW \u2192 DOWN",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "DOWN",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TIME",
         "decoyPool": [
           "LIME",
@@ -18418,17 +18628,10 @@
           "GRIME"
         ],
         "decoyWord": "LIME",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TIME",
-          "word": "\ud83d\udd17 + ZONE 2: OUT",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SHOW",
-          "DOWN",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "DOWN + TIME = Downtime (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "DOWN + TIME = Downtime (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -18436,7 +18639,7 @@
         "tripletStep": 1,
         "stemWord": "TIME",
         "displayStem": "TIME",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (TIME + OUT)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "OUT",
         "decoyPool": [
           "TROUT",
@@ -18445,17 +18648,10 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "OUT \u2192 BACK",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TIME",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "TIME + OUT = Timeout"
+        "compoundHint": "TIME + OUT = Timeout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -18471,7 +18667,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "OUT + BACK = Outback"
+        "compoundHint": "OUT + BACK = Outback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -18487,7 +18687,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "BACK + DROP = Backdrop"
+        "compoundHint": "BACK + DROP = Backdrop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -18503,7 +18707,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "DROP + DOWN = Dropdown"
+        "compoundHint": "DROP + DOWN = Dropdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -18519,7 +18727,11 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "DOWN + TOWN = Downtown"
+        "compoundHint": "DOWN + TOWN = Downtown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -18535,7 +18747,11 @@
           "MOUSE"
         ],
         "decoyWord": "BLOUSE",
-        "compoundHint": "TOWN + HOUSE = Townhouse"
+        "compoundHint": "TOWN + HOUSE = Townhouse",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -18551,7 +18767,11 @@
           "WRY"
         ],
         "decoyWord": "SHY",
-        "compoundHint": "HOUSE + FLY = Housefly"
+        "compoundHint": "HOUSE + FLY = Housefly",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -18567,7 +18787,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "FLY + OVER = Flyover"
+        "compoundHint": "FLY + OVER = Flyover",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -18583,7 +18807,11 @@
           "GLOAT"
         ],
         "decoyWord": "GOAT",
-        "compoundHint": "OVER + COAT = Overcoat"
+        "compoundHint": "OVER + COAT = Overcoat",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -18599,7 +18827,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "COAT + RACK = Coatrack"
+        "compoundHint": "COAT + RACK = Coatrack",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -18615,7 +18847,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "RACK + UP = Rack up"
+        "compoundHint": "RACK + UP = Rack up",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -18631,7 +18867,11 @@
           "GIFT"
         ],
         "decoyWord": "DRIFT",
-        "compoundHint": "UP + LIFT = Uplift"
+        "compoundHint": "UP + LIFT = Uplift",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -18647,7 +18887,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "LIFT + OFF = Liftoff"
+        "compoundHint": "LIFT + OFF = Liftoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -18663,7 +18907,11 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "compoundHint": "OFF + SET = Offset"
+        "compoundHint": "OFF + SET = Offset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -18679,7 +18927,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "SET + OUT = Set out"
+        "compoundHint": "SET + OUT = Set out",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -18695,7 +18947,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "OUT + LINE = Outline"
+        "compoundHint": "OUT + LINE = Outline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -18711,7 +18967,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -18727,7 +18987,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "UP + TURN = Upturn"
+        "compoundHint": "UP + TURN = Upturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -18743,7 +19007,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "TURN + OVER = Turnover"
+        "compoundHint": "TURN + OVER = Turnover",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -18759,7 +19027,11 @@
           "STEEP"
         ],
         "decoyWord": "SHEEP",
-        "compoundHint": "OVER + SLEEP = Oversleep"
+        "compoundHint": "OVER + SLEEP = Oversleep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -18775,7 +19047,11 @@
           "SQUAWK"
         ],
         "decoyWord": "CHALK",
-        "compoundHint": "SLEEP + WALK = Sleepwalk"
+        "compoundHint": "SLEEP + WALK = Sleepwalk",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -18791,7 +19067,11 @@
           "SPRAY"
         ],
         "decoyWord": "CLAY",
-        "compoundHint": "WALK + AWAY = Walkaway"
+        "compoundHint": "WALK + AWAY = Walkaway",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -18807,7 +19087,11 @@
           "FRAME"
         ],
         "decoyWord": "FLAME",
-        "compoundHint": "AWAY + GAME = Away game"
+        "compoundHint": "AWAY + GAME = Away game",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -18823,7 +19107,11 @@
           "FLAN"
         ],
         "decoyWord": "CLAN",
-        "compoundHint": "GAME + PLAN = Game plan"
+        "compoundHint": "GAME + PLAN = Game plan",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -18839,7 +19127,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "PLAN + OUT = Plan out"
+        "compoundHint": "PLAN + OUT = Plan out",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -18855,7 +19147,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "OUT + LOOK = Outlook"
+        "compoundHint": "OUT + LOOK = Outlook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -18871,7 +19167,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "LOOK + OVER = Look over"
+        "compoundHint": "LOOK + OVER = Look over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -18887,7 +19187,11 @@
           "STUN"
         ],
         "decoyWord": "BUN",
-        "compoundHint": "OVER + RUN = Overrun"
+        "compoundHint": "OVER + RUN = Overrun",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -18903,14 +19207,18 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "RUN + OUT = Runout"
+        "compoundHint": "RUN + OUT = Runout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   },
   {
     "vineNumber": 153,
     "dateKey": "2026-11-12",
-    "lexiconVersion": "v7_strict_forward_flow",
+    "lexiconVersion": "v8_subtle_node_links",
     "themeId": 2,
     "title": "Crimson Canopy (Ukiyo-e)",
     "chainSetIndex": 11,
@@ -18938,7 +19246,7 @@
         ],
         "thematicLink": {
           "nextPart1": "DROP",
-          "connection": "Forward Link (Back + Drop)",
+          "connection": "2-Node Link",
           "hint": "BACK + DROP = Backdrop",
           "decoys": [
             "MOP",
@@ -18971,7 +19279,7 @@
         ],
         "thematicLink": {
           "nextPart1": "SHIP",
-          "connection": "Forward Link (Town + Ship)",
+          "connection": "2-Node Link",
           "hint": "TOWN + SHIP = Township",
           "decoys": [
             "CHIP",
@@ -19004,7 +19312,7 @@
         ],
         "thematicLink": {
           "nextPart1": "PARK",
-          "connection": "Forward Link (Ball + Park)",
+          "connection": "2-Node Link",
           "hint": "BALL + PARK = Ballpark",
           "decoys": [
             "SHARK",
@@ -19037,7 +19345,7 @@
         ],
         "thematicLink": {
           "nextPart1": "BIRD",
-          "connection": "Zone 2 Bridge (Game + Bird)",
+          "connection": "2-Node Link",
           "hint": "GAME + BIRD = Gamebird",
           "decoys": [
             "HERD",
@@ -19367,7 +19675,7 @@
         "tripletStep": 2,
         "stemWord": "HAIR",
         "displayStem": "HAIR",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (1/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "CUT",
         "decoyPool": [
           "HUT",
@@ -19376,25 +19684,18 @@
           "SMUT"
         ],
         "decoyWord": "HUT",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BACK",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "HAIR",
-          "[ ? ]",
-          "\ud83c\udf38 BACK"
-        ],
-        "compoundHint": "HAIR + CUT = Haircut"
+        "compoundHint": "HAIR + CUT = Haircut",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 1,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "CUT",
-        "displayStem": "HAIR \u2192 CUT",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (1/4)",
+        "displayStem": "CUT",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BACK",
         "decoyPool": [
           "QUACK",
@@ -19403,17 +19704,10 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BACK",
-          "word": "\ud83d\udd17 DROP \u2192 DOWN \u2192 TOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "HAIR",
-          "CUT",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "CUT + BACK = Cutback (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "CUT + BACK = Cutback (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 2,
@@ -19421,7 +19715,7 @@
         "tripletStep": 1,
         "stemWord": "BACK",
         "displayStem": "BACK",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BACK + DROP)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "DROP",
         "decoyPool": [
           "MOP",
@@ -19430,17 +19724,10 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 2/4",
-          "word": "[ ? ] \u2192 DOWN \u2192 TOWN",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BACK",
-          "[ ? (1/3) ]",
-          "DOWN \u2192 TOWN"
-        ],
-        "compoundHint": "BACK + DROP = Backdrop"
+        "compoundHint": "BACK + DROP = Backdrop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 3,
@@ -19448,7 +19735,7 @@
         "tripletStep": 2,
         "stemWord": "DROP",
         "displayStem": "DROP",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (2/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "DOWN",
         "decoyPool": [
           "CLOWN",
@@ -19457,25 +19744,18 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 TOWN",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "DROP",
-          "[ ? ]",
-          "\ud83c\udf38 TOWN"
-        ],
-        "compoundHint": "DROP + DOWN = Dropdown"
+        "compoundHint": "DROP + DOWN = Dropdown",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 4,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "DOWN",
-        "displayStem": "DROP \u2192 DOWN",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (2/4)",
+        "displayStem": "DOWN",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "TOWN",
         "decoyPool": [
           "CLOWN",
@@ -19484,17 +19764,10 @@
           "FROWN"
         ],
         "decoyWord": "CLOWN",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA TOWN",
-          "word": "\ud83d\udd17 SHIP \u2192 WRECK \u2192 BALL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "DROP",
-          "DOWN",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "DOWN + TOWN = Downtown (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "DOWN + TOWN = Downtown (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 5,
@@ -19502,7 +19775,7 @@
         "tripletStep": 1,
         "stemWord": "TOWN",
         "displayStem": "TOWN",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (TOWN + SHIP)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "SHIP",
         "decoyPool": [
           "CHIP",
@@ -19511,17 +19784,10 @@
           "BLIP"
         ],
         "decoyWord": "CHIP",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 3/4",
-          "word": "[ ? ] \u2192 WRECK \u2192 BALL",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 TOWN",
-          "[ ? (1/3) ]",
-          "WRECK \u2192 BALL"
-        ],
-        "compoundHint": "TOWN + SHIP = Township"
+        "compoundHint": "TOWN + SHIP = Township",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 6,
@@ -19529,7 +19795,7 @@
         "tripletStep": 2,
         "stemWord": "SHIP",
         "displayStem": "SHIP",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (3/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "WRECK",
         "decoyPool": [
           "SPECK",
@@ -19538,25 +19804,18 @@
           "NECK"
         ],
         "decoyWord": "SPECK",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 BALL",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "SHIP",
-          "[ ? ]",
-          "\ud83c\udf38 BALL"
-        ],
-        "compoundHint": "SHIP + WRECK = Shipwreck"
+        "compoundHint": "SHIP + WRECK = Shipwreck",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 7,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "WRECK",
-        "displayStem": "SHIP \u2192 WRECK",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (3/4)",
+        "displayStem": "WRECK",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BALL",
         "decoyPool": [
           "SHAWL",
@@ -19565,17 +19824,10 @@
           "DRAWL"
         ],
         "decoyWord": "SHAWL",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA BALL",
-          "word": "\ud83d\udd17 PARK \u2192 BOARD \u2192 GAME",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "SHIP",
-          "WRECK",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "WRECK + BALL = Wrecking ball (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "WRECK + BALL = Wrecking ball (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 8,
@@ -19583,7 +19835,7 @@
         "tripletStep": 1,
         "stemWord": "BALL",
         "displayStem": "BALL",
-        "stemBadge": "\ud83d\udd17 FORWARD LINK (BALL + PARK)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "PARK",
         "decoyPool": [
           "SHARK",
@@ -19592,17 +19844,10 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "faintAbove": {
-          "label": "LINKING TO TRIPLET 4/4",
-          "word": "[ ? ] \u2192 BOARD \u2192 GAME",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 BALL",
-          "[ ? (1/3) ]",
-          "BOARD \u2192 GAME"
-        ],
-        "compoundHint": "BALL + PARK = Ballpark"
+        "compoundHint": "BALL + PARK = Ballpark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 9,
@@ -19610,7 +19855,7 @@
         "tripletStep": 2,
         "stemWord": "PARK",
         "displayStem": "PARK",
-        "stemBadge": "ZONE 1 \u2022 3-PART COMPOUND (4/4)",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "BOARD",
         "decoyPool": [
           "CHORD",
@@ -19619,25 +19864,18 @@
           "FJORD"
         ],
         "decoyWord": "CHORD",
-        "faintAbove": {
-          "label": "NODE 3 AHEAD \u2022 3-PART LINK",
-          "word": "\ud83c\udf38 GAME",
-          "isNextTriplet": false
-        },
-        "tripletSlots": [
-          "PARK",
-          "[ ? ]",
-          "\ud83c\udf38 GAME"
-        ],
-        "compoundHint": "PARK + BOARD = Park board"
+        "compoundHint": "PARK + BOARD = Park board",
+        "linkGroupSize": 3,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": true
       },
       {
         "index": 10,
         "zoneId": 1,
         "tripletStep": 3,
         "stemWord": "BOARD",
-        "displayStem": "PARK \u2192 BOARD",
-        "stemBadge": "\ud83c\udf38 COMPLETE 3-PART WORD (4/4)",
+        "displayStem": "BOARD",
+        "stemBadge": "3-NODE LINK",
         "correctWord": "GAME",
         "decoyPool": [
           "FLAME",
@@ -19646,17 +19884,10 @@
           "FRAME"
         ],
         "decoyWord": "FLAME",
-        "faintAbove": {
-          "label": "FORWARD LINK VIA GAME",
-          "word": "\ud83d\udd17 + ZONE 2: BIRD",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "PARK",
-          "BOARD",
-          "\ud83c\udf38 [ ? ]"
-        ],
-        "compoundHint": "BOARD + GAME = Board game (\ud83c\udf38 3-Part Compound Complete!)"
+        "compoundHint": "BOARD + GAME = Board game (\ud83c\udf38 3-Part Compound Complete!)",
+        "linkGroupSize": 3,
+        "linkGroupStep": 2,
+        "showGhostThirdNode": false
       },
       {
         "index": 11,
@@ -19664,7 +19895,7 @@
         "tripletStep": 1,
         "stemWord": "GAME",
         "displayStem": "GAME",
-        "stemBadge": "\ud83d\udd17 ZONE 2 BRIDGE (GAME + BIRD)",
+        "stemBadge": "2-NODE LINK",
         "correctWord": "BIRD",
         "decoyPool": [
           "HERD",
@@ -19673,17 +19904,10 @@
           "WORD"
         ],
         "decoyWord": "HERD",
-        "faintAbove": {
-          "label": "BRIDGING TO ZONE 2 STEM",
-          "word": "BIRD \u2192 BATH",
-          "isNextTriplet": true
-        },
-        "tripletSlots": [
-          "\ud83d\udd17 GAME",
-          "[ ? (1/3) ]",
-          "ZONE 2"
-        ],
-        "compoundHint": "GAME + BIRD = Gamebird"
+        "compoundHint": "GAME + BIRD = Gamebird",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false
       },
       {
         "index": 12,
@@ -19699,7 +19923,11 @@
           "BROTH"
         ],
         "decoyWord": "WRATH",
-        "compoundHint": "BIRD + BATH = Birdbath"
+        "compoundHint": "BIRD + BATH = Birdbath",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 13,
@@ -19715,7 +19943,11 @@
           "STROBE"
         ],
         "decoyWord": "GLOBE",
-        "compoundHint": "BATH + ROBE = Bathrobe"
+        "compoundHint": "BATH + ROBE = Bathrobe",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 14,
@@ -19731,7 +19963,11 @@
           "SHOOK"
         ],
         "decoyWord": "BROOK",
-        "compoundHint": "ROBE + HOOK = Robe hook"
+        "compoundHint": "ROBE + HOOK = Robe hook",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 15,
@@ -19747,7 +19983,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "HOOK + UP = Hookup"
+        "compoundHint": "HOOK + UP = Hookup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 16,
@@ -19763,7 +20003,11 @@
           "SCALD"
         ],
         "decoyWord": "MOLD",
-        "compoundHint": "UP + HOLD = Uphold"
+        "compoundHint": "UP + HOLD = Uphold",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 17,
@@ -19779,7 +20023,11 @@
           "PLAQUE"
         ],
         "decoyWord": "QUACK",
-        "compoundHint": "HOLD + BACK = Holdback"
+        "compoundHint": "HOLD + BACK = Holdback",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 18,
@@ -19795,7 +20043,11 @@
           "PLOP"
         ],
         "decoyWord": "MOP",
-        "compoundHint": "BACK + DROP = Backdrop"
+        "compoundHint": "BACK + DROP = Backdrop",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 19,
@@ -19811,7 +20063,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "DROP + OUT = Dropout"
+        "compoundHint": "DROP + OUT = Dropout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 20,
@@ -19827,7 +20083,11 @@
           "COAST"
         ],
         "decoyWord": "GHOST",
-        "compoundHint": "OUT + POST = Outpost"
+        "compoundHint": "OUT + POST = Outpost",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 21,
@@ -19843,7 +20103,11 @@
           "BARK"
         ],
         "decoyWord": "SHARK",
-        "compoundHint": "POST + MARK = Postmark"
+        "compoundHint": "POST + MARK = Postmark",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 22,
@@ -19859,7 +20123,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "MARK + DOWN = Markdown"
+        "compoundHint": "MARK + DOWN = Markdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 23,
@@ -19875,7 +20143,11 @@
           "ROAR"
         ],
         "decoyWord": "SNORE",
-        "compoundHint": "DOWN + POUR = Downpour"
+        "compoundHint": "DOWN + POUR = Downpour",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 24,
@@ -19891,7 +20163,11 @@
           "DROVER"
         ],
         "decoyWord": "CLOVER",
-        "compoundHint": "POUR + OVER = Pour-over"
+        "compoundHint": "POUR + OVER = Pour-over",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 25,
@@ -19907,7 +20183,11 @@
           "STUN"
         ],
         "decoyWord": "BUN",
-        "compoundHint": "OVER + RUN = Overrun"
+        "compoundHint": "OVER + RUN = Overrun",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 26,
@@ -19923,7 +20203,11 @@
           "GROUT"
         ],
         "decoyWord": "TROUT",
-        "compoundHint": "RUN + OUT = Runout"
+        "compoundHint": "RUN + OUT = Runout",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 27,
@@ -19939,7 +20223,11 @@
           "FLAKE"
         ],
         "decoyWord": "STEAK",
-        "compoundHint": "OUT + BREAK = Outbreak"
+        "compoundHint": "OUT + BREAK = Outbreak",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 28,
@@ -19955,7 +20243,11 @@
           "GOWN"
         ],
         "decoyWord": "CLOWN",
-        "compoundHint": "BREAK + DOWN = Breakdown"
+        "compoundHint": "BREAK + DOWN = Breakdown",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 29,
@@ -19971,7 +20263,11 @@
           "YEARN"
         ],
         "decoyWord": "CHURN",
-        "compoundHint": "DOWN + TURN = Downturn"
+        "compoundHint": "DOWN + TURN = Downturn",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 30,
@@ -19987,7 +20283,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "TURN + UP = Turnup"
+        "compoundHint": "TURN + UP = Turnup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 31,
@@ -20003,7 +20303,11 @@
           "FRET"
         ],
         "decoyWord": "JET",
-        "compoundHint": "UP + SET = Upset"
+        "compoundHint": "UP + SET = Upset",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 32,
@@ -20019,7 +20323,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "SET + OFF = Setoff"
+        "compoundHint": "SET + OFF = Setoff",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 33,
@@ -20035,7 +20343,11 @@
           "STRIDE"
         ],
         "decoyWord": "BRIDE",
-        "compoundHint": "OFF + SIDE = Offside"
+        "compoundHint": "OFF + SIDE = Offside",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 34,
@@ -20051,7 +20363,11 @@
           "SCHLEP"
         ],
         "decoyWord": "PREP",
-        "compoundHint": "SIDE + STEP = Sidestep"
+        "compoundHint": "SIDE + STEP = Sidestep",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 35,
@@ -20067,7 +20383,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "STEP + UP = Step up"
+        "compoundHint": "STEP + UP = Step up",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 36,
@@ -20083,7 +20403,11 @@
           "PART"
         ],
         "decoyWord": "CART",
-        "compoundHint": "UP + START = Upstart"
+        "compoundHint": "UP + START = Upstart",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 37,
@@ -20099,7 +20423,11 @@
           "GOLF"
         ],
         "decoyWord": "COUGH",
-        "compoundHint": "START + OFF = Start off"
+        "compoundHint": "START + OFF = Start off",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 38,
@@ -20115,7 +20443,11 @@
           "TWINE"
         ],
         "decoyWord": "PINE",
-        "compoundHint": "OFF + LINE = Offline"
+        "compoundHint": "OFF + LINE = Offline",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       },
       {
         "index": 39,
@@ -20131,7 +20463,11 @@
           "SYRUP"
         ],
         "decoyWord": "PUP",
-        "compoundHint": "LINE + UP = Lineup"
+        "compoundHint": "LINE + UP = Lineup",
+        "linkGroupSize": 2,
+        "linkGroupStep": 1,
+        "showGhostThirdNode": false,
+        "stemBadge": "2-NODE LINK"
       }
     ]
   }
@@ -20244,29 +20580,22 @@
       const [p1, p2, p3] = t.parts;
       const nextT = tIdx + 1 < z1Triplets.length ? z1Triplets[tIdx + 1] : null;
       const z2FirstStem = z2Compounds[0] ? z2Compounds[0].stem : t.thematicLink.nextPart1;
-      const z2FirstTarget = z2Compounds[0] ? z2Compounds[0].target : '';
       const linkTargetWord = nextT ? nextT.parts[0] : z2FirstStem;
-      const nextTripletStr = nextT
-        ? `${nextT.parts[0]} → ${nextT.parts[1]} → ${nextT.parts[2]}`
-        : `+ ZONE 2: ${linkTargetWord}`;
 
       nodes.push({
         index: idx++,
         zoneId: 1,
         tripletStep: 2,
+        linkGroupSize: 3,
+        linkGroupStep: 1,
+        showGhostThirdNode: true,
         stemWord: p1,
         displayStem: p1,
-        stemBadge: `ZONE 1 • 3-PART COMPOUND (${tIdx + 1}/4)`,
+        stemBadge: '3-NODE LINK',
         correctWord: p2,
         decoyPool: t.part2Decoys,
         decoyWord: pickSafeDecoyFromPool(p1, p2, t.part2Decoys),
         leftRightSeed: pickDynamicSide(),
-        faintAbove: {
-          label: 'NODE 3 AHEAD • 3-PART LINK',
-          word: `🌸 ${p3}`,
-          isNextTriplet: false
-        },
-        tripletSlots: [p1, '[ ? ]', `🌸 ${p3}`],
         compoundHint: t.part2Hint
       });
 
@@ -20274,48 +20603,34 @@
         index: idx++,
         zoneId: 1,
         tripletStep: 3,
+        linkGroupSize: 3,
+        linkGroupStep: 2,
+        showGhostThirdNode: false,
         stemWord: p2,
-        displayStem: `${p1} → ${p2}`,
-        stemBadge: `🌸 COMPLETE 3-PART WORD (${tIdx + 1}/4)`,
+        displayStem: p2,
+        stemBadge: '3-NODE LINK',
         correctWord: p3,
         decoyPool: t.part3Decoys,
         decoyWord: pickSafeDecoyFromPool(p2, p3, t.part3Decoys),
         leftRightSeed: pickDynamicSide(),
-        faintAbove: {
-          label: `FORWARD LINK VIA ${p3}`,
-          word: `🔗 ${nextTripletStr}`,
-          isNextTriplet: true
-        },
-        tripletSlots: [p1, p2, '🌸 [ ? ]'],
         compoundHint: t.part3Hint
       });
 
       const link = t.thematicLink;
-      const faintPreview = nextT
-        ? `[ ? ] → ${nextT.parts[1]} → ${nextT.parts[2]}`
-        : `${linkTargetWord} → ${z2FirstTarget}`;
-
       nodes.push({
         index: idx++,
         zoneId: 1,
         tripletStep: 1,
+        linkGroupSize: 2,
+        linkGroupStep: 1,
+        showGhostThirdNode: false,
         stemWord: p3,
         displayStem: p3,
-        stemBadge: `🔗 ${link.connection.toUpperCase()}`,
+        stemBadge: '2-NODE LINK',
         correctWord: linkTargetWord,
         decoyPool: link.decoys,
         decoyWord: pickSafeDecoyFromPool(p3, linkTargetWord, link.decoys),
         leftRightSeed: pickDynamicSide(),
-        faintAbove: {
-          label: nextT ? `LINKING TO TRIPLET ${tIdx + 2}/4` : 'BRIDGING TO ZONE 2 STEM',
-          word: faintPreview,
-          isNextTriplet: true
-        },
-        tripletSlots: [
-          `🔗 ${p3}`,
-          '[ ? (1/3) ]',
-          nextT ? `${nextT.parts[1]} → ${nextT.parts[2]}` : 'ZONE 2'
-        ],
         compoundHint: link.hint
       });
     }
@@ -20326,8 +20641,12 @@
         index: idx++,
         zoneId: 2,
         tripletStep: 0,
+        linkGroupSize: 2,
+        linkGroupStep: 1,
+        showGhostThirdNode: false,
         stemWord: item.stem,
         displayStem: item.stem,
+        stemBadge: '2-NODE LINK',
         correctWord: item.target,
         decoyPool: item.decoys,
         decoyWord: pickSafeDecoyFromPool(item.stem, item.target, item.decoys),
@@ -20342,8 +20661,12 @@
         index: idx++,
         zoneId: 3,
         tripletStep: 0,
+        linkGroupSize: 2,
+        linkGroupStep: 1,
+        showGhostThirdNode: false,
         stemWord: item.stem,
         displayStem: item.stem,
+        stemBadge: '2-NODE LINK',
         correctWord: item.target,
         decoyPool: item.decoys,
         decoyWord: pickSafeDecoyFromPool(item.stem, item.target, item.decoys),

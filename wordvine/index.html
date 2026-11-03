@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJPWZYFYY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-RGJPWZYFYY');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Word Vine — Daily Botanical Compound Sprint</title>
@@ -49,13 +58,12 @@
 
   <!-- Foveal Choice Layout (Tracks Active Vine Tip Y_vine in Real Time) -->
   <main id="foveal-anchor">
-    <!-- Zone 1 Faint Node 3 Preview Above the Active Fork -->
-    <div id="foveal-node3-wrap" class="foveal-node3-wrap">
-      <div id="foveal-node3-card" class="foveal-node3-card">
-        <span id="foveal-node3-label" class="foveal-node3-label">NODE 3 AHEAD • 3-PART LINK</span>
-        <div id="foveal-node3-word" class="foveal-node3-word">🌸 CUP</div>
+    <!-- Subtle Unrevealed 3rd Linked Node Above Fork (Shown Only on Step 1 of a 3-Part Compound) -->
+    <div id="foveal-node3-wrap" class="foveal-node3-wrap" aria-hidden="true">
+      <div class="foveal-node3-ghost">
+        <span class="ghost-node-dot"></span>
       </div>
-      <div class="foveal-node3-connector" aria-hidden="true"></div>
+      <div class="foveal-node3-connector"></div>
     </div>
 
     <div class="candidate-row">
@@ -72,25 +80,20 @@
 
     <div class="stem-node-wrap">
       <div class="stem-card">
-        <span id="stem-zone-badge" class="stem-zone-badge">ZONE 1 • 3-PART COMPOUND (1/4)</span>
+        <span id="stem-zone-badge" class="stem-zone-badge">3-NODE LINK</span>
         <div id="stem-word" class="stem-word-text">PEANUT</div>
       </div>
 
-      <!-- Zone 1 3-Part Linked Compound Chain Bar -->
-      <div id="triplet-pip-bar" class="triplet-pip-bar">
-        <div class="triplet-slots-row">
-          <span id="triplet-slot-1" class="triplet-slot filled">PEANUT</span>
-          <span class="triplet-arrow">→</span>
-          <span id="triplet-slot-2" class="triplet-slot active-pick">?</span>
-          <span class="triplet-arrow">→</span>
-          <span id="triplet-slot-3" class="triplet-slot faint-preview">🌸 CUP</span>
-        </div>
-        <div class="triplet-pips-mini">
+      <!-- Subtle Linked-Node Cluster (Links in 2s for Double Compounds, 3s for Triple Compounds) -->
+      <div id="triplet-pip-bar" class="triplet-pip-bar is-triple-link" aria-label="Compound Node Link">
+        <div class="node-link-cluster">
           <span id="pip-1" class="pip-bud filled"></span>
-          <span id="pip-2" class="pip-bud"></span>
-          <span id="pip-3" class="pip-bud bloom-step"></span>
-          <span id="pip-label" class="pip-label">PART 2 OF 3</span>
+          <span id="pip-conn-1" class="pip-connector active"></span>
+          <span id="pip-2" class="pip-bud active-pick"></span>
+          <span id="pip-conn-2" class="pip-connector upcoming"></span>
+          <span id="pip-3" class="pip-bud upcoming bloom-step"></span>
         </div>
+        <span id="pip-label" class="pip-label">3-NODE LINK</span>
       </div>
     </div>
   </main>
@@ -108,9 +111,9 @@
         <div class="zone-guide-item">
           <div>
             <strong>🌱 Zone 1: The Roots (Nodes 1–12)</strong>
-            <span>Linked 3-Part Compounds with Faint Node 3 Preview &amp; 🌸 Bloom Boosts</span>
+            <span>3-Part &amp; 2-Part Linked Compounds with Subtle Node Clusters &amp; 🌸 Bloom Boosts</span>
           </div>
-          <span class="zone-example">PEANUT → BUTTER → CUP 🔗 COFFEE → TABLE → BOOK</span>
+          <span class="zone-example">PEANUT → BUTTER → CUP 🔗 CAKE → WALK → WAY</span>
         </div>
 
         <div class="zone-guide-item">
