@@ -845,14 +845,23 @@
         this.syncTelemetryHUD();
       }
 
-      // Position #foveal-anchor to track the active vine tip on screen
+      // Position #foveal-anchor to track the active vine tip on screen with 3D camera pitch depth
       const tipScreenY = this.renderer.worldToScreenY(
         this.simState.yVine,
-        this.simState.yCam
+        this.simState.yCam,
+        this.simState
       );
+      const pitch =
+        typeof this.renderer.getCameraPitchProgress === 'function'
+          ? this.renderer.getCameraPitchProgress(this.simState)
+          : 0;
       const minTopY = this.showGhostThirdNode ? 190 : 155;
       const clampedScreenY = Math.max(minTopY, Math.min(window.innerHeight - 125, tipScreenY - 38));
       this.fovealAnchor.style.top = `${clampedScreenY}px`;
+      this.fovealAnchor.style.transform =
+        pitch > 0.005
+          ? `translateX(-50%) perspective(900px) rotateX(${(pitch * 11).toFixed(2)}deg) scale(${(1 + pitch * 0.06).toFixed(3)})`
+          : 'translateX(-50%)';
 
       // Render HD Canvas
       const risingSapZone = Physics.getRisingSapWarningZone(this.simState.nodeIndex);

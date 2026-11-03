@@ -257,11 +257,41 @@
     }
 
     /**
-     * Converts normalized world Y coordinate into screen Y pixel coordinate
+     * Computes 0..1 downward camera pitch progress ("coming over the top of the vine")
+     * as the player climbs from Node 0 toward Node 40.
      */
-    worldToScreenY(yWorld, yCam) {
+    getCameraPitchProgress(simState) {
+      const s = simState || this.lastSimState;
+      if (!s) return 0;
+      const nodeProg = Math.max(0, Math.min(1, (s.nodesCompleted || 0) / 36));
+      const altProg = Math.max(0, Math.min(1, (s.yCam || 0) / 4200));
+      const raw = nodeProg * 0.72 + altProg * 0.28;
+      // Smoothstep easing so the downward pan builds naturally as you climb
+      return raw * raw * (3 - 2 * raw);
+    }
+
+    /**
+     * Converts normalized world Y coordinate into screen Y pixel coordinate
+     * with top-down perspective foreshortening as the camera pans down over the vine crown.
+     */
+    worldToScreenY(yWorld, yCam, simState) {
       const normY = (yWorld - yCam) / 1000;
-      return this.height * (1 - normY);
+      const pitch = this.getCameraPitchProgress(simState);
+      if (pitch <= 0.001) {
+        return this.height * (1 - normY);
+      }
+      // As camera pitches down over the top of the vine:
+      // - Points below the tip compress non-linearly toward the lower vanishing point
+      // - The cresting tip shifts slightly downward from the upper sky horizon
+      const clampedNorm = Math.max(-0.3, Math.min(1.2, normY));
+      const foreshortenedNorm =
+        clampedNorm >= 0
+          ? Math.pow(clampedNorm, 1 - pitch * 0.28)
+          : clampedNorm * (1 + pitch * 0.25);
+      const linearY = this.height * (1 - normY);
+      const perspectiveY =
+        this.height * (0.11 * pitch + (1 - 0.14 * pitch) * (1 - foreshortenedNorm));
+      return linearY * (1 - pitch) + perspectiveY * pitch;
     }
 
     /**
@@ -271,6 +301,7 @@
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
+      this.lastSimState = simState;
 
       ctx.save();
       ctx.scale(this.dpr, this.dpr);
@@ -406,6 +437,103 @@
         ctx.closePath();
         ctx.fill();
       }
+
+      // Camera Downward Pan / Cresting Over the Top of the Vine (Horizon & Receding Depth Rings)
+      const pitchProgress = this.getCameraPitchProgress(simState);
+      if (pitchProgress > 0.02) {
+        this.drawTopDownCanopyHorizon(ctx, theme, pitchProgress, parallaxY, dim);
+      }
+    }
+
+    /**
+     * Renders the curved canopy horizon and receding 3D depth rings / converging sightlines
+     * as the camera pans downward to look over the top of the climbing vine.
+     */
+    drawTopDownCanopyHorizon(ctx, theme, pitchProgress, parallaxY, dim) {
+      const centerX = this.width * 0.5;
+      // Curved horizon sweeps down from above the top bezel into the upper third of the viewport
+      const horizonY = -70 + pitchProgress * (this.height * 0.31 + 70);
+      const curveArch = 36 + pitchProgress * 58;
+      const vanishY = this.height * (0.86 + pitchProgress * 0.18);
+
+      ctx.save();
+
+      // 1. Upper open sky / starlit dome glow above the curved canopy horizon
+      const skyGlow = ctx.createLinearGradient(0, 0, 0, Math.max(20, horizonY + curveArch));
+      if (theme.id === 0) {
+        skyGlow.addColorStop(0, `rgba(94, 234, 212, ${0.18 * pitchProgress})`);
+        skyGlow.addColorStop(1, 'rgba(10, 24, 46, 0)');
+      } else if (theme.id === 2) {
+        skyGlow.addColorStop(0, `rgba(255, 202, 212, ${0.24 * pitchProgress})`);
+        skyGlow.addColorStop(1, 'rgba(242, 234, 221, 0)');
+      } else {
+        skyGlow.addColorStop(0, `rgba(255, 250, 225, ${0.34 * pitchProgress * dim})`);
+        skyGlow.addColorStop(1, 'rgba(196, 221, 212, 0)');
+      }
+      ctx.fillStyle = skyGlow;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(this.width, 0);
+      ctx.lineTo(this.width, horizonY + curveArch * 0.65);
+      ctx.quadraticCurveTo(centerX, horizonY - curveArch * 0.55, 0, horizonY + curveArch * 0.65);
+      ctx.closePath();
+      ctx.fill();
+
+      // 2. Curved Canopy Rim / Crown Horizon Line
+      ctx.strokeStyle =
+        theme.id === 0
+          ? `rgba(153, 246, 228, ${0.28 * pitchProgress})`
+          : theme.id === 2
+            ? `rgba(131, 24, 67, ${0.18 * pitchProgress})`
+            : `rgba(74, 124, 89, ${0.24 * pitchProgress})`;
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.moveTo(0, horizonY + curveArch * 0.65);
+      ctx.quadraticCurveTo(centerX, horizonY - curveArch * 0.55, this.width, horizonY + curveArch * 0.65);
+      ctx.stroke();
+
+      // 3. Converging Radial Perspective Sightlines toward the Deep Ground Vanishing Point
+      const rayCount = 8;
+      ctx.strokeStyle =
+        theme.id === 0
+          ? `rgba(94, 234, 212, ${0.09 * pitchProgress})`
+          : `rgba(74, 124, 89, ${0.08 * pitchProgress})`;
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i <= rayCount; i++) {
+        const frac = i / rayCount;
+        if (frac > 0.32 && frac < 0.68) continue; // Keep center word gutter clean
+        const startX = frac * this.width;
+        const startY = horizonY + Math.abs(frac - 0.5) * curveArch * 1.1;
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(centerX + (startX - centerX) * 0.18, vanishY);
+        ctx.stroke();
+      }
+
+      // 4. Receding Elliptical Depth Rings Looking Down the Vine Shaft
+      const ringCount = 5;
+      const scrollPhase = ((parallaxY * 0.012) % 1 + 1) % 1;
+      for (let r = 0; r < ringCount; r++) {
+        const t = ((r + scrollPhase) / ringCount); // 0 = near top, 1 = deep below
+        const depthT = t * t; // Perspective bunching near vanishing point
+        const ringY = horizonY + 50 + depthT * (vanishY - horizonY - 40);
+        const radiusX = (1 - depthT * 0.72) * (this.width * 0.46);
+        const radiusY = radiusX * (0.14 + pitchProgress * 0.22);
+        const alpha = (1 - t) * t * 0.42 * pitchProgress;
+
+        ctx.strokeStyle =
+          theme.id === 0
+            ? `rgba(45, 212, 191, ${alpha})`
+            : theme.id === 2
+              ? `rgba(225, 29, 72, ${alpha * 0.75})`
+              : `rgba(74, 124, 89, ${alpha})`;
+        ctx.lineWidth = 1.5 * (1 - depthT * 0.5);
+        ctx.beginPath();
+        ctx.ellipse(centerX, ringY, Math.max(20, radiusX), Math.max(8, radiusY), 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.restore();
     }
 
     drawQuietCenterGutter(ctx, theme, velocityDesat) {
@@ -484,16 +612,32 @@
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
       const yVine = simState.yVine;
+      const pitchProgress = this.getCameraPitchProgress(simState);
+      const tipScreenY = this.worldToScreenY(yVine, yCam, simState);
+
+      // Helper: computes 3D perspective scale for any screenY along the vine
+      // At pitchProgress = 0 -> uniform 1.0
+      // As pitchProgress -> 1 -> cresting tip scales up (~1.26x) while lower stem tapers into the depths (~0.38x)
+      const getDepthScale = (screenY) => {
+        if (pitchProgress <= 0.001) return 1.0;
+        const distBelowTip = Math.max(0, (screenY - tipScreenY) / Math.max(220, this.height - tipScreenY));
+        const tipMagnify = 1 + pitchProgress * 0.26;
+        const depthTaper = Math.max(0.32, 1 - distBelowTip * pitchProgress * 0.68);
+        return tipMagnify * depthTaper;
+      };
 
       // Filter anchors near visible world range plus active tip
       const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 260);
 
-      // Build spline points up to active vine tip with gentle living breeze sway
+      // Build spline points up to active vine tip with gentle living breeze sway & 3D perspective convergence
       const points = visibleAnchors.map((a, idx) => {
+        const sy = this.worldToScreenY(a.yWorld, yCam, simState);
+        const dScale = getDepthScale(sy);
         const breeze = Math.sin(nowMs * 0.0018 + idx * 0.5) * 4;
         return {
-          x: centerX + a.xOffset + breeze,
-          y: this.worldToScreenY(a.yWorld, yCam),
+          x: centerX + (a.xOffset + breeze) * dScale,
+          y: sy,
+          scale: dScale,
           yWorld: a.yWorld,
           zoneId: a.zoneId,
           anchor: a
@@ -501,10 +645,11 @@
       });
 
       // Active growing tip point
-      const tipScreenY = this.worldToScreenY(yVine, yCam);
+      const tipScale = getDepthScale(tipScreenY);
       points.push({
         x: centerX,
         y: tipScreenY,
+        scale: tipScale,
         yWorld: yVine,
         zoneId: simState.zoneId,
         anchor: null
@@ -514,7 +659,7 @@
 
       const activePalette = theme.stemZones[simState.zoneId] || theme.stemZones[1];
 
-      // 1. Draw Outer Stem Glow, Braided Secondary Vine, Primary Stem & Pulsing Sap Vein
+      // 1. Draw Outer Stem Glow, Braided Secondary Vine, Primary Stem & Pulsing Sap Vein (Tapered by 3D Depth)
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -524,18 +669,20 @@
       for (let i = 0; i < points.length - 1; i++) {
         const p0 = points[i];
         const p1 = points[i + 1];
+        const segScale = (p0.scale + p1.scale) * 0.5;
         const segPalette = theme.stemZones[p1.zoneId] || activePalette;
         const midY = (p0.y + p1.y) * 0.5;
+        const braidOffset = (i % 2 === 0 ? 12 : -12) * segScale;
 
         // Secondary braided vine / twining botanical stroke
         ctx.strokeStyle = segPalette.secondary;
-        ctx.lineWidth = theme.id === 2 ? 13 : 11.5;
+        ctx.lineWidth = (theme.id === 2 ? 13 : 11.5) * segScale;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
         ctx.bezierCurveTo(
-          p0.x + (i % 2 === 0 ? 12 : -12),
+          p0.x + braidOffset,
           midY,
-          p1.x + (i % 2 === 0 ? -12 : 12),
+          p1.x - braidOffset,
           midY,
           p1.x,
           p1.y
@@ -547,7 +694,7 @@
           simState.status === 'SNIPPED' && i === points.length - 2
             ? '#4B5563'
             : segPalette.main;
-        ctx.lineWidth = theme.id === 2 ? 9.5 : 8.5;
+        ctx.lineWidth = (theme.id === 2 ? 9.5 : 8.5) * segScale;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
         ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
@@ -560,7 +707,7 @@
             : null;
         const pulse = 0.55 + 0.45 * Math.sin(nowMs * 0.008 - i * 0.7);
         ctx.strokeStyle = sapPalette ? sapPalette.main : segPalette.vein;
-        ctx.lineWidth = sapPalette ? 4.2 : 2.5;
+        ctx.lineWidth = (sapPalette ? 4.2 : 2.5) * segScale;
         ctx.globalAlpha = sapPalette ? 0.92 : 0.68 * pulse;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
@@ -570,10 +717,11 @@
       }
       ctx.restore();
 
-      // 2. Draw Curling Spiral Tendrils, Botanical Leaves & Triple-Bloom Flowers on Historical Nodes
+      // 2. Draw Curling Spiral Tendrils, Botanical Leaves & Triple-Bloom Flowers on Historical Nodes (Scaled by Depth)
       points.forEach((pt, idx) => {
         if (!pt.anchor) return;
         const swayAngle = Math.sin(nowMs * 0.0025 + idx) * 0.09;
+        const s = pt.scale || 1;
         if (pt.anchor.hasTendril) {
           this.drawCurlingTendril(
             ctx,
@@ -581,18 +729,19 @@
             pt.x,
             pt.y,
             pt.anchor.tendrilSide || 1,
-            swayAngle
+            swayAngle,
+            s
           );
         }
         if (pt.anchor.hasLeafLeft) {
-          this.drawBotanicalLeaf(ctx, theme, pt.x - 6, pt.y, -1, swayAngle);
+          this.drawBotanicalLeaf(ctx, theme, pt.x - 6 * s, pt.y, -1, swayAngle, s);
         }
         if (pt.anchor.hasLeafRight) {
-          this.drawBotanicalLeaf(ctx, theme, pt.x + 6, pt.y, 1, -swayAngle);
+          this.drawBotanicalLeaf(ctx, theme, pt.x + 6 * s, pt.y, 1, -swayAngle, s);
         }
         if (pt.anchor.isBloom) {
           const ageMs = nowMs - (pt.anchor.bloomTimestamp || 0);
-          const scale = Math.min(1, ageMs / 280);
+          const scale = Math.min(1, ageMs / 280) * s;
           this.drawTripleBloomFlower(ctx, theme, pt.x, pt.y, scale, nowMs);
         }
       });
@@ -600,18 +749,22 @@
       // 3. Draw Botanical Leaf & Blossom Collars at Zone Transitions
       this.graftCollars.forEach((collar) => {
         if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
-        const cy = this.worldToScreenY(collar.yWorld, yCam);
-        this.drawBotanicalLeaf(ctx, theme, centerX - 10, cy, -1, -0.2);
-        this.drawBotanicalLeaf(ctx, theme, centerX + 10, cy, 1, 0.2);
-        this.drawTripleBloomFlower(ctx, theme, centerX, cy, 0.9, nowMs);
+        const cy = this.worldToScreenY(collar.yWorld, yCam, simState);
+        const cs = getDepthScale(cy);
+        this.drawBotanicalLeaf(ctx, theme, centerX - 10 * cs, cy, -1, -0.2, cs);
+        this.drawBotanicalLeaf(ctx, theme, centerX + 10 * cs, cy, 1, 0.2, cs);
+        this.drawTripleBloomFlower(ctx, theme, centerX, cy, 0.9 * cs, nowMs);
       });
 
       // 4. Draw Sweeping S-Curve Active Fork Tendrils Toward Candidate Word Leaves
+      // As the camera pans over the top of the vine, the fork arches wider and foreshortens vertically
       const tipX = centerX;
       const tipY = tipScreenY;
+      const forkSpread = 1 + pitchProgress * 0.16;
+      const forkLift = 1 - pitchProgress * 0.22;
       ctx.save();
       ctx.lineCap = 'round';
-      ctx.lineWidth = 4.8;
+      ctx.lineWidth = 4.8 * tipScale;
       ctx.shadowColor = activePalette.glow;
       ctx.shadowBlur = 10;
 
@@ -620,13 +773,27 @@
         simState.status === 'SNIPPED' ? '#4B5563' : activePalette.main;
       ctx.beginPath();
       ctx.moveTo(tipX, tipY);
-      ctx.bezierCurveTo(tipX - 20, tipY - 26, tipX - 64, tipY - 24, tipX - 92, tipY - 56);
+      ctx.bezierCurveTo(
+        tipX - 20 * forkSpread,
+        tipY - 26 * forkLift,
+        tipX - 64 * forkSpread,
+        tipY - 24 * forkLift,
+        tipX - 92 * forkSpread,
+        tipY - 56 * forkLift
+      );
       ctx.stroke();
 
       // Right fork tendril
       ctx.beginPath();
       ctx.moveTo(tipX, tipY);
-      ctx.bezierCurveTo(tipX + 20, tipY - 26, tipX + 64, tipY - 24, tipX + 92, tipY - 56);
+      ctx.bezierCurveTo(
+        tipX + 20 * forkSpread,
+        tipY - 26 * forkLift,
+        tipX + 64 * forkSpread,
+        tipY - 24 * forkLift,
+        tipX + 92 * forkSpread,
+        tipY - 56 * forkLift
+      );
       ctx.stroke();
 
       // Subtle 3rd Node Upper Tendril (Drawn ONLY on Step 1 of a 3-Part Compound)
@@ -639,29 +806,49 @@
 
         // Left fork -> Subtle 3rd node bud above
         ctx.beginPath();
-        ctx.moveTo(tipX - 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX - 32, tipY - 96, tipX, tipY - 118);
+        ctx.moveTo(tipX - 68 * forkSpread, tipY - 64 * forkLift);
+        ctx.quadraticCurveTo(tipX - 32 * forkSpread, tipY - 96 * forkLift, tipX, tipY - 118 * forkLift);
         ctx.stroke();
 
         // Right fork -> Subtle 3rd node bud above
         ctx.beginPath();
-        ctx.moveTo(tipX + 68, tipY - 64);
-        ctx.quadraticCurveTo(tipX + 32, tipY - 96, tipX, tipY - 118);
+        ctx.moveTo(tipX + 68 * forkSpread, tipY - 64 * forkLift);
+        ctx.quadraticCurveTo(tipX + 32 * forkSpread, tipY - 96 * forkLift, tipX, tipY - 118 * forkLift);
         ctx.stroke();
 
         // Subtle 3rd node meristem bud
         ctx.setLineDash([]);
         ctx.fillStyle = activePalette.vein;
         ctx.beginPath();
-        ctx.arc(tipX, tipY - 118, 4.5, 0, Math.PI * 2);
+        ctx.arc(tipX, tipY - 118 * forkLift, 4.5 * tipScale, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
+      }
+
+      // 5. Top-Down Crown Cross-Section Halo when coming over the top of the vine
+      if (pitchProgress > 0.08) {
+        ctx.save();
+        ctx.strokeStyle = activePalette.vein;
+        ctx.globalAlpha = 0.35 * pitchProgress;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.ellipse(
+          tipX,
+          tipY + 4,
+          (10 + pitchProgress * 10) * tipScale,
+          (4 + pitchProgress * 6) * tipScale,
+          0,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
         ctx.restore();
       }
 
       // Glowing apical meristem bud at active tip
       ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : activePalette.vein;
       ctx.beginPath();
-      ctx.arc(tipX, tipY, 6.5, 0, Math.PI * 2);
+      ctx.arc(tipX, tipY, 6.5 * tipScale, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -669,14 +856,15 @@
     /**
      * Draws a delicate curling spiral vine tendril extending from a stem node
      */
-    drawCurlingTendril(ctx, color, x, y, side, swayAngle) {
+    drawCurlingTendril(ctx, color, x, y, side, swayAngle, scale = 1) {
       ctx.save();
       ctx.translate(x, y);
+      ctx.scale(scale, scale);
       ctx.rotate(swayAngle * 1.4);
       ctx.strokeStyle = color;
       ctx.lineWidth = 1.6;
       ctx.lineCap = 'round';
-      ctx.globalAlpha = 0.65;
+      ctx.globalAlpha = 0.65 * Math.min(1, scale + 0.15);
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -689,9 +877,10 @@
     /**
      * Draws a tapered botanical leaf with a central midrib vein
      */
-    drawBotanicalLeaf(ctx, theme, x, y, side, swayAngle) {
+    drawBotanicalLeaf(ctx, theme, x, y, side, swayAngle, scale = 1) {
       ctx.save();
       ctx.translate(x, y);
+      ctx.scale(scale, scale);
       ctx.rotate(side * 0.55 + swayAngle);
 
       ctx.fillStyle = theme.leafColor;
