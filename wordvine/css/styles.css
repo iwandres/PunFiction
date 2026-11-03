@@ -345,14 +345,14 @@ body.zone-3 .word-pill {
 .triplet-pip-bar {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   margin-top: 7px;
-  background: rgba(6, 11, 23, 0.56);
+  background: rgba(6, 11, 23, 0.48);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  padding: 4px 11px;
+  padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 

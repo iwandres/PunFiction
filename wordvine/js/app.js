@@ -547,7 +547,6 @@
 
       const [b1, b2, b3] = this.pipBuds;
       if (isTripleLink) {
-        this.stemZoneBadge.textContent = '3-NODE LINK';
         if (groupStep === 1) {
           // Step 1 of 3-Part Compound: ● ── ◉ ── ○
           if (b1) b1.className = 'pip-bud filled';
@@ -555,7 +554,6 @@
           if (b2) b2.className = 'pip-bud active-pick';
           if (this.pipConn2) this.pipConn2.className = 'pip-connector upcoming';
           if (b3) b3.className = 'pip-bud upcoming bloom-step';
-          if (this.pipLabel) this.pipLabel.textContent = '3-NODE LINK';
         } else {
           // Step 2 of 3-Part Compound (Completing the 3rd Node): ● ── ● ── ◉
           if (b1) b1.className = 'pip-bud filled';
@@ -563,15 +561,12 @@
           if (b2) b2.className = 'pip-bud filled';
           if (this.pipConn2) this.pipConn2.className = 'pip-connector active';
           if (b3) b3.className = 'pip-bud active-pick bloom-step';
-          if (this.pipLabel) this.pipLabel.textContent = '3-NODE LINK';
         }
       } else {
         // 2-Part Compound (Double Link): ● ── ◉
-        this.stemZoneBadge.textContent = '2-NODE LINK';
         if (b1) b1.className = 'pip-bud filled';
         if (this.pipConn1) this.pipConn1.className = 'pip-connector active';
         if (b2) b2.className = 'pip-bud active-pick';
-        if (this.pipLabel) this.pipLabel.textContent = '2-NODE LINK';
       }
     }
 
