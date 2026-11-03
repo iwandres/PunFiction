@@ -208,6 +208,158 @@
             color: var(--primary);
         }
 
+        /* 1-Star Travel Reviews — Warm Postcard & Guidebook Box Styling */
+        .game-card.travelreviews-card {
+            background: radial-gradient(circle at top, #ffffff 0%, #faf8f5 65%, #f0ede6 100%);
+            color: #2c2c2c;
+            border: 3px solid #2d3436;
+            border-radius: 20px;
+            box-shadow: 6px 6px 0px #2d3436, 0 16px 36px rgba(0, 0, 0, 0.38);
+        }
+
+        .game-card.travelreviews-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #2d3436, 0 20px 42px rgba(0, 0, 0, 0.45);
+        }
+
+        .travelreviews-card .travel-review-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff9db;
+            color: #2d3436;
+            border: 1.5px solid #2d3436;
+            box-shadow: 2px 2px 0px #2d3436;
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-size: 0.78rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .travelreviews-card .travel-review-badge .stars {
+            color: #ff4757;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .travelreviews-card .game-title {
+            color: #00aa6c;
+            text-shadow: 2px 2px 0px #2d3436;
+            margin-bottom: 12px;
+        }
+
+        .travelreviews-card .game-description {
+            color: #2d3436;
+            font-weight: 700;
+        }
+
+        .travelreviews-card .play-btn {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            background-color: #00aa6c;
+            color: #ffffff;
+            padding: 13px 36px;
+            border: 2px solid #2d3436;
+            border-radius: 50px;
+            box-shadow: 3px 3px 0px #2d3436, 0 4px 14px rgba(0, 170, 108, 0.28);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+        }
+
+        .travelreviews-card .play-btn:hover {
+            background-color: #008f5a;
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0px #2d3436, 0 6px 20px rgba(0, 170, 108, 0.38);
+        }
+
+        .travelreviews-card .play-btn:active {
+            transform: translateY(1px);
+            box-shadow: 2px 2px 0px #2d3436;
+        }
+
+        .travelreviews-card .travelreviews-howto-link {
+            color: #008755;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.05rem;
+            border-bottom: 2px dashed #00aa6c;
+            padding-bottom: 2px;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .travelreviews-card .travelreviews-howto-link:hover {
+            color: #2d3436;
+            border-bottom-color: #2d3436;
+        }
+
+        .travelreviews-card .features-list {
+            background: #faf8f5;
+            border: 1.5px solid #e0dcd3;
+            border-left: 5px solid #ff4757;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .travelreviews-card .feature-text {
+            color: #2d3436;
+            font-weight: 600;
+        }
+
+        .travelreviews-card .feature-text strong {
+            color: #008755;
+            font-weight: 800;
+        }
+
+        .travelreviews-guides-card .guides-heading {
+            font-family: 'Bangers', cursive;
+            font-size: 1.65rem;
+            color: #00aa6c;
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+            text-shadow: 1.5px 1.5px 0px #2d3436;
+            text-align: center;
+            width: 100%;
+        }
+
+        .travelreviews-guides-card .guides-subtext {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2d3436;
+            font-weight: 700;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .travelreviews-guides-card .guides-subtext strong {
+            color: #008755;
+            font-weight: 900;
+        }
+
+        .travelreviews-guides-card .landmark-chip {
+            color: #2d3436;
+            background: #ffffff;
+            border: 1.5px solid #00aa6c;
+            box-shadow: 2px 2px 0px rgba(45, 52, 54, 0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 800;
+            transition: transform 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .travelreviews-guides-card .landmark-chip:hover {
+            background: #fff9db;
+            border-color: #2d3436;
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0px #2d3436;
+        }
+
         /* Word Vine — Gentle Botanical & Moonlit Fern Box Styling */
         .game-card.wordvine-card {
             font-family: 'Plus Jakarta Sans', 'Nunito', sans-serif;
@@ -334,15 +486,16 @@
         <div class="games-grid">
             <!-- Left Column: 1-Star Travel Reviews + Attached Landmark Field Guide -->
             <div class="game-column">
-                <div class="game-card" style="border-color: #2c2c2c; box-shadow: 8px 8px 0px #00aa6c;">
-                    <h2 class="game-title" style="color: #00aa6c;">1-Star Travel Reviews ⭐</h2>
+                <div class="game-card travelreviews-card">
+                    <div class="travel-review-badge"><span class="stars">★☆☆☆☆</span> Verified Tourist Complaint</div>
+                    <h2 class="game-title">1-Star Travel Reviews ⭐</h2>
                     <p class="game-description">
                         Unravel the ultimate daily travel review parody riddle! Decipher unhinged 1-star travel reviews, read progressive clues, and guess the punny names of famous destinations.
                     </p>
-                    <a href="./travelreviews/" class="play-btn" style="background-color: #00aa6c; color: white; box-shadow: 4px 4px 0px #2d3436;">Play Now ➔</a>
+                    <a href="./travelreviews/" class="play-btn">Play Now ➔</a>
 
                     <div style="margin-top: 20px; margin-bottom: 24px; display: flex; justify-content: center; align-items: center;">
-                        <a href="./how-to-play-travelreviews.html" style="color: #00aa6c; font-weight: 800; text-decoration: none; font-size: 1.1rem; border-bottom: 2px dashed #00aa6c; transition: color 0.1s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#00aa6c'">📖 How to Play</a>
+                        <a href="./how-to-play-travelreviews.html" class="travelreviews-howto-link">📖 How to Play</a>
                     </div>
 
                     <div class="features-list">
@@ -362,23 +515,23 @@
                 </div>
 
                 <!-- Attached Landmark Field Guides Card under 1-Star Travel Reviews -->
-                <div class="game-card" style="border-color: #2c2c2c; box-shadow: 8px 8px 0px #00aa6c; padding: 22px 24px; text-align: left;">
-                    <h3 style="font-family: 'Bangers', cursive; font-size: 1.65rem; color: #00aa6c; margin: 0 0 8px 0; letter-spacing: 1px; text-shadow: 1px 1px 0px var(--border-color); text-align: center; width: 100%;">📚 Landmark Field Guides &amp; Review Archive</h3>
-                    <p style="font-size: 0.95rem; line-height: 1.55; color: #e0e0f0; margin-bottom: 14px; text-align: center;">
+                <div class="game-card travelreviews-card travelreviews-guides-card" style="padding: 22px 24px; text-align: left;">
+                    <h3 class="guides-heading">📚 Landmark Field Guides &amp; Review Archive</h3>
+                    <p class="guides-subtext">
                         Explore <strong>120 real-world monuments</strong> with comical histories, visitor field notes, and the 1-star tourist complaints behind each puzzle:
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; width: 100%;">
-                        <a href="./travelreviews/landmarks/challenge-001-eiffel-tower.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#001 Eiffel Tower</a>
-                        <a href="./travelreviews/landmarks/challenge-002-great-wall-of-china.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#002 Great Wall</a>
-                        <a href="./travelreviews/landmarks/challenge-003-taj-mahal.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#003 Taj Mahal</a>
-                        <a href="./travelreviews/landmarks/challenge-004-pyramids-of-giza.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#004 Giza Pyramids</a>
-                        <a href="./travelreviews/landmarks/challenge-005-stonehenge.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#005 Stonehenge</a>
-                        <a href="./travelreviews/landmarks/challenge-012-colosseum.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#012 Colosseum</a>
-                        <a href="./travelreviews/landmarks/challenge-028-machu-picchu.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#028 Machu Picchu</a>
-                        <a href="./travelreviews/landmarks/challenge-047-grand-canyon.html" style="color: #fff; background: rgba(0,170,108,0.22); border: 1px solid #00aa6c; padding: 4px 9px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 700;">#047 Grand Canyon</a>
+                        <a href="./travelreviews/landmarks/challenge-001-eiffel-tower.html" class="landmark-chip">#001 Eiffel Tower</a>
+                        <a href="./travelreviews/landmarks/challenge-002-great-wall-of-china.html" class="landmark-chip">#002 Great Wall</a>
+                        <a href="./travelreviews/landmarks/challenge-003-taj-mahal.html" class="landmark-chip">#003 Taj Mahal</a>
+                        <a href="./travelreviews/landmarks/challenge-004-pyramids-of-giza.html" class="landmark-chip">#004 Giza Pyramids</a>
+                        <a href="./travelreviews/landmarks/challenge-005-stonehenge.html" class="landmark-chip">#005 Stonehenge</a>
+                        <a href="./travelreviews/landmarks/challenge-012-colosseum.html" class="landmark-chip">#012 Colosseum</a>
+                        <a href="./travelreviews/landmarks/challenge-028-machu-picchu.html" class="landmark-chip">#028 Machu Picchu</a>
+                        <a href="./travelreviews/landmarks/challenge-047-grand-canyon.html" class="landmark-chip">#047 Grand Canyon</a>
                     </div>
                     <div style="text-align: center; width: 100%;">
-                        <a href="./travelreviews/landmarks/" class="play-btn" style="font-size: 1.25rem; padding: 9px 22px; background-color: #00aa6c; color: #fff; box-shadow: 4px 4px 0px var(--border-color);">Browse All 120 Landmark Guides ➔</a>
+                        <a href="./travelreviews/landmarks/" class="play-btn" style="font-size: 1.02rem; padding: 10px 24px;">Browse All 120 Landmark Guides ➔</a>
                     </div>
                 </div>
             </div>
