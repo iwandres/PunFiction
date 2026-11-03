@@ -330,9 +330,12 @@
         this.startNewRun(0);
       });
 
-      document.getElementById('btn-copy-receipt').addEventListener('click', () => {
-        this.copyReceiptToClipboard();
-      });
+      const copyReceiptBtn = document.getElementById('btn-copy-receipt');
+      if (copyReceiptBtn) {
+        copyReceiptBtn.addEventListener('click', () => {
+          this.copyReceiptToClipboard();
+        });
+      }
 
       document.getElementById('btn-death-leaderboard').addEventListener('click', () => {
         this.deathModal.classList.add('hidden');
@@ -716,7 +719,7 @@
         explainEl.style.background = 'rgba(34, 197, 94, 0.14)';
         explainEl.innerHTML = `<strong>Mastery Achieved!</strong> You chained all ${this.activeVine.nodes.length} forward compounds at up to ${Math.round(this.simState.vCam)} u/s!`;
       } else if (cause === 'SNIPPED') {
-        titleEl.textContent = `✂️ Snipped at ${altitudeMeters}m`;
+        titleEl.textContent = `Vine Height ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
         explainEl.style.background = 'rgba(239, 68, 68, 0.12)';
         const stem = fatalNode ? fatalNode.stemWord : '';
@@ -725,7 +728,7 @@
         const note = fatalNode && fatalNode.explanation ? fatalNode.explanation : '';
         explainEl.innerHTML = `<strong>${stem} → ${right}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the forward compound.<br>You picked <strong>${wrong}</strong>. ${note}`;
       } else {
-        titleEl.textContent = `🌑 Outrun at ${altitudeMeters}m`;
+        titleEl.textContent = `Vine Height ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
         explainEl.style.background = 'rgba(245, 158, 11, 0.12)';
         const stem = fatalNode ? fatalNode.stemWord : '';
@@ -739,32 +742,6 @@
         `${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
       document.getElementById('stat-final-altitude').textContent = `${altitudeMeters}m`;
 
-      // Build Shareable Botanical Receipt
-      const bloomsStr =
-        this.simState.tripletBlooms > 0
-          ? '🌸'.repeat(this.simState.tripletBlooms)
-          : '🌱';
-      const zoneLabel =
-        this.simState.zoneId === 3
-          ? '⚡ Zone 3 (Canopy)'
-          : this.simState.zoneId === 2
-          ? '🪵 Zone 2 (Stem)'
-          : '🌿 Zone 1 (Roots)';
-      const deathLine =
-        cause === 'COMPLETED'
-          ? `👑 Circuit Closed at ${altitudeMeters}m (Node ${this.simState.nodesCompleted})`
-          : cause === 'SNIPPED'
-          ? `✂️ Snipped at ${altitudeMeters}m (Node ${this.simState.nodesCompleted + 1})`
-          : `🌑 Outrun at ${altitudeMeters}m (Node ${this.simState.nodesCompleted + 1})`;
-
-      this.currentReceiptText = [
-        `🌿 WORD VINE #${this.activeVine.vineNumber} (${this.activeVine.dateKey})`,
-        `${bloomsStr} | ${zoneLabel}`,
-        deathLine,
-        `🏆 Score: ${this.simState.score.toLocaleString()}${this.isOfficialAttempt ? ' (Official)' : ' (Practice)'}`
-      ].join('\n');
-
-      document.getElementById('receipt-preview').textContent = this.currentReceiptText;
       this.deathModal.classList.remove('hidden');
 
       // Save & submit score
