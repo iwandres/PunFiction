@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20" />
+  <link rel="stylesheet" href="css/styles.css?v=21" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -94,6 +94,12 @@
       <div id="rapid-fire-banner" class="rapid-fire-banner hidden" aria-live="polite">
         <span class="rapid-fire-bolt">⚡</span>
         <span id="rapid-fire-banner-text">ZONE 3 RAPID-FIRE • SHORT SPRINT</span>
+      </div>
+
+      <!-- Wind-Ruffled Gust Banner (Shown during randomized 2-3 node wind gusts) -->
+      <div id="wind-gust-banner" class="wind-gust-banner hidden" aria-live="polite">
+        <span class="wind-gust-icon">🌬️</span>
+        <span id="wind-gust-banner-text">WIND GUST • LETTERS SETTLING</span>
       </div>
 
       <div id="stem-card" class="stem-card">
@@ -230,10 +236,10 @@
         </div>
 
         <div class="tutorial-step">
-          <span class="tutorial-step-icon">🏆</span>
+          <span class="tutorial-step-icon">🌬️</span>
           <div>
-            <strong>4. Score Logging &amp; Leaderboards</strong>
-            <p>Every climb is logged! Beat your high score to climb the <strong>Daily</strong>, <strong>Weekly</strong>, and <strong>Monthly</strong> leaderboards.</p>
+            <strong>4. Wind-Ruffled Gusts (2–3 Nodes)</strong>
+            <p>When a canopy breeze rolls in for 2–3 nodes, candidate letters spawn wind-shuffled and snap into place <strong>left-to-right over 1.2s</strong> while the vine sways in the gust!</p>
           </div>
         </div>
       </div>
@@ -321,10 +327,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=20"></script>
-  <script src="js/data/dailyVines.js?v=20"></script>
-  <script src="js/engine/soundEngine.js?v=20"></script>
-  <script src="js/engine/vineRenderer.js?v=20"></script>
-  <script src="js/app.js?v=20"></script>
+  <script src="js/shared/physicsEngine.js?v=21"></script>
+  <script src="js/data/dailyVines.js?v=21"></script>
+  <script src="js/engine/soundEngine.js?v=21"></script>
+  <script src="js/engine/vineRenderer.js?v=21"></script>
+  <script src="js/app.js?v=21"></script>
 </body>
 </html>

@@ -113,6 +113,8 @@
       this.stemAnchors = [];
       this.graftCollars = [];
       this.rapidFireCollars = [];
+      this.windIntensity = 0;
+      this.windDirection = 1;
 
       this.resize();
       this.initAmbientParticles();
@@ -164,6 +166,8 @@
       this.burstParticles = [];
       this.graftCollars = [];
       this.rapidFireCollars = [];
+      this.windIntensity = 0;
+      this.windDirection = 1;
 
       // Seed root anchors from world Y = -220 up to initialYVine with graceful S-curve sway
       const steps = 8;
@@ -333,12 +337,22 @@
       showGhostThirdNode = false,
       isActiveReverseGraft = false,
       isActiveRapidFire = false,
-      stepsUntilRapidFire = 0
+      stepsUntilRapidFire = 0,
+      isActiveWind = false,
+      windDirection = 1
     ) {
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
       this.lastSimState = simState;
+
+      // Smoothly ramp wind intensity in/out over ~300ms when entering/exiting a 2-3 node Wind Gust
+      const targetWind = isActiveWind ? 1 : 0;
+      const stepFactor = Math.min(1, Math.max(4, dtMs || 16) * 0.0085);
+      this.windIntensity = (this.windIntensity || 0) + (targetWind - (this.windIntensity || 0)) * stepFactor;
+      if (isActiveWind && windDirection) {
+        this.windDirection = windDirection;
+      }
 
       ctx.save();
       ctx.scale(this.dpr, this.dpr);
@@ -353,8 +367,11 @@
       // 3. Draw Soft Center Gutter Vignette to protect word fork readability
       this.drawQuietCenterGutter(ctx, theme, velocityDesat);
 
-      // 4. Draw Peripheral Reactive Particles (Fireflies / Sunbeams & Dust / Sakura Petals)
+      // 4. Draw Peripheral Reactive Particles & Wind Gust Slipstreams / Tumbling Leaves
       this.drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs, isActiveRapidFire);
+      if (this.windIntensity > 0.02) {
+        this.drawWindGustAtmosphere(ctx, theme, nowMs, this.windIntensity, this.windDirection || 1);
+      }
 
       // 5. Draw the Procedural Climbing Vine Stem, Tendrils, Leaves, Rising Sap Vein & Blooms
       if (simState) {
@@ -618,13 +635,29 @@
       const zoneId = simState ? simState.zoneId : 1;
       const leadUnits = simState ? simState.yVine - simState.yCam : 360;
 
+      const wInt = this.windIntensity || 0;
+      const wDir = this.windDirection || 1;
+
       this.ambientParticles.forEach((p, idx) => {
-        const px = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14;
+        const windDriftX = wInt > 0.01 ? nowMs * 0.24 * wDir * p.speedFactor * wInt : 0;
+        const rawPx = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14 + windDriftX;
+        const px = ((rawPx % this.width) + this.width) % this.width;
         const speedMult = isActiveRapidFire ? 0.55 : 0.25;
         const py = ((p.yWorld - yCam * speedMult * p.speedFactor) % this.height + this.height) % this.height;
 
         ctx.save();
-        if (isActiveRapidFire || (theme.id === 0 && (zoneId === 3 || velocityDesat > 0.2))) {
+        if (wInt > 0.15) {
+          // Wind Gust: particles stretch into angled wind-blown streaks!
+          const gustLen = (16 + 22 * p.speedFactor) * wInt;
+          ctx.strokeStyle = theme.particleColor;
+          ctx.globalAlpha = p.alpha * 0.85;
+          ctx.lineWidth = p.radius * 1.1;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(px - gustLen * wDir, py + gustLen * 0.22);
+          ctx.stroke();
+        } else if (isActiveRapidFire || (theme.id === 0 && (zoneId === 3 || velocityDesat > 0.2))) {
           // Rapid-Fire Sprint (☀️ Sunlit) or Biolum Zone 3: Out-of-focus dust/fireflies stretch into vertical speed streaks!
           const streakLen = isActiveRapidFire ? 24 : 14 + velocityDesat * 42;
           ctx.strokeStyle = isActiveRapidFire ? '#FDE68A' : theme.particleColor;
@@ -673,6 +706,71 @@
       }
     }
 
+    /**
+     * Draws sweeping curved canopy wind-gust slipstreams and tumbling wind-blown leaves
+     * across the environment during a 2-3 node Wind-Ruffled Gust.
+     */
+    drawWindGustAtmosphere(ctx, theme, nowMs, windIntensity, windDir = 1) {
+      ctx.save();
+      ctx.lineCap = 'round';
+
+      // 1. Sweeping S-curve translucent wind-gust ribbons across the viewport
+      const ribbonCount = 7;
+      for (let i = 0; i < ribbonCount; i++) {
+        const travel = ((nowMs * 0.00055 * (0.8 + (i % 3) * 0.22) + i * 0.19) % 1 + 1) % 1;
+        const progressX = windDir > 0 ? travel : 1 - travel;
+        const startX = progressX * (this.width + 260) - 130;
+        const baseY = ((i + 0.5) / ribbonCount) * this.height + Math.sin(nowMs * 0.003 + i) * 24;
+        const len = (130 + (i % 3) * 55) * windIntensity;
+        const wave = Math.sin(nowMs * 0.006 + i * 1.4) * 18;
+        const envAlpha = Math.sin(travel * Math.PI) * 0.34 * windIntensity;
+
+        ctx.strokeStyle = theme.id === 0 ? '#5EEAD4' : '#F0FDFA';
+        ctx.lineWidth = 2.2 + (i % 2) * 1.1;
+        ctx.globalAlpha = envAlpha;
+        ctx.beginPath();
+        ctx.moveTo(startX, baseY);
+        ctx.bezierCurveTo(
+          startX + len * 0.35 * windDir,
+          baseY - wave,
+          startX + len * 0.7 * windDir,
+          baseY + wave,
+          startX + len * windDir,
+          baseY - wave * 0.4
+        );
+        ctx.stroke();
+      }
+
+      // 2. Tumbling wind-blown botanical leaves carried across the canopy
+      const leafCount = 9;
+      for (let j = 0; j < leafCount; j++) {
+        const t = ((nowMs * 0.00042 * (0.75 + (j % 4) * 0.18) + j * 0.13) % 1 + 1) % 1;
+        const lx = (windDir > 0 ? t : 1 - t) * (this.width + 120) - 60;
+        const ly =
+          ((j * 97 + Math.sin(nowMs * 0.004 + j) * 38) % (this.height * 0.88)) +
+          this.height * 0.06;
+        const spin = nowMs * 0.007 * windDir + j * 1.7;
+        const leafAlpha = Math.sin(t * Math.PI) * 0.72 * windIntensity;
+
+        ctx.save();
+        ctx.translate(lx, ly);
+        ctx.rotate(spin);
+        ctx.globalAlpha = leafAlpha;
+        ctx.fillStyle = j % 2 === 0 ? theme.leafFill : theme.stemZones[1].main;
+        ctx.strokeStyle = theme.leafStroke;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(8, -6, 15, 0);
+        ctx.quadraticCurveTo(8, 6, 0, 0);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
     drawClimbingVine(
       ctx,
       theme,
@@ -703,12 +801,17 @@
 
       // Filter anchors near visible world range plus active tip
       const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 260);
+      const wInt = this.windIntensity || 0;
+      const wDir = this.windDirection || 1;
 
-      // Build spline points up to active vine tip with gentle living breeze sway & 3D perspective convergence
+      // Build spline points up to active vine tip with living breeze sway (amplified during Wind Gusts) & 3D perspective convergence
       const points = visibleAnchors.map((a, idx) => {
         const sy = this.worldToScreenY(a.yWorld, yCam, simState);
         const dScale = getDepthScale(sy);
-        const breeze = Math.sin(nowMs * 0.0018 + idx * 0.5) * 4;
+        const breezeFreq = 0.0018 + wInt * 0.0045;
+        const breezeAmp = 4 + wInt * 14;
+        const windLean = wInt * wDir * 10;
+        const breeze = Math.sin(nowMs * breezeFreq + idx * 0.55) * breezeAmp + windLean;
         return {
           x: centerX + (a.xOffset + breeze) * dScale,
           y: sy,
@@ -719,10 +822,14 @@
         };
       });
 
-      // Active growing tip point
+      // Active growing tip point (sways in the wind gust)
       const tipScale = getDepthScale(tipScreenY);
+      const tipWindSway =
+        wInt > 0.01
+          ? (Math.sin(nowMs * 0.0068) * 11 + wDir * 8) * wInt * tipScale
+          : 0;
       points.push({
-        x: centerX,
+        x: centerX + tipWindSway,
         y: tipScreenY,
         scale: tipScale,
         yWorld: yVine,
@@ -806,7 +913,9 @@
       // 2. Draw Curling Spiral Tendrils, Botanical Leaves & Triple-Bloom Flowers on Historical Nodes (Scaled by Depth)
       points.forEach((pt, idx) => {
         if (!pt.anchor) return;
-        const swayAngle = Math.sin(nowMs * 0.0025 + idx) * 0.09;
+        const swayAngle =
+          Math.sin(nowMs * (0.0025 + wInt * 0.011) + idx * 1.2) * (0.09 + wInt * 0.25) +
+          wInt * wDir * 0.16;
         const s = pt.scale || 1;
         if (pt.anchor.hasTendril) {
           this.drawCurlingTendril(
@@ -859,7 +968,7 @@
       // - When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
       // - When in a Rapid-Fire Sprint (⚡), a Golden Speed Booster Ring & Wing Chevrons straddle the active fork!
       // - When 1 or 2 nodes away from a Rapid-Fire Sprint, an approaching Golden Speed Gate descends down the vine path!
-      const tipX = centerX;
+      const tipX = centerX + tipWindSway;
       const tipY = tipScreenY;
       const forkSpread = 1 + pitchProgress * 0.16;
       const forkLift = 1 - pitchProgress * 0.22;

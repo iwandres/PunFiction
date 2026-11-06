@@ -133,6 +133,8 @@
       this.reverseLoopBannerText = document.getElementById('reverse-loop-banner-text');
       this.rapidFireBanner = document.getElementById('rapid-fire-banner');
       this.rapidFireBannerText = document.getElementById('rapid-fire-banner-text');
+      this.windGustBanner = document.getElementById('wind-gust-banner');
+      this.windGustBannerText = document.getElementById('wind-gust-banner-text');
       this.stemWordEl = document.getElementById('stem-word');
       this.stemZoneBadge = document.getElementById('stem-zone-badge');
       this.tripletPipBar = document.getElementById('triplet-pip-bar');
@@ -147,6 +149,9 @@
       this.showGhostThirdNode = true;
       this.isActiveReverseGraft = false;
       this.isActiveRapidFire = false;
+      this.isActiveWind = false;
+      this.activeWindDirection = 1;
+      this.windSettleTimers = [];
 
       // Top HUD elements
       this.hudScore = document.getElementById('hud-score');
@@ -457,6 +462,119 @@
           attemptCount
         });
       }
+      if (this.activeVine && Array.isArray(this.activeVine.nodes)) {
+        this.applyRandomizedWindSchedule(this.activeVine.nodes);
+      }
+    }
+
+    /**
+     * Schedules randomized 2-to-3 node Wind-Ruffled Gusts interspersed with calm stretches
+     * across the climb. Each gust lasts 2-3 nodes and then subsides.
+     */
+    applyRandomizedWindSchedule(nodes) {
+      if (!Array.isArray(nodes) || nodes.length === 0) return;
+      nodes.forEach((n) => {
+        n.isWindy = false;
+        n.windStep = 0;
+        n.windTotal = 0;
+        n.windDirection = 1;
+      });
+
+      // Start first Wind Gust after a 2-to-4 node warm-up
+      let idx = 2 + Math.floor(Math.random() * 3);
+      while (idx < nodes.length) {
+        const gustLen = Math.min(2 + Math.floor(Math.random() * 2), nodes.length - idx);
+        const windDir = Math.random() < 0.5 ? 1 : -1;
+        for (let s = 0; s < gustLen; s++) {
+          const target = nodes[idx + s];
+          if (target) {
+            target.isWindy = true;
+            target.windStep = s + 1;
+            target.windTotal = gustLen;
+            target.windDirection = windDir;
+          }
+        }
+        // Calm air for 3-to-5 nodes before the next 2-to-3 node Wind Gust
+        const calmLen = 3 + Math.floor(Math.random() * 3);
+        idx += gustLen + calmLen;
+      }
+    }
+
+    clearWindSettleTimers() {
+      if (Array.isArray(this.windSettleTimers) && this.windSettleTimers.length > 0) {
+        this.windSettleTimers.forEach((id) => clearTimeout(id));
+      }
+      this.windSettleTimers = [];
+    }
+
+    shuffleCharsNonIdentity(chars) {
+      const arr = chars.slice();
+      if (arr.length <= 1) return arr;
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+      const isSame = arr.every((ch, idx) => ch === chars[idx]);
+      const hasDistinct = chars.some((ch) => ch !== chars[0]);
+      if (isSame && hasDistinct) {
+        const first = arr.shift();
+        arr.push(first);
+      }
+      return arr;
+    }
+
+    /**
+     * Wind-Ruffled Left-to-Right Settle:
+     * Letters spawn shuffled and snap into place from left to right over 1.2 seconds (1200ms),
+     * starting with the first letter.
+     */
+    renderWindRuffledWord(containerEl, wordStr) {
+      if (!containerEl) return;
+      const chars = Array.from(String(wordStr || ''));
+      const L = chars.length;
+      if (L <= 1) {
+        containerEl.textContent = wordStr;
+        return;
+      }
+
+      const initialShuffled = this.shuffleCharsNonIdentity(chars);
+      containerEl.innerHTML = '';
+      const spanEls = initialShuffled.map((ch) => {
+        const span = document.createElement('span');
+        span.className = 'wind-char unsettled';
+        span.textContent = ch;
+        containerEl.appendChild(span);
+        return span;
+      });
+
+      const TOTAL_SETTLE_MS = 1200;
+      const FIRST_SNAP_MS = 150;
+
+      for (let i = 0; i < L; i++) {
+        const settleDelayMs = Math.round(
+          FIRST_SNAP_MS + (i / Math.max(1, L - 1)) * (TOTAL_SETTLE_MS - FIRST_SNAP_MS)
+        );
+        const timerId = setTimeout(() => {
+          if (!spanEls[i] || !spanEls[i].isConnected) return;
+          // Snap letter i into its true character
+          spanEls[i].textContent = chars[i];
+          spanEls[i].className = 'wind-char settled';
+
+          // Keep remaining unsettled letters (i+1 .. L-1) fluttering with a shuffled permutation of remaining chars
+          if (i + 1 < L) {
+            const remShuffled = this.shuffleCharsNonIdentity(chars.slice(i + 1));
+            for (let j = i + 1; j < L; j++) {
+              if (spanEls[j] && spanEls[j].classList.contains('unsettled')) {
+                spanEls[j].textContent = remShuffled[j - (i + 1)];
+              }
+            }
+          }
+        }, settleDelayMs);
+
+        this.windSettleTimers.push(timerId);
+      }
     }
 
     setVisualPalette(paletteId) {
@@ -691,7 +809,14 @@
       if (!result.accepted) return;
 
       if (!result.correct) {
-        // Lexical Strike (Wrong Choice)
+        // Lexical Strike (Wrong Choice) — immediately settle any wind-shuffled letters so both words are clear
+        this.clearWindSettleTimers();
+        if (result.node) {
+          this.leftWordEl.textContent =
+            result.node.leftRightSeed === 0 ? result.node.correctWord : result.node.decoyWord;
+          this.rightWordEl.textContent =
+            result.node.leftRightSeed === 1 ? result.node.correctWord : result.node.decoyWord;
+        }
         Sound.playStemSnap();
         this.renderer.triggerLexicalSnapBurst(prevYVine, choiceSide);
 
@@ -782,6 +907,25 @@
       this.isActiveReverseGraft = isReverseGraft;
       this.isActiveRapidFire = isRapidFire;
 
+      // Wind-Ruffled Gust (2-3 nodes) state & breeze audio cue
+      const isWindy = Boolean(node.isWindy);
+      const wasWindy = Boolean(this.isActiveWind);
+      this.isActiveWind = isWindy;
+      this.activeWindDirection = node.windDirection || 1;
+      document.body.classList.toggle('wind-gust-active', isWindy);
+
+      if (
+        isWindy &&
+        (!wasWindy || node.windStep === 1) &&
+        this.simState &&
+        this.simState.status === 'PLAYING' &&
+        this.startModal &&
+        this.startModal.classList.contains('hidden') &&
+        typeof Sound.playWindGust === 'function'
+      ) {
+        Sound.playWindGust();
+      }
+
       // Compute on-vine Speed Gate countdown (1 or 2 nodes before Rapid-Fire Sprint starts)
       const idx = this.simState.nodeIndex;
       const next1 = this.activeVine.nodes[idx + 1];
@@ -836,10 +980,20 @@
           this.rapidFireBannerText.textContent = `ZONE 3 RAPID-FIRE • SHORT SPRINT${stepInfo}`;
         }
       }
+      if (this.windGustBanner) {
+        this.windGustBanner.classList.toggle('hidden', !isWindy);
+        if (isWindy && this.windGustBannerText) {
+          const stepInfo =
+            node.windStep && node.windTotal ? ` (${node.windStep}/${node.windTotal})` : '';
+          this.windGustBannerText.textContent = `WIND-RUFFLED GUST • LETTERS SETTLING${stepInfo}`;
+        }
+      }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
       this.rightPill.classList.toggle('is-reverse-graft', isReverseGraft);
       this.leftPill.classList.toggle('is-rapid-fire', isRapidFire);
       this.rightPill.classList.toggle('is-rapid-fire', isRapidFire);
+      this.leftPill.classList.toggle('is-wind-ruffled', isWindy);
+      this.rightPill.classList.toggle('is-wind-ruffled', isWindy);
 
       // Always display only the active stem word (never reveal upcoming words)
       this.stemWordEl.textContent = node.stemWord;
@@ -847,8 +1001,16 @@
       // Determine left vs right words from node.leftRightSeed
       const leftWord = node.leftRightSeed === 0 ? node.correctWord : node.decoyWord;
       const rightWord = node.leftRightSeed === 1 ? node.correctWord : node.decoyWord;
-      this.leftWordEl.textContent = leftWord;
-      this.rightWordEl.textContent = rightWord;
+
+      // Clear any previous node's letter-settle timers
+      this.clearWindSettleTimers();
+      if (isWindy) {
+        this.renderWindRuffledWord(this.leftWordEl, leftWord);
+        this.renderWindRuffledWord(this.rightWordEl, rightWord);
+      } else {
+        this.leftWordEl.textContent = leftWord;
+        this.rightWordEl.textContent = rightWord;
+      }
 
       // Determine whether this step is linking a 3-Part (Triple) or 2-Part (Double) compound
       const isTripleLink =
@@ -989,7 +1151,9 @@
         this.showGhostThirdNode,
         this.isActiveReverseGraft,
         this.isActiveRapidFire,
-        this.stepsUntilRapidFire || 0
+        this.stepsUntilRapidFire || 0,
+        this.isActiveWind,
+        this.activeWindDirection || 1
       );
 
       requestAnimationFrame((t) => this.loop(t));
@@ -999,6 +1163,9 @@
      * Handles End of Run (SNIPPED, OUTRUN, or COMPLETED), records Official Score, and builds Receipt
      */
     async onRunEnded(fatalNode) {
+      this.clearWindSettleTimers();
+      this.isActiveWind = false;
+      document.body.classList.remove('wind-gust-active');
       const altitudeMeters = Number(
         (this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1)
       );

@@ -200,6 +200,46 @@
       osc.start(now);
       osc.stop(now + 0.19);
     }
+
+    /**
+     * Wind-Ruffled Gust: soft sweeping bandpass breeze whoosh when a 2-3 node Wind Gust rolls in
+     */
+    playWindGust() {
+      if (this.muted) return;
+      this.init();
+      if (!this.ctx) return;
+
+      const now = this.ctx.currentTime;
+      const duration = 0.65;
+      const bufferSize = Math.floor(this.ctx.sampleRate * duration);
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        const t = i / bufferSize;
+        const env = Math.sin(t * Math.PI);
+        data[i] = (Math.random() * 2 - 1) * env;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.Q.setValueAtTime(2.4, now);
+      filter.frequency.setValueAtTime(320, now);
+      filter.frequency.exponentialRampToValueAtTime(880, now + duration * 0.45);
+      filter.frequency.exponentialRampToValueAtTime(380, now + duration);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.18, now + duration * 0.35);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+      noise.start(now);
+    }
   }
 
   root.WordVineSound = new SoundEngine();
