@@ -299,7 +299,14 @@
     /**
      * Main high-definition frame render entry point
      */
-    render(simState, dtMs, risingSapNextZone = 0, showGhostThirdNode = false, isActiveReverseGraft = false) {
+    render(
+      simState,
+      dtMs,
+      risingSapNextZone = 0,
+      showGhostThirdNode = false,
+      isActiveReverseGraft = false,
+      isActiveRapidFire = false
+    ) {
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
@@ -319,7 +326,7 @@
       this.drawQuietCenterGutter(ctx, theme, velocityDesat);
 
       // 4. Draw Peripheral Reactive Particles (Fireflies / Sunbeams & Dust / Sakura Petals)
-      this.drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs);
+      this.drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs, isActiveRapidFire);
 
       // 5. Draw the Procedural Climbing Vine Stem, Tendrils, Leaves, Rising Sap Vein & Blooms
       if (simState) {
@@ -576,22 +583,23 @@
       ctx.fillRect(centerX - gutterHalfWidth * 1.4, 0, gutterHalfWidth * 2.8, this.height);
     }
 
-    drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs) {
+    drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs, isActiveRapidFire = false) {
       const yCam = simState ? simState.yCam : 0;
       const zoneId = simState ? simState.zoneId : 1;
       const leadUnits = simState ? simState.yVine - simState.yCam : 360;
 
       this.ambientParticles.forEach((p, idx) => {
         const px = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14;
-        const py = ((p.yWorld - yCam * 0.25 * p.speedFactor) % this.height + this.height) % this.height;
+        const speedMult = isActiveRapidFire ? 0.55 : 0.25;
+        const py = ((p.yWorld - yCam * speedMult * p.speedFactor) % this.height + this.height) % this.height;
 
         ctx.save();
-        if (theme.id === 0 && (zoneId === 3 || velocityDesat > 0.2)) {
-          // Bioluminescence Zone 3: Out-of-focus fireflies stretch into vertical light streaks
-          const streakLen = 14 + velocityDesat * 42;
-          ctx.strokeStyle = theme.particleColor;
-          ctx.globalAlpha = p.alpha * 0.75;
-          ctx.lineWidth = p.radius * 1.1;
+        if (isActiveRapidFire || (theme.id === 0 && (zoneId === 3 || velocityDesat > 0.2))) {
+          // Rapid-Fire Sprint (☀️ Sunlit) or Biolum Zone 3: Out-of-focus dust/fireflies stretch into vertical speed streaks!
+          const streakLen = isActiveRapidFire ? 24 : 14 + velocityDesat * 42;
+          ctx.strokeStyle = isActiveRapidFire ? '#FDE68A' : theme.particleColor;
+          ctx.globalAlpha = p.alpha * 0.82;
+          ctx.lineWidth = p.radius * 1.15;
           ctx.lineCap = 'round';
           ctx.beginPath();
           ctx.moveTo(px, py);

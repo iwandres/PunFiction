@@ -459,6 +459,57 @@ body {
   box-shadow: 0 8px 22px rgba(245, 158, 11, 0.22);
 }
 
+/* Zone 3 Rapid-Fire Sprint Banner & Stem Styling (☀️ Sunlit Conservatory Atmosphere) */
+.rapid-fire-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #059669, #d97706);
+  color: #fffbeb;
+  border: 1.5px solid #fde68a;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.38);
+  animation: reverseLoopPulse 0.75s ease-in-out infinite alternate;
+}
+
+.rapid-fire-banner.hidden {
+  display: none !important;
+}
+
+.rapid-fire-bolt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stem-card.is-rapid-fire {
+  background: linear-gradient(135deg, #065f46, #047857);
+  border: 2.5px solid #fde68a;
+  box-shadow:
+    0 0 0 4px rgba(251, 191, 36, 0.22),
+    0 12px 26px rgba(4, 120, 87, 0.42);
+}
+
+.word-pill.is-rapid-fire {
+  border-color: #fbbf24;
+  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.24);
+}
+
 .stem-word-text {
   font-family: var(--font-sans);
   font-size: clamp(18px, 4.5vw, 22px);

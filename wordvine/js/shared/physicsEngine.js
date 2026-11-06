@@ -21,6 +21,7 @@
     INITIAL_Y_CAM: 0,
     INITIAL_Y_VINE: 360,          // 360u lead at (45 - 15.75) = 29.25 u/s net loss => ~8.2s initial breathing room
     V_BASE: 45,                   // Steady base camera pan speed (units/sec) — no gradual speed-up!
+    V_RAPID_FIRE: 64,             // Faster sprint camera velocity during 6-10 node Rapid-Fire Mode (units/sec)
     ALPHA_TIME_ACCEL: 0,          // Replaced gradual time acceleration with cognitive mode switches
     BETA_NODE_ACCEL: 0,           // Replaced gradual node acceleration with cognitive mode switches
     V_CAM_MAX: 280,               // Terminal camera velocity cap (units/sec)
@@ -28,12 +29,14 @@
     SPURT_STANDARD: 125,          // Standard correct answer impulse (+125 units)
     SPURT_TRIPLE_BLOOM: 185,      // 1.5x Triple-Bloom spurt on 3rd word of Zone 1 triplet (+185 units)
     SPURT_REVERSE_GRAFT: 155,     // Boosted spurt when uncurling out of a Reverse-Graft Loop (+155 units)
+    SPURT_RAPID_FIRE: 135,        // Snappy sprint spurt on short Rapid-Fire compounds (+135 units)
     SPURT_DURATION_MS: 180,       // Impulse duration (180ms cubic ease-out)
     SWEET_SPOT_CEILING: 750,      // Max lead (Y_vine - Y_cam) before camera smoothly lerps up
     CAMERA_CLAMP_LERP: 14.0,      // Lerp speed when clamping camera to keep active fork below 750u
     DANGER_THRESHOLD: 150,        // Danger vignette & heartbeat trigger when (Y_vine - Y_cam) <= 150u
     GRAFT_BULLET_TIME_MS: 600,    // 0.6-second slow-motion breath across Graft Collar
     REVERSE_LOOP_BREATH_MS: 450,  // 0.45-second slow-motion breath when curling into a Reverse-Graft Loop
+    RAPID_FIRE_BREATH_MS: 350,    // 0.35-second slow-motion breath when entering a Rapid-Fire Sprint
     GRAFT_TIME_SCALE: 0.25,       // Time dilation multiplier during Graft Collar / Loop entry
     INPUT_BUFFER_MS: 120,         // 120ms input buffer window during growth spurt
     ZONE_1_END_NODE: 12,          // Nodes 1..12 (indices 0..11) are Zone 1
@@ -41,6 +44,7 @@
                                   // Nodes 29+ (indices 28+) are Zone 3
     TRIPLE_BLOOM_BONUS: 250,      // Flat +250 score bonus on completing 3rd step of a Zone 1 triplet
     REVERSE_GRAFT_BONUS: 150,     // Flat +150 score bonus on solving a Reverse-Graft Loop (⬅)
+    RAPID_FIRE_BONUS: 75,         // Flat +75 score bonus on each Rapid-Fire Sprint node (⚡)
     METERS_PER_UNIT: 0.012        // Conversion from normalized units to display altitude meters (e.g. 3500u = 42.0m)
   };
 
@@ -75,11 +79,15 @@
   }
 
   /**
-   * Computes instantaneously target camera velocity V_cam(t, N)
+   * Computes instantaneously target camera velocity V_cam(t, N, activeGameMode)
    */
-  function computeCameraVelocity(effectiveElapsedSec, nodesCompleted) {
+  function computeCameraVelocity(effectiveElapsedSec, nodesCompleted, activeGameMode = 'FORWARD') {
+    const base =
+      activeGameMode === 'RAPID_FIRE'
+        ? PHYSICS_CONFIG.V_RAPID_FIRE
+        : PHYSICS_CONFIG.V_BASE;
     const raw =
-      PHYSICS_CONFIG.V_BASE +
+      base +
       PHYSICS_CONFIG.ALPHA_TIME_ACCEL * effectiveElapsedSec +
       PHYSICS_CONFIG.BETA_NODE_ACCEL * nodesCompleted;
     return Math.min(PHYSICS_CONFIG.V_CAM_MAX, raw);
@@ -87,21 +95,30 @@
 
   /**
    * Computes single-node score according to canonical specification:
-   * Node Score = (100 * Z_mult) + floor((Y_vine - Y_cam) / 10) + B_triplet + B_reverseGraft
+   * Node Score = (100 * Z_mult) + floor((Y_vine - Y_cam) / 10) + B_triplet + B_reverseGraft + B_rapidFire
    */
-  function computeNodeScore(zoneId, yVine, yCam, isTripleBloom, isReverseGraft = false) {
+  function computeNodeScore(
+    zoneId,
+    yVine,
+    yCam,
+    isTripleBloom,
+    isReverseGraft = false,
+    isRapidFire = false
+  ) {
     const zMult = zoneId === 1 ? 1 : zoneId === 2 ? 2 : 3;
     const basePoints = 100 * zMult;
     const leadUnits = Math.max(0, yVine - yCam);
     const leadBonus = Math.floor(leadUnits / 10);
     const tripletBonus = isTripleBloom ? PHYSICS_CONFIG.TRIPLE_BLOOM_BONUS : 0;
     const reverseGraftBonus = isReverseGraft ? PHYSICS_CONFIG.REVERSE_GRAFT_BONUS : 0;
+    const rapidFireBonus = isRapidFire ? PHYSICS_CONFIG.RAPID_FIRE_BONUS : 0;
     return {
-      totalNodeScore: basePoints + leadBonus + tripletBonus + reverseGraftBonus,
+      totalNodeScore: basePoints + leadBonus + tripletBonus + reverseGraftBonus + rapidFireBonus,
       basePoints,
       leadBonus,
       tripletBonus,
-      reverseGraftBonus
+      reverseGraftBonus,
+      rapidFireBonus
     };
   }
 
@@ -168,7 +185,11 @@
     state.effectiveElapsedSec += dtSec;
 
     // 1. Update camera velocity & position
-    state.vCam = computeCameraVelocity(state.effectiveElapsedSec, state.nodesCompleted);
+    state.vCam = computeCameraVelocity(
+      state.effectiveElapsedSec,
+      state.nodesCompleted,
+      state.activeGameMode
+    );
     state.yCam += state.vCam * dtSec;
 
     // 2. Passive vine creep
@@ -243,11 +264,14 @@
       return { accepted: true, correct: false, state, node: currentNode };
     }
 
-    // Correct choice! Determine if this completes a 3-part triplet or a Reverse-Graft Loop
+    // Correct choice! Determine if this completes a 3-part triplet, Reverse-Graft Loop, or Rapid-Fire Sprint node
     const zoneId = currentNode.zoneId || getZoneForNodeIndex(state.nodeIndex);
     const isTripleBloom = zoneId === 1 && currentNode.tripletStep === 3;
     const isReverseGraft = Boolean(
       currentNode.isReverseGraft || currentNode.gameMode === 'REVERSE_GRAFT'
+    );
+    const isRapidFire = Boolean(
+      currentNode.isRapidFire || currentNode.gameMode === 'RAPID_FIRE'
     );
 
     // Score calculation
@@ -256,13 +280,15 @@
       state.yVine,
       state.yCam,
       isTripleBloom,
-      isReverseGraft
+      isReverseGraft,
+      isRapidFire
     );
     state.score += scoreBreakdown.totalNodeScore;
     state.lastNodeScoreBreakdown = {
       ...scoreBreakdown,
       isTripleBloom,
       isReverseGraft,
+      isRapidFire,
       word: currentNode.correctWord,
       stemWord: currentNode.stemWord
     };
@@ -280,7 +306,9 @@
       ? PHYSICS_CONFIG.SPURT_TRIPLE_BLOOM
       : isReverseGraft
         ? PHYSICS_CONFIG.SPURT_REVERSE_GRAFT
-        : PHYSICS_CONFIG.SPURT_STANDARD;
+        : isRapidFire
+          ? PHYSICS_CONFIG.SPURT_RAPID_FIRE
+          : PHYSICS_CONFIG.SPURT_STANDARD;
 
     // If a previous spurt had residual unapplied delta, credit it immediately so fast double-taps never lose height
     if (state.spurtActive && state.spurtTotalDelta > state.spurtAppliedDelta) {
@@ -289,7 +317,7 @@
 
     state.spurtActive = true;
     state.spurtElapsedMs = 0;
-    state.spurtDurationMs = isTripleBloom ? 210 : PHYSICS_CONFIG.SPURT_DURATION_MS;
+    state.spurtDurationMs = isTripleBloom ? 210 : isRapidFire ? 150 : PHYSICS_CONFIG.SPURT_DURATION_MS;
     state.spurtTotalDelta = spurtImpulse;
     state.spurtAppliedDelta = 0;
 
@@ -309,20 +337,34 @@
         correct: true,
         isTripleBloom,
         isReverseGraft,
+        isRapidFire,
         enteredReverseGraft: false,
+        enteredRapidFire: false,
         triggeredGraftCollar: false,
         state,
         node: currentNode
       };
     }
 
-    // Check if crossing into a Reverse-Graft Loop or a new Zone
+    // Check if crossing into a Reverse-Graft Loop, Rapid-Fire Sprint, or a new Zone
     const nextNode = vineNodes[state.nodeIndex];
     const nextZone = nextNode.zoneId || getZoneForNodeIndex(state.nodeIndex);
     const nextIsReverseGraft = Boolean(
       nextNode.isReverseGraft || nextNode.gameMode === 'REVERSE_GRAFT'
     );
-    state.activeGameMode = nextIsReverseGraft ? 'REVERSE_GRAFT' : 'FORWARD';
+    const nextIsRapidFire = Boolean(
+      nextNode.isRapidFire || nextNode.gameMode === 'RAPID_FIRE'
+    );
+    state.activeGameMode = nextIsReverseGraft
+      ? 'REVERSE_GRAFT'
+      : nextIsRapidFire
+        ? 'RAPID_FIRE'
+        : 'FORWARD';
+    state.vCam = computeCameraVelocity(
+      state.effectiveElapsedSec,
+      state.nodesCompleted,
+      state.activeGameMode
+    );
 
     let triggeredGraftCollar = false;
     if (nextZone !== state.zoneId) {
@@ -336,6 +378,12 @@
         state.bulletTimeRemainingMs,
         PHYSICS_CONFIG.REVERSE_LOOP_BREATH_MS
       );
+    } else if (!isRapidFire && nextIsRapidFire) {
+      // Brief slow-motion breath when entering a 6-10 node Rapid-Fire Sprint
+      state.bulletTimeRemainingMs = Math.max(
+        state.bulletTimeRemainingMs,
+        PHYSICS_CONFIG.RAPID_FIRE_BREATH_MS
+      );
     }
 
     return {
@@ -343,7 +391,9 @@
       correct: true,
       isTripleBloom,
       isReverseGraft,
+      isRapidFire,
       enteredReverseGraft: nextIsReverseGraft,
+      enteredRapidFire: !isRapidFire && nextIsRapidFire,
       triggeredGraftCollar,
       nextZone,
       state,

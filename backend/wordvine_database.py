@@ -65,6 +65,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     node_index = 0
     nodes_completed = 0
     zone_id = 1
+    active_game_mode = "FORWARD"
     effective_elapsed_sec = 0.0
     y_cam = 0.0
     y_vine = 360.0
@@ -97,7 +98,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         dt_sec = (dt_ms / 1000.0) * time_scale
         effective_elapsed_sec += dt_sec
 
-        v_cam = 45.0
+        v_cam = 64.0 if active_game_mode == "RAPID_FIRE" else 45.0
         y_cam += v_cam * dt_sec
 
         v_creep = 0.35 * v_cam
@@ -161,23 +162,31 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         is_reverse_graft = bool(
             curr_node.get("isReverseGraft") or curr_node.get("gameMode") == "REVERSE_GRAFT"
         )
+        is_rapid_fire = bool(
+            curr_node.get("isRapidFire") or curr_node.get("gameMode") == "RAPID_FIRE"
+        )
 
         z_mult = 1 if c_zone == 1 else (2 if c_zone == 2 else 3)
         lead_bonus = int(math.floor(max(0.0, y_vine - y_cam) / 10.0))
         b_triplet = 250 if is_triple_bloom else 0
         b_reverse = 150 if is_reverse_graft else 0
-        score += (100 * z_mult) + lead_bonus + b_triplet + b_reverse
+        b_rapid = 75 if is_rapid_fire else 0
+        score += (100 * z_mult) + lead_bonus + b_triplet + b_reverse + b_rapid
 
         if is_triple_bloom:
             triplet_blooms += 1
 
-        spurt_impulse = 185.0 if is_triple_bloom else (155.0 if is_reverse_graft else 125.0)
+        spurt_impulse = (
+            185.0
+            if is_triple_bloom
+            else (155.0 if is_reverse_graft else (135.0 if is_rapid_fire else 125.0))
+        )
         if spurt_active and spurt_total_delta > spurt_applied_delta:
             y_vine += spurt_total_delta - spurt_applied_delta
 
         spurt_active = True
         spurt_elapsed_ms = 0.0
-        spurt_duration_ms = 210.0 if is_triple_bloom else 180.0
+        spurt_duration_ms = 210.0 if is_triple_bloom else (150.0 if is_rapid_fire else 180.0)
         spurt_total_delta = spurt_impulse
         spurt_applied_delta = 0.0
 
@@ -195,11 +204,22 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         next_is_reverse = bool(
             next_node.get("isReverseGraft") or next_node.get("gameMode") == "REVERSE_GRAFT"
         )
+        next_is_rapid = bool(
+            next_node.get("isRapidFire") or next_node.get("gameMode") == "RAPID_FIRE"
+        )
+        active_game_mode = (
+            "REVERSE_GRAFT"
+            if next_is_reverse
+            else ("RAPID_FIRE" if next_is_rapid else "FORWARD")
+        )
+        v_cam = 64.0 if active_game_mode == "RAPID_FIRE" else 45.0
         if next_zone != zone_id:
             zone_id = next_zone
             bullet_time_remaining_ms = 600.0
         elif next_is_reverse:
             bullet_time_remaining_ms = max(bullet_time_remaining_ms, 450.0)
+        elif not is_rapid_fire and next_is_rapid:
+            bullet_time_remaining_ms = max(bullet_time_remaining_ms, 350.0)
 
     if status == "PLAYING" and final_wait_ms:
         rem = min(60000.0, float(final_wait_ms))

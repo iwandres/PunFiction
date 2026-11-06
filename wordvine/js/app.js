@@ -130,6 +130,9 @@
       this.stemCard = document.getElementById('stem-card');
       this.stemReversePrefix = document.getElementById('stem-reverse-prefix');
       this.reverseLoopBanner = document.getElementById('reverse-loop-banner');
+      this.reverseLoopBannerText = document.getElementById('reverse-loop-banner-text');
+      this.rapidFireBanner = document.getElementById('rapid-fire-banner');
+      this.rapidFireBannerText = document.getElementById('rapid-fire-banner-text');
       this.stemWordEl = document.getElementById('stem-word');
       this.stemZoneBadge = document.getElementById('stem-zone-badge');
       this.tripletPipBar = document.getElementById('triplet-pip-bar');
@@ -143,6 +146,7 @@
       this.pipLabel = document.getElementById('pip-label');
       this.showGhostThirdNode = true;
       this.isActiveReverseGraft = false;
+      this.isActiveRapidFire = false;
 
       // Top HUD elements
       this.hudScore = document.getElementById('hud-score');
@@ -460,8 +464,14 @@
       this.basePaletteId = normId;
       localStorage.setItem('wordvine_base_palette', String(normId));
       localStorage.setItem('wordvine_visual_palette', String(normId));
-      // Whenever Reverse-Graft Loop is active, force Midnight Bioluminescence (id = 0)
-      this.renderer.setTheme(this.isActiveReverseGraft ? 0 : this.basePaletteId);
+      // Mode palettes override the base palette during active mode segments:
+      // Reverse-Graft Loop -> Biolum (0), Zone 3 Rapid-Fire -> Sunlit (1)
+      const targetTheme = this.isActiveReverseGraft
+        ? 0
+        : this.isActiveRapidFire
+          ? 1
+          : this.basePaletteId;
+      this.renderer.setTheme(targetTheme);
       this.updateThemeButtonLabel();
     }
 
@@ -473,7 +483,9 @@
       if (this.themeCycleBtn) {
         this.themeCycleBtn.textContent = this.isActiveReverseGraft
           ? `✨ Biolum (⬅)`
-          : `${activeMeta.icon} ${activeMeta.short}`;
+          : this.isActiveRapidFire
+            ? `☀️ Sunlit (⚡)`
+            : `${activeMeta.icon} ${activeMeta.short}`;
       }
       const switchPaletteBtn = document.getElementById('btn-switch-vine');
       if (switchPaletteBtn) {
@@ -700,6 +712,8 @@
         Sound.playGraftCollar(result.nextZone);
       } else if (result.enteredReverseGraft) {
         Sound.playGraftCollar(2);
+      } else if (result.enteredRapidFire) {
+        Sound.playGraftCollar(3);
       } else if (result.isTripleBloom || result.isReverseGraft) {
         Sound.playTripleBloom();
       } else {
@@ -735,16 +749,18 @@
       pop.style.top = `${Math.max(80, screenY - 120)}px`;
       pop.textContent = breakdown.isReverseGraft
         ? `⬅ REVERSE GRAFT! +${breakdown.totalNodeScore}`
-        : breakdown.isTripleBloom
-          ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
-          : `+${breakdown.totalNodeScore}`;
+        : breakdown.isRapidFire
+          ? `⚡ RAPID FIRE! +${breakdown.totalNodeScore}`
+          : breakdown.isTripleBloom
+            ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
+            : `+${breakdown.totalNodeScore}`;
       document.body.appendChild(pop);
       setTimeout(() => pop.remove(), 650);
     }
 
     /**
-     * Synchronizes the Foveal Choice words, Reverse-Graft Loop (⬅) state, and subtle 2-Node / 3-Node compound link indicators
-     * without revealing any upcoming word choices.
+     * Synchronizes the Foveal Choice words, Reverse-Graft Loop (⬅) / Zone 3 Rapid-Fire (⚡) state,
+     * and subtle 2-Node / 3-Node compound link indicators without revealing any upcoming word choices.
      */
     syncFovealDOM() {
       const node = this.activeVine.nodes[this.simState.nodeIndex];
@@ -756,30 +772,62 @@
       const isReverseGraft = Boolean(
         node.isReverseGraft || node.gameMode === 'REVERSE_GRAFT'
       );
+      const isRapidFire = Boolean(
+        node.isRapidFire || node.gameMode === 'RAPID_FIRE'
+      );
       this.isActiveReverseGraft = isReverseGraft;
+      this.isActiveRapidFire = isRapidFire;
 
-      // Switch game atmosphere to Midnight Bioluminescence (id = 0) whenever Reverse-Graft Loop is in place!
+      // Switch game atmosphere automatically with each 6-to-10 node mode segment:
+      // - Reverse-Graft Loop (⬅) -> Midnight Bioluminescence (id = 0)
+      // - Zone 3 Rapid-Fire Sprint (⚡) -> Sunlit Conservatory (id = 1)
+      // - Zone 1 Roots (Forward) -> Base palette (Meadow & Sage id = 3 by default)
       if (isReverseGraft) {
         this.renderer.setTheme(0);
         document.body.classList.add('reverse-graft-active');
+        document.body.classList.remove('rapid-fire-active');
+      } else if (isRapidFire) {
+        this.renderer.setTheme(1);
+        document.body.classList.add('rapid-fire-active');
+        document.body.classList.remove('reverse-graft-active');
       } else {
         this.renderer.setTheme(this.basePaletteId ?? 3);
-        document.body.classList.remove('reverse-graft-active');
+        document.body.classList.remove('reverse-graft-active', 'rapid-fire-active');
       }
       this.updateThemeButtonLabel();
 
-      // Toggle Reverse-Graft Loop (⬅) visual indicators on stem card, banner & candidate pills
+      // Toggle Reverse-Graft Loop (⬅) & Zone 3 Rapid-Fire (⚡) visual indicators
       if (this.stemCard) {
         this.stemCard.classList.toggle('is-reverse-graft', isReverseGraft);
+        this.stemCard.classList.toggle('is-rapid-fire', isRapidFire);
       }
       if (this.stemReversePrefix) {
         this.stemReversePrefix.classList.toggle('hidden', !isReverseGraft);
       }
       if (this.reverseLoopBanner) {
         this.reverseLoopBanner.classList.toggle('hidden', !isReverseGraft);
+        if (isReverseGraft && this.reverseLoopBannerText) {
+          const stepInfo =
+            node.reverseStep && node.reverseTotal
+              ? ` (${node.reverseStep}/${node.reverseTotal})`
+              : '';
+          this.reverseLoopBannerText.textContent = `REVERSE-GRAFT LOOP • WORD IN FRONT${stepInfo}`;
+        }
+      }
+      if (this.rapidFireBanner) {
+        this.rapidFireBanner.classList.toggle('hidden', !isRapidFire);
+        if (isRapidFire && this.rapidFireBannerText) {
+          const stepInfo =
+            node.rapidFireStep && node.rapidFireTotal
+              ? ` (${node.rapidFireStep}/${node.rapidFireTotal})`
+              : '';
+          this.rapidFireBannerText.textContent = `ZONE 3 RAPID-FIRE • SHORT SPRINT${stepInfo}`;
+        }
       }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
       this.rightPill.classList.toggle('is-reverse-graft', isReverseGraft);
+      this.leftPill.classList.toggle('is-rapid-fire', isRapidFire);
+      this.rightPill.classList.toggle('is-rapid-fire', isRapidFire);
 
       // Always display only the active stem word (never reveal upcoming words)
       this.stemWordEl.textContent = node.stemWord;
@@ -844,11 +892,15 @@
       this.hudVelocity.textContent = `${Math.round(this.simState.vCam)} u/s`;
       this.hudZone.textContent = this.isActiveReverseGraft
         ? `⬅ LOOP • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`
-        : `Z${this.simState.zoneId} • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
+        : this.isActiveRapidFire
+          ? `⚡ Z3 SPRINT • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`
+          : `🌿 Z1 ROOTS • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
       if (this.hudModeBadge) {
         this.hudModeBadge.textContent = this.isActiveReverseGraft
           ? '⬅ REVERSE LOOP'
-          : 'DAILY CLIMB';
+          : this.isActiveRapidFire
+            ? '⚡ RAPID FIRE'
+            : '🌿 ZONE 1 ROOTS';
       }
     }
 
@@ -923,7 +975,8 @@
         dtMs,
         risingSapZone,
         this.showGhostThirdNode,
-        this.isActiveReverseGraft
+        this.isActiveReverseGraft,
+        this.isActiveRapidFire
       );
 
       requestAnimationFrame((t) => this.loop(t));
