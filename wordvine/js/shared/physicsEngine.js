@@ -20,24 +20,27 @@
     VIEWPORT_HEIGHT: 1000,
     INITIAL_Y_CAM: 0,
     INITIAL_Y_VINE: 360,          // 360u lead at (45 - 15.75) = 29.25 u/s net loss => ~8.2s initial breathing room
-    V_BASE: 45,                   // Base camera pan speed (units/sec)
-    ALPHA_TIME_ACCEL: 1.8,        // Camera speed increase per second elapsed
-    BETA_NODE_ACCEL: 3.5,         // Camera speed increase per completed node N
+    V_BASE: 45,                   // Steady base camera pan speed (units/sec) — no gradual speed-up!
+    ALPHA_TIME_ACCEL: 0,          // Replaced gradual time acceleration with cognitive mode switches
+    BETA_NODE_ACCEL: 0,           // Replaced gradual node acceleration with cognitive mode switches
     V_CAM_MAX: 280,               // Terminal camera velocity cap (units/sec)
     CREEP_RATIO: 0.35,            // Passive vine creep V_creep = 0.35 * V_cam
     SPURT_STANDARD: 125,          // Standard correct answer impulse (+125 units)
     SPURT_TRIPLE_BLOOM: 185,      // 1.5x Triple-Bloom spurt on 3rd word of Zone 1 triplet (+185 units)
+    SPURT_REVERSE_GRAFT: 155,     // Boosted spurt when uncurling out of a Reverse-Graft Loop (+155 units)
     SPURT_DURATION_MS: 180,       // Impulse duration (180ms cubic ease-out)
     SWEET_SPOT_CEILING: 750,      // Max lead (Y_vine - Y_cam) before camera smoothly lerps up
     CAMERA_CLAMP_LERP: 14.0,      // Lerp speed when clamping camera to keep active fork below 750u
     DANGER_THRESHOLD: 150,        // Danger vignette & heartbeat trigger when (Y_vine - Y_cam) <= 150u
     GRAFT_BULLET_TIME_MS: 600,    // 0.6-second slow-motion breath across Graft Collar
-    GRAFT_TIME_SCALE: 0.25,       // Time dilation multiplier during Graft Collar crossing
+    REVERSE_LOOP_BREATH_MS: 450,  // 0.45-second slow-motion breath when curling into a Reverse-Graft Loop
+    GRAFT_TIME_SCALE: 0.25,       // Time dilation multiplier during Graft Collar / Loop entry
     INPUT_BUFFER_MS: 120,         // 120ms input buffer window during growth spurt
-    ZONE_1_END_NODE: 12,          // Nodes 1..12 (indices 0..11) are Zone 1: Roots (3-Part Triplets)
-    ZONE_2_END_NODE: 28,          // Nodes 13..28 (indices 12..27) are Zone 2: Stem (2-Part Pivots)
-                                  // Nodes 29+ (indices 28+) are Zone 3: Canopy (2-Part Particle Sprints)
+    ZONE_1_END_NODE: 12,          // Nodes 1..12 (indices 0..11) are Zone 1
+    ZONE_2_END_NODE: 28,          // Nodes 13..28 (indices 12..27) are Zone 2
+                                  // Nodes 29+ (indices 28+) are Zone 3
     TRIPLE_BLOOM_BONUS: 250,      // Flat +250 score bonus on completing 3rd step of a Zone 1 triplet
+    REVERSE_GRAFT_BONUS: 150,     // Flat +150 score bonus on solving a Reverse-Graft Loop (⬅)
     METERS_PER_UNIT: 0.012        // Conversion from normalized units to display altitude meters (e.g. 3500u = 42.0m)
   };
 
@@ -84,19 +87,21 @@
 
   /**
    * Computes single-node score according to canonical specification:
-   * Node Score = (100 * Z_mult) + floor((Y_vine - Y_cam) / 10) + B_triplet
+   * Node Score = (100 * Z_mult) + floor((Y_vine - Y_cam) / 10) + B_triplet + B_reverseGraft
    */
-  function computeNodeScore(zoneId, yVine, yCam, isTripleBloom) {
+  function computeNodeScore(zoneId, yVine, yCam, isTripleBloom, isReverseGraft = false) {
     const zMult = zoneId === 1 ? 1 : zoneId === 2 ? 2 : 3;
     const basePoints = 100 * zMult;
     const leadUnits = Math.max(0, yVine - yCam);
     const leadBonus = Math.floor(leadUnits / 10);
     const tripletBonus = isTripleBloom ? PHYSICS_CONFIG.TRIPLE_BLOOM_BONUS : 0;
+    const reverseGraftBonus = isReverseGraft ? PHYSICS_CONFIG.REVERSE_GRAFT_BONUS : 0;
     return {
-      totalNodeScore: basePoints + leadBonus + tripletBonus,
+      totalNodeScore: basePoints + leadBonus + tripletBonus + reverseGraftBonus,
       basePoints,
       leadBonus,
-      tripletBonus
+      tripletBonus,
+      reverseGraftBonus
     };
   }
 
@@ -110,6 +115,7 @@
       nodeIndex: startNodeIndex,
       nodesCompleted: startNodeIndex,
       zoneId: initialZone,
+      activeGameMode: 'FORWARD',
       elapsedMs: 0,
       effectiveElapsedSec: startNodeIndex > 0 ? startNodeIndex * 1.45 : 0,
       yCam: PHYSICS_CONFIG.INITIAL_Y_CAM,
@@ -122,12 +128,13 @@
       spurtDurationMs: PHYSICS_CONFIG.SPURT_DURATION_MS,
       spurtTotalDelta: 0,
       spurtAppliedDelta: 0,
-      // Bullet-time Graft Collar state
+      // Bullet-time Graft Collar / Mode Switch state
       bulletTimeRemainingMs: 0,
       lastGraftZoneTriggered: initialZone,
       // Scoring & telemetry
       score: 0,
       tripletBlooms: 0,
+      reverseGraftsSolved: 0,
       comboMultiplier: 1,
       maxAltitudeUnits: PHYSICS_CONFIG.INITIAL_Y_VINE,
       lastNodeScoreBreakdown: null,
@@ -145,7 +152,7 @@
       return state;
     }
 
-    // Apply Graft Collar bullet-time dilation if active
+    // Apply Graft Collar / Reverse-Graft Loop bullet-time dilation if active
     let timeScale = 1.0;
     if (state.bulletTimeRemainingMs > 0) {
       const btProgress = 1 - state.bulletTimeRemainingMs / PHYSICS_CONFIG.GRAFT_BULLET_TIME_MS;
@@ -236,16 +243,26 @@
       return { accepted: true, correct: false, state, node: currentNode };
     }
 
-    // Correct choice! Determine if this completes a Zone 1 3-part triplet
+    // Correct choice! Determine if this completes a 3-part triplet or a Reverse-Graft Loop
     const zoneId = currentNode.zoneId || getZoneForNodeIndex(state.nodeIndex);
     const isTripleBloom = zoneId === 1 && currentNode.tripletStep === 3;
+    const isReverseGraft = Boolean(
+      currentNode.isReverseGraft || currentNode.gameMode === 'REVERSE_GRAFT'
+    );
 
     // Score calculation
-    const scoreBreakdown = computeNodeScore(zoneId, state.yVine, state.yCam, isTripleBloom);
+    const scoreBreakdown = computeNodeScore(
+      zoneId,
+      state.yVine,
+      state.yCam,
+      isTripleBloom,
+      isReverseGraft
+    );
     state.score += scoreBreakdown.totalNodeScore;
     state.lastNodeScoreBreakdown = {
       ...scoreBreakdown,
       isTripleBloom,
+      isReverseGraft,
       word: currentNode.correctWord,
       stemWord: currentNode.stemWord
     };
@@ -254,11 +271,16 @@
       state.tripletBlooms += 1;
       state.comboMultiplier += 1;
     }
+    if (isReverseGraft) {
+      state.reverseGraftsSolved = (state.reverseGraftsSolved || 0) + 1;
+    }
 
     // Trigger upward growth spurt
     const spurtImpulse = isTripleBloom
       ? PHYSICS_CONFIG.SPURT_TRIPLE_BLOOM
-      : PHYSICS_CONFIG.SPURT_STANDARD;
+      : isReverseGraft
+        ? PHYSICS_CONFIG.SPURT_REVERSE_GRAFT
+        : PHYSICS_CONFIG.SPURT_STANDARD;
 
     // If a previous spurt had residual unapplied delta, credit it immediately so fast double-taps never lose height
     if (state.spurtActive && state.spurtTotalDelta > state.spurtAppliedDelta) {
@@ -286,27 +308,42 @@
         accepted: true,
         correct: true,
         isTripleBloom,
+        isReverseGraft,
+        enteredReverseGraft: false,
         triggeredGraftCollar: false,
         state,
         node: currentNode
       };
     }
 
-    // Check if crossing a Graft Collar into a new Zone (Node 13 = index 12, Node 29 = index 28)
+    // Check if crossing into a Reverse-Graft Loop or a new Zone
     const nextNode = vineNodes[state.nodeIndex];
     const nextZone = nextNode.zoneId || getZoneForNodeIndex(state.nodeIndex);
+    const nextIsReverseGraft = Boolean(
+      nextNode.isReverseGraft || nextNode.gameMode === 'REVERSE_GRAFT'
+    );
+    state.activeGameMode = nextIsReverseGraft ? 'REVERSE_GRAFT' : 'FORWARD';
+
     let triggeredGraftCollar = false;
     if (nextZone !== state.zoneId) {
       state.zoneId = nextZone;
       state.bulletTimeRemainingMs = PHYSICS_CONFIG.GRAFT_BULLET_TIME_MS;
       state.lastGraftZoneTriggered = nextZone;
       triggeredGraftCollar = true;
+    } else if (nextIsReverseGraft) {
+      // Brief slow-motion breath as the vine curls into the Reverse-Graft Loop
+      state.bulletTimeRemainingMs = Math.max(
+        state.bulletTimeRemainingMs,
+        PHYSICS_CONFIG.REVERSE_LOOP_BREATH_MS
+      );
     }
 
     return {
       accepted: true,
       correct: true,
       isTripleBloom,
+      isReverseGraft,
+      enteredReverseGraft: nextIsReverseGraft,
       triggeredGraftCollar,
       nextZone,
       state,
@@ -376,6 +413,7 @@
       nodesCompleted: state.nodesCompleted,
       zoneReached: state.zoneId,
       tripletBlooms: state.tripletBlooms,
+      reverseGraftsSolved: state.reverseGraftsSolved || 0,
       altitudeMeters,
       deathCause: state.status === 'PLAYING' ? 'OUTRUN' : state.status
     };

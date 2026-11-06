@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=16" />
+  <link rel="stylesheet" href="css/styles.css?v=17" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -84,7 +84,14 @@
     </div>
 
     <div class="stem-node-wrap">
-      <div class="stem-card">
+      <!-- Reverse-Graft Loop Mode Banner (Shown when vine curls into a ringed loop) -->
+      <div id="reverse-loop-banner" class="reverse-loop-banner hidden" aria-live="polite">
+        <span class="reverse-loop-arrow">⬅</span>
+        <span>REVERSE-GRAFT LOOP • WORD GOES IN FRONT</span>
+      </div>
+
+      <div id="stem-card" class="stem-card">
+        <span id="stem-reverse-prefix" class="stem-reverse-prefix hidden" aria-hidden="true">⬅ ___ +</span>
         <div id="stem-word" class="stem-word-text">PEANUT</div>
       </div>
 
@@ -198,12 +205,12 @@
         </div>
 
         <div class="tutorial-step">
-          <span class="tutorial-step-icon">🌸</span>
+          <span class="tutorial-step-icon">⬅</span>
           <div>
-            <strong>2. Watch the 2-Node &amp; 3-Node Buds</strong>
+            <strong>2. Reverse-Graft Loop (⬅ Mode Switch)</strong>
             <p>
-              <strong>2 Buds (●─◉):</strong> Standard 2-word link (<em>SUN → FLOWER → POT</em>).<br />
-              <strong>3 Buds (●─◉─○):</strong> 3-part chain (<em>PEANUT → BUTTER → CUP</em>) that blooms for <strong>+250 pts</strong> and a big upward boost!
+              When the vine curls into a <strong>ringed loop</strong>, a <strong>⬅</strong> icon demands a word that goes <strong>IN FRONT of</strong> the stem rather than after it!<br />
+              <em>Example:</em> On stem <strong>CAKE</strong>, actively resist <strong>WALK</strong> (<em>Cakewalk</em>) and grab <strong>PAN</strong> (<strong>⬅ Pancake</strong>) before the vine straightens back out.
             </p>
           </div>
         </div>
@@ -308,10 +315,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=16"></script>
-  <script src="js/data/dailyVines.js?v=16"></script>
-  <script src="js/engine/soundEngine.js?v=16"></script>
-  <script src="js/engine/vineRenderer.js?v=16"></script>
-  <script src="js/app.js?v=16"></script>
+  <script src="js/shared/physicsEngine.js?v=17"></script>
+  <script src="js/data/dailyVines.js?v=17"></script>
+  <script src="js/engine/soundEngine.js?v=17"></script>
+  <script src="js/engine/vineRenderer.js?v=17"></script>
+  <script src="js/app.js?v=17"></script>
 </body>
 </html>

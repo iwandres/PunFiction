@@ -190,6 +190,7 @@
       yWorld,
       zoneId,
       isTripleBloom,
+      isReverseGraft,
       triggeredGraftCollar,
       word,
       choiceSide
@@ -204,6 +205,7 @@
         hasTendril: true,
         tendrilSide: choiceSide === 0 ? 1 : -1,
         isBloom: Boolean(isTripleBloom),
+        isReverseGraft: Boolean(isReverseGraft),
         bloomTimestamp: performance.now(),
         word
       });
@@ -297,7 +299,7 @@
     /**
      * Main high-definition frame render entry point
      */
-    render(simState, dtMs, risingSapNextZone = 0, showGhostThirdNode = false) {
+    render(simState, dtMs, risingSapNextZone = 0, showGhostThirdNode = false, isActiveReverseGraft = false) {
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
@@ -321,7 +323,15 @@
 
       // 5. Draw the Procedural Climbing Vine Stem, Tendrils, Leaves, Rising Sap Vein & Blooms
       if (simState) {
-        this.drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode);
+        this.drawClimbingVine(
+          ctx,
+          theme,
+          simState,
+          risingSapNextZone,
+          nowMs,
+          showGhostThirdNode,
+          isActiveReverseGraft
+        );
         this.drawBurstParticles(ctx, simState, dtMs);
         this.drawDangerVignette(ctx, theme, simState, nowMs);
       }
@@ -608,7 +618,15 @@
       }
     }
 
-    drawClimbingVine(ctx, theme, simState, risingSapNextZone, nowMs, showGhostThirdNode = false) {
+    drawClimbingVine(
+      ctx,
+      theme,
+      simState,
+      risingSapNextZone,
+      nowMs,
+      showGhostThirdNode = false,
+      isActiveReverseGraft = false
+    ) {
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
       const yVine = simState.yVine;
@@ -739,6 +757,9 @@
         if (pt.anchor.hasLeafRight) {
           this.drawBotanicalLeaf(ctx, theme, pt.x + 6 * s, pt.y, 1, -swayAngle, s);
         }
+        if (pt.anchor.isReverseGraft) {
+          this.drawReverseGraftRing(ctx, theme, activePalette, pt.x, pt.y, s, nowMs, false);
+        }
         if (pt.anchor.isBloom) {
           const ageMs = nowMs - (pt.anchor.bloomTimestamp || 0);
           const scale = Math.min(1, ageMs / 280) * s;
@@ -757,11 +778,25 @@
       });
 
       // 4. Draw Sweeping S-Curve Active Fork Tendrils Toward Candidate Word Leaves
-      // As the camera pans over the top of the vine, the fork arches wider and foreshortens vertically
+      // When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
       const tipX = centerX;
       const tipY = tipScreenY;
       const forkSpread = 1 + pitchProgress * 0.16;
       const forkLift = 1 - pitchProgress * 0.22;
+
+      if (isActiveReverseGraft) {
+        this.drawReverseGraftRing(
+          ctx,
+          theme,
+          activePalette,
+          tipX,
+          tipY + 18 * tipScale,
+          tipScale,
+          nowMs,
+          true
+        );
+      }
+
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineWidth = 4.8 * tipScale;
@@ -846,10 +881,77 @@
       }
 
       // Glowing apical meristem bud at active tip
-      ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : activePalette.vein;
+      ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : isActiveReverseGraft ? '#F59E0B' : activePalette.vein;
       ctx.beginPath();
       ctx.arc(tipX, tipY, 6.5 * tipScale, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
+    }
+
+    /**
+     * Draws a 360° Curling Ringed Vine Loop for the Reverse-Graft Loop (⬅) game mode.
+     * When isActive = true, renders a larger luminous amber-and-emerald braided loop with
+     * counter-clockwise orbiting sap particles at the active stem fork.
+     */
+    drawReverseGraftRing(ctx, theme, palette, x, y, scale = 1, nowMs = 0, isActive = false) {
+      const radiusX = (isActive ? 46 : 22) * scale;
+      const radiusY = (isActive ? 34 : 16) * scale;
+
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Outer warm amber/gold loop aura when active
+      if (isActive) {
+        const pulse = 0.72 + 0.28 * Math.sin(nowMs * 0.007);
+        const aura = ctx.createRadialGradient(0, 0, radiusY * 0.3, 0, 0, radiusX * 1.45);
+        aura.addColorStop(0, `rgba(245, 158, 11, ${0.26 * pulse})`);
+        aura.addColorStop(0.65, `rgba(217, 119, 6, ${0.12 * pulse})`);
+        aura.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        ctx.fillStyle = aura;
+        ctx.beginPath();
+        ctx.arc(0, 0, radiusX * 1.45, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Secondary braided vine loop ring
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = isActive ? '#D97706' : palette.secondary;
+      ctx.lineWidth = (isActive ? 11.5 : 6.5) * scale;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, radiusX, radiusY, -0.12, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Primary botanical vine loop ring
+      ctx.strokeStyle = palette.main;
+      ctx.lineWidth = (isActive ? 7.5 : 4.5) * scale;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, radiusX * 0.92, radiusY * 0.92, 0.1, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Counter-clockwise animated sap vein inside the ringed loop
+      ctx.strokeStyle = isActive ? '#FDE68A' : palette.vein;
+      ctx.lineWidth = (isActive ? 3.2 : 1.8) * scale;
+      ctx.setLineDash([10 * scale, 8 * scale]);
+      ctx.lineDashOffset = (nowMs * 0.045) % 36;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, radiusX * 0.92, radiusY * 0.92, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Orbiting sap droplets traveling counter-clockwise (⬅ at the top of the loop)
+      if (isActive) {
+        const dropletCount = 3;
+        for (let i = 0; i < dropletCount; i++) {
+          const angle = -nowMs * 0.0045 + (i * Math.PI * 2) / dropletCount;
+          const dx = Math.cos(angle) * radiusX * 0.92;
+          const dy = Math.sin(angle) * radiusY * 0.92;
+          ctx.fillStyle = '#FEF08A';
+          ctx.beginPath();
+          ctx.arc(dx, dy, 3.6 * scale, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
       ctx.restore();
     }
 

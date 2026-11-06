@@ -97,7 +97,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         dt_sec = (dt_ms / 1000.0) * time_scale
         effective_elapsed_sec += dt_sec
 
-        v_cam = min(280.0, 45.0 + 1.8 * effective_elapsed_sec + 3.5 * nodes_completed)
+        v_cam = 45.0
         y_cam += v_cam * dt_sec
 
         v_creep = 0.35 * v_cam
@@ -158,16 +158,20 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
 
         c_zone = int(curr_node.get("zoneId", 1))
         is_triple_bloom = c_zone == 1 and int(curr_node.get("tripletStep", 0)) == 3
+        is_reverse_graft = bool(
+            curr_node.get("isReverseGraft") or curr_node.get("gameMode") == "REVERSE_GRAFT"
+        )
 
         z_mult = 1 if c_zone == 1 else (2 if c_zone == 2 else 3)
         lead_bonus = int(math.floor(max(0.0, y_vine - y_cam) / 10.0))
         b_triplet = 250 if is_triple_bloom else 0
-        score += (100 * z_mult) + lead_bonus + b_triplet
+        b_reverse = 150 if is_reverse_graft else 0
+        score += (100 * z_mult) + lead_bonus + b_triplet + b_reverse
 
         if is_triple_bloom:
             triplet_blooms += 1
 
-        spurt_impulse = 185.0 if is_triple_bloom else 125.0
+        spurt_impulse = 185.0 if is_triple_bloom else (155.0 if is_reverse_graft else 125.0)
         if spurt_active and spurt_total_delta > spurt_applied_delta:
             y_vine += spurt_total_delta - spurt_applied_delta
 
@@ -186,10 +190,16 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
             status = "COMPLETED"
             break
 
-        next_zone = int(vine_nodes[node_index].get("zoneId", c_zone))
+        next_node = vine_nodes[node_index]
+        next_zone = int(next_node.get("zoneId", c_zone))
+        next_is_reverse = bool(
+            next_node.get("isReverseGraft") or next_node.get("gameMode") == "REVERSE_GRAFT"
+        )
         if next_zone != zone_id:
             zone_id = next_zone
             bullet_time_remaining_ms = 600.0
+        elif next_is_reverse:
+            bullet_time_remaining_ms = max(bullet_time_remaining_ms, 450.0)
 
     if status == "PLAYING" and final_wait_ms:
         rem = min(60000.0, float(final_wait_ms))
@@ -231,13 +241,13 @@ def get_daily_vine(date_key=None):
             break
     if not local_match and local_vines:
         try:
-            epoch_dt = datetime(2026, 11, 1, tzinfo=timezone.utc)
+            epoch_dt = datetime(2026, 11, 6, tzinfo=timezone.utc)
             target_dt = datetime.strptime(target_date[:10], "%Y-%m-%d").replace(tzinfo=timezone.utc)
             day_offset = (target_dt - epoch_dt).days
             rot_idx = day_offset % len(local_vines)
             local_match = dict(local_vines[rot_idx])
             local_match["dateKey"] = target_date
-            local_match["vineNumber"] = 142 + max(0, day_offset)
+            local_match["vineNumber"] = 147 + day_offset
         except Exception:
             local_match = local_vines[0]
 

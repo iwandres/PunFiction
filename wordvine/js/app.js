@@ -127,6 +127,9 @@
       this.rightPill = document.getElementById('right-pill');
       this.leftWordEl = document.getElementById('left-word');
       this.rightWordEl = document.getElementById('right-word');
+      this.stemCard = document.getElementById('stem-card');
+      this.stemReversePrefix = document.getElementById('stem-reverse-prefix');
+      this.reverseLoopBanner = document.getElementById('reverse-loop-banner');
       this.stemWordEl = document.getElementById('stem-word');
       this.stemZoneBadge = document.getElementById('stem-zone-badge');
       this.tripletPipBar = document.getElementById('triplet-pip-bar');
@@ -139,6 +142,7 @@
       this.pipConn2 = document.getElementById('pip-conn-2');
       this.pipLabel = document.getElementById('pip-label');
       this.showGhostThirdNode = true;
+      this.isActiveReverseGraft = false;
 
       // Top HUD elements
       this.hudScore = document.getElementById('hud-score');
@@ -685,7 +689,9 @@
       // Correct choice!
       if (result.triggeredGraftCollar) {
         Sound.playGraftCollar(result.nextZone);
-      } else if (result.isTripleBloom) {
+      } else if (result.enteredReverseGraft) {
+        Sound.playGraftCollar(2);
+      } else if (result.isTripleBloom || result.isReverseGraft) {
         Sound.playTripleBloom();
       } else {
         Sound.playSpurt(this.simState.zoneId, this.simState.nodesCompleted);
@@ -695,6 +701,7 @@
         yWorld: prevYVine,
         zoneId: result.node.zoneId,
         isTripleBloom: result.isTripleBloom,
+        isReverseGraft: result.isReverseGraft,
         triggeredGraftCollar: result.triggeredGraftCollar,
         word: result.node.correctWord,
         choiceSide
@@ -717,15 +724,17 @@
       pop.className = 'score-pop';
       const screenY = this.renderer.worldToScreenY(this.simState.yVine, this.simState.yCam);
       pop.style.top = `${Math.max(80, screenY - 120)}px`;
-      pop.textContent = breakdown.isTripleBloom
-        ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
-        : `+${breakdown.totalNodeScore}`;
+      pop.textContent = breakdown.isReverseGraft
+        ? `⬅ REVERSE GRAFT! +${breakdown.totalNodeScore}`
+        : breakdown.isTripleBloom
+          ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
+          : `+${breakdown.totalNodeScore}`;
       document.body.appendChild(pop);
       setTimeout(() => pop.remove(), 650);
     }
 
     /**
-     * Synchronizes the Foveal Choice words and subtle 2-Node / 3-Node compound link indicators
+     * Synchronizes the Foveal Choice words, Reverse-Graft Loop (⬅) state, and subtle 2-Node / 3-Node compound link indicators
      * without revealing any upcoming word choices.
      */
     syncFovealDOM() {
@@ -734,6 +743,24 @@
 
       document.body.classList.remove('zone-1', 'zone-2', 'zone-3');
       document.body.classList.add(`zone-${node.zoneId}`);
+
+      const isReverseGraft = Boolean(
+        node.isReverseGraft || node.gameMode === 'REVERSE_GRAFT'
+      );
+      this.isActiveReverseGraft = isReverseGraft;
+
+      // Toggle Reverse-Graft Loop (⬅) visual indicators on stem card, banner & candidate pills
+      if (this.stemCard) {
+        this.stemCard.classList.toggle('is-reverse-graft', isReverseGraft);
+      }
+      if (this.stemReversePrefix) {
+        this.stemReversePrefix.classList.toggle('hidden', !isReverseGraft);
+      }
+      if (this.reverseLoopBanner) {
+        this.reverseLoopBanner.classList.toggle('hidden', !isReverseGraft);
+      }
+      this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
+      this.rightPill.classList.toggle('is-reverse-graft', isReverseGraft);
 
       // Always display only the active stem word (never reveal upcoming words)
       this.stemWordEl.textContent = node.stemWord;
@@ -796,7 +823,14 @@
       this.hudScore.textContent = this.simState.score.toLocaleString();
       this.hudAltitude.textContent = `${altitudeMeters}m`;
       this.hudVelocity.textContent = `${Math.round(this.simState.vCam)} u/s`;
-      this.hudZone.textContent = `Z${this.simState.zoneId} • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
+      this.hudZone.textContent = this.isActiveReverseGraft
+        ? `⬅ LOOP • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`
+        : `Z${this.simState.zoneId} • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
+      if (this.hudModeBadge) {
+        this.hudModeBadge.textContent = this.isActiveReverseGraft
+          ? '⬅ REVERSE LOOP'
+          : 'DAILY CLIMB';
+      }
     }
 
     /**
@@ -865,7 +899,13 @@
 
       // Render HD Canvas
       const risingSapZone = Physics.getRisingSapWarningZone(this.simState.nodeIndex);
-      this.renderer.render(this.simState, dtMs, risingSapZone, this.showGhostThirdNode);
+      this.renderer.render(
+        this.simState,
+        dtMs,
+        risingSapZone,
+        this.showGhostThirdNode,
+        this.isActiveReverseGraft
+      );
 
       requestAnimationFrame((t) => this.loop(t));
     }
@@ -878,6 +918,9 @@
         (this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1)
       );
       const cause = this.simState.status; // 'SNIPPED' | 'OUTRUN' | 'COMPLETED'
+      const wasReverseGraft = Boolean(
+        fatalNode && (fatalNode.isReverseGraft || fatalNode.gameMode === 'REVERSE_GRAFT')
+      );
 
       // Populate Death / Completion Modal
       const titleEl = document.getElementById('death-modal-title');
@@ -897,7 +940,7 @@
         titleEl.textContent = '🌸 Canopy Circuit Closed!';
         explainEl.style.borderColor = 'rgba(34, 197, 94, 0.5)';
         explainEl.style.background = 'rgba(34, 197, 94, 0.14)';
-        explainEl.innerHTML = `<strong>Mastery Achieved!</strong> You chained all ${this.activeVine.nodes.length} forward compounds at up to ${Math.round(this.simState.vCam)} u/s!`;
+        explainEl.innerHTML = `<strong>Mastery Achieved!</strong> You chained all ${this.activeVine.nodes.length} compounds and mastered every <strong>⬅ Reverse-Graft Loop</strong>!`;
       } else if (cause === 'SNIPPED') {
         titleEl.textContent = `Vine Height ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
@@ -906,14 +949,22 @@
         const right = fatalNode ? fatalNode.correctWord : '';
         const wrong = fatalNode ? fatalNode.decoyWord : '';
         const note = fatalNode && fatalNode.explanation ? fatalNode.explanation : '';
-        explainEl.innerHTML = `<strong>${stem} → ${right}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the forward compound.<br>You picked <strong>${wrong}</strong>. ${note}`;
+        if (wasReverseGraft) {
+          explainEl.innerHTML = `<strong>⬅ ${right} + ${stem}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the <strong>Reverse-Graft Loop</strong> word in front!<br>You picked <strong>${wrong}</strong>. ${note}`;
+        } else {
+          explainEl.innerHTML = `<strong>${stem} → ${right}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the forward compound.<br>You picked <strong>${wrong}</strong>. ${note}`;
+        }
       } else {
         titleEl.textContent = `Vine Height ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
         explainEl.style.background = 'rgba(245, 158, 11, 0.12)';
         const stem = fatalNode ? fatalNode.stemWord : '';
         const right = fatalNode ? fatalNode.correctWord : '';
-        explainEl.innerHTML = `The rising viewport overtook your vine tip on <strong>${stem} → ${right}</strong>!`;
+        if (wasReverseGraft) {
+          explainEl.innerHTML = `The rising viewport overtook your vine inside the <strong>⬅ Reverse-Graft Loop</strong> on <strong>⬅ ${right} + ${stem}</strong>!`;
+        } else {
+          explainEl.innerHTML = `The rising viewport overtook your vine tip on <strong>${stem} → ${right}</strong>!`;
+        }
       }
 
       document.getElementById('stat-final-score').textContent =

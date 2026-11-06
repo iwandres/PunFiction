@@ -361,6 +361,55 @@ body {
   align-items: center;
 }
 
+/* Reverse-Graft Loop Mode Banner & Stem Ringed Loop Styling */
+.reverse-loop-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #fffbeb;
+  border: 1.5px solid #fde68a;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.42);
+  animation: reverseLoopPulse 1.15s ease-in-out infinite alternate;
+}
+
+.reverse-loop-banner.hidden {
+  display: none !important;
+}
+
+.reverse-loop-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@keyframes reverseLoopPulse {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+  }
+  100% {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.62);
+  }
+}
+
 .stem-card {
   background: var(--stem-bg);
   color: #faf8f2;
@@ -371,6 +420,43 @@ body {
   text-align: center;
   box-shadow: 0 10px 26px rgba(42, 68, 50, 0.16);
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stem-card.is-reverse-graft {
+  background: linear-gradient(135deg, #78350f, #92400e);
+  border: 2.5px solid #fbbf24;
+  box-shadow:
+    0 0 0 4px rgba(245, 158, 11, 0.24),
+    0 12px 28px rgba(180, 83, 9, 0.42);
+  padding: 10px 24px;
+}
+
+.stem-reverse-prefix {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(254, 243, 199, 0.95);
+  color: #92400e;
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 3.4vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.stem-reverse-prefix.hidden {
+  display: none !important;
+}
+
+.word-pill.is-reverse-graft {
+  border-color: #f59e0b;
+  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.22);
 }
 
 .stem-word-text {
