@@ -313,7 +313,7 @@
       const velocityDesat = Math.max(0, Math.min(1, (vCam - 180) / 100));
 
       // 2. Draw 0.2x Parallax Background & Theme Atmosphere
-      this.drawBackground(ctx, theme, simState, velocityDesat, nowMs);
+      this.drawBackground(ctx, theme, simState, velocityDesat, nowMs, isActiveReverseGraft);
 
       // 3. Draw Soft Center Gutter Vignette to protect word fork readability
       this.drawQuietCenterGutter(ctx, theme, velocityDesat);
@@ -339,7 +339,7 @@
       ctx.restore();
     }
 
-    drawBackground(ctx, theme, simState, velocityDesat, nowMs) {
+    drawBackground(ctx, theme, simState, velocityDesat, nowMs, isActiveReverseGraft = false) {
       const yCam = simState ? simState.yCam : 0;
       // 0.2x Slow-Scroll Parallax altitude factor
       const parallaxY = yCam * 0.2;
@@ -379,15 +379,32 @@
       // Theme-specific 0.2x parallax architectural / landscape silhouettes in periphery
       if (theme.id === 0) {
         // Midnight Bioluminescence: Starlit canopy & distant glowing botanical silhouettes
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.16 + altitudeBlend * 0.45})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${(isActiveReverseGraft ? 0.34 : 0.16) + altitudeBlend * 0.45})`;
         for (let i = 0; i < 36; i++) {
           const sx = (i * 197) % this.width;
           if (sx > this.width * 0.32 && sx < this.width * 0.68) continue;
           const sy = (i * 131 + parallaxY * 0.35) % this.height;
-          const r = i % 3 === 0 ? 1.6 : 1.0;
+          const r = i % 3 === 0 ? 1.8 : 1.1;
           ctx.beginPath();
           ctx.arc(sx, sy, r, 0, Math.PI * 2);
           ctx.fill();
+        }
+        if (isActiveReverseGraft) {
+          // Bioluminescent Reverse-Graft Loop atmospheric aura
+          const pulse = 0.7 + 0.3 * Math.sin(nowMs * 0.005);
+          const bioGlow = ctx.createRadialGradient(
+            this.width * 0.5,
+            this.height * 0.45,
+            40,
+            this.width * 0.5,
+            this.height * 0.5,
+            this.width * 0.7
+          );
+          bioGlow.addColorStop(0, `rgba(45, 212, 191, ${0.14 * pulse})`);
+          bioGlow.addColorStop(0.55, `rgba(192, 132, 252, ${0.08 * pulse})`);
+          bioGlow.addColorStop(1, 'rgba(4, 10, 22, 0)');
+          ctx.fillStyle = bioGlow;
+          ctx.fillRect(0, 0, this.width, this.height);
         }
       } else if (theme.id === 1 || theme.id === 3) {
         // Sunlit Conservatory & Meadow: Wrought-iron Victorian glasshouse arches & diagonal sunbeams

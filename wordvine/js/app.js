@@ -242,12 +242,13 @@
 
       const params = new URLSearchParams(window.location.search);
 
-      // Apply saved visual palette (or default to Meadow & Sage = 3)
-      const savedPaletteRaw = localStorage.getItem('wordvine_visual_palette');
+      // Apply saved base visual palette (or default to Meadow & Sage = 3 so Reverse-Graft Loop shifts to Biolum = 0)
+      const savedPaletteRaw = localStorage.getItem('wordvine_base_palette');
       const initialPalette =
         savedPaletteRaw !== null && !Number.isNaN(Number(savedPaletteRaw))
           ? Number(savedPaletteRaw)
           : 3;
+      this.basePaletteId = initialPalette;
       this.setVisualPalette(initialPalette);
       this.renderer.resetVine(Physics.PHYSICS_CONFIG.INITIAL_Y_VINE, 1);
       this.updateMuteButtonLabel();
@@ -329,7 +330,7 @@
       // Top HUD Buttons
       this.themeCycleBtn.addEventListener('click', () => {
         const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
-        const nextTheme = (this.renderer.themeId + 1) % totalThemes;
+        const nextTheme = ((this.basePaletteId ?? this.renderer.themeId) + 1) % totalThemes;
         this.setVisualPalette(nextTheme);
       });
 
@@ -382,7 +383,7 @@
       if (switchPaletteBtn) {
         switchPaletteBtn.addEventListener('click', () => {
           const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
-          const nextTheme = (this.renderer.themeId + 1) % totalThemes;
+          const nextTheme = ((this.basePaletteId ?? this.renderer.themeId) + 1) % totalThemes;
           this.setVisualPalette(nextTheme);
         });
       }
@@ -455,24 +456,32 @@
     }
 
     setVisualPalette(paletteId) {
-      const theme = this.renderer.setTheme(paletteId);
-      localStorage.setItem('wordvine_visual_palette', String(theme.id));
+      const normId = ((Number(paletteId) % 4) + 4) % 4;
+      this.basePaletteId = normId;
+      localStorage.setItem('wordvine_base_palette', String(normId));
+      localStorage.setItem('wordvine_visual_palette', String(normId));
+      // Whenever Reverse-Graft Loop is active, force Midnight Bioluminescence (id = 0)
+      this.renderer.setTheme(this.isActiveReverseGraft ? 0 : this.basePaletteId);
       this.updateThemeButtonLabel();
     }
 
     updateThemeButtonLabel() {
-      const theme = this.renderer.getTheme();
-      const meta = PALETTE_META[theme.id] || PALETTE_META[3];
+      const baseId = this.basePaletteId ?? 3;
+      const baseMeta = PALETTE_META[baseId] || PALETTE_META[3];
+      const activeTheme = this.renderer.getTheme();
+      const activeMeta = PALETTE_META[activeTheme.id] || baseMeta;
       if (this.themeCycleBtn) {
-        this.themeCycleBtn.textContent = `${meta.icon} ${meta.short}`;
+        this.themeCycleBtn.textContent = this.isActiveReverseGraft
+          ? `✨ Biolum (⬅)`
+          : `${activeMeta.icon} ${activeMeta.short}`;
       }
       const switchPaletteBtn = document.getElementById('btn-switch-vine');
       if (switchPaletteBtn) {
-        switchPaletteBtn.textContent = `🎨 Palette: ${meta.icon} ${meta.short}`;
+        switchPaletteBtn.textContent = `🎨 Palette: ${baseMeta.icon} ${baseMeta.short}`;
       }
       document.querySelectorAll('.palette-opt-btn').forEach((btn) => {
         const id = Number(btn.getAttribute('data-palette-id'));
-        btn.classList.toggle('active', id === theme.id);
+        btn.classList.toggle('active', id === baseId);
       });
     }
 
@@ -748,6 +757,16 @@
         node.isReverseGraft || node.gameMode === 'REVERSE_GRAFT'
       );
       this.isActiveReverseGraft = isReverseGraft;
+
+      // Switch game atmosphere to Midnight Bioluminescence (id = 0) whenever Reverse-Graft Loop is in place!
+      if (isReverseGraft) {
+        this.renderer.setTheme(0);
+        document.body.classList.add('reverse-graft-active');
+      } else {
+        this.renderer.setTheme(this.basePaletteId ?? 3);
+        document.body.classList.remove('reverse-graft-active');
+      }
+      this.updateThemeButtonLabel();
 
       // Toggle Reverse-Graft Loop (⬅) visual indicators on stem card, banner & candidate pills
       if (this.stemCard) {

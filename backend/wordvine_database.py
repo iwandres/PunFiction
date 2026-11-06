@@ -292,7 +292,22 @@ def record_run_submission(device_token, handle, date_key, choices, deltas_ms, fi
     if not vine or "nodes" not in vine:
         return {"accepted": False, "reason": "Daily vine not found"}
 
-    verification = verify_replay(vine["nodes"], choices, deltas_ms, final_wait_ms)
+    candidate_chains = vine.get("variants") if isinstance(vine.get("variants"), list) and vine.get("variants") else [vine["nodes"]]
+    verification = None
+    for chain_nodes in candidate_chains:
+        v_res = verify_replay(chain_nodes, choices, deltas_ms, final_wait_ms)
+        if v_res.get("valid"):
+            if (
+                verification is None
+                or v_res.get("nodesCompleted", 0) > verification.get("nodesCompleted", 0)
+                or (
+                    v_res.get("nodesCompleted", 0) == verification.get("nodesCompleted", 0)
+                    and v_res.get("score", 0) > verification.get("score", 0)
+                )
+            ):
+                verification = v_res
+    if verification is None:
+        verification = verify_replay(vine["nodes"], choices, deltas_ms, final_wait_ms)
     if not verification.get("valid"):
         return {"accepted": False, "reason": verification.get("reason", "Invalid replay")}
 
