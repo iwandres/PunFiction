@@ -725,12 +725,14 @@
         zoneId: result.node.zoneId,
         isTripleBloom: result.isTripleBloom,
         isReverseGraft: result.isReverseGraft,
+        isRapidFire: result.isRapidFire,
+        enteredRapidFire: result.enteredRapidFire,
         triggeredGraftCollar: result.triggeredGraftCollar,
         word: result.node.correctWord,
         choiceSide
       });
 
-      this.spawnScorePop(this.simState.lastNodeScoreBreakdown);
+      this.spawnScorePop(this.simState.lastNodeScoreBreakdown, result.enteredRapidFire);
 
       if (this.simState.status === 'COMPLETED') {
         setTimeout(() => this.onRunEnded(result.node), 420);
@@ -741,19 +743,21 @@
       this.syncTelemetryHUD();
     }
 
-    spawnScorePop(breakdown) {
+    spawnScorePop(breakdown, enteredRapidFire = false) {
       if (!breakdown) return;
       const pop = document.createElement('div');
       pop.className = 'score-pop';
       const screenY = this.renderer.worldToScreenY(this.simState.yVine, this.simState.yCam);
       pop.style.top = `${Math.max(80, screenY - 120)}px`;
-      pop.textContent = breakdown.isReverseGraft
-        ? `⬅ REVERSE GRAFT! +${breakdown.totalNodeScore}`
-        : breakdown.isRapidFire
-          ? `⚡ RAPID FIRE! +${breakdown.totalNodeScore}`
-          : breakdown.isTripleBloom
-            ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
-            : `+${breakdown.totalNodeScore}`;
+      pop.textContent = enteredRapidFire
+        ? `⚡ RAPID-FIRE SPRINT! +${breakdown.totalNodeScore}`
+        : breakdown.isReverseGraft
+          ? `⬅ REVERSE GRAFT! +${breakdown.totalNodeScore}`
+          : breakdown.isRapidFire
+            ? `⚡ RAPID FIRE! +${breakdown.totalNodeScore}`
+            : breakdown.isTripleBloom
+              ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
+              : `+${breakdown.totalNodeScore}`;
       document.body.appendChild(pop);
       setTimeout(() => pop.remove(), 650);
     }
@@ -777,6 +781,14 @@
       );
       this.isActiveReverseGraft = isReverseGraft;
       this.isActiveRapidFire = isRapidFire;
+
+      // Compute on-vine Speed Gate countdown (1 or 2 nodes before Rapid-Fire Sprint starts)
+      const idx = this.simState.nodeIndex;
+      const next1 = this.activeVine.nodes[idx + 1];
+      const next2 = this.activeVine.nodes[idx + 2];
+      const next1Rapid = Boolean(next1 && (next1.isRapidFire || next1.gameMode === 'RAPID_FIRE'));
+      const next2Rapid = Boolean(next2 && (next2.isRapidFire || next2.gameMode === 'RAPID_FIRE'));
+      this.stepsUntilRapidFire = isRapidFire ? 0 : next1Rapid ? 1 : next2Rapid ? 2 : 0;
 
       // Switch game atmosphere automatically with each 6-to-10 node mode segment:
       // - Reverse-Graft Loop (⬅) -> Midnight Bioluminescence (id = 0)
@@ -976,7 +988,8 @@
         risingSapZone,
         this.showGhostThirdNode,
         this.isActiveReverseGraft,
-        this.isActiveRapidFire
+        this.isActiveRapidFire,
+        this.stepsUntilRapidFire || 0
       );
 
       requestAnimationFrame((t) => this.loop(t));

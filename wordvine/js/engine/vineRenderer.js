@@ -112,6 +112,7 @@
       // Historical world anchors along the climbed vine
       this.stemAnchors = [];
       this.graftCollars = [];
+      this.rapidFireCollars = [];
 
       this.resize();
       this.initAmbientParticles();
@@ -162,6 +163,7 @@
       this.stemAnchors = [];
       this.burstParticles = [];
       this.graftCollars = [];
+      this.rapidFireCollars = [];
 
       // Seed root anchors from world Y = -220 up to initialYVine with graceful S-curve sway
       const steps = 8;
@@ -191,6 +193,8 @@
       zoneId,
       isTripleBloom,
       isReverseGraft,
+      isRapidFire = false,
+      enteredRapidFire = false,
       triggeredGraftCollar,
       word,
       choiceSide
@@ -206,6 +210,7 @@
         tendrilSide: choiceSide === 0 ? 1 : -1,
         isBloom: Boolean(isTripleBloom),
         isReverseGraft: Boolean(isReverseGraft),
+        isRapidFire: Boolean(isRapidFire),
         bloomTimestamp: performance.now(),
         word
       });
@@ -216,6 +221,28 @@
           zoneId,
           timestamp: performance.now()
         });
+      }
+
+      if (enteredRapidFire) {
+        this.rapidFireCollars.push({
+          yWorld,
+          timestamp: performance.now()
+        });
+        // Extra golden-emerald speed-gate ignition burst when crossing into Rapid-Fire Sprint
+        for (let i = 0; i < 26; i++) {
+          const angle = -Math.PI * 0.5 + (Math.random() - 0.5) * 1.7;
+          const speed = 110 + Math.random() * 150;
+          this.burstParticles.push({
+            xOffset: (Math.random() - 0.5) * 44,
+            yWorld: yWorld + 12,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: 3 + Math.random() * 3.8,
+            color: i % 3 === 0 ? '#FEF08A' : i % 3 === 1 ? '#F59E0B' : '#10B981',
+            life: 1.0,
+            decay: 0.95 + Math.random() * 0.45
+          });
+        }
       }
 
       // Spawn celebratory spores / ink splatters / golden pollen
@@ -305,7 +332,8 @@
       risingSapNextZone = 0,
       showGhostThirdNode = false,
       isActiveReverseGraft = false,
-      isActiveRapidFire = false
+      isActiveRapidFire = false,
+      stepsUntilRapidFire = 0
     ) {
       const ctx = this.ctx;
       const theme = this.getTheme();
@@ -337,7 +365,9 @@
           risingSapNextZone,
           nowMs,
           showGhostThirdNode,
-          isActiveReverseGraft
+          isActiveReverseGraft,
+          isActiveRapidFire,
+          stepsUntilRapidFire
         );
         this.drawBurstParticles(ctx, simState, dtMs);
         this.drawDangerVignette(ctx, theme, simState, nowMs);
@@ -650,7 +680,9 @@
       risingSapNextZone,
       nowMs,
       showGhostThirdNode = false,
-      isActiveReverseGraft = false
+      isActiveReverseGraft = false,
+      isActiveRapidFire = false,
+      stepsUntilRapidFire = 0
     ) {
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
@@ -743,15 +775,21 @@
         ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
         ctx.stroke();
 
-        // Rising Sap Center Vein (pulses along the growing vine & bleeds next zone color before shift)
+        // Rising Sap Center Vein (pulses along the growing vine & bleeds golden charge before/during Rapid-Fire Sprint)
         const sapPalette =
           risingSapNextZone > 0 && theme.stemZones[risingSapNextZone]
             ? theme.stemZones[risingSapNextZone]
             : null;
-        const pulse = 0.55 + 0.45 * Math.sin(nowMs * 0.008 - i * 0.7);
-        ctx.strokeStyle = sapPalette ? sapPalette.main : segPalette.vein;
-        ctx.lineWidth = (sapPalette ? 4.2 : 2.5) * segScale;
-        ctx.globalAlpha = sapPalette ? 0.92 : 0.68 * pulse;
+        const rapidSapCharge = isActiveRapidFire || stepsUntilRapidFire > 0;
+        const pulseSpeed = rapidSapCharge ? 0.016 : 0.008;
+        const pulse = 0.55 + 0.45 * Math.sin(nowMs * pulseSpeed - i * 0.7);
+        ctx.strokeStyle = rapidSapCharge
+          ? '#FEF08A'
+          : sapPalette
+            ? sapPalette.main
+            : segPalette.vein;
+        ctx.lineWidth = (rapidSapCharge ? 4.4 : sapPalette ? 4.2 : 2.5) * segScale;
+        ctx.globalAlpha = rapidSapCharge ? 0.88 * pulse : sapPalette ? 0.92 : 0.68 * pulse;
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
         ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
@@ -759,6 +797,11 @@
         ctx.globalAlpha = 1;
       }
       ctx.restore();
+
+      // 1b. Draw Upward Golden Speed Chevrons (▲ ▲ ▲) racing along the vine stem when Rapid-Fire is approaching or active
+      if (isActiveRapidFire || stepsUntilRapidFire > 0) {
+        this.drawStemSpeedChevrons(ctx, points, nowMs, isActiveRapidFire, stepsUntilRapidFire);
+      }
 
       // 2. Draw Curling Spiral Tendrils, Botanical Leaves & Triple-Bloom Flowers on Historical Nodes (Scaled by Depth)
       points.forEach((pt, idx) => {
@@ -785,6 +828,9 @@
         if (pt.anchor.isReverseGraft) {
           this.drawReverseGraftRing(ctx, theme, activePalette, pt.x, pt.y, s, nowMs, false);
         }
+        if (pt.anchor.isRapidFire) {
+          this.drawRapidFireActiveBooster(ctx, pt.x, pt.y, s * 0.72, nowMs, true);
+        }
         if (pt.anchor.isBloom) {
           const ageMs = nowMs - (pt.anchor.bloomTimestamp || 0);
           const scale = Math.min(1, ageMs / 280) * s;
@@ -792,7 +838,7 @@
         }
       });
 
-      // 3. Draw Botanical Leaf & Blossom Collars at Zone Transitions
+      // 3. Draw Botanical Leaf & Blossom Collars at Zone Transitions & Golden Speed Gate Collars at Rapid-Fire Starts
       this.graftCollars.forEach((collar) => {
         if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
         const cy = this.worldToScreenY(collar.yWorld, yCam, simState);
@@ -802,12 +848,33 @@
         this.drawTripleBloomFlower(ctx, theme, centerX, cy, 0.9 * cs, nowMs);
       });
 
+      this.rapidFireCollars.forEach((collar) => {
+        if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
+        const cy = this.worldToScreenY(collar.yWorld, yCam, simState);
+        const cs = getDepthScale(cy);
+        this.drawRapidFireActiveBooster(ctx, centerX, cy, cs * 1.05, nowMs, false);
+      });
+
       // 4. Draw Sweeping S-Curve Active Fork Tendrils Toward Candidate Word Leaves
-      // When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
+      // - When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
+      // - When in a Rapid-Fire Sprint (⚡), a Golden Speed Booster Ring & Wing Chevrons straddle the active fork!
+      // - When 1 or 2 nodes away from a Rapid-Fire Sprint, an approaching Golden Speed Gate descends down the vine path!
       const tipX = centerX;
       const tipY = tipScreenY;
       const forkSpread = 1 + pitchProgress * 0.16;
       const forkLift = 1 - pitchProgress * 0.22;
+
+      if (stepsUntilRapidFire > 0 && !isActiveRapidFire) {
+        this.drawRapidFireVineGate(
+          ctx,
+          tipX,
+          tipY,
+          tipScale,
+          forkLift,
+          nowMs,
+          stepsUntilRapidFire
+        );
+      }
 
       if (isActiveReverseGraft) {
         this.drawReverseGraftRing(
@@ -819,6 +886,15 @@
           tipScale,
           nowMs,
           true
+        );
+      } else if (isActiveRapidFire) {
+        this.drawRapidFireActiveBooster(
+          ctx,
+          tipX,
+          tipY + 18 * tipScale,
+          tipScale,
+          nowMs,
+          false
         );
       }
 
@@ -906,7 +982,14 @@
       }
 
       // Glowing apical meristem bud at active tip
-      ctx.fillStyle = simState.status === 'SNIPPED' ? '#EF4444' : isActiveReverseGraft ? '#F59E0B' : activePalette.vein;
+      ctx.fillStyle =
+        simState.status === 'SNIPPED'
+          ? '#EF4444'
+          : isActiveReverseGraft
+            ? '#F59E0B'
+            : isActiveRapidFire
+              ? '#FBBF24'
+              : activePalette.vein;
       ctx.beginPath();
       ctx.arc(tipX, tipY, 6.5 * tipScale, 0, Math.PI * 2);
       ctx.fill();
@@ -976,6 +1059,255 @@
           ctx.fill();
         }
       }
+
+      ctx.restore();
+    }
+
+    /**
+     * Draws animated upward Golden Speed Chevrons (▲) racing along the vine stem
+     * when a Rapid-Fire Sprint is approaching (stepsUntilRapidFire = 1..2) or active.
+     */
+    drawStemSpeedChevrons(ctx, points, nowMs, isActiveRapidFire, stepsUntilRapidFire) {
+      if (!points || points.length < 2) return;
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      const speed = isActiveRapidFire ? 0.0042 : 0.0028;
+      const baseAlpha = isActiveRapidFire ? 0.88 : stepsUntilRapidFire === 1 ? 0.78 : 0.55;
+
+      // Render chevrons on the top 4 visible stem segments leading up to the active fork
+      const startSeg = Math.max(0, points.length - 5);
+      for (let i = startSeg; i < points.length - 1; i++) {
+        const p0 = points[i];
+        const p1 = points[i + 1];
+        const segScale = (p0.scale + p1.scale) * 0.5;
+
+        for (let c = 0; c < 2; c++) {
+          const t = ((nowMs * speed + i * 0.35 + c * 0.5) % 1 + 1) % 1;
+          const cx = p0.x + (p1.x - p0.x) * t;
+          const cy = p0.y + (p1.y - p0.y) * t;
+          const fade = Math.sin(t * Math.PI);
+          const w = (isActiveRapidFire ? 11 : 9) * segScale;
+          const h = (isActiveRapidFire ? 7 : 5.5) * segScale;
+
+          ctx.strokeStyle = c === 0 ? '#FEF08A' : '#F59E0B';
+          ctx.lineWidth = (isActiveRapidFire ? 2.6 : 2.1) * segScale;
+          ctx.globalAlpha = baseAlpha * fade;
+          ctx.beginPath();
+          ctx.moveTo(cx - w, cy + h);
+          ctx.lineTo(cx, cy - h * 0.6);
+          ctx.lineTo(cx + w, cy + h);
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+
+    /**
+     * Draws the active Golden Speed Booster Ring & Wing Chevrons straddling the vine stem
+     * during the Zone 3 Rapid-Fire Sprint (⚡), or a compact booster marker on completed Rapid-Fire nodes.
+     */
+    drawRapidFireActiveBooster(ctx, x, y, scale = 1, nowMs = 0, isHistorical = false) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (isHistorical) {
+        // Compact golden speed chevron badge on completed Rapid-Fire stem nodes
+        const w = 13 * scale;
+        const h = 7 * scale;
+        ctx.strokeStyle = '#F59E0B';
+        ctx.lineWidth = 2.4 * scale;
+        ctx.globalAlpha = 0.78;
+        ctx.beginPath();
+        ctx.moveTo(-w, h * 0.5);
+        ctx.lineTo(0, -h * 0.7);
+        ctx.lineTo(w, h * 0.5);
+        ctx.stroke();
+        ctx.restore();
+        return;
+      }
+
+      const pulse = 0.75 + 0.25 * Math.sin(nowMs * 0.012);
+      const ringRx = 38 * scale;
+      const ringRy = 13 * scale;
+
+      // Golden speed aura around the stem fork
+      const aura = ctx.createRadialGradient(0, 0, ringRy * 0.3, 0, 0, ringRx * 1.45);
+      aura.addColorStop(0, `rgba(251, 191, 36, ${0.32 * pulse})`);
+      aura.addColorStop(0.65, `rgba(16, 185, 129, ${0.14 * pulse})`);
+      aura.addColorStop(1, 'rgba(251, 191, 36, 0)');
+      ctx.fillStyle = aura;
+      ctx.beginPath();
+      ctx.arc(0, 0, ringRx * 1.45, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Horizontal golden booster ring straddling the vine stem
+      ctx.strokeStyle = '#D97706';
+      ctx.lineWidth = 5.5 * scale;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ringRx, ringRy, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#FEF08A';
+      ctx.lineWidth = 2.6 * scale;
+      ctx.setLineDash([8 * scale, 6 * scale]);
+      ctx.lineDashOffset = -(nowMs * 0.06) % 28;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ringRx * 0.94, ringRy * 0.94, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Dual upward wing-chevrons (▲ ▲) pulsing above the booster ring
+      for (let k = 0; k < 2; k++) {
+        const lift = ((nowMs * 0.04 + k * 9) % 18) * scale;
+        const alpha = (1 - lift / (18 * scale)) * 0.9;
+        const cw = (22 - k * 4) * scale;
+        const ch = 9 * scale;
+        const cy = -6 * scale - lift;
+
+        ctx.strokeStyle = k === 0 ? '#FEF08A' : '#F59E0B';
+        ctx.lineWidth = 2.8 * scale;
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.moveTo(-cw, cy + ch);
+        ctx.lineTo(0, cy - ch * 0.5);
+        ctx.lineTo(cw, cy + ch);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    /**
+     * Draws an approaching Golden Speed Gate / Booster Ring directly on the upper vine path
+     * 1 to 2 nodes BEFORE the Rapid-Fire Sprint starts, descending toward the active fork
+     * so the player sees the Rapid-Fire Sprint approaching right on the vine!
+     */
+    drawRapidFireVineGate(ctx, tipX, tipY, tipScale, forkLift, nowMs, stepsUntilRapidFire) {
+      // Position directly on the future vine path above the active fork:
+      // 2 nodes away -> higher up the vine path; 1 node away -> right above the fork!
+      const distAhead = (stepsUntilRapidFire === 1 ? 104 : 158) * forkLift;
+      const gateY = Math.max(58, tipY - distAhead);
+      const gateScale = tipScale * (stepsUntilRapidFire === 1 ? 1.02 : 0.88);
+      const pulse = 0.76 + 0.24 * Math.sin(nowMs * (stepsUntilRapidFire === 1 ? 0.015 : 0.009));
+
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      // 1. Future Vine Path Guide Line connecting active fork tip straight through the Speed Gate
+      const pathGrad = ctx.createLinearGradient(tipX, tipY, tipX, gateY - 28 * gateScale);
+      pathGrad.addColorStop(0, 'rgba(251, 191, 36, 0.65)');
+      pathGrad.addColorStop(0.7, 'rgba(245, 158, 11, 0.85)');
+      pathGrad.addColorStop(1, 'rgba(251, 191, 36, 0)');
+      ctx.strokeStyle = pathGrad;
+      ctx.lineWidth = 3.4 * gateScale;
+      ctx.setLineDash([6 * gateScale, 6 * gateScale]);
+      ctx.lineDashOffset = (nowMs * 0.055) % 24;
+      ctx.beginPath();
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(tipX, gateY - 26 * gateScale);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 2. Animated Upward Speed Chevrons (▲ ▲ ▲) racing along the future vine path into the gate
+      const chevronCount = 3;
+      for (let i = 0; i < chevronCount; i++) {
+        const prog = ((nowMs * 0.0026 + i / chevronCount) % 1 + 1) % 1;
+        const cy = tipY - 16 * gateScale - prog * (tipY - gateY - 10 * gateScale);
+        const fade = Math.sin(prog * Math.PI);
+        const cw = (11 + (1 - prog) * 4) * gateScale;
+        const ch = 6.5 * gateScale;
+
+        ctx.strokeStyle = i % 2 === 0 ? '#FEF08A' : '#F59E0B';
+        ctx.lineWidth = 2.5 * gateScale;
+        ctx.globalAlpha = fade * (stepsUntilRapidFire === 1 ? 0.92 : 0.72);
+        ctx.beginPath();
+        ctx.moveTo(tipX - cw, cy + ch);
+        ctx.lineTo(tipX, cy - ch * 0.5);
+        ctx.lineTo(tipX + cw, cy + ch);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      // 3. Golden Speed Gate Arch / Booster Ring straddling the vine path at (tipX, gateY)
+      const ringRx = 52 * gateScale;
+      const ringRy = 16 * gateScale;
+
+      const gateAura = ctx.createRadialGradient(tipX, gateY, ringRy * 0.2, tipX, gateY, ringRx * 1.45);
+      gateAura.addColorStop(0, `rgba(254, 240, 138, ${0.38 * pulse})`);
+      gateAura.addColorStop(0.6, `rgba(245, 158, 11, ${0.18 * pulse})`);
+      gateAura.addColorStop(1, 'rgba(245, 158, 11, 0)');
+      ctx.fillStyle = gateAura;
+      ctx.beginPath();
+      ctx.arc(tipX, gateY, ringRx * 1.45, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Outer golden-emerald gate ring
+      ctx.strokeStyle = '#D97706';
+      ctx.lineWidth = 6 * gateScale;
+      ctx.beginPath();
+      ctx.ellipse(tipX, gateY, ringRx, ringRy, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Inner spinning sunlit track on the gate ring
+      ctx.strokeStyle = '#FEF08A';
+      ctx.lineWidth = 2.8 * gateScale;
+      ctx.setLineDash([9 * gateScale, 6 * gateScale]);
+      ctx.lineDashOffset = -(nowMs * 0.065) % 30;
+      ctx.beginPath();
+      ctx.ellipse(tipX, gateY, ringRx * 0.92, ringRy * 0.92, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Left & Right Golden Speed Wing Fins on the Gate
+      const wingSpan = ringRx + 14 * gateScale;
+      ctx.strokeStyle = '#FBBF24';
+      ctx.lineWidth = 3 * gateScale;
+      ctx.beginPath();
+      // Left wing chevron
+      ctx.moveTo(tipX - ringRx + 2 * gateScale, gateY - 6 * gateScale);
+      ctx.lineTo(tipX - wingSpan, gateY);
+      ctx.lineTo(tipX - ringRx + 2 * gateScale, gateY + 6 * gateScale);
+      // Right wing chevron
+      ctx.moveTo(tipX + ringRx - 2 * gateScale, gateY - 6 * gateScale);
+      ctx.lineTo(tipX + wingSpan, gateY);
+      ctx.lineTo(tipX + ringRx - 2 * gateScale, gateY + 6 * gateScale);
+      ctx.stroke();
+
+      // 4. Crisp On-Vine Gate Badge ("⚡ RAPID-FIRE GATE • NEXT!" or "⚡ RAPID-FIRE SPRINT IN 2")
+      const label =
+        stepsUntilRapidFire === 1
+          ? '⚡ RAPID-FIRE GATE • NEXT!'
+          : '⚡ RAPID-FIRE SPRINT IN 2';
+      ctx.font = `800 ${Math.round(10.5 * gateScale)}px "Plus Jakarta Sans", sans-serif`;
+      const textWidth = ctx.measureText(label).width;
+      const pillW = textWidth + 20 * gateScale;
+      const pillH = 21 * gateScale;
+      const pillX = tipX - pillW * 0.5;
+      const pillY = gateY - ringRy - pillH - 5 * gateScale;
+
+      // Badge pill background
+      ctx.fillStyle = stepsUntilRapidFire === 1 ? 'rgba(120, 53, 15, 0.94)' : 'rgba(69, 26, 3, 0.86)';
+      ctx.strokeStyle = '#FBBF24';
+      ctx.lineWidth = 1.8 * gateScale;
+      ctx.beginPath();
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(pillX, pillY, pillW, pillH, 999);
+      } else {
+        ctx.rect(pillX, pillY, pillW, pillH);
+      }
+      ctx.fill();
+      ctx.stroke();
+
+      // Badge label text
+      ctx.fillStyle = '#FEF08A';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(label, tipX, pillY + pillH * 0.52);
 
       ctx.restore();
     }
