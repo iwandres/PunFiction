@@ -154,7 +154,7 @@
       this.windSettleTimers = [];
 
       // Top HUD elements
-      this.hudScore = document.getElementById('hud-score');
+      this.hudNodes = document.getElementById('hud-nodes');
       this.hudAltitude = document.getElementById('hud-altitude');
       this.hudVelocity = document.getElementById('hud-velocity');
       this.hudZone = document.getElementById('hud-zone');
@@ -624,15 +624,16 @@
     }
 
     getPersonalBest() {
-      const defaultPB = { maxNodes: 23, maxScore: 4180, maxAltitude: 26.8 };
+      const defaultPB = { maxNodes: 23, maxAltitude: 38.4 };
       try {
         const raw = localStorage.getItem('wordvine_personal_best');
         if (raw) {
           const parsed = JSON.parse(raw);
           return {
             maxNodes: Math.max(defaultPB.maxNodes, Number(parsed.maxNodes) || 0),
-            maxScore: Math.max(defaultPB.maxScore, Number(parsed.maxScore) || 0),
-            maxAltitude: Math.max(defaultPB.maxAltitude, Number(parsed.maxAltitude) || 0)
+            maxAltitude: Number(
+              Math.max(defaultPB.maxAltitude, Number(parsed.maxAltitude) || 0).toFixed(1)
+            )
           };
         }
       } catch (e) {
@@ -641,12 +642,13 @@
       return defaultPB;
     }
 
-    updatePersonalBest(nodesCompleted, score, altitudeMeters) {
+    updatePersonalBest(nodesCompleted, altitudeMeters) {
       const current = this.getPersonalBest();
       const updated = {
         maxNodes: Math.max(current.maxNodes, Number(nodesCompleted) || 0),
-        maxScore: Math.max(current.maxScore, Number(score) || 0),
-        maxAltitude: Math.max(current.maxAltitude, Number(altitudeMeters) || 0)
+        maxAltitude: Number(
+          Math.max(current.maxAltitude, Number(altitudeMeters) || 0).toFixed(1)
+        )
       };
       localStorage.setItem('wordvine_personal_best', JSON.stringify(updated));
       return updated;
@@ -701,15 +703,50 @@
 
       const pb = this.getPersonalBest();
       const pbEl = document.getElementById('personal-best-banner');
+      const totalNodes = (vine.nodes && vine.nodes.length) || 40;
       if (pbEl) {
-        const totalNodes = (vine.nodes && vine.nodes.length) || 40;
-        pbEl.innerHTML = `🏆 Personal Best: <strong>${pb.maxNodes}/${totalNodes} Nodes</strong> (${pb.maxAltitude}m • ${pb.maxScore.toLocaleString()} pts)`;
+        pbEl.innerHTML = `🏆 Personal Best: <strong>${pb.maxNodes}/${totalNodes} Nodes • ${Number(pb.maxAltitude).toFixed(1)}m Height</strong>`;
       }
+
+      this.renderHomescreenDailyTop5();
 
       this.hudModeBadge.textContent = 'DAILY CLIMB';
       document.getElementById('btn-start-climb').textContent = alreadyPlayed
         ? '🌿 Climb Again'
         : '🌿 Start Daily Climb';
+    }
+
+    /**
+     * Renders the Daily Top 5 Climbers on the Homescreen (#start-modal)
+     * so players immediately see the Nodes Chained & Height targets to beat.
+     */
+    renderHomescreenDailyTop5() {
+      const listEl = document.getElementById('home-top5-list');
+      const targetPillEl = document.getElementById('home-top5-target-pill');
+      if (!listEl) return;
+
+      const totalNodes = (this.activeVine && this.activeVine.nodes && this.activeVine.nodes.length) || 40;
+      const top5 = this.buildLocalFallbackLeaderboard('daily').slice(0, 5);
+
+      if (targetPillEl && top5.length > 0) {
+        const leader = top5[0];
+        targetPillEl.textContent = `🎯 #1: ${leader.nodesVal}/${totalNodes} • ${Number(leader.altitudeVal).toFixed(1)}m`;
+      }
+
+      const rankIcons = ['🥇 1', '🥈 2', '🥉 3', '#4', '#5'];
+      listEl.innerHTML = top5
+        .map((row, idx) => {
+          const isMe = Boolean(row.isMe || row.handle === this.playerHandle);
+          return `
+            <div class="home-top5-row${isMe ? ' is-me' : ''}">
+              <span class="home-top5-rank">${rankIcons[idx] || `#${idx + 1}`}</span>
+              <span class="home-top5-handle">${row.handle}${isMe ? ' (You)' : ''}</span>
+              <span class="home-top5-nodes">${row.nodesVal}/${totalNodes} nodes</span>
+              <span class="home-top5-height">${Number(row.altitudeVal).toFixed(1)}m</span>
+            </div>
+          `;
+        })
+        .join('');
     }
 
     startNewRun(startNodeIndex = 0) {
@@ -874,15 +911,20 @@
       pop.className = 'score-pop';
       const screenY = this.renderer.worldToScreenY(this.simState.yVine, this.simState.yCam);
       pop.style.top = `${Math.max(80, screenY - 120)}px`;
+      const deltaM = breakdown.nodeHeightMeters
+        ? `+${Number(breakdown.nodeHeightMeters).toFixed(1)}m`
+        : '+1.6m';
       pop.textContent = enteredRapidFire
-        ? `⚡ RAPID-FIRE SPRINT! +${breakdown.totalNodeScore}`
+        ? `⚡ RAPID-FIRE SPRINT! ${deltaM}`
         : breakdown.isReverseGraft
-          ? `⬅ REVERSE GRAFT! +${breakdown.totalNodeScore}`
+          ? `⬅ REVERSE GRAFT! ${deltaM}`
           : breakdown.isRapidFire
-            ? `⚡ RAPID FIRE! +${breakdown.totalNodeScore}`
+            ? `⚡ RAPID FIRE! ${deltaM}`
             : breakdown.isTripleBloom
-              ? `🌸 TRIPLE BLOOM! +${breakdown.totalNodeScore}`
-              : `+${breakdown.totalNodeScore}`;
+              ? `🌸 TRIPLE BLOOM! ${deltaM}`
+              : breakdown.isFastPick
+                ? `⚡ FAST! ${deltaM}`
+                : `${deltaM}`;
       document.body.appendChild(pop);
       setTimeout(() => pop.remove(), 650);
     }
@@ -1061,14 +1103,17 @@
       const altitudeMeters = (
         this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT
       ).toFixed(1);
-      this.hudScore.textContent = this.simState.score.toLocaleString();
+      const totalNodes = (this.activeVine && this.activeVine.nodes && this.activeVine.nodes.length) || 40;
+      if (this.hudNodes) {
+        this.hudNodes.textContent = `${this.simState.nodesCompleted}/${totalNodes}`;
+      }
       this.hudAltitude.textContent = `${altitudeMeters}m`;
       this.hudVelocity.textContent = `${Math.round(this.simState.vCam)} u/s`;
       this.hudZone.textContent = this.isActiveReverseGraft
-        ? `⬅ LOOP • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`
+        ? '⬅ REVERSE LOOP'
         : this.isActiveRapidFire
-          ? `⚡ Z3 SPRINT • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`
-          : `🌿 Z1 ROOTS • ${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
+          ? '⚡ Z3 SPRINT'
+          : '🌿 Z1 ROOTS';
       if (this.hudModeBadge) {
         this.hudModeBadge.textContent = this.isActiveReverseGraft
           ? '⬅ REVERSE LOOP'
@@ -1182,19 +1227,19 @@
       const prevPB = this.getPersonalBest();
       const isNewPB =
         this.simState.nodesCompleted > prevPB.maxNodes ||
-        this.simState.score > prevPB.maxScore;
+        altitudeMeters > prevPB.maxAltitude;
 
       eyebrowEl.textContent = isNewPB
         ? `🏆 NEW PERSONAL BEST LOGGED • #${this.activeVine.vineNumber}`
         : `🌿 DAILY CLIMB LOGGED • #${this.activeVine.vineNumber}`;
 
       if (cause === 'COMPLETED') {
-        titleEl.textContent = '🌸 Canopy Circuit Closed!';
+        titleEl.textContent = `🌸 40/40 Chained • ${altitudeMeters}m!`;
         explainEl.style.borderColor = 'rgba(34, 197, 94, 0.5)';
         explainEl.style.background = 'rgba(34, 197, 94, 0.14)';
-        explainEl.innerHTML = `<strong>Mastery Achieved!</strong> You chained all ${this.activeVine.nodes.length} compounds and mastered every <strong>⬅ Reverse-Graft Loop</strong>!`;
+        explainEl.innerHTML = `<strong>Mastery Achieved!</strong> You chained all ${this.activeVine.nodes.length} compounds and reached a height of <strong>${altitudeMeters}m</strong>!`;
       } else if (cause === 'SNIPPED') {
-        titleEl.textContent = `Vine Height ${altitudeMeters}m`;
+        titleEl.textContent = `${this.simState.nodesCompleted}/${this.activeVine.nodes.length} Nodes • ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
         explainEl.style.background = 'rgba(239, 68, 68, 0.12)';
         const stem = fatalNode ? fatalNode.stemWord : '';
@@ -1207,7 +1252,7 @@
           explainEl.innerHTML = `<strong>${stem} → ${right}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the forward compound.<br>You picked <strong>${wrong}</strong>. ${note}`;
         }
       } else {
-        titleEl.textContent = `Vine Height ${altitudeMeters}m`;
+        titleEl.textContent = `${this.simState.nodesCompleted}/${this.activeVine.nodes.length} Nodes • ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
         explainEl.style.background = 'rgba(245, 158, 11, 0.12)';
         const stem = fatalNode ? fatalNode.stemWord : '';
@@ -1219,15 +1264,18 @@
         }
       }
 
-      document.getElementById('stat-final-score').textContent =
-        this.simState.score.toLocaleString();
-      document.getElementById('stat-final-nodes').textContent =
-        `${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
-      document.getElementById('stat-final-altitude').textContent = `${altitudeMeters}m`;
+      const finalNodesEl = document.getElementById('stat-final-nodes');
+      if (finalNodesEl) {
+        finalNodesEl.textContent = `${this.simState.nodesCompleted}/${this.activeVine.nodes.length}`;
+      }
+      const finalAltEl = document.getElementById('stat-final-altitude');
+      if (finalAltEl) {
+        finalAltEl.textContent = `${altitudeMeters}m`;
+      }
 
       this.deathModal.classList.remove('hidden');
 
-      // Save & submit score
+      // Save & submit run
       await this.submitRunScore({
         dateKey: this.activeVine.dateKey,
         vineNumber: this.activeVine.vineNumber,
@@ -1241,10 +1289,9 @@
     }
 
     async submitRunScore(runSummary) {
-      // 1. Track all-time personal best across all climbs
+      // 1. Track all-time personal best across all climbs (Nodes Chained & Speed Height)
       this.updatePersonalBest(
         runSummary.nodesCompleted,
-        runSummary.score,
         runSummary.altitudeMeters
       );
 
@@ -1276,16 +1323,20 @@
       }
 
       // 3. Keep best daily climb in wordvine_official_${dateKey} & wordvine_local_runs for leaderboards
+      // Ranked by Nodes Chained first, then Height (so faster runs with the same nodes beat slower ones!)
+      const isBetterClimb = (cand, prev) => {
+        if (!prev) return true;
+        const cNodes = Number(cand.nodesCompleted) || 0;
+        const pNodes = Number(prev.nodesCompleted) || 0;
+        if (cNodes !== pNodes) return cNodes > pNodes;
+        return (Number(cand.altitudeMeters) || 0) >= (Number(prev.altitudeMeters) || 0);
+      };
+
       try {
         const existingDayRaw = localStorage.getItem(`wordvine_official_${runSummary.dateKey}`);
         const existingDay = existingDayRaw ? JSON.parse(existingDayRaw) : null;
-        const isBetterToday =
-          !existingDay ||
-          runSummary.score > (Number(existingDay.score) || 0) ||
-          (runSummary.score === Number(existingDay.score) &&
-            runSummary.nodesCompleted >= (Number(existingDay.nodesCompleted) || 0));
 
-        if (isBetterToday) {
+        if (isBetterClimb(runSummary, existingDay)) {
           localStorage.setItem(
             `wordvine_official_${runSummary.dateKey}`,
             JSON.stringify(loggedEntry)
@@ -1296,9 +1347,7 @@
         const localRuns = localRunsRaw ? JSON.parse(localRunsRaw) : [];
         const existingIdx = localRuns.findIndex((r) => r.dateKey === runSummary.dateKey);
         if (existingIdx >= 0) {
-          if (
-            runSummary.score >= (Number(localRuns[existingIdx].score) || 0)
-          ) {
+          if (isBetterClimb(runSummary, localRuns[existingIdx])) {
             localRuns[existingIdx] = loggedEntry;
           }
         } else {
@@ -1384,29 +1433,15 @@
       });
 
       const subtitleMap = {
-        daily: `Daily Leaderboard (${this.activeVine.dateKey}) • Best Logged Score`,
-        weekly: 'Weekly Crown (Sum of Best 5 of 7 Daily Scores)',
-        monthly: 'Monthly Mastery (Sum of Top 20 Daily Scores)'
+        daily: `Daily Leaderboard (${this.activeVine.dateKey}) • Nodes Chained & Speed Height`,
+        weekly: 'Weekly Crown (Best 5 of 7 Daily Climbs • Nodes & Height)',
+        monthly: 'Monthly Mastery (Top 20 Daily Climbs • Nodes & Height)'
       };
       document.getElementById('lb-tier-subtitle').textContent = subtitleMap[tier] || '';
 
-      let entries = null;
-      try {
-        const res = await fetch(
-          `${API_BASE}/leaderboard/${tier}?dateKey=${encodeURIComponent(this.activeVine.dateKey)}`
-        );
-        if (res.ok) {
-          const data = await res.json();
-          entries = data.entries;
-        }
-      } catch (e) {
-        // Fallback to seeded + local official runs
-      }
+      let entries = this.buildLocalFallbackLeaderboard(tier);
 
-      if (!entries) {
-        entries = this.buildLocalFallbackLeaderboard(tier);
-      }
-
+      const totalNodes = (this.activeVine && this.activeVine.nodes && this.activeVine.nodes.length) || 40;
       const tbody = document.getElementById('lb-table-body');
       tbody.innerHTML = '';
       entries.forEach((row, idx) => {
@@ -1414,13 +1449,15 @@
         if (row.isMe || row.handle === this.playerHandle) {
           tr.className = 'is-me';
         }
+        const nodesDisplay =
+          tier === 'daily' ? `${row.nodesVal}/${totalNodes}` : `${row.nodesVal} nodes`;
+        const heightDisplay = `${Number(row.altitudeVal).toFixed(1)}m`;
         tr.innerHTML = `
           <td>#${idx + 1}</td>
           <td>${row.handle} ${row.isMe ? '(You)' : ''}</td>
-          <td>${row.nodes || '--'}</td>
-          <td>${row.altitude ? row.altitude + 'm' : '--'}</td>
+          <td style="font-family: var(--font-mono); font-weight: 700;">${nodesDisplay}</td>
           <td style="font-family: var(--font-mono); font-weight: 800; color: var(--accent-primary);">
-            ${Number(row.score).toLocaleString()}
+            ${heightDisplay}
           </td>
         `;
         tbody.appendChild(tr);
@@ -1428,20 +1465,21 @@
     }
 
     buildLocalFallbackLeaderboard(tier) {
+      // Notice OrchidSprinter and SumiBrush99 both chained 34 nodes,
+      // but OrchidSprinter climbed faster and reached 59.2m vs 53.6m!
       const baseBots = [
-        { handle: 'CanopyViper', nodes: 38, altitude: '44.8', score: 9420 },
-        { handle: 'OrchidSprinter', nodes: 34, altitude: '39.6', score: 7890 },
-        { handle: 'SumiBrush99', nodes: 29, altitude: '33.4', score: 6150 },
-        { handle: 'GlasshouseFern', nodes: 24, altitude: '27.2', score: 4480 },
-        { handle: 'BriarRoot42', nodes: 18, altitude: '20.5', score: 2910 }
+        { handle: 'CanopyViper', nodes: 38, altitude: 68.4 },
+        { handle: 'OrchidSprinter', nodes: 34, altitude: 59.2 },
+        { handle: 'SumiBrush99', nodes: 34, altitude: 53.6 },
+        { handle: 'GlasshouseFern', nodes: 25, altitude: 41.8 },
+        { handle: 'BriarRoot42', nodes: 19, altitude: 29.4 }
       ];
 
       const mult = tier === 'monthly' ? 14 : tier === 'weekly' ? 4 : 1;
       const rows = baseBots.map((b) => ({
         handle: b.handle,
-        nodes: tier === 'daily' ? b.nodes : `${mult}d`,
-        altitude: tier === 'daily' ? b.altitude : '',
-        score: b.score * mult,
+        nodesVal: b.nodes * mult,
+        altitudeVal: Number((b.altitude * mult).toFixed(1)),
         isMe: false
       }));
 
@@ -1453,26 +1491,38 @@
         if (myToday) {
           rows.push({
             handle: this.playerHandle,
-            nodes: myToday.nodesCompleted,
-            altitude: String(myToday.altitudeMeters),
-            score: myToday.score,
+            nodesVal: Number(myToday.nodesCompleted) || 0,
+            altitudeVal: Number(myToday.altitudeMeters) || 0,
             isMe: true
           });
         }
       } else if (localRuns.length > 0) {
         const limit = tier === 'weekly' ? 5 : 20;
-        const sortedScores = localRuns.map((r) => r.score).sort((a, b) => b - a).slice(0, limit);
-        const total = sortedScores.reduce((acc, v) => acc + v, 0);
+        const sortedRuns = localRuns
+          .slice()
+          .sort((a, b) => {
+            const dn = (Number(b.nodesCompleted) || 0) - (Number(a.nodesCompleted) || 0);
+            if (dn !== 0) return dn;
+            return (Number(b.altitudeMeters) || 0) - (Number(a.altitudeMeters) || 0);
+          })
+          .slice(0, limit);
+        const totalNodes = sortedRuns.reduce((acc, r) => acc + (Number(r.nodesCompleted) || 0), 0);
+        const totalAlt = Number(
+          sortedRuns.reduce((acc, r) => acc + (Number(r.altitudeMeters) || 0), 0).toFixed(1)
+        );
         rows.push({
           handle: this.playerHandle,
-          nodes: `${sortedScores.length}d`,
-          altitude: '',
-          score: total,
+          nodesVal: totalNodes,
+          altitudeVal: totalAlt,
           isMe: true
         });
       }
 
-      rows.sort((a, b) => b.score - a.score);
+      // Sort by Nodes Chained DESC, then by Speed-Driven Height DESC
+      rows.sort((a, b) => {
+        if (b.nodesVal !== a.nodesVal) return b.nodesVal - a.nodesVal;
+        return b.altitudeVal - a.altitudeVal;
+      });
       return rows;
     }
   }

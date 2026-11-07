@@ -70,7 +70,8 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     y_cam = 0.0
     y_vine = 360.0
     v_cam = 45.0
-    max_altitude_units = 360.0
+    max_altitude_units = 0.0
+    node_reaction_ms = 0.0
 
     spurt_active = False
     spurt_elapsed_ms = 0.0
@@ -84,7 +85,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     fixed_step_ms = 5.0
 
     def step_sim(dt_ms):
-        nonlocal status, effective_elapsed_sec, y_cam, y_vine, v_cam, max_altitude_units
+        nonlocal status, effective_elapsed_sec, y_cam, y_vine, v_cam, max_altitude_units, node_reaction_ms
         nonlocal spurt_active, spurt_elapsed_ms, spurt_applied_delta, bullet_time_remaining_ms
         if status != "PLAYING" or dt_ms <= 0:
             return
@@ -97,6 +98,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
 
         dt_sec = (dt_ms / 1000.0) * time_scale
         effective_elapsed_sec += dt_sec
+        node_reaction_ms += dt_ms
 
         v_cam = 64.0 if active_game_mode == "RAPID_FIRE" else 45.0
         y_cam += v_cam * dt_sec
@@ -116,8 +118,6 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
                 spurt_active = False
 
         y_vine += dy_vine
-        if y_vine > max_altitude_units:
-            max_altitude_units = y_vine
 
         screen_y = y_vine - y_cam
         if screen_y > 750.0:
@@ -166,6 +166,15 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
             curr_node.get("isRapidFire") or curr_node.get("gameMode") == "RAPID_FIRE"
         )
 
+        reaction_ms = max(80.0, node_reaction_ms or 900.0)
+        node_reaction_ms = 0.0
+        lead_units = max(0.0, y_vine - y_cam)
+        speed_bonus_units = 95.0 / (1.0 + math.pow(reaction_ms / 950.0, 1.25))
+        momentum_bonus_units = min(30.0, lead_units * 0.035)
+        mode_bonus_units = 24.0 if is_triple_bloom else (18.0 if is_reverse_graft else (16.0 if is_rapid_fire else 0.0))
+        node_height_units = 80.0 + speed_bonus_units + momentum_bonus_units + mode_bonus_units
+        max_altitude_units += node_height_units
+
         z_mult = 1 if c_zone == 1 else (2 if c_zone == 2 else 3)
         lead_bonus = int(math.floor(max(0.0, y_vine - y_cam) / 10.0))
         b_triplet = 250 if is_triple_bloom else 0
@@ -176,11 +185,12 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         if is_triple_bloom:
             triplet_blooms += 1
 
-        spurt_impulse = (
+        base_spurt = (
             185.0
             if is_triple_bloom
             else (155.0 if is_reverse_graft else (135.0 if is_rapid_fire else 125.0))
         )
+        spurt_impulse = base_spurt + speed_bonus_units * 0.35
         if spurt_active and spurt_total_delta > spurt_applied_delta:
             y_vine += spurt_total_delta - spurt_applied_delta
 
@@ -195,7 +205,6 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
 
         if node_index >= len(vine_nodes):
             y_vine += spurt_impulse
-            max_altitude_units = max(max_altitude_units, y_vine)
             status = "COMPLETED"
             break
 

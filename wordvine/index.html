@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=22" />
+  <link rel="stylesheet" href="css/styles.css?v=23" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -32,19 +32,19 @@
   <header class="top-bar">
     <div class="top-bar-group">
       <div class="hud-chip">
-        <span>Score</span>
-        <span id="hud-score" class="hud-metric-val">0</span>
+        <span>Nodes</span>
+        <span id="hud-nodes" class="hud-metric-val">0/40</span>
       </div>
       <div class="hud-chip">
         <span>Height</span>
-        <span id="hud-altitude" class="hud-metric-val">4.3m</span>
+        <span id="hud-altitude" class="hud-metric-val">0.0m</span>
       </div>
       <div class="hud-chip">
         <span>VEL</span>
         <span id="hud-velocity" class="hud-metric-val">45 u/s</span>
       </div>
       <div class="hud-chip">
-        <span id="hud-zone" class="hud-metric-val">Z1 • 0/40</span>
+        <span id="hud-zone" class="hud-metric-val">🌿 Z1 ROOTS</span>
       </div>
     </div>
 
@@ -137,11 +137,20 @@
       </div>
 
       <p class="brand-subtitle">
-        Chain forward compound words (<strong>← Left</strong> or <strong>Right →</strong>) to grow your vine before the rising viewport leaves you in the dirt.
+        Chain compound words (<strong>← Left</strong> or <strong>Right →</strong>) as fast as you can — faster picks grow more <strong>Height</strong> per node!
       </p>
 
       <div id="personal-best-banner" class="personal-best-pill">
-        🏆 Personal Best: <strong>23/40 Nodes</strong>
+        🏆 Personal Best: <strong>23/40 Nodes • 38.4m Height</strong>
+      </div>
+
+      <!-- Daily Top 5 Target Board Visible on Homescreen -->
+      <div id="home-top5-card" class="home-top5-card" aria-label="Today's Top 5 Climbers to Beat">
+        <div class="home-top5-header">
+          <span class="home-top5-title">🏆 DAILY TOP 5 TO BEAT</span>
+          <span id="home-top5-target-pill" class="home-top5-target">🎯 #1: 38/40 • 68.4m</span>
+        </div>
+        <div id="home-top5-list" class="home-top5-list"></div>
       </div>
 
       <!-- Botanical Visual Palette Options -->
@@ -266,17 +275,13 @@
         Compound explanation goes here.
       </div>
 
-      <div class="stats-summary-grid">
-        <div class="stat-tile">
-          <div id="stat-final-score" class="stat-tile-val">4,280</div>
-          <div class="stat-tile-lbl">Total Score</div>
-        </div>
+      <div class="stats-summary-grid two-col">
         <div class="stat-tile">
           <div id="stat-final-nodes" class="stat-tile-val">18/40</div>
           <div class="stat-tile-lbl">Nodes Chained</div>
         </div>
         <div class="stat-tile">
-          <div id="stat-final-altitude" class="stat-tile-val">18.4m</div>
+          <div id="stat-final-altitude" class="stat-tile-val">28.4m</div>
           <div class="stat-tile-lbl">Height</div>
         </div>
       </div>
@@ -299,7 +304,7 @@
       <div class="brand-eyebrow">GLOBAL CANOPY RANKINGS</div>
       <h2 class="brand-title" style="font-size: 28px;">Leaderboards</h2>
       <p id="lb-tier-subtitle" class="brand-subtitle" style="margin-bottom: 10px;">
-        Daily Leaderboard • Best Logged Score
+        Daily Leaderboard • Ranked by Nodes Chained &amp; Speed Height
       </p>
 
       <div class="lb-tabs">
@@ -313,9 +318,8 @@
           <tr>
             <th>Rank</th>
             <th>Climber</th>
-            <th>Nodes</th>
-            <th>Alt</th>
-            <th>Score</th>
+            <th>Nodes Chained</th>
+            <th>Height</th>
           </tr>
         </thead>
         <tbody id="lb-table-body"></tbody>
@@ -327,10 +331,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=22"></script>
-  <script src="js/data/dailyVines.js?v=22"></script>
-  <script src="js/engine/soundEngine.js?v=22"></script>
-  <script src="js/engine/vineRenderer.js?v=22"></script>
-  <script src="js/app.js?v=22"></script>
+  <script src="js/shared/physicsEngine.js?v=23"></script>
+  <script src="js/data/dailyVines.js?v=23"></script>
+  <script src="js/engine/soundEngine.js?v=23"></script>
+  <script src="js/engine/vineRenderer.js?v=23"></script>
+  <script src="js/app.js?v=23"></script>
 </body>
 </html>

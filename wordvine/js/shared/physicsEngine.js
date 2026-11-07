@@ -148,12 +148,15 @@
       // Bullet-time Graft Collar / Mode Switch state
       bulletTimeRemainingMs: 0,
       lastGraftZoneTriggered: initialZone,
-      // Scoring & telemetry
+      // Speed-driven Height & telemetry
+      nodeReactionMs: 0,
+      climbHeightStartUnits: startNodeIndex > 0 ? startNodeIndex * 115 : 0,
+      targetClimbHeightUnits: startNodeIndex > 0 ? startNodeIndex * 115 : 0,
       score: 0,
       tripletBlooms: 0,
       reverseGraftsSolved: 0,
       comboMultiplier: 1,
-      maxAltitudeUnits: PHYSICS_CONFIG.INITIAL_Y_VINE,
+      maxAltitudeUnits: startNodeIndex > 0 ? startNodeIndex * 115 : 0,
       lastNodeScoreBreakdown: null,
       deathReason: null,
       wrongChoiceWord: null,
@@ -183,6 +186,7 @@
     const dtSec = (dtMs / 1000) * timeScale;
     state.elapsedMs += dtMs;
     state.effectiveElapsedSec += dtSec;
+    state.nodeReactionMs = (state.nodeReactionMs || 0) + dtMs;
 
     // 1. Update camera velocity & position
     state.vCam = computeCameraVelocity(
@@ -192,7 +196,7 @@
     );
     state.yCam += state.vCam * dtSec;
 
-    // 2. Passive vine creep
+    // 2. Passive vine creep (visual screen runway only; does NOT inflate climbed Height)
     const vCreep = PHYSICS_CONFIG.CREEP_RATIO * state.vCam;
     let dyVine = vCreep * dtSec;
 
@@ -208,16 +212,21 @@
       state.spurtAppliedDelta = targetDelta;
       vSpurtInst = stepDelta / Math.max(0.001, dtMs / 1000);
 
+      // Smoothly interpolate speed-driven climbed Height during the spurt
+      const startH = state.climbHeightStartUnits || 0;
+      const targetH = state.targetClimbHeightUnits || 0;
+      state.maxAltitudeUnits = startH + (targetH - startH) * eased;
+
       if (progress >= 1) {
         state.spurtActive = false;
+        state.maxAltitudeUnits = targetH;
       }
+    } else if ((state.targetClimbHeightUnits || 0) > state.maxAltitudeUnits) {
+      state.maxAltitudeUnits = state.targetClimbHeightUnits;
     }
 
     state.yVine += dyVine;
     state.vVine = vCreep + vSpurtInst;
-    if (state.yVine > state.maxAltitudeUnits) {
-      state.maxAltitudeUnits = state.yVine;
-    }
 
     // 4. Sweet-Spot Camera Clamping: keep active vine fork from clipping above 750u on screen
     const screenY = state.yVine - state.yCam;
@@ -274,7 +283,26 @@
       currentNode.isRapidFire || currentNode.gameMode === 'RAPID_FIRE'
     );
 
-    // Score calculation
+    // Speed-driven Height calculation:
+    // Faster player reaction time (reactionMs) and higher momentum lead (yVine - yCam)
+    // yield a larger Height spurt per node, so if 2 players chain the same # of nodes,
+    // the faster player always achieves a greater Height!
+    const reactionMs = Math.max(80, state.nodeReactionMs || 900);
+    state.nodeReactionMs = 0;
+    const leadUnits = Math.max(0, state.yVine - state.yCam);
+    const speedBonusUnits = 95 / (1 + Math.pow(reactionMs / 950, 1.25));
+    const momentumBonusUnits = Math.min(30, leadUnits * 0.035);
+    const modeBonusUnits = isTripleBloom ? 24 : isReverseGraft ? 18 : isRapidFire ? 16 : 0;
+    const nodeHeightUnits = 80 + speedBonusUnits + momentumBonusUnits + modeBonusUnits;
+    const nodeHeightMeters = Number(
+      (nodeHeightUnits * PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1)
+    );
+
+    const prevTargetHeight = state.targetClimbHeightUnits || 0;
+    state.climbHeightStartUnits = prevTargetHeight;
+    state.targetClimbHeightUnits = prevTargetHeight + nodeHeightUnits;
+
+    // Score calculation (retained internally for backward compatibility)
     const scoreBreakdown = computeNodeScore(
       zoneId,
       state.yVine,
@@ -286,6 +314,10 @@
     state.score += scoreBreakdown.totalNodeScore;
     state.lastNodeScoreBreakdown = {
       ...scoreBreakdown,
+      nodeHeightUnits,
+      nodeHeightMeters,
+      reactionMs,
+      isFastPick: reactionMs <= 750,
       isTripleBloom,
       isReverseGraft,
       isRapidFire,
@@ -301,14 +333,15 @@
       state.reverseGraftsSolved = (state.reverseGraftsSolved || 0) + 1;
     }
 
-    // Trigger upward growth spurt
-    const spurtImpulse = isTripleBloom
+    // Trigger upward visual growth spurt (also boosted by player speed!)
+    const baseSpurt = isTripleBloom
       ? PHYSICS_CONFIG.SPURT_TRIPLE_BLOOM
       : isReverseGraft
         ? PHYSICS_CONFIG.SPURT_REVERSE_GRAFT
         : isRapidFire
           ? PHYSICS_CONFIG.SPURT_RAPID_FIRE
           : PHYSICS_CONFIG.SPURT_STANDARD;
+    const spurtImpulse = baseSpurt + speedBonusUnits * 0.35;
 
     // If a previous spurt had residual unapplied delta, credit it immediately so fast double-taps never lose height
     if (state.spurtActive && state.spurtTotalDelta > state.spurtAppliedDelta) {
@@ -329,7 +362,7 @@
     if (state.nodeIndex >= vineNodes.length) {
       // Apply the final spurt height immediately for final altitude tally
       state.yVine += spurtImpulse;
-      state.maxAltitudeUnits = Math.max(state.maxAltitudeUnits, state.yVine);
+      state.maxAltitudeUnits = state.targetClimbHeightUnits;
       state.status = 'COMPLETED';
       state.deathReason = 'COMPLETED';
       return {
@@ -455,6 +488,10 @@
       }
     }
 
+    state.maxAltitudeUnits = Math.max(
+      state.maxAltitudeUnits,
+      state.targetClimbHeightUnits || 0
+    );
     const altitudeMeters = Number((state.maxAltitudeUnits * PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1));
 
     return {
