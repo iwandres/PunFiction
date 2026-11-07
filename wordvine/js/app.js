@@ -1514,7 +1514,7 @@
 
       const subtitleMap = {
         daily: `Daily Leaderboard (${this.activeVine.dateKey}) • Nodes Chained & Speed Height`,
-        weekly: 'Weekly Champions • #1 Climber for Each Day of the Week',
+        weekly: 'Weekly Champions',
         monthly: 'Monthly Mastery (Top 20 Daily Climbs • Nodes & Height)'
       };
       document.getElementById('lb-tier-subtitle').textContent = subtitleMap[tier] || '';
