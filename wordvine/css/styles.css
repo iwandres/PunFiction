@@ -1377,3 +1377,42 @@ body.theme-biolum .wind-char.unsettled {
   min-width: 48px;
   text-align: right;
 }
+
+/* ============================================================================
+   DAILY 3-ATTEMPT TRACKER & POSITIVE WRAP-UP MESSAGES
+   ============================================================================ */
+.attempts-status-banner {
+  background: rgba(74, 124, 89, 0.08);
+  border: 1.5px solid rgba(74, 124, 89, 0.24);
+  border-radius: 14px;
+  padding: 9px 12px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.attempts-status-banner.all-complete {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(245, 158, 11, 0.14));
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.attempts-pips-row {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #1e3124;
+  text-transform: uppercase;
+}
+
+.attempts-positive-msg {
+  margin-top: 5px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.42;
+  color: #223528;
+}
+
+.attempts-positive-msg.hidden {
+  display: none !important;
+}

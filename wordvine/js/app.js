@@ -81,6 +81,39 @@
     3: { icon: '🌿', short: 'Meadow', full: 'Meadow & Sage' }
   };
 
+  const MAX_DAILY_ATTEMPTS = 3;
+
+  // Variety of positive messages displayed once a player completes all 3 daily attempts
+  const DAILY_COMPLETE_MESSAGES = [
+    'Great attempts! Come back tomorrow for a new theme and new try to top the leaderboard.',
+    'Fantastic climbing today! Rest your reflexes and return tomorrow for a fresh theme and 3 new tries at the top spot.',
+    'Strong effort on the vine! Come back tomorrow to tackle a brand-new daily theme and chase #1 on the leaderboard.',
+    'Way to battle the Reverse-Graft Loops and Wind Gusts! See you tomorrow for a new theme and a fresh shot at the Daily Top 5.',
+    'Three great climbs in the books! Come back tomorrow for a new compound theme and another run at the top of the leaderboard.',
+    'Impressive speed on the vine today! Return tomorrow for a brand-new theme and 3 fresh attempts to claim the crown.',
+    'Your compound instincts are getting sharper! Come back tomorrow for a new daily theme and a fresh climb up the leaderboard.',
+    'Awesome work across all 3 runs! A brand-new theme sprouts tomorrow — come back rested and ready to top the board.'
+  ];
+
+  // Variety of encouraging messages between attempts (when 1, 2, or 3 tries remain)
+  const DAILY_ACTIVE_MESSAGES = {
+    3: [
+      'You have 3 attempts today — chain nodes fast to climb high and beat the Daily Top 5!',
+      '3 daily tries available! Watch the vine for Reverse-Graft Loops, Speed Gates, and Wind Gusts.',
+      'Ready to climb! Your best run out of 3 attempts today counts toward the Daily Top 5.'
+    ],
+    2: [
+      'Nice first climb! You have 2 attempts left today to push your speed and top the leaderboard.',
+      'Solid warm-up run! 2 daily attempts remaining — chain fast in Rapid-Fire to boost your height!',
+      'Good read on the vine! You still have 2 tries today to beat the Daily Top 5.'
+    ],
+    1: [
+      'One final attempt left today — make every compound count and go for the top spot!',
+      'Final daily try! Stay sharp on the Reverse-Graft Loops and sprint for maximum height!',
+      "Last climb of the day — give it everything you've got to crack the Daily Top 5!"
+    ]
+  };
+
   class WordVineApp {
     constructor() {
       this.canvas = document.getElementById('vine-canvas');
@@ -251,14 +284,13 @@
 
       const params = new URLSearchParams(window.location.search);
 
-      // Apply saved base visual palette (or default to Meadow & Sage = 3 so Reverse-Graft Loop shifts to Biolum = 0)
-      const savedPaletteRaw = localStorage.getItem('wordvine_base_palette');
-      const initialPalette =
-        savedPaletteRaw !== null && !Number.isNaN(Number(savedPaletteRaw))
-          ? Number(savedPaletteRaw)
-          : 3;
-      this.basePaletteId = initialPalette;
-      this.setVisualPalette(initialPalette);
+      // Visual palette is defined exclusively by the active gameplay mode:
+      // - Base Zone 1 Roots -> Meadow & Sage (id = 3)
+      // - Reverse-Graft Loop (⬅) -> Midnight Bioluminescence (id = 0)
+      // - Zone 3 Rapid-Fire Sprint (⚡) -> Sunlit Conservatory (id = 1)
+      this.basePaletteId = 3;
+      this.positiveMsgCursor = 0;
+      this.setVisualPalette(3);
       this.renderer.resetVine(Physics.PHYSICS_CONFIG.INITIAL_Y_VINE, 1);
       this.updateMuteButtonLabel();
 
@@ -337,12 +369,6 @@
       }
 
       // Top HUD Buttons
-      this.themeCycleBtn.addEventListener('click', () => {
-        const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
-        const nextTheme = ((this.basePaletteId ?? this.renderer.themeId) + 1) % totalThemes;
-        this.setVisualPalette(nextTheme);
-      });
-
       this.muteBtn.addEventListener('click', () => {
         Sound.toggleMute();
         this.updateMuteButtonLabel();
@@ -384,27 +410,12 @@
 
       // Start & Death Modal Buttons
       document.getElementById('btn-start-climb').addEventListener('click', () => {
+        if (this.getRemainingAttemptsToday() <= 0) {
+          this.positiveMsgCursor = (this.positiveMsgCursor || 0) + 1;
+          this.syncDailyAttemptsUI();
+          return;
+        }
         this.startNewRun(0);
-      });
-
-      // Switch Preview button in action row now cycles the Visual Palette options
-      const switchPaletteBtn = document.getElementById('btn-switch-vine');
-      if (switchPaletteBtn) {
-        switchPaletteBtn.addEventListener('click', () => {
-          const totalThemes = (window.WordVineThemes && window.WordVineThemes.length) || 4;
-          const nextTheme = ((this.basePaletteId ?? this.renderer.themeId) + 1) % totalThemes;
-          this.setVisualPalette(nextTheme);
-        });
-      }
-
-      // Direct Palette Option Pills on the Getting Started modal
-      document.querySelectorAll('.palette-opt-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const id = Number(btn.getAttribute('data-palette-id'));
-          if (!Number.isNaN(id)) {
-            this.setVisualPalette(id);
-          }
-        });
       });
 
       const startLbBtn = document.getElementById('btn-start-leaderboard');
@@ -415,6 +426,12 @@
       }
 
       document.getElementById('btn-retry-practice').addEventListener('click', () => {
+        if (this.getRemainingAttemptsToday() <= 0) {
+          this.deathModal.classList.add('hidden');
+          this.syncStartModalMetadata();
+          this.startModal.classList.remove('hidden');
+          return;
+        }
         this.deathModal.classList.add('hidden');
         this.runAttemptCount += 1;
         this.startNewRun(0);
@@ -577,42 +594,24 @@
       }
     }
 
-    setVisualPalette(paletteId) {
-      const normId = ((Number(paletteId) % 4) + 4) % 4;
-      this.basePaletteId = normId;
-      localStorage.setItem('wordvine_base_palette', String(normId));
-      localStorage.setItem('wordvine_visual_palette', String(normId));
-      // Mode palettes override the base palette during active mode segments:
-      // Reverse-Graft Loop -> Biolum (0), Zone 3 Rapid-Fire -> Sunlit (1)
+    setVisualPalette(paletteId = 3) {
+      // Base palette is fixed to Meadow & Sage (id = 3) for Zone 1 Roots;
+      // Mode segments automatically switch to Biolum (0) or Sunlit (1).
+      this.basePaletteId = 3;
       const targetTheme = this.isActiveReverseGraft
         ? 0
         : this.isActiveRapidFire
           ? 1
-          : this.basePaletteId;
+          : 3;
       this.renderer.setTheme(targetTheme);
       this.updateThemeButtonLabel();
     }
 
     updateThemeButtonLabel() {
-      const baseId = this.basePaletteId ?? 3;
-      const baseMeta = PALETTE_META[baseId] || PALETTE_META[3];
-      const activeTheme = this.renderer.getTheme();
-      const activeMeta = PALETTE_META[activeTheme.id] || baseMeta;
+      const rem = this.getRemainingAttemptsToday();
       if (this.themeCycleBtn) {
-        this.themeCycleBtn.textContent = this.isActiveReverseGraft
-          ? `✨ Biolum (⬅)`
-          : this.isActiveRapidFire
-            ? `☀️ Sunlit (⚡)`
-            : `${activeMeta.icon} ${activeMeta.short}`;
+        this.themeCycleBtn.textContent = `🌱 ${rem}/${MAX_DAILY_ATTEMPTS} Tries`;
       }
-      const switchPaletteBtn = document.getElementById('btn-switch-vine');
-      if (switchPaletteBtn) {
-        switchPaletteBtn.textContent = `🎨 Palette: ${baseMeta.icon} ${baseMeta.short}`;
-      }
-      document.querySelectorAll('.palette-opt-btn').forEach((btn) => {
-        const id = Number(btn.getAttribute('data-palette-id'));
-        btn.classList.toggle('active', id === baseId);
-      });
     }
 
     updateMuteButtonLabel() {
@@ -621,6 +620,121 @@
 
     hasPlayedOfficialToday(dateKey) {
       return Boolean(localStorage.getItem(`wordvine_official_${dateKey}`));
+    }
+
+    getAttemptsUsedToday(dateKey = this.activeVine && this.activeVine.dateKey) {
+      if (!dateKey) return 0;
+      const raw = localStorage.getItem(`wordvine_attempts_${dateKey}`);
+      if (raw !== null && !Number.isNaN(Number(raw))) {
+        return Math.max(0, Math.min(MAX_DAILY_ATTEMPTS, Number(raw)));
+      }
+      return this.hasPlayedOfficialToday(dateKey) ? 1 : 0;
+    }
+
+    incrementAttemptsUsedToday(dateKey = this.activeVine && this.activeVine.dateKey) {
+      if (!dateKey) return 0;
+      const used = Math.min(MAX_DAILY_ATTEMPTS, this.getAttemptsUsedToday(dateKey) + 1);
+      localStorage.setItem(`wordvine_attempts_${dateKey}`, String(used));
+      if (used >= MAX_DAILY_ATTEMPTS) {
+        // Ensure the primary positive message displays first upon finishing attempt #3,
+        // and rotates through the variety pool on subsequent interactions
+        this.positiveMsgCursor = 0;
+      }
+      return used;
+    }
+
+    getRemainingAttemptsToday(dateKey = this.activeVine && this.activeVine.dateKey) {
+      return Math.max(0, MAX_DAILY_ATTEMPTS - this.getAttemptsUsedToday(dateKey));
+    }
+
+    getDailyStatusMessage(remaining) {
+      const cursor = Math.max(0, Number(this.positiveMsgCursor) || 0);
+      if (remaining <= 0) {
+        return DAILY_COMPLETE_MESSAGES[cursor % DAILY_COMPLETE_MESSAGES.length];
+      }
+      const pool = DAILY_ACTIVE_MESSAGES[remaining] || DAILY_ACTIVE_MESSAGES[3];
+      const daySeed = (this.activeVine && Number(this.activeVine.vineNumber)) || 0;
+      return pool[(daySeed + cursor) % pool.length];
+    }
+
+    syncDailyAttemptsUI() {
+      const used = this.getAttemptsUsedToday();
+      const remaining = Math.max(0, MAX_DAILY_ATTEMPTS - used);
+      const isExhausted = remaining <= 0;
+
+      // Update top bar chip
+      if (this.themeCycleBtn) {
+        this.themeCycleBtn.textContent = `🌱 ${remaining}/${MAX_DAILY_ATTEMPTS} Tries`;
+      }
+
+      // Build visual pips string
+      const pipDots = [];
+      for (let i = 0; i < MAX_DAILY_ATTEMPTS; i++) {
+        if (isExhausted) {
+          pipDots.push('✅');
+        } else if (i < remaining) {
+          pipDots.push('🟢');
+        } else {
+          pipDots.push('⚪');
+        }
+      }
+      const pipsLabel = isExhausted
+        ? `${pipDots.join(' ')} • All ${MAX_DAILY_ATTEMPTS} Daily Attempts Complete`
+        : `${pipDots.join(' ')} • ${remaining} of ${MAX_DAILY_ATTEMPTS} Daily Attempts Remaining`;
+
+      const msgText = this.getDailyStatusMessage(remaining);
+
+      // Sync Start Modal banner & primary button
+      const startBannerEl = document.getElementById('start-attempts-banner');
+      const startPipsEl = document.getElementById('start-attempts-pips');
+      const startMsgEl = document.getElementById('start-attempts-message');
+      const startBtnEl = document.getElementById('btn-start-climb');
+
+      if (startBannerEl) {
+        startBannerEl.classList.toggle('all-complete', isExhausted);
+      }
+      if (startPipsEl) {
+        startPipsEl.textContent = pipsLabel;
+      }
+      if (startMsgEl) {
+        startMsgEl.textContent = msgText;
+      }
+      if (startBtnEl) {
+        if (isExhausted) {
+          startBtnEl.textContent = '🌟 3/3 Attempts Used — Come Back Tomorrow!';
+        } else if (used === 0) {
+          startBtnEl.textContent = `🌿 Start Daily Climb (Attempt 1 of ${MAX_DAILY_ATTEMPTS})`;
+        } else if (remaining === 1) {
+          startBtnEl.textContent = `🌿 Start Final Attempt (${MAX_DAILY_ATTEMPTS} of ${MAX_DAILY_ATTEMPTS})`;
+        } else {
+          startBtnEl.textContent = `🌿 Start Attempt ${used + 1} of ${MAX_DAILY_ATTEMPTS}`;
+        }
+      }
+
+      // Sync Death / Completion Modal banner & retry button
+      const deathBannerEl = document.getElementById('death-attempts-banner');
+      const deathPipsEl = document.getElementById('death-attempts-pips');
+      const deathMsgEl = document.getElementById('death-attempts-message');
+      const retryBtnEl = document.getElementById('btn-retry-practice');
+
+      if (deathBannerEl) {
+        deathBannerEl.classList.toggle('all-complete', isExhausted);
+      }
+      if (deathPipsEl) {
+        deathPipsEl.textContent = pipsLabel;
+      }
+      if (deathMsgEl) {
+        deathMsgEl.textContent = msgText;
+      }
+      if (retryBtnEl) {
+        if (isExhausted) {
+          retryBtnEl.textContent = '🏠 Daily Overview & Top 5';
+        } else if (remaining === 1) {
+          retryBtnEl.textContent = `🔄 Final Attempt (${MAX_DAILY_ATTEMPTS} of ${MAX_DAILY_ATTEMPTS})`;
+        } else {
+          retryBtnEl.textContent = `🔄 Next Attempt (${used + 1} of ${MAX_DAILY_ATTEMPTS})`;
+        }
+      }
     }
 
     getPersonalBest() {
@@ -711,9 +825,7 @@
       this.renderHomescreenDailyTop5();
 
       this.hudModeBadge.textContent = 'DAILY CLIMB';
-      document.getElementById('btn-start-climb').textContent = alreadyPlayed
-        ? '🌿 Climb Again'
-        : '🌿 Start Daily Climb';
+      this.syncDailyAttemptsUI();
     }
 
     /**
@@ -750,6 +862,13 @@
     }
 
     startNewRun(startNodeIndex = 0) {
+      if (this.getRemainingAttemptsToday() <= 0) {
+        this.positiveMsgCursor = (this.positiveMsgCursor || 0) + 1;
+        this.syncDailyAttemptsUI();
+        this.startModal.classList.remove('hidden');
+        return;
+      }
+
       if (this.handleInput && this.handleInput.value.trim()) {
         this.playerHandle = this.handleInput.value.trim().slice(0, 20);
         localStorage.setItem('wordvine_handle', this.playerHandle);
@@ -1272,6 +1391,10 @@
       if (finalAltEl) {
         finalAltEl.textContent = `${altitudeMeters}m`;
       }
+
+      // Increment daily attempt counter (up to 3 attempts/day) and update positive status banner
+      this.incrementAttemptsUsedToday(this.activeVine.dateKey);
+      this.syncDailyAttemptsUI();
 
       this.deathModal.classList.remove('hidden');
 
