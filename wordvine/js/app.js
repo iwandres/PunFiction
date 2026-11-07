@@ -762,7 +762,7 @@
 
       const badgeEl = document.getElementById('start-theme-badge');
       if (badgeEl) {
-        badgeEl.textContent = `✨ TODAY'S THEME • DAY ${themeNum} OF ${totalThemes}`;
+        badgeEl.textContent = `✨ TODAY'S THEME`;
       }
 
       document.getElementById('start-vine-title').textContent = themeName;
