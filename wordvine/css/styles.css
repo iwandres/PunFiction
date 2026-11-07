@@ -1022,8 +1022,40 @@ body {
 }
 
 .lb-table tr.is-me {
-  background: rgba(74, 124, 89, 0.12);
+  background: rgba(74, 124, 89, 0.14);
   font-weight: 700;
+}
+
+.lb-table tr.is-today-row {
+  background: rgba(74, 124, 89, 0.08);
+}
+
+.lb-day-name {
+  font-weight: 800;
+  color: #1c2e21;
+  display: inline-block;
+  min-width: 34px;
+}
+
+.lb-day-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c7060;
+}
+
+.lb-today-pill {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(74, 124, 89, 0.18);
+  color: #264a32;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
 }
 
 /* ==========================================================================

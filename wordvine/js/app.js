@@ -1557,16 +1557,52 @@
 
       const subtitleMap = {
         daily: `Daily Leaderboard (${this.activeVine.dateKey}) • Nodes Chained & Speed Height`,
-        weekly: 'Weekly Crown (Best 5 of 7 Daily Climbs • Nodes & Height)',
+        weekly: 'Weekly Champions • #1 Climber for Each Day of the Week',
         monthly: 'Monthly Mastery (Top 20 Daily Climbs • Nodes & Height)'
       };
       document.getElementById('lb-tier-subtitle').textContent = subtitleMap[tier] || '';
 
-      let entries = this.buildLocalFallbackLeaderboard(tier);
+      const thCol1 = document.getElementById('lb-th-col1');
+      const thCol2 = document.getElementById('lb-th-col2');
+      if (thCol1) {
+        thCol1.textContent = tier === 'weekly' ? 'Day & Date' : 'Rank';
+      }
+      if (thCol2) {
+        thCol2.textContent = tier === 'weekly' ? '#1 Climber' : 'Climber';
+      }
 
       const totalNodes = (this.activeVine && this.activeVine.nodes && this.activeVine.nodes.length) || 40;
       const tbody = document.getElementById('lb-table-body');
       tbody.innerHTML = '';
+
+      if (tier === 'weekly') {
+        const weeklyDays = this.buildWeeklyChampionsLeaderboard();
+        weeklyDays.forEach((row) => {
+          const tr = document.createElement('tr');
+          if (row.isMe || row.handle === this.playerHandle) {
+            tr.className = 'is-me';
+          } else if (row.isToday) {
+            tr.className = 'is-today-row';
+          }
+          const nodesDisplay = `${row.nodesVal}/${totalNodes}`;
+          const heightDisplay = `${Number(row.altitudeVal).toFixed(1)}m`;
+          tr.innerHTML = `
+            <td>
+              <span class="lb-day-name">${row.dayLabel}</span>
+              <span class="lb-day-date">${row.shortDate}</span>${row.isToday ? '<span class="lb-today-pill">TODAY</span>' : ''}
+            </td>
+            <td>🥇 ${row.handle}${row.isMe ? ' (You)' : ''}</td>
+            <td style="font-family: var(--font-mono); font-weight: 700;">${nodesDisplay}</td>
+            <td style="font-family: var(--font-mono); font-weight: 800; color: var(--accent-primary);">
+              ${heightDisplay}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        return;
+      }
+
+      let entries = this.buildLocalFallbackLeaderboard(tier);
       entries.forEach((row, idx) => {
         const tr = document.createElement('tr');
         if (row.isMe || row.handle === this.playerHandle) {
@@ -1584,6 +1620,96 @@
           </td>
         `;
         tbody.appendChild(tr);
+      });
+    }
+
+    /**
+     * Builds the Mon–Sun Weekly Leaderboard showing the #1 Climber next to each day of the week
+     * (Mon, Tues, Wed, Thu, Fri, Sat, Sun) along with the calendar date.
+     */
+    buildWeeklyChampionsLeaderboard() {
+      const dayLabels = ['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      // Baseline #1 daily champions for each day of the week
+      const dailyBotChampions = [
+        { handle: 'OrchidSprinter', nodesVal: 36, altitudeVal: 64.2 },
+        { handle: 'CanopyViper', nodesVal: 39, altitudeVal: 70.8 },
+        { handle: 'SumiBrush99', nodesVal: 35, altitudeVal: 61.4 },
+        { handle: 'VelocityMoss', nodesVal: 37, altitudeVal: 66.5 },
+        { handle: 'CanopyViper', nodesVal: 38, altitudeVal: 68.4 },
+        { handle: 'SakuraTendril', nodesVal: 37, altitudeVal: 65.8 },
+        { handle: 'GlasshouseFern', nodesVal: 36, altitudeVal: 63.1 }
+      ];
+
+      const activeKey = (this.activeVine && this.activeVine.dateKey) || new Date().toISOString().slice(0, 10);
+      const parts = activeKey.split('-').map(Number);
+      const refDate =
+        parts.length === 3 && !parts.some(Number.isNaN)
+          ? new Date(parts[0], parts[1] - 1, parts[2])
+          : new Date();
+
+      const jsDay = refDate.getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
+      const offsetToMonday = jsDay === 0 ? -6 : 1 - jsDay;
+      const mondayDate = new Date(
+        refDate.getFullYear(),
+        refDate.getMonth(),
+        refDate.getDate() + offsetToMonday
+      );
+
+      let localRuns = [];
+      try {
+        const localRunsRaw = localStorage.getItem('wordvine_local_runs');
+        localRuns = localRunsRaw ? JSON.parse(localRunsRaw) : [];
+      } catch (e) {
+        localRuns = [];
+      }
+
+      const pad2 = (n) => String(n).padStart(2, '0');
+
+      return dayLabels.map((dayLabel, idx) => {
+        const d = new Date(
+          mondayDate.getFullYear(),
+          mondayDate.getMonth(),
+          mondayDate.getDate() + idx
+        );
+        const dateKey = `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+        const shortDate = `${monthShort[d.getMonth()]} ${d.getDate()}`;
+        const isToday = dateKey === activeKey;
+
+        // Today's baseline #1 matches the Daily Top 5 #1 target (CanopyViper • 38/40 • 68.4m)
+        const baseChamp = isToday
+          ? { handle: 'CanopyViper', nodesVal: 38, altitudeVal: 68.4 }
+          : dailyBotChampions[idx];
+
+        let topHandle = baseChamp.handle;
+        let topNodes = baseChamp.nodesVal;
+        let topAltitude = baseChamp.altitudeVal;
+        let isMe = false;
+
+        // Check if the player has a logged run on this date that beat the #1 climber
+        const myRun = localRuns.find((r) => r.dateKey === dateKey);
+        if (myRun) {
+          const myNodes = Number(myRun.nodesCompleted) || 0;
+          const myAlt = Number(myRun.altitudeMeters) || 0;
+          if (myNodes > topNodes || (myNodes === topNodes && myAlt >= topAltitude)) {
+            topHandle = this.playerHandle;
+            topNodes = myNodes;
+            topAltitude = myAlt;
+            isMe = true;
+          }
+        }
+
+        return {
+          dayLabel,
+          shortDate,
+          dateKey,
+          isToday,
+          handle: topHandle,
+          nodesVal: topNodes,
+          altitudeVal: topAltitude,
+          isMe
+        };
       });
     }
 
