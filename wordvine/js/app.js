@@ -608,10 +608,7 @@
     }
 
     updateThemeButtonLabel() {
-      const rem = this.getRemainingAttemptsToday();
-      if (this.themeCycleBtn) {
-        this.themeCycleBtn.textContent = `🌱 ${rem}/${MAX_DAILY_ATTEMPTS} Tries`;
-      }
+      // Visual palette is driven automatically by gameplay mode
     }
 
     updateMuteButtonLabel() {
@@ -647,93 +644,53 @@
       return Math.max(0, MAX_DAILY_ATTEMPTS - this.getAttemptsUsedToday(dateKey));
     }
 
-    getDailyStatusMessage(remaining) {
+    getDailyStatusMessage() {
       const cursor = Math.max(0, Number(this.positiveMsgCursor) || 0);
-      if (remaining <= 0) {
-        return DAILY_COMPLETE_MESSAGES[cursor % DAILY_COMPLETE_MESSAGES.length];
-      }
-      const pool = DAILY_ACTIVE_MESSAGES[remaining] || DAILY_ACTIVE_MESSAGES[3];
-      const daySeed = (this.activeVine && Number(this.activeVine.vineNumber)) || 0;
-      return pool[(daySeed + cursor) % pool.length];
+      return DAILY_COMPLETE_MESSAGES[cursor % DAILY_COMPLETE_MESSAGES.length];
     }
 
     syncDailyAttemptsUI() {
       const used = this.getAttemptsUsedToday();
       const remaining = Math.max(0, MAX_DAILY_ATTEMPTS - used);
       const isExhausted = remaining <= 0;
+      const msgText = this.getDailyStatusMessage();
 
-      // Update top bar chip
-      if (this.themeCycleBtn) {
-        this.themeCycleBtn.textContent = `🌱 ${remaining}/${MAX_DAILY_ATTEMPTS} Tries`;
-      }
-
-      // Build visual pips string
-      const pipDots = [];
-      for (let i = 0; i < MAX_DAILY_ATTEMPTS; i++) {
-        if (isExhausted) {
-          pipDots.push('✅');
-        } else if (i < remaining) {
-          pipDots.push('🟢');
-        } else {
-          pipDots.push('⚪');
-        }
-      }
-      const pipsLabel = isExhausted
-        ? `${pipDots.join(' ')} • All ${MAX_DAILY_ATTEMPTS} Daily Attempts Complete`
-        : `${pipDots.join(' ')} • ${remaining} of ${MAX_DAILY_ATTEMPTS} Daily Attempts Remaining`;
-
-      const msgText = this.getDailyStatusMessage(remaining);
-
-      // Sync Start Modal banner & primary button
+      // Sync Start Modal positive message banner (shown only after all 3 attempts are used)
       const startBannerEl = document.getElementById('start-attempts-banner');
-      const startPipsEl = document.getElementById('start-attempts-pips');
       const startMsgEl = document.getElementById('start-attempts-message');
       const startBtnEl = document.getElementById('btn-start-climb');
 
       if (startBannerEl) {
-        startBannerEl.classList.toggle('all-complete', isExhausted);
-      }
-      if (startPipsEl) {
-        startPipsEl.textContent = pipsLabel;
+        startBannerEl.classList.toggle('hidden', !isExhausted);
       }
       if (startMsgEl) {
-        startMsgEl.textContent = msgText;
+        startMsgEl.textContent = isExhausted ? msgText : '';
       }
       if (startBtnEl) {
         if (isExhausted) {
-          startBtnEl.textContent = '🌟 3/3 Attempts Used — Come Back Tomorrow!';
-        } else if (used === 0) {
-          startBtnEl.textContent = `🌿 Start Daily Climb (Attempt 1 of ${MAX_DAILY_ATTEMPTS})`;
-        } else if (remaining === 1) {
-          startBtnEl.textContent = `🌿 Start Final Attempt (${MAX_DAILY_ATTEMPTS} of ${MAX_DAILY_ATTEMPTS})`;
+          startBtnEl.textContent = '🌟 Come Back Tomorrow!';
+        } else if (used > 0) {
+          startBtnEl.textContent = '🌿 Climb Again';
         } else {
-          startBtnEl.textContent = `🌿 Start Attempt ${used + 1} of ${MAX_DAILY_ATTEMPTS}`;
+          startBtnEl.textContent = '🌿 Start Daily Climb';
         }
       }
 
-      // Sync Death / Completion Modal banner & retry button
+      // Sync Death / Completion Modal positive message banner (shown only after all 3 attempts are used)
       const deathBannerEl = document.getElementById('death-attempts-banner');
-      const deathPipsEl = document.getElementById('death-attempts-pips');
       const deathMsgEl = document.getElementById('death-attempts-message');
       const retryBtnEl = document.getElementById('btn-retry-practice');
 
       if (deathBannerEl) {
-        deathBannerEl.classList.toggle('all-complete', isExhausted);
-      }
-      if (deathPipsEl) {
-        deathPipsEl.textContent = pipsLabel;
+        deathBannerEl.classList.toggle('hidden', !isExhausted);
       }
       if (deathMsgEl) {
-        deathMsgEl.textContent = msgText;
+        deathMsgEl.textContent = isExhausted ? msgText : '';
       }
       if (retryBtnEl) {
-        if (isExhausted) {
-          retryBtnEl.textContent = '🏠 Daily Overview & Top 5';
-        } else if (remaining === 1) {
-          retryBtnEl.textContent = `🔄 Final Attempt (${MAX_DAILY_ATTEMPTS} of ${MAX_DAILY_ATTEMPTS})`;
-        } else {
-          retryBtnEl.textContent = `🔄 Next Attempt (${used + 1} of ${MAX_DAILY_ATTEMPTS})`;
-        }
+        retryBtnEl.textContent = isExhausted
+          ? '🏠 Daily Overview & Top 5'
+          : '🌿 Climb Again';
       }
     }
 

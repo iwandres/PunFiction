@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=25" />
+  <link rel="stylesheet" href="css/styles.css?v=26" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -50,7 +50,6 @@
 
     <div class="top-bar-group">
       <div id="hud-mode-badge" class="hud-chip">OFFICIAL DAILY</div>
-      <div id="btn-theme-cycle" class="hud-chip">🌱 3/3 Tries</div>
       <button id="btn-tutorial" class="hud-chip clickable" type="button" title="How to Play">❓ How to Play</button>
       <button id="btn-leaderboard" class="hud-chip clickable" type="button">🏆 Ranks</button>
       <button id="btn-mute" class="hud-chip clickable" type="button">🔊 Audio</button>
@@ -153,10 +152,9 @@
         <div id="home-top5-list" class="home-top5-list"></div>
       </div>
 
-      <!-- Daily 3-Attempt Tracker & Positive Wrap-Up Message -->
-      <div id="start-attempts-banner" class="attempts-status-banner">
-        <div id="start-attempts-pips" class="attempts-pips-row">🌱 🌱 🌱 • 3 of 3 Attempts Left Today</div>
-        <div id="start-attempts-message" class="attempts-positive-msg hidden"></div>
+      <!-- Positive Wrap-Up Message (Shown after 3 daily attempts) -->
+      <div id="start-attempts-banner" class="attempts-status-banner all-complete hidden">
+        <div id="start-attempts-message" class="attempts-positive-msg"></div>
       </div>
 
       <!-- Zero-Friction Anonymous Token + Player Handle -->
@@ -166,7 +164,7 @@
       </div>
 
       <button id="btn-start-climb" class="btn-primary" type="button">
-        🌿 Start Daily Climb (Attempt 1 of 3)
+        🌿 Start Daily Climb
       </button>
 
       <div class="action-row">
@@ -278,9 +276,8 @@
         </div>
       </div>
 
-      <!-- Post-Run Daily Attempts Counter & Positive Encouragement Banner -->
-      <div id="death-attempts-banner" class="attempts-status-banner">
-        <div id="death-attempts-pips" class="attempts-pips-row">🌱 Attempt 1 of 3 Complete</div>
+      <!-- Positive Wrap-Up Message (Shown after 3 daily attempts) -->
+      <div id="death-attempts-banner" class="attempts-status-banner all-complete hidden">
         <div id="death-attempts-message" class="attempts-positive-msg"></div>
       </div>
 
@@ -329,10 +326,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=25"></script>
-  <script src="js/data/dailyVines.js?v=25"></script>
-  <script src="js/engine/soundEngine.js?v=25"></script>
-  <script src="js/engine/vineRenderer.js?v=25"></script>
-  <script src="js/app.js?v=25"></script>
+  <script src="js/shared/physicsEngine.js?v=26"></script>
+  <script src="js/data/dailyVines.js?v=26"></script>
+  <script src="js/engine/soundEngine.js?v=26"></script>
+  <script src="js/engine/vineRenderer.js?v=26"></script>
+  <script src="js/app.js?v=26"></script>
 </body>
 </html>
