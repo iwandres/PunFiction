@@ -89,7 +89,7 @@
     'Great attempts! Come back tomorrow for a new theme and new try to top the leaderboard.',
     'Fantastic climbing today! Rest your reflexes and return tomorrow for a fresh theme and 3 new tries at the top spot.',
     'Strong effort on the vine! Come back tomorrow to tackle a brand-new daily theme and chase #1 on the leaderboard.',
-    'Way to battle the tricky compounds and Wind Gusts! See you tomorrow for a new theme and a fresh shot at the Daily Top 5.',
+    'Way to battle the tricky words and windy climbs! See you tomorrow for a new theme and a fresh shot at the Daily Top 5.',
     'Three great climbs in the books! Come back tomorrow for a new compound theme and another run at the top of the leaderboard.',
     'Impressive speed on the vine today! Return tomorrow for a brand-new theme and 3 fresh attempts to claim the crown.',
     'Your compound instincts are getting sharper! Come back tomorrow for a new daily theme and a fresh climb up the leaderboard.',
@@ -105,7 +105,7 @@
     ],
     2: [
       'Nice first climb! You have 2 attempts left today to push your speed and top the leaderboard.',
-      'Solid warm-up run! 2 daily attempts remaining — chain fast in Rapid-Fire to boost your height!',
+      'Solid warm-up run! 2 daily attempts remaining — chain fast during Speed Boosts to climb higher!',
       'Good read on the vine! You still have 2 tries today to beat the Daily Top 5.'
     ],
     1: [
@@ -1159,13 +1159,13 @@
         ? `+${Number(breakdown.nodeHeightMeters).toFixed(1)}m`
         : '+1.6m';
       pop.textContent = enteredRapidFire
-        ? `⚡ RAPID-FIRE SPRINT! ${deltaM}`
+        ? `⚡ SPEED BOOST! ${deltaM}`
         : breakdown.isReverseGraft
-          ? `⬅ WORD IN FRONT! ${deltaM}`
+          ? `⬅ IN FRONT! ${deltaM}`
           : breakdown.isRapidFire
-            ? `⚡ RAPID FIRE! ${deltaM}`
+            ? `⚡ FAST! ${deltaM}`
             : breakdown.isTripleBloom
-              ? `🌸 3-WORD CHAIN! ${deltaM}`
+              ? `🌸 BONUS! ${deltaM}`
               : breakdown.isFastPick
                 ? `⚡ FAST! ${deltaM}`
                 : `${deltaM}`;
@@ -1274,19 +1274,19 @@
       if (this.reverseLoopBanner) {
         this.reverseLoopBanner.classList.toggle('hidden', !isReverseGraft);
         if (isReverseGraft && this.reverseLoopBannerText) {
-          this.reverseLoopBannerText.textContent = `WORD GOES IN FRONT • ⬅ ___ + ${node.stemWord}`;
+          this.reverseLoopBannerText.textContent = `PUT WORD IN FRONT`;
         }
       }
       if (this.rapidFireBanner) {
         this.rapidFireBanner.classList.toggle('hidden', !isRapidFire);
         if (isRapidFire && this.rapidFireBannerText) {
-          this.rapidFireBannerText.textContent = `RAPID-FIRE SPRINT`;
+          this.rapidFireBannerText.textContent = `SPEED BOOST`;
         }
       }
       if (this.windGustBanner) {
         this.windGustBanner.classList.toggle('hidden', !isWindy);
         if (isWindy && this.windGustBannerText) {
-          this.windGustBannerText.textContent = `WIND GUST • LETTERS SETTLING`;
+          this.windGustBannerText.textContent = `WIND! LETTERS UNSCRAMBLE`;
         }
       }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);

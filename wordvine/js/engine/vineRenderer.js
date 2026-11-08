@@ -1822,11 +1822,11 @@
       ctx.lineTo(tipX + ringRx - 2 * gateScale, gateY + 6 * gateScale);
       ctx.stroke();
 
-      // 4. Crisp On-Vine Gate Badge ("⚡ RAPID-FIRE GATE • NEXT!" or "⚡ RAPID-FIRE SPRINT IN 2")
+      // 4. Crisp On-Vine Gate Badge ("⚡ SPEED BOOST NEXT!" or "⚡ SPEED BOOST IN 2")
       const label =
         stepsUntilRapidFire === 1
-          ? '⚡ RAPID-FIRE GATE • NEXT!'
-          : '⚡ RAPID-FIRE SPRINT IN 2';
+          ? '⚡ SPEED BOOST NEXT!'
+          : '⚡ SPEED BOOST IN 2';
       const fontPx = Math.round(10.5 * gateScale);
       ctx.font = `800 ${fontPx}px "Plus Jakarta Sans", sans-serif`;
       const cacheKey = `${stepsUntilRapidFire}_${fontPx}`;
