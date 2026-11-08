@@ -761,11 +761,14 @@ body {
 }
 
 .theme-spotlight-card .brand-title {
-  font-size: clamp(15px, 4vw, 20.5px);
+  display: block;
+  width: 100%;
+  font-size: clamp(18px, 5.8vw, 30px);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   letter-spacing: -0.015em;
+  line-height: 1.15;
   margin-bottom: 6px;
   color: #162a1d;
 }

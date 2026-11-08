@@ -307,6 +307,9 @@
       this.bindEvents();
       this.syncStartModalMetadata();
       this.syncFovealDOM();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => this.fitStartThemeTitle()).catch(() => {});
+      }
 
       // If launched from Admin Studio with ?autostart=1, jump straight into the climb
       if (params.get('autostart') === '1') {
@@ -464,6 +467,10 @@
           const tier = btn.getAttribute('data-tier') || 'daily';
           this.openLeaderboardModal(tier);
         });
+      });
+
+      window.addEventListener('resize', () => {
+        this.fitStartThemeTitle();
       });
     }
 
@@ -765,7 +772,11 @@
         badgeEl.textContent = `✨ TODAY'S THEME`;
       }
 
-      document.getElementById('start-vine-title').textContent = themeName;
+      const titleEl = document.getElementById('start-vine-title');
+      if (titleEl) {
+        titleEl.textContent = themeName;
+        this.fitStartThemeTitle();
+      }
 
       const subEl = document.getElementById('start-theme-subtitle');
       if (subEl) {
@@ -783,6 +794,28 @@
 
       this.hudModeBadge.textContent = 'DAILY CLIMB';
       this.syncDailyAttemptsUI();
+    }
+
+    /**
+     * Dynamically scales #start-vine-title font size (up to 32px, stepping down by 0.5px)
+     * so the theme title fills a generous portion of the single row without ever wrapping or clipping.
+     */
+    fitStartThemeTitle() {
+      const titleEl = document.getElementById('start-vine-title');
+      if (!titleEl) return;
+
+      const availableWidth = titleEl.clientWidth;
+      if (!availableWidth || availableWidth <= 0) return;
+
+      const maxPx = 32;
+      const minPx = 13.5;
+      let sizePx = maxPx;
+      titleEl.style.fontSize = `${sizePx}px`;
+
+      while (sizePx > minPx && titleEl.scrollWidth > availableWidth) {
+        sizePx -= 0.5;
+        titleEl.style.fontSize = `${sizePx}px`;
+      }
     }
 
     /**
