@@ -1120,12 +1120,41 @@
       this.syncTelemetryHUD();
     }
 
+    getScorePopPoolItem() {
+      if (!this._scorePopPool) {
+        let layer = document.getElementById('score-pop-layer');
+        if (!layer) {
+          layer = document.createElement('div');
+          layer.id = 'score-pop-layer';
+          layer.setAttribute('aria-hidden', 'true');
+          layer.style.cssText =
+            'position:fixed;inset:0;pointer-events:none;z-index:15;contain:layout style paint;overflow:hidden;';
+          document.body.appendChild(layer);
+        }
+        this._scorePopPool = [];
+        for (let i = 0; i < 3; i++) {
+          const el = document.createElement('div');
+          el.className = 'score-pop';
+          layer.appendChild(el);
+          this._scorePopPool.push({ el, timerId: null });
+        }
+        this._scorePopCursor = 0;
+      }
+      const item = this._scorePopPool[this._scorePopCursor % this._scorePopPool.length];
+      this._scorePopCursor = (this._scorePopCursor + 1) % this._scorePopPool.length;
+      return item;
+    }
+
     spawnScorePop(breakdown, enteredRapidFire = false) {
       if (!breakdown) return;
-      const pop = document.createElement('div');
-      pop.className = 'score-pop';
+      const item = this.getScorePopPoolItem();
+      const pop = item.el;
+      if (item.timerId) {
+        clearTimeout(item.timerId);
+      }
       const screenY = this.renderer.worldToScreenY(this.simState.yVine, this.simState.yCam);
-      pop.style.top = `${Math.max(80, screenY - 120)}px`;
+      const popY = Math.max(80, Math.round(screenY - 120));
+      pop.style.setProperty('--pop-y', `${popY}px`);
       const deltaM = breakdown.nodeHeightMeters
         ? `+${Number(breakdown.nodeHeightMeters).toFixed(1)}m`
         : '+1.6m';
@@ -1140,8 +1169,14 @@
               : breakdown.isFastPick
                 ? `⚡ FAST! ${deltaM}`
                 : `${deltaM}`;
-      document.body.appendChild(pop);
-      setTimeout(() => pop.remove(), 650);
+      pop.classList.remove('active');
+      // Retrigger GPU keyframe animation on the pooled element without document.body DOM churn
+      void pop.offsetWidth;
+      pop.classList.add('active');
+      item.timerId = setTimeout(() => {
+        pop.classList.remove('active');
+        item.timerId = null;
+      }, 650);
     }
 
     /**
@@ -1161,8 +1196,11 @@
         this.recordCompoundUsedToday(node);
       }
 
-      document.body.classList.remove('zone-1', 'zone-2', 'zone-3');
-      document.body.classList.add(`zone-${node.zoneId}`);
+      if (this._lastBodyZoneId !== node.zoneId) {
+        this._lastBodyZoneId = node.zoneId;
+        document.body.classList.remove('zone-1', 'zone-2', 'zone-3');
+        document.body.classList.add(`zone-${node.zoneId}`);
+      }
 
       const isReverseGraft = Boolean(
         node.isReverseGraft || node.gameMode === 'REVERSE_GRAFT'
@@ -1178,7 +1216,10 @@
       const wasWindy = Boolean(this.isActiveWind);
       this.isActiveWind = isWindy;
       this.activeWindDirection = node.windDirection || 1;
-      document.body.classList.toggle('wind-gust-active', isWindy);
+      if (this._lastBodyWindy !== isWindy) {
+        this._lastBodyWindy = isWindy;
+        document.body.classList.toggle('wind-gust-active', isWindy);
+      }
 
       if (
         isWindy &&
@@ -1204,19 +1245,23 @@
       // - Reverse-Graft Loop (⬅) -> Midnight Bioluminescence (id = 0)
       // - Zone 3 Rapid-Fire Sprint (⚡) -> Sunlit Conservatory (id = 1)
       // - Zone 1 Roots (Forward) -> Base palette (Meadow & Sage id = 3 by default)
-      if (isReverseGraft) {
-        this.renderer.setTheme(0);
-        document.body.classList.add('reverse-graft-active');
-        document.body.classList.remove('rapid-fire-active');
-      } else if (isRapidFire) {
-        this.renderer.setTheme(1);
-        document.body.classList.add('rapid-fire-active');
-        document.body.classList.remove('reverse-graft-active');
-      } else {
-        this.renderer.setTheme(this.basePaletteId ?? 3);
-        document.body.classList.remove('reverse-graft-active', 'rapid-fire-active');
+      const modeKey = isReverseGraft ? 'reverse' : isRapidFire ? 'rapid' : 'normal';
+      if (this._lastBodyMode !== modeKey) {
+        this._lastBodyMode = modeKey;
+        if (isReverseGraft) {
+          this.renderer.setTheme(0);
+          document.body.classList.add('reverse-graft-active');
+          document.body.classList.remove('rapid-fire-active');
+        } else if (isRapidFire) {
+          this.renderer.setTheme(1);
+          document.body.classList.add('rapid-fire-active');
+          document.body.classList.remove('reverse-graft-active');
+        } else {
+          this.renderer.setTheme(this.basePaletteId ?? 3);
+          document.body.classList.remove('reverse-graft-active', 'rapid-fire-active');
+        }
+        this.updateThemeButtonLabel();
       }
-      this.updateThemeButtonLabel();
 
       // Toggle Reverse-Graft Loop (⬅) & Zone 3 Rapid-Fire (⚡) visual indicators
       if (this.stemCard) {
@@ -1467,6 +1512,7 @@
     async onRunEnded(fatalNode) {
       this.clearWindSettleTimers();
       this.isActiveWind = false;
+      this._lastBodyWindy = false;
       document.body.classList.remove('wind-gust-active');
       const altitudeMeters = Number(
         (this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1)

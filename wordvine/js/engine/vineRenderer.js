@@ -111,6 +111,16 @@
       this.isMobile = false;
       this.themeId = 0;
       this.cachedGutterGrad = null;
+      this._cachedBgGrad = null;
+      this._cachedRayGrad = null;
+      this._lastBgKey = -1;
+      this._cachedDangerGrad = null;
+      this._spriteAtlases = {};
+      this._auraSprites = null;
+      this._gateLabelWidthCache = {};
+      this._pointsPool = [];
+      this._segsPool = [];
+      this._visiblePointsView = [];
 
       // Ambient peripheral particles & burst splatters
       this.ambientParticles = [];
@@ -170,6 +180,115 @@
       this.canvas.style.width = `${this.width}px`;
       this.canvas.style.height = `${this.height}px`;
       this.cachedGutterGrad = null;
+      this._cachedBgGrad = null;
+      this._cachedRayGrad = null;
+      this._lastBgKey = -1;
+      this._cachedDangerGrad = null;
+    }
+
+    /**
+     * Pre-renders crisp 2.5x HiDPI offscreen sprites for the active theme's leaves, 6-petal blooms,
+     * and radial glow auras so per-frame rendering uses single hardware-accelerated drawImage blits.
+     */
+    getThemeSprites(theme) {
+      if (this._spriteAtlases[theme.id]) {
+        return this._spriteAtlases[theme.id];
+      }
+      const spDpr = 2.5;
+      const createSprite = (w, h, drawFn) => {
+        const c = document.createElement('canvas');
+        c.width = Math.ceil(w * spDpr);
+        c.height = Math.ceil(h * spDpr);
+        const sctx = c.getContext('2d');
+        sctx.scale(spDpr, spDpr);
+        drawFn(sctx, w, h);
+        return { canvas: c, w, h };
+      };
+
+      const renderLeafSprite = (side) =>
+        createSprite(68, 44, (sctx) => {
+          sctx.translate(34, 22);
+          sctx.fillStyle = theme.leafColor;
+          sctx.strokeStyle = theme.leafHighlight;
+          sctx.lineWidth = 1.2;
+          sctx.beginPath();
+          sctx.moveTo(0, 0);
+          sctx.quadraticCurveTo(side * 15, -11, side * 28, -4);
+          sctx.quadraticCurveTo(side * 15, 8, 0, 0);
+          sctx.fill();
+          sctx.stroke();
+
+          sctx.beginPath();
+          sctx.moveTo(0, 0);
+          sctx.quadraticCurveTo(side * 13, -2, side * 22, -3);
+          sctx.stroke();
+        });
+
+      const flower = createSprite(56, 56, (sctx) => {
+        sctx.translate(28, 28);
+        const petals = 6;
+        for (let i = 0; i < petals; i++) {
+          sctx.save();
+          sctx.rotate((Math.PI * 2 * i) / petals);
+          sctx.fillStyle = i % 2 === 0 ? theme.flowerPrimary : theme.flowerSecondary;
+          sctx.beginPath();
+          sctx.ellipse(0, -12, 6.5, 11, 0, 0, Math.PI * 2);
+          sctx.fill();
+          sctx.restore();
+        }
+        sctx.fillStyle = theme.flowerCenter;
+        sctx.beginPath();
+        sctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+        sctx.fill();
+      });
+
+      const atlas = {
+        leafLeft: renderLeafSprite(-1),
+        leafRight: renderLeafSprite(1),
+        flower
+      };
+      this._spriteAtlases[theme.id] = atlas;
+      return atlas;
+    }
+
+    getAuraSprites() {
+      if (this._auraSprites) return this._auraSprites;
+      const makeRadialSprite = (stops) => {
+        const size = 128;
+        const half = size * 0.5;
+        const c = document.createElement('canvas');
+        c.width = size;
+        c.height = size;
+        const sctx = c.getContext('2d');
+        const g = sctx.createRadialGradient(half, half, half * 0.15, half, half, half);
+        for (let i = 0; i < stops.length; i++) {
+          g.addColorStop(stops[i][0], stops[i][1]);
+        }
+        sctx.fillStyle = g;
+        sctx.beginPath();
+        sctx.arc(half, half, half, 0, Math.PI * 2);
+        sctx.fill();
+        return c;
+      };
+
+      this._auraSprites = {
+        reverseGraft: makeRadialSprite([
+          [0, 'rgba(245, 158, 11, 0.28)'],
+          [0.65, 'rgba(217, 119, 6, 0.13)'],
+          [1, 'rgba(245, 158, 11, 0)']
+        ]),
+        rapidBooster: makeRadialSprite([
+          [0, 'rgba(251, 191, 36, 0.34)'],
+          [0.65, 'rgba(16, 185, 129, 0.15)'],
+          [1, 'rgba(251, 191, 36, 0)']
+        ]),
+        rapidGate: makeRadialSprite([
+          [0, 'rgba(254, 240, 138, 0.40)'],
+          [0.6, 'rgba(245, 158, 11, 0.19)'],
+          [1, 'rgba(245, 158, 11, 0)']
+        ])
+      };
+      return this._auraSprites;
     }
 
     /**
@@ -520,35 +639,55 @@
       const panoShiftX = -orbitAngle * 220;
       const altitudeBlend = Math.max(0, Math.min(1, parallaxY / 900));
 
-      // Interpolate low -> mid -> high background colors
-      const lerpRgb = (c1, c2, t) => [
-        Math.round(c1[0] + (c2[0] - c1[0]) * t),
-        Math.round(c1[1] + (c2[1] - c1[1]) * t),
-        Math.round(c1[2] + (c2[2] - c1[2]) * t)
-      ];
-
-      const topColor =
-        altitudeBlend < 0.5
-          ? lerpRgb(theme.bgMid, theme.bgHigh, altitudeBlend * 2)
-          : theme.bgHigh;
-      const bottomColor =
-        altitudeBlend < 0.5
-          ? lerpRgb(theme.bgLow, theme.bgMid, altitudeBlend * 2)
-          : lerpRgb(theme.bgMid, theme.bgHigh, (altitudeBlend - 0.5) * 2);
-
-      // Apply 20% dimming at terminal velocity
+      // Apply 20% dimming at terminal velocity and reuse cached CanvasGradient when quantized altitude/dim match
       const dim = 1 - velocityDesat * 0.22;
-      const grad = ctx.createLinearGradient(0, 0, 0, this.height);
-      grad.addColorStop(
-        0,
-        `rgb(${Math.round(topColor[0] * dim)}, ${Math.round(topColor[1] * dim)}, ${Math.round(topColor[2] * dim)})`
-      );
-      grad.addColorStop(
-        1,
-        `rgb(${Math.round(bottomColor[0] * dim)}, ${Math.round(bottomColor[1] * dim)}, ${Math.round(bottomColor[2] * dim)})`
-      );
+      const bgKey =
+        (theme.id << 16) |
+        (Math.round(altitudeBlend * 64) << 6) |
+        Math.round(velocityDesat * 24);
 
-      ctx.fillStyle = grad;
+      if (this._lastBgKey !== bgKey || !this._cachedBgGrad) {
+        this._lastBgKey = bgKey;
+        const lerpRgb = (c1, c2, t) => [
+          Math.round(c1[0] + (c2[0] - c1[0]) * t),
+          Math.round(c1[1] + (c2[1] - c1[1]) * t),
+          Math.round(c1[2] + (c2[2] - c1[2]) * t)
+        ];
+
+        const topColor =
+          altitudeBlend < 0.5
+            ? lerpRgb(theme.bgMid, theme.bgHigh, altitudeBlend * 2)
+            : theme.bgHigh;
+        const bottomColor =
+          altitudeBlend < 0.5
+            ? lerpRgb(theme.bgLow, theme.bgMid, altitudeBlend * 2)
+            : lerpRgb(theme.bgMid, theme.bgHigh, (altitudeBlend - 0.5) * 2);
+
+        const grad = ctx.createLinearGradient(0, 0, 0, this.height);
+        grad.addColorStop(
+          0,
+          `rgb(${Math.round(topColor[0] * dim)}, ${Math.round(topColor[1] * dim)}, ${Math.round(topColor[2] * dim)})`
+        );
+        grad.addColorStop(
+          1,
+          `rgb(${Math.round(bottomColor[0] * dim)}, ${Math.round(bottomColor[1] * dim)}, ${Math.round(bottomColor[2] * dim)})`
+        );
+        this._cachedBgGrad = grad;
+
+        if (theme.id === 1 || theme.id === 3) {
+          const rayGrad = ctx.createLinearGradient(0, 0, this.width * 0.35, this.height * 0.7);
+          rayGrad.addColorStop(
+            0,
+            theme.id === 1
+              ? `rgba(255, 236, 179, ${0.14 * dim})`
+              : `rgba(255, 252, 235, ${0.38 * dim})`
+          );
+          rayGrad.addColorStop(1, 'rgba(255, 236, 179, 0)');
+          this._cachedRayGrad = rayGrad;
+        }
+      }
+
+      ctx.fillStyle = this._cachedBgGrad;
       ctx.fillRect(0, 0, this.width, this.height);
 
       // Theme-specific 360° cylindrical panorama silhouettes that revolve around as you spin around the vine
@@ -605,22 +744,18 @@
         }
         ctx.stroke();
 
-        // Diagonal shafts of volumetric sunlight
+        // Diagonal shafts of volumetric sunlight (reusing cached gradient)
         const rayAngleShift = Math.sin(altitudeBlend * Math.PI) * 40;
-        const rayGrad = ctx.createLinearGradient(0, 0, this.width * 0.35, this.height * 0.7);
-        rayGrad.addColorStop(
-          0,
-          theme.id === 1 ? `rgba(255, 236, 179, ${0.14 * dim})` : `rgba(255, 252, 235, ${0.38 * dim})`
-        );
-        rayGrad.addColorStop(1, 'rgba(255, 236, 179, 0)');
-        ctx.fillStyle = rayGrad;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(this.width * 0.28 + rayAngleShift, 0);
-        ctx.lineTo(this.width * 0.12 + rayAngleShift, this.height);
-        ctx.lineTo(0, this.height);
-        ctx.closePath();
-        ctx.fill();
+        if (this._cachedRayGrad) {
+          ctx.fillStyle = this._cachedRayGrad;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(this.width * 0.28 + rayAngleShift, 0);
+          ctx.lineTo(this.width * 0.12 + rayAngleShift, this.height);
+          ctx.lineTo(0, this.height);
+          ctx.closePath();
+          ctx.fill();
+        }
       } else if (theme.id === 2) {
         // Ukiyo-e Ink & Sakura: Layered mountain washes & subtle washi grain
         const ridgeOffset = (parallaxY * 0.25) % 360;
@@ -941,25 +1076,38 @@
         return tipMagnify * depthTaper;
       };
 
-      // Filter anchors near visible world range plus active tip, capped on mobile to avoid offscreen overdraw
-      let visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 220);
+      // Filter anchors near visible world range plus active tip using zero-allocation index windowing
       const maxVisible = this.isMobile ? 9 : 13;
-      if (visibleAnchors.length > maxVisible) {
-        visibleAnchors = visibleAnchors.slice(visibleAnchors.length - maxVisible);
+      const totalAnchors = this.stemAnchors.length;
+      let startAnchorIdx = totalAnchors;
+      for (let i = 0; i < totalAnchors; i++) {
+        if (this.stemAnchors[i].yWorld >= yCam - 220) {
+          startAnchorIdx = i;
+          break;
+        }
       }
+      if (totalAnchors - startAnchorIdx > maxVisible) {
+        startAnchorIdx = totalAnchors - maxVisible;
+      }
+
       const wInt = this.windIntensity || 0;
       const wDir = this.windDirection || 1;
       const orbitAngle = this.cameraOrbitAngle || 0;
       const orbitVel = this.orbitAngularVel || 0;
 
-      // Build 3D cylindrical spline points up to active vine tip:
-      // Each anchor's 3D azimuth (a.theta - orbitAngle) projects onto screen X via sin(phi) and depth Z via cos(phi)
-      const points = visibleAnchors.map((a, idx) => {
+      // Populate pre-allocated 3D cylindrical spline points pool (zero per-frame GC allocations)
+      const points = this._visiblePointsView;
+      points.length = 0;
+      let ptCursor = 0;
+      const breezeFreq = 0.0018 + wInt * 0.0045;
+      const breezeAmp = 4 + wInt * 14;
+      const windLean = wInt * wDir * 10;
+
+      for (let i = startAnchorIdx; i < totalAnchors; i++) {
+        const a = this.stemAnchors[i];
+        const idx = i - startAnchorIdx;
         const sy = this.worldToScreenY(a.yWorld, yCam, simState);
         const dScale = getDepthScale(sy);
-        const breezeFreq = 0.0018 + wInt * 0.0045;
-        const breezeAmp = 4 + wInt * 14;
-        const windLean = wInt * wDir * 10;
         const breeze = Math.sin(nowMs * breezeFreq + idx * 0.55) * breezeAmp + windLean;
 
         const nodeTheta = a.theta !== undefined ? a.theta : idx * 0.95;
@@ -968,17 +1116,22 @@
         const xCyl = Math.sin(phi) * nodeRadius;
         const zCyl = Math.cos(phi);
 
-        return {
-          x: centerX + (xCyl + breeze) * dScale,
-          y: sy,
-          scale: dScale,
-          phi,
-          zCyl,
-          yWorld: a.yWorld,
-          zoneId: a.zoneId,
-          anchor: a
-        };
-      });
+        let ptObj = this._pointsPool[ptCursor];
+        if (!ptObj) {
+          ptObj = {};
+          this._pointsPool[ptCursor] = ptObj;
+        }
+        ptObj.x = centerX + (xCyl + breeze) * dScale;
+        ptObj.y = sy;
+        ptObj.scale = dScale;
+        ptObj.phi = phi;
+        ptObj.zCyl = zCyl;
+        ptObj.yWorld = a.yWorld;
+        ptObj.zoneId = a.zoneId;
+        ptObj.anchor = a;
+        points.push(ptObj);
+        ptCursor++;
+      }
 
       // Active growing tip point (stays centered on the vine axis, with subtle orbital lead during spin)
       const tipScale = getDepthScale(tipScreenY);
@@ -987,16 +1140,20 @@
           ? (Math.sin(nowMs * 0.0068) * 11 + wDir * 8) * wInt * tipScale
           : 0;
       const tipOrbitalLead = Math.max(-18, Math.min(18, orbitVel * 1.6)) * tipScale;
-      points.push({
-        x: centerX + tipOrbitalLead + tipWindSway,
-        y: tipScreenY,
-        scale: tipScale,
-        phi: 0,
-        zCyl: 1,
-        yWorld: yVine,
-        zoneId: simState.zoneId,
-        anchor: null
-      });
+      let tipObj = this._pointsPool[ptCursor];
+      if (!tipObj) {
+        tipObj = {};
+        this._pointsPool[ptCursor] = tipObj;
+      }
+      tipObj.x = centerX + tipOrbitalLead + tipWindSway;
+      tipObj.y = tipScreenY;
+      tipObj.scale = tipScale;
+      tipObj.phi = 0;
+      tipObj.zCyl = 1;
+      tipObj.yWorld = yVine;
+      tipObj.zoneId = simState.zoneId;
+      tipObj.anchor = null;
+      points.push(tipObj);
 
       if (points.length < 2) return;
 
@@ -1076,7 +1233,7 @@
       ctx.lineJoin = 'round';
 
       const segCount = points.length - 1;
-      const segs = new Array(segCount);
+      const segs = this._segsPool;
       let avgSegScale = 0;
 
       for (let i = 0; i < segCount; i++) {
@@ -1097,20 +1254,23 @@
         const stemW = (theme.id === 2 ? 10 : 9) * segScale;
         const veinShift = Math.sin(braidMidAngle + 1.2) * (stemW * 0.22);
 
-        segs[i] = {
-          p0,
-          p1,
-          segScale,
-          midX,
-          midY,
-          b0x,
-          b1x,
-          bMidX,
-          braidInFront,
-          stemW,
-          veinShift,
-          isSnippedTip: simState.status === 'SNIPPED' && i === segCount - 1
-        };
+        let segObj = segs[i];
+        if (!segObj) {
+          segObj = {};
+          segs[i] = segObj;
+        }
+        segObj.p0 = p0;
+        segObj.p1 = p1;
+        segObj.segScale = segScale;
+        segObj.midX = midX;
+        segObj.midY = midY;
+        segObj.b0x = b0x;
+        segObj.b1x = b1x;
+        segObj.bMidX = bMidX;
+        segObj.braidInFront = braidInFront;
+        segObj.stemW = stemW;
+        segObj.veinShift = veinShift;
+        segObj.isSnippedTip = simState.status === 'SNIPPED' && i === segCount - 1;
       }
       avgSegScale = segCount > 0 ? avgSegScale / segCount : 1;
 
@@ -1392,17 +1552,15 @@
       ctx.save();
       ctx.translate(x, y);
 
-      // Outer warm amber/gold loop aura when active
+      // Outer warm amber/gold loop aura when active (uses pre-rendered aura sprite instead of per-frame createRadialGradient)
       if (isActive) {
         const pulse = 0.72 + 0.28 * Math.sin(nowMs * 0.007);
-        const aura = ctx.createRadialGradient(0, 0, radiusY * 0.3, 0, 0, radiusX * 1.45);
-        aura.addColorStop(0, `rgba(245, 158, 11, ${0.26 * pulse})`);
-        aura.addColorStop(0.65, `rgba(217, 119, 6, ${0.12 * pulse})`);
-        aura.addColorStop(1, 'rgba(245, 158, 11, 0)');
-        ctx.fillStyle = aura;
-        ctx.beginPath();
-        ctx.arc(0, 0, radiusX * 1.45, 0, Math.PI * 2);
-        ctx.fill();
+        const auraR = radiusX * 1.45;
+        const auras = this.getAuraSprites();
+        ctx.save();
+        ctx.globalAlpha = pulse;
+        ctx.drawImage(auras.reverseGraft, -auraR, -auraR, auraR * 2, auraR * 2);
+        ctx.restore();
       }
 
       // Secondary braided vine loop ring
@@ -1518,15 +1676,13 @@
       const ringRx = 38 * scale;
       const ringRy = 13 * scale;
 
-      // Golden speed aura around the stem fork
-      const aura = ctx.createRadialGradient(0, 0, ringRy * 0.3, 0, 0, ringRx * 1.45);
-      aura.addColorStop(0, `rgba(251, 191, 36, ${0.32 * pulse})`);
-      aura.addColorStop(0.65, `rgba(16, 185, 129, ${0.14 * pulse})`);
-      aura.addColorStop(1, 'rgba(251, 191, 36, 0)');
-      ctx.fillStyle = aura;
-      ctx.beginPath();
-      ctx.arc(0, 0, ringRx * 1.45, 0, Math.PI * 2);
-      ctx.fill();
+      // Golden speed aura around the stem fork (uses pre-rendered aura sprite)
+      const auraR = ringRx * 1.45;
+      const auras = this.getAuraSprites();
+      ctx.save();
+      ctx.globalAlpha = pulse;
+      ctx.drawImage(auras.rapidBooster, -auraR, -auraR, auraR * 2, auraR * 2);
+      ctx.restore();
 
       // Horizontal golden booster ring straddling the vine stem
       ctx.strokeStyle = '#D97706';
@@ -1620,15 +1776,19 @@
       // 3. Golden Speed Gate Arch / Booster Ring straddling the vine path at (tipX, gateY)
       const ringRx = 52 * gateScale;
       const ringRy = 16 * gateScale;
+      const gateAuraR = ringRx * 1.45;
+      const auras = this.getAuraSprites();
 
-      const gateAura = ctx.createRadialGradient(tipX, gateY, ringRy * 0.2, tipX, gateY, ringRx * 1.45);
-      gateAura.addColorStop(0, `rgba(254, 240, 138, ${0.38 * pulse})`);
-      gateAura.addColorStop(0.6, `rgba(245, 158, 11, ${0.18 * pulse})`);
-      gateAura.addColorStop(1, 'rgba(245, 158, 11, 0)');
-      ctx.fillStyle = gateAura;
-      ctx.beginPath();
-      ctx.arc(tipX, gateY, ringRx * 1.45, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.save();
+      ctx.globalAlpha = pulse;
+      ctx.drawImage(
+        auras.rapidGate,
+        tipX - gateAuraR,
+        gateY - gateAuraR,
+        gateAuraR * 2,
+        gateAuraR * 2
+      );
+      ctx.restore();
 
       // Outer golden-emerald gate ring
       ctx.strokeStyle = '#D97706';
@@ -1667,8 +1827,14 @@
         stepsUntilRapidFire === 1
           ? '⚡ RAPID-FIRE GATE • NEXT!'
           : '⚡ RAPID-FIRE SPRINT IN 2';
-      ctx.font = `800 ${Math.round(10.5 * gateScale)}px "Plus Jakarta Sans", sans-serif`;
-      const textWidth = ctx.measureText(label).width;
+      const fontPx = Math.round(10.5 * gateScale);
+      ctx.font = `800 ${fontPx}px "Plus Jakarta Sans", sans-serif`;
+      const cacheKey = `${stepsUntilRapidFire}_${fontPx}`;
+      let textWidth = this._gateLabelWidthCache[cacheKey];
+      if (textWidth === undefined) {
+        textWidth = ctx.measureText(label).width;
+        this._gateLabelWidthCache[cacheKey] = textWidth;
+      }
       const pillW = textWidth + 20 * gateScale;
       const pillH = 21 * gateScale;
       const pillX = tipX - pillW * 0.5;
@@ -1718,55 +1884,25 @@
     }
 
     /**
-     * Draws a tapered botanical leaf with a central midrib vein
+     * Draws a tapered botanical leaf with a central midrib vein using the cached 2.5x HiDPI sprite atlas
      */
     drawBotanicalLeaf(ctx, theme, x, y, side, swayAngle, scale = 1) {
+      const sprites = this.getThemeSprites(theme);
+      const sp = side < 0 ? sprites.leafLeft : sprites.leafRight;
       ctx.save();
       ctx.translate(x, y);
-      ctx.scale(scale, scale);
       ctx.rotate(side * 0.55 + swayAngle);
-
-      ctx.fillStyle = theme.leafColor;
-      ctx.strokeStyle = theme.leafHighlight;
-      ctx.lineWidth = 1.2;
-
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(side * 15, -11, side * 28, -4);
-      ctx.quadraticCurveTo(side * 15, 8, 0, 0);
-      ctx.fill();
-      ctx.stroke();
-
-      // Central leaf midrib vein
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(side * 13, -2, side * 22, -3);
-      ctx.stroke();
-
+      ctx.drawImage(sp.canvas, -34 * scale, -22 * scale, sp.w * scale, sp.h * scale);
       ctx.restore();
     }
 
     drawTripleBloomFlower(ctx, theme, x, y, scale, nowMs) {
+      const sprites = this.getThemeSprites(theme);
+      const sp = sprites.flower;
       ctx.save();
       ctx.translate(x, y);
-      ctx.scale(scale, scale);
       ctx.rotate(nowMs * 0.0005);
-
-      const petals = 6;
-      for (let i = 0; i < petals; i++) {
-        ctx.save();
-        ctx.rotate((Math.PI * 2 * i) / petals);
-        ctx.fillStyle = i % 2 === 0 ? theme.flowerPrimary : theme.flowerSecondary;
-        ctx.beginPath();
-        ctx.ellipse(0, -12, 6.5, 11, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      ctx.fillStyle = theme.flowerCenter;
-      ctx.beginPath();
-      ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.drawImage(sp.canvas, -28 * scale, -28 * scale, sp.w * scale, sp.h * scale);
       ctx.restore();
     }
 
@@ -1848,34 +1984,35 @@
       const urgency = Math.max(0, Math.min(1, 1 - leadUnits / 150));
       const pulse = 0.65 + 0.35 * Math.sin(nowMs * (0.01 + urgency * 0.015));
 
+      if (!this._cachedDangerGrad) {
+        const grad = ctx.createRadialGradient(
+          this.width * 0.5,
+          this.height * 0.45,
+          this.height * 0.25,
+          this.width * 0.5,
+          this.height * 0.5,
+          this.height * 0.85
+        );
+        grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        grad.addColorStop(1, 'rgba(185, 28, 28, 0.58)');
+        this._cachedDangerGrad = grad;
+      }
+
       ctx.save();
-      const grad = ctx.createRadialGradient(
-        this.width * 0.5,
-        this.height * 0.45,
-        this.height * 0.25,
-        this.width * 0.5,
-        this.height * 0.5,
-        this.height * 0.85
-      );
-      grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      grad.addColorStop(1, `rgba(185, 28, 28, ${urgency * 0.58 * pulse})`);
-      ctx.fillStyle = grad;
+      ctx.globalAlpha = urgency * pulse;
+      ctx.fillStyle = this._cachedDangerGrad;
       ctx.fillRect(0, 0, this.width, this.height);
 
-      // Creeping crimson roots in the bottom corners
-      ctx.strokeStyle = `rgba(220, 38, 38, ${urgency * 0.75})`;
+      // Creeping crimson roots in the bottom corners (batched into 1 stroke)
+      ctx.globalAlpha = urgency * 0.75;
+      ctx.strokeStyle = '#DC2626';
       ctx.lineWidth = 3.5;
       ctx.lineCap = 'round';
       const rootReach = urgency * 130;
 
-      // Bottom-left root tendrils
       ctx.beginPath();
       ctx.moveTo(0, this.height);
       ctx.quadraticCurveTo(rootReach * 0.6, this.height - rootReach * 0.8, rootReach, this.height - rootReach);
-      ctx.stroke();
-
-      // Bottom-right root tendrils
-      ctx.beginPath();
       ctx.moveTo(this.width, this.height);
       ctx.quadraticCurveTo(
         this.width - rootReach * 0.6,
