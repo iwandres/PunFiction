@@ -88,7 +88,7 @@
     'Great attempts! Come back tomorrow for a new theme and new try to top the leaderboard.',
     'Fantastic climbing today! Rest your reflexes and return tomorrow for a fresh theme and 3 new tries at the top spot.',
     'Strong effort on the vine! Come back tomorrow to tackle a brand-new daily theme and chase #1 on the leaderboard.',
-    'Way to battle the Reverse-Graft Loops and Wind Gusts! See you tomorrow for a new theme and a fresh shot at the Daily Top 5.',
+    'Way to battle the tricky compounds and Wind Gusts! See you tomorrow for a new theme and a fresh shot at the Daily Top 5.',
     'Three great climbs in the books! Come back tomorrow for a new compound theme and another run at the top of the leaderboard.',
     'Impressive speed on the vine today! Return tomorrow for a brand-new theme and 3 fresh attempts to claim the crown.',
     'Your compound instincts are getting sharper! Come back tomorrow for a new daily theme and a fresh climb up the leaderboard.',
@@ -99,7 +99,7 @@
   const DAILY_ACTIVE_MESSAGES = {
     3: [
       'You have 3 attempts today — chain nodes fast to climb high and beat the Daily Top 5!',
-      '3 daily tries available! Watch the vine for Reverse-Graft Loops, Speed Gates, and Wind Gusts.',
+      '3 daily tries available! Link compound words quickly to climb higher on every pick.',
       'Ready to climb! Your best run out of 3 attempts today counts toward the Daily Top 5.'
     ],
     2: [
@@ -109,7 +109,7 @@
     ],
     1: [
       'One final attempt left today — make every compound count and go for the top spot!',
-      'Final daily try! Stay sharp on the Reverse-Graft Loops and sprint for maximum height!',
+      'Final daily try! Stay sharp and sprint for maximum height!',
       "Last climb of the day — give it everything you've got to crack the Daily Top 5!"
     ]
   };
@@ -993,11 +993,11 @@
       pop.textContent = enteredRapidFire
         ? `⚡ RAPID-FIRE SPRINT! ${deltaM}`
         : breakdown.isReverseGraft
-          ? `⬅ REVERSE GRAFT! ${deltaM}`
+          ? `⬅ WORD IN FRONT! ${deltaM}`
           : breakdown.isRapidFire
             ? `⚡ RAPID FIRE! ${deltaM}`
             : breakdown.isTripleBloom
-              ? `🌸 TRIPLE BLOOM! ${deltaM}`
+              ? `🌸 3-WORD CHAIN! ${deltaM}`
               : breakdown.isFastPick
                 ? `⚡ FAST! ${deltaM}`
                 : `${deltaM}`;
@@ -1081,29 +1081,19 @@
       if (this.reverseLoopBanner) {
         this.reverseLoopBanner.classList.toggle('hidden', !isReverseGraft);
         if (isReverseGraft && this.reverseLoopBannerText) {
-          const stepInfo =
-            node.reverseStep && node.reverseTotal
-              ? ` (${node.reverseStep}/${node.reverseTotal})`
-              : '';
-          this.reverseLoopBannerText.textContent = `REVERSE-GRAFT LOOP • WORD IN FRONT${stepInfo}`;
+          this.reverseLoopBannerText.textContent = `WORD GOES IN FRONT • ⬅ ___ + ${node.stemWord}`;
         }
       }
       if (this.rapidFireBanner) {
         this.rapidFireBanner.classList.toggle('hidden', !isRapidFire);
         if (isRapidFire && this.rapidFireBannerText) {
-          const stepInfo =
-            node.rapidFireStep && node.rapidFireTotal
-              ? ` (${node.rapidFireStep}/${node.rapidFireTotal})`
-              : '';
-          this.rapidFireBannerText.textContent = `ZONE 3 RAPID-FIRE • SHORT SPRINT${stepInfo}`;
+          this.rapidFireBannerText.textContent = `RAPID-FIRE SPRINT`;
         }
       }
       if (this.windGustBanner) {
         this.windGustBanner.classList.toggle('hidden', !isWindy);
         if (isWindy && this.windGustBannerText) {
-          const stepInfo =
-            node.windStep && node.windTotal ? ` (${node.windStep}/${node.windTotal})` : '';
-          this.windGustBannerText.textContent = `WIND-RUFFLED GUST • LETTERS SETTLING${stepInfo}`;
+          this.windGustBannerText.textContent = `WIND GUST • LETTERS SETTLING`;
         }
       }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
@@ -1186,16 +1176,16 @@
       this.hudAltitude.textContent = `${altitudeMeters}m`;
       this.hudVelocity.textContent = `${Math.round(this.simState.vCam)} u/s`;
       this.hudZone.textContent = this.isActiveReverseGraft
-        ? '⬅ REVERSE LOOP'
+        ? '⬅ WORD IN FRONT'
         : this.isActiveRapidFire
-          ? '⚡ Z3 SPRINT'
-          : '🌿 Z1 ROOTS';
+          ? '⚡ RAPID FIRE'
+          : '🌿 NORMAL';
       if (this.hudModeBadge) {
         this.hudModeBadge.textContent = this.isActiveReverseGraft
-          ? '⬅ REVERSE LOOP'
+          ? '⬅ WORD IN FRONT'
           : this.isActiveRapidFire
             ? '⚡ RAPID FIRE'
-            : '🌿 ZONE 1 ROOTS';
+            : '🌿 DAILY CLIMB';
       }
     }
 
@@ -1288,6 +1278,27 @@
     }
 
     /**
+     * Extracts the clean, human-readable compound word (e.g. "Boardwalk" or "Peanut butter")
+     * from a node without any internal Zone / Rapid-Fire / Loop labels.
+     */
+    formatCleanCompoundWord(node) {
+      if (!node) return '';
+      const rawHint = String(node.compoundHint || '');
+      const eqIdx = rawHint.indexOf('=');
+      if (eqIdx >= 0) {
+        const afterEq = rawHint
+          .slice(eqIdx + 1)
+          .replace(/\s*\(.*$/, '')
+          .trim();
+        if (afterEq) return afterEq;
+      }
+      const first = node.isReverseGraft ? String(node.correctWord || '') : String(node.stemWord || '');
+      const second = node.isReverseGraft ? String(node.stemWord || '') : String(node.correctWord || '');
+      const combined = `${first}${second}`.toLowerCase();
+      return combined ? combined.charAt(0).toUpperCase() + combined.slice(1) : '';
+    }
+
+    /**
      * Handles End of Run (SNIPPED, OUTRUN, or COMPLETED), records Official Score, and builds Receipt
      */
     async onRunEnded(fatalNode) {
@@ -1316,6 +1327,10 @@
         ? `🏆 NEW PERSONAL BEST LOGGED • #${this.activeVine.vineNumber}`
         : `🌿 DAILY CLIMB LOGGED • #${this.activeVine.vineNumber}`;
 
+      const stem = fatalNode ? fatalNode.stemWord : '';
+      const right = fatalNode ? fatalNode.correctWord : '';
+      const compoundWord = this.formatCleanCompoundWord(fatalNode);
+
       if (cause === 'COMPLETED') {
         titleEl.textContent = `🌸 40/40 Chained • ${altitudeMeters}m!`;
         explainEl.style.borderColor = 'rgba(34, 197, 94, 0.5)';
@@ -1325,25 +1340,19 @@
         titleEl.textContent = `${this.simState.nodesCompleted}/${this.activeVine.nodes.length} Nodes • ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
         explainEl.style.background = 'rgba(239, 68, 68, 0.12)';
-        const stem = fatalNode ? fatalNode.stemWord : '';
-        const right = fatalNode ? fatalNode.correctWord : '';
-        const wrong = fatalNode ? fatalNode.decoyWord : '';
-        const note = fatalNode && fatalNode.explanation ? fatalNode.explanation : '';
         if (wasReverseGraft) {
-          explainEl.innerHTML = `<strong>⬅ ${right} + ${stem}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the <strong>Reverse-Graft Loop</strong> word in front!<br>You picked <strong>${wrong}</strong>. ${note}`;
+          explainEl.innerHTML = `Correct choice: <strong>${right}</strong><br><strong>${right}</strong> goes in front of <strong>${stem}</strong> to make <strong>${compoundWord}</strong> (<strong>${right} + ${stem}</strong>).`;
         } else {
-          explainEl.innerHTML = `<strong>${stem} → ${right}</strong> (${fatalNode ? fatalNode.compoundHint : ''}) was the forward compound.<br>You picked <strong>${wrong}</strong>. ${note}`;
+          explainEl.innerHTML = `Correct choice: <strong>${right}</strong><br><strong>${stem} + ${right}</strong> makes <strong>${compoundWord}</strong>.`;
         }
       } else {
         titleEl.textContent = `${this.simState.nodesCompleted}/${this.activeVine.nodes.length} Nodes • ${altitudeMeters}m`;
         explainEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
         explainEl.style.background = 'rgba(245, 158, 11, 0.12)';
-        const stem = fatalNode ? fatalNode.stemWord : '';
-        const right = fatalNode ? fatalNode.correctWord : '';
         if (wasReverseGraft) {
-          explainEl.innerHTML = `The rising viewport overtook your vine inside the <strong>⬅ Reverse-Graft Loop</strong> on <strong>⬅ ${right} + ${stem}</strong>!`;
+          explainEl.innerHTML = `Correct choice: <strong>${right}</strong><br><strong>${right}</strong> goes in front of <strong>${stem}</strong> to make <strong>${compoundWord}</strong> (<strong>${right} + ${stem}</strong>).`;
         } else {
-          explainEl.innerHTML = `The rising viewport overtook your vine tip on <strong>${stem} → ${right}</strong>!`;
+          explainEl.innerHTML = `Correct choice: <strong>${right}</strong><br><strong>${stem} + ${right}</strong> makes <strong>${compoundWord}</strong>.`;
         }
       }
 

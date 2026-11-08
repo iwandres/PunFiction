@@ -103115,7 +103115,7 @@
           ...node,
           index: idx,
           decoyWord: chosenTrap,
-          explanation: `Reverse-Graft Loop (⬅): ${node.correctWord} goes IN FRONT of ${node.stemWord} (${node.correctWord} + ${node.stemWord}). Resist the forward trap ${node.stemWord} + ${chosenTrap}!`,
+          explanation: `${node.correctWord} goes in front of ${node.stemWord} (${node.correctWord} + ${node.stemWord}).`,
           leftRightSeed: side
         };
       }
