@@ -763,9 +763,9 @@
         if (isExhausted) {
           startBtnEl.textContent = '🌟 Come Back Tomorrow!';
         } else if (used > 0) {
-          startBtnEl.textContent = '🌿 Climb Again';
+          startBtnEl.textContent = `🌿 Climb Again (${remaining} of ${MAX_DAILY_ATTEMPTS} Left)`;
         } else {
-          startBtnEl.textContent = '🌿 Start Daily Climb';
+          startBtnEl.textContent = `🌿 Start Daily Climb (${MAX_DAILY_ATTEMPTS} of ${MAX_DAILY_ATTEMPTS} Left)`;
         }
       }
 
@@ -783,7 +783,7 @@
       if (retryBtnEl) {
         retryBtnEl.textContent = isExhausted
           ? '🏠 Daily Overview & Top 5'
-          : '🌿 Climb Again';
+          : `🌿 Climb Again (${remaining} of ${MAX_DAILY_ATTEMPTS} Left)`;
       }
     }
 
