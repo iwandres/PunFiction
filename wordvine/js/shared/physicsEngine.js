@@ -79,15 +79,21 @@
   }
 
   /**
-   * Computes instantaneously target camera velocity V_cam(t, N, activeGameMode)
+   * Computes instantaneously target camera velocity V_cam(t, N, activeGameMode, dynamicPaceBoost)
    */
-  function computeCameraVelocity(effectiveElapsedSec, nodesCompleted, activeGameMode = 'FORWARD') {
+  function computeCameraVelocity(
+    effectiveElapsedSec,
+    nodesCompleted,
+    activeGameMode = 'FORWARD',
+    dynamicPaceBoost = 0
+  ) {
     const base =
       activeGameMode === 'RAPID_FIRE'
         ? PHYSICS_CONFIG.V_RAPID_FIRE
         : PHYSICS_CONFIG.V_BASE;
     const raw =
       base +
+      (Number(dynamicPaceBoost) || 0) +
       PHYSICS_CONFIG.ALPHA_TIME_ACCEL * effectiveElapsedSec +
       PHYSICS_CONFIG.BETA_NODE_ACCEL * nodesCompleted;
     return Math.min(PHYSICS_CONFIG.V_CAM_MAX, raw);
@@ -150,6 +156,7 @@
       lastGraftZoneTriggered: initialZone,
       // Speed-driven Height & telemetry
       nodeReactionMs: 0,
+      paceBoostVel: 0,
       climbHeightStartUnits: startNodeIndex > 0 ? startNodeIndex * 115 : 0,
       targetClimbHeightUnits: startNodeIndex > 0 ? startNodeIndex * 115 : 0,
       score: 0,
@@ -188,11 +195,20 @@
     state.effectiveElapsedSec += dtSec;
     state.nodeReactionMs = (state.nodeReactionMs || 0) + dtMs;
 
-    // 1. Update camera velocity & position
+    // 1. Update dynamic fast-answer pace boost & camera velocity:
+    // Answering fast speeds up the viewport so the player can keep chaining rapidly,
+    // and as the viewport catches up (lead drops toward 260u), it smoothly slows back down to normal speed.
+    state.paceBoostVel = Math.max(0, (state.paceBoostVel || 0) - 14 * dtSec);
+    const currentLead = Math.max(0, state.yVine - state.yCam);
+    const leadRatio = Math.max(0, Math.min(1, (currentLead - 260) / 220));
+    const leadTrackBoost = Math.max(0, (currentLead - 360) * 0.095);
+    const dynamicPaceBoost = state.paceBoostVel * leadRatio + leadTrackBoost;
+
     state.vCam = computeCameraVelocity(
       state.effectiveElapsedSec,
       state.nodesCompleted,
-      state.activeGameMode
+      state.activeGameMode,
+      dynamicPaceBoost
     );
     state.yCam += state.vCam * dtSec;
 
@@ -289,6 +305,8 @@
     // the faster player always achieves a greater Height!
     const reactionMs = Math.max(80, state.nodeReactionMs || 900);
     state.nodeReactionMs = 0;
+    const fastFactor = Math.max(0, Math.min(1.15, (1200 - reactionMs) / 950));
+    state.paceBoostVel = Math.min(44, (state.paceBoostVel || 0) + fastFactor * 16);
     const leadUnits = Math.max(0, state.yVine - state.yCam);
     const speedBonusUnits = 95 / (1 + Math.pow(reactionMs / 950, 1.25));
     const momentumBonusUnits = Math.min(30, leadUnits * 0.035);

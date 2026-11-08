@@ -70,6 +70,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     y_cam = 0.0
     y_vine = 380.0
     v_cam = 56.0
+    pace_boost_vel = 0.0
     max_altitude_units = 0.0
     node_reaction_ms = 0.0
 
@@ -85,7 +86,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     fixed_step_ms = 5.0
 
     def step_sim(dt_ms):
-        nonlocal status, effective_elapsed_sec, y_cam, y_vine, v_cam, max_altitude_units, node_reaction_ms
+        nonlocal status, effective_elapsed_sec, y_cam, y_vine, v_cam, pace_boost_vel, max_altitude_units, node_reaction_ms
         nonlocal spurt_active, spurt_elapsed_ms, spurt_applied_delta, bullet_time_remaining_ms
         if status != "PLAYING" or dt_ms <= 0:
             return
@@ -100,7 +101,14 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         effective_elapsed_sec += dt_sec
         node_reaction_ms += dt_ms
 
-        v_cam = 88.0 if active_game_mode == "RAPID_FIRE" else 56.0
+        pace_boost_vel = max(0.0, pace_boost_vel - 14.0 * dt_sec)
+        current_lead = max(0.0, y_vine - y_cam)
+        lead_ratio = max(0.0, min(1.0, (current_lead - 260.0) / 220.0))
+        lead_track_boost = max(0.0, (current_lead - 360.0) * 0.095)
+        dynamic_pace_boost = pace_boost_vel * lead_ratio + lead_track_boost
+
+        base_v = 88.0 if active_game_mode == "RAPID_FIRE" else 56.0
+        v_cam = min(280.0, base_v + dynamic_pace_boost)
         y_cam += v_cam * dt_sec
 
         v_creep = 0.35 * v_cam
@@ -168,6 +176,8 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
 
         reaction_ms = max(80.0, node_reaction_ms or 900.0)
         node_reaction_ms = 0.0
+        fast_factor = max(0.0, min(1.15, (1200.0 - reaction_ms) / 950.0))
+        pace_boost_vel = min(44.0, pace_boost_vel + fast_factor * 16.0)
         lead_units = max(0.0, y_vine - y_cam)
         speed_bonus_units = 95.0 / (1.0 + math.pow(reaction_ms / 950.0, 1.25))
         momentum_bonus_units = min(30.0, lead_units * 0.035)
