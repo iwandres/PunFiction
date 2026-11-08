@@ -169,11 +169,22 @@
       this.windIntensity = 0;
       this.windDirection = 1;
 
+      // Directional Left/Right vine climb & camera rotation state
+      this.vineTipWorldX = 0;
+      this.vinePrevWorldX = 0;
+      this.activeTipWorldX = 0;
+      this.cameraWorldX = 0;
+      this.cameraRollRad = 0;
+      this.cameraRollVel = 0;
+      this.cameraTargetRollRad = 0;
+      this.lastChoiceSide = null;
+      this.lastChoiceTimestampMs = 0;
+
       // Seed root anchors from world Y = -220 up to initialYVine with graceful S-curve sway
       const steps = 8;
       for (let i = 0; i <= steps; i++) {
         const y = -220 + ((initialYVine + 220) * i) / steps;
-        const sway = Math.sin(i * 0.95) * 18;
+        const sway = i === steps ? 0 : Math.sin(i * 0.95) * 18;
         this.stemAnchors.push({
           yWorld: y,
           xOffset: sway,
@@ -191,6 +202,7 @@
 
     /**
      * Records a completed node anchor on the stem and triggers organic particle bursts
+     * plus directional Left/Right vine branching & camera rotation impulse.
      */
     recordCompletedNode({
       yWorld,
@@ -203,10 +215,13 @@
       word,
       choiceSide
     }) {
-      const sway = (choiceSide === 0 ? -1 : 1) * (14 + Math.random() * 10);
+      const dir = choiceSide === 0 ? -1 : 1;
+      const nowMs = performance.now();
+      const anchorX = (this.vineTipWorldX || 0) + dir * (6 + Math.random() * 6);
+
       this.stemAnchors.push({
         yWorld,
-        xOffset: sway,
+        xOffset: anchorX,
         zoneId,
         hasLeafLeft: true,
         hasLeafRight: true,
@@ -215,29 +230,43 @@
         isBloom: Boolean(isTripleBloom),
         isReverseGraft: Boolean(isReverseGraft),
         isRapidFire: Boolean(isRapidFire),
-        bloomTimestamp: performance.now(),
+        bloomTimestamp: nowMs,
         word
       });
+
+      // Advance the growing vine tip laterally in the chosen Left (-1) or Right (+1) direction
+      this.vinePrevWorldX = anchorX;
+      const branchStep = dir * (68 + Math.random() * 14);
+      this.vineTipWorldX = anchorX + branchStep;
+      this.lastChoiceSide = choiceSide;
+      this.lastChoiceTimestampMs = nowMs;
+
+      // Rotate the camera into the chosen Left (-1) or Right (+1) climb direction:
+      // Impulse kicks the camera bank up to ~9-10° during the spurt, settling to ~3.6° in the climb direction
+      this.cameraTargetRollRad = dir * 0.062;
+      this.cameraRollVel = dir * 1.45;
 
       if (triggeredGraftCollar) {
         this.graftCollars.push({
           yWorld,
+          xOffset: anchorX,
           zoneId,
-          timestamp: performance.now()
+          timestamp: nowMs
         });
       }
 
       if (enteredRapidFire) {
         this.rapidFireCollars.push({
           yWorld,
-          timestamp: performance.now()
+          xOffset: anchorX,
+          timestamp: nowMs
         });
         // Extra golden-emerald speed-gate ignition burst when crossing into Rapid-Fire Sprint
         for (let i = 0; i < 26; i++) {
           const angle = -Math.PI * 0.5 + (Math.random() - 0.5) * 1.7;
           const speed = 110 + Math.random() * 150;
           this.burstParticles.push({
-            xOffset: (Math.random() - 0.5) * 44,
+            xOffset: anchorX + (Math.random() - 0.5) * 44,
             yWorld: yWorld + 12,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
@@ -256,7 +285,7 @@
         const angle = Math.random() * Math.PI * 2;
         const speed = (isTripleBloom ? 140 : 75) * (0.4 + Math.random() * 0.8);
         this.burstParticles.push({
-          xOffset: sway,
+          xOffset: anchorX,
           yWorld,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
@@ -273,11 +302,14 @@
      */
     triggerLexicalSnapBurst(yWorld, choiceSide) {
       const dir = choiceSide === 0 ? -1 : 1;
+      const tipX = this.activeTipWorldX || 0;
+      this.cameraTargetRollRad = dir * 0.08;
+      this.cameraRollVel = dir * 1.6;
       for (let i = 0; i < 22; i++) {
         const angle = (dir === -1 ? Math.PI * 0.75 : Math.PI * 0.25) + (Math.random() - 0.5) * 1.2;
         const speed = 60 + Math.random() * 130;
         this.burstParticles.push({
-          xOffset: dir * 28,
+          xOffset: tipX + dir * 28,
           yWorld: yWorld + 20,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
@@ -287,6 +319,52 @@
           decay: 1.2 + Math.random() * 0.5
         });
       }
+    }
+
+    /**
+     * Advances the smooth spring-damper camera rotation and lateral vine-tip tracking
+     * on each frame so choosing Left or Right visibly rotates the camera and climbs the vine in that direction.
+     */
+    stepCameraMotion(dtMs, nowMs) {
+      const dtSec = Math.min(0.05, Math.max(0.001, (dtMs || 16) / 1000));
+
+      // Interpolate the growing vine tip laterally from previous node to new Left/Right branch over 280ms
+      const elapsedSinceChoice = Math.max(0, nowMs - (this.lastChoiceTimestampMs || 0));
+      const spurtT = Math.min(1, elapsedSinceChoice / 280);
+      const easeOutCubic = 1 - Math.pow(1 - spurtT, 3);
+      const prevX = this.vinePrevWorldX || 0;
+      const targetX = this.vineTipWorldX || 0;
+      this.activeTipWorldX = prevX + (targetX - prevX) * easeOutCubic;
+
+      // Camera horizontally tracks the active vine tip with smooth spring follow
+      const camFollow = 1 - Math.exp(-dtSec * 6.8);
+      this.cameraWorldX = (this.cameraWorldX || 0) + (this.activeTipWorldX - (this.cameraWorldX || 0)) * camFollow;
+
+      // Gently relax sustained target roll toward a subtle directional lean after the initial turn
+      this.cameraTargetRollRad = (this.cameraTargetRollRad || 0) * Math.exp(-dtSec * 0.55);
+
+      // Spring-damper physics for camera rotation (roll)
+      const springK = 34;
+      const damping = 8.4;
+      const rollErr = (this.cameraRollRad || 0) - (this.cameraTargetRollRad || 0);
+      const angularAccel = -springK * rollErr - damping * (this.cameraRollVel || 0);
+      this.cameraRollVel = (this.cameraRollVel || 0) + angularAccel * dtSec;
+      this.cameraRollRad = (this.cameraRollRad || 0) + this.cameraRollVel * dtSec;
+      this.cameraRollRad = Math.max(-0.22, Math.min(0.22, this.cameraRollRad));
+    }
+
+    /**
+     * Returns live camera rotation (deg) and active vine tip horizontal offset (px)
+     * so the DOM #foveal-anchor word fork moves and banks in sync with the canvas camera.
+     */
+    getCameraMotionState() {
+      const rawOffsetX = (this.activeTipWorldX || 0) - (this.cameraWorldX || 0);
+      const tipScreenOffsetX = Math.max(-38, Math.min(38, rawOffsetX));
+      const rollDeg = ((this.cameraRollRad || 0) * 180) / Math.PI;
+      return {
+        tipScreenOffsetX,
+        rollDeg
+      };
     }
 
     /**
@@ -354,14 +432,30 @@
         this.windDirection = windDirection;
       }
 
+      // Advance directional Left/Right vine climb & spring-damper camera rotation
+      this.stepCameraMotion(dtMs, nowMs);
+
       ctx.save();
       ctx.scale(this.dpr, this.dpr);
+
+      // Apply camera rotation around the active vine tip pivot so choosing Left or Right banks & rotates the camera
+      const pivotX = this.width * 0.5;
+      const pivotY = simState
+        ? this.worldToScreenY(simState.yVine, simState.yCam, simState)
+        : this.height * 0.55;
+
+      ctx.save();
+      if (Math.abs(this.cameraRollRad || 0) > 0.0005) {
+        ctx.translate(pivotX, pivotY);
+        ctx.rotate(this.cameraRollRad);
+        ctx.translate(-pivotX, -pivotY);
+      }
 
       // 1. Velocity Desaturation factor (> 180 u/s dims & blurs background up to 20%)
       const vCam = simState ? simState.vCam : 45;
       const velocityDesat = Math.max(0, Math.min(1, (vCam - 180) / 100));
 
-      // 2. Draw 0.2x Parallax Background & Theme Atmosphere
+      // 2. Draw 0.2x Parallax Background & Theme Atmosphere (overscanned for camera rotation)
       this.drawBackground(ctx, theme, simState, velocityDesat, nowMs, isActiveReverseGraft);
 
       // 3. Draw Soft Center Gutter Vignette to protect word fork readability
@@ -387,6 +481,11 @@
           stepsUntilRapidFire
         );
         this.drawBurstParticles(ctx, simState, dtMs);
+      }
+
+      ctx.restore();
+
+      if (simState) {
         this.drawDangerVignette(ctx, theme, simState, nowMs);
       }
 
@@ -395,9 +494,11 @@
 
     drawBackground(ctx, theme, simState, velocityDesat, nowMs, isActiveReverseGraft = false) {
       const yCam = simState ? simState.yCam : 0;
-      // 0.2x Slow-Scroll Parallax altitude factor
+      // 0.2x Slow-Scroll Parallax altitude & lateral factors
       const parallaxY = yCam * 0.2;
+      const parallaxX = -(this.cameraWorldX || 0) * 0.22;
       const altitudeBlend = Math.max(0, Math.min(1, parallaxY / 900));
+      const pad = Math.ceil(Math.max(this.width, this.height) * 0.25);
 
       // Interpolate low -> mid -> high background colors
       const lerpRgb = (c1, c2, t) => [
@@ -417,7 +518,7 @@
 
       // Apply 20% dimming at terminal velocity
       const dim = 1 - velocityDesat * 0.22;
-      const grad = ctx.createLinearGradient(0, 0, 0, this.height);
+      const grad = ctx.createLinearGradient(0, -pad, 0, this.height + pad);
       grad.addColorStop(
         0,
         `rgb(${Math.round(topColor[0] * dim)}, ${Math.round(topColor[1] * dim)}, ${Math.round(topColor[2] * dim)})`
@@ -428,14 +529,14 @@
       );
 
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, this.width, this.height);
+      ctx.fillRect(-pad, -pad, this.width + pad * 2, this.height + pad * 2);
 
       // Theme-specific 0.2x parallax architectural / landscape silhouettes in periphery
       if (theme.id === 0) {
         // Midnight Bioluminescence: Starlit canopy & distant glowing botanical silhouettes
         ctx.fillStyle = `rgba(255, 255, 255, ${(isActiveReverseGraft ? 0.34 : 0.16) + altitudeBlend * 0.45})`;
         for (let i = 0; i < 36; i++) {
-          const sx = (i * 197) % this.width;
+          const sx = (((i * 197 + parallaxX * 0.5) % this.width) + this.width) % this.width;
           if (sx > this.width * 0.32 && sx < this.width * 0.68) continue;
           const sy = (i * 131 + parallaxY * 0.35) % this.height;
           const r = i % 3 === 0 ? 1.8 : 1.1;
@@ -458,7 +559,7 @@
           bioGlow.addColorStop(0.55, `rgba(192, 132, 252, ${0.08 * pulse})`);
           bioGlow.addColorStop(1, 'rgba(4, 10, 22, 0)');
           ctx.fillStyle = bioGlow;
-          ctx.fillRect(0, 0, this.width, this.height);
+          ctx.fillRect(-pad, -pad, this.width + pad * 2, this.height + pad * 2);
         }
       } else if (theme.id === 1 || theme.id === 3) {
         // Sunlit Conservatory & Meadow: Wrought-iron Victorian glasshouse arches & diagonal sunbeams
@@ -469,16 +570,17 @@
         ctx.lineWidth = 2;
         const archSpacing = 220;
         const offset = (parallaxY * 0.4) % archSpacing;
+        const archShiftX = Math.max(-60, Math.min(60, parallaxX * 0.35));
         for (let y = -archSpacing + offset; y < this.height + archSpacing; y += archSpacing) {
           // Left conservatory rib
           ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.quadraticCurveTo(this.width * 0.22, y - 60, this.width * 0.28, y + 40);
+          ctx.moveTo(-40 + archShiftX, y);
+          ctx.quadraticCurveTo(this.width * 0.22 + archShiftX, y - 60, this.width * 0.28 + archShiftX, y + 40);
           ctx.stroke();
           // Right conservatory rib
           ctx.beginPath();
-          ctx.moveTo(this.width, y);
-          ctx.quadraticCurveTo(this.width * 0.78, y - 60, this.width * 0.72, y + 40);
+          ctx.moveTo(this.width + 40 + archShiftX, y);
+          ctx.quadraticCurveTo(this.width * 0.78 + archShiftX, y - 60, this.width * 0.72 + archShiftX, y + 40);
           ctx.stroke();
         }
 
@@ -640,7 +742,8 @@
 
       this.ambientParticles.forEach((p, idx) => {
         const windDriftX = wInt > 0.01 ? nowMs * 0.24 * wDir * p.speedFactor * wInt : 0;
-        const rawPx = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14 + windDriftX;
+        const camLateralParallax = -(this.cameraWorldX || 0) * 0.35 * p.speedFactor;
+        const rawPx = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14 + windDriftX + camLateralParallax;
         const px = ((rawPx % this.width) + this.width) % this.width;
         const speedMult = isActiveRapidFire ? 0.55 : 0.25;
         const py = ((p.yWorld - yCam * speedMult * p.speedFactor) % this.height + this.height) % this.height;
@@ -803,8 +906,10 @@
       const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 260);
       const wInt = this.windIntensity || 0;
       const wDir = this.windDirection || 1;
+      const camX = this.cameraWorldX || 0;
+      const activeTipX = this.activeTipWorldX || 0;
 
-      // Build spline points up to active vine tip with living breeze sway (amplified during Wind Gusts) & 3D perspective convergence
+      // Build spline points up to active vine tip with directional Left/Right branching, living breeze sway & 3D perspective convergence
       const points = visibleAnchors.map((a, idx) => {
         const sy = this.worldToScreenY(a.yWorld, yCam, simState);
         const dScale = getDepthScale(sy);
@@ -813,7 +918,7 @@
         const windLean = wInt * wDir * 10;
         const breeze = Math.sin(nowMs * breezeFreq + idx * 0.55) * breezeAmp + windLean;
         return {
-          x: centerX + (a.xOffset + breeze) * dScale,
+          x: centerX + (a.xOffset - camX + breeze) * dScale,
           y: sy,
           scale: dScale,
           yWorld: a.yWorld,
@@ -822,14 +927,15 @@
         };
       });
 
-      // Active growing tip point (sways in the wind gust)
+      // Active growing tip point (branches Left/Right on choice and sways in the wind gust)
       const tipScale = getDepthScale(tipScreenY);
       const tipWindSway =
         wInt > 0.01
           ? (Math.sin(nowMs * 0.0068) * 11 + wDir * 8) * wInt * tipScale
           : 0;
+      const tipBranchOffset = (activeTipX - camX) * tipScale;
       points.push({
-        x: centerX + tipWindSway,
+        x: centerX + tipBranchOffset + tipWindSway,
         y: tipScreenY,
         scale: tipScale,
         yWorld: yVine,
@@ -952,23 +1058,25 @@
         if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
         const cy = this.worldToScreenY(collar.yWorld, yCam, simState);
         const cs = getDepthScale(cy);
-        this.drawBotanicalLeaf(ctx, theme, centerX - 10 * cs, cy, -1, -0.2, cs);
-        this.drawBotanicalLeaf(ctx, theme, centerX + 10 * cs, cy, 1, 0.2, cs);
-        this.drawTripleBloomFlower(ctx, theme, centerX, cy, 0.9 * cs, nowMs);
+        const cx = centerX + ((collar.xOffset || 0) - camX) * cs;
+        this.drawBotanicalLeaf(ctx, theme, cx - 10 * cs, cy, -1, -0.2, cs);
+        this.drawBotanicalLeaf(ctx, theme, cx + 10 * cs, cy, 1, 0.2, cs);
+        this.drawTripleBloomFlower(ctx, theme, cx, cy, 0.9 * cs, nowMs);
       });
 
       this.rapidFireCollars.forEach((collar) => {
         if (collar.yWorld < yCam - 100 || collar.yWorld > yCam + 1100) return;
         const cy = this.worldToScreenY(collar.yWorld, yCam, simState);
         const cs = getDepthScale(cy);
-        this.drawRapidFireActiveBooster(ctx, centerX, cy, cs * 1.05, nowMs, false);
+        const cx = centerX + ((collar.xOffset || 0) - camX) * cs;
+        this.drawRapidFireActiveBooster(ctx, cx, cy, cs * 1.05, nowMs, false);
       });
 
       // 4. Draw Sweeping S-Curve Active Fork Tendrils Toward Candidate Word Leaves
       // - When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
       // - When in a Rapid-Fire Sprint (⚡), a Golden Speed Booster Ring & Wing Chevrons straddle the active fork!
       // - When 1 or 2 nodes away from a Rapid-Fire Sprint, an approaching Golden Speed Gate descends down the vine path!
-      const tipX = centerX + tipWindSway;
+      const tipX = centerX + tipBranchOffset + tipWindSway;
       const tipY = tipScreenY;
       const forkSpread = 1 + pitchProgress * 0.16;
       const forkLift = 1 - pitchProgress * 0.22;
@@ -1499,6 +1607,7 @@
       const dtSec = Math.max(0.001, dtMs / 1000);
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
+      const camX = this.cameraWorldX || 0;
 
       for (let i = this.burstParticles.length - 1; i >= 0; i--) {
         const p = this.burstParticles[i];
@@ -1511,7 +1620,7 @@
           continue;
         }
 
-        const sx = centerX + p.xOffset;
+        const sx = centerX + (p.xOffset - camX);
         const sy = this.worldToScreenY(p.yWorld, yCam);
 
         ctx.save();
