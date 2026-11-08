@@ -12,15 +12,44 @@
       this.ctx = null;
       this.muted = localStorage.getItem('wordvine_muted') === 'true';
       this.lastHeartbeatTime = 0;
+      this.snapBuffer = null;
+      this.windBuffer = null;
     }
 
     init() {
       if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         this.ctx = new AudioCtx();
+        this.prebuildNoiseBuffers();
       }
       if (this.ctx && this.ctx.state === 'suspended') {
         this.ctx.resume().catch(() => {});
+      }
+    }
+
+    prebuildNoiseBuffers() {
+      if (!this.ctx) return;
+      try {
+        // 1. Pre-build wood snap noise buffer (0.12s)
+        const snapSize = Math.floor(this.ctx.sampleRate * 0.12);
+        this.snapBuffer = this.ctx.createBuffer(1, snapSize, this.ctx.sampleRate);
+        const snapData = this.snapBuffer.getChannelData(0);
+        for (let i = 0; i < snapSize; i++) {
+          snapData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (snapSize * 0.25));
+        }
+
+        // 2. Pre-build wind gust breeze buffer (0.65s)
+        const windDuration = 0.65;
+        const windSize = Math.floor(this.ctx.sampleRate * windDuration);
+        this.windBuffer = this.ctx.createBuffer(1, windSize, this.ctx.sampleRate);
+        const windData = this.windBuffer.getChannelData(0);
+        for (let i = 0; i < windSize; i++) {
+          const t = i / windSize;
+          const env = Math.sin(t * Math.PI);
+          windData[i] = (Math.random() * 2 - 1) * env;
+        }
+      } catch (e) {
+        // Ignore buffer allocation errors
       }
     }
 
@@ -128,30 +157,27 @@
       if (!this.ctx) return;
 
       const now = this.ctx.currentTime;
-
-      // Noise burst for wood snap
-      const bufferSize = this.ctx.sampleRate * 0.12;
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+      if (!this.snapBuffer) {
+        this.prebuildNoiseBuffers();
       }
 
-      const noise = this.ctx.createBufferSource();
-      noise.buffer = buffer;
+      if (this.snapBuffer) {
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = this.snapBuffer;
 
-      const filter = this.ctx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(1100, now);
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1100, now);
 
-      const gain = this.ctx.createGain();
-      gain.gain.setValueAtTime(0.35, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
 
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.ctx.destination);
-      noise.start(now);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start(now);
+      }
 
       // Low descending thud
       const osc = this.ctx.createOscillator();
@@ -211,17 +237,13 @@
 
       const now = this.ctx.currentTime;
       const duration = 0.65;
-      const bufferSize = Math.floor(this.ctx.sampleRate * duration);
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        const t = i / bufferSize;
-        const env = Math.sin(t * Math.PI);
-        data[i] = (Math.random() * 2 - 1) * env;
+      if (!this.windBuffer) {
+        this.prebuildNoiseBuffers();
       }
+      if (!this.windBuffer) return;
 
       const noise = this.ctx.createBufferSource();
-      noise.buffer = buffer;
+      noise.buffer = this.windBuffer;
 
       const filter = this.ctx.createBiquadFilter();
       filter.type = 'bandpass';

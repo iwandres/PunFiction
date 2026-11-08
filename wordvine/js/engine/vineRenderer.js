@@ -104,7 +104,13 @@
       this.width = 0;
       this.height = 0;
       this.dpr = 1;
+      this.baseDpr = 1;
+      this.renderScale = 1.0;
+      this.avgFrameMs = 16.0;
+      this.slowFrameStreak = 0;
+      this.isMobile = false;
       this.themeId = 0;
+      this.cachedGutterGrad = null;
 
       // Ambient peripheral particles & burst splatters
       this.ambientParticles = [];
@@ -118,13 +124,23 @@
 
       this.resize();
       this.initAmbientParticles();
-      window.addEventListener('resize', () => this.resize());
+      window.addEventListener('resize', () => {
+        this.resize();
+        this.initAmbientParticles();
+      });
     }
 
     setTheme(themeId) {
-      this.themeId = ((themeId % THEMES.length) + THEMES.length) % THEMES.length;
-      document.body.classList.remove('theme-biolum', 'theme-conservatory', 'theme-ukiyoe', 'theme-meadow');
-      document.body.classList.add(THEMES[this.themeId].cssClass);
+      const nextId = ((themeId % THEMES.length) + THEMES.length) % THEMES.length;
+      if (this.themeId !== nextId) {
+        this.themeId = nextId;
+        this.cachedGutterGrad = null;
+        document.body.classList.remove('theme-biolum', 'theme-conservatory', 'theme-ukiyoe', 'theme-meadow');
+        document.body.classList.add(THEMES[this.themeId].cssClass);
+      } else if (!document.body.classList.contains(THEMES[this.themeId].cssClass)) {
+        document.body.classList.remove('theme-biolum', 'theme-conservatory', 'theme-ukiyoe', 'theme-meadow');
+        document.body.classList.add(THEMES[this.themeId].cssClass);
+      }
       return THEMES[this.themeId];
     }
 
@@ -132,19 +148,54 @@
       return THEMES[this.themeId];
     }
 
+    detectMobileViewport() {
+      return Boolean(
+        (window.matchMedia &&
+          window.matchMedia('(max-width: 768px), (pointer: coarse)').matches) ||
+          window.innerWidth <= 768
+      );
+    }
+
     resize() {
-      this.dpr = Math.min(window.devicePixelRatio || 1, 3);
+      this.isMobile = this.detectMobileViewport();
+      const rawDpr = window.devicePixelRatio || 1;
+      // Cap HiDPI on mobile (Pixel 8a / Pixel 10 = 2.625-3.0x) to 1.5x to cut fill-rate by 75% while preserving crisp strokes
+      const maxDpr = this.isMobile ? 1.5 : 2.0;
+      this.baseDpr = Math.min(rawDpr, maxDpr);
+      this.dpr = Math.max(1.0, this.baseDpr * (this.renderScale || 1.0));
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.canvas.width = Math.floor(this.width * this.dpr);
       this.canvas.height = Math.floor(this.height * this.dpr);
       this.canvas.style.width = `${this.width}px`;
       this.canvas.style.height = `${this.height}px`;
+      this.cachedGutterGrad = null;
+    }
+
+    /**
+     * Dynamically scales internal canvas resolution down if mobile GPU frame times exceed 20ms
+     */
+    stepAdaptiveResolution(dtMs) {
+      if (!dtMs || dtMs <= 0 || dtMs > 120) return;
+      this.avgFrameMs = this.avgFrameMs * 0.9 + dtMs * 0.1;
+      if (this.avgFrameMs > 20.5 && this.renderScale > 0.76 && this.dpr > 1.05) {
+        this.slowFrameStreak += 1;
+        if (this.slowFrameStreak >= 22) {
+          this.renderScale = Math.max(0.75, Number((this.renderScale - 0.12).toFixed(2)));
+          this.slowFrameStreak = 0;
+          this.dpr = Math.max(1.0, this.baseDpr * this.renderScale);
+          this.canvas.width = Math.floor(this.width * this.dpr);
+          this.canvas.height = Math.floor(this.height * this.dpr);
+        }
+      } else {
+        this.slowFrameStreak = Math.max(0, this.slowFrameStreak - 1);
+      }
     }
 
     initAmbientParticles() {
       this.ambientParticles = [];
-      for (let i = 0; i < 48; i++) {
+      const count = this.isMobile ? 20 : 36;
+      for (let i = 0; i < count; i++) {
         const side = i % 2 === 0 ? 0 : 1;
         const xNorm = side === 0 ? Math.random() * 0.30 : 0.70 + Math.random() * 0.30;
         this.ambientParticles.push({
@@ -238,6 +289,11 @@
         word
       });
 
+      // Prune deep historical offscreen anchors so array size remains bounded
+      if (this.stemAnchors.length > 18) {
+        this.stemAnchors.splice(0, this.stemAnchors.length - 18);
+      }
+
       // Spin the camera clockwise (Right = +1) or counter-clockwise (Left = -1) around the climbing vine (~82° per pick)
       const orbitStepRad = dir * 1.44;
       this.targetOrbitAngle = (this.targetOrbitAngle || 0) + orbitStepRad;
@@ -259,7 +315,8 @@
           timestamp: nowMs
         });
         // Extra golden-emerald speed-gate ignition burst when crossing into Rapid-Fire Sprint
-        for (let i = 0; i < 26; i++) {
+        const gateBurstCount = this.isMobile ? 14 : 24;
+        for (let i = 0; i < gateBurstCount; i++) {
           const angle = -Math.PI * 0.5 + (Math.random() - 0.5) * 1.7;
           const speed = 110 + Math.random() * 150;
           this.burstParticles.push({
@@ -277,7 +334,7 @@
 
       // Spawn celebratory spores / ink splatters / golden pollen with orbital tangential velocity
       const theme = this.getTheme();
-      const count = isTripleBloom ? 26 : 12;
+      const count = isTripleBloom ? (this.isMobile ? 14 : 24) : this.isMobile ? 8 : 12;
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = (isTripleBloom ? 140 : 75) * (0.4 + Math.random() * 0.8);
@@ -299,7 +356,8 @@
      */
     triggerLexicalSnapBurst(yWorld, choiceSide) {
       const dir = choiceSide === 0 ? -1 : 1;
-      for (let i = 0; i < 22; i++) {
+      const snapCount = this.isMobile ? 12 : 20;
+      for (let i = 0; i < snapCount; i++) {
         const angle = (dir === -1 ? Math.PI * 0.75 : Math.PI * 0.25) + (Math.random() - 0.5) * 1.2;
         const speed = 60 + Math.random() * 130;
         this.burstParticles.push({
@@ -396,6 +454,9 @@
       isActiveWind = false,
       windDirection = 1
     ) {
+      if (simState && simState.status === 'PLAYING') {
+        this.stepAdaptiveResolution(dtMs);
+      }
       const ctx = this.ctx;
       const theme = this.getTheme();
       const nowMs = performance.now();
@@ -492,18 +553,21 @@
 
       // Theme-specific 360° cylindrical panorama silhouettes that revolve around as you spin around the vine
       if (theme.id === 0) {
-        // Midnight Bioluminescence: Starlit canopy revolving around the vine cylinder
+        // Midnight Bioluminescence: Starlit canopy revolving around the vine cylinder (batched into 1 path)
         ctx.fillStyle = `rgba(255, 255, 255, ${(isActiveReverseGraft ? 0.34 : 0.16) + altitudeBlend * 0.45})`;
-        for (let i = 0; i < 36; i++) {
+        const starCount = this.isMobile ? 22 : 36;
+        ctx.beginPath();
+        for (let i = 0; i < starCount; i++) {
           const sx = (((i * 197 + panoShiftX * (0.6 + (i % 3) * 0.25)) % this.width) + this.width) % this.width;
           if (sx > this.width * 0.32 && sx < this.width * 0.68) continue;
           const sy = (i * 131 + parallaxY * 0.35) % this.height;
           const r = i % 3 === 0 ? 1.8 : 1.1;
-          ctx.beginPath();
+          ctx.moveTo(sx + r, sy);
           ctx.arc(sx, sy, r, 0, Math.PI * 2);
-          ctx.fill();
         }
-        if (isActiveReverseGraft) {
+        ctx.fill();
+
+        if (isActiveReverseGraft && !this.isMobile) {
           // Bioluminescent Reverse-Graft Loop atmospheric aura
           const pulse = 0.7 + 0.3 * Math.sin(nowMs * 0.005);
           const bioGlow = ctx.createRadialGradient(
@@ -521,7 +585,7 @@
           ctx.fillRect(0, 0, this.width, this.height);
         }
       } else if (theme.id === 1 || theme.id === 3) {
-        // Sunlit Conservatory & Meadow: 360° glasshouse ribs & columns that orbit around the viewport as you spin
+        // Sunlit Conservatory & Meadow: 360° glasshouse ribs & columns batched into a single path
         ctx.strokeStyle =
           theme.id === 1
             ? `rgba(255, 240, 210, ${0.12 * (1 - velocityDesat * 0.4)})`
@@ -530,18 +594,16 @@
         const archSpacing = 220;
         const offset = (parallaxY * 0.4) % archSpacing;
         const ribOrbitWave = Math.sin(orbitAngle) * 34;
+        ctx.beginPath();
         for (let y = -archSpacing + offset; y < this.height + archSpacing; y += archSpacing) {
           // Left conservatory rib
-          ctx.beginPath();
           ctx.moveTo(0, y + ribOrbitWave * 0.35);
           ctx.quadraticCurveTo(this.width * 0.22 + ribOrbitWave * 0.5, y - 60, this.width * 0.28 + ribOrbitWave * 0.4, y + 40);
-          ctx.stroke();
           // Right conservatory rib
-          ctx.beginPath();
           ctx.moveTo(this.width, y - ribOrbitWave * 0.35);
           ctx.quadraticCurveTo(this.width * 0.78 + ribOrbitWave * 0.5, y - 60, this.width * 0.72 + ribOrbitWave * 0.4, y + 40);
-          ctx.stroke();
         }
+        ctx.stroke();
 
         // Diagonal shafts of volumetric sunlight
         const rayAngleShift = Math.sin(altitudeBlend * Math.PI) * 40;
@@ -563,16 +625,12 @@
         // Ukiyo-e Ink & Sakura: Layered mountain washes & subtle washi grain
         const ridgeOffset = (parallaxY * 0.25) % 360;
         ctx.fillStyle = altitudeBlend > 0.6 ? 'rgba(30, 20, 40, 0.22)' : 'rgba(120, 105, 95, 0.12)';
-        // Left mountain silhouette
+        // Left & Right mountain silhouettes batched
         ctx.beginPath();
         ctx.moveTo(0, this.height);
         ctx.lineTo(0, this.height * 0.35 + ridgeOffset * 0.2);
         ctx.quadraticCurveTo(this.width * 0.18, this.height * 0.42, this.width * 0.32, this.height);
         ctx.closePath();
-        ctx.fill();
-
-        // Right mountain silhouette
-        ctx.beginPath();
         ctx.moveTo(this.width, this.height);
         ctx.lineTo(this.width, this.height * 0.28 + ridgeOffset * 0.2);
         ctx.quadraticCurveTo(this.width * 0.82, this.height * 0.38, this.width * 0.68, this.height);
@@ -634,26 +692,26 @@
       ctx.quadraticCurveTo(centerX, horizonY - curveArch * 0.55, this.width, horizonY + curveArch * 0.65);
       ctx.stroke();
 
-      // 3. Converging Radial Perspective Sightlines toward the Deep Ground Vanishing Point
+      // 3. Converging Radial Perspective Sightlines toward the Deep Ground Vanishing Point (batched)
       const rayCount = 8;
       ctx.strokeStyle =
         theme.id === 0
           ? `rgba(94, 234, 212, ${0.09 * pitchProgress})`
           : `rgba(74, 124, 89, ${0.08 * pitchProgress})`;
       ctx.lineWidth = 1.2;
+      ctx.beginPath();
       for (let i = 0; i <= rayCount; i++) {
         const frac = i / rayCount;
         if (frac > 0.32 && frac < 0.68) continue; // Keep center word gutter clean
         const startX = frac * this.width;
         const startY = horizonY + Math.abs(frac - 0.5) * curveArch * 1.1;
-        ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.lineTo(centerX + (startX - centerX) * 0.18, vanishY);
-        ctx.stroke();
       }
+      ctx.stroke();
 
       // 4. Receding Elliptical Depth Rings Looking Down the Vine Shaft
-      const ringCount = 5;
+      const ringCount = this.isMobile ? 4 : 5;
       const scrollPhase = ((parallaxY * 0.012) % 1 + 1) % 1;
       for (let r = 0; r < ringCount; r++) {
         const t = ((r + scrollPhase) / ringCount); // 0 = near top, 1 = deep below
@@ -681,13 +739,21 @@
     drawQuietCenterGutter(ctx, theme, velocityDesat) {
       const centerX = this.width * 0.5;
       const gutterHalfWidth = Math.max(190, this.width * 0.23);
-      const grad = ctx.createLinearGradient(centerX - gutterHalfWidth * 1.4, 0, centerX + gutterHalfWidth * 1.4, 0);
-      grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      grad.addColorStop(0.25, theme.quietGutterColor);
-      grad.addColorStop(0.75, theme.quietGutterColor);
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      if (!this.cachedGutterGrad) {
+        const grad = ctx.createLinearGradient(
+          centerX - gutterHalfWidth * 1.4,
+          0,
+          centerX + gutterHalfWidth * 1.4,
+          0
+        );
+        grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        grad.addColorStop(0.25, theme.quietGutterColor);
+        grad.addColorStop(0.75, theme.quietGutterColor);
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        this.cachedGutterGrad = grad;
+      }
 
-      ctx.fillStyle = grad;
+      ctx.fillStyle = this.cachedGutterGrad;
       ctx.fillRect(centerX - gutterHalfWidth * 1.4, 0, gutterHalfWidth * 2.8, this.height);
     }
 
@@ -701,7 +767,10 @@
       const orbitAngle = this.cameraOrbitAngle || 0;
       const orbitVel = this.orbitAngularVel || 0;
 
-      this.ambientParticles.forEach((p, idx) => {
+      ctx.save();
+      ctx.lineCap = 'round';
+      for (let idx = 0; idx < this.ambientParticles.length; idx++) {
+        const p = this.ambientParticles[idx];
         const windDriftX = wInt > 0.01 ? nowMs * 0.24 * wDir * p.speedFactor * wInt : 0;
         const orbitalShiftX = -orbitAngle * 230 * (0.45 + p.speedFactor * 0.65);
         const rawPx = p.xNorm * this.width + Math.sin(nowMs * 0.0012 + p.phase) * 14 + windDriftX + orbitalShiftX;
@@ -709,14 +778,12 @@
         const speedMult = isActiveRapidFire ? 0.55 : 0.25;
         const py = ((p.yWorld - yCam * speedMult * p.speedFactor) % this.height + this.height) % this.height;
 
-        ctx.save();
         if (Math.abs(orbitVel) > 0.55) {
           // Orbital camera spin: peripheral particles stretch into horizontal orbital spin streaks!
           const spinStreak = Math.max(-36, Math.min(36, orbitVel * 5.2 * p.speedFactor));
           ctx.strokeStyle = theme.particleColor;
           ctx.globalAlpha = p.alpha * 0.85;
           ctx.lineWidth = p.radius * 1.1;
-          ctx.lineCap = 'round';
           ctx.beginPath();
           ctx.moveTo(px, py);
           ctx.lineTo(px + spinStreak, py);
@@ -727,7 +794,6 @@
           ctx.strokeStyle = theme.particleColor;
           ctx.globalAlpha = p.alpha * 0.85;
           ctx.lineWidth = p.radius * 1.1;
-          ctx.lineCap = 'round';
           ctx.beginPath();
           ctx.moveTo(px, py);
           ctx.lineTo(px - gustLen * wDir, py + gustLen * 0.22);
@@ -738,13 +804,13 @@
           ctx.strokeStyle = isActiveRapidFire ? '#FDE68A' : theme.particleColor;
           ctx.globalAlpha = p.alpha * 0.82;
           ctx.lineWidth = p.radius * 1.15;
-          ctx.lineCap = 'round';
           ctx.beginPath();
           ctx.moveTo(px, py);
           ctx.lineTo(px, py + streakLen);
           ctx.stroke();
         } else if (theme.id === 2) {
           // Sakura blossom petals drifting in periphery
+          ctx.save();
           ctx.translate(px, py);
           ctx.rotate(nowMs * 0.0015 + idx);
           ctx.fillStyle = theme.particleColor;
@@ -752,6 +818,7 @@
           ctx.beginPath();
           ctx.ellipse(0, 0, p.radius * 1.6, p.radius * 0.9, 0, 0, Math.PI * 2);
           ctx.fill();
+          ctx.restore();
         } else {
           // Soft bokeh fireflies (Biolum) or golden conservatory dust motes (Conservatory / Meadow)
           ctx.fillStyle = theme.particleColor;
@@ -760,13 +827,13 @@
           ctx.arc(px, py, p.radius, 0, Math.PI * 2);
           ctx.fill();
         }
-        ctx.restore();
-      });
+      }
+      ctx.restore();
 
       // Ukiyo-e special reactivity: Swirling cherry blossom petals along bottom bezel when viewport is close!
       if (theme.id === 2 && leadUnits < 220) {
         const dangerIntensity = 1 - Math.max(0, leadUnits / 220);
-        const petalCount = Math.floor(12 * dangerIntensity);
+        const petalCount = Math.floor((this.isMobile ? 8 : 12) * dangerIntensity);
         ctx.save();
         for (let i = 0; i < petalCount; i++) {
           const sx = (nowMs * 0.18 + i * 137) % this.width;
@@ -790,7 +857,7 @@
       ctx.lineCap = 'round';
 
       // 1. Sweeping S-curve translucent wind-gust ribbons across the viewport
-      const ribbonCount = 7;
+      const ribbonCount = this.isMobile ? 4 : 7;
       for (let i = 0; i < ribbonCount; i++) {
         const travel = ((nowMs * 0.00055 * (0.8 + (i % 3) * 0.22) + i * 0.19) % 1 + 1) % 1;
         const progressX = windDir > 0 ? travel : 1 - travel;
@@ -817,7 +884,7 @@
       }
 
       // 2. Tumbling wind-blown botanical leaves carried across the canopy
-      const leafCount = 9;
+      const leafCount = this.isMobile ? 5 : 9;
       for (let j = 0; j < leafCount; j++) {
         const t = ((nowMs * 0.00042 * (0.75 + (j % 4) * 0.18) + j * 0.13) % 1 + 1) % 1;
         const lx = (windDir > 0 ? t : 1 - t) * (this.width + 120) - 60;
@@ -831,8 +898,8 @@
         ctx.translate(lx, ly);
         ctx.rotate(spin);
         ctx.globalAlpha = leafAlpha;
-        ctx.fillStyle = j % 2 === 0 ? theme.leafFill : theme.stemZones[1].main;
-        ctx.strokeStyle = theme.leafStroke;
+        ctx.fillStyle = j % 2 === 0 ? theme.leafColor : theme.stemZones[1].main;
+        ctx.strokeStyle = theme.leafHighlight;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(0, 0);
@@ -874,8 +941,12 @@
         return tipMagnify * depthTaper;
       };
 
-      // Filter anchors near visible world range plus active tip
-      const visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 260);
+      // Filter anchors near visible world range plus active tip, capped on mobile to avoid offscreen overdraw
+      let visibleAnchors = this.stemAnchors.filter((a) => a.yWorld >= yCam - 220);
+      const maxVisible = this.isMobile ? 9 : 13;
+      if (visibleAnchors.length > maxVisible) {
+        visibleAnchors = visibleAnchors.slice(visibleAnchors.length - maxVisible);
+      }
       const wInt = this.windIntensity || 0;
       const wDir = this.windDirection || 1;
       const orbitAngle = this.cameraOrbitAngle || 0;
@@ -933,10 +1004,11 @@
 
       // Helper to render a node's orbiting leaves, tendrils & blooms in either the back pass (z < 0) or front pass (z >= 0)
       const renderNodeAttachments = (isFrontPass) => {
-        points.forEach((pt, idx) => {
-          if (!pt.anchor) return;
+        for (let idx = 0; idx < points.length; idx++) {
+          const pt = points[idx];
+          if (!pt.anchor) continue;
           const isFront = pt.zCyl >= 0;
-          if (isFront !== isFrontPass) return;
+          if (isFront !== isFrontPass) continue;
 
           const swayAngle =
             Math.sin(nowMs * (0.0025 + wInt * 0.011) + idx * 1.2) * (0.09 + wInt * 0.25) +
@@ -987,7 +1059,7 @@
             this.drawTripleBloomFlower(ctx, theme, pt.x + orbitSideSin * 4 * s, pt.y, scale, nowMs);
           }
           ctx.restore();
-        });
+        }
       };
 
       // PASS 0: Back-half of 3D Orbital Spin Slipstream Rings (drawn behind the vine trunk during a spin)
@@ -998,105 +1070,156 @@
       // PASS 1: Historical Leaves, Tendrils & Blooms currently rotated to the BACK side of the vine cylinder (z < 0)
       renderNodeAttachments(false);
 
-      // PASS 2: Draw Back-Side Helical Braided Vine, Primary 3D Cylindrical Stem, Revolving Bark Striations & Front-Side Braided Vine
+      // PASS 2: Batched 3D Cylindrical Vine Stem Pipeline (Zero expensive shadowBlur shaders!)
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-      ctx.shadowColor = activePalette.glow;
-      ctx.shadowBlur = theme.id === 0 ? 22 : 12;
 
-      for (let i = 0; i < points.length - 1; i++) {
+      const segCount = points.length - 1;
+      const segs = new Array(segCount);
+      let avgSegScale = 0;
+
+      for (let i = 0; i < segCount; i++) {
         const p0 = points[i];
         const p1 = points[i + 1];
         const segScale = (p0.scale + p1.scale) * 0.5;
-        const segPalette = theme.stemZones[p1.zoneId] || activePalette;
+        avgSegScale += segScale;
+        const midX = (p0.x + p1.x) * 0.5;
         const midY = (p0.y + p1.y) * 0.5;
-
-        // 3D Helical Secondary Vine: revolves around the primary stem as cameraOrbitAngle spins!
         const braidAngle0 = p0.yWorld * 0.015 - orbitAngle;
         const braidAngle1 = p1.yWorld * 0.015 - orbitAngle;
         const braidMidAngle = (braidAngle0 + braidAngle1) * 0.5;
         const braidRadius = 15 * segScale;
         const b0x = p0.x + Math.sin(braidAngle0) * braidRadius;
         const b1x = p1.x + Math.sin(braidAngle1) * braidRadius;
-        const bMidX = (p0.x + p1.x) * 0.5 + Math.sin(braidMidAngle) * braidRadius * 1.25;
+        const bMidX = midX + Math.sin(braidMidAngle) * braidRadius * 1.25;
         const braidInFront = Math.cos(braidMidAngle) >= 0;
-
-        const drawBraidSegment = () => {
-          ctx.save();
-          ctx.strokeStyle = segPalette.secondary;
-          ctx.lineWidth = (theme.id === 2 ? 12.5 : 11) * segScale * (braidInFront ? 1.04 : 0.84);
-          ctx.globalAlpha = braidInFront ? 0.96 : 0.65;
-          ctx.beginPath();
-          ctx.moveTo(b0x, p0.y);
-          ctx.quadraticCurveTo(bMidX, midY, b1x, p1.y);
-          ctx.stroke();
-          ctx.restore();
-        };
-
-        // If the helical secondary vine is passing BEHIND the primary stem on this segment, draw it first
-        if (!braidInFront) {
-          drawBraidSegment();
-        }
-
-        // Primary 3D cylindrical botanical stem
         const stemW = (theme.id === 2 ? 10 : 9) * segScale;
-        ctx.strokeStyle =
-          simState.status === 'SNIPPED' && i === points.length - 2
-            ? '#4B5563'
-            : segPalette.main;
-        ctx.lineWidth = stemW;
-        ctx.beginPath();
-        ctx.moveTo(p0.x, p0.y);
-        ctx.quadraticCurveTo((p0.x + p1.x) * 0.5, midY, p1.x, p1.y);
-        ctx.stroke();
-
-        // 3D Revolving Helical Bark / Sap Bands across the cylindrical trunk (shift horizontally as cameraOrbitAngle spins)
-        const bandCount = 3;
-        const phaseNorm = (((-orbitAngle * 1.4) % (Math.PI * 2)) + Math.PI * 2) / (Math.PI * 2);
-        ctx.save();
-        ctx.strokeStyle = segPalette.vein;
-        ctx.lineWidth = Math.max(1.2, 2.0 * segScale);
-        ctx.globalAlpha = 0.42;
-        for (let b = 0; b < bandCount; b++) {
-          const t = ((b + phaseNorm) / bandCount) % 1;
-          const by = p0.y + (p1.y - p0.y) * t;
-          const bx = p0.x + (p1.x - p0.x) * t;
-          const halfW = stemW * 0.48;
-          ctx.beginPath();
-          ctx.moveTo(bx - halfW, by + 4 * segScale);
-          ctx.quadraticCurveTo(bx, by - 3 * segScale, bx + halfW, by - 4 * segScale);
-          ctx.stroke();
-        }
-        ctx.restore();
-
-        // Rising Sap Center Vein (revolving slightly across the front of the cylinder with sin(phi))
-        const sapPalette =
-          risingSapNextZone > 0 && theme.stemZones[risingSapNextZone]
-            ? theme.stemZones[risingSapNextZone]
-            : null;
-        const rapidSapCharge = isActiveRapidFire || stepsUntilRapidFire > 0;
-        const pulseSpeed = rapidSapCharge ? 0.016 : 0.008;
-        const pulse = 0.55 + 0.45 * Math.sin(nowMs * pulseSpeed - i * 0.7);
         const veinShift = Math.sin(braidMidAngle + 1.2) * (stemW * 0.22);
-        ctx.strokeStyle = rapidSapCharge
-          ? '#FEF08A'
-          : sapPalette
-            ? sapPalette.main
-            : segPalette.vein;
-        ctx.lineWidth = (rapidSapCharge ? 4.4 : sapPalette ? 4.2 : 2.5) * segScale;
-        ctx.globalAlpha = rapidSapCharge ? 0.88 * pulse : sapPalette ? 0.92 : 0.68 * pulse;
-        ctx.beginPath();
-        ctx.moveTo(p0.x + veinShift, p0.y);
-        ctx.quadraticCurveTo((p0.x + p1.x) * 0.5 + veinShift, midY, p1.x + veinShift, p1.y);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
 
-        // If the helical secondary vine is crossing IN FRONT OF the primary stem, draw it on top
-        if (braidInFront) {
-          drawBraidSegment();
+        segs[i] = {
+          p0,
+          p1,
+          segScale,
+          midX,
+          midY,
+          b0x,
+          b1x,
+          bMidX,
+          braidInFront,
+          stemW,
+          veinShift,
+          isSnippedTip: simState.status === 'SNIPPED' && i === segCount - 1
+        };
+      }
+      avgSegScale = segCount > 0 ? avgSegScale / segCount : 1;
+
+      // 2A. Batched Back-Side Helical Braided Vine (all segments passing behind the main stem)
+      ctx.strokeStyle = activePalette.secondary;
+      ctx.lineWidth = (theme.id === 2 ? 10.5 : 9.2) * avgSegScale;
+      ctx.globalAlpha = 0.65;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        if (!s.braidInFront) {
+          ctx.moveTo(s.b0x, s.p0.y);
+          ctx.quadraticCurveTo(s.bMidX, s.midY, s.b1x, s.p1.y);
         }
       }
+      ctx.stroke();
+
+      // 2B. Fast Hardware-Accelerated Outer Bioluminescent / Botanical Halo (replaces GPU-stalling shadowBlur)
+      ctx.strokeStyle = activePalette.main;
+      ctx.lineWidth = ((theme.id === 2 ? 10 : 9) + (theme.id === 0 ? 10 : 5)) * avgSegScale;
+      ctx.globalAlpha = theme.id === 0 ? 0.22 : 0.12;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        ctx.moveTo(s.p0.x, s.p0.y);
+        ctx.quadraticCurveTo(s.midX, s.midY, s.p1.x, s.p1.y);
+      }
+      ctx.stroke();
+
+      // 2C. Batched Primary 3D Cylindrical Botanical Stem
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = activePalette.main;
+      ctx.lineWidth = (theme.id === 2 ? 10 : 9) * avgSegScale;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        if (!s.isSnippedTip) {
+          ctx.moveTo(s.p0.x, s.p0.y);
+          ctx.quadraticCurveTo(s.midX, s.midY, s.p1.x, s.p1.y);
+        }
+      }
+      ctx.stroke();
+
+      if (simState.status === 'SNIPPED' && segCount > 0) {
+        const lastSeg = segs[segCount - 1];
+        ctx.strokeStyle = '#4B5563';
+        ctx.lineWidth = lastSeg.stemW;
+        ctx.beginPath();
+        ctx.moveTo(lastSeg.p0.x, lastSeg.p0.y);
+        ctx.quadraticCurveTo(lastSeg.midX, lastSeg.midY, lastSeg.p1.x, lastSeg.p1.y);
+        ctx.stroke();
+      }
+
+      // 2D. Batched 3D Revolving Helical Bark / Sap Bands across the cylindrical trunk (1 draw call for all bands!)
+      const bandCount = this.isMobile ? 2 : 3;
+      const phaseNorm = (((-orbitAngle * 1.4) % (Math.PI * 2)) + Math.PI * 2) / (Math.PI * 2);
+      ctx.strokeStyle = activePalette.vein;
+      ctx.lineWidth = Math.max(1.2, 2.0 * avgSegScale);
+      ctx.globalAlpha = 0.42;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        const halfW = s.stemW * 0.48;
+        for (let b = 0; b < bandCount; b++) {
+          const t = ((b + phaseNorm) / bandCount) % 1;
+          const by = s.p0.y + (s.p1.y - s.p0.y) * t;
+          const bx = s.p0.x + (s.p1.x - s.p0.x) * t;
+          ctx.moveTo(bx - halfW, by + 4 * s.segScale);
+          ctx.quadraticCurveTo(bx, by - 3 * s.segScale, bx + halfW, by - 4 * s.segScale);
+        }
+      }
+      ctx.stroke();
+
+      // 2E. Batched Rising Sap Center Vein
+      const sapPalette =
+        risingSapNextZone > 0 && theme.stemZones[risingSapNextZone]
+          ? theme.stemZones[risingSapNextZone]
+          : null;
+      const rapidSapCharge = isActiveRapidFire || stepsUntilRapidFire > 0;
+      const pulseSpeed = rapidSapCharge ? 0.016 : 0.008;
+      const pulse = 0.58 + 0.42 * Math.sin(nowMs * pulseSpeed);
+      ctx.strokeStyle = rapidSapCharge
+        ? '#FEF08A'
+        : sapPalette
+          ? sapPalette.main
+          : activePalette.vein;
+      ctx.lineWidth = (rapidSapCharge ? 4.4 : sapPalette ? 4.2 : 2.5) * avgSegScale;
+      ctx.globalAlpha = rapidSapCharge ? 0.88 * pulse : sapPalette ? 0.92 : 0.68 * pulse;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        ctx.moveTo(s.p0.x + s.veinShift, s.p0.y);
+        ctx.quadraticCurveTo(s.midX + s.veinShift, s.midY, s.p1.x + s.veinShift, s.p1.y);
+      }
+      ctx.stroke();
+
+      // 2F. Batched Front-Side Helical Braided Vine (all segments crossing in front of the main stem)
+      ctx.strokeStyle = activePalette.secondary;
+      ctx.lineWidth = (theme.id === 2 ? 13 : 11.4) * avgSegScale;
+      ctx.globalAlpha = 0.96;
+      ctx.beginPath();
+      for (let i = 0; i < segCount; i++) {
+        const s = segs[i];
+        if (s.braidInFront) {
+          ctx.moveTo(s.b0x, s.p0.y);
+          ctx.quadraticCurveTo(s.bMidX, s.midY, s.b1x, s.p1.y);
+        }
+      }
+      ctx.stroke();
       ctx.restore();
 
       // 1b. Draw Upward Golden Speed Chevrons (▲ ▲ ▲) racing along the vine stem when Rapid-Fire is approaching or active
@@ -1130,9 +1253,6 @@
       });
 
       // 4. Draw Sweeping S-Curve Active Fork Tendrils Toward Candidate Word Leaves
-      // - When in a Reverse-Graft Loop (⬅), the vine curls into a 360° ringed loop before forking!
-      // - When in a Rapid-Fire Sprint (⚡), a Golden Speed Booster Ring & Wing Chevrons straddle the active fork!
-      // - When 1 or 2 nodes away from a Rapid-Fire Sprint, an approaching Golden Speed Gate descends down the vine path!
       const tipX = centerX + tipOrbitalLead + tipWindSway;
       const tipY = tipScreenY;
       const forkSpread = 1 + pitchProgress * 0.16;
@@ -1175,10 +1295,8 @@
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineWidth = 4.8 * tipScale;
-      ctx.shadowColor = activePalette.glow;
-      ctx.shadowBlur = 10;
 
-      // Left fork tendril
+      // Left & Right fork tendrils batched into a single path (without GPU-blocking shadowBlur)
       ctx.strokeStyle =
         simState.status === 'SNIPPED' ? '#4B5563' : activePalette.main;
       ctx.beginPath();
@@ -1191,10 +1309,6 @@
         tipX - 92 * forkSpread,
         tipY - 56 * forkLift
       );
-      ctx.stroke();
-
-      // Right fork tendril
-      ctx.beginPath();
       ctx.moveTo(tipX, tipY);
       ctx.bezierCurveTo(
         tipX + 20 * forkSpread,
@@ -1214,14 +1328,10 @@
         ctx.strokeStyle = activePalette.vein;
         ctx.globalAlpha = 0.42;
 
-        // Left fork -> Subtle 3rd node bud above
+        // Left & Right fork -> Subtle 3rd node bud above (batched)
         ctx.beginPath();
         ctx.moveTo(tipX - 68 * forkSpread, tipY - 64 * forkLift);
         ctx.quadraticCurveTo(tipX - 32 * forkSpread, tipY - 96 * forkLift, tipX, tipY - 118 * forkLift);
-        ctx.stroke();
-
-        // Right fork -> Subtle 3rd node bud above
-        ctx.beginPath();
         ctx.moveTo(tipX + 68 * forkSpread, tipY - 64 * forkLift);
         ctx.quadraticCurveTo(tipX + 32 * forkSpread, tipY - 96 * forkLift, tipX, tipY - 118 * forkLift);
         ctx.stroke();
@@ -1700,10 +1810,12 @@
     }
 
     drawBurstParticles(ctx, simState, dtMs) {
+      if (this.burstParticles.length === 0) return;
       const dtSec = Math.max(0.001, dtMs / 1000);
       const centerX = this.width * 0.5;
       const yCam = simState.yCam;
 
+      ctx.save();
       for (let i = this.burstParticles.length - 1; i >= 0; i--) {
         const p = this.burstParticles[i];
         p.xOffset += p.vx * dtSec;
@@ -1711,21 +1823,21 @@
         p.life -= p.decay * dtSec;
 
         if (p.life <= 0) {
-          this.burstParticles.splice(i, 1);
+          this.burstParticles[i] = this.burstParticles[this.burstParticles.length - 1];
+          this.burstParticles.pop();
           continue;
         }
 
         const sx = centerX + p.xOffset;
         const sy = this.worldToScreenY(p.yWorld, yCam);
 
-        ctx.save();
         ctx.globalAlpha = Math.max(0, p.life);
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(sx, sy, p.size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.restore();
       }
+      ctx.restore();
     }
 
     drawDangerVignette(ctx, theme, simState, nowMs) {

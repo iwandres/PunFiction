@@ -206,6 +206,7 @@
       this.previousModalBeforeTutorial = null;
       this.handleInput = document.getElementById('player-handle-input');
 
+      this.viewportHeight = window.innerHeight;
       this.lastFrameTimeMs = performance.now();
       this.init();
     }
@@ -472,6 +473,7 @@
       });
 
       window.addEventListener('resize', () => {
+        this.viewportHeight = window.innerHeight;
         this.fitStartThemeTitle();
       });
     }
@@ -481,8 +483,14 @@
      * in today's daily puzzle so no compound word is ever repeated across attempts.
      */
     getUsedCompoundsToday(dateKey = this.activeVine && this.activeVine.dateKey) {
+      if (!dateKey) return new Set();
+      if (!this._usedCompoundsCache) {
+        this._usedCompoundsCache = {};
+      }
+      if (this._usedCompoundsCache[dateKey]) {
+        return this._usedCompoundsCache[dateKey];
+      }
       const set = new Set();
-      if (!dateKey) return set;
       try {
         const raw = localStorage.getItem(`wordvine_used_compounds_${dateKey}`);
         if (raw) {
@@ -496,29 +504,40 @@
       } catch (e) {
         // Ignore parse errors
       }
+      this._usedCompoundsCache[dateKey] = set;
       return set;
     }
 
     /**
      * Records a node's compound word (and its reverse pair) as used in today's daily puzzle
      * so the player will never see that compound word again.
+     * Uses an in-memory Set cache and non-blocking async storage write so taps never stall.
      */
     recordCompoundUsedToday(node, dateKey = this.activeVine && this.activeVine.dateKey) {
       if (!node || !dateKey) return;
       const s = String(node.stemWord || '').trim().toUpperCase();
       const c = String(node.correctWord || '').trim().toUpperCase();
       if (!s || !c) return;
-      try {
-        const set = this.getUsedCompoundsToday(dateKey);
-        set.add(`${s}+${c}`);
-        set.add(`${c}+${s}`);
-        localStorage.setItem(
-          `wordvine_used_compounds_${dateKey}`,
-          JSON.stringify(Array.from(set))
-        );
-      } catch (e) {
-        // Ignore storage errors
+      const fwd = `${s}+${c}`;
+      const rev = `${c}+${s}`;
+      const set = this.getUsedCompoundsToday(dateKey);
+      if (set.has(fwd) && set.has(rev)) return;
+      set.add(fwd);
+      set.add(rev);
+
+      if (this._persistUsedCompoundsTimer) {
+        clearTimeout(this._persistUsedCompoundsTimer);
       }
+      this._persistUsedCompoundsTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(
+            `wordvine_used_compounds_${dateKey}`,
+            JSON.stringify(Array.from(set))
+          );
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }, 0);
     }
 
     /**
@@ -1299,22 +1318,15 @@
         this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT
       ).toFixed(1);
       const totalNodes = (this.activeVine && this.activeVine.nodes && this.activeVine.nodes.length) || 40;
-      if (this.hudNodes) {
-        this.hudNodes.textContent = `${this.simState.nodesCompleted}/${totalNodes}`;
+      const nodesText = `${this.simState.nodesCompleted}/${totalNodes}`;
+      if (this.hudNodes && this._lastHudNodesText !== nodesText) {
+        this._lastHudNodesText = nodesText;
+        this.hudNodes.textContent = nodesText;
       }
-      this.hudAltitude.textContent = `${altitudeMeters}m`;
-      this.hudVelocity.textContent = `${Math.round(this.simState.vCam)} u/s`;
-      this.hudZone.textContent = this.isActiveReverseGraft
-        ? '⬅ WORD IN FRONT'
-        : this.isActiveRapidFire
-          ? '⚡ RAPID FIRE'
-          : '🌿 NORMAL';
-      if (this.hudModeBadge) {
-        this.hudModeBadge.textContent = this.isActiveReverseGraft
-          ? '⬅ WORD IN FRONT'
-          : this.isActiveRapidFire
-            ? '⚡ RAPID FIRE'
-            : '🌿 DAILY CLIMB';
+      const altText = `${altitudeMeters}m`;
+      if (this.hudAltitude && this._lastHudAltText !== altText) {
+        this._lastHudAltText = altText;
+        this.hudAltitude.textContent = altText;
       }
     }
 
@@ -1325,13 +1337,14 @@
       const dtMs = Math.min(50, Math.max(0, nowMs - this.lastFrameTimeMs));
       this.lastFrameTimeMs = nowMs;
 
-      if (
+      const isModalHidden =
         this.startModal.classList.contains('hidden') &&
         this.deathModal.classList.contains('hidden') &&
         this.leaderboardModal.classList.contains('hidden') &&
-        (!this.tutorialModal || this.tutorialModal.classList.contains('hidden')) &&
-        this.simState.status === 'PLAYING'
-      ) {
+        (!this.tutorialModal || this.tutorialModal.classList.contains('hidden'));
+      const isPlaying = isModalHidden && this.simState.status === 'PLAYING';
+
+      if (isPlaying) {
         Physics.stepSimulation(this.simState, dtMs);
 
         // Process 120ms Input Buffer if ready
@@ -1362,6 +1375,16 @@
         }
 
         this.syncTelemetryHUD();
+      } else if (
+        this._lastIdleRenderMs &&
+        nowMs - this._lastIdleRenderMs < 80 &&
+        this.simState.status !== 'SNIPPED'
+      ) {
+        // When a modal overlay is open, throttle background canvas redraws to ~12fps so mobile scrolling/typing is 100% smooth
+        requestAnimationFrame((t) => this.loop(t));
+        return;
+      } else {
+        this._lastIdleRenderMs = nowMs;
       }
 
       // Render HD Canvas (also steps camera rotation & directional Left/Right vine climb)
@@ -1378,7 +1401,7 @@
         this.activeWindDirection || 1
       );
 
-      // Position #foveal-anchor to track the active vine tip on screen with 3D cylindrical orbital swivel & pitch depth
+      // Position #foveal-anchor purely via GPU-composited translate3d (zero DOM layout/reflow!)
       const tipScreenY = this.renderer.worldToScreenY(
         this.simState.yVine,
         this.simState.yCam,
@@ -1394,14 +1417,25 @@
           : { tipScreenOffsetX: 0, orbitYawDeg: 0 };
       const offsetX = camMotion.tipScreenOffsetX || 0;
       const orbitYawDeg = camMotion.orbitYawDeg || 0;
-      const minTopY = this.showGhostThirdNode ? 190 : 155;
-      const clampedScreenY = Math.max(minTopY, Math.min(window.innerHeight - 125, tipScreenY - 38));
-      this.fovealAnchor.style.top = `${clampedScreenY}px`;
-      const has3DMotion =
-        pitch > 0.005 || Math.abs(orbitYawDeg) > 0.05 || Math.abs(offsetX) > 0.2;
-      this.fovealAnchor.style.transform = has3DMotion
-        ? `translateX(calc(-50% + ${offsetX.toFixed(1)}px)) perspective(900px) rotateY(${orbitYawDeg.toFixed(2)}deg) rotateX(${(pitch * 11).toFixed(2)}deg) scale(${(1 + pitch * 0.06).toFixed(3)})`
-        : 'translateX(-50%)';
+      const vh = this.viewportHeight || window.innerHeight;
+      const minTopY = this.showGhostThirdNode ? 185 : 150;
+      const clampedScreenY = Math.max(minTopY, Math.min(vh - 125, tipScreenY - 38));
+
+      if (this.renderer.isMobile) {
+        // On mobile (Pixel 8a / Pixel 10), drive position via pure 2D/3D hardware-composited translate3d
+        // without continuous sub-degree rotateX/rotateY so Chrome never re-rasterizes text glyphs per frame
+        const scaleVal = 1 + pitch * 0.05;
+        this.fovealAnchor.style.transform =
+          scaleVal > 1.002
+            ? `translate3d(calc(-50% + ${offsetX.toFixed(1)}px), ${clampedScreenY.toFixed(1)}px, 0) scale(${scaleVal.toFixed(3)})`
+            : `translate3d(calc(-50% + ${offsetX.toFixed(1)}px), ${clampedScreenY.toFixed(1)}px, 0)`;
+      } else {
+        const has3DMotion =
+          pitch > 0.005 || Math.abs(orbitYawDeg) > 0.05 || Math.abs(offsetX) > 0.2;
+        this.fovealAnchor.style.transform = has3DMotion
+          ? `translate3d(calc(-50% + ${offsetX.toFixed(1)}px), ${clampedScreenY.toFixed(1)}px, 0) perspective(900px) rotateY(${orbitYawDeg.toFixed(2)}deg) rotateX(${(pitch * 11).toFixed(2)}deg) scale(${(1 + pitch * 0.06).toFixed(3)})`
+          : `translate3d(-50%, ${clampedScreenY.toFixed(1)}px, 0)`;
+      }
 
       requestAnimationFrame((t) => this.loop(t));
     }
