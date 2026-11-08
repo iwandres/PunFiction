@@ -477,15 +477,66 @@
     }
 
     /**
+     * Returns the set of compound word keys (both A+B and B+A) already seen by the player
+     * in today's daily puzzle so no compound word is ever repeated across attempts.
+     */
+    getUsedCompoundsToday(dateKey = this.activeVine && this.activeVine.dateKey) {
+      const set = new Set();
+      if (!dateKey) return set;
+      try {
+        const raw = localStorage.getItem(`wordvine_used_compounds_${dateKey}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            parsed.forEach((k) => {
+              if (k) set.add(String(k).trim().toUpperCase());
+            });
+          }
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+      return set;
+    }
+
+    /**
+     * Records a node's compound word (and its reverse pair) as used in today's daily puzzle
+     * so the player will never see that compound word again.
+     */
+    recordCompoundUsedToday(node, dateKey = this.activeVine && this.activeVine.dateKey) {
+      if (!node || !dateKey) return;
+      const s = String(node.stemWord || '').trim().toUpperCase();
+      const c = String(node.correctWord || '').trim().toUpperCase();
+      if (!s || !c) return;
+      try {
+        const set = this.getUsedCompoundsToday(dateKey);
+        set.add(`${s}+${c}`);
+        set.add(`${c}+${s}`);
+        localStorage.setItem(
+          `wordvine_used_compounds_${dateKey}`,
+          JSON.stringify(Array.from(set))
+        );
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    /**
      * Dynamically creates a fresh puzzle node chain for the active vine:
+     * - Excludes any compound word already used in today's daily puzzle
      * - Places correct & decoy words in randomized Left (0) or Right (1) positions on every run
      * - Samples fresh decoys from each compound's validated decoyPool
-     * - Rotates across linked 3-part compound chains on second-chance / practice replays
      */
     rebuildActivePuzzle(attemptCount = 0) {
       if (this.activeVine && typeof Data.createDynamicPuzzleNodes === 'function') {
+        const usedCompounds = this.getUsedCompoundsToday(this.activeVine.dateKey);
+        const effectiveAttempt = Math.max(
+          Number(attemptCount) || 0,
+          this.getAttemptsUsedToday(this.activeVine.dateKey)
+        );
         this.activeVine.nodes = Data.createDynamicPuzzleNodes(this.activeVine, {
-          attemptCount
+          attemptCount: effectiveAttempt,
+          usedCompounds
         });
       }
       if (this.activeVine && Array.isArray(this.activeVine.nodes)) {
@@ -965,6 +1016,7 @@
       this.lastKeystrokeTimeMs = nowMs;
 
       const currentNode = this.activeVine.nodes[this.simState.nodeIndex];
+      this.recordCompoundUsedToday(currentNode);
       const pickedWord =
         currentNode && choiceSide === currentNode.leftRightSeed
           ? currentNode.correctWord
@@ -1080,6 +1132,15 @@
     syncFovealDOM() {
       const node = this.activeVine.nodes[this.simState.nodeIndex];
       if (!node) return;
+
+      if (
+        this.startModal &&
+        this.startModal.classList.contains('hidden') &&
+        this.simState &&
+        this.simState.status === 'PLAYING'
+      ) {
+        this.recordCompoundUsedToday(node);
+      }
 
       document.body.classList.remove('zone-1', 'zone-2', 'zone-3');
       document.body.classList.add(`zone-${node.zoneId}`);
