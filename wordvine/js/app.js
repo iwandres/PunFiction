@@ -1286,7 +1286,7 @@
       if (this.windGustBanner) {
         this.windGustBanner.classList.toggle('hidden', !isWindy);
         if (isWindy && this.windGustBannerText) {
-          this.windGustBannerText.textContent = `WIND! LETTERS UNSCRAMBLE`;
+          this.windGustBannerText.textContent = `Windy!  Letters settling`;
         }
       }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
