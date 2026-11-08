@@ -1259,7 +1259,7 @@
         this.activeWindDirection || 1
       );
 
-      // Position #foveal-anchor to track the active vine tip on screen with 3D camera rotation & pitch depth
+      // Position #foveal-anchor to track the active vine tip on screen with 3D cylindrical orbital swivel & pitch depth
       const tipScreenY = this.renderer.worldToScreenY(
         this.simState.yVine,
         this.simState.yCam,
@@ -1272,16 +1272,16 @@
       const camMotion =
         typeof this.renderer.getCameraMotionState === 'function'
           ? this.renderer.getCameraMotionState()
-          : { tipScreenOffsetX: 0, rollDeg: 0 };
+          : { tipScreenOffsetX: 0, orbitYawDeg: 0 };
       const offsetX = camMotion.tipScreenOffsetX || 0;
-      const rollDeg = camMotion.rollDeg || 0;
+      const orbitYawDeg = camMotion.orbitYawDeg || 0;
       const minTopY = this.showGhostThirdNode ? 190 : 155;
       const clampedScreenY = Math.max(minTopY, Math.min(window.innerHeight - 125, tipScreenY - 38));
       this.fovealAnchor.style.top = `${clampedScreenY}px`;
       const has3DMotion =
-        pitch > 0.005 || Math.abs(rollDeg) > 0.05 || Math.abs(offsetX) > 0.2;
+        pitch > 0.005 || Math.abs(orbitYawDeg) > 0.05 || Math.abs(offsetX) > 0.2;
       this.fovealAnchor.style.transform = has3DMotion
-        ? `translateX(calc(-50% + ${offsetX.toFixed(1)}px)) perspective(900px) rotateZ(${(rollDeg * 0.72).toFixed(2)}deg) rotateY(${(rollDeg * 0.9).toFixed(2)}deg) rotateX(${(pitch * 11).toFixed(2)}deg) scale(${(1 + pitch * 0.06).toFixed(3)})`
+        ? `translateX(calc(-50% + ${offsetX.toFixed(1)}px)) perspective(900px) rotateY(${orbitYawDeg.toFixed(2)}deg) rotateX(${(pitch * 11).toFixed(2)}deg) scale(${(1 + pitch * 0.06).toFixed(3)})`
         : 'translateX(-50%)';
 
       requestAnimationFrame((t) => this.loop(t));
