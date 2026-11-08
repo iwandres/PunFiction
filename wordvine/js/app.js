@@ -82,6 +82,7 @@
   };
 
   const MAX_DAILY_ATTEMPTS = 3;
+  const ATTEMPT_RESET_TOKEN = 'reset_canopysprinter28_2026_11_07_v1';
 
   // Variety of positive messages displayed once a player completes all 3 daily attempts
   const DAILY_COMPLETE_MESSAGES = [
@@ -122,6 +123,7 @@
       // Identity (Zero sign-in friction: Anonymous Device Token + Handle)
       this.deviceToken = this.getOrCreateDeviceToken();
       this.playerHandle = this.getOrCreateHandle();
+      this.applyAttemptResetIfNeeded();
 
       // Active daily vine & simulation state (rotates across the 12 daily themes by calendar date; same puzzle for all players)
       this.dailyVines = this.loadAvailableVines();
@@ -626,8 +628,41 @@
       return Boolean(localStorage.getItem(`wordvine_official_${dateKey}`));
     }
 
+    applyAttemptResetIfNeeded(dateKey) {
+      try {
+        const handleNorm = String(this.playerHandle || '').trim().toLowerCase();
+        if (
+          handleNorm === 'canopysprinter28' &&
+          localStorage.getItem('wordvine_attempt_reset_token') !== ATTEMPT_RESET_TOKEN
+        ) {
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('wordvine_attempts_')) {
+              localStorage.setItem(key, '0');
+            }
+          }
+          const todayIso = new Date().toISOString().slice(0, 10);
+          localStorage.setItem(`wordvine_attempts_${todayIso}`, '0');
+          if (dateKey) {
+            localStorage.setItem(`wordvine_attempts_${dateKey}`, '0');
+          }
+          localStorage.setItem('wordvine_attempt_reset_token', ATTEMPT_RESET_TOKEN);
+        } else if (
+          handleNorm === 'canopysprinter28' &&
+          dateKey &&
+          localStorage.getItem('wordvine_attempt_reset_token') === ATTEMPT_RESET_TOKEN &&
+          localStorage.getItem(`wordvine_attempts_${dateKey}`) === null
+        ) {
+          localStorage.setItem(`wordvine_attempts_${dateKey}`, '0');
+        }
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
     getAttemptsUsedToday(dateKey = this.activeVine && this.activeVine.dateKey) {
       if (!dateKey) return 0;
+      this.applyAttemptResetIfNeeded(dateKey);
       const raw = localStorage.getItem(`wordvine_attempts_${dateKey}`);
       if (raw !== null && !Number.isNaN(Number(raw))) {
         return Math.max(0, Math.min(MAX_DAILY_ATTEMPTS, Number(raw)));
