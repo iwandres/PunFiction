@@ -68,8 +68,8 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
     active_game_mode = "FORWARD"
     effective_elapsed_sec = 0.0
     y_cam = 0.0
-    y_vine = 360.0
-    v_cam = 45.0
+    y_vine = 380.0
+    v_cam = 56.0
     max_altitude_units = 0.0
     node_reaction_ms = 0.0
 
@@ -100,7 +100,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         effective_elapsed_sec += dt_sec
         node_reaction_ms += dt_ms
 
-        v_cam = 64.0 if active_game_mode == "RAPID_FIRE" else 45.0
+        v_cam = 88.0 if active_game_mode == "RAPID_FIRE" else 56.0
         y_cam += v_cam * dt_sec
 
         v_creep = 0.35 * v_cam
@@ -188,7 +188,7 @@ def verify_replay(vine_nodes, choices, deltas_ms, final_wait_ms=0):
         base_spurt = (
             185.0
             if is_triple_bloom
-            else (155.0 if is_reverse_graft else (135.0 if is_rapid_fire else 125.0))
+            else (155.0 if is_reverse_graft else (145.0 if is_rapid_fire else 125.0))
         )
         spurt_impulse = base_spurt + speed_bonus_units * 0.35
         if spurt_active and spurt_total_delta > spurt_applied_delta:

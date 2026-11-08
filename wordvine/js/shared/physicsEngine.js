@@ -19,9 +19,9 @@
   const PHYSICS_CONFIG = {
     VIEWPORT_HEIGHT: 1000,
     INITIAL_Y_CAM: 0,
-    INITIAL_Y_VINE: 360,          // 360u lead at (45 - 15.75) = 29.25 u/s net loss => ~8.2s initial breathing room
-    V_BASE: 45,                   // Steady base camera pan speed (units/sec) — no gradual speed-up!
-    V_RAPID_FIRE: 64,             // Faster sprint camera velocity during 6-10 node Rapid-Fire Mode (units/sec)
+    INITIAL_Y_VINE: 380,          // 380u lead at (56 - 19.6) = 36.4 u/s net loss => ~7s brisk initial runway
+    V_BASE: 56,                   // Faster base camera pan speed (units/sec) — steady normal pace
+    V_RAPID_FIRE: 88,             // Distinctly faster sprint camera velocity during 6-10 node Rapid-Fire Mode (units/sec)
     ALPHA_TIME_ACCEL: 0,          // Replaced gradual time acceleration with cognitive mode switches
     BETA_NODE_ACCEL: 0,           // Replaced gradual node acceleration with cognitive mode switches
     V_CAM_MAX: 280,               // Terminal camera velocity cap (units/sec)
@@ -29,7 +29,7 @@
     SPURT_STANDARD: 125,          // Standard correct answer impulse (+125 units)
     SPURT_TRIPLE_BLOOM: 185,      // 1.5x Triple-Bloom spurt on 3rd word of Zone 1 triplet (+185 units)
     SPURT_REVERSE_GRAFT: 155,     // Boosted spurt when uncurling out of a Reverse-Graft Loop (+155 units)
-    SPURT_RAPID_FIRE: 135,        // Snappy sprint spurt on short Rapid-Fire compounds (+135 units)
+    SPURT_RAPID_FIRE: 145,        // Snappy sprint spurt on short Rapid-Fire compounds (+145 units)
     SPURT_DURATION_MS: 180,       // Impulse duration (180ms cubic ease-out)
     SWEET_SPOT_CEILING: 750,      // Max lead (Y_vine - Y_cam) before camera smoothly lerps up
     CAMERA_CLAMP_LERP: 14.0,      // Lerp speed when clamping camera to keep active fork below 750u
