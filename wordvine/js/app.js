@@ -699,9 +699,9 @@
 
     /**
      * Rain-Dappled Glass Droplet Pass:
-     * Water droplets slide down across 2-3 letters of each word like droplets on glass,
-     * briefly obscuring each letter beneath a refractive water bead as the droplet passes over it,
-     * then snapping the letter back to full clarity as the droplet slides down off the word.
+     * Water droplets cascade down across every letter of each answer choice like droplets on glass.
+     * Letters start obscured/blurred beneath sliding water beads (and trailing wet wakes) and
+     * experience a blur effect as droplets slide over them before clearing in staggered windows.
      */
     renderRainDappledWord(containerEl, wordStr) {
       if (!containerEl) return;
@@ -712,65 +712,81 @@
         return;
       }
 
-      // Select 1 to 3 spread-out letter positions for glass water droplets to slide down over
-      const dropIndices = [];
-      if (L === 2) {
-        dropIndices.push(Math.random() < 0.5 ? 0 : 1);
-      } else if (L <= 4) {
-        const firstIdx = Math.floor(Math.random() * 2);
-        const secondIdx = Math.min(L - 1, firstIdx + 1 + Math.floor(Math.random() * (L - firstIdx - 1)));
-        dropIndices.push(firstIdx, secondIdx);
-      } else {
-        const firstIdx = Math.floor(Math.random() * 2);
-        const midIdx = Math.min(L - 2, firstIdx + 1 + Math.floor(Math.random() * 2));
-        const lastIdx = Math.min(L - 1, midIdx + 1 + Math.floor(Math.random() * (L - midIdx - 1)));
-        dropIndices.push(firstIdx, midIdx, lastIdx);
-      }
-
-      // Shuffle droplet order so droplets can pass down in any organic sequence
-      const orderedDrops = this.shuffleCharsNonIdentity(dropIndices);
-      const dropOrderByCharIdx = new Map();
-      orderedDrops.forEach((charIdx, orderIdx) => {
-        dropOrderByCharIdx.set(charIdx, orderIdx);
+      // Create a randomized stagger order across all letters so droplets slide down and clear
+      // across the word over ~1.25s (matching Wind Gust difficulty & timing)
+      const indices = chars.map((_, idx) => idx);
+      const clearOrder = this.shuffleCharsNonIdentity(indices);
+      const rankByCharIdx = new Map();
+      clearOrder.forEach((charIdx, rank) => {
+        rankByCharIdx.set(charIdx, rank);
       });
 
       containerEl.innerHTML = '';
-      const DROP_SLIDE_MS = 760;
-      const STAGGER_MS = 250;
 
       chars.forEach((ch, idx) => {
+        const rank = rankByCharIdx.get(idx) ?? idx;
+        const frac = rank / Math.max(1, L - 1);
+
         const wrap = document.createElement('span');
-        wrap.className = 'rain-char';
+        // All letters start blurred/obscured under the initial cascade of droplets on the glass
+        wrap.className = 'rain-char is-drop-obscured';
 
         const glyph = document.createElement('span');
         glyph.className = 'rain-char-glyph';
         glyph.textContent = ch;
         wrap.appendChild(glyph);
 
-        if (dropOrderByCharIdx.has(idx)) {
-          const orderIdx = dropOrderByCharIdx.get(idx);
-          const startDelayMs = orderIdx * STAGGER_MS;
-          const dropEl = document.createElement('span');
-          dropEl.className = 'rain-glass-drop';
-          dropEl.setAttribute('aria-hidden', 'true');
-          dropEl.style.setProperty('--drop-delay', `${startDelayMs}ms`);
-          dropEl.style.setProperty('--drop-dur', `${DROP_SLIDE_MS}ms`);
-          wrap.appendChild(dropEl);
+        // Primary sliding water droplet passing down over this letter
+        const dropDurMs = Math.round(680 + frac * 420);
+        const dropDelayMs = Math.round(rank * 55);
+        const dropEl = document.createElement('span');
+        dropEl.className = 'rain-glass-drop';
+        dropEl.setAttribute('aria-hidden', 'true');
+        dropEl.style.setProperty('--drop-delay', `${dropDelayMs}ms`);
+        dropEl.style.setProperty('--drop-dur', `${dropDurMs}ms`);
+        wrap.appendChild(dropEl);
 
-          // Obscure letter when the sliding water bead reaches the letter glyph (~90ms into slide)
-          const obscureTimer = setTimeout(() => {
-            if (!wrap.isConnected) return;
-            wrap.classList.add('is-drop-obscured');
-          }, startDelayMs + 90);
+        // Transition from heavy droplet obscuration -> slight trailing blur wake as the bead slides past
+        const wakeTimeMs = Math.round(240 + frac * 680);
+        const clearTimeMs = wakeTimeMs + 280;
 
-          // Clear letter as the water bead slides past the bottom of the glyph (~560ms into slide)
-          const clearTimer = setTimeout(() => {
+        const wakeTimer = setTimeout(() => {
+          if (!wrap.isConnected) return;
+          wrap.classList.remove('is-drop-obscured');
+          wrap.classList.add('is-drop-wake');
+        }, wakeTimeMs);
+
+        const clearTimer = setTimeout(() => {
+          if (!wrap.isConnected) return;
+          wrap.classList.remove('is-drop-obscured', 'is-drop-wake');
+          wrap.classList.add('is-drop-cleared');
+        }, clearTimeMs);
+
+        this.windSettleTimers.push(wakeTimer, clearTimer);
+
+        // Secondary trailing droplet on ~half of the letters that slides by shortly after and causes a fresh blur pass
+        if (rank % 2 === 0 && clearTimeMs < 820) {
+          const secondStartMs = clearTimeMs + 90;
+          const secondDropEl = document.createElement('span');
+          secondDropEl.className = 'rain-glass-drop second-wave';
+          secondDropEl.setAttribute('aria-hidden', 'true');
+          secondDropEl.style.setProperty('--drop-delay', `${secondStartMs}ms`);
+          secondDropEl.style.setProperty('--drop-dur', `640ms`);
+          wrap.appendChild(secondDropEl);
+
+          const reblurTimer = setTimeout(() => {
             if (!wrap.isConnected) return;
-            wrap.classList.remove('is-drop-obscured');
+            wrap.classList.remove('is-drop-cleared');
+            wrap.classList.add('is-drop-wake');
+          }, secondStartMs + 90);
+
+          const reclearTimer = setTimeout(() => {
+            if (!wrap.isConnected) return;
+            wrap.classList.remove('is-drop-wake');
             wrap.classList.add('is-drop-cleared');
-          }, startDelayMs + 560);
+          }, secondStartMs + 430);
 
-          this.windSettleTimers.push(obscureTimer, clearTimer);
+          this.windSettleTimers.push(reblurTimer, reclearTimer);
         }
 
         containerEl.appendChild(wrap);
