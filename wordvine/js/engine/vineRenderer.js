@@ -131,6 +131,7 @@
       this.rapidFireCollars = [];
       this.windIntensity = 0;
       this.windDirection = 1;
+      this.rainIntensity = 0;
 
       this.resize();
       this.initAmbientParticles();
@@ -271,6 +272,57 @@
         return c;
       };
 
+      // Pre-render a 2.5x HiDPI 3D refractive glass water droplet + trailing rivulet sprite
+      const dropW = 28;
+      const dropH = 76;
+      const dropDpr = 2.5;
+      const dropCanvas = document.createElement('canvas');
+      dropCanvas.width = Math.ceil(dropW * dropDpr);
+      dropCanvas.height = Math.ceil(dropH * dropDpr);
+      const dctx = dropCanvas.getContext('2d');
+      dctx.scale(dropDpr, dropDpr);
+
+      // 1. Trailing water rivulet above the bead
+      const trailGrad = dctx.createLinearGradient(14, 2, 14, 52);
+      trailGrad.addColorStop(0, 'rgba(186, 230, 253, 0)');
+      trailGrad.addColorStop(0.55, 'rgba(186, 230, 253, 0.28)');
+      trailGrad.addColorStop(1, 'rgba(224, 242, 254, 0.62)');
+      dctx.fillStyle = trailGrad;
+      dctx.beginPath();
+      dctx.moveTo(14, 2);
+      dctx.quadraticCurveTo(17.5, 28, 18.5, 52);
+      dctx.lineTo(9.5, 52);
+      dctx.quadraticCurveTo(10.5, 28, 14, 2);
+      dctx.closePath();
+      dctx.fill();
+
+      // 2. Refractive water bead body at (14, 58)
+      const beadGrad = dctx.createRadialGradient(11.5, 54.5, 1.5, 14, 58, 9.5);
+      beadGrad.addColorStop(0, 'rgba(255, 255, 255, 0.92)');
+      beadGrad.addColorStop(0.35, 'rgba(186, 230, 253, 0.68)');
+      beadGrad.addColorStop(0.78, 'rgba(56, 189, 248, 0.44)');
+      beadGrad.addColorStop(1, 'rgba(12, 74, 110, 0.52)');
+      dctx.fillStyle = beadGrad;
+      dctx.beginPath();
+      dctx.moveTo(14, 45);
+      dctx.bezierCurveTo(21.5, 50, 22.5, 62, 14, 67.5);
+      dctx.bezierCurveTo(5.5, 62, 6.5, 50, 14, 45);
+      dctx.closePath();
+      dctx.fill();
+
+      // 3. Crisp top-left specular crescent highlight on the water bead
+      dctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      dctx.beginPath();
+      dctx.ellipse(11.4, 53.6, 2.2, 3.8, -0.35, 0, Math.PI * 2);
+      dctx.fill();
+
+      // 4. Subtle bottom-right refractive caustic rim
+      dctx.strokeStyle = 'rgba(224, 242, 254, 0.82)';
+      dctx.lineWidth = 1.1;
+      dctx.beginPath();
+      dctx.arc(14, 58, 6.8, 0.15 * Math.PI, 0.78 * Math.PI);
+      dctx.stroke();
+
       this._auraSprites = {
         reverseGraft: makeRadialSprite([
           [0, 'rgba(245, 158, 11, 0.28)'],
@@ -286,7 +338,8 @@
           [0, 'rgba(254, 240, 138, 0.40)'],
           [0.6, 'rgba(245, 158, 11, 0.19)'],
           [1, 'rgba(245, 158, 11, 0)']
-        ])
+        ]),
+        glassDroplet: { canvas: dropCanvas, w: dropW, h: dropH }
       };
       return this._auraSprites;
     }
@@ -338,6 +391,7 @@
       this.rapidFireCollars = [];
       this.windIntensity = 0;
       this.windDirection = 1;
+      this.rainIntensity = 0;
 
       // 3D Cylindrical Orbital Camera State (spinning clockwise / counter-clockwise around the climbing vine)
       this.cameraOrbitAngle = 0;
@@ -571,7 +625,8 @@
       isActiveRapidFire = false,
       stepsUntilRapidFire = 0,
       isActiveWind = false,
-      windDirection = 1
+      windDirection = 1,
+      isActiveRain = false
     ) {
       if (simState && simState.status === 'PLAYING') {
         this.stepAdaptiveResolution(dtMs);
@@ -581,10 +636,12 @@
       const nowMs = performance.now();
       this.lastSimState = simState;
 
-      // Smoothly ramp wind intensity in/out over ~300ms when entering/exiting a 2-3 node Wind Gust
+      // Smoothly ramp wind & rain intensity in/out over ~300ms when entering/exiting a 2-3 node Weather Event
       const targetWind = isActiveWind ? 1 : 0;
+      const targetRain = isActiveRain ? 1 : 0;
       const stepFactor = Math.min(1, Math.max(4, dtMs || 16) * 0.0085);
       this.windIntensity = (this.windIntensity || 0) + (targetWind - (this.windIntensity || 0)) * stepFactor;
+      this.rainIntensity = (this.rainIntensity || 0) + (targetRain - (this.rainIntensity || 0)) * stepFactor;
       if (isActiveWind && windDirection) {
         this.windDirection = windDirection;
       }
@@ -605,10 +662,13 @@
       // 3. Draw Soft Center Gutter Vignette to protect word fork readability
       this.drawQuietCenterGutter(ctx, theme, velocityDesat);
 
-      // 4. Draw Peripheral Reactive Particles & Wind Gust Slipstreams / Tumbling Leaves
+      // 4. Draw Peripheral Reactive Particles & Weather Atmosphere (Wind Gusts or Rain Streaks)
       this.drawPeripheralReactivity(ctx, theme, simState, velocityDesat, nowMs, isActiveRapidFire);
       if (this.windIntensity > 0.02) {
         this.drawWindGustAtmosphere(ctx, theme, nowMs, this.windIntensity, this.windDirection || 1);
+      }
+      if (this.rainIntensity > 0.02) {
+        this.drawRainCanopyStreaks(ctx, theme, nowMs, this.rainIntensity);
       }
 
       // 5. Draw the 3D Cylindrical Climbing Vine Stem, Orbiting Tendrils/Leaves, Rising Sap Vein & Blooms
@@ -625,6 +685,9 @@
           stepsUntilRapidFire
         );
         this.drawBurstParticles(ctx, simState, dtMs);
+        if (this.rainIntensity > 0.02) {
+          this.drawRainGlassDroplets(ctx, nowMs, this.rainIntensity);
+        }
         this.drawDangerVignette(ctx, theme, simState, nowMs);
       }
 
@@ -1043,6 +1106,73 @@
         ctx.fill();
         ctx.stroke();
         ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    /**
+     * Draws batched diagonal rain streaks falling through the background canopy during a 2-3 node Rain Shower.
+     */
+    drawRainCanopyStreaks(ctx, theme, nowMs, rainIntensity) {
+      const streakCount = this.isMobile ? 16 : 28;
+      ctx.save();
+      ctx.strokeStyle = theme.id === 0 ? 'rgba(125, 211, 252, 0.34)' : 'rgba(14, 116, 144, 0.24)';
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = 'round';
+      ctx.globalAlpha = rainIntensity;
+      ctx.beginPath();
+
+      for (let i = 0; i < streakCount; i++) {
+        const speed = 0.00095 + (i % 4) * 0.00022;
+        const prog = ((nowMs * speed + i * 0.137) % 1 + 1) % 1;
+        const sx = ((i * 97 + prog * 36) % this.width);
+        const sy = prog * (this.height + 90) - 45;
+        const len = 24 + (i % 3) * 11;
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(sx + 3.5, sy + len);
+      }
+
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /**
+     * Draws realistic refractive water droplets clinging to and sliding down the glass screen
+     * with natural surface-tension hesitation and trailing water rivulets.
+     */
+    drawRainGlassDroplets(ctx, nowMs, rainIntensity) {
+      const auras = this.getAuraSprites();
+      const sp = auras.glassDroplet;
+      if (!sp) return;
+
+      const dropCount = this.isMobile ? 9 : 14;
+      ctx.save();
+
+      for (let i = 0; i < dropCount; i++) {
+        // Each droplet slides down the glass with slight surface-tension stop-and-go motion
+        const cycleSpeed = 0.00028 + (i % 4) * 0.00007;
+        const rawT = ((nowMs * cycleSpeed + i * 0.173) % 1 + 1) % 1;
+        // Surface tension hesitation curve: smoothly accelerates and pauses slightly as it slides down glass
+        const glideT = rawT + 0.022 * Math.sin(rawT * Math.PI * 6 + i);
+        const envAlpha = Math.sin(rawT * Math.PI) * 0.92 * rainIntensity;
+        if (envAlpha <= 0.03) continue;
+
+        // Distribute droplets across the glass viewport with gentle horizontal meander
+        const baseX = ((i * 139 + 42) % Math.max(120, this.width - 48)) + 24;
+        const meanderX = Math.sin(rawT * Math.PI * 3.5 + i * 2.1) * 5.5;
+        const dx = baseX + meanderX;
+        const dy = glideT * (this.height + 80) - 55;
+        const scale = 0.78 + (i % 3) * 0.18;
+
+        ctx.globalAlpha = envAlpha;
+        ctx.drawImage(
+          sp.canvas,
+          dx - sp.w * 0.5 * scale,
+          dy - sp.h * 0.75 * scale,
+          sp.w * scale,
+          sp.h * scale
+        );
       }
 
       ctx.restore();

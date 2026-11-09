@@ -170,6 +170,8 @@
       this.rapidFireBannerText = document.getElementById('rapid-fire-banner-text');
       this.windGustBanner = document.getElementById('wind-gust-banner');
       this.windGustBannerText = document.getElementById('wind-gust-banner-text');
+      this.rainShowerBanner = document.getElementById('rain-shower-banner');
+      this.rainShowerBannerText = document.getElementById('rain-shower-banner-text');
       this.stemWordEl = document.getElementById('stem-word');
       this.stemZoneBadge = document.getElementById('stem-zone-badge');
       this.tripletPipBar = document.getElementById('triplet-pip-bar');
@@ -186,6 +188,7 @@
       this.isActiveRapidFire = false;
       this.isActiveWind = false;
       this.activeWindDirection = 1;
+      this.isActiveRain = false;
       this.windSettleTimers = [];
 
       // Top HUD elements
@@ -564,8 +567,9 @@
     }
 
     /**
-     * Schedules randomized 2-to-3 node Wind-Ruffled Gusts interspersed with calm stretches
-     * across the climb. Each gust lasts 2-3 nodes and then subsides.
+     * Schedules randomized 2-to-3 node Weather Events (Wind Gusts or Rain Showers)
+     * interspersed with 3-to-5 node calm stretches across the climb.
+     * Both Wind and Rain use the exact same timing criteria and alternate naturally.
      */
     applyRandomizedWindSchedule(nodes) {
       if (!Array.isArray(nodes) || nodes.length === 0) return;
@@ -574,25 +578,45 @@
         n.windStep = 0;
         n.windTotal = 0;
         n.windDirection = 1;
+        n.isRainy = false;
+        n.rainStep = 0;
+        n.rainTotal = 0;
       });
 
-      // Start first Wind Gust after a 2-to-4 node warm-up
+      // Start first Weather Event (Wind or Rain) after a 2-to-4 node warm-up
       let idx = 2 + Math.floor(Math.random() * 3);
+      let nextWeatherType = Math.random() < 0.5 ? 'WIND' : 'RAIN';
+
       while (idx < nodes.length) {
-        const gustLen = Math.min(2 + Math.floor(Math.random() * 2), nodes.length - idx);
+        const eventLen = Math.min(2 + Math.floor(Math.random() * 2), nodes.length - idx);
+        const weatherType = nextWeatherType;
+        // Alternate between Wind and Rain (with a 15% chance of repeating) so every climb gets both
+        nextWeatherType =
+          Math.random() < 0.85
+            ? weatherType === 'WIND'
+              ? 'RAIN'
+              : 'WIND'
+            : weatherType;
+
         const windDir = Math.random() < 0.5 ? 1 : -1;
-        for (let s = 0; s < gustLen; s++) {
+        for (let s = 0; s < eventLen; s++) {
           const target = nodes[idx + s];
           if (target) {
-            target.isWindy = true;
-            target.windStep = s + 1;
-            target.windTotal = gustLen;
-            target.windDirection = windDir;
+            if (weatherType === 'WIND') {
+              target.isWindy = true;
+              target.windStep = s + 1;
+              target.windTotal = eventLen;
+              target.windDirection = windDir;
+            } else {
+              target.isRainy = true;
+              target.rainStep = s + 1;
+              target.rainTotal = eventLen;
+            }
           }
         }
-        // Calm air for 3-to-5 nodes before the next 2-to-3 node Wind Gust
+        // Calm air for 3-to-5 nodes before the next 2-to-3 node Weather Event
         const calmLen = 3 + Math.floor(Math.random() * 3);
-        idx += gustLen + calmLen;
+        idx += eventLen + calmLen;
       }
     }
 
@@ -671,6 +695,86 @@
 
         this.windSettleTimers.push(timerId);
       }
+    }
+
+    /**
+     * Rain-Dappled Glass Droplet Pass:
+     * Water droplets slide down across 2-3 letters of each word like droplets on glass,
+     * briefly obscuring each letter beneath a refractive water bead as the droplet passes over it,
+     * then snapping the letter back to full clarity as the droplet slides down off the word.
+     */
+    renderRainDappledWord(containerEl, wordStr) {
+      if (!containerEl) return;
+      const chars = Array.from(String(wordStr || ''));
+      const L = chars.length;
+      if (L <= 1) {
+        containerEl.textContent = wordStr;
+        return;
+      }
+
+      // Select 1 to 3 spread-out letter positions for glass water droplets to slide down over
+      const dropIndices = [];
+      if (L === 2) {
+        dropIndices.push(Math.random() < 0.5 ? 0 : 1);
+      } else if (L <= 4) {
+        const firstIdx = Math.floor(Math.random() * 2);
+        const secondIdx = Math.min(L - 1, firstIdx + 1 + Math.floor(Math.random() * (L - firstIdx - 1)));
+        dropIndices.push(firstIdx, secondIdx);
+      } else {
+        const firstIdx = Math.floor(Math.random() * 2);
+        const midIdx = Math.min(L - 2, firstIdx + 1 + Math.floor(Math.random() * 2));
+        const lastIdx = Math.min(L - 1, midIdx + 1 + Math.floor(Math.random() * (L - midIdx - 1)));
+        dropIndices.push(firstIdx, midIdx, lastIdx);
+      }
+
+      // Shuffle droplet order so droplets can pass down in any organic sequence
+      const orderedDrops = this.shuffleCharsNonIdentity(dropIndices);
+      const dropOrderByCharIdx = new Map();
+      orderedDrops.forEach((charIdx, orderIdx) => {
+        dropOrderByCharIdx.set(charIdx, orderIdx);
+      });
+
+      containerEl.innerHTML = '';
+      const DROP_SLIDE_MS = 760;
+      const STAGGER_MS = 250;
+
+      chars.forEach((ch, idx) => {
+        const wrap = document.createElement('span');
+        wrap.className = 'rain-char';
+
+        const glyph = document.createElement('span');
+        glyph.className = 'rain-char-glyph';
+        glyph.textContent = ch;
+        wrap.appendChild(glyph);
+
+        if (dropOrderByCharIdx.has(idx)) {
+          const orderIdx = dropOrderByCharIdx.get(idx);
+          const startDelayMs = orderIdx * STAGGER_MS;
+          const dropEl = document.createElement('span');
+          dropEl.className = 'rain-glass-drop';
+          dropEl.setAttribute('aria-hidden', 'true');
+          dropEl.style.setProperty('--drop-delay', `${startDelayMs}ms`);
+          dropEl.style.setProperty('--drop-dur', `${DROP_SLIDE_MS}ms`);
+          wrap.appendChild(dropEl);
+
+          // Obscure letter when the sliding water bead reaches the letter glyph (~90ms into slide)
+          const obscureTimer = setTimeout(() => {
+            if (!wrap.isConnected) return;
+            wrap.classList.add('is-drop-obscured');
+          }, startDelayMs + 90);
+
+          // Clear letter as the water bead slides past the bottom of the glyph (~560ms into slide)
+          const clearTimer = setTimeout(() => {
+            if (!wrap.isConnected) return;
+            wrap.classList.remove('is-drop-obscured');
+            wrap.classList.add('is-drop-cleared');
+          }, startDelayMs + 560);
+
+          this.windSettleTimers.push(obscureTimer, clearTimer);
+        }
+
+        containerEl.appendChild(wrap);
+      });
     }
 
     setVisualPalette(paletteId = 3) {
@@ -1211,7 +1315,7 @@
       this.isActiveReverseGraft = isReverseGraft;
       this.isActiveRapidFire = isRapidFire;
 
-      // Wind-Ruffled Gust (2-3 nodes) state & breeze audio cue
+      // Wind-Ruffled Gust & Rain Shower (2-3 nodes) state & weather audio cues
       const isWindy = Boolean(node.isWindy);
       const wasWindy = Boolean(this.isActiveWind);
       this.isActiveWind = isWindy;
@@ -1221,16 +1325,36 @@
         document.body.classList.toggle('wind-gust-active', isWindy);
       }
 
-      if (
-        isWindy &&
-        (!wasWindy || node.windStep === 1) &&
+      const isRainy = Boolean(node.isRainy);
+      const wasRainy = Boolean(this.isActiveRain);
+      this.isActiveRain = isRainy;
+      if (this._lastBodyRainy !== isRainy) {
+        this._lastBodyRainy = isRainy;
+        document.body.classList.toggle('rain-shower-active', isRainy);
+      }
+
+      const isPlayingNow =
         this.simState &&
         this.simState.status === 'PLAYING' &&
         this.startModal &&
-        this.startModal.classList.contains('hidden') &&
+        this.startModal.classList.contains('hidden');
+
+      if (
+        isWindy &&
+        (!wasWindy || node.windStep === 1) &&
+        isPlayingNow &&
         typeof Sound.playWindGust === 'function'
       ) {
         Sound.playWindGust();
+      }
+
+      if (
+        isRainy &&
+        (!wasRainy || node.rainStep === 1) &&
+        isPlayingNow &&
+        typeof Sound.playRainShower === 'function'
+      ) {
+        Sound.playRainShower();
       }
 
       // Compute on-vine Speed Gate countdown (1 or 2 nodes before Rapid-Fire Sprint starts)
@@ -1289,12 +1413,20 @@
           this.windGustBannerText.textContent = `Windy!  Letters settling`;
         }
       }
+      if (this.rainShowerBanner) {
+        this.rainShowerBanner.classList.toggle('hidden', !isRainy);
+        if (isRainy && this.rainShowerBannerText) {
+          this.rainShowerBannerText.textContent = `Rainy!  Drops on glass`;
+        }
+      }
       this.leftPill.classList.toggle('is-reverse-graft', isReverseGraft);
       this.rightPill.classList.toggle('is-reverse-graft', isReverseGraft);
       this.leftPill.classList.toggle('is-rapid-fire', isRapidFire);
       this.rightPill.classList.toggle('is-rapid-fire', isRapidFire);
       this.leftPill.classList.toggle('is-wind-ruffled', isWindy);
       this.rightPill.classList.toggle('is-wind-ruffled', isWindy);
+      this.leftPill.classList.toggle('is-rain-dappled', isRainy);
+      this.rightPill.classList.toggle('is-rain-dappled', isRainy);
 
       // Always display only the active stem word (never reveal upcoming words)
       this.stemWordEl.textContent = node.stemWord;
@@ -1303,11 +1435,14 @@
       const leftWord = node.leftRightSeed === 0 ? node.correctWord : node.decoyWord;
       const rightWord = node.leftRightSeed === 1 ? node.correctWord : node.decoyWord;
 
-      // Clear any previous node's letter-settle timers
+      // Clear any previous node's weather timers (wind letter settle or rain droplet pass)
       this.clearWindSettleTimers();
       if (isWindy) {
         this.renderWindRuffledWord(this.leftWordEl, leftWord);
         this.renderWindRuffledWord(this.rightWordEl, rightWord);
+      } else if (isRainy) {
+        this.renderRainDappledWord(this.leftWordEl, leftWord);
+        this.renderRainDappledWord(this.rightWordEl, rightWord);
       } else {
         this.leftWordEl.textContent = leftWord;
         this.rightWordEl.textContent = rightWord;
@@ -1443,7 +1578,8 @@
         this.isActiveRapidFire,
         this.stepsUntilRapidFire || 0,
         this.isActiveWind,
-        this.activeWindDirection || 1
+        this.activeWindDirection || 1,
+        this.isActiveRain
       );
 
       // Position #foveal-anchor purely via GPU-composited translate3d (zero DOM layout/reflow!)
@@ -1512,8 +1648,10 @@
     async onRunEnded(fatalNode) {
       this.clearWindSettleTimers();
       this.isActiveWind = false;
+      this.isActiveRain = false;
       this._lastBodyWindy = false;
-      document.body.classList.remove('wind-gust-active');
+      this._lastBodyRainy = false;
+      document.body.classList.remove('wind-gust-active', 'rain-shower-active');
       const altitudeMeters = Number(
         (this.simState.maxAltitudeUnits * Physics.PHYSICS_CONFIG.METERS_PER_UNIT).toFixed(1)
       );

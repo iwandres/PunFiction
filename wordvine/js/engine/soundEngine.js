@@ -262,6 +262,64 @@
       gain.connect(this.ctx.destination);
       noise.start(now);
     }
+
+    /**
+     * Rain Shower: soft rain patter + two glass water-droplet plinks when a 2-3 node Rain Shower begins
+     */
+    playRainShower() {
+      if (this.muted) return;
+      this.init();
+      if (!this.ctx) return;
+
+      const now = this.ctx.currentTime;
+      const duration = 0.6;
+      if (!this.windBuffer) {
+        this.prebuildNoiseBuffers();
+      }
+      if (this.windBuffer) {
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = this.windBuffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.setValueAtTime(1.8, now);
+        filter.frequency.setValueAtTime(1450, now);
+        filter.frequency.exponentialRampToValueAtTime(2150, now + duration * 0.5);
+        filter.frequency.exponentialRampToValueAtTime(1600, now + duration);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.11, now + duration * 0.25);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start(now);
+      }
+
+      // Two delicate water-droplet plinks on glass
+      const drops = [
+        { delay: 0.04, startHz: 780, endHz: 1380 },
+        { delay: 0.19, startHz: 960, endHz: 1620 }
+      ];
+      drops.forEach((d) => {
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(d.startHz, now + d.delay);
+        osc.frequency.exponentialRampToValueAtTime(d.endHz, now + d.delay + 0.065);
+
+        g.gain.setValueAtTime(0.001, now + d.delay);
+        g.gain.linearRampToValueAtTime(0.11, now + d.delay + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.001, now + d.delay + 0.08);
+
+        osc.connect(g);
+        g.connect(this.ctx.destination);
+        osc.start(now + d.delay);
+        osc.stop(now + d.delay + 0.085);
+      });
+    }
   }
 
   root.WordVineSound = new SoundEngine();
