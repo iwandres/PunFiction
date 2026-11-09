@@ -289,9 +289,11 @@
       return { accepted: true, correct: false, state, node: currentNode };
     }
 
-    // Correct choice! Determine if this completes a 3-part triplet, Reverse-Graft Loop, or Rapid-Fire Sprint node
+    // Correct choice! Determine if this completes a long Zone 1 compound (10+ letters), Reverse-Graft Loop, or Rapid-Fire Sprint node
     const zoneId = currentNode.zoneId || getZoneForNodeIndex(state.nodeIndex);
-    const isTripleBloom = zoneId === 1 && currentNode.tripletStep === 3;
+    const compoundLen =
+      String(currentNode.stemWord || '').length + String(currentNode.correctWord || '').length;
+    const isTripleBloom = zoneId === 1 && (currentNode.tripletStep === 3 || compoundLen >= 10);
     const isReverseGraft = Boolean(
       currentNode.isReverseGraft || currentNode.gameMode === 'REVERSE_GRAFT'
     );

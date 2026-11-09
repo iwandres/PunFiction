@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=45" />
+  <link rel="stylesheet" href="css/styles.css?v=46" />
 </head>
 <body class="theme-biolum zone-1">
   <!-- High-Definition HiDPI Procedural Botanical Canvas -->
@@ -67,8 +67,8 @@
 
   <!-- Foveal Choice Layout (Tracks Active Vine Tip Y_vine in Real Time) -->
   <main id="foveal-anchor">
-    <!-- Subtle Unrevealed 3rd Linked Node Above Fork (Shown Only on Step 1 of a 3-Part Compound) -->
-    <div id="foveal-node3-wrap" class="foveal-node3-wrap" aria-hidden="true">
+    <!-- Subtle Unrevealed 3rd Linked Node Above Fork (Hidden by default) -->
+    <div id="foveal-node3-wrap" class="foveal-node3-wrap hidden" aria-hidden="true">
       <div class="foveal-node3-ghost">
         <span class="ghost-node-dot"></span>
       </div>
@@ -115,14 +115,14 @@
         <div id="stem-word" class="stem-word-text">PEANUT</div>
       </div>
 
-      <!-- Subtle Linked-Node Cluster (Links in 2s for Double Compounds, 3s for Triple Compounds) -->
-      <div id="triplet-pip-bar" class="triplet-pip-bar is-triple-link" aria-label="Compound Node Link">
+      <!-- Subtle Linked-Node Cluster (2-Node Compound Link) -->
+      <div id="triplet-pip-bar" class="triplet-pip-bar is-double-link" aria-label="Compound Node Link">
         <div class="node-link-cluster">
           <span id="pip-1" class="pip-bud filled"></span>
           <span id="pip-conn-1" class="pip-connector active"></span>
           <span id="pip-2" class="pip-bud active-pick"></span>
-          <span id="pip-conn-2" class="pip-connector upcoming"></span>
-          <span id="pip-3" class="pip-bud upcoming bloom-step"></span>
+          <span id="pip-conn-2" class="pip-connector hidden"></span>
+          <span id="pip-3" class="pip-bud hidden"></span>
         </div>
       </div>
     </div>
@@ -207,8 +207,6 @@
           <span class="pip-bud filled"></span>
           <span class="pip-connector active"></span>
           <span class="pip-bud active-pick"></span>
-          <span class="pip-connector upcoming"></span>
-          <span class="pip-bud upcoming"></span>
         </div>
         <div class="tut-caption">
           Pick <strong>BUTTER</strong> to link <em>PEANUT → BUTTER</em>. Next, <strong>BUTTER</strong> becomes the new stem word!
@@ -220,7 +218,7 @@
           <span class="tutorial-step-icon">🌿</span>
           <div>
             <strong>1. Link Words</strong>
-            <p>Pick the word that combines with the bottom word (<em>PEANUT → BUTTER → CUP</em>). Your choice becomes the next bottom word!</p>
+            <p>Pick the word that combines with the bottom word (<em>PEANUT + BUTTER</em> → <em>BUTTER + SCOTCH</em>). Your choice becomes the next bottom word!</p>
           </div>
         </div>
 
@@ -334,10 +332,10 @@
     </div>
   </section>
 
-  <script src="js/shared/physicsEngine.js?v=45"></script>
-  <script src="js/data/dailyVines.js?v=45"></script>
-  <script src="js/engine/soundEngine.js?v=45"></script>
-  <script src="js/engine/vineRenderer.js?v=45"></script>
-  <script src="js/app.js?v=45"></script>
+  <script src="js/shared/physicsEngine.js?v=46"></script>
+  <script src="js/data/dailyVines.js?v=46"></script>
+  <script src="js/engine/soundEngine.js?v=46"></script>
+  <script src="js/engine/vineRenderer.js?v=46"></script>
+  <script src="js/app.js?v=46"></script>
 </body>
 </html>
