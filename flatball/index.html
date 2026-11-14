@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Flatball Tactics — 7v7 Ultimate Frisbee Offense &amp; Defense Simulator</title>
+  <meta name="description" content="Read 7v7 Ultimate Frisbee formations, call the ideal defense to force a turnover, and counter the Bot's defensive shells to score in Flatball Tactics." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%230F1A24' stroke='%2300E5FF' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23FFFFFF'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%230284C7' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=1" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header Navigation & Controls -->
+    <header class="top-header">
+      <div class="brand-cluster">
+        <a href="https://punfiction.io/" class="portal-home-pill" title="PunFiction Home">PunFiction</a>
+        <div class="brand-title">
+          <span class="brand-disc">🥏</span>
+          <span>Flatball <span class="brand-accent">Tactics</span></span>
+        </div>
+        <div class="mode-switcher" role="group" aria-label="Game Mode">
+          <button type="button" id="mode-quick-btn" class="mode-btn active-mode">Match</button>
+          <button type="button" id="mode-daily-btn" class="mode-btn">Daily Cup</button>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <button type="button" id="scout-btn" class="util-pill active-pill" title="Toggle Scout Chalkboard Cues">Scout: ON</button>
+        <button type="button" id="speed-btn" class="util-pill" title="Toggle Animation Speed">1x</button>
+        <button type="button" id="sound-btn" class="util-pill icon-pill" aria-label="Mute sound">🔊</button>
+        <button type="button" id="help-btn" class="util-pill icon-pill" aria-label="How to Play">?</button>
+      </div>
+    </header>
+
+    <!-- Responsive CSS Grid Arena: 2-Column on Desktop, Single-Screen Portrait Stack on Mobile -->
+    <main class="arena-layout">
+      <!-- Broadcast Scoreboard & Field Telemetry -->
+      <section class="scoreboard-card" aria-label="Scoreboard">
+        <div class="score-row">
+          <div class="team-block team-you-block">
+            <div class="team-id">
+              <span class="dot-swatch swatch-you"></span>
+              <span class="team-name">YOU</span>
+            </div>
+            <span id="score-player" class="score-big you-color">0</span>
+          </div>
+
+          <div class="score-center-meta">
+            <span id="target-score-label" class="target-pill">TO 3</span>
+          </div>
+
+          <div class="team-block team-bot-block">
+            <span id="score-bot" class="score-big bot-color">0</span>
+            <div class="team-id">
+              <span class="team-name">BOT</span>
+              <span class="dot-swatch swatch-bot"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="telemetry-row">
+          <span id="possession-badge" class="status-pill pill-defense">🛡️ PULLING (DEFENSE)</span>
+          <span id="yardage-badge" class="yardage-pill">GOAL LINE</span>
+        </div>
+      </section>
+
+      <!-- 7v7 Regulation Ultimate Field Stage -->
+      <section class="field-stage" aria-label="Ultimate Frisbee Field">
+        <div id="look-banner" class="look-overlay-bar banner-muted">
+          <div class="look-text-group">
+            <span id="look-title" class="look-title">READY TO PULL</span>
+            <span id="look-tag" class="look-tag">7v7 REGULATION</span>
+          </div>
+          <button type="button" id="hint-btn" class="hint-chip hidden" title="Get a tactical scouting hint">💡 Hint</button>
+        </div>
+
+        <div class="canvas-wrapper">
+          <canvas id="field-canvas"></canvas>
+        </div>
+      </section>
+
+      <!-- Live Coach / Broadcast Ticker -->
+      <section class="coach-box" aria-live="polite">
+        <span class="coach-label">COACH</span>
+        <p id="coach-ticker-text" class="coach-text">
+          7v7 lined up on the goal lines. Click PULL DISC to launch the opening pull!
+        </p>
+      </section>
+
+      <!-- Dynamic Action Tray (1-Click Pull Button, 2x2 Playbook Cards, or Next Point CTA) -->
+      <section id="action-container" class="action-tray" aria-label="Tactical Play Selection"></section>
+
+      <!-- Desktop Play-by-Play Possession Log -->
+      <section class="play-log-panel" aria-label="Possession Log">
+        <div class="play-log-header">POSSESSION LOG</div>
+        <ul id="play-log-list" class="play-log-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- How to Play & Tactical Guide Modal -->
+  <div id="help-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="help-modal-heading">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="help-modal-heading">🥏 How to Play Flatball Tactics</h2>
+        <button type="button" id="close-help-btn" class="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-lead">
+          Command a <strong>7v7 Ultimate Frisbee</strong> squad (<span class="you-inline">Cyan = YOU</span>, <span class="bot-inline">Coral = BOT</span>). You defend the <strong>Bottom End Zone (▼)</strong> and score in the <strong>Top End Zone (▲)</strong>.
+        </p>
+
+        <div class="guide-section">
+          <h3>1. Playing Defense (Force the Turn!)</h3>
+          <ul>
+            <li>Click <strong>PULL DISC</strong> to launch the point. Watch how the Bot’s 7 offensive players line up.</li>
+            <li><strong>Ideal Counter:</strong> Locks down primary lanes and forces a <strong>Turnover</strong> (Block or Interception)!</li>
+            <li><strong>Middle Strategy:</strong> Slows them down as they gain ~24 yards. Choose to <strong>Keep</strong> your defense or <strong>Switch</strong>!</li>
+            <li><strong>Worst Strategy:</strong> Leaves a tactical opening that the Bot exploits for a Goal.</li>
+          </ul>
+        </div>
+
+        <div class="guide-section">
+          <h3>2. Playing Offense After a Turn</h3>
+          <ul>
+            <li>Force a turn (or receive a Bot pull) and possession flips on the spot!</li>
+            <li><strong>The Bot Defense sets up first</strong> — look for a <em>3-Person Cup</em>, <em>Deep Poach</em>, <em>Sideline Trap</em>, <em>Clam Bracket</em>, <em>Reset Blitz</em>, or <em>1v1 Mark</em>.</li>
+            <li>Call the <strong>Ideal Offensive Play</strong> to carve up their shell and score, or grind downfield in 25-yard chunks!</li>
+          </ul>
+        </div>
+
+        <div class="guide-tip">
+          <strong>Pro Tip:</strong> Toggle <strong>Scout: PRO</strong> in the top bar anytime to hide formation labels and read pure 7v7 dot spacing like a club captain!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Match Summary Modal -->
+  <div id="match-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="match-modal-title">
+    <div class="modal-card summary-modal-card">
+      <h2 id="match-modal-title" class="summary-title">🏆 VICTORY ON THE FIELD!</h2>
+      <div id="match-modal-score" class="summary-score">YOU 3 — 1 BOT</div>
+      <p id="match-modal-subtitle" class="summary-subtitle">Clinical field reads and seamless two-way transitions!</p>
+
+      <div class="stats-grid">
+        <div class="stat-tile">
+          <span id="stat-iq" class="stat-val">92%</span>
+          <span class="stat-lbl">Tactical IQ</span>
+        </div>
+        <div class="stat-tile">
+          <span id="stat-turns" class="stat-val">3</span>
+          <span class="stat-lbl">Turns Forced</span>
+        </div>
+        <div class="stat-tile">
+          <span id="stat-breaks" class="stat-val">2</span>
+          <span class="stat-lbl">Break Goals</span>
+        </div>
+      </div>
+
+      <div class="summary-actions">
+        <button type="button" id="share-score-btn" class="secondary-action-btn">📋 Share Match Scorecard</button>
+        <button type="button" id="play-again-btn" class="primary-action-btn">Play Again ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js?v=1"></script>
+</body>
+</html>
