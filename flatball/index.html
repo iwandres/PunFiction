@@ -8,20 +8,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Flatball Tactics — 7v7 Ultimate Frisbee Offense &amp; Defense Simulator</title>
   <meta name="description" content="Read 7v7 Ultimate Frisbee formations, call the ideal defense to force a turnover, and counter the Bot's defensive shells to score in Flatball Tactics." />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%230F1A24' stroke='%2300E5FF' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23FFFFFF'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%230284C7' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'%3E%3Crect width='64' height='40' rx='10' fill='%23091017'/%3E%3Cpath d='M4 25 C16 18 28 12 44 11 L46 29 C30 29 17 28 4 25 Z' fill='%2300E5FF' opacity='0.85'/%3E%3Cpath d='M8 18 Q22 14 38 13' stroke='%2338BDF8' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cg transform='translate(44 20) rotate(-12)'%3E%3Cellipse cx='0' cy='1.8' rx='16' ry='8' fill='%23CBD5E1'/%3E%3Cellipse cx='0' cy='0' rx='16' ry='7.8' fill='%23FFFFFF'/%3E%3Cellipse cx='0' cy='0' rx='11' ry='4.8' fill='none' stroke='%230284C7' stroke-width='1.8'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
 </head>
 <body>
   <div class="app-shell">
     <!-- Top Header Navigation & Controls -->
     <header class="top-header">
       <div class="brand-cluster">
-        <a href="https://punfiction.io/" class="portal-home-pill" title="PunFiction Home">PunFiction</a>
+        <a href="https://punfiction.io/" class="portal-home-pill" title="Back to PunFiction Games">PunFiction</a>
         <div class="brand-title">
-          <span class="brand-disc">🥏</span>
+          <svg class="brand-logo-svg" viewBox="0 0 56 28" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hdrStreakGrad" x1="2" y1="15" x2="36" y2="14" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0284C7" stop-opacity="0" />
+                <stop offset="42%" stop-color="#0284C7" stop-opacity="0.62" />
+                <stop offset="100%" stop-color="#00E5FF" stop-opacity="0.96" />
+              </linearGradient>
+              <linearGradient id="hdrCoreGrad" x1="9" y1="15" x2="35" y2="14" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38BDF8" stop-opacity="0" />
+                <stop offset="100%" stop-color="#7DF9FF" stop-opacity="0.95" />
+              </linearGradient>
+              <linearGradient id="hdrDiscTop" x1="28" y1="6" x2="48" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="100%" stop-color="#E2E8F0" />
+              </linearGradient>
+            </defs>
+            <!-- Dynamic Blue Motion Streak Behind Disc -->
+            <path d="M2 17.6 C12 12.4, 22 8.2, 36 7.4 L38 20.6 C24 20.8, 13 19.7, 2 17.6 Z" fill="url(#hdrStreakGrad)" />
+            <path d="M9 16.4 C17 13.9, 25 11.8, 35 11.2 L36 16.8 C26 17.2, 17 17.2, 9 16.4 Z" fill="url(#hdrCoreGrad)" />
+            <path d="M5 12.1 Q18 9.1 31 8.4" stroke="#38BDF8" stroke-width="1.6" stroke-linecap="round" opacity="0.9" />
+            <path d="M11 21.3 Q22 21.0 33 19.8" stroke="#0284C7" stroke-width="1.5" stroke-linecap="round" opacity="0.85" />
+            <!-- Angled White Ultimate Disc -->
+            <g transform="translate(39, 13.5) rotate(-12)">
+              <ellipse cx="0" cy="0.9" rx="14.2" ry="7.3" fill="rgba(4, 15, 26, 0.55)" />
+              <ellipse cx="0" cy="1.3" rx="13.4" ry="6.4" fill="#CBD5E1" stroke="#94A3B8" stroke-width="0.85" />
+              <ellipse cx="0" cy="-0.2" rx="13.4" ry="6.3" fill="url(#hdrDiscTop)" stroke="#FFFFFF" stroke-width="1" />
+              <ellipse cx="0" cy="-0.3" rx="9.5" ry="4.1" fill="none" stroke="#0284C7" stroke-width="1.35" opacity="0.85" />
+              <ellipse cx="0" cy="-0.3" rx="5.1" ry="2.0" fill="none" stroke="#38BDF8" stroke-width="0.95" opacity="0.75" />
+              <path d="M-8 -3.4 A11 4.7 0 0 1 9 -2.7" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.92" />
+            </g>
+          </svg>
           <span>Flatball <span class="brand-accent brand-subword">Tactics</span></span>
         </div>
         <div class="mode-switcher" role="group" aria-label="Game Mode">
@@ -102,42 +132,328 @@
         <ul id="play-log-list" class="play-log-list"></ul>
       </section>
     </main>
+
+    <!-- Compact Footer with PunFiction Links & Playbook Guides -->
+    <footer class="site-footer" aria-label="Footer and Tactics Guides">
+      <div class="footer-left-links">
+        <a href="https://punfiction.io/" class="footer-brand-link">&larr; PunFiction</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="https://punfiction.io/about.html" class="footer-text-link footer-extra-link">About</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="https://punfiction.io/privacy.html" class="footer-text-link footer-extra-link">Privacy</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="https://punfiction.io/terms.html" class="footer-text-link footer-extra-link">Terms</a>
+      </div>
+
+      <div class="footer-right-guides">
+        <span class="footer-guide-label">Playbook Guides:</span>
+        <a href="offense-tactics.html" id="footer-offense-link" class="footer-guide-pill guide-pill-offense">⚡ Offense Tactics</a>
+        <a href="defense-tactics.html" id="footer-defense-link" class="footer-guide-pill guide-pill-defense">🛡️ Defensive Tactics</a>
+      </div>
+    </footer>
   </div>
 
-  <!-- How to Play & Tactical Guide Modal -->
+  <!-- Tabbed How to Play, Offense Tactics & Defensive Tactics Guide Modal -->
   <div id="help-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="help-modal-heading">
-    <div class="modal-card">
+    <div class="modal-card guide-modal-card">
       <div class="modal-header">
-        <h2 id="help-modal-heading">🥏 How to Play Flatball Tactics</h2>
+        <h2 id="help-modal-heading">Flatball Tactics Playbook</h2>
         <button type="button" id="close-help-btn" class="modal-close-btn" aria-label="Close">&times;</button>
       </div>
+
+      <div class="guide-tabs-bar" role="tablist" aria-label="Playbook Sections">
+        <button type="button" class="guide-tab-btn active-guide-tab" data-guide-tab="basics" role="tab" aria-selected="true">How to Play</button>
+        <button type="button" class="guide-tab-btn" data-guide-tab="offense" role="tab" aria-selected="false">⚡ Offense Tactics</button>
+        <button type="button" class="guide-tab-btn" data-guide-tab="defense" role="tab" aria-selected="false">🛡️ Defensive Tactics</button>
+      </div>
+
       <div class="modal-body">
-        <p class="modal-lead">
-          Command a <strong>7v7 Ultimate Frisbee</strong> squad (<span class="you-inline">Cyan = YOU</span>, <span class="bot-inline">Coral = BOT</span>). You defend the <strong>Bottom End Zone (▼)</strong> and score in the <strong>Top End Zone (▲)</strong>.
-        </p>
+        <!-- TAB 1: BASICS & QUICK LINGO -->
+        <div data-guide-panel="basics">
+          <p class="modal-lead">
+            Coach a <strong>7-on-7 Ultimate Frisbee</strong> team (<span class="you-inline">Cyan = YOU</span>, <span class="bot-inline">Coral = BOT</span>). Defend your <strong>Bottom End Zone (▼)</strong> and score in the <strong>Top End Zone (▲)</strong>! First team to 3 points wins.
+          </p>
 
-        <div class="guide-section">
-          <h3>1. Playing Defense (Force the Turn!)</h3>
-          <ul>
-            <li>Click <strong>PULL DISC</strong> to launch the point. Watch how the Bot’s 7 offensive players line up.</li>
-            <li><strong>Preview &amp; Confirm:</strong> Tap any strategy card to watch your players smoothly drift into that formation on the field. Test different options, then tap <strong>Confirm</strong> to run the play!</li>
-            <li><strong>Ideal Counter:</strong> Locks down primary lanes and forces a <strong>Turnover</strong> (Block or Interception)!</li>
-            <li><strong>Middle Strategy:</strong> Slows them down as they gain ~24 yards. Choose to <strong>Keep</strong> your defense or <strong>Switch</strong>!</li>
-            <li><strong>Worst Strategy:</strong> Leaves a tactical opening that the Bot exploits for a Goal.</li>
-          </ul>
+          <div class="guide-section">
+            <h3>30-Second Ultimate Lingo</h3>
+            <div class="lingo-grid">
+              <div class="lingo-tile">
+                <strong>Handlers (H1, H2, H3)</strong>
+                Your quarterbacks near the disc. They make crisp throws and stay ready for a backward "reset" pass if downfield is covered.
+              </div>
+              <div class="lingo-tile">
+                <strong>Cutters (1–5)</strong>
+                Your receivers downfield. They sprint toward the disc (<em>under</em>) or toward the end zone (<em>deep</em>) to get open.
+              </div>
+              <div class="lingo-tile">
+                <strong>Stall Count (1 to 10)</strong>
+                Once you catch the disc, you cannot run—you pivot on one foot! A defender counts to 10; if you don’t throw by 10, it’s a turnover.
+              </div>
+              <div class="lingo-tile">
+                <strong>The Force (◀ Home / Away ▶)</strong>
+                The defender on the thrower blocks one side of the field, <em>forcing</em> throws toward the other side (the <strong>Force Side</strong>).
+              </div>
+            </div>
+          </div>
+
+          <div class="guide-section">
+            <h3>How Every Turn Works</h3>
+            <ul>
+              <li><strong>Tap to Drift &amp; Preview:</strong> Click any play card and watch the players smoothly glide into that formation on the field. Try different cards to compare how they line up!</li>
+              <li><strong>Tap Confirm:</strong> Once you like the matchup on the field, click <strong>Confirm</strong> to launch the live play.</li>
+              <li><strong>3 Possible Outcomes:</strong> Calling the <strong>Ideal</strong> counter forces a Turnover on D (or scores a Goal on O!). Calling a <strong>Middle</strong> option lets the offense gain ~25 yards, where you can <strong>Keep</strong> your strategy or <strong>Switch</strong>. Calling the <strong>Worst</strong> option gives up a big play!</li>
+            </ul>
+          </div>
+
+          <div class="guide-tip">
+            <strong>Pre-Play Motion Trick:</strong> When you are on Offense, tap two different play cards before confirming. If the red Bot defenders follow your moving players, they are in <strong>Man-to-Man</strong>! If they stay parked in spaces, it’s a <strong>Zone</strong>!
+          </div>
         </div>
 
-        <div class="guide-section">
-          <h3>2. Playing Offense (Force Home/Away &amp; Man vs. Zone)</h3>
-          <ul>
-            <li>On a turn or pull, your team sets its stack (<em>Vert</em> or <em>Ho</em>) and <strong>the Bot Defense matches up to it</strong>!</li>
-            <li><strong>Read Coverage:</strong> Did they follow your cutters 1-on-1 (<em>Man</em>, <em>Deep Poach</em>, <em>Reset Blitz</em>) or peel off into spaces (<em>3-Man Cup</em>, <em>2-3-2 Wall</em>)?</li>
-            <li><strong>Read Force (◀ HOME vs. AWAY ▶):</strong> Forcing toward the wide-open field invites <em>Force-Side Cuts</em>; forcing into a near sideline is a <strong>Trap</strong> — beat it with <em>Break-Mark Swing</em>!</li>
-          </ul>
+        <!-- TAB 2: OFFENSE TACTICS GUIDE -->
+        <div data-guide-panel="offense" class="hidden">
+          <div class="guide-panel-toprow">
+            <h3>⚡ Offense Tactics Guide (All 6 Plays Explained)</h3>
+            <a href="offense-tactics.html" target="_blank" rel="noopener" class="standalone-page-link">Full Guide Page ↗</a>
+          </div>
+          <p class="modal-lead">
+            When you get the disc, your team sets a stack (<em>Vertical</em> down the middle or <em>Horizontal</em> across the field) and the Bot Defense reacts. Check two things: <strong>Are they in Man or Zone?</strong> and <strong>Which sideline are they Forcing (◀ Home or Away ▶)?</strong>
+          </p>
+
+          <div class="tactic-guide-grid">
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><circle cx="11" cy="15" r="3.4" fill="#FF5A6E"/><circle cx="16.5" cy="13" r="3.4" fill="#00E5FF"/><path d="M13 8.5a7.5 7.5 0 0 1 6 9" stroke="#00E5FF" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                  <h4>Force-Side Cuts</h4>
+                </div>
+                <span class="role-chip">TIMED CUTS</span>
+              </div>
+              <p class="tactic-explain">
+                Don’t fight the marker! Cutters take turns sprinting into the wide-open side the defense is giving you—one cuts in, and if covered, clears out so the next teammate has open grass.
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Force Open-Side Man &amp; Reset Deny (uses the big open lane downfield).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Sideline Trap (no room!) or 3-Man Cup (blocked by the cup wall).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M17 17a6 6 0 0 0-4-7" stroke="#FF5A6E" stroke-width="2.5" stroke-linecap="round"/><path d="M18 21C10 19 9 11 15 6" stroke="#00E5FF" stroke-width="2.4" stroke-linecap="round"/><circle cx="15" cy="6" r="2.6" fill="#00E5FF"/></svg></div>
+                  <h4>Break-Mark Swing</h4>
+                </div>
+                <span class="role-chip">BREAK SIDE</span>
+              </div>
+              <p class="tactic-explain">
+                Your thrower uses a quick pivot fake to step around the marker and throw to the "blocked" side of the field—suddenly every defender is trailing on the wrong hip!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Sideline Trap Man (escapes the sideline trap into wide-open middle grass!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> 3-Man Cup Zone (trying to throw through three cup defenders gets blocked).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M8 10c2 5 10 5 12 0" stroke="#FF5A6E" stroke-width="2" stroke-linecap="round"/><path d="M14 22V11l8-5" stroke="#00E5FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="11" r="2.8" fill="#00E5FF"/></svg></div>
+                  <h4>Popper &amp; Wing Swing</h4>
+                </div>
+                <span class="role-chip">BEAT CUP</span>
+              </div>
+              <p class="tactic-explain">
+                Swing the disc side-to-side faster than the Cup can run! Once a gap opens, hit a "Popper" flashing right behind the cup wall and continue down the sideline wing.
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> 3-Man Cup Zone (pulls the three cup defenders apart!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Reset Deny (tight handler defenders can jump wide lateral passes).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M8 22l12-5-11-5 11-6" stroke="#00E5FF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="22" r="2.5" fill="#00E5FF"/><circle cx="20" cy="17" r="2.5" fill="#00E5FF"/><circle cx="9" cy="12" r="2.5" fill="#00E5FF"/></svg></div>
+                  <h4>Give-and-Go Weave</h4>
+                </div>
+                <span class="role-chip">SMALL BALL</span>
+              </div>
+              <p class="tactic-explain">
+                Just like basketball give-and-go! As soon as a handler passes the disc, they sprint forward for an instant return pass—marching downfield with quick, low-risk throws.
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Man + Deep Poach (exploits the unguarded player underneath!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Reset Deny &amp; 2-3-2 Wall (crowds the short passing lanes).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M6 15h12" stroke="#FF5A6E" stroke-width="2.2" stroke-dasharray="3 2"/><path d="M9 23V13M15 23V6" stroke="#00E5FF" stroke-width="2.4" stroke-linecap="round"/><circle cx="9" cy="13" r="2.5" fill="#00E5FF"/><circle cx="15" cy="6" r="2.5" fill="#00E5FF"/></svg></div>
+                  <h4>Flood &amp; Over-the-Top</h4>
+                </div>
+                <span class="role-chip">BEAT WALL</span>
+              </div>
+              <p class="tactic-explain">
+                Send two receivers into the same zone area—one short, one deep—so a single zone defender can’t guard both, then float an arching pass right over the midfield wall!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> 2-3-2 Wall Zone (beats the flat 3-person wall over the top!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Force Open-Side Man (1-on-1 defenders stay glued to high floaty throws).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card offense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M9 23C4 15 8 8 19 5" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="19" cy="5" r="3" fill="#00E5FF"/><circle cx="22" cy="16" r="2" fill="#64748B"/><circle cx="22" cy="21" r="2" fill="#64748B"/></svg></div>
+                  <h4>Deep Isolation Huck</h4>
+                </div>
+                <span class="role-chip">LONG BOMB</span>
+              </div>
+              <p class="tactic-explain">
+                Four teammates clear to the far sideline so your fastest sprinter gets a 1-on-1 runway—then your handler launches a 40-yard "huck" into the end zone!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Man + Reset Deny (punishes aggressive defenders with zero deep help!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Deep Poach (throwing deep into a waiting safety = interception!).</span>
+              </div>
+            </article>
+          </div>
         </div>
 
-        <div class="guide-tip">
-          <strong>Pro Tip:</strong> Toggle <strong>Scout: PRO</strong> in the top bar anytime to hide formation labels and read pure 7v7 dot spacing like a club captain!
+        <!-- TAB 3: DEFENSIVE TACTICS GUIDE -->
+        <div data-guide-panel="defense" class="hidden">
+          <div class="guide-panel-toprow">
+            <h3>🛡️ Defensive Tactics Guide (All 6 Counters Explained)</h3>
+            <a href="defense-tactics.html" target="_blank" rel="noopener" class="standalone-page-link">Full Guide Page ↗</a>
+          </div>
+          <p class="modal-lead">
+            On Defense, look at how the 7 red Bot dots line up before picking your counter. Match your defense to take away their favorite throw!
+          </p>
+
+          <div class="scout-cheat-list">
+            <div class="scout-cheat-item"><strong>Vertical Stack:</strong> 5 cutters in a straight center line &rarr; watch out for deep shots!</div>
+            <div class="scout-cheat-item"><strong>Horizontal Stack:</strong> 4 cutters spread wide across midfield &rarr; lots of space to run.</div>
+            <div class="scout-cheat-item"><strong>Side Stack ISO:</strong> 4 cutters tucked on one sideline so 1 star cutter (`ISO`) gets the whole field!</div>
+            <div class="scout-cheat-item"><strong>Handler Weave / Red Zone:</strong> Tight triangle near the disc or right on your goal line!</div>
+          </div>
+
+          <div class="tactic-guide-grid">
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><circle cx="11" cy="15" r="3.4" fill="#FF5A6E"/><circle cx="16.5" cy="13" r="3.4" fill="#00E5FF"/><path d="M13 8.5a7.5 7.5 0 0 1 6 9" stroke="#00E5FF" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                  <h4>Force Open-Side</h4>
+                </div>
+                <span class="role-chip">1v1 FORCE</span>
+              </div>
+              <p class="tactic-explain">
+                Solid, honest 1-on-1 defense. Every player guards one opponent, while your marker blocks throws to the break side so your teammates know exactly where cuts are coming from.
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Balanced stacks when you want steady pressure without gambling.</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Side Stack ISO (leaving a star cutter 1-on-1 in open space is risky!).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M22 4v20" stroke="#FBBF24" stroke-width="2.4" stroke-dasharray="3 2"/><circle cx="12" cy="15" r="3.5" fill="#FF5A6E"/><path d="M8 10a7 7 0 0 0 0 10" stroke="#00E5FF" stroke-width="2.6" stroke-linecap="round"/><path d="M14 14l6-4" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                  <h4>Hard Sideline Trap</h4>
+                </div>
+                <span class="role-chip">TRAP MAN</span>
+              </div>
+              <p class="tactic-explain">
+                Your marker blocks throws back to the middle of the field, pinning the offense against the sideline so the out-of-bounds line acts like an extra defender!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Red Zone End-Zone Sets (shrinks tight goal-line space until they panic).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Horizontal Stack (if they break your mark, the whole middle is wide open!).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="9" r="6.5" stroke="#00E5FF" stroke-width="1.8" stroke-dasharray="3 2"/><circle cx="14" cy="9" r="3" fill="#00E5FF"/><circle cx="9" cy="21" r="2.5" fill="#FF5A6E"/><circle cx="19" cy="21" r="2.5" fill="#FF5A6E"/></svg></div>
+                  <h4>Deep Poach / Sag</h4>
+                </div>
+                <span class="role-chip">HELP DEEP</span>
+              </div>
+              <p class="tactic-explain">
+                Six defenders guard 1-on-1 while your 7th defender (`SAG`) drops deep like a center fielder in baseball, ready to intercept any long throw toward your end zone!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Vertical Stack (takes away booming deep hucks down the open lanes!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Handler Weave &amp; Red Zone (leaves an unguarded player open for short passes).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><path d="M5 10h18M5 19h18" stroke="#00E5FF" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="4 3"/><circle cx="10" cy="10" r="2.8" fill="#00E5FF"/><circle cx="18" cy="10" r="2.8" fill="#00E5FF"/><circle cx="14" cy="19" r="2.8" fill="#00E5FF"/></svg></div>
+                  <h4>Clam / Bracket</h4>
+                </div>
+                <span class="role-chip">BRACKET</span>
+              </div>
+              <p class="tactic-explain">
+                Teamwork coverage! Instead of chasing every fake, defenders sandwich the cutters—three guard short underneath passes (`U1–U3`) while two protect deep (`B1–B2`).
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Side Stack ISO (double-teams the star cutter both short and deep!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Quick sideline-to-sideline handler swings before brackets can switch.</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><circle cx="9" cy="18" r="3" fill="#FF5A6E"/><circle cx="19" cy="14" r="3" fill="#FF5A6E"/><path d="M12 8l2.5 7.5L18 19" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="14" cy="15" r="3" fill="#00E5FF"/></svg></div>
+                  <h4>Shutdown Reset</h4>
+                </div>
+                <span class="role-chip">NO DUMP</span>
+              </div>
+              <p class="tactic-explain">
+                Your second defender (`BLZ`) jumps right into the passing lane between the thrower and their backup handler, taking away their easy safety-valve reset pass!
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Handler Weave (breaks their quick rhythm and drives the stall count to 9!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Vertical Stack (leaves single-covered cutters wide open for a deep shot!).</span>
+              </div>
+            </article>
+
+            <article class="tactic-guide-card defense-accent-card">
+              <div class="tactic-card-head">
+                <div class="tactic-card-title-wrap">
+                  <div class="card-icon-box"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="9" r="3" fill="#FF5A6E"/><path d="M6 12c2 6 14 6 16 0" stroke="#00E5FF" stroke-width="2.6" stroke-linecap="round"/><circle cx="7" cy="13" r="2.6" fill="#00E5FF"/><circle cx="14" cy="17" r="2.6" fill="#00E5FF"/><circle cx="21" cy="13" r="2.6" fill="#00E5FF"/></svg></div>
+                  <h4>3-Man Cup Zone</h4>
+                </div>
+                <span class="role-chip">3-3-1 ZONE</span>
+              </div>
+              <p class="tactic-explain">
+                Guard spaces instead of people! Three defenders (`C1–C3`) build a curved wall around the thrower to block forward throws and force risky, floaty passes.
+              </p>
+              <div class="tactic-matchups">
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Horizontal Stack (clogs wide cutting lanes and forces 15+ short throws).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Side Stack ISO &amp; patient handlers who lob passes over the cup!</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="modal-footer-links">
+          <a href="https://punfiction.io/" class="footer-brand-link">&larr; PunFiction Home</a>
+          <a href="offense-tactics.html" target="_blank" rel="noopener" class="footer-text-link">Offense Guide Page ↗</a>
+          <a href="defense-tactics.html" target="_blank" rel="noopener" class="footer-text-link">Defense Guide Page ↗</a>
+          <a href="https://punfiction.io/about.html" class="footer-text-link">About</a>
+          <a href="https://punfiction.io/privacy.html" class="footer-text-link">Privacy</a>
+          <a href="https://punfiction.io/terms.html" class="footer-text-link">Terms</a>
         </div>
       </div>
     </div>
@@ -172,6 +488,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/main.js?v=5"></script>
+  <script type="module" src="js/main.js?v=6"></script>
 </body>
 </html>

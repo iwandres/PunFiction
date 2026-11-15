@@ -97,12 +97,22 @@ button {
 .brand-title {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.12rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.brand-logo-svg {
+  width: 48px;
+  height: 25px;
+  flex-shrink: 0;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 229, 255, 0.24));
 }
 
 .brand-accent {
@@ -818,6 +828,406 @@ button {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
 }
 
+.guide-modal-card {
+  max-width: 720px;
+}
+
+/* ================= FOOTER & TACTICS GUIDE LINKS ================= */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 16px;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(9, 16, 24, 0.9);
+  flex-shrink: 0;
+  font-size: 0.74rem;
+}
+
+.footer-left-links,
+.footer-right-guides {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.footer-brand-link {
+  color: #e2e8f0;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.footer-brand-link:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #ffffff;
+}
+
+.footer-text-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.footer-text-link:hover {
+  color: #ffffff;
+}
+
+.footer-sep {
+  color: rgba(148, 163, 184, 0.32);
+  font-size: 0.68rem;
+}
+
+.footer-guide-label {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.71rem;
+  white-space: nowrap;
+}
+
+.footer-guide-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.guide-pill-offense {
+  background: rgba(52, 211, 153, 0.13);
+  border: 1px solid rgba(52, 211, 153, 0.42);
+  color: #6ee7b7;
+}
+
+.guide-pill-offense:hover {
+  background: rgba(52, 211, 153, 0.24);
+  color: #d1fae5;
+}
+
+.guide-pill-defense {
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.42);
+  color: #7dd3fc;
+}
+
+.guide-pill-defense:hover {
+  background: rgba(0, 229, 255, 0.22);
+  color: #e0f2fe;
+}
+
+/* ================= PLAYBOOK & TACTICS GUIDE UI ================= */
+.guide-tabs-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 4px;
+  background: rgba(9, 16, 23, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.guide-tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 7px 10px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.guide-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.guide-tab-btn.active-guide-tab {
+  background: var(--you-cyan);
+  color: #031521;
+}
+
+.guide-tab-btn[data-guide-tab="offense"].active-guide-tab {
+  background: var(--emerald-accent);
+  color: #021c14;
+}
+
+.guide-panel-toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.guide-panel-toprow h3 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.08rem;
+  color: #ffffff;
+}
+
+.standalone-page-link {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--you-cyan);
+  text-decoration: none;
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  transition: background 0.15s;
+}
+
+.standalone-page-link:hover {
+  background: rgba(0, 229, 255, 0.2);
+}
+
+.lingo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.lingo-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 0.8rem;
+  line-height: 1.38;
+  color: #cbd5e1;
+}
+
+.lingo-tile > strong:first-child {
+  display: block;
+  color: #ffffff;
+  font-size: 0.84rem;
+  margin-bottom: 3px;
+}
+
+.lingo-tile strong {
+  color: #f8fafc;
+}
+
+.tactic-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tactic-guide-card {
+  background: rgba(22, 37, 53, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.tactic-guide-card.offense-accent-card {
+  border-top: 2.5px solid var(--emerald-accent);
+}
+
+.tactic-guide-card.defense-accent-card {
+  border-top: 2.5px solid var(--you-cyan);
+}
+
+.tactic-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tactic-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tactic-card-title-wrap h4 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.tactic-explain {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.42;
+  color: #cbd5e1;
+}
+
+.tactic-matchups {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.75rem;
+  line-height: 1.34;
+}
+
+.matchup-good {
+  color: #a7f3d0;
+}
+
+.matchup-risk {
+  color: #fecdd3;
+}
+
+.scout-cheat-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.scout-cheat-item {
+  background: rgba(255, 90, 110, 0.07);
+  border: 1px solid rgba(255, 90, 110, 0.24);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  line-height: 1.36;
+  color: #e2e8f0;
+}
+
+.scout-cheat-item strong {
+  color: #fda4af;
+}
+
+.modal-footer-links {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.75rem;
+}
+
+/* ================= STANDALONE TACTICS GUIDE PAGES ================= */
+html.guide-html,
+body.guide-page {
+  height: auto;
+  min-height: 100vh;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.guide-page-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.guide-page-main {
+  flex: 1;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 18px 40px;
+}
+
+.guide-hero-box {
+  background: linear-gradient(145deg, rgba(22, 37, 53, 0.92) 0%, rgba(13, 24, 35, 0.95) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+
+.guide-hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--you-cyan);
+  margin-bottom: 6px;
+}
+
+.guide-hero-box h1 {
+  margin: 0 0 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.85rem;
+  line-height: 1.15;
+}
+
+.guide-hero-box p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  max-width: 740px;
+}
+
+.guide-section-block {
+  margin-bottom: 26px;
+}
+
+.guide-section-block h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  margin: 0 0 10px;
+  color: #ffffff;
+}
+
+.guide-cta-banner {
+  margin-top: 28px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.guide-play-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+  color: #031521;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 8px 22px rgba(0, 229, 255, 0.28);
+}
+
 .modal-header {
   display: flex;
   align-items: center;
@@ -987,11 +1397,21 @@ button {
   }
 
   .brand-title {
-    font-size: 0.86rem;
+    font-size: 0.85rem;
+    gap: 5px;
+  }
+
+  .brand-logo-svg {
+    width: 34px;
+    height: 18px;
   }
 
   .brand-subword {
     display: none;
+  }
+
+  body.guide-page .brand-subword {
+    display: inline;
   }
 
   .mode-btn {
@@ -1138,5 +1558,41 @@ button {
   .primary-pull-btn {
     padding: 11px 18px;
     font-size: 1.05rem;
+  }
+
+  .site-footer {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .footer-extra-link,
+  .footer-sep,
+  .footer-guide-label {
+    display: none;
+  }
+
+  .footer-brand-link,
+  .footer-guide-pill {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+  }
+
+  .guide-modal-card {
+    padding: 14px 14px;
+  }
+
+  .guide-tab-btn {
+    font-size: 0.7rem;
+    padding: 6px 6px;
+  }
+
+  .lingo-grid,
+  .tactic-guide-grid,
+  .scout-cheat-list {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-hero-box h1 {
+    font-size: 1.42rem;
   }
 }

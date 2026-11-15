@@ -6,10 +6,10 @@ import {
   BOT_DEFENSES,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=5';
-import { Choreographer } from './choreographer.js?v=5';
-import { FieldRenderer } from './fieldRenderer.js?v=5';
-import { sound } from './audio.js?v=5';
+} from './playbookData.js?v=6';
+import { Choreographer } from './choreographer.js?v=6';
+import { FieldRenderer } from './fieldRenderer.js?v=6';
+import { sound } from './audio.js?v=6';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -91,6 +91,10 @@ class FlatballGame {
 
       helpModal: document.getElementById('help-modal'),
       closeHelpBtn: document.getElementById('close-help-btn'),
+      guideTabBtns: document.querySelectorAll('[data-guide-tab]'),
+      guidePanels: document.querySelectorAll('[data-guide-panel]'),
+      footerOffenseLink: document.getElementById('footer-offense-link'),
+      footerDefenseLink: document.getElementById('footer-defense-link'),
 
       matchModal: document.getElementById('match-modal'),
       matchModalTitle: document.getElementById('match-modal-title'),
@@ -150,8 +154,33 @@ class FlatballGame {
 
     this.dom.helpBtn.addEventListener('click', () => {
       sound.uiClick();
-      this.dom.helpModal.classList.remove('hidden');
+      this.openGuideModal('basics');
     });
+
+    this.dom.guideTabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sound.uiClick();
+        this.switchGuideTab(btn.dataset.guideTab);
+      });
+    });
+
+    if (this.dom.footerOffenseLink) {
+      this.dom.footerOffenseLink.addEventListener('click', (e) => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        sound.uiClick();
+        this.openGuideModal('offense');
+      });
+    }
+
+    if (this.dom.footerDefenseLink) {
+      this.dom.footerDefenseLink.addEventListener('click', (e) => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        sound.uiClick();
+        this.openGuideModal('defense');
+      });
+    }
 
     this.dom.closeHelpBtn.addEventListener('click', () => {
       sound.uiClick();
@@ -174,6 +203,10 @@ class FlatballGame {
     });
 
     window.addEventListener('keydown', (e) => {
+      if (e.code === 'Escape' && !this.dom.helpModal.classList.contains('hidden')) {
+        this.dom.helpModal.classList.add('hidden');
+        return;
+      }
       if (!this.dom.helpModal.classList.contains('hidden') || !this.dom.matchModal.classList.contains('hidden')) {
         return;
       }
@@ -655,6 +688,25 @@ class FlatballGame {
       const look = BOT_DEFENSES[this.state.botDefState.defId];
       this.setTicker(`💡 Scout Tip: ${look.hint}`);
     }
+  }
+
+  openGuideModal(tabName = 'basics') {
+    this.switchGuideTab(tabName);
+    this.dom.helpModal.classList.remove('hidden');
+    const modalCard = this.dom.helpModal.querySelector('.modal-card');
+    if (modalCard) modalCard.scrollTop = 0;
+  }
+
+  switchGuideTab(tabName) {
+    this.dom.guideTabBtns.forEach((btn) => {
+      const active = btn.dataset.guideTab === tabName;
+      btn.classList.toggle('active-guide-tab', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    this.dom.guidePanels.forEach((panel) => {
+      const active = panel.dataset.guidePanel === tabName;
+      panel.classList.toggle('hidden', !active);
+    });
   }
 
   formatYardageText() {
