@@ -7,12 +7,13 @@ import {
   rollPointWind,
   formatWindBadge,
   getEffectiveLook,
+  resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=7';
-import { Choreographer } from './choreographer.js?v=7';
-import { FieldRenderer } from './fieldRenderer.js?v=7';
-import { sound } from './audio.js?v=7';
+} from './playbookData.js?v=8';
+import { Choreographer } from './choreographer.js?v=8';
+import { FieldRenderer } from './fieldRenderer.js?v=8';
+import { sound } from './audio.js?v=8';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -339,7 +340,8 @@ class FlatballGame {
       'split_stack',
       'hex_flow',
       'handler_weave',
-      'star_playmaker'
+      'star_playmaker',
+      'zone_spread'
     ].filter((id) => id !== this.state.lastBotOffId);
     const chosen = pool[Math.floor(this.rng() * pool.length)];
     this.state.lastBotOffId = chosen;
@@ -361,6 +363,7 @@ class FlatballGame {
 
   formatForceBadge(forceSide, defId = null) {
     if (defId === 'bot_man_middle') return 'FORCE MIDDLE ▶◀';
+    if (defId === 'bot_zone_cup' && this.renderer.scoutEnabled) return 'CUP SHELL ◠';
     return forceSide === 'home' ? 'FORCE HOME ◀' : 'FORCE AWAY ▶';
   }
 
@@ -587,7 +590,7 @@ class FlatballGame {
             this.state.botScore += 1;
             this.state.stats.pointHistory.push('L');
             const reason = card.tier === 'worst'
-              ? effBotOffObj.outcomes.worst
+              ? resolveWorstOutcome(effBotOffObj, card.id)
               : 'Bot marched the remaining yards across your goal line for the score.';
             this.addFeedEntry(`⚠️ Bot Goal (${this.state.playerScore}–${this.state.botScore}): ${card.name} vs ${effBotOffObj.name}.`, 'bad');
             this.enterPointOver('bot', reason);
@@ -644,7 +647,7 @@ class FlatballGame {
             this.state.activeStrategyId = null;
             this.addFeedEntry(`💥 Turnover vs ${effBotDefObj.name}! Back on Defense.`, 'bad');
             this.enterDefenseRead(false, false);
-            this.setTicker(`${effBotDefObj.outcomes.worst} Transitioning to Defense — stop them!`);
+            this.setTicker(`${resolveWorstOutcome(effBotDefObj, card.id)} Transitioning to Defense — stop them!`);
           }
         }
       });

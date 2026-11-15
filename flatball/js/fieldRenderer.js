@@ -273,7 +273,12 @@ export class FieldRenderer {
   drawSidelineLabels(ctx, choreo) {
     const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
     const vc = choreo.visualContext;
-    const onOffenseRead = vc && vc.offenseTeam === 'player' && vc.scoutShape;
+    const onOffenseRead =
+      vc &&
+      vc.offenseTeam === 'player' &&
+      vc.scoutShape &&
+      vc.scoutShape !== 'bot_force_mid' &&
+      vc.forceType !== 'cup';
     const homeForced = onOffenseRead && vc.forceSide === 'home';
     const awayForced = onOffenseRead && vc.forceSide === 'away';
 
@@ -346,12 +351,17 @@ export class FieldRenderer {
           }
         }
 
-        // When Player is on Offense, draw a subtle Force Vector Arrow showing Force HOME (◀) vs Force AWAY (▶)
-        if (choreo.disc.holderTeam === 'player' && vc.scoutShape) {
-          const fDir = vc.forceSide === 'home' ? -1 : 1;
+        // When Player is on Offense (non-Cup), draw a Force Vector Arrow showing Force HOME (◀), AWAY (▶), or MIDDLE!
+        if (choreo.disc.holderTeam === 'player' && vc.scoutShape && vc.forceType !== 'cup') {
+          const fDir = vc.scoutShape === 'bot_force_mid'
+            ? (holder.x <= 0 ? 1 : -1)
+            : (vc.forceSide === 'home' ? -1 : 1);
+          const targetWorldX = vc.scoutShape === 'bot_force_mid'
+            ? holder.x * 0.25 + fDir * 4.2
+            : holder.x + fDir * 6.2;
           const arrowEnd = this.worldToPx(
-            Math.max(-18.5, Math.min(18.5, holder.x + fDir * 6.2)),
-            Math.min(106, holder.y + 3.2)
+            Math.max(-18.5, Math.min(18.5, targetWorldX)),
+            Math.min(106, holder.y + 3.4)
           );
           ctx.save();
           ctx.strokeStyle = 'rgba(251, 191, 36, 0.78)';
@@ -506,6 +516,26 @@ export class FieldRenderer {
       ctx.moveTo(h1.x, h1.y);
       ctx.lineTo(ace.x, ace.y);
       ctx.lineTo(h2.x, h2.y);
+      ctx.stroke();
+    } else if (vc.scoutShape === 'spread_322') {
+      const h1 = this.worldToPx(choreo.botDots[0].x, choreo.botDots[0].y);
+      const h2 = this.worldToPx(choreo.botDots[1].x, choreo.botDots[1].y);
+      const h3 = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const p1 = this.worldToPx(choreo.botDots[3].x, choreo.botDots[3].y);
+      const p2 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
+      const w1 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
+      const w2 = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
+      ctx.strokeStyle = `rgba(255, 214, 102, ${0.46 + pulse * 0.24})`;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(h2.x, h2.y);
+      ctx.lineTo(h1.x, h1.y);
+      ctx.lineTo(h3.x, h3.y);
+      ctx.moveTo(w1.x, w1.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.lineTo(w2.x, w2.y);
       ctx.stroke();
     } else if (vc.scoutShape === 'bot_man_trap') {
       // Highlight the narrow trapped sideline danger zone in subtle coral

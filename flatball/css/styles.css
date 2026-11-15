@@ -1464,8 +1464,8 @@ body.guide-page {
   }
 
   .arena-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
     grid-template-areas:
       'score'
       'field'
@@ -1475,47 +1475,76 @@ body.guide-page {
     padding: 6px 8px 8px;
   }
 
+  .scoreboard-card,
+  .field-stage,
+  .coach-box,
+  .action-tray {
+    min-width: 0;
+  }
+
   .play-log-panel {
     display: none;
   }
 
   .scoreboard-card {
-    padding: 6px 12px;
+    padding: 5px 9px;
     border-radius: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
   }
 
   .score-row {
-    gap: 10px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .team-block {
+    gap: 5px;
+  }
+
+  .team-id {
+    gap: 4px;
+  }
+
+  .dot-swatch {
+    width: 9px;
+    height: 9px;
   }
 
   .score-big {
-    font-size: 1.3rem;
+    font-size: 1.18rem;
   }
 
   .team-name {
-    font-size: 0.72rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
   }
 
   .telemetry-row {
     border-top: none;
     padding-top: 0;
-    gap: 6px;
+    gap: 4px;
+    min-width: 0;
   }
 
   .status-pill,
   .yardage-pill {
-    font-size: 0.63rem;
-    padding: 2px 6px;
+    font-size: 0.57rem;
+    padding: 2px 5px;
+    letter-spacing: 0.01em;
     white-space: nowrap;
   }
 
+  .yardage-pill {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .target-pill {
-    font-size: 0.62rem;
-    padding: 2px 6px;
+    font-size: 0.56rem;
+    padding: 1px 5px;
   }
 
   .field-stage {

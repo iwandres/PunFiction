@@ -162,12 +162,12 @@ export const BOT_OFFENSES = {
     scoutShape: 'vert_spine',
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
-      { dx: -7.5, fy: -5, role: 'H2' },
-      { dx: 0, fy: 9.5, role: '1' },
-      { dx: 0, fy: 14, role: '2' },
-      { dx: 0, fy: 18.5, role: '3' },
-      { dx: 0, fy: 23, role: '4' },
-      { dx: 0, fy: 27.5, role: '5' }
+      { dx: -7.2, fy: -4.8, role: 'H2' },
+      { dx: 0, fy: 9.5, role: '1', anchor: 'field' },
+      { dx: 0, fy: 14, role: '2', anchor: 'field' },
+      { dx: 0, fy: 18.5, role: '3', anchor: 'field' },
+      { dx: 0, fy: 23, role: '4', anchor: 'field' },
+      { dx: 0, fy: 27.5, role: '5', anchor: 'field' }
     ],
     matchups: {
       deep_poach: 'ideal',
@@ -196,12 +196,12 @@ export const BOT_OFFENSES = {
     scoutShape: 'ho_line',
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
-      { dx: -9.5, fy: -4.2, role: 'H2' },
-      { dx: 9.5, fy: -4.2, role: 'H3' },
-      { dx: -14, fy: 15.5, role: '1' },
-      { dx: -4.8, fy: 13.5, role: '2' },
-      { dx: 4.8, fy: 13.5, role: '3' },
-      { dx: 14, fy: 15.5, role: '4' }
+      { dx: -8.5, fy: -4.2, role: 'H2' },
+      { dx: 8.5, fy: -4.2, role: 'H3' },
+      { dx: -14, fy: 15.5, role: '1', anchor: 'field' },
+      { dx: -4.8, fy: 13.5, role: '2', anchor: 'field' },
+      { dx: 4.8, fy: 13.5, role: '3', anchor: 'field' },
+      { dx: 14, fy: 15.5, role: '4', anchor: 'field' }
     ],
     matchups: {
       cup_zone: 'ideal',
@@ -230,12 +230,12 @@ export const BOT_OFFENSES = {
     scoutShape: 'iso_spotlight',
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
-      { dx: -7, fy: -4.8, role: 'H2' },
-      { dx: -5.5, fy: 15.5, role: 'ISO', highlight: true },
-      { dx: 14.5, fy: 10, role: '2' },
-      { dx: 14.5, fy: 14, role: '3' },
-      { dx: 14.5, fy: 18, role: '4' },
-      { dx: 14.5, fy: 22, role: '5' }
+      { dx: -6.8, fy: -4.6, role: 'H2' },
+      { dx: 6.5, fy: 15.5, role: 'ISO', highlight: true, anchor: 'field' },
+      { dx: -15.8, fy: 10, role: '2', anchor: 'field' },
+      { dx: -15.8, fy: 14, role: '3', anchor: 'field' },
+      { dx: -15.8, fy: 18, role: '4', anchor: 'field' },
+      { dx: -15.8, fy: 22, role: '5', anchor: 'field' }
     ],
     matchups: {
       clam_bracket: 'ideal',
@@ -265,11 +265,11 @@ export const BOT_OFFENSES = {
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
       { dx: -6.5, fy: -4.5, role: 'H2' },
-      { dx: -14.5, fy: 10.5, role: '1' },
-      { dx: -14.5, fy: 17, role: '2' },
-      { dx: 14.5, fy: 9.5, role: '3' },
-      { dx: 14.5, fy: 15.5, role: '4' },
-      { dx: 14.5, fy: 21.5, role: '5' }
+      { dx: -15.5, fy: 10.5, role: '1', anchor: 'field' },
+      { dx: -15.5, fy: 17, role: '2', anchor: 'field' },
+      { dx: 15.5, fy: 9.5, role: '3', anchor: 'field' },
+      { dx: 15.5, fy: 15.5, role: '4', anchor: 'field' },
+      { dx: 15.5, fy: 21.5, role: '5', anchor: 'field' }
     ],
     matchups: {
       force_middle: 'ideal',
@@ -279,7 +279,7 @@ export const BOT_OFFENSES = {
       force_flick: 'middle',
       sideline_trap: 'middle',
       shutdown_reset: 'middle',
-      box_and_one: 'middle',
+      box_and_one: 'worst',
       deep_poach: 'worst'
     },
     defaultHand: ['force_middle', 'clam_bracket', 'force_flick', 'deep_poach'],
@@ -287,6 +287,10 @@ export const BOT_OFFENSES = {
       ideal: 'Force Middle took away the sideline continuation lanes and baited a cross-field pass right into your poacher!',
       middle: 'Solid recovery rallied to tackle the gain after Split Stack worked a sideline under cut.',
       worst: 'Sagging a lone Deep Poach in the empty middle left BOTH sideline stacks uncovered for an easy march to the goal!'
+    },
+    worstByCard: {
+      deep_poach: 'Sagging a lone Deep Poach in the empty middle left BOTH sideline stacks uncovered for an easy march to the goal!',
+      box_and_one: 'Packing a 4-defender Box in the empty middle left Split Stack’s twin sideline lanes completely unguarded for a score!'
     }
   },
 
@@ -298,12 +302,12 @@ export const BOT_OFFENSES = {
     scoutShape: 'hex_grid',
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
-      { dx: -8.5, fy: -3.5, role: 'H2' },
-      { dx: 0, fy: 10.5, role: 'HUB', highlight: true },
-      { dx: -12, fy: 9, role: 'M1' },
-      { dx: 12, fy: 9, role: 'M2' },
-      { dx: -8, fy: 20.5, role: 'W1' },
-      { dx: 8, fy: 20.5, role: 'W2' }
+      { dx: -8.0, fy: -3.5, role: 'H2' },
+      { dx: 0, fy: 10.5, role: 'HUB', highlight: true, anchor: 'field' },
+      { dx: -13, fy: 9, role: 'M1', anchor: 'field' },
+      { dx: 13, fy: 9, role: 'M2', anchor: 'field' },
+      { dx: -8.5, fy: 20.5, role: 'W1', anchor: 'field' },
+      { dx: 8.5, fy: 20.5, role: 'W2', anchor: 'field' }
     ],
     matchups: {
       wall_zone: 'ideal',
@@ -334,10 +338,10 @@ export const BOT_OFFENSES = {
       { dx: 0, fy: 0, role: 'H1' },
       { dx: -7, fy: -3.2, role: 'H2' },
       { dx: 7, fy: -2.5, role: 'H3' },
-      { dx: 1.5, fy: 6.8, role: 'H4' },
-      { dx: -12.5, fy: 24, role: '1' },
-      { dx: 0, fy: 26, role: '2' },
-      { dx: 12.5, fy: 24, role: '3' }
+      { dx: 2.0, fy: 6.8, role: 'H4' },
+      { dx: -12.5, fy: 24, role: '1', anchor: 'field' },
+      { dx: 0, fy: 26, role: '2', anchor: 'field' },
+      { dx: 12.5, fy: 24, role: '3', anchor: 'field' }
     ],
     matchups: {
       shutdown_reset: 'ideal',
@@ -347,7 +351,7 @@ export const BOT_OFFENSES = {
       sideline_trap: 'middle',
       force_flick: 'middle',
       force_middle: 'middle',
-      clam_bracket: 'middle',
+      clam_bracket: 'worst',
       deep_poach: 'worst'
     },
     defaultHand: ['shutdown_reset', 'cup_zone', 'force_flick', 'deep_poach'],
@@ -355,6 +359,10 @@ export const BOT_OFFENSES = {
       ideal: 'Shutdown Reset jumped the dump pass in the backfield for an explosive layout D-block!',
       middle: 'Your mark forced extra throws, though quick handler give-and-gos chipped forward.',
       worst: 'Deep Poach left the handlers 4-on-3 underneath — they played effortless give-and-go all the way in!'
+    },
+    worstByCard: {
+      deep_poach: 'Deep Poach left the handlers 4-on-3 underneath — they played effortless give-and-go all the way in!',
+      clam_bracket: 'Clam Bracket parked 5 defenders downfield, letting Handler Weave’s 4 handlers play 4-on-2 give-and-go to the goal!'
     }
   },
 
@@ -367,11 +375,11 @@ export const BOT_OFFENSES = {
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
       { dx: -7.5, fy: -3.8, role: 'H2' },
-      { dx: 4.2, fy: 7.2, role: 'ACE', highlight: true },
-      { dx: -13.5, fy: 21, role: '1' },
-      { dx: -4.5, fy: 24, role: '2' },
-      { dx: 4.5, fy: 24, role: '3' },
-      { dx: 13.5, fy: 21, role: '4' }
+      { dx: 4.0, fy: 7.5, role: 'ACE', highlight: true, anchor: 'field' },
+      { dx: -13.5, fy: 21, role: '1', anchor: 'field' },
+      { dx: -4.5, fy: 24, role: '2', anchor: 'field' },
+      { dx: 4.5, fy: 24, role: '3', anchor: 'field' },
+      { dx: 13.5, fy: 21, role: '4', anchor: 'field' }
     ],
     matchups: {
       box_and_one: 'ideal',
@@ -392,6 +400,44 @@ export const BOT_OFFENSES = {
     }
   },
 
+  zone_spread: {
+    id: 'zone_spread',
+    name: 'Popper-Wing Spread',
+    tag: 'ZONE-BUSTER 3-2-2',
+    hint: 'Bot lined up in a 3-handler + 2-popper Zone-Buster expecting Zone — lock onto every receiver 1-on-1 with Force Open-Side!',
+    scoutShape: 'spread_322',
+    offenseOffsets: [
+      { dx: 0, fy: 0, role: 'H1' },
+      { dx: -8.8, fy: -3.4, role: 'H2' },
+      { dx: 8.8, fy: -3.4, role: 'H3' },
+      { dx: -4.2, fy: 9.2, role: 'P1', highlight: true, anchor: 'field' },
+      { dx: 4.2, fy: 9.8, role: 'P2', highlight: true, anchor: 'field' },
+      { dx: -14.8, fy: 16.5, role: 'W1', anchor: 'field' },
+      { dx: 14.8, fy: 16.5, role: 'W2', anchor: 'field' }
+    ],
+    matchups: {
+      force_flick: 'ideal',
+      clam_bracket: 'middle',
+      force_middle: 'middle',
+      shutdown_reset: 'middle',
+      box_and_one: 'middle',
+      sideline_trap: 'middle',
+      deep_poach: 'middle',
+      cup_zone: 'worst',
+      wall_zone: 'worst'
+    },
+    defaultHand: ['force_flick', 'clam_bracket', 'shutdown_reset', 'cup_zone'],
+    outcomes: {
+      ideal: 'Force Open-Side locked down every Popper and Wing 1-on-1, erasing their Zone-Buster spacing for a Stall-9 block!',
+      middle: 'Tight coverage slowed their Popper-Wing spread to a modest gain.',
+      worst: 'Staying in Zone against a dedicated 3-2-2 Popper-Wing Zone-Buster got dissected right through the middle pocket!'
+    },
+    worstByCard: {
+      cup_zone: '3-Person Cup played right into their 3-2-2 Popper-Wing Zone-Buster — quick swings and a middle popper shredded the Cup!',
+      wall_zone: '2-3-2 Wall Zone got picked apart by their dedicated Popper-Wing Zone-Buster working the short and wide seams!'
+    }
+  },
+
   red_zone: {
     id: 'red_zone',
     name: 'Red Zone Endzone Set',
@@ -402,10 +448,10 @@ export const BOT_OFFENSES = {
       { dx: 0, fy: 0, role: 'H1' },
       { dx: -8, fy: -4, role: 'H2' },
       { dx: 8, fy: -4, role: 'H3' },
-      { dx: 0, fy: 7.5, role: '1' },
-      { dx: 0, fy: 12, role: '2' },
-      { dx: -11.5, fy: 11.5, role: '3' },
-      { dx: 11.5, fy: 11.5, role: '4' }
+      { dx: 0, fy: 7.5, role: '1', anchor: 'field' },
+      { dx: 0, fy: 12, role: '2', anchor: 'field' },
+      { dx: -12.5, fy: 11.5, role: '3', anchor: 'field' },
+      { dx: 12.5, fy: 11.5, role: '4', anchor: 'field' }
     ],
     matchups: {
       sideline_trap: 'ideal',
@@ -441,20 +487,20 @@ export const BOT_DEFENSES = {
     forceStyle: 'directional',
     matchups: {
       force_cuts: 'ideal',
+      break_swing: 'middle',
       upline_strike: 'middle',
       dump_swing: 'middle',
       give_go: 'middle',
       deep_huck: 'middle',
       pop_swing: 'middle',
       overhead_hammer: 'middle',
-      zone_flood: 'middle',
-      break_swing: 'worst'
+      zone_flood: 'worst'
     },
-    defaultHand: ['force_cuts', 'deep_huck', 'give_go', 'break_swing'],
+    defaultHand: ['force_cuts', 'upline_strike', 'dump_swing', 'zone_flood'],
     outcomes: {
       ideal: 'Force-Side Cuts attacked the wide-open forced lane in stride and powered straight into the end zone!',
       middle: 'Patient execution against 1v1 Man moved the disc 25 yards downfield.',
-      worst: 'Forcing a low Break-Mark throw toward the cramped short side got hand-blocked by a disciplined marker!'
+      worst: 'Running Zone Flood against 1v1 Man dragged extra defenders into the same lane and got skied — Turnover!'
     }
   },
 
@@ -528,7 +574,7 @@ export const BOT_DEFENSES = {
       break_swing: 'middle',
       pop_swing: 'middle',
       zone_flood: 'middle',
-      overhead_hammer: 'middle',
+      overhead_hammer: 'worst',
       deep_huck: 'worst'
     },
     defaultHand: ['give_go', 'force_cuts', 'dump_swing', 'deep_huck'],
@@ -536,6 +582,10 @@ export const BOT_DEFENSES = {
       ideal: 'Give-and-Go Weave exploited the unguarded player underneath the deep poacher all the way in for the goal!',
       middle: 'Short disciplined passes stayed safely underneath the deep poacher for +25 yards.',
       worst: 'Launching a Deep ISO Huck straight at a waiting Deep Poacher got skied cleanly — Turnover!'
+    },
+    worstByCard: {
+      deep_huck: 'Launching a Deep ISO Huck straight at a waiting Deep Poacher got skied cleanly — Turnover!',
+      overhead_hammer: 'Floating a high Overhead Hammer with a free-safety Deep Poacher patrolling the backfield got picked off!'
     }
   },
 
@@ -563,6 +613,10 @@ export const BOT_DEFENSES = {
       ideal: 'Upline Strike Cut faked back, burned the face-guarding blitzer upline into power position, and launched the goal!',
       middle: 'Attacking downfield bypassed the backfield dump blitz for a 25-yard gain.',
       worst: 'Throwing a backward reset straight into a face-guarding Dump Blitz got layout-blocked!'
+    },
+    worstByCard: {
+      dump_swing: 'Throwing a backward Dump-Swing reset straight into a face-guarding Dump Blitz got layout-blocked!',
+      give_go: 'Trying a short Give-and-Go handler pass right into their `BLZ` reset blitzer got jumped in the backfield!'
     }
   },
 
@@ -580,16 +634,20 @@ export const BOT_DEFENSES = {
       upline_strike: 'middle',
       break_swing: 'middle',
       dump_swing: 'middle',
-      pop_swing: 'middle',
       zone_flood: 'middle',
-      give_go: 'worst',
-      force_cuts: 'middle'
+      force_cuts: 'middle',
+      pop_swing: 'worst',
+      give_go: 'worst'
     },
     defaultHand: ['deep_huck', 'upline_strike', 'dump_swing', 'give_go'],
     outcomes: {
       ideal: 'With every defender gambling underneath, Deep ISO Huck sailed over the press into 35 yards of open green grass — Goal!',
       middle: 'Clever spacing pried open a window against the tight press for solid yardage.',
       worst: 'Throwing short Give-and-Go passes straight into underneath press defenders got jumped for an interception!'
+    },
+    worstByCard: {
+      give_go: 'Throwing short Give-and-Go passes straight into underneath press defenders got jumped for an interception!',
+      pop_swing: 'Short Popper & Wing Swing passes underneath got jumped by Tight Press defenders fronting every receiver!'
     }
   },
 
@@ -607,8 +665,8 @@ export const BOT_DEFENSES = {
       dump_swing: 'middle',
       zone_flood: 'middle',
       give_go: 'middle',
-      upline_strike: 'middle',
       force_cuts: 'middle',
+      upline_strike: 'worst',
       break_swing: 'worst',
       deep_huck: 'worst'
     },
@@ -617,6 +675,11 @@ export const BOT_DEFENSES = {
       ideal: 'Popper & Wing Swing stretched the 3-Man Cup wide and punctured the soft center pocket for the score!',
       middle: 'Crisp handler swings moved the Cup side-to-side for a 24-yard advance.',
       worst: 'Trying to blast a low throw straight through three Cup defenders got point-blocked at release!'
+    },
+    worstByCard: {
+      break_swing: 'Trying to force a low Break-Mark throw straight through three Cup defenders got point-blocked at release!',
+      deep_huck: 'Winding up for a Deep ISO Huck against a 3-Man Cup got swallowed by the wall and intercepted deep!',
+      upline_strike: 'Sprinting an Upline Strike Cut straight into three waiting Cup defenders ran right into a brick wall — Turnover!'
     }
   },
 
@@ -779,9 +842,10 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
   const defaultHand = [...baseLookObj.defaultHand];
   let hint = baseLookObj.hint;
   const outcomes = { ...baseLookObj.outcomes };
+  const worstByCard = { ...(baseLookObj.worstByCard || {}) };
 
   if (!wind || wind.strength === 'calm') {
-    return { ...baseLookObj, matchups, defaultHand, hint, outcomes };
+    return { ...baseLookObj, matchups, defaultHand, hint, outcomes, worstByCard };
   }
 
   const setNewIdeal = (newIdealId, windHint, windIdealOutcome) => {
@@ -805,17 +869,20 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
       // In a breezy headwind, upside-down Overhead Hammers get risky if they weren't already ideal
       if (matchups.overhead_hammer !== 'ideal') {
         matchups.overhead_hammer = 'worst';
-        outcomes.worst = `🌬️ The ${wind.mph} mph headwind caught the floaty throw and pushed it off target — Turnover!`;
+        worstByCard.overhead_hammer = `🌬️ The ${wind.mph} mph headwind caught the upside-down Overhead Hammer and pushed it off target — Turnover!`;
       }
       hint = `${baseLookObj.hint} (🌬️ ${wind.mph}mph Headwind: avoid floaty hammers!)`;
     } else if (isHeadwind && wind.strength === 'stiff') {
-      // Stiff 20mph Headwind! High hucks & overhead hammers pop up and blow backward!
+      // Stiff 20mph Headwind! High hucks, overhead hammers & over-the-top floats pop up and blow backward!
       matchups.deep_huck = 'worst';
       matchups.overhead_hammer = 'worst';
-      if (!defaultHand.includes('deep_huck') && !defaultHand.includes('overhead_hammer')) {
+      matchups.zone_flood = 'worst';
+      worstByCard.deep_huck = `💨 Stiff ${wind.mph} mph Headwind popped the Deep ISO Huck up in mid-air and blew it backward into an interception!`;
+      worstByCard.overhead_hammer = `💨 Stiff ${wind.mph} mph Headwind caught the upside-down Overhead Hammer and sailed it straight to a defender!`;
+      worstByCard.zone_flood = `💨 Stiff ${wind.mph} mph Headwind hung the over-the-top Zone Flood pass in mid-air for an easy zone pick!`;
+      if (!defaultHand.includes('deep_huck') && !defaultHand.includes('overhead_hammer') && !defaultHand.includes('zone_flood')) {
         defaultHand[defaultHand.length - 1] = 'deep_huck';
       }
-      outcomes.worst = `💨 Stiff ${wind.mph} mph Headwind popped the high pass up in mid-air and blew it backward into an interception!`;
 
       // If base ideal was deep_huck, overhead_hammer, or zone_flood, shift Ideal to crisp low wind-cutting!
       if (baseLookObj.id === 'bot_man_press') {
@@ -830,8 +897,14 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
           `💨 STIFF ${wind.mph}mph HEADWIND: Too windy for an Overhead Hammer! Work low through the Box with Popper & Wing Swing!`,
           `💨 Textbook wind play! Popper & Wing Swing zipped crisp low passes beneath the ${wind.mph} mph gusts to beat Box-and-1!`
         );
+      } else if (baseLookObj.id === 'bot_zone_wall') {
+        setNewIdeal(
+          'pop_swing',
+          `💨 STIFF ${wind.mph}mph HEADWIND: Too windy to float over the Wall! Punch low passes through the seams with Popper & Wing Swing!`,
+          `💨 Smart wind adjustment! Popper & Wing Swing lasered low passes through the 2-3-2 Wall seams beneath the ${wind.mph} mph gusts!`
+        );
       } else {
-        hint = `💨 ${wind.mph}mph Headwind (No Hucks/Hammers!) — ${baseLookObj.hint}`;
+        hint = `💨 ${wind.mph}mph Headwind (No Hucks/Hammers/Floats!) — ${baseLookObj.hint}`;
       }
     } else if (isTailwind && wind.strength === 'stiff') {
       // Stiff Tailwind! Deep shots fly like rockets when there's no Deep Poach!
@@ -856,7 +929,7 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
     if (botGoingUpwind && wind.strength === 'stiff') {
       // Classic Ultimate rule: When opponent goes into a Stiff Headwind, ZONE (3-Person Cup) dominates stacks!
       matchups.deep_poach = 'worst';
-      outcomes.worst = `💨 Bot couldn’t huck into a ${wind.mph} mph headwind anyway — sagging Deep Poach gave them free short passes for a score!`;
+      worstByCard.deep_poach = `💨 Bot couldn’t huck into a ${wind.mph} mph headwind anyway — sagging Deep Poach gave them free short passes for a score!`;
 
       if (['vert_stack', 'side_iso', 'split_stack'].includes(baseLookObj.id)) {
         setNewIdeal(
@@ -870,7 +943,7 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
     } else if (botHasTailwind && wind.strength === 'stiff') {
       // Bot has a roaring 20mph Tailwind — watch the deep huck!
       matchups.shutdown_reset = 'worst';
-      outcomes.worst = `💨 With a ${wind.mph} mph tailwind at their back, blitzing the handler gave up an effortless 50-yard downwind bomb!`;
+      worstByCard.shutdown_reset = `💨 With a ${wind.mph} mph tailwind at their back, blitzing the handler gave up an effortless 50-yard downwind bomb!`;
 
       if (['ho_stack', 'split_stack'].includes(baseLookObj.id)) {
         setNewIdeal(
@@ -880,16 +953,16 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
         );
       } else if (baseLookObj.id === 'handler_weave') {
         setNewIdeal(
-          'clam_bracket',
-          `💨 BOT HAS A ${wind.mph}mph TAILWIND: Blitzing Handler Weave risks a downwind bomb — play Clam Bracket to cover short & deep!`,
-          `💨 Smart wind discipline! Clam Bracket contained Handler Weave underneath while taking away the tailwind deep shot!`
+          'force_flick',
+          `💨 BOT HAS A ${wind.mph}mph TAILWIND: Blitzing Handler Weave risks a downwind bomb — play honest Force Open-Side 1v1!`,
+          `💨 Smart wind discipline! Force Open-Side stayed glued to the handlers AND tracked the tailwind deep shot for a Stall-9 stop!`
         );
       } else {
         hint = `💨 Bot has a ${wind.mph}mph Tailwind — ${baseLookObj.hint}`;
       }
     } else if ((wind.dir === 'west' || wind.dir === 'east') && wind.strength === 'stiff') {
-      const pinnedDownwind = (wind.dir === 'west' && discX < -4) || (wind.dir === 'east' && discX > 4);
-      if (pinnedDownwind && baseLookObj.id !== 'ho_stack') {
+      const pinnedDownwind = (wind.dir === 'west' && discX <= -7.5) || (wind.dir === 'east' && discX >= 7.5);
+      if (pinnedDownwind && !['ho_stack', 'zone_spread'].includes(baseLookObj.id)) {
         setNewIdeal(
           'sideline_trap',
           `💨 STIFF ${wind.mph}mph CROSSWIND pinning Bot on the downwind sideline — lock on Sideline Trap!`,
@@ -899,7 +972,17 @@ export function getEffectiveLook(baseLookObj, wind, isPlayerOffense = false, dis
     }
   }
 
-  return { ...baseLookObj, matchups, defaultHand, hint, outcomes };
+  return { ...baseLookObj, matchups, defaultHand, hint, outcomes, worstByCard };
+}
+
+/**
+ * Returns the exact card-specific coaching explanation when a 'worst' play is chosen.
+ */
+export function resolveWorstOutcome(effLookObj, chosenCardId) {
+  if (effLookObj && effLookObj.worstByCard && effLookObj.worstByCard[chosenCardId]) {
+    return effLookObj.worstByCard[chosenCardId];
+  }
+  return effLookObj.outcomes.worst;
 }
 
 /**
@@ -938,8 +1021,8 @@ export function rollBotDefenseState({ discX, prevDefId = null, prevStack = 'vert
     // Force toward the center of the field!
     forceSide = discX <= 0 ? 'away' : 'home';
   } else if (defId === 'bot_man_open') {
-    if (discX > 3.5) forceSide = 'home';
-    else if (discX < -3.5) forceSide = 'away';
+    if (discX > 1.5) forceSide = 'home';
+    else if (discX < -1.5) forceSide = 'away';
     else forceSide = rng() < 0.5 ? 'home' : 'away';
   } else {
     forceSide = rng() < 0.5 ? 'home' : 'away';
