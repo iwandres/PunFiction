@@ -569,7 +569,7 @@
                 <div class="game-card travelreviews-card travelreviews-guides-card" style="padding: 22px 24px; text-align: left;">
                     <h3 class="guides-heading">📚 Landmark Field Guides &amp; Review Archive</h3>
                     <p class="guides-subtext">
-                        Explore <strong><span id="portal-live-landmark-count">134</span> real-world monuments</strong> with comical histories, visitor field notes, and the 1-star tourist complaints behind each puzzle:
+                        Explore <strong>real-world monuments</strong> with comical histories, visitor field notes, and the 1-star tourist complaints behind each puzzle:
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; width: 100%;">
                         <a href="./travelreviews/landmarks/challenge-001-eiffel-tower.html" class="landmark-chip">#001 Eiffel Tower</a>
@@ -582,7 +582,7 @@
                         <a href="./travelreviews/landmarks/challenge-047-grand-canyon.html" class="landmark-chip">#047 Grand Canyon</a>
                     </div>
                     <div style="text-align: center; width: 100%;">
-                        <a href="./travelreviews/landmarks/" class="play-btn" style="font-size: 1.02rem; padding: 10px 24px;">Browse All <span id="portal-live-landmark-btn-count">134</span> Landmark Guides ➔</a>
+                        <a href="./travelreviews/landmarks/" class="play-btn" style="font-size: 1.02rem; padding: 10px 24px;">Browse Landmark Guides ➔</a>
                     </div>
                 </div>
             </div>
@@ -641,39 +641,5 @@
     <footer>
         <p>&copy; 2026 PunFiction. All rights reserved. | <a href="./">Home</a> | <a href="./travelreviews/">Play Travel Reviews</a> | <a href="./wordvine/">Play Word Vine</a> | <a href="./travelreviews/landmarks/">Landmark Archive</a> | <a href="./about.html">About Us</a> | <a href="./how-to-play-travelreviews.html">How to Play Travel Reviews</a> | <a href="./how-to-play-wordvine.html">How to Play Word Vine</a> | <a href="./privacy.html">Privacy Policy</a> | <a href="./terms.html">Terms of Service</a></p>
     </footer>
-    <script>
-        (function () {
-            var MAX_LANDMARKS = 181;
-            function getDaysElapsedSinceStart() {
-                try {
-                    var now = new Date();
-                    var parts = new Intl.DateTimeFormat("en-US", {
-                        timeZone: "America/Los_Angeles",
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                        second: "numeric",
-                        hour12: false
-                    }).formatToParts(now);
-                    var val = function (t) {
-                        return parseInt(parts.find(function (p) { return p.type === t; }).value, 10);
-                    };
-                    var nowPTUtc = Date.UTC(val("year"), val("month") - 1, val("day"), val("hour") % 24, val("minute"), val("second"));
-                    var startPTUtc = Date.UTC(2026, 6, 4, 2, 0, 0);
-                    return Math.max(0, Math.floor((nowPTUtc - startPTUtc) / 86400000));
-                } catch (e) {
-                    var start = new Date("2026-07-04T02:00:00-07:00");
-                    return Math.max(0, Math.floor((Date.now() - start.getTime()) / 86400000));
-                }
-            }
-            var liveCount = Math.min(MAX_LANDMARKS, Math.max(1, getDaysElapsedSinceStart() + 1));
-            var c1 = document.getElementById("portal-live-landmark-count");
-            var c2 = document.getElementById("portal-live-landmark-btn-count");
-            if (c1) c1.textContent = String(liveCount);
-            if (c2) c2.textContent = String(liveCount);
-        })();
-    </script>
 </body>
 </html>
