@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=4';
-import { sound } from './audio.js?v=4';
+} from './playbookData.js?v=5';
+import { sound } from './audio.js?v=5';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -53,7 +53,14 @@ export class Choreographer {
       scoutShape: null,
       forceTeam: 'player',
       forceType: 'open',
+      playerPreviewId: null,
       ghostPreview: null
+    };
+
+    this.driftState = {
+      active: false,
+      playerTargets: null,
+      botTargets: null
     };
 
     this.particles = [];
@@ -84,6 +91,48 @@ export class Choreographer {
     this.beats = [];
     this.currentBeat = null;
     this.beatElapsed = 0;
+    this.driftState.active = false;
+    for (const d of this.playerDots) {
+      d.vx = 0;
+      d.vy = 0;
+    }
+    for (const d of this.botDots) {
+      d.vx = 0;
+      d.vy = 0;
+    }
+  }
+
+  /**
+   * Smoothly drifts Player's 7 defenders into the selected Defensive Strategy on the field before confirming!
+   */
+  previewDefenseSelection(discX, discY, botOffenseId, playerDefId) {
+    const defObj = PLAYER_DEFENSES[playerDefId];
+    if (!defObj) return;
+    const { botTargets, playerTargets } = this.computeBotOffenseSetup(discX, discY, botOffenseId, playerDefId);
+    this.visualContext.forceTeam = 'player';
+    this.visualContext.forceType = defObj.forceType;
+    this.visualContext.playerPreviewId = playerDefId;
+    this.driftState = {
+      active: true,
+      playerTargets,
+      botTargets
+    };
+  }
+
+  /**
+   * Smoothly drifts Player's 7 offensive dots into the selected Offensive Play setup on the field,
+   * while Bot defenders reactively shadow them in Man or hold spaces in Zone!
+   */
+  previewOffenseSelection(discX, discY, botDefState, playerOffId) {
+    const { defId: botDefId, forceSide } = botDefState;
+    const playerTargets = this.computePlayerPlayExecutionTargets(discX, discY, playerOffId, forceSide);
+    const botTargets = this.computeReactiveBotDefense(discX, discY, playerTargets, botDefId, forceSide);
+    this.visualContext.playerPreviewId = playerOffId;
+    this.driftState = {
+      active: true,
+      playerTargets,
+      botTargets
+    };
   }
 
   setupPullLineup(pullingTeam = 'player') {
@@ -120,6 +169,7 @@ export class Choreographer {
     this.stall.active = false;
     this.stall.value = 0;
     this.visualContext.scoutShape = null;
+    this.visualContext.playerPreviewId = null;
     this.visualContext.ghostPreview = null;
   }
 
@@ -456,6 +506,7 @@ export class Choreographer {
       scoutShape: botDefObj.scoutShape,
       forceTeam: 'bot',
       forceType: botDefObj.forceStyle === 'cup' ? 'cup' : 'directional',
+      playerPreviewId: null,
       ghostPreview: null
     };
   }
@@ -501,6 +552,7 @@ export class Choreographer {
             scoutShape: BOT_OFFENSES[initialBotLookId].scoutShape,
             forceTeam: 'player',
             forceType: 'open',
+            playerPreviewId: null,
             ghostPreview: null
           };
           this.stall.active = true;
@@ -577,6 +629,7 @@ export class Choreographer {
   }) {
     this.clearQueue();
     this.visualContext.ghostPreview = null;
+    this.visualContext.playerPreviewId = null;
     this.visualContext.scoutShape = null;
 
     const openSign = discX > 3.5 ? -1 : 1;
@@ -592,14 +645,14 @@ export class Choreographer {
     );
 
     this.enqueueBeat({
-      duration: 0.45,
+      duration: 0.22,
       playerTargets: initDef,
       botTargets: initBot,
       stallStart: 1,
       stallEnd: 2,
       discAction: { type: 'hold', holderTeam: 'bot', holderIdx: 0 },
       onStart: () => {
-        if (onTicker) onTicker(`Defense called: ${defObj.name}! Matching up...`);
+        if (onTicker) onTicker(`Locked in ${defObj.name} — disc is live!`);
       }
     });
 
@@ -789,6 +842,7 @@ export class Choreographer {
               scoutShape: BOT_OFFENSES[finalLookId].scoutShape,
               forceTeam: 'player',
               forceType: defObj.forceType,
+              playerPreviewId: playerDefId,
               ghostPreview: null
             };
             this.stall.active = true;
@@ -895,6 +949,7 @@ export class Choreographer {
   }) {
     this.clearQueue();
     this.visualContext.ghostPreview = null;
+    this.visualContext.playerPreviewId = null;
     this.visualContext.scoutShape = null;
 
     const { defId: botDefId, forceSide } = botDefState;
@@ -902,12 +957,12 @@ export class Choreographer {
     const breakDir = -forceDir;
     const botDefObj = BOT_DEFENSES[botDefId];
 
-    // Beat 0: Cutters explode into the called play shape while Bot defenders react!
+    // Beat 0: Quick settle into play launch!
     const snapOff = this.computePlayerPlayExecutionTargets(discX, discY, playerOffId, forceSide);
     const snapDef = this.computeReactiveBotDefense(discX, discY, snapOff, botDefId, forceSide);
 
     this.enqueueBeat({
-      duration: 0.42,
+      duration: 0.22,
       playerTargets: snapOff,
       botTargets: snapDef,
       stallStart: 1,
@@ -1192,6 +1247,7 @@ export class Choreographer {
           scoutShape: BOT_OFFENSES[nextBotOffId].scoutShape,
           forceTeam: 'player',
           forceType: 'open',
+          playerPreviewId: null,
           ghostPreview: null
         };
         this.stall.active = true;
@@ -1308,6 +1364,11 @@ export class Choreographer {
     }
 
     if (!this.currentBeat) {
+      if (this.driftState.active) {
+        const springDt = Math.min(scaledDt, 0.033);
+        this.springDriftTeam(this.playerDots, this.driftState.playerTargets, springDt);
+        this.springDriftTeam(this.botDots, this.driftState.botTargets, springDt);
+      }
       this.syncHeldDisc();
       return;
     }
@@ -1444,6 +1505,40 @@ export class Choreographer {
       }
       d.x = curX;
       d.y = curY;
+      if (tgt.role) d.role = tgt.role;
+      d.highlight = Boolean(tgt.highlight);
+    }
+  }
+
+  /**
+   * Critically-damped spring drift so circles smoothly glide into any selected strategy,
+   * and fluidly redirect mid-motion when the player clicks a different option!
+   */
+  springDriftTeam(dots, targets, dt) {
+    if (!targets) return;
+    const stiffness = 76;
+    const damping = 17.4;
+    for (let i = 0; i < dots.length; i++) {
+      const d = dots[i];
+      const tgt = targets[i];
+      if (!tgt) continue;
+
+      const ax = (tgt.x - d.x) * stiffness - d.vx * damping;
+      const ay = (tgt.y - d.y) * stiffness - d.vy * damping;
+      d.vx += ax * dt;
+      d.vy += ay * dt;
+      d.x += d.vx * dt;
+      d.y += d.vy * dt;
+
+      if (Math.abs(tgt.x - d.x) < 0.01 && Math.abs(d.vx) < 0.02) {
+        d.x = tgt.x;
+        d.vx = 0;
+      }
+      if (Math.abs(tgt.y - d.y) < 0.01 && Math.abs(d.vy) < 0.02) {
+        d.y = tgt.y;
+        d.vy = 0;
+      }
+
       if (tgt.role) d.role = tgt.role;
       d.highlight = Boolean(tgt.highlight);
     }

@@ -354,6 +354,7 @@ button {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .telemetry-row {
@@ -393,11 +394,12 @@ button {
 /* ================= COACH READOUT ================= */
 .coach-box {
   grid-area: coach;
+  min-height: 46px;
   background: rgba(22, 37, 53, 0.72);
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--you-cyan);
   border-radius: 10px;
-  padding: 9px 12px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -555,7 +557,13 @@ button {
   transform: translateY(-2px);
 }
 
-/* 2x2 Tactical Playbook Grid */
+/* 2x2 Tactical Playbook Grid + Constant-Height Confirm Bar */
+.playbook-read-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .strategy-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -568,31 +576,107 @@ button {
   background: var(--bg-card);
   border: 1.5px solid rgba(148, 163, 184, 0.22);
   border-radius: 12px;
-  padding: 10px 11px;
+  padding: 9px 11px;
   color: var(--text-main);
   display: flex;
   flex-direction: column;
   gap: 4px;
-  transition: transform 0.13s ease, border-color 0.13s ease, background 0.13s ease;
+  transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
 }
 
 .strategy-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--you-cyan);
-  transform: translateY(-2px);
+  border-color: rgba(0, 229, 255, 0.65);
+  transform: translateY(-1px);
 }
 
 .strategy-card:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .strategy-card.card-offense:hover {
-  border-color: var(--emerald-accent);
+  border-color: rgba(52, 211, 153, 0.7);
 }
 
 .strategy-card.card-keep {
   border-color: rgba(251, 191, 36, 0.65);
   background: linear-gradient(180deg, rgba(251, 191, 36, 0.11) 0%, var(--bg-card) 100%);
+}
+
+.strategy-card.card-selected {
+  border-color: var(--you-cyan);
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.18) 0%, #182e42 100%);
+  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.42), 0 6px 18px rgba(0, 229, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.strategy-card.card-offense.card-selected {
+  border-color: var(--emerald-accent);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.19) 0%, #152f2d 100%);
+  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.45), 0 6px 18px rgba(52, 211, 153, 0.18);
+}
+
+.strategy-card.card-selected .role-chip {
+  background: rgba(0, 229, 255, 0.24);
+  color: #7df9ff;
+}
+
+.strategy-card.card-offense.card-selected .role-chip {
+  background: rgba(52, 211, 153, 0.26);
+  color: #a7f3d0;
+}
+
+.confirm-play-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 11px;
+  border: 1.5px solid transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.16s ease;
+}
+
+.confirm-play-btn.confirm-defense:not(:disabled) {
+  background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+  color: #031521;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.34);
+}
+
+.confirm-play-btn.confirm-offense:not(:disabled) {
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+  color: #021c14;
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.32);
+}
+
+.confirm-play-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.confirm-play-btn:not(:disabled):active {
+  transform: scale(0.985);
+}
+
+.confirm-play-btn:disabled {
+  background: rgba(17, 29, 41, 0.72);
+  border-color: rgba(148, 163, 184, 0.24);
+  border-style: dashed;
+  color: var(--text-muted);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: default;
+  box-shadow: none;
 }
 
 .card-top-row {
@@ -903,7 +987,11 @@ button {
   }
 
   .brand-title {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
+  }
+
+  .brand-subword {
+    display: none;
   }
 
   .mode-btn {
@@ -968,7 +1056,13 @@ button {
 
   .status-pill,
   .yardage-pill {
-    font-size: 0.64rem;
+    font-size: 0.63rem;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+
+  .target-pill {
+    font-size: 0.62rem;
     padding: 2px 6px;
   }
 
@@ -986,7 +1080,8 @@ button {
   }
 
   .coach-box {
-    padding: 6px 10px;
+    min-height: 42px;
+    padding: 5px 10px;
   }
 
   .coach-text {
@@ -998,32 +1093,46 @@ button {
     min-height: 136px;
   }
 
+  .playbook-read-wrap {
+    gap: 6px;
+  }
+
   .strategy-cards-grid {
     gap: 6px;
   }
 
   .strategy-card {
-    padding: 7px 9px;
+    padding: 5px 8px;
     border-radius: 10px;
     gap: 2px;
   }
 
   .card-icon-box {
-    width: 21px;
-    height: 21px;
+    width: 19px;
+    height: 19px;
   }
 
   .card-title {
-    font-size: 0.79rem;
+    font-size: 0.76rem;
   }
 
   .card-desc {
-    font-size: 0.66rem;
-    line-height: 1.2;
+    font-size: 0.63rem;
+    line-height: 1.18;
   }
 
   .card-hotkey {
     display: none;
+  }
+
+  .confirm-play-btn {
+    height: 38px;
+    font-size: 0.81rem;
+    border-radius: 10px;
+  }
+
+  .confirm-play-btn:disabled {
+    font-size: 0.73rem;
   }
 
   .primary-pull-btn {

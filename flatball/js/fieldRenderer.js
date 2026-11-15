@@ -26,18 +26,18 @@ export class FieldRenderer {
 
   resize() {
     const parent = this.canvas.parentElement;
-    const rect = parent ? parent.getBoundingClientRect() : { width: 380, height: 560 };
-    const w = Math.max(240, Math.floor(rect.width || 380));
-    const h = Math.max(260, Math.floor(rect.height || 520));
+    const rect = parent ? parent.getBoundingClientRect() : { width: 380, height: 520 };
+    const w = Math.max(220, Math.floor(rect.width || 380));
+    const h = Math.max(180, Math.floor(rect.height || 520));
     this.dpr = Math.min(window.devicePixelRatio || 1, 2.5);
 
     this.canvas.width = Math.floor(w * this.dpr);
     this.canvas.height = Math.floor(h * this.dpr);
 
-    const padY = Math.max(10, Math.floor(h * 0.025));
-    const availH = Math.max(220, h - padY * 2);
+    const padY = Math.max(8, Math.floor(h * 0.025));
+    const availH = Math.max(160, h - padY * 2);
     const idealW = Math.min(w - 34, availH * 0.6);
-    const fieldW = Math.max(190, Math.floor(idealW));
+    const fieldW = Math.max(165, Math.floor(idealW));
     const fieldH = Math.floor(availH);
 
     this.metrics = {
@@ -79,7 +79,7 @@ export class FieldRenderer {
     this.drawFieldTurf(ctx);
     this.drawSidelineLabels(ctx, choreo);
     this.drawTacticalOverlays(ctx, choreo);
-    this.drawGhostPreview(ctx, choreo);
+    this.drawLiveStrategyPreview(ctx, choreo);
     this.drawShockwavesAndParticles(ctx, choreo);
     this.drawPlayers(ctx, choreo);
     this.drawDisc(ctx, choreo);
@@ -426,41 +426,116 @@ export class FieldRenderer {
     ctx.restore();
   }
 
-  drawGhostPreview(ctx, choreo) {
-    const previewId = choreo.visualContext.ghostPreview;
-    if (!previewId) return;
+  /**
+   * Draws smooth glide vectors as circles drift into a selected strategy + tactical structure cues for the chosen setup!
+   */
+  drawLiveStrategyPreview(ctx, choreo) {
+    const vc = choreo.visualContext;
+    if (!vc || !vc.playerPreviewId) return;
 
-    const { discAnchorX, discAnchorY, openSign, offenseTeam, forceSide } = choreo.visualContext;
+    const previewId = vc.playerPreviewId;
+    const isOffense = vc.offenseTeam === 'player';
+    const accentRgb = isOffense ? '52, 211, 153' : '0, 229, 255';
+    const pulse = 0.5 + 0.5 * Math.sin(choreo.idleClock * 5.2);
+
     ctx.save();
-    ctx.strokeStyle = 'rgba(0, 229, 255, 0.55)';
-    ctx.fillStyle = 'rgba(0, 229, 255, 0.13)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([5, 4]);
 
-    if (offenseTeam === 'bot') {
-      const previewDots = choreo.computePlayerDefensePositions(
-        discAnchorX,
-        discAnchorY,
-        openSign,
-        choreo.botDots,
-        previewId
-      );
-      previewDots.forEach((pt) => {
-        const p = this.worldToPx(pt.x, pt.y);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 7.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
+    // 1. Subtle glide trails & destination rings that smoothly fade out as each circle settles onto its spot
+    if (choreo.driftState && choreo.driftState.active && choreo.driftState.playerTargets) {
+      choreo.driftState.playerTargets.forEach((tgt, idx) => {
+        const dot = choreo.playerDots[idx];
+        if (!dot || !tgt) return;
+        const dist = Math.hypot(tgt.x - dot.x, tgt.y - dot.y);
+        if (dist > 0.22) {
+          const alpha = Math.min(0.62, dist * 0.08);
+          const fromPx = this.worldToPx(dot.x, dot.y);
+          const toPx = this.worldToPx(tgt.x, tgt.y);
+
+          ctx.strokeStyle = `rgba(${accentRgb}, ${alpha * 0.85})`;
+          ctx.lineWidth = 1.6;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.moveTo(fromPx.x, fromPx.y);
+          ctx.lineTo(toPx.x, toPx.y);
+          ctx.stroke();
+
+          ctx.setLineDash([]);
+          ctx.fillStyle = `rgba(${accentRgb}, ${alpha * 0.22})`;
+          ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(toPx.x, toPx.y, 6.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
       });
-    } else {
-      const playerTargets = choreo.computePlayerPlayExecutionTargets(discAnchorX, discAnchorY, previewId, forceSide);
-      playerTargets.forEach((pt, idx) => {
-        if (idx === 0) return;
-        const p = this.worldToPx(pt.x, pt.y);
+    }
+
+    // 2. Tactical shape overlay for the player's selected Defensive or Offensive setup
+    if (!isOffense) {
+      if (previewId === 'clam_bracket') {
+        const u1 = this.worldToPx(choreo.playerDots[2].x, choreo.playerDots[2].y);
+        const u2 = this.worldToPx(choreo.playerDots[3].x, choreo.playerDots[3].y);
+        const u3 = this.worldToPx(choreo.playerDots[4].x, choreo.playerDots[4].y);
+        const b1 = this.worldToPx(choreo.playerDots[5].x, choreo.playerDots[5].y);
+        const b2 = this.worldToPx(choreo.playerDots[6].x, choreo.playerDots[6].y);
+
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.42 + pulse * 0.22})`;
+        ctx.lineWidth = 2.2;
+        ctx.setLineDash([6, 5]);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 7.5, 0, Math.PI * 2);
+        ctx.moveTo(u1.x, u1.y);
+        ctx.lineTo(u2.x, u2.y);
+        ctx.lineTo(u3.x, u3.y);
+        ctx.moveTo(b1.x, b1.y);
+        ctx.lineTo(b2.x, b2.y);
+        ctx.stroke();
+      } else if (previewId === 'deep_poach') {
+        const sag = this.worldToPx(choreo.playerDots[6].x, choreo.playerDots[6].y);
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.48 + pulse * 0.28})`;
+        ctx.fillStyle = 'rgba(0, 229, 255, 0.09)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.arc(sag.x, sag.y, this.yardsToPxX(4.8) + pulse * 2.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
+      } else if (previewId === 'shutdown_reset') {
+        const m = this.worldToPx(choreo.playerDots[0].x, choreo.playerDots[0].y);
+        const blz = this.worldToPx(choreo.playerDots[1].x, choreo.playerDots[1].y);
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.55 + pulse * 0.28})`;
+        ctx.lineWidth = 2.6;
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(blz.x, blz.y);
+        ctx.stroke();
+      } else if (previewId === 'sideline_trap') {
+        const trapLeft = vc.openSign === 1;
+        const sideX = trapLeft ? -19.5 : 13.8;
+        const tl = this.worldToPx(sideX, Math.min(104, vc.discAnchorY + 3));
+        const br = this.worldToPx(sideX + 5.7, Math.max(20, vc.discAnchorY - 22));
+        ctx.fillStyle = `rgba(0, 229, 255, ${0.07 + pulse * 0.05})`;
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.38 + pulse * 0.2})`;
+        ctx.lineWidth = 1.6;
+        ctx.setLineDash([5, 4]);
+        ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+        ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+      }
+    } else {
+      // On Offense: draw a clean, subtle tactical link from handler H1 to the primary active target(s)
+      const h1 = this.worldToPx(choreo.playerDots[0].x, choreo.playerDots[0].y);
+      ctx.strokeStyle = `rgba(52, 211, 153, ${0.36 + pulse * 0.2})`;
+      ctx.lineWidth = 1.9;
+      ctx.setLineDash([5, 5]);
+      choreo.playerDots.forEach((d, idx) => {
+        if (idx > 0 && d.highlight) {
+          const tp = this.worldToPx(d.x, d.y);
+          ctx.beginPath();
+          ctx.moveTo(h1.x, h1.y);
+          ctx.lineTo(tp.x, tp.y);
+          ctx.stroke();
+        }
       });
     }
 

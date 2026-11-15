@@ -6,10 +6,10 @@ import {
   BOT_DEFENSES,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=4';
-import { Choreographer } from './choreographer.js?v=4';
-import { FieldRenderer } from './fieldRenderer.js?v=4';
-import { sound } from './audio.js?v=4';
+} from './playbookData.js?v=5';
+import { Choreographer } from './choreographer.js?v=5';
+import { FieldRenderer } from './fieldRenderer.js?v=5';
+import { sound } from './audio.js?v=5';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -184,12 +184,18 @@ class FlatballGame {
         } else if (this.state.phase === 'POINT_OVER') {
           e.preventDefault();
           this.advanceToNextPoint();
+        } else if (
+          (this.state.phase === 'DEFENSE_READ' || this.state.phase === 'OFFENSE_READ') &&
+          this.state.selectedCard
+        ) {
+          e.preventDefault();
+          this.confirmSelectedCard();
         }
       } else if (['Digit1', 'Digit2', 'Digit3', 'Digit4'].includes(e.code)) {
         if (this.state.phase === 'DEFENSE_READ' || this.state.phase === 'OFFENSE_READ') {
           const idx = Number(e.code.replace('Digit', '')) - 1;
           if (this.state.currentHand[idx]) {
-            this.handleCardSelection(this.state.currentHand[idx]);
+            this.selectCardForPreview(this.state.currentHand[idx]);
           }
         }
       }
@@ -215,6 +221,7 @@ class FlatballGame {
       botLookId: 'vert_stack',
       botDefState: { defId: 'bot_man_open', forceSide: 'home', baseStack: 'vert' },
       activeStrategyId: null,
+      selectedCard: null,
       lastBotOffId: null,
       lastBotDefId: null,
       currentHand: [],
@@ -249,6 +256,7 @@ class FlatballGame {
     this.state.startedPointOnDefense = pullingTeam === 'player';
     this.state.possession = pullingTeam === 'player' ? 'bot' : 'player';
     this.state.activeStrategyId = null;
+    this.state.selectedCard = null;
     this.state.pointSummary = null;
 
     this.choreo.setupPullLineup(pullingTeam);
@@ -345,6 +353,7 @@ class FlatballGame {
   enterDefenseRead(isAdvance = false, audibled = false) {
     this.state.phase = 'DEFENSE_READ';
     this.state.possession = 'bot';
+    this.state.selectedCard = null;
 
     const botOff = BOT_OFFENSES[this.state.botLookId];
     this.state.currentHand = buildDecisionHand(
@@ -361,14 +370,14 @@ class FlatballGame {
       const audibleNote = audibled ? `⚡ Bot audibled to ${botOff.name}! ` : '';
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `${audibleNote}Keep ${PLAYER_DEFENSES[this.state.activeStrategyId].name} or switch your Defense!`
-          : `${audibleNote}Offense reset downfield — Keep your Defense or switch!`
+          ? `${audibleNote}Keep ${PLAYER_DEFENSES[this.state.activeStrategyId].name} or switch D — tap to align, then Confirm!`
+          : `${audibleNote}Offense reset downfield — tap a Defense to align, then Confirm!`
       );
     } else {
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `Bot lined up in ${botOff.name}. Select the Ideal defensive counter!`
-          : 'Read the 7v7 spacing and select your Defensive counter!'
+          ? `Bot lined up in ${botOff.name}. Tap a Defense below to drift into position, then Confirm!`
+          : 'Read the 7v7 spacing — tap a Defense to drift into position, then Confirm!'
       );
     }
 
@@ -378,6 +387,7 @@ class FlatballGame {
   enterOffenseRead(isAdvance = false, audibled = false) {
     this.state.phase = 'OFFENSE_READ';
     this.state.possession = 'player';
+    this.state.selectedCard = null;
 
     const { defId, forceSide, baseStack } = this.state.botDefState;
     const botDef = BOT_DEFENSES[defId];
@@ -398,29 +408,70 @@ class FlatballGame {
       const audibleNote = audibled ? `⚡ Bot switched D (${forceText})! ` : '';
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `${audibleNote}Bot shows ${botDef.name} (${forceText}) vs your ${stackText}. Keep ${PLAYER_OFFENSES[this.state.activeStrategyId].name} or audible!`
-          : `${audibleNote}Your ${stackText} is set (${forceText}). Keep your Offense or audible!`
+          ? `${audibleNote}Bot shows ${botDef.name} (${forceText}). Tap Keep or audible to preview, then Confirm!`
+          : `${audibleNote}Your ${stackText} is set (${forceText}). Tap a Play to align, then Confirm!`
       );
     } else {
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `Your ${stackText} is set — Bot matched in ${botDef.name} (${forceText}). Call the Ideal attack!`
-          : `Your ${stackText} is set (${forceText}). Read Man vs Zone and call your Offense!`
+          ? `Your ${stackText} is set vs ${botDef.name} (${forceText}). Tap a Play to drift into alignment, then Confirm!`
+          : `Your ${stackText} is set (${forceText}). Read Man vs Zone — tap a Play to align, then Confirm!`
       );
     }
 
     this.renderActionTray();
   }
 
-  handleCardSelection(card) {
+  selectCardForPreview(card) {
     if (this.state.phase !== 'DEFENSE_READ' && this.state.phase !== 'OFFENSE_READ') return;
     sound.unlock();
-    sound.uiClick();
+    sound.selectPreview();
+
+    this.state.selectedCard = card;
+    const isOffense = this.state.phase === 'OFFENSE_READ';
+
+    if (isOffense) {
+      this.choreo.previewOffenseSelection(
+        this.state.discX,
+        this.state.discY,
+        this.state.botDefState,
+        card.id
+      );
+      this.setTicker(
+        `Previewing ${card.name} — ${card.shortDesc} Tap Confirm to run it, or test another play!`
+      );
+    } else {
+      this.choreo.previewDefenseSelection(
+        this.state.discX,
+        this.state.discY,
+        this.state.botLookId,
+        card.id
+      );
+      this.setTicker(
+        `Previewing ${card.name} — ${card.shortDesc} Tap Confirm to lock in D, or test another option!`
+      );
+    }
+
+    this.syncReadTraySelectionUI();
+  }
+
+  confirmSelectedCard() {
+    if (this.state.phase !== 'DEFENSE_READ' && this.state.phase !== 'OFFENSE_READ') return;
+    if (!this.state.selectedCard) return;
+    sound.unlock();
+    sound.confirmLock();
+    this.executeCardPlay(this.state.selectedCard);
+  }
+
+  executeCardPlay(card) {
+    if (this.state.phase !== 'DEFENSE_READ' && this.state.phase !== 'OFFENSE_READ') return;
 
     const wasDefense = this.state.phase === 'DEFENSE_READ';
     this.state.phase = 'ANIMATING';
     this.state.activeStrategyId = card.id;
+    this.state.selectedCard = null;
     this.choreo.visualContext.ghostPreview = null;
+    this.choreo.visualContext.playerPreviewId = null;
 
     this.state.stats.decisions += 1;
     if (card.tier === 'ideal') this.state.stats.idealReads += 1;
@@ -749,12 +800,16 @@ class FlatballGame {
 
     if (this.state.phase === 'DEFENSE_READ' || this.state.phase === 'OFFENSE_READ') {
       const isOffense = this.state.phase === 'OFFENSE_READ';
+      const wrap = document.createElement('div');
+      wrap.className = 'playbook-read-wrap';
+
       const grid = document.createElement('div');
       grid.className = 'strategy-cards-grid';
 
       this.state.currentHand.forEach((card, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
+        btn.dataset.cardId = card.id;
         btn.className = `strategy-card ${isOffense ? 'card-offense' : 'card-defense'} ${card.isKeep ? 'card-keep' : ''}`;
 
         const topBadge = card.isKeep
@@ -771,20 +826,53 @@ class FlatballGame {
           <span class="card-hotkey">${idx + 1}</span>
         `;
 
-        btn.addEventListener('mouseenter', () => {
-          this.choreo.visualContext.ghostPreview = card.id;
-        });
-        btn.addEventListener('mouseleave', () => {
-          if (this.choreo.visualContext.ghostPreview === card.id) {
-            this.choreo.visualContext.ghostPreview = null;
-          }
-        });
-        btn.addEventListener('click', () => this.handleCardSelection(card));
-
+        btn.addEventListener('click', () => this.selectCardForPreview(card));
         grid.appendChild(btn);
       });
 
-      container.appendChild(grid);
+      const confirmBtn = document.createElement('button');
+      confirmBtn.type = 'button';
+      confirmBtn.id = 'confirm-play-btn';
+      confirmBtn.className = `confirm-play-btn ${isOffense ? 'confirm-offense' : 'confirm-defense'}`;
+      confirmBtn.disabled = true;
+      confirmBtn.addEventListener('click', () => this.confirmSelectedCard());
+
+      wrap.appendChild(grid);
+      wrap.appendChild(confirmBtn);
+      container.appendChild(wrap);
+
+      this.syncReadTraySelectionUI();
+    }
+  }
+
+  syncReadTraySelectionUI() {
+    const container = this.dom.actionContainer;
+    if (!container) return;
+
+    const isOffense = this.state.phase === 'OFFENSE_READ';
+    const selected = this.state.selectedCard;
+
+    const cardBtns = container.querySelectorAll('.strategy-card');
+    cardBtns.forEach((btn) => {
+      const isMatch = Boolean(selected && btn.dataset.cardId === selected.id);
+      btn.classList.toggle('card-selected', isMatch);
+      btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
+    });
+
+    const confirmBtn = container.querySelector('#confirm-play-btn');
+    if (!confirmBtn) return;
+
+    if (!selected) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = isOffense
+        ? '👆 Tap an Offensive Play above to align on field'
+        : '👆 Tap a Defense above to align on field';
+    } else {
+      confirmBtn.disabled = false;
+      const labelName = selected.isKeep ? `Keep ${selected.name}` : selected.name;
+      confirmBtn.textContent = isOffense
+        ? `⚡ CONFIRM PLAY: ${labelName} ➔`
+        : `🛡️ CONFIRM DEFENSE: ${labelName} ➔`;
     }
   }
 
