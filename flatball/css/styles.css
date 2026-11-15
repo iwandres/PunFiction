@@ -26,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100vh;
   height: 100dvh;
   overflow: hidden;
   background: radial-gradient(circle at 50% 0%, #132536 0%, var(--bg-deep) 72%);
@@ -48,6 +49,7 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
   height: 100dvh;
   max-width: 1180px;
   margin: 0 auto;
@@ -254,15 +256,18 @@ button {
 }
 
 .canvas-wrapper {
-  flex: 1;
-  min-height: 0;
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
 #field-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
@@ -881,7 +886,16 @@ button {
 /* ================= MOBILE PORTRAIT SINGLE-SCREEN LAYOUT ================= */
 @media (max-width: 860px) {
   .top-header {
-    padding: 6px 10px;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .brand-cluster {
+    gap: 6px;
+  }
+
+  .header-controls {
+    gap: 4px;
   }
 
   .portal-home-pill {
@@ -889,17 +903,24 @@ button {
   }
 
   .brand-title {
-    font-size: 0.96rem;
+    font-size: 0.88rem;
   }
 
   .mode-btn {
-    padding: 3px 8px;
-    font-size: 0.68rem;
+    padding: 3px 7px;
+    font-size: 0.65rem;
+    white-space: nowrap;
   }
 
   .util-pill {
-    padding: 4px 7px;
-    font-size: 0.68rem;
+    padding: 4px 6px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+  }
+
+  .icon-pill {
+    min-width: 26px;
+    padding: 4px 5px;
   }
 
   .arena-layout {

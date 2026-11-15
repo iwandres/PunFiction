@@ -6,10 +6,10 @@ import {
   BOT_DEFENSES,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js';
-import { Choreographer } from './choreographer.js';
-import { FieldRenderer } from './fieldRenderer.js';
-import { sound } from './audio.js';
+} from './playbookData.js?v=3';
+import { Choreographer } from './choreographer.js?v=3';
+import { FieldRenderer } from './fieldRenderer.js?v=3';
+import { sound } from './audio.js?v=3';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -803,6 +803,12 @@ class FlatballGame {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function bootFlatball() {
   new FlatballGame();
-});
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', bootFlatball, { once: true });
+} else {
+  bootFlatball();
+}

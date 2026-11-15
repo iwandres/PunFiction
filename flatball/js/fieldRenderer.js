@@ -18,23 +18,26 @@ export class FieldRenderer {
     };
 
     this.resize();
+    if (typeof ResizeObserver !== 'undefined' && this.canvas.parentElement) {
+      this._ro = new ResizeObserver(() => this.resize());
+      this._ro.observe(this.canvas.parentElement);
+    }
   }
 
   resize() {
-    const rect = this.canvas.parentElement.getBoundingClientRect();
-    const w = Math.max(260, Math.floor(rect.width));
-    const h = Math.max(320, Math.floor(rect.height));
+    const parent = this.canvas.parentElement;
+    const rect = parent ? parent.getBoundingClientRect() : { width: 380, height: 560 };
+    const w = Math.max(240, Math.floor(rect.width || 380));
+    const h = Math.max(260, Math.floor(rect.height || 520));
     this.dpr = Math.min(window.devicePixelRatio || 1, 2.5);
 
     this.canvas.width = Math.floor(w * this.dpr);
     this.canvas.height = Math.floor(h * this.dpr);
-    this.canvas.style.width = `${w}px`;
-    this.canvas.style.height = `${h}px`;
 
-    const padY = Math.max(12, Math.floor(h * 0.026));
-    const availH = h - padY * 2;
-    const idealW = Math.min(w - 36, availH * 0.6);
-    const fieldW = Math.max(210, Math.floor(idealW));
+    const padY = Math.max(10, Math.floor(h * 0.025));
+    const availH = Math.max(220, h - padY * 2);
+    const idealW = Math.min(w - 34, availH * 0.6);
+    const fieldW = Math.max(190, Math.floor(idealW));
     const fieldH = Math.floor(availH);
 
     this.metrics = {
