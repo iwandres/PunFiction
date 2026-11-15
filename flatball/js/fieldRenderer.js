@@ -77,12 +77,63 @@ export class FieldRenderer {
     ctx.clearRect(0, 0, w, h);
 
     this.drawFieldTurf(ctx);
+    this.drawWindStreaks(ctx, choreo);
     this.drawSidelineLabels(ctx, choreo);
     this.drawTacticalOverlays(ctx, choreo);
     this.drawLiveStrategyPreview(ctx, choreo);
     this.drawShockwavesAndParticles(ctx, choreo);
     this.drawPlayers(ctx, choreo);
     this.drawDisc(ctx, choreo);
+
+    ctx.restore();
+  }
+
+  /**
+   * Renders live animated wind streaks drifting across the field turf when Wind is Breezy or Stiff!
+   */
+  drawWindStreaks(ctx, choreo) {
+    if (!choreo.wind || choreo.wind.strength === 'calm' || !choreo.windWisps || choreo.windWisps.length === 0) {
+      return;
+    }
+
+    const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
+    const isStiff = choreo.wind.strength === 'stiff';
+    const dx = choreo.wind.dx;
+    const dy = choreo.wind.dy;
+
+    ctx.save();
+    this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, 12);
+    ctx.clip();
+    ctx.lineCap = 'round';
+
+    for (const w of choreo.windWisps) {
+      const head = this.worldToPx(w.x + dx * w.len * 0.5, w.y + dy * w.len * 0.5);
+      const tail = this.worldToPx(w.x - dx * w.len * 0.5, w.y - dy * w.len * 0.5);
+
+      const grad = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
+      const rgb = isStiff ? '186, 230, 253' : '226, 232, 240';
+      grad.addColorStop(0, `rgba(${rgb}, 0)`);
+      grad.addColorStop(0.65, `rgba(${rgb}, ${w.alpha * 0.85})`);
+      grad.addColorStop(1, `rgba(255, 255, 255, ${Math.min(0.62, w.alpha * 1.35)})`);
+
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = isStiff ? 2.1 : 1.4;
+      ctx.beginPath();
+      ctx.moveTo(tail.x, tail.y);
+      ctx.lineTo(head.x, head.y);
+      ctx.stroke();
+
+      if (isStiff) {
+        const ang = Math.atan2(head.y - tail.y, head.x - tail.x);
+        ctx.fillStyle = `rgba(224, 242, 254, ${w.alpha * 1.1})`;
+        ctx.beginPath();
+        ctx.moveTo(head.x, head.y);
+        ctx.lineTo(head.x - 4.2 * Math.cos(ang - 0.52), head.y - 4.2 * Math.sin(ang - 0.52));
+        ctx.lineTo(head.x - 4.2 * Math.cos(ang + 0.52), head.y - 4.2 * Math.sin(ang + 0.52));
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
 
     ctx.restore();
   }
@@ -410,6 +461,52 @@ export class FieldRenderer {
       ctx.moveTo(m.x, m.y);
       ctx.lineTo(blz.x, blz.y);
       ctx.stroke();
+    } else if (vc.scoutShape === 'split_stacks') {
+      const s1a = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const s1b = this.worldToPx(choreo.botDots[3].x, choreo.botDots[3].y);
+      const s2a = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
+      const s2b = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
+      ctx.strokeStyle = `rgba(255, 214, 102, ${0.46 + pulse * 0.24})`;
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(s1a.x, s1a.y - 6);
+      ctx.lineTo(s1b.x, s1b.y + 6);
+      ctx.moveTo(s2a.x, s2a.y - 6);
+      ctx.lineTo(s2b.x, s2b.y + 6);
+      ctx.stroke();
+    } else if (vc.scoutShape === 'hex_grid') {
+      const hub = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const ring = [0, 3, 5, 6, 4].map((i) => this.worldToPx(choreo.botDots[i].x, choreo.botDots[i].y));
+      ctx.strokeStyle = `rgba(255, 214, 102, ${0.4 + pulse * 0.22})`;
+      ctx.lineWidth = 1.9;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(ring[0].x, ring[0].y);
+      for (let i = 1; i < ring.length; i++) ctx.lineTo(ring[i].x, ring[i].y);
+      ctx.closePath();
+      for (const p of ring) {
+        ctx.moveTo(hub.x, hub.y);
+        ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    } else if (vc.scoutShape === 'star_hub') {
+      const ace = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const h1 = this.worldToPx(choreo.botDots[0].x, choreo.botDots[0].y);
+      const h2 = this.worldToPx(choreo.botDots[1].x, choreo.botDots[1].y);
+      ctx.strokeStyle = `rgba(255, 214, 102, ${0.52 + pulse * 0.3})`;
+      ctx.fillStyle = 'rgba(255, 214, 102, 0.09)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.arc(ace.x, ace.y, this.yardsToPxX(4.2) + pulse * 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(h1.x, h1.y);
+      ctx.lineTo(ace.x, ace.y);
+      ctx.lineTo(h2.x, h2.y);
+      ctx.stroke();
     } else if (vc.scoutShape === 'bot_man_trap') {
       // Highlight the narrow trapped sideline danger zone in subtle coral
       const sideX = vc.forceSide === 'home' ? -19.5 : 13.5;
@@ -421,6 +518,56 @@ export class FieldRenderer {
       ctx.setLineDash([5, 4]);
       ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
       ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    } else if (vc.scoutShape === 'bot_force_mid') {
+      const mid = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
+      const lWing = this.worldToPx(-14, Math.min(104, vc.discAnchorY + 8));
+      const rWing = this.worldToPx(14, Math.min(104, vc.discAnchorY + 8));
+      const cTgt = this.worldToPx(0, Math.min(105, vc.discAnchorY + 18));
+      ctx.strokeStyle = `rgba(255, 92, 114, ${0.5 + pulse * 0.25})`;
+      ctx.fillStyle = 'rgba(255, 82, 104, 0.09)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.arc(mid.x, mid.y, this.yardsToPxX(4.0) + pulse * 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(lWing.x, lWing.y);
+      ctx.lineTo(cTgt.x, cTgt.y);
+      ctx.lineTo(rWing.x, rWing.y);
+      ctx.stroke();
+    } else if (vc.scoutShape === 'bot_under_press') {
+      const pressPts = [2, 3, 4, 5, 6]
+        .map((i) => this.worldToPx(choreo.botDots[i].x, choreo.botDots[i].y))
+        .sort((a, b) => a.x - b.x);
+      ctx.strokeStyle = `rgba(255, 92, 114, ${0.54 + pulse * 0.26})`;
+      ctx.lineWidth = 2.4;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(pressPts[0].x, pressPts[0].y);
+      for (let i = 1; i < pressPts.length; i++) ctx.lineTo(pressPts[i].x, pressPts[i].y);
+      ctx.stroke();
+    } else if (vc.scoutShape === 'bot_box1') {
+      const b1 = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const b2 = this.worldToPx(choreo.botDots[3].x, choreo.botDots[3].y);
+      const b3 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
+      const b4 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
+      const ch1 = this.worldToPx(choreo.botDots[1].x, choreo.botDots[1].y);
+      ctx.strokeStyle = `rgba(255, 92, 114, ${0.52 + pulse * 0.25})`;
+      ctx.fillStyle = 'rgba(255, 82, 104, 0.06)';
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(b1.x, b1.y);
+      ctx.lineTo(b2.x, b2.y);
+      ctx.lineTo(b4.x, b4.y);
+      ctx.lineTo(b3.x, b3.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(ch1.x, ch1.y, this.yardsToPxX(3.0) + pulse * 2, 0, Math.PI * 2);
+      ctx.stroke();
     }
 
     ctx.restore();
@@ -521,6 +668,51 @@ export class FieldRenderer {
         ctx.setLineDash([5, 4]);
         ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
         ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+      } else if (previewId === 'wall_zone') {
+        const w1 = this.worldToPx(choreo.playerDots[2].x, choreo.playerDots[2].y);
+        const w3 = this.worldToPx(choreo.playerDots[4].x, choreo.playerDots[4].y);
+        const d1 = this.worldToPx(choreo.playerDots[5].x, choreo.playerDots[5].y);
+        const d2 = this.worldToPx(choreo.playerDots[6].x, choreo.playerDots[6].y);
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.46 + pulse * 0.24})`;
+        ctx.lineWidth = 2.4;
+        ctx.setLineDash([6, 5]);
+        ctx.beginPath();
+        ctx.moveTo(w1.x, w1.y);
+        ctx.lineTo(w3.x, w3.y);
+        ctx.moveTo(d1.x, d1.y);
+        ctx.lineTo(d2.x, d2.y);
+        ctx.stroke();
+      } else if (previewId === 'box_and_one') {
+        const b1 = this.worldToPx(choreo.playerDots[2].x, choreo.playerDots[2].y);
+        const b2 = this.worldToPx(choreo.playerDots[3].x, choreo.playerDots[3].y);
+        const b3 = this.worldToPx(choreo.playerDots[4].x, choreo.playerDots[4].y);
+        const b4 = this.worldToPx(choreo.playerDots[5].x, choreo.playerDots[5].y);
+        const ch1 = this.worldToPx(choreo.playerDots[1].x, choreo.playerDots[1].y);
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.48 + pulse * 0.24})`;
+        ctx.fillStyle = 'rgba(0, 229, 255, 0.06)';
+        ctx.lineWidth = 2.1;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(b1.x, b1.y);
+        ctx.lineTo(b2.x, b2.y);
+        ctx.lineTo(b4.x, b4.y);
+        ctx.lineTo(b3.x, b3.y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(ch1.x, ch1.y, this.yardsToPxX(3.0) + pulse * 2, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (previewId === 'force_middle') {
+        const mid = this.worldToPx(choreo.playerDots[4].x, choreo.playerDots[4].y);
+        ctx.strokeStyle = `rgba(0, 229, 255, ${0.46 + pulse * 0.25})`;
+        ctx.fillStyle = 'rgba(0, 229, 255, 0.08)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.arc(mid.x, mid.y, this.yardsToPxX(4.2) + pulse * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
       }
     } else {
       // On Offense: draw a clean, subtle tactical link from handler H1 to the primary active target(s)

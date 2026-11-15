@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=6';
-import { sound } from './audio.js?v=6';
+} from './playbookData.js?v=7';
+import { sound } from './audio.js?v=7';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -63,12 +63,38 @@ export class Choreographer {
       botTargets: null
     };
 
+    this.wind = {
+      strength: 'calm',
+      dir: 'north',
+      mph: 0,
+      dx: 0,
+      dy: 0
+    };
+    this.windWisps = [];
+
     this.particles = [];
     this.shockwaves = [];
     this.beats = [];
     this.currentBeat = null;
     this.beatElapsed = 0;
     this.idleClock = 0;
+  }
+
+  setPointWind(windObj) {
+    this.wind = windObj || { strength: 'calm', dir: 'north', mph: 0, dx: 0, dy: 0 };
+    this.windWisps = [];
+    if (this.wind.strength === 'calm') return;
+
+    const count = this.wind.strength === 'stiff' ? 22 : 12;
+    for (let i = 0; i < count; i++) {
+      this.windWisps.push({
+        x: -18 + ((i * 11.3) % 36),
+        y: 6 + ((i * 17.7) % 98),
+        len: this.wind.strength === 'stiff' ? 5.5 + (i % 4) * 1.4 : 3.4 + (i % 3) * 1.1,
+        speed: this.wind.strength === 'stiff' ? 25 + (i % 5) * 3.2 : 12 + (i % 4) * 2.1,
+        alpha: this.wind.strength === 'stiff' ? 0.24 + (i % 3) * 0.06 : 0.14 + (i % 3) * 0.04
+      });
+    }
   }
 
   createLineup(team, yLine) {
@@ -273,6 +299,78 @@ export class Choreographer {
       });
     }
 
+    if (playerDefId === 'wall_zone') {
+      const wallOffsets = [
+        { dx: -2.0, fy: 2.5, role: 'M' },
+        { dx: 4.5, fy: 4.2, role: 'CH' },
+        { dx: -12.0, fy: 11.8, role: 'W1' },
+        { dx: 0, fy: 11.8, role: 'W2' },
+        { dx: 12.0, fy: 11.8, role: 'W3' },
+        { dx: -7.0, fy: 23.0, role: 'D1' },
+        { dx: 7.0, fy: 23.0, role: 'D2' }
+      ];
+      return wallOffsets.map((o) => ({
+        ...this.toWorld(discX, discY, attackDir, openSign, o.dx, o.fy),
+        role: o.role,
+        highlight: false
+      }));
+    }
+
+    if (playerDefId === 'box_and_one') {
+      const starBot = botTargets[2] && botTargets[2].highlight ? botTargets[2] : botTargets[1];
+      const boxSpots = [
+        { dx: -6.8, fy: 9.5, role: 'B1' },
+        { dx: 6.8, fy: 9.5, role: 'B2' },
+        { dx: -6.8, fy: 17.5, role: 'B3' },
+        { dx: 6.8, fy: 17.5, role: 'B4' },
+        { dx: 0, fy: 24.5, role: 'DD' }
+      ];
+      return [
+        { x: clamp(discX - 1.6 * openSign, -18, 18), y: clamp(discY - 2.4, 3, 107), role: 'M', highlight: false },
+        {
+          x: clamp(starBot.x + 1.1 * openSign, -18, 18),
+          y: clamp(starBot.y - 1.4, 3, 107),
+          role: 'CH1',
+          highlight: true
+        },
+        ...boxSpots.map((s) => ({
+          ...this.toWorld(discX, discY, attackDir, openSign, s.dx, s.fy),
+          role: s.role,
+          highlight: false
+        }))
+      ];
+    }
+
+    if (playerDefId === 'force_middle') {
+      // Force throws toward x = 0 (center spine) and tuck a middle help defender!
+      const toCenterSign = discX >= 0 ? -1 : 1;
+      return botTargets.map((bt, idx) => {
+        if (idx === 0) {
+          return {
+            x: clamp(discX - 2.1 * toCenterSign, -18, 18),
+            y: clamp(discY - 2.3, 3, 107),
+            role: 'FM',
+            highlight: false
+          };
+        }
+        if (idx === 4) {
+          return {
+            x: clamp(bt.x * 0.45, -8, 8),
+            y: clamp(bt.y - 1.8, 3, 107),
+            role: 'MID',
+            highlight: true
+          };
+        }
+        const inward = bt.x >= 0 ? -2.0 : 2.0;
+        return {
+          x: clamp(bt.x + inward, -18, 18),
+          y: clamp(bt.y - 1.9, 3, 107),
+          role: `D${idx + 1}`,
+          highlight: false
+        };
+      });
+    }
+
     const shadeSign = playerDefId === 'sideline_trap' ? -openSign : openSign;
     return botTargets.map((bt, idx) => {
       if (idx === 0) {
@@ -354,6 +452,43 @@ export class Choreographer {
         { x: clamp(discX + 6 * breakDir, -16, 16), y: clamp(discY + 19, 8, 105.5), role: '3', highlight: false },
         { x: clamp(discX + 13 * breakDir, -16, 16), y: clamp(discY + 23, 8, 106), role: '4', highlight: false },
         { x: clamp(discX + 3 * forceDir, -16.5, 16.5), y: clamp(discY + 22, 8, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'upline_strike') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 4.8 * forceDir, -16, 16), y: clamp(discY + 6.8, 6, 104), role: 'STR', highlight: true },
+        { x: clamp(discX + 8.5 * forceDir, -16, 16), y: clamp(discY + 21, 10, 106), role: '1', highlight: true },
+        { x: clamp(discX + 9.5 * breakDir, -16, 16), y: clamp(discY - 3.5, 4, 104), role: '2', highlight: false },
+        { x: clamp(discX + 4 * breakDir, -16, 16), y: clamp(discY + 14.5, 8, 105), role: '3', highlight: false },
+        { x: clamp(discX + 11 * breakDir, -16, 16), y: clamp(discY + 18.5, 8, 105.5), role: '4', highlight: false },
+        { x: 0, y: clamp(discY + 24.5, 10, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'dump_swing') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 6.2 * breakDir, -16, 16), y: clamp(discY - 3.2, 4, 104), role: 'H2', highlight: true },
+        { x: clamp(discX + 14.5 * breakDir, -16.5, 16.5), y: clamp(discY + 4.5, 6, 105), role: 'H3', highlight: true },
+        { x: clamp(discX + 13.5 * breakDir, -16.5, 16.5), y: clamp(discY + 16.5, 8, 105.5), role: '1', highlight: false },
+        { x: clamp(discX + 4.5 * breakDir, -16, 16), y: clamp(discY + 14, 8, 105), role: '2', highlight: false },
+        { x: clamp(discX + 5.5 * forceDir, -16, 16), y: clamp(discY + 16, 8, 105.5), role: '3', highlight: false },
+        { x: clamp(discX + 9 * breakDir, -16.5, 16.5), y: clamp(discY + 23.5, 10, 106), role: '4', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'overhead_hammer') {
+      const hammerX = clamp(discX + 11.5 * breakDir, -15.5, 15.5);
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 6.5 * forceDir, -16, 16), y: clamp(discY - 4, 4, 104), role: 'H2', highlight: false },
+        { x: hammerX, y: clamp(discY + 17.5, 10, 105.5), role: 'HMR', highlight: true },
+        { x: clamp(discX + 8.5 * forceDir, -16, 16), y: clamp(discY + 10.5, 8, 105), role: '2', highlight: false },
+        { x: 0, y: clamp(discY + 13.5, 8, 105), role: '3', highlight: false },
+        { x: clamp(discX + 9 * forceDir, -16, 16), y: clamp(discY + 21, 10, 106), role: '4', highlight: false },
+        { x: clamp(hammerX * 0.5, -14, 14), y: clamp(discY + 23.5, 10, 106), role: '5', highlight: false }
       ];
     }
 
@@ -442,15 +577,58 @@ export class Choreographer {
       ];
     }
 
+    if (botDefId === 'bot_zone_box1') {
+      // Box-and-1: Marker on H1, CH1 locked 1v1 onto H2, 4 defenders in midfield Box + 1 deep safety!
+      const h2 = playerTargets[1] || { x: discX - 6, y: discY - 3 };
+      return [
+        { x: clamp(discX - 2.0 * forceDir, -17.5, 17.5), y: clamp(discY + 2.2, 4, 106), role: markerLabel, highlight: false },
+        { x: clamp(h2.x + 1.1 * forceDir, -17.5, 17.5), y: clamp(h2.y + 1.3, 4, 106), role: 'CH1', highlight: true },
+        { x: -7.5, y: clamp(discY + 9.8, 8, 106), role: 'B1', highlight: false },
+        { x: 7.5, y: clamp(discY + 9.8, 8, 106), role: 'B2', highlight: false },
+        { x: -7.5, y: clamp(discY + 17.8, 10, 106), role: 'B3', highlight: false },
+        { x: 7.5, y: clamp(discY + 17.8, 10, 106), role: 'B4', highlight: false },
+        { x: 0, y: clamp(discY + 25.0, 12, 106.5), role: 'DD', highlight: false }
+      ];
+    }
+
     // MAN-TO-MAN FAMILY: Defenders physically match up to playerTargets[0..6]!
     return playerTargets.map((pt, idx) => {
       if (idx === 0) {
+        if (botDefId === 'bot_man_middle') {
+          const midForce = discX <= 0 ? 1 : -1;
+          return {
+            x: clamp(discX - 2.2 * midForce, -18, 18),
+            y: clamp(discY + 2.0, 4, 106),
+            role: 'FM',
+            highlight: false
+          };
+        }
         // Marker stands on the break shoulder (-forceDir), forcing throws toward forceDir!
         return {
           x: clamp(discX - 2.2 * forceDir, -18, 18),
           y: clamp(discY + 2.0, 4, 106),
           role: markerLabel,
           highlight: false
+        };
+      }
+
+      if (botDefId === 'bot_man_middle') {
+        const inward = pt.x >= 0 ? -2.1 : 2.1;
+        return {
+          x: clamp(pt.x + inward, -18, 18),
+          y: clamp(pt.y + (idx === 4 ? 0.6 : 1.6), 4, 106),
+          role: idx === 4 ? 'MID' : `D${idx + 1}`,
+          highlight: idx === 4
+        };
+      }
+
+      if (botDefId === 'bot_man_press') {
+        // Step 2.2 yards IN FRONT (underneath) of every cutter to jump short passes, leaving zero deep help!
+        return {
+          x: clamp(pt.x + 1.1 * forceDir, -18, 18),
+          y: clamp(pt.y - 2.2, 4, 106),
+          role: `P${idx + 1}`,
+          highlight: idx === 2
         };
       }
 
@@ -688,8 +866,16 @@ export class Choreographer {
 
       const turnX = clamp(swingX + 7.5 * openSign, -13.5, 13.5);
       const turnY = clamp(swingY - 9, 23, 84);
-      const isInterception = playerDefId === 'deep_poach' || playerDefId === 'cup_zone' || playerDefId === 'clam_bracket';
-      const heroDefIdx = playerDefId === 'deep_poach' ? 6 : playerDefId === 'shutdown_reset' ? 1 : 2;
+      const isInterception = ['deep_poach', 'cup_zone', 'clam_bracket', 'wall_zone', 'force_middle'].includes(playerDefId);
+      const heroDefIdx = playerDefId === 'deep_poach'
+        ? 6
+        : playerDefId === 'shutdown_reset' || playerDefId === 'box_and_one'
+          ? 1
+          : playerDefId === 'wall_zone'
+            ? 3
+            : playerDefId === 'force_middle'
+              ? 4
+              : 2;
 
       const climaxPlayer = s1.playerTargets.map((p, idx) =>
         idx === heroDefIdx
@@ -972,15 +1158,23 @@ export class Choreographer {
 
     if (tier === 'ideal') {
       const isHuck = playerOffId === 'deep_huck';
-      const isOverTop = playerOffId === 'zone_flood';
-      const isBreak = playerOffId === 'break_swing';
+      const isHammer = playerOffId === 'overhead_hammer';
+      const isOverTop = playerOffId === 'zone_flood' || isHammer;
+      const isBreak = playerOffId === 'break_swing' || playerOffId === 'dump_swing' || isHammer;
+      const isStrike = playerOffId === 'upline_strike';
 
       // Beat 1: Initial attack pass tailored to Force Home/Away & play call!
       const attackSign = isBreak ? breakDir : forceDir;
       const p1X = playerOffId === 'pop_swing'
         ? clamp(discX + 1.5 * forceDir, -12, 12)
-        : clamp(discX + (isHuck ? 4.5 * breakDir : 8.5 * attackSign), -15, 15);
-      const p1Y = clamp(discY + (isHuck ? 4 : 13.5), 25, 86);
+        : isStrike
+          ? clamp(discX + 4.8 * forceDir, -14, 14)
+          : clamp(discX + (isHuck ? 4.5 * breakDir : 8.5 * attackSign), -15, 15);
+      const p1Y = clamp(
+        discY + (isHuck ? 4 : isStrike ? 7.5 : playerOffId === 'dump_swing' ? 3.5 : 13.5),
+        25,
+        86
+      );
 
       const s1Off = this.computePlayerPlayExecutionTargets(p1X, p1Y, playerOffId, forceSide);
       const s1Def = this.computeReactiveBotDefense(p1X, p1Y, s1Off, botDefId, forceSide);
@@ -990,7 +1184,7 @@ export class Choreographer {
         playerTargets: s1Off,
         botTargets: s1Def,
         jabTeam: 'player',
-        jabIdx: 2,
+        jabIdx: isStrike ? 1 : 2,
         stallStart: 1,
         stallEnd: 3,
         discAction: {
@@ -1000,27 +1194,31 @@ export class Choreographer {
           toX: p1X,
           toY: p1Y,
           curveX: (isBreak ? 4.2 * breakDir : -3.2 * attackSign),
-          peakZ: 0.18,
+          peakZ: isHammer ? 0.42 : 0.18,
           outcome: 'catch',
           toTeam: 'player',
-          toIdx: isHuck ? 1 : 2
+          toIdx: isHuck || isStrike ? 1 : 2
         },
         onStart: () => {
           if (onTicker) {
             onTicker(
-              isBreak
-                ? `Stepped inside the Force ${forceSide.toUpperCase()} mark — break side is wide open!`
-                : 'Clean cut into open space — defense is scrambling!'
+              isStrike
+                ? 'Handler fakes back and bursts UPLINE into power position!'
+                : playerOffId === 'dump_swing'
+                  ? 'Quick reset and wide swing — reversing the entire field!'
+                  : isBreak
+                    ? 'Stepped around the mark — the break side is wide open!'
+                    : 'Clean cut into open space — defense is scrambling!'
             );
           }
         }
       });
 
-      // Beat 2: Scoring strike / bomb into Top End Zone (y = 97.5)!
+      // Beat 2: Scoring strike / bomb / hammer into Top End Zone (y = 97.5)!
       const goalLaneSign = playerOffId === 'pop_swing' || isBreak ? breakDir : forceDir;
-      const goalX = clamp(p1X + 5.5 * goalLaneSign, -13, 13);
+      const goalX = clamp(p1X + (isHammer ? 8.5 : 5.5) * goalLaneSign, -13.5, 13.5);
       const goalY = 97.5;
-      const scorerIdx = isHuck ? 2 : 3;
+      const scorerIdx = isHuck || isStrike || isHammer ? 2 : 3;
 
       const goalPlayers = s1Off.map((p, idx) =>
         idx === scorerIdx
@@ -1034,7 +1232,7 @@ export class Choreographer {
       );
 
       this.enqueueBeat({
-        duration: isHuck ? 1.3 : 1.05,
+        duration: isHuck || isHammer ? 1.28 : 1.05,
         playerTargets: goalPlayers,
         botTargets: beatenBots,
         stallStart: 1,
@@ -1045,8 +1243,8 @@ export class Choreographer {
           catchT: 0.92,
           toX: goalX,
           toY: goalY,
-          curveX: 4.8 * goalLaneSign,
-          peakZ: isHuck ? 0.86 : isOverTop ? 0.56 : 0.34,
+          curveX: (isHammer ? -5.6 : 4.8) * goalLaneSign,
+          peakZ: isHuck ? 0.86 : isHammer ? 0.82 : isOverTop ? 0.56 : 0.34,
           outcome: 'catch',
           toTeam: 'player',
           toIdx: scorerIdx,
@@ -1055,11 +1253,13 @@ export class Choreographer {
         onStart: () => {
           if (onTicker) {
             onTicker(
-              isHuck
-                ? 'Deep bomb is UP to the open Force lane!'
-                : isOverTop
-                  ? 'Floating an over-the-top blade past the Wall!'
-                  : 'Continuation throw to the end zone!'
+              isHammer
+                ? 'Upside-down Overhead Hammer arcs high over the defense!'
+                : isHuck
+                  ? 'Deep bomb is UP to the open lane!'
+                  : isOverTop
+                    ? 'Floating an over-the-top pass past the Wall!'
+                    : 'Power continuation throw to the end zone!'
             );
           }
         },
@@ -1174,19 +1374,30 @@ export class Choreographer {
     }
 
     // WORST OFFENSE -> Runs straight into Bot Defense's trap/poach/cup -> TURNOVER!
-    const isHuckMistake = playerOffId === 'deep_huck';
-    const errDir = playerOffId === 'break_swing' ? breakDir : forceDir;
+    const isHuckMistake = playerOffId === 'deep_huck' || playerOffId === 'overhead_hammer';
+    const errDir = playerOffId === 'break_swing' || playerOffId === 'dump_swing' ? breakDir : forceDir;
     const turnX = clamp(discX + (isHuckMistake ? 2.5 : 7.5) * errDir, -15, 15);
-    const turnY = clamp(discY + (isHuckMistake && botDefId === 'bot_man_poach' ? 25 : 9.5), 25, 85);
+    const turnY = clamp(discY + (isHuckMistake ? 19 : 9.5), 25, 85);
 
     const botHeroIdx = botDefId === 'bot_man_poach'
       ? 6
-      : botDefId === 'bot_man_blitz'
+      : botDefId === 'bot_man_blitz' || botDefId === 'bot_zone_box1'
         ? 1
         : botDefId === 'bot_zone_wall'
           ? 3
-          : 0;
-    const isInterception = botDefId === 'bot_man_poach' || botDefId === 'bot_zone_wall' || botDefId === 'bot_man_trap';
+          : botDefId === 'bot_man_middle'
+            ? 4
+            : botDefId === 'bot_man_press'
+              ? 2
+              : 0;
+    const isInterception = [
+      'bot_man_poach',
+      'bot_zone_wall',
+      'bot_man_trap',
+      'bot_man_middle',
+      'bot_man_press',
+      'bot_zone_box1'
+    ].includes(botDefId);
 
     const turnPlayers = snapOff.map((p, idx) =>
       idx === 2
@@ -1339,6 +1550,17 @@ export class Choreographer {
     const scaledDt = Math.min(dt, 0.05) * this.speedMultiplier;
     this.idleClock += scaledDt;
 
+    if (this.wind.strength !== 'calm' && this.windWisps.length > 0) {
+      for (const w of this.windWisps) {
+        w.x += this.wind.dx * w.speed * scaledDt;
+        w.y += this.wind.dy * w.speed * scaledDt;
+        if (w.x > 19.5) w.x = -19.5;
+        else if (w.x < -19.5) w.x = 19.5;
+        if (w.y > 108) w.y = 2;
+        else if (w.y < 2) w.y = 108;
+      }
+    }
+
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i];
       p.x += p.vx * scaledDt;
@@ -1419,8 +1641,10 @@ export class Choreographer {
           }
         }
         const fT = clamp((rawT - da.releaseT) / (da.catchT - da.releaseT), 0, 1);
-        const midX = (beat._fromX + da.toX) * 0.5 + (da.curveX || 0);
-        const midY = (beat._fromY + da.toY) * 0.5;
+        const windAmp = this.wind.strength === 'stiff' ? 4.4 : this.wind.strength === 'breezy' ? 2.0 : 0;
+        const loftFactor = Math.max(0.2, da.peakZ || 0.2);
+        const midX = clamp((beat._fromX + da.toX) * 0.5 + (da.curveX || 0) + this.wind.dx * windAmp * loftFactor, -18.5, 18.5);
+        const midY = clamp((beat._fromY + da.toY) * 0.5 + this.wind.dy * windAmp * loftFactor, 2, 108);
         const inv = 1 - fT;
         this.disc.x = inv * inv * beat._fromX + 2 * inv * fT * midX + fT * fT * da.toX;
         this.disc.y = inv * inv * beat._fromY + 2 * inv * fT * midY + fT * fT * da.toY;
@@ -1498,6 +1722,9 @@ export class Choreographer {
         curX = s.x + (tgt.x - s.x) * adjT;
         curY = s.y + (tgt.y - s.y) * adjT;
       }
+
+      curX = clamp(curX, -19.2, 19.2);
+      curY = clamp(curY, 1.5, 108.5);
 
       if (dt > 0.0001) {
         d.vx = (curX - d.x) / dt;

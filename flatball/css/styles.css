@@ -247,6 +247,38 @@ button {
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.08);
   color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.wind-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.wind-calm {
+  background: rgba(52, 211, 153, 0.11);
+  border-color: rgba(52, 211, 153, 0.28);
+  color: #a7f3d0;
+}
+
+.wind-breezy {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.42);
+  color: #bae6fd;
+}
+
+.wind-stiff {
+  background: rgba(251, 191, 36, 0.18);
+  border-color: rgba(251, 191, 36, 0.58);
+  color: #fde68a;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.18);
 }
 
 .hint-chip {
@@ -1492,11 +1524,34 @@ body.guide-page {
   }
 
   .look-overlay-bar {
-    padding: 4px 9px;
+    padding: 4px 8px;
+    gap: 5px;
+  }
+
+  .look-text-group {
+    gap: 5px;
+    flex-wrap: nowrap;
   }
 
   .look-title {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .look-tag {
+    display: none;
+  }
+
+  .wind-pill {
+    font-size: 0.61rem;
+    padding: 2px 6px;
+  }
+
+  .hint-chip {
+    font-size: 0.65rem;
+    padding: 2px 7px;
   }
 
   .coach-box {

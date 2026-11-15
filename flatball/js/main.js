@@ -4,12 +4,15 @@ import {
   PLAYER_OFFENSES,
   BOT_OFFENSES,
   BOT_DEFENSES,
+  rollPointWind,
+  formatWindBadge,
+  getEffectiveLook,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=6';
-import { Choreographer } from './choreographer.js?v=6';
-import { FieldRenderer } from './fieldRenderer.js?v=6';
-import { sound } from './audio.js?v=6';
+} from './playbookData.js?v=7';
+import { Choreographer } from './choreographer.js?v=7';
+import { FieldRenderer } from './fieldRenderer.js?v=7';
+import { sound } from './audio.js?v=7';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -47,7 +50,13 @@ const CARD_ICONS = {
   weave: `<svg viewBox="0 0 28 28" fill="none"><path d="M8 22l12-5-11-5 11-6" stroke="#00E5FF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="22" r="2.5" fill="#00E5FF"/><circle cx="20" cy="17" r="2.5" fill="#00E5FF"/><circle cx="9" cy="12" r="2.5" fill="#00E5FF"/></svg>`,
   flood: `<svg viewBox="0 0 28 28" fill="none"><path d="M6 15h12" stroke="#FF5A6E" stroke-width="2.2" stroke-dasharray="3 2"/><path d="M9 23V13M15 23V6" stroke="#00E5FF" stroke-width="2.4" stroke-linecap="round"/><circle cx="9" cy="13" r="2.5" fill="#00E5FF"/><circle cx="15" cy="6" r="2.5" fill="#00E5FF"/></svg>`,
   huck: `<svg viewBox="0 0 28 28" fill="none"><path d="M9 23C4 15 8 8 19 5" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="19" cy="5" r="3" fill="#00E5FF"/><circle cx="22" cy="16" r="2" fill="#64748B"/><circle cx="22" cy="21" r="2" fill="#64748B"/></svg>`,
-  vert: `<svg viewBox="0 0 28 28" fill="none"><path d="M14 8v6l6 4M20 18l-6-13" stroke="#00E5FF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="18" r="2.6" fill="#00E5FF"/><circle cx="14" cy="5" r="2.6" fill="#00E5FF"/></svg>`
+  vert: `<svg viewBox="0 0 28 28" fill="none"><path d="M14 8v6l6 4M20 18l-6-13" stroke="#00E5FF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="18" r="2.6" fill="#00E5FF"/><circle cx="14" cy="5" r="2.6" fill="#00E5FF"/></svg>`,
+  middle: `<svg viewBox="0 0 28 28" fill="none"><path d="M5 8l7 6M23 8l-7 6" stroke="#00E5FF" stroke-width="2.3" stroke-linecap="round"/><circle cx="14" cy="18" r="3.2" fill="#00E5FF"/><circle cx="6" cy="20" r="2.3" fill="#FF5A6E"/><circle cx="22" cy="20" r="2.3" fill="#FF5A6E"/></svg>`,
+  wall: `<svg viewBox="0 0 28 28" fill="none"><path d="M4 14h20" stroke="#00E5FF" stroke-width="2.6" stroke-linecap="round"/><circle cx="7" cy="14" r="2.7" fill="#00E5FF"/><circle cx="14" cy="14" r="2.7" fill="#00E5FF"/><circle cx="21" cy="14" r="2.7" fill="#00E5FF"/><circle cx="10" cy="7" r="2.2" fill="#38BDF8"/><circle cx="18" cy="7" r="2.2" fill="#38BDF8"/></svg>`,
+  box1: `<svg viewBox="0 0 28 28" fill="none"><rect x="7" y="7" width="14" height="10" rx="2" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 2"/><circle cx="11" cy="22" r="2.8" fill="#FF5A6E"/><circle cx="16" cy="21" r="2.8" fill="#00E5FF"/></svg>`,
+  strike: `<svg viewBox="0 0 28 28" fill="none"><circle cx="9" cy="19" r="2.8" fill="#FF5A6E"/><path d="M7 22l9-14 4 3" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="2.8" fill="#00E5FF"/></svg>`,
+  swing: `<svg viewBox="0 0 28 28" fill="none"><path d="M7 16c3 6 11 6 14-3" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="7" cy="16" r="2.6" fill="#94A3B8"/><circle cx="13" cy="21" r="2.6" fill="#00E5FF"/><circle cx="21" cy="12" r="2.8" fill="#00E5FF"/></svg>`,
+  hammer: `<svg viewBox="0 0 28 28" fill="none"><path d="M7 22C8 8 16 6 21 11" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/><ellipse cx="21" cy="12" rx="3.4" ry="1.8" transform="rotate(-25 21 12)" fill="#00E5FF"/></svg>`
 };
 
 class FlatballGame {
@@ -77,6 +86,7 @@ class FlatballGame {
       lookBanner: document.getElementById('look-banner'),
       lookTitle: document.getElementById('look-title'),
       lookTag: document.getElementById('look-tag'),
+      windBadge: document.getElementById('wind-badge'),
       hintBtn: document.getElementById('hint-btn'),
       tickerText: document.getElementById('coach-ticker-text'),
       actionContainer: document.getElementById('action-container'),
@@ -251,6 +261,7 @@ class FlatballGame {
       possession: 'bot',
       discX: 0,
       discY: 70,
+      pointWind: { strength: 'calm', dir: 'north', mph: 0, dx: 0, dy: 0 },
       botLookId: 'vert_stack',
       botDefState: { defId: 'bot_man_open', forceSide: 'home', baseStack: 'vert' },
       activeStrategyId: null,
@@ -292,13 +303,21 @@ class FlatballGame {
     this.state.selectedCard = null;
     this.state.pointSummary = null;
 
+    this.state.pointWind = rollPointWind(this.rng);
+    this.choreo.setPointWind(this.state.pointWind);
+    const wb = formatWindBadge(this.state.pointWind, this.state.possession);
+    if (this.state.pointWind.strength !== 'calm') {
+      this.addFeedEntry(`Weather Check: ${wb.text}`, 'neutral');
+    }
+
     this.choreo.setupPullLineup(pullingTeam);
     this.updateScoreboard();
     this.updateLookBanner();
+    const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air.' : `Wind: ${wb.text}.`;
     this.setTicker(
       pullingTeam === 'player'
-        ? '7v7 lined up on the goal lines. Click PULL DISC to launch the opening pull!'
-        : 'Bot is ready on the goal line to pull to your Offense!'
+        ? `7v7 lined up (${windNote}) Click PULL DISC to launch the pull!`
+        : `Bot is ready on the goal line (${windNote}) Click RECEIVE PULL!`
     );
     this.renderActionTray();
   }
@@ -309,13 +328,19 @@ class FlatballGame {
       return 'red_zone';
     }
     if (isMidfieldAdvance && this.state.botLookId && this.state.botLookId !== 'red_zone' && BOT_OFFENSES[this.state.botLookId]) {
-      if (this.rng() < 0.55) {
+      if (this.rng() < 0.52) {
         return this.state.botLookId;
       }
     }
-    const pool = ['vert_stack', 'ho_stack', 'side_iso', 'handler_weave'].filter(
-      (id) => id !== this.state.lastBotOffId
-    );
+    const pool = [
+      'vert_stack',
+      'ho_stack',
+      'side_iso',
+      'split_stack',
+      'hex_flow',
+      'handler_weave',
+      'star_playmaker'
+    ].filter((id) => id !== this.state.lastBotOffId);
     const chosen = pool[Math.floor(this.rng() * pool.length)];
     this.state.lastBotOffId = chosen;
     return chosen;
@@ -327,13 +352,15 @@ class FlatballGame {
       prevDefId: isAdvance ? this.state.botDefState.defId : this.state.lastBotDefId,
       prevStack: this.state.botDefState ? this.state.botDefState.baseStack : 'vert',
       isAdvance,
+      wind: this.state.pointWind,
       rng: this.rng
     });
     this.state.lastBotDefId = next.defId;
     return next;
   }
 
-  formatForceBadge(forceSide) {
+  formatForceBadge(forceSide, defId = null) {
+    if (defId === 'bot_man_middle') return 'FORCE MIDDLE ▶◀';
     return forceSide === 'home' ? 'FORCE HOME ◀' : 'FORCE AWAY ▶';
   }
 
@@ -388,9 +415,10 @@ class FlatballGame {
     this.state.possession = 'bot';
     this.state.selectedCard = null;
 
-    const botOff = BOT_OFFENSES[this.state.botLookId];
+    const baseBotOff = BOT_OFFENSES[this.state.botLookId];
+    const effBotOff = getEffectiveLook(baseBotOff, this.state.pointWind, false, this.state.discX);
     this.state.currentHand = buildDecisionHand(
-      botOff,
+      effBotOff,
       PLAYER_DEFENSES,
       isAdvance ? this.state.activeStrategyId : null,
       this.rng
@@ -400,7 +428,7 @@ class FlatballGame {
     this.updateLookBanner(audibled);
 
     if (isAdvance) {
-      const audibleNote = audibled ? `⚡ Bot audibled to ${botOff.name}! ` : '';
+      const audibleNote = audibled ? `⚡ Bot audibled to ${baseBotOff.name}! ` : '';
       this.setTicker(
         this.renderer.scoutEnabled
           ? `${audibleNote}Keep ${PLAYER_DEFENSES[this.state.activeStrategyId].name} or switch D — tap to align, then Confirm!`
@@ -409,8 +437,8 @@ class FlatballGame {
     } else {
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `Bot lined up in ${botOff.name}. Tap a Defense below to drift into position, then Confirm!`
-          : 'Read the 7v7 spacing — tap a Defense to drift into position, then Confirm!'
+          ? `Bot lined up in ${baseBotOff.name}. Tap a Defense below to drift into position, then Confirm!`
+          : 'Read the 7v7 spacing & wind — tap a Defense to drift into position, then Confirm!'
       );
     }
 
@@ -423,12 +451,13 @@ class FlatballGame {
     this.state.selectedCard = null;
 
     const { defId, forceSide, baseStack } = this.state.botDefState;
-    const botDef = BOT_DEFENSES[defId];
-    const forceText = this.formatForceBadge(forceSide);
+    const baseBotDef = BOT_DEFENSES[defId];
+    const effBotDef = getEffectiveLook(baseBotDef, this.state.pointWind, true, this.state.discX);
+    const forceText = this.formatForceBadge(forceSide, defId);
     const stackText = baseStack === 'ho' ? 'Ho Stack' : 'Vert Stack';
 
     this.state.currentHand = buildDecisionHand(
-      botDef,
+      effBotDef,
       PLAYER_OFFENSES,
       isAdvance ? this.state.activeStrategyId : null,
       this.rng
@@ -441,13 +470,13 @@ class FlatballGame {
       const audibleNote = audibled ? `⚡ Bot switched D (${forceText})! ` : '';
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `${audibleNote}Bot shows ${botDef.name} (${forceText}). Tap Keep or audible to preview, then Confirm!`
+          ? `${audibleNote}Bot shows ${baseBotDef.name} (${forceText}). Tap Keep or audible to preview, then Confirm!`
           : `${audibleNote}Your ${stackText} is set (${forceText}). Tap a Play to align, then Confirm!`
       );
     } else {
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `Your ${stackText} is set vs ${botDef.name} (${forceText}). Tap a Play to drift into alignment, then Confirm!`
+          ? `Your ${stackText} is set vs ${baseBotDef.name} (${forceText}). Tap a Play to drift into alignment, then Confirm!`
           : `Your ${stackText} is set (${forceText}). Read Man vs Zone — tap a Play to align, then Confirm!`
       );
     }
@@ -471,7 +500,7 @@ class FlatballGame {
         card.id
       );
       this.setTicker(
-        `Previewing ${card.name} — ${card.shortDesc} Tap Confirm to run it, or test another play!`
+        `Previewing ${card.name} — ${card.shortDesc}. Tap Confirm to run it, or test another play!`
       );
     } else {
       this.choreo.previewDefenseSelection(
@@ -481,7 +510,7 @@ class FlatballGame {
         card.id
       );
       this.setTicker(
-        `Previewing ${card.name} — ${card.shortDesc} Tap Confirm to lock in D, or test another option!`
+        `Previewing ${card.name} — ${card.shortDesc}. Tap Confirm to lock in D, or test another option!`
       );
     }
 
@@ -515,7 +544,12 @@ class FlatballGame {
 
     if (wasDefense) {
       const prevBotOffId = this.state.botLookId;
-      const botOffObj = BOT_OFFENSES[prevBotOffId];
+      const effBotOffObj = getEffectiveLook(
+        BOT_OFFENSES[prevBotOffId],
+        this.state.pointWind,
+        false,
+        this.state.discX
+      );
       const nextBotOffOnAdvance = card.tier === 'middle'
         ? this.pickBotOffense(this.state.discY - 24, true)
         : prevBotOffId;
@@ -538,11 +572,11 @@ class FlatballGame {
             this.state.botDefState = res.botDefState;
             this.state.botLookId = res.botDefState.defId;
             this.state.activeStrategyId = null;
-            this.addFeedEntry(`🔥 TURNOVER! ${card.name} shut down ${botOffObj.name}.`, 'good');
+            this.addFeedEntry(`🔥 TURNOVER! ${card.name} shut down ${effBotOffObj.name}.`, 'good');
             this.enterOffenseRead(false, false);
-            const fTxt = this.formatForceBadge(res.botDefState.forceSide);
+            const fTxt = this.formatForceBadge(res.botDefState.forceSide, res.botDefState.defId);
             this.setTicker(
-              `${botOffObj.outcomes.ideal} Bot D matched your stack (${this.renderer.scoutEnabled ? `${BOT_DEFENSES[res.botDefState.defId].name}, ` : ''}${fTxt})!`
+              `${effBotOffObj.outcomes.ideal} Bot D matched your stack (${this.renderer.scoutEnabled ? `${BOT_DEFENSES[res.botDefState.defId].name}, ` : ''}${fTxt})!`
             );
           } else if (res.outcome === 'advance') {
             const didAudible = nextBotOffOnAdvance !== prevBotOffId;
@@ -553,9 +587,9 @@ class FlatballGame {
             this.state.botScore += 1;
             this.state.stats.pointHistory.push('L');
             const reason = card.tier === 'worst'
-              ? botOffObj.outcomes.worst
+              ? effBotOffObj.outcomes.worst
               : 'Bot marched the remaining yards across your goal line for the score.';
-            this.addFeedEntry(`⚠️ Bot Goal (${this.state.playerScore}–${this.state.botScore}): ${card.name} vs ${botOffObj.name}.`, 'bad');
+            this.addFeedEntry(`⚠️ Bot Goal (${this.state.playerScore}–${this.state.botScore}): ${card.name} vs ${effBotOffObj.name}.`, 'bad');
             this.enterPointOver('bot', reason);
           }
         }
@@ -563,7 +597,12 @@ class FlatballGame {
     } else {
       // Player on OFFENSE
       const prevDefState = { ...this.state.botDefState };
-      const botDefObj = BOT_DEFENSES[prevDefState.defId];
+      const effBotDefObj = getEffectiveLook(
+        BOT_DEFENSES[prevDefState.defId],
+        this.state.pointWind,
+        true,
+        this.state.discX
+      );
 
       this.choreo.animateOffenseResolution({
         discX: this.state.discX,
@@ -585,10 +624,10 @@ class FlatballGame {
               this.state.stats.breakGoals += 1;
             }
             const reason = card.tier === 'ideal'
-              ? botDefObj.outcomes.ideal
+              ? effBotDefObj.outcomes.ideal
               : `${card.name} powered the remaining yards into the end zone for the goal!`;
             this.addFeedEntry(
-              `🎉 GOAL! (${this.state.playerScore}–${this.state.botScore}) ${card.name} beat ${botDefObj.name}!`,
+              `🎉 GOAL! (${this.state.playerScore}–${this.state.botScore}) ${card.name} beat ${effBotDefObj.name}!`,
               'good'
             );
             this.enterPointOver('player', reason);
@@ -603,9 +642,9 @@ class FlatballGame {
             this.state.stats.turnsCommitted += 1;
             this.state.botLookId = res.nextBotOffId;
             this.state.activeStrategyId = null;
-            this.addFeedEntry(`💥 Turnover vs ${botDefObj.name}! Back on Defense.`, 'bad');
+            this.addFeedEntry(`💥 Turnover vs ${effBotDefObj.name}! Back on Defense.`, 'bad');
             this.enterDefenseRead(false, false);
-            this.setTicker(`${botDefObj.outcomes.worst} Transitioning to Defense — stop them!`);
+            this.setTicker(`${effBotDefObj.outcomes.worst} Transitioning to Defense — stop them!`);
           }
         }
       });
@@ -682,10 +721,20 @@ class FlatballGame {
 
   revealCoachHint() {
     if (this.state.phase === 'DEFENSE_READ') {
-      const look = BOT_OFFENSES[this.state.botLookId];
+      const look = getEffectiveLook(
+        BOT_OFFENSES[this.state.botLookId],
+        this.state.pointWind,
+        false,
+        this.state.discX
+      );
       this.setTicker(`💡 Scout Tip: ${look.hint}`);
     } else if (this.state.phase === 'OFFENSE_READ') {
-      const look = BOT_DEFENSES[this.state.botDefState.defId];
+      const look = getEffectiveLook(
+        BOT_DEFENSES[this.state.botDefState.defId],
+        this.state.pointWind,
+        true,
+        this.state.discX
+      );
       this.setTicker(`💡 Scout Tip: ${look.hint}`);
     }
   }
@@ -736,6 +785,13 @@ class FlatballGame {
 
   updateLookBanner(audibled = false) {
     const { phase, botLookId, botDefState } = this.state;
+
+    if (this.dom.windBadge) {
+      const wb = formatWindBadge(this.state.pointWind, this.state.possession);
+      this.dom.windBadge.textContent = wb.text;
+      this.dom.windBadge.className = `wind-pill wind-${wb.tone}`;
+    }
+
     if (phase !== 'DEFENSE_READ' && phase !== 'OFFENSE_READ') {
       this.dom.lookBanner.classList.add('banner-muted');
       this.dom.hintBtn.classList.add('hidden');
@@ -766,7 +822,7 @@ class FlatballGame {
       this.dom.lookTag.textContent = look.tag;
     } else {
       const { defId, forceSide, baseStack } = botDefState;
-      const forceBadge = this.formatForceBadge(forceSide);
+      const forceBadge = this.formatForceBadge(forceSide, defId);
       const stackLabel = baseStack === 'ho' ? 'YOUR HO STACK' : 'YOUR VERT STACK';
 
       if (!this.renderer.scoutEnabled) {
