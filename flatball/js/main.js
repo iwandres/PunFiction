@@ -6,10 +6,10 @@ import {
   BOT_DEFENSES,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=3';
-import { Choreographer } from './choreographer.js?v=3';
-import { FieldRenderer } from './fieldRenderer.js?v=3';
-import { sound } from './audio.js?v=3';
+} from './playbookData.js?v=4';
+import { Choreographer } from './choreographer.js?v=4';
+import { FieldRenderer } from './fieldRenderer.js?v=4';
+import { sound } from './audio.js?v=4';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;

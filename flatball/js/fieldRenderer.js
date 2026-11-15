@@ -143,20 +143,14 @@ export class FieldRenderer {
     ctx.fillText('▼  YOUR DEFEND ZONE  ▼', fieldX + fieldW * 0.5, fieldY + fieldH - ezH * 0.5);
 
     const midPx = this.worldToPx(0, 55);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.setLineDash([6, 6]);
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
     ctx.moveTo(fieldX, midPx.y);
     ctx.lineTo(fieldX + fieldW, midPx.y);
     ctx.stroke();
     ctx.setLineDash([]);
-
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(midPx.x, midPx.y, this.yardsToPxX(4.8), 0, Math.PI * 2);
-    ctx.stroke();
 
     const topGoal = this.worldToPx(0, 90).y;
     const botGoal = this.worldToPx(0, 20).y;
