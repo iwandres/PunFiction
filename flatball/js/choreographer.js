@@ -1,10 +1,8 @@
-// 7v7 Procedural Choreography & 2.5D Disc Flight Engine for Flatball Tactics
+// 7v7 Procedural Choreography, Reactive Man/Zone Matchups & 2.5D Disc Flight Engine for Flatball Tactics
 import {
   BOT_OFFENSES,
   BOT_DEFENSES,
-  PLAYER_DEFENSES,
-  PLAYER_BASE_OFFENSE_OFFSETS,
-  PLAYER_OFFENSE_SHAPES
+  PLAYER_DEFENSES
 } from './playbookData.js';
 import { sound } from './audio.js';
 
@@ -34,7 +32,7 @@ export class Choreographer {
       z: 0,
       inFlight: false,
       dropped: false,
-      holderTeam: 'player', // 'player' | 'bot' | null
+      holderTeam: 'player',
       holderIdx: 3,
       spinAngle: 0,
       trail: []
@@ -50,10 +48,12 @@ export class Choreographer {
       discAnchorX: 0,
       discAnchorY: 70,
       openSign: 1,
+      baseStack: 'vert',
+      forceSide: 'home', // 'home' (-x Left) | 'away' (+x Right)
       scoutShape: null,
       forceTeam: 'player',
       forceType: 'open',
-      ghostPreview: null // Set when hovering a strategy card
+      ghostPreview: null
     };
 
     this.particles = [];
@@ -86,10 +86,6 @@ export class Choreographer {
     this.beatElapsed = 0;
   }
 
-  /**
-   * Resets both 7-player lines on opposite goal lines for a Pull.
-   * @param {'player' | 'bot'} pullingTeam
-   */
   setupPullLineup(pullingTeam = 'player') {
     this.clearQueue();
     const xs = [-15, -10, -5, 0, 5, 10, 15];
@@ -127,18 +123,14 @@ export class Choreographer {
     this.visualContext.ghostPreview = null;
   }
 
-  /**
-   * Computes world coordinates from (dx, fy) relative to (discX, discY) and attackDir (-1 for bot, +1 for player)
-   */
   toWorld(discX, discY, attackDir, openSign, dx, fy) {
     const x = clamp(discX + dx * openSign, -17.8, 17.8);
     const y = clamp(discY + fy * attackDir, 3.5, 106.5);
     return { x, y };
   }
 
-  /**
-   * Builds 7 world targets for Bot Offense + matching baseline Player Defenders
-   */
+  // ===================== BOT OFFENSE vs PLAYER DEFENSE =====================
+
   computeBotOffenseSetup(discX, discY, botOffenseId, playerDefId = null) {
     const form = BOT_OFFENSES[botOffenseId];
     const openSign = discX > 3.5 ? -1 : 1;
@@ -156,7 +148,6 @@ export class Choreographer {
       };
     });
 
-    // Position Player's 7 defenders cleanly depending on active defense or neutral matchup readiness
     const playerTargets = this.computePlayerDefensePositions(discX, discY, openSign, botTargets, playerDefId);
     return { botTargets, playerTargets, openSign };
   }
@@ -232,7 +223,6 @@ export class Choreographer {
       });
     }
 
-    // Default / Force Flick / Sideline Trap 1-on-1 readiness
     const shadeSign = playerDefId === 'sideline_trap' ? -openSign : openSign;
     return botTargets.map((bt, idx) => {
       if (idx === 0) {
@@ -252,51 +242,233 @@ export class Choreographer {
     });
   }
 
+  // ===================== PLAYER OFFENSE vs REACTIVE BOT DEFENSE =====================
+
   /**
-   * Computes Player's neutral Offense readiness + Bot's chosen Defensive Setup (Bot D sets up FIRST!)
+   * Computes Player's 7-dot Base Stack ('vert' or 'ho') at (discX, discY)
    */
-  computeBotDefenseSetup(discX, discY, botDefId, playerOffId = null) {
-    const botDef = BOT_DEFENSES[botDefId];
-    const openSign = discX > 3.5 ? -1 : 1;
-    const attackDir = 1; // Player attacks upward toward y = 90
+  computePlayerBaseStack(discX, discY, baseStack = 'vert', forceSide = 'home') {
+    const forceDir = forceSide === 'home' ? -1 : 1;
+    const resetDir = discX > 5 ? -1 : discX < -5 ? 1 : -forceDir;
 
-    const offSource = playerOffId ? PLAYER_OFFENSE_SHAPES[playerOffId] : PLAYER_BASE_OFFENSE_OFFSETS;
-    const playerTargets = offSource.map((o, idx) => {
-      const pos = idx === 0
-        ? { x: discX, y: discY }
-        : this.toWorld(discX, discY, attackDir, openSign, o.dx, o.fy);
-      return {
-        x: pos.x,
-        y: pos.y,
-        role: o.role,
-        highlight: o.role === 'ISO'
-      };
-    });
+    if (baseStack === 'ho') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX - 8.2, -16.5, 16.5), y: clamp(discY - 4.2, 4, 104), role: 'H2', highlight: false },
+        { x: clamp(discX + 8.2, -16.5, 16.5), y: clamp(discY - 4.2, 4, 104), role: 'H3', highlight: false },
+        { x: -13.8, y: clamp(discY + 15.2, 8, 105), role: '1', highlight: false },
+        { x: -4.6, y: clamp(discY + 13.5, 8, 105), role: '2', highlight: false },
+        { x: 4.6, y: clamp(discY + 13.5, 8, 105), role: '3', highlight: false },
+        { x: 13.8, y: clamp(discY + 15.2, 8, 105), role: '4', highlight: false }
+      ];
+    }
 
-    const botTargets = botDef.defenseOffsets.map((d) => {
-      const pos = this.toWorld(discX, discY, attackDir, openSign, d.dx, d.fy);
-      return {
-        x: pos.x,
-        y: pos.y,
-        role: d.role,
-        highlight: Boolean(d.highlight)
-      };
-    });
-
-    return { playerTargets, botTargets, openSign };
+    // Vertical Stack down the central spine
+    const stackX = clamp(discX * 0.25, -4, 4);
+    return [
+      { x: discX, y: discY, role: 'H1', highlight: false },
+      { x: clamp(discX + 7.2 * resetDir, -16.5, 16.5), y: clamp(discY - 4.6, 4, 104), role: 'H2', highlight: false },
+      { x: stackX, y: clamp(discY + 9.5, 8, 104), role: '1', highlight: false },
+      { x: stackX, y: clamp(discY + 13.8, 8, 105), role: '2', highlight: false },
+      { x: stackX, y: clamp(discY + 18.1, 8, 105.5), role: '3', highlight: false },
+      { x: stackX, y: clamp(discY + 22.4, 8, 106), role: '4', highlight: false },
+      { x: stackX, y: clamp(discY + 26.5, 8, 106.5), role: '5', highlight: false }
+    ];
   }
 
   /**
-   * Launches the 1-Click Pull animation (either Player pulling upfield, or Bot pulling downfield)
+   * Computes Player's active execution cut shape when running a selected Offensive Play
    */
-  animatePull({ pullingTeam, landingX, landingY, initialBotLookId, onReadyForRead, onTicker }) {
+  computePlayerPlayExecutionTargets(discX, discY, playerOffId, forceSide = 'home') {
+    const forceDir = forceSide === 'home' ? -1 : 1; // -1 = Home (Left), +1 = Away (Right)
+    const breakDir = -forceDir;
+
+    if (playerOffId === 'force_cuts') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 6.5 * breakDir, -16.5, 16.5), y: clamp(discY - 4.5, 4, 104), role: 'H2', highlight: false },
+        { x: clamp(discX + 8.5 * forceDir, -16.5, 16.5), y: clamp(discY + 10.5, 8, 105), role: '1', highlight: true },
+        { x: clamp(discX + 10.5 * forceDir, -16.5, 16.5), y: clamp(discY + 20, 8, 106), role: '2', highlight: false },
+        { x: clamp(discX * 0.2, -5, 5), y: clamp(discY + 15, 8, 105), role: '3', highlight: false },
+        { x: clamp(discX * 0.2, -5, 5), y: clamp(discY + 20, 8, 105.5), role: '4', highlight: false },
+        { x: clamp(discX * 0.2, -5, 5), y: clamp(discY + 25, 8, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'break_swing') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 8.5 * breakDir, -16, 16), y: clamp(discY + 2.5, 5, 104), role: 'H2', highlight: true },
+        { x: clamp(discX + 12.5 * breakDir, -16, 16), y: clamp(discY + 13.5, 8, 105), role: '1', highlight: true },
+        { x: clamp(discX + 4 * forceDir, -16.5, 16.5), y: clamp(discY + 11, 8, 105), role: '2', highlight: false },
+        { x: clamp(discX + 6 * breakDir, -16, 16), y: clamp(discY + 19, 8, 105.5), role: '3', highlight: false },
+        { x: clamp(discX + 13 * breakDir, -16, 16), y: clamp(discY + 23, 8, 106), role: '4', highlight: false },
+        { x: clamp(discX + 3 * forceDir, -16.5, 16.5), y: clamp(discY + 22, 8, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'give_go') {
+      const midDir = discX > 6 ? -1 : discX < -6 ? 1 : forceDir;
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 6.5 * midDir, -16, 16), y: clamp(discY + 4.5, 6, 104), role: 'H2', highlight: true },
+        { x: clamp(discX - 5.5 * midDir, -16, 16), y: clamp(discY + 7.5, 6, 104.5), role: '1', highlight: true },
+        { x: clamp(discX + 4.5 * midDir, -16, 16), y: clamp(discY + 12, 8, 105), role: '2', highlight: false },
+        { x: -12, y: clamp(discY + 22, 10, 106), role: '3', highlight: false },
+        { x: 0, y: clamp(discY + 24, 10, 106), role: '4', highlight: false },
+        { x: 12, y: clamp(discY + 22, 10, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'deep_huck') {
+      const huckLaneX = clamp(discX + 7.5 * forceDir, -14, 14);
+      const clearX = clamp(breakDir * 14.5, -16.5, 16.5);
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX + 6 * breakDir, -16, 16), y: clamp(discY - 4.5, 4, 104), role: 'H2', highlight: false },
+        { x: huckLaneX, y: clamp(discY + 23, 12, 106), role: 'ISO', highlight: true },
+        { x: clearX, y: clamp(discY + 10, 8, 105), role: '2', highlight: false },
+        { x: clearX, y: clamp(discY + 14, 8, 105), role: '3', highlight: false },
+        { x: clearX, y: clamp(discY + 18, 8, 105.5), role: '4', highlight: false },
+        { x: clearX, y: clamp(discY + 22, 8, 106), role: '5', highlight: false }
+      ];
+    }
+
+    if (playerOffId === 'pop_swing') {
+      return [
+        { x: discX, y: discY, role: 'H1', highlight: false },
+        { x: clamp(discX - 9, -16, 16), y: clamp(discY - 3, 4, 104), role: 'H2', highlight: false },
+        { x: clamp(discX + 9, -16, 16), y: clamp(discY - 3, 4, 104), role: 'H3', highlight: false },
+        { x: clamp(discX + 1.5 * forceDir, -12, 12), y: clamp(discY + 8.5, 8, 105), role: 'P1', highlight: true },
+        { x: clamp(discX + 9.5 * breakDir, -15.5, 15.5), y: clamp(discY + 13.5, 8, 105), role: 'W1', highlight: true },
+        { x: clamp(discX + 11 * forceDir, -15.5, 15.5), y: clamp(discY + 14, 8, 105.5), role: 'W2', highlight: false },
+        { x: 0, y: clamp(discY + 22, 10, 106), role: 'D', highlight: false }
+      ];
+    }
+
+    // zone_flood: Overload one wing at staggered depths + over-the-top seam!
+    const floodX = clamp(discX + 9.5 * forceDir, -15, 15);
+    return [
+      { x: discX, y: discY, role: 'H1', highlight: false },
+      { x: clamp(discX + 7 * breakDir, -16, 16), y: clamp(discY - 4, 4, 104), role: 'H2', highlight: false },
+      { x: floodX, y: clamp(discY + 9.5, 8, 105), role: 'F1', highlight: true },
+      { x: clamp(floodX - 2 * forceDir, -15, 15), y: clamp(discY + 19.5, 10, 106), role: 'F2', highlight: true },
+      { x: clamp(floodX + 2.5 * forceDir, -16.5, 16.5), y: clamp(discY + 14.5, 8, 105), role: '3', highlight: false },
+      { x: clamp(breakDir * 11, -16, 16), y: clamp(discY + 14, 8, 105), role: '4', highlight: false },
+      { x: clamp(breakDir * 9, -16, 16), y: clamp(discY + 21, 10, 106), role: '5', highlight: false }
+    ];
+  }
+
+  /**
+   * Computes Bot's 7-defender positions REACTING to Player's offensive positions + Force ('home' or 'away')!
+   */
+  computeReactiveBotDefense(discX, discY, playerTargets, botDefId, forceSide = 'home') {
+    const forceDir = forceSide === 'home' ? -1 : 1; // -1 = Force Home (Left), +1 = Force Away (Right)
+    const markerLabel = forceSide === 'home' ? 'F◀' : 'F▶';
+
+    if (botDefId === 'bot_zone_cup') {
+      // 3-Man Cup ignores player stack and forms a curved Cup around (discX, discY) tilted toward forceDir!
+      return [
+        { x: clamp(discX - 2.9 * forceDir, -17.5, 17.5), y: clamp(discY + 2.2, 4, 106), role: markerLabel, highlight: false },
+        { x: clamp(discX - 0.3 * forceDir, -17.5, 17.5), y: clamp(discY + 4.1, 4, 106), role: 'C2', highlight: false },
+        { x: clamp(discX + 2.9 * forceDir, -17.5, 17.5), y: clamp(discY + 3.0, 4, 106), role: 'C3', highlight: false },
+        { x: -12.5, y: clamp(discY + 11.5, 8, 106), role: 'W1', highlight: false },
+        { x: 12.5, y: clamp(discY + 11.5, 8, 106), role: 'W2', highlight: false },
+        { x: clamp(forceDir * 2, -10, 10), y: clamp(discY + 16, 10, 106), role: 'SD', highlight: false },
+        { x: 0, y: clamp(discY + 25.5, 12, 106.5), role: 'DD', highlight: false }
+      ];
+    }
+
+    if (botDefId === 'bot_zone_wall') {
+      // 2-3-2 Wall Zone ignores player stack: 2 front chasers + 3-across flat midfield Wall + 2 deep safeties!
+      return [
+        { x: clamp(discX - 2.1 * forceDir, -17.5, 17.5), y: clamp(discY + 2.3, 4, 106), role: markerLabel, highlight: false },
+        { x: clamp(discX + 4.6 * forceDir, -17.5, 17.5), y: clamp(discY + 4.0, 4, 106), role: 'CH', highlight: false },
+        { x: -12, y: clamp(discY + 11.8, 8, 106), role: 'W1', highlight: false },
+        { x: 0, y: clamp(discY + 11.8, 8, 106), role: 'W2', highlight: false },
+        { x: 12, y: clamp(discY + 11.8, 8, 106), role: 'W3', highlight: false },
+        { x: -7, y: clamp(discY + 23.5, 12, 106.5), role: 'D1', highlight: false },
+        { x: 7, y: clamp(discY + 23.5, 12, 106.5), role: 'D2', highlight: false }
+      ];
+    }
+
+    // MAN-TO-MAN FAMILY: Defenders physically match up to playerTargets[0..6]!
+    return playerTargets.map((pt, idx) => {
+      if (idx === 0) {
+        // Marker stands on the break shoulder (-forceDir), forcing throws toward forceDir!
+        return {
+          x: clamp(discX - 2.2 * forceDir, -18, 18),
+          y: clamp(discY + 2.0, 4, 106),
+          role: markerLabel,
+          highlight: false
+        };
+      }
+
+      if (botDefId === 'bot_man_blitz' && idx === 1) {
+        // Face-guarding dump blitz right in the reset lane between H1 and H2!
+        return {
+          x: clamp((discX + pt.x) * 0.52, -18, 18),
+          y: clamp((discY + pt.y) * 0.52 + 0.6, 4, 106),
+          role: 'BLZ',
+          highlight: true
+        };
+      }
+
+      if (botDefId === 'bot_man_poach' && idx === 6) {
+        // Last defender abandons their cutter to sag deep in the end-zone lane!
+        return {
+          x: clamp(forceDir * 3.2, -12, 12),
+          y: clamp(discY + 28.5, 14, 106.5),
+          role: 'SAG',
+          highlight: true
+        };
+      }
+
+      if (botDefId === 'bot_man_trap') {
+        // Jump aggressively into the trapped sideline lane!
+        return {
+          x: clamp(pt.x + 2.2 * forceDir, -18, 18),
+          y: clamp(pt.y - 0.4, 4, 106),
+          role: `D${idx + 1}`,
+          highlight: false
+        };
+      }
+
+      // Honest 1v1 Man shading the forced side (forceDir)
+      return {
+        x: clamp(pt.x + 1.65 * forceDir, -18, 18),
+        y: clamp(pt.y + 1.8, 4, 106),
+        role: `D${idx + 1}`,
+        highlight: false
+      };
+    });
+  }
+
+  applyOffenseVisualContext(discX, discY, botDefState) {
+    const botDefObj = BOT_DEFENSES[botDefState.defId];
+    this.visualContext = {
+      offenseTeam: 'player',
+      discAnchorX: discX,
+      discAnchorY: discY,
+      openSign: discX > 3.5 ? -1 : 1,
+      baseStack: botDefState.baseStack,
+      forceSide: botDefState.forceSide,
+      scoutShape: botDefObj.scoutShape,
+      forceTeam: 'bot',
+      forceType: botDefObj.forceStyle === 'cup' ? 'cup' : 'directional',
+      ghostPreview: null
+    };
+  }
+
+  // ===================== ANIMATION SEQUENCES =====================
+
+  animatePull({ pullingTeam, landingX, landingY, initialBotLookId, botDefState, onReadyForRead, onTicker }) {
     this.clearQueue();
     const isPlayerPull = pullingTeam === 'player';
 
     if (isPlayerPull) {
       const { botTargets, playerTargets, openSign } = this.computeBotOffenseSetup(landingX, landingY, initialBotLookId, null);
 
-      // Beat 1: Puller step-up & booming high-arc pull while both teams sprint downfield
       this.enqueueBeat({
         duration: 1.85,
         playerTargets,
@@ -324,6 +496,8 @@ export class Choreographer {
             discAnchorX: landingX,
             discAnchorY: landingY,
             openSign,
+            baseStack: 'vert',
+            forceSide: 'home',
             scoutShape: BOT_OFFENSES[initialBotLookId].scoutShape,
             forceTeam: 'player',
             forceType: 'open',
@@ -335,27 +509,25 @@ export class Choreographer {
         }
       });
     } else {
-      // Bot pulls downfield to Player Offense -> THEN Bot Defense visibly sets up first!
-      const openSign = landingX > 3.5 ? -1 : 1;
-      const basePlayerTargets = PLAYER_BASE_OFFENSE_OFFSETS.map((o, idx) => {
-        const pos = idx === 0
-          ? { x: landingX, y: landingY }
-          : this.toWorld(landingX, landingY, 1, openSign, o.dx, o.fy);
-        return { x: pos.x, y: pos.y, role: o.role, highlight: false };
-      });
-      // During the pull flight, Bot sprints down in loose coverage lanes first
-      const sprintBotTargets = basePlayerTargets.map((pt, idx) => ({
-        x: clamp(pt.x + (idx - 3) * 1.1, -17, 17),
-        y: clamp(pt.y + 8, 25, 95),
+      // Bot pulls to Player -> Player sets Base Stack -> Bot Defense matches up (Man vs Zone + Force Home/Away)!
+      const stackTargets = this.computePlayerBaseStack(landingX, landingY, botDefState.baseStack, botDefState.forceSide);
+      const sprintBotTargets = stackTargets.map((pt, idx) => ({
+        x: clamp(pt.x + (idx - 3) * 1.4, -17, 17),
+        y: clamp(pt.y + 8, 25, 96),
         role: `D${idx + 1}`,
         highlight: false
       }));
-
-      const { botTargets: setBotTargets } = this.computeBotDefenseSetup(landingX, landingY, initialBotLookId, null);
+      const matchedBotTargets = this.computeReactiveBotDefense(
+        landingX,
+        landingY,
+        stackTargets,
+        botDefState.defId,
+        botDefState.forceSide
+      );
 
       this.enqueueBeat({
-        duration: 1.75,
-        playerTargets: basePlayerTargets,
+        duration: 1.72,
+        playerTargets: stackTargets,
         botTargets: sprintBotTargets,
         discAction: {
           type: 'pass',
@@ -372,30 +544,18 @@ export class Choreographer {
         },
         onStart: () => {
           sound.pullWhoosh();
-          if (onTicker) onTicker('Bot pulls! Receiving the disc...');
+          const stackLabel = botDefState.baseStack === 'ho' ? 'Horizontal Stack' : 'Vertical Stack';
+          if (onTicker) onTicker(`Bot pulls! Your offense sets ${stackLabel} — watch how Bot D matches up...`);
         }
       });
 
-      // Beat 2: Bot Defense visibly shifts into its Defensive Shell FIRST!
       this.enqueueBeat({
-        duration: 0.68,
-        playerTargets: basePlayerTargets,
-        botTargets: setBotTargets,
+        duration: 0.65,
+        playerTargets: stackTargets,
+        botTargets: matchedBotTargets,
         discAction: { type: 'hold', holderTeam: 'player', holderIdx: 0 },
-        onStart: () => {
-          if (onTicker) onTicker('Watch closely — Bot Defense is setting its shell!');
-        },
         onComplete: () => {
-          this.visualContext = {
-            offenseTeam: 'player',
-            discAnchorX: landingX,
-            discAnchorY: landingY,
-            openSign,
-            scoutShape: BOT_DEFENSES[initialBotLookId].scoutShape,
-            forceTeam: 'bot',
-            forceType: BOT_DEFENSES[initialBotLookId].forceType,
-            ghostPreview: null
-          };
+          this.applyOffenseVisualContext(landingX, landingY, botDefState);
           this.stall.active = true;
           this.stall.value = 1;
           if (onReadyForRead) onReadyForRead();
@@ -404,16 +564,14 @@ export class Choreographer {
     }
   }
 
-  /**
-   * Choreographs a Defensive Play Resolution (Player = D, Bot = O attacking -y toward y = 20)
-   */
   animateDefenseResolution({
     discX,
     discY,
     botOffenseId,
     playerDefId,
     tier,
-    nextBotLookAfterTurnOrAdvance,
+    nextBotOffIdOnAdvance,
+    computeBotDefOnTurn,
     onTicker,
     onResult
   }) {
@@ -426,7 +584,6 @@ export class Choreographer {
     this.visualContext.forceTeam = 'player';
     this.visualContext.forceType = defObj.forceType;
 
-    // Snap Player's 7 defenders into the chosen defense first (0.45s crisp adjustment)
     const { botTargets: initBot, playerTargets: initDef } = this.computeBotOffenseSetup(
       discX,
       discY,
@@ -447,14 +604,12 @@ export class Choreographer {
     });
 
     if (tier === 'ideal') {
-      // LOCKDOWN -> TURNOVER!
       const swingX = clamp(discX - 8.5 * openSign, -15, 15);
-      const swingY = clamp(discY + 2.5, 24, 88); // Forced slightly backward!
+      const swingY = clamp(discY + 2.5, 24, 88);
       const s1 = this.computeBotOffenseSetup(swingX, swingY, botOffenseId, playerDefId);
 
-      // Beat 1: Primary lane denied, forced backward dump/swing
       this.enqueueBeat({
-        duration: 0.95,
+        duration: 0.92,
         playerTargets: s1.playerTargets,
         botTargets: s1.botTargets,
         jabTeam: 'bot',
@@ -478,8 +633,7 @@ export class Choreographer {
         }
       });
 
-      // Beat 2: High stall panic + Block / Interception!
-      const turnX = clamp(swingX + 6.5 * openSign, -14, 14);
+      const turnX = clamp(swingX + 7.5 * openSign, -13.5, 13.5);
       const turnY = clamp(swingY - 9, 23, 84);
       const isInterception = playerDefId === 'deep_poach' || playerDefId === 'cup_zone' || playerDefId === 'clam_bracket';
       const heroDefIdx = playerDefId === 'deep_poach' ? 6 : playerDefId === 'shutdown_reset' ? 1 : 2;
@@ -495,8 +649,18 @@ export class Choreographer {
           : { x: b.x, y: clamp(b.y - 2, 4, 105), role: b.role, highlight: false }
       );
 
+      const botDefState = computeBotDefOnTurn(turnX, turnY);
+      const stackTargets = this.computePlayerBaseStack(turnX, turnY, botDefState.baseStack, botDefState.forceSide);
+      const matchedBotTargets = this.computeReactiveBotDefense(
+        turnX,
+        turnY,
+        stackTargets,
+        botDefState.defId,
+        botDefState.forceSide
+      );
+
       this.enqueueBeat({
-        duration: 1.05,
+        duration: 1.02,
         playerTargets: climaxPlayer,
         botTargets: climaxBot,
         stallStart: 6,
@@ -521,67 +685,42 @@ export class Choreographer {
         }
       });
 
-      // Transition after Turn: Player steps up to disc, and BOT DEFENSE SETS UP FIRST!
-      const tOpenSign = turnX > 3.5 ? -1 : 1;
-      const baseOff = PLAYER_BASE_OFFENSE_OFFSETS.map((o, idx) => {
-        const pos = idx === 0
-          ? { x: turnX, y: turnY }
-          : this.toWorld(turnX, turnY, 1, tOpenSign, o.dx, o.fy);
-        return { x: pos.x, y: pos.y, role: o.role, highlight: false };
-      });
-      const scrambleBot = this.botDots.map((b, idx) => ({
-        x: clamp(turnX + (idx - 3) * 3.5, -16, 16),
-        y: clamp(turnY + 10 + (idx % 2) * 5, 25, 102),
+      // Step 1: Offense jogs into its Base Stack (Vert or Ho) as H1 picks up the disc
+      const JogBackBots = this.botDots.map((b, idx) => ({
+        x: clamp(turnX + (idx - 3) * 3.8, -16, 16),
+        y: clamp(turnY + 11 + (idx % 2) * 5, 25, 103),
         role: `D${idx + 1}`,
         highlight: false
       }));
 
-      // Step 1: Player H1 picks up the disc
       this.enqueueBeat({
-        duration: 0.58,
-        playerTargets: baseOff,
-        botTargets: scrambleBot,
+        duration: 0.54,
+        playerTargets: stackTargets,
+        botTargets: JogBackBots,
         discAction: { type: 'pickup', holderTeam: 'player', holderIdx: 0, x: turnX, y: turnY },
         onStart: () => {
-          if (onTicker) onTicker('TURNOVER! Your offense takes the disc — watch Bot Defense set up!');
+          const stackLabel = botDefState.baseStack === 'ho' ? 'Ho Stack' : 'Vert Stack';
+          if (onTicker) onTicker(`TURNOVER! Your offense sets ${stackLabel} — watch Bot Defense match up!`);
         }
       });
 
-      // Step 2: Bot Defense visibly snaps into its Defensive Formation FIRST!
-      const { botTargets: botDefTargets } = this.computeBotDefenseSetup(
-        turnX,
-        turnY,
-        nextBotLookAfterTurnOrAdvance,
-        null
-      );
-
+      // Step 2: Bot Defense matches up to your stack (revealing Man vs Zone + Force Home/Away)!
       this.enqueueBeat({
-        duration: 0.68,
-        playerTargets: baseOff,
-        botTargets: botDefTargets,
+        duration: 0.62,
+        playerTargets: stackTargets,
+        botTargets: matchedBotTargets,
         discAction: { type: 'hold', holderTeam: 'player', holderIdx: 0 },
         onComplete: () => {
-          const botDefObj = BOT_DEFENSES[nextBotLookAfterTurnOrAdvance];
-          this.visualContext = {
-            offenseTeam: 'player',
-            discAnchorX: turnX,
-            discAnchorY: turnY,
-            openSign: tOpenSign,
-            scoutShape: botDefObj.scoutShape,
-            forceTeam: 'bot',
-            forceType: botDefObj.forceType,
-            ghostPreview: null
-          };
+          this.applyOffenseVisualContext(turnX, turnY, botDefState);
           this.stall.active = true;
           this.stall.value = 1;
-          onResult({ outcome: 'turnover', newDiscX: turnX, newDiscY: turnY });
+          onResult({ outcome: 'turnover', newDiscX: turnX, newDiscY: turnY, botDefState });
         }
       });
       return;
     }
 
     if (tier === 'middle') {
-      // Bot advances ~23-26 yards in 2 crisp passes; if crossing y <= 20, Bot scores!
       const p1X = clamp(discX + 6.5 * openSign, -15, 15);
       const p1Y = clamp(discY - 11, 14, 85);
       const p2X = clamp(p1X - 8.5 * openSign, -14, 14);
@@ -591,7 +730,7 @@ export class Choreographer {
 
       const midStep = this.computeBotOffenseSetup(p1X, p1Y, botOffenseId, playerDefId);
       this.enqueueBeat({
-        duration: 0.92,
+        duration: 0.9,
         playerTargets: midStep.playerTargets,
         botTargets: midStep.botTargets,
         jabTeam: 'bot',
@@ -612,11 +751,11 @@ export class Choreographer {
         }
       });
 
-      const finalLookId = scored ? botOffenseId : nextBotLookAfterTurnOrAdvance;
+      const finalLookId = scored ? botOffenseId : nextBotOffIdOnAdvance;
       const endStep = this.computeBotOffenseSetup(p2X, p2Y, finalLookId, playerDefId);
 
       this.enqueueBeat({
-        duration: 0.98,
+        duration: 0.96,
         playerTargets: endStep.playerTargets,
         botTargets: endStep.botTargets,
         stallStart: 1,
@@ -645,6 +784,8 @@ export class Choreographer {
               discAnchorX: p2X,
               discAnchorY: p2Y,
               openSign: endStep.openSign,
+              baseStack: 'vert',
+              forceSide: 'home',
               scoutShape: BOT_OFFENSES[finalLookId].scoutShape,
               forceTeam: 'player',
               forceType: defObj.forceType,
@@ -696,7 +837,6 @@ export class Choreographer {
       }
     });
 
-    // Streaking deep receiver into Bottom End Zone while defender trails behind
     const goalBotTargets = s1.botTargets.map((b, idx) =>
       idx === 4
         ? { x: goalX, y: goalY, role: b.role, highlight: true }
@@ -709,7 +849,7 @@ export class Choreographer {
     );
 
     this.enqueueBeat({
-      duration: 1.28,
+      duration: 1.26,
       playerTargets: trailingDefTargets,
       botTargets: goalBotTargets,
       stallStart: 1,
@@ -740,15 +880,16 @@ export class Choreographer {
   }
 
   /**
-   * Choreographs an Offensive Play Resolution (Player = O attacking +y toward y = 90, Bot = D)
+   * Choreographs Player Offense Execution respecting Force Home (-1) / Force Away (+1) and Man vs Zone!
    */
   animateOffenseResolution({
     discX,
     discY,
-    botDefId,
+    botDefState,
     playerOffId,
     tier,
-    nextBotLookAfterTurnOrAdvance,
+    computeBotDefOnAdvance,
+    computeBotOffOnTurn,
     onTicker,
     onResult
   }) {
@@ -756,19 +897,17 @@ export class Choreographer {
     this.visualContext.ghostPreview = null;
     this.visualContext.scoutShape = null;
 
-    const openSign = discX > 3.5 ? -1 : 1;
-    const botDef = BOT_DEFENSES[botDefId];
+    const { defId: botDefId, forceSide } = botDefState;
+    const forceDir = forceSide === 'home' ? -1 : 1; // -1 = Home (Left), +1 = Away (Right)
+    const breakDir = -forceDir;
+    const botDefObj = BOT_DEFENSES[botDefId];
 
-    // Snap Player's 7 dots into the called Offensive Stack (0.45s crisp snap)
-    const { playerTargets: snapOff, botTargets: snapDef } = this.computeBotDefenseSetup(
-      discX,
-      discY,
-      botDefId,
-      playerOffId
-    );
+    // Beat 0: Cutters explode into the called play shape while Bot defenders react!
+    const snapOff = this.computePlayerPlayExecutionTargets(discX, discY, playerOffId, forceSide);
+    const snapDef = this.computeReactiveBotDefense(discX, discY, snapOff, botDefId, forceSide);
 
     this.enqueueBeat({
-      duration: 0.45,
+      duration: 0.42,
       playerTargets: snapOff,
       botTargets: snapDef,
       stallStart: 1,
@@ -777,63 +916,72 @@ export class Choreographer {
     });
 
     if (tier === 'ideal') {
-      // PLAYER CARVES UP BOT DEFENSE -> SCORES IN TOP END ZONE (y = 97)!
-      const isHuckPlay = playerOffId === 'side_iso_huck';
-      const p1X = isHuckPlay
-        ? clamp(discX - 5.5 * openSign, -14, 14)
-        : clamp(discX + 6.0 * openSign, -14, 14);
-      const p1Y = isHuckPlay
-        ? clamp(discY + 5, 25, 82)
-        : clamp(discY + 15, 32, 86);
+      const isHuck = playerOffId === 'deep_huck';
+      const isOverTop = playerOffId === 'zone_flood';
+      const isBreak = playerOffId === 'break_swing';
 
-      const s1 = this.computeBotDefenseSetup(p1X, p1Y, botDefId, playerOffId);
+      // Beat 1: Initial attack pass tailored to Force Home/Away & play call!
+      const attackSign = isBreak ? breakDir : forceDir;
+      const p1X = playerOffId === 'pop_swing'
+        ? clamp(discX + 1.5 * forceDir, -12, 12)
+        : clamp(discX + (isHuck ? 4.5 * breakDir : 8.5 * attackSign), -15, 15);
+      const p1Y = clamp(discY + (isHuck ? 4 : 13.5), 25, 86);
 
-      // Beat 1: Break open the initial gap / power reset
+      const s1Off = this.computePlayerPlayExecutionTargets(p1X, p1Y, playerOffId, forceSide);
+      const s1Def = this.computeReactiveBotDefense(p1X, p1Y, s1Off, botDefId, forceSide);
+
       this.enqueueBeat({
-        duration: 0.85,
-        playerTargets: s1.playerTargets,
-        botTargets: s1.botTargets,
+        duration: 0.84,
+        playerTargets: s1Off,
+        botTargets: s1Def,
         jabTeam: 'player',
         jabIdx: 2,
         stallStart: 1,
         stallEnd: 3,
         discAction: {
           type: 'pass',
-          releaseT: 0.26,
+          releaseT: 0.25,
           catchT: 0.88,
           toX: p1X,
           toY: p1Y,
-          curveX: (playerOffId === 'break_mark' ? -4.5 : 3.2) * openSign,
+          curveX: (isBreak ? 4.2 * breakDir : -3.2 * attackSign),
           peakZ: 0.18,
           outcome: 'catch',
           toTeam: 'player',
-          toIdx: isHuckPlay ? 1 : 2
+          toIdx: isHuck ? 1 : 2
         },
         onStart: () => {
-          if (onTicker) onTicker('Clean execution — defense is on its heels!');
+          if (onTicker) {
+            onTicker(
+              isBreak
+                ? `Stepped inside the Force ${forceSide.toUpperCase()} mark — break side is wide open!`
+                : 'Clean cut into open space — defense is scrambling!'
+            );
+          }
         }
       });
 
-      // Beat 2: Strike / Bomb into Top End Zone (y = 97)!
-      const goalX = clamp(p1X - 4.5 * openSign, -12, 12);
+      // Beat 2: Scoring strike / bomb into Top End Zone (y = 97.5)!
+      const goalLaneSign = playerOffId === 'pop_swing' || isBreak ? breakDir : forceDir;
+      const goalX = clamp(p1X + 5.5 * goalLaneSign, -13, 13);
       const goalY = 97.5;
-      const scorerIdx = isHuckPlay ? 2 : 4;
+      const scorerIdx = isHuck ? 2 : 3;
 
-      const goalPlayerTargets = s1.playerTargets.map((p, idx) =>
+      const goalPlayers = s1Off.map((p, idx) =>
         idx === scorerIdx
           ? { x: goalX, y: goalY, role: p.role, highlight: true }
-          : { x: p.x, y: clamp(p.y + 15, 25, 93), role: p.role, highlight: false }
+          : { x: p.x, y: clamp(p.y + 14, 25, 93), role: p.role, highlight: false }
       );
-      const beatenBotTargets = s1.botTargets.map((b, idx) =>
+      const beatenBots = s1Def.map((b, idx) =>
         idx === scorerIdx
-          ? { x: goalX + 3.4 * openSign, y: goalY - 6.8, role: b.role, highlight: false }
-          : { x: b.x, y: clamp(b.y + 12, 25, 92), role: b.role, highlight: false }
+          ? { x: clamp(goalX - 3.6 * goalLaneSign, -17, 17), y: goalY - 7, role: b.role, highlight: false }
+          : { x: b.x, y: clamp(b.y + 11, 25, 92), role: b.role, highlight: false }
       );
 
       this.enqueueBeat({
-        duration: isHuckPlay ? 1.32 : 1.08,
-        playerTargets: goalPlayerTargets,
-        botTargets: beatenBotTargets,
+        duration: isHuck ? 1.3 : 1.05,
+        playerTargets: goalPlayers,
+        botTargets: beatenBots,
         stallStart: 1,
         stallEnd: 2,
         discAction: {
@@ -842,15 +990,23 @@ export class Choreographer {
           catchT: 0.92,
           toX: goalX,
           toY: goalY,
-          curveX: 5.0 * openSign,
-          peakZ: isHuckPlay ? 0.85 : 0.36,
+          curveX: 4.8 * goalLaneSign,
+          peakZ: isHuck ? 0.86 : isOverTop ? 0.56 : 0.34,
           outcome: 'catch',
           toTeam: 'player',
           toIdx: scorerIdx,
-          isHuck: isHuckPlay
+          isHuck: isHuck || isOverTop
         },
         onStart: () => {
-          if (onTicker) onTicker(isHuckPlay ? 'Huck is UP to wide-open end zone space!' : 'Continuation strike to the end zone!');
+          if (onTicker) {
+            onTicker(
+              isHuck
+                ? 'Deep bomb is UP to the open Force lane!'
+                : isOverTop
+                  ? 'Floating an over-the-top blade past the Wall!'
+                  : 'Continuation throw to the end zone!'
+            );
+          }
         },
         onComplete: () => {
           this.stall.active = false;
@@ -863,19 +1019,22 @@ export class Choreographer {
     }
 
     if (tier === 'middle') {
-      // Player advances +24-27 yards toward y = 90; if crossing y >= 90, Player SCORES!
-      const p1X = clamp(discX + 6.5 * openSign, -15, 15);
+      // Advance ~25 yards; if crossing y >= 90 -> Player Scores! Otherwise re-align stack & Bot Defense!
+      const moveSign = playerOffId === 'break_swing' ? breakDir : forceDir;
+      const p1X = clamp(discX + 7.5 * moveSign, -14.5, 14.5);
       const p1Y = clamp(discY + 12, 26, 94);
-      const p2X = clamp(p1X - 8 * openSign, -14, 14);
+      const p2X = clamp(p1X - 9.5 * moveSign, -13.5, 13.5);
       const rawFinalY = discY + 25;
       const scored = rawFinalY >= 90;
       const p2Y = scored ? 96.5 : clamp(rawFinalY, 30, 86);
 
-      const s1 = this.computeBotDefenseSetup(p1X, p1Y, botDefId, playerOffId);
+      const s1Off = this.computePlayerPlayExecutionTargets(p1X, p1Y, playerOffId, forceSide);
+      const s1Def = this.computeReactiveBotDefense(p1X, p1Y, s1Off, botDefId, forceSide);
+
       this.enqueueBeat({
-        duration: 0.9,
-        playerTargets: s1.playerTargets,
-        botTargets: s1.botTargets,
+        duration: 0.88,
+        playerTargets: s1Off,
+        botTargets: s1Def,
         jabTeam: 'player',
         jabIdx: 2,
         stallStart: 1,
@@ -886,7 +1045,7 @@ export class Choreographer {
           catchT: 0.88,
           toX: p1X,
           toY: p1Y,
-          curveX: 3.0 * openSign,
+          curveX: 3.0 * moveSign,
           peakZ: 0.18,
           outcome: 'catch',
           toTeam: 'player',
@@ -894,12 +1053,13 @@ export class Choreographer {
         }
       });
 
-      // Beat 2: Continuation completion
-      const s2Base = this.computeBotDefenseSetup(p2X, p2Y, botDefId, playerOffId);
+      const s2Off = this.computePlayerPlayExecutionTargets(p2X, p2Y, playerOffId, forceSide);
+      const s2Def = this.computeReactiveBotDefense(p2X, p2Y, s2Off, botDefId, forceSide);
+
       this.enqueueBeat({
-        duration: 0.92,
-        playerTargets: s2Base.playerTargets,
-        botTargets: s2Base.botTargets,
+        duration: 0.9,
+        playerTargets: s2Off,
+        botTargets: s2Def,
         stallStart: 1,
         stallEnd: 3,
         discAction: {
@@ -908,7 +1068,7 @@ export class Choreographer {
           catchT: 0.9,
           toX: p2X,
           toY: p2Y,
-          curveX: -3.2 * openSign,
+          curveX: -3.2 * moveSign,
           peakZ: 0.22,
           outcome: 'catch',
           toTeam: 'player',
@@ -925,32 +1085,32 @@ export class Choreographer {
       });
 
       if (!scored) {
-        // Beat 3: Bot Defense visibly re-sets / audibles FIRST at the new yard line!
-        const nextDef = this.computeBotDefenseSetup(p2X, p2Y, nextBotLookAfterTurnOrAdvance, null);
+        // Re-form Player Base Stack at (p2X, p2Y) & let Bot Defense match up (or audible)!
+        const nextBotDefState = computeBotDefOnAdvance(p2X, p2Y);
+        const resetStack = this.computePlayerBaseStack(p2X, p2Y, nextBotDefState.baseStack, nextBotDefState.forceSide);
+        const resetBotDef = this.computeReactiveBotDefense(
+          p2X,
+          p2Y,
+          resetStack,
+          nextBotDefState.defId,
+          nextBotDefState.forceSide
+        );
+
         this.enqueueBeat({
-          duration: 0.58,
-          playerTargets: nextDef.playerTargets,
-          botTargets: nextDef.botTargets,
+          duration: 0.6,
+          playerTargets: resetStack,
+          botTargets: resetBotDef,
           discAction: { type: 'hold', holderTeam: 'player', holderIdx: 0 },
           onComplete: () => {
-            const nextBotDefObj = BOT_DEFENSES[nextBotLookAfterTurnOrAdvance];
-            this.visualContext = {
-              offenseTeam: 'player',
-              discAnchorX: p2X,
-              discAnchorY: p2Y,
-              openSign: nextDef.openSign,
-              scoutShape: nextBotDefObj.scoutShape,
-              forceTeam: 'bot',
-              forceType: nextBotDefObj.forceType,
-              ghostPreview: null
-            };
+            this.applyOffenseVisualContext(p2X, p2Y, nextBotDefState);
             this.stall.active = true;
             this.stall.value = 1;
             onResult({
               outcome: 'advance',
               yardsGained: Math.round(p2Y - discY),
               newDiscX: p2X,
-              newDiscY: p2Y
+              newDiscY: p2Y,
+              botDefState: nextBotDefState
             });
           }
         });
@@ -958,26 +1118,37 @@ export class Choreographer {
       return;
     }
 
-    // WORST OFFENSE -> Player throws into Bot Defense's strength -> TURNOVER -> Flip to Defense!
-    const isHuckIntoTrap = playerOffId === 'side_iso_huck';
-    const turnX = clamp(discX + (isHuckIntoTrap ? -2 : 6.5) * openSign, -14, 14);
-    const turnY = clamp(discY + (isHuckIntoTrap ? 24 : 9), 25, 85);
-    const botHeroIdx = botDefId === 'bot_deep_poach' ? 6 : botDefId === 'bot_shutdown_reset' ? 1 : 2;
-    const isInterception = botDefId === 'bot_deep_poach' || botDefId === 'bot_sideline_trap';
+    // WORST OFFENSE -> Runs straight into Bot Defense's trap/poach/cup -> TURNOVER!
+    const isHuckMistake = playerOffId === 'deep_huck';
+    const errDir = playerOffId === 'break_swing' ? breakDir : forceDir;
+    const turnX = clamp(discX + (isHuckMistake ? 2.5 : 7.5) * errDir, -15, 15);
+    const turnY = clamp(discY + (isHuckMistake && botDefId === 'bot_man_poach' ? 25 : 9.5), 25, 85);
+
+    const botHeroIdx = botDefId === 'bot_man_poach'
+      ? 6
+      : botDefId === 'bot_man_blitz'
+        ? 1
+        : botDefId === 'bot_zone_wall'
+          ? 3
+          : 0;
+    const isInterception = botDefId === 'bot_man_poach' || botDefId === 'bot_zone_wall' || botDefId === 'bot_man_trap';
 
     const turnPlayers = snapOff.map((p, idx) =>
       idx === 2
-        ? { x: turnX - 1.2 * openSign, y: turnY - 1, role: p.role, highlight: false }
-        : { x: p.x, y: clamp(p.y + 4, 22, 95), role: p.role, highlight: false }
+        ? { x: clamp(turnX - 1.2 * errDir, -17, 17), y: turnY - 1, role: p.role, highlight: false }
+        : { x: p.x, y: clamp(p.y + 3, 22, 95), role: p.role, highlight: false }
     );
     const turnBots = snapDef.map((b, idx) =>
       idx === botHeroIdx
         ? { x: turnX, y: turnY, role: b.role, highlight: true }
-        : { x: b.x, y: clamp(b.y + 3, 22, 95), role: b.role, highlight: false }
+        : { x: b.x, y: clamp(b.y + 2, 22, 95), role: b.role, highlight: false }
     );
 
+    const nextBotOffId = computeBotOffOnTurn(turnX, turnY);
+    const nextBotOff = this.computeBotOffenseSetup(turnX, turnY, nextBotOffId, null);
+
     this.enqueueBeat({
-      duration: 1.08,
+      duration: 1.05,
       playerTargets: turnPlayers,
       botTargets: turnBots,
       stallStart: 3,
@@ -988,24 +1159,22 @@ export class Choreographer {
         catchT: 0.88,
         toX: turnX,
         toY: turnY,
-        curveX: 3.5 * openSign,
-        peakZ: isHuckIntoTrap ? 0.68 : 0.22,
+        curveX: 3.2 * errDir,
+        peakZ: isHuckMistake && botDefId === 'bot_man_poach' ? 0.72 : 0.2,
         outcome: isInterception ? 'intercept' : 'block',
         actorTeam: 'bot',
         actorIdx: botHeroIdx
       },
       onStart: () => {
-        if (onTicker) onTicker(`Danger — throwing straight into ${botDef.name}!`);
+        if (onTicker) onTicker(`Danger — attacking straight into ${botDefObj.name}!`);
       },
       onComplete: () => {
         this.stall.active = false;
       }
     });
 
-    // Transition back to Defense: Bot Offense sets up FIRST at (turnX, turnY)!
-    const nextBotOff = this.computeBotOffenseSetup(turnX, turnY, nextBotLookAfterTurnOrAdvance, null);
     this.enqueueBeat({
-      duration: 0.72,
+      duration: 0.7,
       playerTargets: nextBotOff.playerTargets,
       botTargets: nextBotOff.botTargets,
       discAction: { type: 'pickup', holderTeam: 'bot', holderIdx: 0, x: turnX, y: turnY },
@@ -1018,14 +1187,16 @@ export class Choreographer {
           discAnchorX: turnX,
           discAnchorY: turnY,
           openSign: nextBotOff.openSign,
-          scoutShape: BOT_OFFENSES[nextBotLookAfterTurnOrAdvance].scoutShape,
+          baseStack: 'vert',
+          forceSide: 'home',
+          scoutShape: BOT_OFFENSES[nextBotOffId].scoutShape,
           forceTeam: 'player',
           forceType: 'open',
           ghostPreview: null
         };
         this.stall.active = true;
         this.stall.value = 1;
-        onResult({ outcome: 'turnover_to_bot', newDiscX: turnX, newDiscY: turnY });
+        onResult({ outcome: 'turnover_to_bot', newDiscX: turnX, newDiscY: turnY, nextBotOffId });
       }
     });
   }
@@ -1046,7 +1217,6 @@ export class Choreographer {
     this.currentBeat = beat;
     this.beatElapsed = 0;
 
-    // Snapshot starting coordinates for smooth interpolation
     beat._pStart = this.playerDots.map((d) => ({ x: d.x, y: d.y }));
     beat._bStart = this.botDots.map((d) => ({ x: d.x, y: d.y }));
     beat._discTriggered = false;
@@ -1113,7 +1283,6 @@ export class Choreographer {
     const scaledDt = Math.min(dt, 0.05) * this.speedMultiplier;
     this.idleClock += scaledDt;
 
-    // Update particles & shockwaves
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i];
       p.x += p.vx * scaledDt;
@@ -1131,7 +1300,6 @@ export class Choreographer {
       if (s.alpha <= 0) this.shockwaves.splice(i, 1);
     }
 
-    // Decay layout lunge stretch
     for (const d of this.playerDots) {
       if (d.lungeTimer > 0) d.lungeTimer = Math.max(0, d.lungeTimer - scaledDt);
     }
@@ -1140,7 +1308,6 @@ export class Choreographer {
     }
 
     if (!this.currentBeat) {
-      // Keep held disc snapped to holder during idle/read states
       this.syncHeldDisc();
       return;
     }
@@ -1150,17 +1317,30 @@ export class Choreographer {
     const rawT = clamp(this.beatElapsed / beat.duration, 0, 1);
     const eT = easeInOutCubic(rawT);
 
-    // Update Stall Ring if specified
     if (typeof beat.stallStart === 'number' && typeof beat.stallEnd === 'number') {
       this.stall.active = true;
       this.stall.value = beat.stallStart + (beat.stallEnd - beat.stallStart) * rawT;
     }
 
-    // Interpolate 7 Player Dots & 7 Bot Dots (including subtle jab-step fake!)
-    this.interpolateTeam(this.playerDots, beat._pStart, beat.playerTargets, rawT, eT, beat.jabTeam === 'player' ? beat.jabIdx : -1, scaledDt);
-    this.interpolateTeam(this.botDots, beat._bStart, beat.botTargets, rawT, eT, beat.jabTeam === 'bot' ? beat.jabIdx : -1, scaledDt);
+    this.interpolateTeam(
+      this.playerDots,
+      beat._pStart,
+      beat.playerTargets,
+      rawT,
+      eT,
+      beat.jabTeam === 'player' ? beat.jabIdx : -1,
+      scaledDt
+    );
+    this.interpolateTeam(
+      this.botDots,
+      beat._bStart,
+      beat.botTargets,
+      rawT,
+      eT,
+      beat.jabTeam === 'bot' ? beat.jabIdx : -1,
+      scaledDt
+    );
 
-    // Handle Disc Flight
     const da = beat.discAction;
     if (da && da.type === 'pass') {
       if (rawT < da.releaseT) {
@@ -1178,7 +1358,6 @@ export class Choreographer {
           }
         }
         const fT = clamp((rawT - da.releaseT) / (da.catchT - da.releaseT), 0, 1);
-        // Quadratic Bezier curve for IO / OI bend
         const midX = (beat._fromX + da.toX) * 0.5 + (da.curveX || 0);
         const midY = (beat._fromY + da.toY) * 0.5;
         const inv = 1 - fT;
@@ -1249,7 +1428,6 @@ export class Choreographer {
       let curX;
       let curY;
       if (i === jabIdx && rawT < 0.26) {
-        // Quick realistic 2-yard jab-step fake in opposite direction before planting & cutting!
         const jT = Math.sin((rawT / 0.26) * Math.PI);
         const dirY = tgt.y >= s.y ? -1 : 1;
         curX = s.x + (tgt.x - s.x) * 0.05;
@@ -1276,7 +1454,6 @@ export class Choreographer {
     const arr = this.disc.holderTeam === 'player' ? this.playerDots : this.botDots;
     const holder = arr[this.disc.holderIdx];
     if (holder) {
-      // Offset disc slightly on the pivot side of the handler
       const pivotOffset = this.disc.holderTeam === 'player' ? 1.05 : -1.05;
       this.disc.x = holder.x + pivotOffset * 0.75;
       this.disc.y = holder.y + (this.disc.holderTeam === 'player' ? 0.55 : -0.55);

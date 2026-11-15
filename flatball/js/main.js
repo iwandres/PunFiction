@@ -4,13 +4,13 @@ import {
   PLAYER_OFFENSES,
   BOT_OFFENSES,
   BOT_DEFENSES,
+  rollBotDefenseState,
   buildDecisionHand
 } from './playbookData.js';
 import { Choreographer } from './choreographer.js';
 import { FieldRenderer } from './fieldRenderer.js';
 import { sound } from './audio.js';
 
-// Deterministic Mulberry32 PRNG for Daily Tactical Cup
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < seedStr.length; i++) {
@@ -35,7 +35,6 @@ function getTodayKey() {
   return `${y}-${m}-${d}`;
 }
 
-// Crisp inline SVG tactical icons for playbook cards
 const CARD_ICONS = {
   trap: `<svg viewBox="0 0 28 28" fill="none"><path d="M22 4v20" stroke="#FBBF24" stroke-width="2.4" stroke-dasharray="3 2"/><circle cx="12" cy="15" r="3.5" fill="#FF5A6E"/><path d="M8 10a7 7 0 0 0 0 10" stroke="#00E5FF" stroke-width="2.6" stroke-linecap="round"/><path d="M14 14l6-4" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg>`,
   poach: `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="9" r="6.5" stroke="#00E5FF" stroke-width="1.8" stroke-dasharray="3 2"/><circle cx="14" cy="9" r="3" fill="#00E5FF"/><circle cx="9" cy="21" r="2.5" fill="#FF5A6E"/><circle cx="19" cy="21" r="2.5" fill="#FF5A6E"/></svg>`,
@@ -57,36 +56,11 @@ class FlatballGame {
     this.choreo = new Choreographer();
     this.renderer = new FieldRenderer(this.canvas);
 
-    this.mode = 'quick'; // 'quick' | 'daily'
+    this.mode = 'quick';
     this.targetScore = 3;
     this.rng = Math.random;
 
-    this.state = {
-      phase: 'PRE_PULL', // 'PRE_PULL' | 'ANIMATING' | 'DEFENSE_READ' | 'OFFENSE_READ' | 'POINT_OVER' | 'MATCH_OVER'
-      playerScore: 0,
-      botScore: 0,
-      pullingTeam: 'player', // 'player' | 'bot'
-      possession: 'bot', // 'bot' | 'player'
-      discX: 0,
-      discY: 70,
-      botLookId: 'vert_stack',
-      activeStrategyId: null,
-      lastBotOffId: null,
-      lastBotDefId: null,
-      currentHand: [],
-      hintRevealed: false,
-      pointSummary: null,
-      stats: {
-        decisions: 0,
-        idealReads: 0,
-        middleReads: 0,
-        turnsForced: 0,
-        turnsCommitted: 0,
-        breakGoals: 0,
-        pointHistory: [] // 'W' | 'L'
-      }
-    };
-
+    this.state = null;
     this.cacheDom();
     this.bindEvents();
     this.startNewMatch('quick');
@@ -135,7 +109,6 @@ class FlatballGame {
       this.renderer.resize();
     });
 
-    // Unlock Web Audio on first pointer interaction
     window.addEventListener('pointerdown', () => sound.unlock(), { once: true });
 
     this.dom.modeQuickBtn.addEventListener('click', () => {
@@ -200,7 +173,6 @@ class FlatballGame {
       this.copyShareSummary();
     });
 
-    // Keyboard shortcuts: 1-4 for cards, Space/Enter for Pull / Next Point
     window.addEventListener('keydown', (e) => {
       if (!this.dom.helpModal.classList.contains('hidden') || !this.dom.matchModal.classList.contains('hidden')) {
         return;
@@ -235,17 +207,17 @@ class FlatballGame {
       phase: 'PRE_PULL',
       playerScore: 0,
       botScore: 0,
-      pullingTeam: 'player', // Player starts on Defense by clicking Pull!
+      pullingTeam: 'player',
       startedPointOnDefense: true,
       possession: 'bot',
       discX: 0,
       discY: 70,
       botLookId: 'vert_stack',
+      botDefState: { defId: 'bot_man_open', forceSide: 'home', baseStack: 'vert' },
       activeStrategyId: null,
       lastBotOffId: null,
       lastBotDefId: null,
       currentHand: [],
-      hintRevealed: false,
       pointSummary: null,
       stats: {
         decisions: 0,
@@ -277,7 +249,6 @@ class FlatballGame {
     this.state.startedPointOnDefense = pullingTeam === 'player';
     this.state.possession = pullingTeam === 'player' ? 'bot' : 'player';
     this.state.activeStrategyId = null;
-    this.state.hintRevealed = false;
     this.state.pointSummary = null;
 
     this.choreo.setupPullLineup(pullingTeam);
@@ -296,8 +267,7 @@ class FlatballGame {
       this.state.lastBotOffId = 'red_zone';
       return 'red_zone';
     }
-    if (isMidfieldAdvance && this.state.botLookId && this.state.botLookId !== 'red_zone') {
-      // 55% chance Bot stays in current stack; 45% chance Bot audibles!
+    if (isMidfieldAdvance && this.state.botLookId && this.state.botLookId !== 'red_zone' && BOT_OFFENSES[this.state.botLookId]) {
       if (this.rng() < 0.55) {
         return this.state.botLookId;
       }
@@ -310,17 +280,20 @@ class FlatballGame {
     return chosen;
   }
 
-  pickBotDefense(isMidfieldAdvance = false) {
-    if (isMidfieldAdvance && this.state.botLookId && BOT_DEFENSES[this.state.botLookId]) {
-      // 50% chance Bot holds current defense; 50% chance Bot audibles!
-      if (this.rng() < 0.5) {
-        return this.state.botLookId;
-      }
-    }
-    const pool = Object.keys(BOT_DEFENSES).filter((id) => id !== this.state.lastBotDefId);
-    const chosen = pool[Math.floor(this.rng() * pool.length)];
-    this.state.lastBotDefId = chosen;
-    return chosen;
+  rollNextBotDefense(discX, isAdvance = false) {
+    const next = rollBotDefenseState({
+      discX,
+      prevDefId: isAdvance ? this.state.botDefState.defId : this.state.lastBotDefId,
+      prevStack: this.state.botDefState ? this.state.botDefState.baseStack : 'vert',
+      isAdvance,
+      rng: this.rng
+    });
+    this.state.lastBotDefId = next.defId;
+    return next;
+  }
+
+  formatForceBadge(forceSide) {
+    return forceSide === 'home' ? 'FORCE HOME ◀' : 'FORCE AWAY ▶';
   }
 
   handlePullClick() {
@@ -328,19 +301,26 @@ class FlatballGame {
     sound.unlock();
     this.state.phase = 'ANIMATING';
     this.state.activeStrategyId = null;
-    this.state.hintRevealed = false;
 
     const isPlayerPull = this.state.pullingTeam === 'player';
-    const landingX = Math.round((this.rng() * 14 - 7) * 10) / 10;
+    const landingX = Math.round((this.rng() * 22 - 11) * 10) / 10;
     const landingY = isPlayerPull
-      ? Math.round(68 + this.rng() * 7) // Lands around Top Brick (y=68..75)
-      : Math.round(35 + this.rng() * 7); // Lands around Bottom Brick (y=35..42)
+      ? Math.round(68 + this.rng() * 7)
+      : Math.round(35 + this.rng() * 7);
 
     this.state.discX = landingX;
     this.state.discY = landingY;
 
-    const nextLook = isPlayerPull ? this.pickBotOffense(landingY, false) : this.pickBotDefense(false);
-    this.state.botLookId = nextLook;
+    let nextOffLook = null;
+    let botDefState = null;
+    if (isPlayerPull) {
+      nextOffLook = this.pickBotOffense(landingY, false);
+      this.state.botLookId = nextOffLook;
+    } else {
+      botDefState = this.rollNextBotDefense(landingX, false);
+      this.state.botDefState = botDefState;
+      this.state.botLookId = botDefState.defId;
+    }
 
     this.renderActionTray();
     this.updateLookBanner();
@@ -349,7 +329,8 @@ class FlatballGame {
       pullingTeam: this.state.pullingTeam,
       landingX,
       landingY,
-      initialBotLookId: nextLook,
+      initialBotLookId: nextOffLook,
+      botDefState,
       onTicker: (msg) => this.setTicker(msg),
       onReadyForRead: () => {
         if (isPlayerPull) {
@@ -364,7 +345,6 @@ class FlatballGame {
   enterDefenseRead(isAdvance = false, audibled = false) {
     this.state.phase = 'DEFENSE_READ';
     this.state.possession = 'bot';
-    this.state.hintRevealed = false;
 
     const botOff = BOT_OFFENSES[this.state.botLookId];
     this.state.currentHand = buildDecisionHand(
@@ -398,9 +378,12 @@ class FlatballGame {
   enterOffenseRead(isAdvance = false, audibled = false) {
     this.state.phase = 'OFFENSE_READ';
     this.state.possession = 'player';
-    this.state.hintRevealed = false;
 
-    const botDef = BOT_DEFENSES[this.state.botLookId];
+    const { defId, forceSide, baseStack } = this.state.botDefState;
+    const botDef = BOT_DEFENSES[defId];
+    const forceText = this.formatForceBadge(forceSide);
+    const stackText = baseStack === 'ho' ? 'Ho Stack' : 'Vert Stack';
+
     this.state.currentHand = buildDecisionHand(
       botDef,
       PLAYER_OFFENSES,
@@ -412,17 +395,17 @@ class FlatballGame {
     this.updateLookBanner(audibled);
 
     if (isAdvance) {
-      const audibleNote = audibled ? `⚡ Bot switched to ${botDef.name}! ` : '';
+      const audibleNote = audibled ? `⚡ Bot switched D (${forceText})! ` : '';
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `${audibleNote}Keep ${PLAYER_OFFENSES[this.state.activeStrategyId].name} or audible to finish the drive!`
-          : `${audibleNote}Bot Defense reset — Keep your Offense or call an audible!`
+          ? `${audibleNote}Bot shows ${botDef.name} (${forceText}) vs your ${stackText}. Keep ${PLAYER_OFFENSES[this.state.activeStrategyId].name} or audible!`
+          : `${audibleNote}Your ${stackText} is set (${forceText}). Keep your Offense or audible!`
       );
     } else {
       this.setTicker(
         this.renderer.scoutEnabled
-          ? `Bot Defense set up in ${botDef.name}. Call the Ideal offensive counter to score!`
-          : 'Bot Defense is set! Read their shell/force and call your Offense!'
+          ? `Your ${stackText} is set — Bot matched in ${botDef.name} (${forceText}). Call the Ideal attack!`
+          : `Your ${stackText} is set (${forceText}). Read Man vs Zone and call your Offense!`
       );
     }
 
@@ -439,7 +422,6 @@ class FlatballGame {
     this.state.activeStrategyId = card.id;
     this.choreo.visualContext.ghostPreview = null;
 
-    // Record tactical IQ stats
     this.state.stats.decisions += 1;
     if (card.tier === 'ideal') this.state.stats.idealReads += 1;
     else if (card.tier === 'middle') this.state.stats.middleReads += 1;
@@ -450,11 +432,9 @@ class FlatballGame {
     if (wasDefense) {
       const prevBotOffId = this.state.botLookId;
       const botOffObj = BOT_OFFENSES[prevBotOffId];
-      // Pre-roll what Bot will show next if Turn (Bot Defense!) or Advance (Bot Offense!)
-      const projectedAdvanceY = this.state.discY - 24;
-      const nextBotLook = card.tier === 'ideal'
-        ? this.pickBotDefense(false)
-        : this.pickBotOffense(projectedAdvanceY, true);
+      const nextBotOffOnAdvance = card.tier === 'middle'
+        ? this.pickBotOffense(this.state.discY - 24, true)
+        : prevBotOffId;
 
       this.choreo.animateDefenseResolution({
         discX: this.state.discX,
@@ -462,7 +442,8 @@ class FlatballGame {
         botOffenseId: prevBotOffId,
         playerDefId: card.id,
         tier: card.tier,
-        nextBotLookAfterTurnOrAdvance: nextBotLook,
+        nextBotOffIdOnAdvance: nextBotOffOnAdvance,
+        computeBotDefOnTurn: (turnX) => this.rollNextBotDefense(turnX, false),
         onTicker: (msg) => this.setTicker(msg),
         onResult: (res) => {
           this.state.discX = res.newDiscX;
@@ -470,14 +451,18 @@ class FlatballGame {
 
           if (res.outcome === 'turnover') {
             this.state.stats.turnsForced += 1;
-            this.state.botLookId = nextBotLook;
+            this.state.botDefState = res.botDefState;
+            this.state.botLookId = res.botDefState.defId;
             this.state.activeStrategyId = null;
             this.addFeedEntry(`🔥 TURNOVER! ${card.name} shut down ${botOffObj.name}.`, 'good');
             this.enterOffenseRead(false, false);
-            this.setTicker(`${botOffObj.outcomes.ideal} Bot D set up in ${this.renderer.scoutEnabled ? BOT_DEFENSES[nextBotLook].name : 'its shell'} — attack!`);
+            const fTxt = this.formatForceBadge(res.botDefState.forceSide);
+            this.setTicker(
+              `${botOffObj.outcomes.ideal} Bot D matched your stack (${this.renderer.scoutEnabled ? `${BOT_DEFENSES[res.botDefState.defId].name}, ` : ''}${fTxt})!`
+            );
           } else if (res.outcome === 'advance') {
-            const didAudible = nextBotLook !== prevBotOffId;
-            this.state.botLookId = nextBotLook;
+            const didAudible = nextBotOffOnAdvance !== prevBotOffId;
+            this.state.botLookId = nextBotOffOnAdvance;
             this.addFeedEntry(`↗️ Bot gained ${res.yardsGained} yds vs ${card.name}.`, 'mid');
             this.enterDefenseRead(true, didAudible);
           } else if (res.outcome === 'bot_goal') {
@@ -493,19 +478,17 @@ class FlatballGame {
       });
     } else {
       // Player on OFFENSE
-      const prevBotDefId = this.state.botLookId;
-      const botDefObj = BOT_DEFENSES[prevBotDefId];
-      const nextBotLook = card.tier === 'worst'
-        ? this.pickBotOffense(this.state.discY + 10, false)
-        : this.pickBotDefense(true);
+      const prevDefState = { ...this.state.botDefState };
+      const botDefObj = BOT_DEFENSES[prevDefState.defId];
 
       this.choreo.animateOffenseResolution({
         discX: this.state.discX,
         discY: this.state.discY,
-        botDefId: prevBotDefId,
+        botDefState: prevDefState,
         playerOffId: card.id,
         tier: card.tier,
-        nextBotLookAfterTurnOrAdvance: nextBotLook,
+        computeBotDefOnAdvance: (newX) => this.rollNextBotDefense(newX, true),
+        computeBotOffOnTurn: (turnX, turnY) => this.pickBotOffense(turnY, false),
         onTicker: (msg) => this.setTicker(msg),
         onResult: (res) => {
           this.state.discX = res.newDiscX;
@@ -526,13 +509,15 @@ class FlatballGame {
             );
             this.enterPointOver('player', reason);
           } else if (res.outcome === 'advance') {
-            const didAudible = nextBotLook !== prevBotDefId;
-            this.state.botLookId = nextBotLook;
-            this.addFeedEntry(`⚡ Your Offense gained ${res.yardsGained} yds with ${card.name}.`, 'mid');
+            const nextState = res.botDefState;
+            const didAudible = nextState.defId !== prevDefState.defId || nextState.forceSide !== prevDefState.forceSide;
+            this.state.botDefState = nextState;
+            this.state.botLookId = nextState.defId;
+            this.addFeedEntry(`⚡ Offense gained ${res.yardsGained} yds with ${card.name}.`, 'mid');
             this.enterOffenseRead(true, didAudible);
           } else if (res.outcome === 'turnover_to_bot') {
             this.state.stats.turnsCommitted += 1;
-            this.state.botLookId = nextBotLook;
+            this.state.botLookId = res.nextBotOffId;
             this.state.activeStrategyId = null;
             this.addFeedEntry(`💥 Turnover vs ${botDefObj.name}! Back on Defense.`, 'bad');
             this.enterDefenseRead(false, false);
@@ -562,7 +547,6 @@ class FlatballGame {
       this.showMatchOverModal();
       return;
     }
-    // Real Ultimate rules: Whoever just scored pulls the next point!
     const nextPuller = this.state.pointSummary && this.state.pointSummary.scoringTeam === 'bot' ? 'bot' : 'player';
     this.setupNextPoint(nextPuller);
   }
@@ -617,7 +601,7 @@ class FlatballGame {
       const look = BOT_OFFENSES[this.state.botLookId];
       this.setTicker(`💡 Scout Tip: ${look.hint}`);
     } else if (this.state.phase === 'OFFENSE_READ') {
-      const look = BOT_DEFENSES[this.state.botLookId];
+      const look = BOT_DEFENSES[this.state.botDefState.defId];
       this.setTicker(`💡 Scout Tip: ${look.hint}`);
     }
   }
@@ -648,7 +632,7 @@ class FlatballGame {
   }
 
   updateLookBanner(audibled = false) {
-    const { phase, botLookId } = this.state;
+    const { phase, botLookId, botDefState } = this.state;
     if (phase !== 'DEFENSE_READ' && phase !== 'OFFENSE_READ') {
       this.dom.lookBanner.classList.add('banner-muted');
       this.dom.hintBtn.classList.add('hidden');
@@ -668,22 +652,30 @@ class FlatballGame {
     this.dom.lookBanner.classList.remove('banner-muted');
     this.dom.hintBtn.classList.remove('hidden');
 
-    if (!this.renderer.scoutEnabled) {
-      this.dom.lookTitle.textContent = phase === 'DEFENSE_READ'
-        ? (audibled ? '⚡ BOT AUDIBLE — READ O' : 'READ BOT OFFENSE')
-        : (audibled ? '⚡ BOT AUDIBLE — READ D' : 'READ BOT DEFENSE');
-      this.dom.lookTag.textContent = 'PRO MODE';
-      return;
-    }
-
     if (phase === 'DEFENSE_READ') {
+      if (!this.renderer.scoutEnabled) {
+        this.dom.lookTitle.textContent = audibled ? '⚡ BOT AUDIBLE — READ O' : 'READ BOT OFFENSE';
+        this.dom.lookTag.textContent = 'PRO MODE';
+        return;
+      }
       const look = BOT_OFFENSES[botLookId];
       this.dom.lookTitle.textContent = `${audibled ? '⚡ ' : ''}BOT O: ${look.name.toUpperCase()}`;
       this.dom.lookTag.textContent = look.tag;
     } else {
-      const look = BOT_DEFENSES[botLookId];
-      this.dom.lookTitle.textContent = `${audibled ? '⚡ ' : ''}BOT D: ${look.name.toUpperCase()}`;
-      this.dom.lookTag.textContent = look.tag;
+      const { defId, forceSide, baseStack } = botDefState;
+      const forceBadge = this.formatForceBadge(forceSide);
+      const stackLabel = baseStack === 'ho' ? 'YOUR HO STACK' : 'YOUR VERT STACK';
+
+      if (!this.renderer.scoutEnabled) {
+        // In Pro Mode, you hear the Marker's Force call and know your own stack, while diagnosing Man vs Zone yourself!
+        this.dom.lookTitle.textContent = `${audibled ? '⚡ ' : ''}${forceBadge} • READ D`;
+        this.dom.lookTag.textContent = stackLabel;
+        return;
+      }
+
+      const look = BOT_DEFENSES[defId];
+      this.dom.lookTitle.textContent = `${audibled ? '⚡ ' : ''}${look.name.toUpperCase()} • ${forceBadge}`;
+      this.dom.lookTag.textContent = stackLabel;
     }
   }
 
@@ -716,7 +708,7 @@ class FlatballGame {
       btn.className = `primary-pull-btn ${isPlayerPull ? '' : 'receive-btn'}`;
       btn.innerHTML = isPlayerPull
         ? `<span class="pull-disc-icon">🥏</span><span>PULL DISC</span><span class="pull-sub">Kick off &amp; read Bot Offense</span>`
-        : `<span class="pull-disc-icon">⚡</span><span>RECEIVE PULL</span><span class="pull-sub">Bot pulls &amp; sets Defense first</span>`;
+        : `<span class="pull-disc-icon">⚡</span><span>RECEIVE PULL</span><span class="pull-sub">Set your stack &amp; read Bot’s Force/Zone</span>`;
       btn.addEventListener('click', () => this.handlePullClick());
       wrap.appendChild(btn);
       container.appendChild(wrap);

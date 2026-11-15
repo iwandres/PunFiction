@@ -1,5 +1,5 @@
 // High-DPI 2D Canvas Renderer for Flatball Tactics
-// Renders regulation 7v7 Ultimate field, Scout Chalkboard cues, Force Shields, Player Dots, Stall Rings, and 2.5D Disc flight.
+// Renders regulation 7v7 Ultimate field with HOME / AWAY sidelines, Force Shields & Arrows, Scout Cues, Player Dots, and 2.5D Disc.
 
 export class FieldRenderer {
   constructor(canvas) {
@@ -33,7 +33,7 @@ export class FieldRenderer {
 
     const padY = Math.max(12, Math.floor(h * 0.026));
     const availH = h - padY * 2;
-    const idealW = Math.min(w - 24, availH * 0.6);
+    const idealW = Math.min(w - 36, availH * 0.6);
     const fieldW = Math.max(210, Math.floor(idealW));
     const fieldH = Math.floor(availH);
 
@@ -47,11 +47,10 @@ export class FieldRenderer {
     };
   }
 
-  // Converts world (x in [-20, 20], y in [0, 110]) to canvas CSS pixels
   worldToPx(wx, wy) {
     const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
-    const nx = (wx + 20) / 40; // 0..1 left to right
-    const ny = (110 - wy) / 110; // y=110 at top (0), y=0 at bottom (1)
+    const nx = (wx + 20) / 40;
+    const ny = (110 - wy) / 110;
     return {
       x: fieldX + nx * fieldW,
       y: fieldY + ny * fieldH
@@ -75,6 +74,7 @@ export class FieldRenderer {
     ctx.clearRect(0, 0, w, h);
 
     this.drawFieldTurf(ctx);
+    this.drawSidelineLabels(ctx, choreo);
     this.drawTacticalOverlays(ctx, choreo);
     this.drawGhostPreview(ctx, choreo);
     this.drawShockwavesAndParticles(ctx, choreo);
@@ -88,7 +88,6 @@ export class FieldRenderer {
     const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
     const r = 12;
 
-    // Soft stadium drop shadow
     ctx.save();
     ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
     ctx.shadowBlur = 24;
@@ -98,28 +97,23 @@ export class FieldRenderer {
     ctx.fill();
     ctx.restore();
 
-    // Clip inside rounded field boundary
     ctx.save();
     this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, r);
     ctx.clip();
 
-    // Alternating 10-yard turf bands (11 bands total for 110 yards)
     const bandH = fieldH / 11;
     for (let i = 0; i < 11; i++) {
       ctx.fillStyle = i % 2 === 0 ? '#14533B' : '#175E43';
       ctx.fillRect(fieldX, fieldY + i * bandH, fieldW, bandH + 0.5);
     }
 
-    // Top End Zone (y = 90..110 -> top 20 yards): Player Attacking Score Zone
     const ezH = this.yardsToPxY(20);
     ctx.fillStyle = 'rgba(0, 229, 255, 0.08)';
     ctx.fillRect(fieldX, fieldY, fieldW, ezH);
 
-    // Bottom End Zone (y = 0..20 -> bottom 20 yards): Player Defended Zone
     ctx.fillStyle = 'rgba(255, 82, 104, 0.07)';
     ctx.fillRect(fieldX, fieldY + fieldH - ezH, fieldW, ezH);
 
-    // Subtle diagonal end-zone stripes
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
     ctx.lineWidth = 8;
     for (let sx = -fieldH; sx < fieldW + fieldH; sx += 26) {
@@ -134,7 +128,6 @@ export class FieldRenderer {
       ctx.stroke();
     }
 
-    // End Zone Watermarks
     const fontSize = Math.max(10, Math.min(14, Math.floor(fieldW * 0.042)));
     ctx.font = `800 ${fontSize}px "Plus Jakarta Sans", system-ui, sans-serif`;
     ctx.textAlign = 'center';
@@ -146,7 +139,6 @@ export class FieldRenderer {
     ctx.fillStyle = 'rgba(255, 148, 162, 0.32)';
     ctx.fillText('▼  YOUR DEFEND ZONE  ▼', fieldX + fieldW * 0.5, fieldY + fieldH - ezH * 0.5);
 
-    // Midfield Line (y = 55)
     const midPx = this.worldToPx(0, 55);
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
     ctx.setLineDash([6, 6]);
@@ -157,14 +149,12 @@ export class FieldRenderer {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Center Field Frisbee Circle Emblem
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(midPx.x, midPx.y, this.yardsToPxX(4.8), 0, Math.PI * 2);
     ctx.stroke();
 
-    // Goal Lines (y = 90 and y = 20)
     const topGoal = this.worldToPx(0, 90).y;
     const botGoal = this.worldToPx(0, 20).y;
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
@@ -176,8 +166,7 @@ export class FieldRenderer {
     ctx.lineTo(fieldX + fieldW, botGoal);
     ctx.stroke();
 
-    // Yardage Hash Ticks & Labels along Sidelines (every 10 yards between goal lines)
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.26)';
     ctx.font = '700 9px "JetBrains Mono", monospace';
     const yardMarks = [
       { y: 30, label: '10' },
@@ -192,7 +181,6 @@ export class FieldRenderer {
       ctx.fillText(ym.label, fieldX + fieldW - 12, py);
     }
 
-    // Brick Marks (y = 70 and y = 40, x = 0)
     for (const by of [40, 70]) {
       const bp = this.worldToPx(0, by);
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
@@ -208,13 +196,11 @@ export class FieldRenderer {
 
     ctx.restore();
 
-    // Crisp outer field perimeter line
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.82)';
     ctx.lineWidth = 2.2;
     this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, r);
     ctx.stroke();
 
-    // Corner Cones / Pylons
     const pylonCoords = [
       this.worldToPx(-20, 110),
       this.worldToPx(20, 110),
@@ -233,11 +219,45 @@ export class FieldRenderer {
     });
   }
 
+  /**
+   * Renders crisp HOME (Left Sideline) & AWAY (Right Sideline) markers, highlighting whichever side is currently Forced!
+   */
+  drawSidelineLabels(ctx, choreo) {
+    const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
+    const vc = choreo.visualContext;
+    const onOffenseRead = vc && vc.offenseTeam === 'player' && vc.scoutShape;
+    const homeForced = onOffenseRead && vc.forceSide === 'home';
+    const awayForced = onOffenseRead && vc.forceSide === 'away';
+
+    ctx.save();
+    ctx.font = '800 10px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Left Sideline: HOME
+    ctx.save();
+    ctx.translate(fieldX - 9, fieldY + fieldH * 0.5);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillStyle = homeForced ? '#FBBF24' : 'rgba(148, 163, 184, 0.58)';
+    ctx.fillText(homeForced ? '◀ FORCE HOME ◀' : 'HOME SIDELINE', 0, 0);
+    ctx.restore();
+
+    // Right Sideline: AWAY
+    ctx.save();
+    ctx.translate(fieldX + fieldW + 9, fieldY + fieldH * 0.5);
+    ctx.rotate(Math.PI / 2);
+    ctx.fillStyle = awayForced ? '#FBBF24' : 'rgba(148, 163, 184, 0.58)';
+    ctx.fillText(awayForced ? '▶ FORCE AWAY ▶' : 'AWAY SIDELINE', 0, 0);
+    ctx.restore();
+
+    ctx.restore();
+  }
+
   drawTacticalOverlays(ctx, choreo) {
     const vc = choreo.visualContext;
     if (!vc) return;
 
-    // 1. Always render physical defensive Force Shield / Cup Zone Wall around the thrower when disc is held
+    // 1. Physical Force Shield / Cup Wall + Force Home/Away Arrow around the thrower
     if (!choreo.disc.inFlight && choreo.disc.holderTeam) {
       const holderArr = choreo.disc.holderTeam === 'player' ? choreo.playerDots : choreo.botDots;
       const defArr = choreo.disc.holderTeam === 'player' ? choreo.botDots : choreo.playerDots;
@@ -245,11 +265,10 @@ export class FieldRenderer {
       if (holder) {
         const hp = this.worldToPx(holder.x, holder.y);
         const shieldColor = choreo.disc.holderTeam === 'player'
-          ? 'rgba(255, 82, 104, 0.72)'
-          : 'rgba(0, 229, 255, 0.72)';
+          ? 'rgba(255, 82, 104, 0.8)'
+          : 'rgba(0, 229, 255, 0.75)';
 
         if (vc.forceType === 'cup') {
-          // Connect the 3 cup defenders (indices 0, 1, 2) with a glowing tactical Cup shell arc!
           const c0 = this.worldToPx(defArr[0].x, defArr[0].y);
           const c1 = this.worldToPx(defArr[1].x, defArr[1].y);
           const c2 = this.worldToPx(defArr[2].x, defArr[2].y);
@@ -263,7 +282,6 @@ export class FieldRenderer {
           ctx.stroke();
           ctx.restore();
         } else {
-          // Draw directional Force Shield arc between marker (defArr[0]) and thrower
           const marker = defArr[0];
           if (marker) {
             const mp = this.worldToPx(marker.x, marker.y);
@@ -274,15 +292,41 @@ export class FieldRenderer {
             ctx.lineWidth = 3.2;
             ctx.lineCap = 'round';
             ctx.beginPath();
-            ctx.arc(hp.x, hp.y, arcR, ang - 0.65, ang + 0.65);
+            ctx.arc(hp.x, hp.y, arcR, ang - 0.68, ang + 0.68);
             ctx.stroke();
             ctx.restore();
           }
         }
+
+        // When Player is on Offense, draw a subtle Force Vector Arrow showing Force HOME (◀) vs Force AWAY (▶)
+        if (choreo.disc.holderTeam === 'player' && vc.scoutShape) {
+          const fDir = vc.forceSide === 'home' ? -1 : 1;
+          const arrowEnd = this.worldToPx(
+            Math.max(-18.5, Math.min(18.5, holder.x + fDir * 6.2)),
+            Math.min(106, holder.y + 3.2)
+          );
+          ctx.save();
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.78)';
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.9)';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.moveTo(hp.x + fDir * 10, hp.y - 3);
+          ctx.lineTo(arrowEnd.x, arrowEnd.y);
+          ctx.stroke();
+
+          const aAng = Math.atan2(arrowEnd.y - (hp.y - 3), arrowEnd.x - (hp.x + fDir * 10));
+          ctx.beginPath();
+          ctx.moveTo(arrowEnd.x, arrowEnd.y);
+          ctx.lineTo(arrowEnd.x - 7 * Math.cos(aAng - 0.5), arrowEnd.y - 7 * Math.sin(aAng - 0.5));
+          ctx.lineTo(arrowEnd.x - 7 * Math.cos(aAng + 0.5), arrowEnd.y - 7 * Math.sin(aAng + 0.5));
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
       }
     }
 
-    // 2. Optional Scout Chalkboard Cues (when Scout Lens is ON during Read phase)
+    // 2. Optional Scout Chalkboard Cues (when Scout: ON)
     if (!this.scoutEnabled || !vc.scoutShape) return;
 
     const pulse = 0.5 + 0.5 * Math.sin(choreo.idleClock * 4.2);
@@ -336,7 +380,7 @@ export class FieldRenderer {
       ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
     } else if (vc.scoutShape === 'bot_poach') {
       const sag = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.5 + pulse * 0.3})`;
+      ctx.strokeStyle = `rgba(255, 92, 114, ${0.55 + pulse * 0.3})`;
       ctx.fillStyle = 'rgba(255, 82, 104, 0.1)';
       ctx.lineWidth = 2;
       ctx.setLineDash([5, 4]);
@@ -344,20 +388,20 @@ export class FieldRenderer {
       ctx.arc(sag.x, sag.y, this.yardsToPxX(5.2) + pulse * 3, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
-    } else if (vc.scoutShape === 'bot_clam') {
-      // Show 2 horizontal bracket walls (Under U1-U2-U3 & Deep B1-B2)
-      const u1 = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
-      const u3 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
-      const b1 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
-      const b2 = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.48 + pulse * 0.25})`;
-      ctx.lineWidth = 2.5;
+    } else if (vc.scoutShape === 'bot_wall') {
+      // Connect the 3-across midfield Wall (W1-W2-W3 at indices 2, 3, 4) + 2 deep safeties (5, 6)
+      const w1 = this.worldToPx(choreo.botDots[2].x, choreo.botDots[2].y);
+      const w3 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
+      const d1 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
+      const d2 = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
+      ctx.strokeStyle = `rgba(255, 92, 114, ${0.52 + pulse * 0.25})`;
+      ctx.lineWidth = 2.6;
       ctx.setLineDash([6, 5]);
       ctx.beginPath();
-      ctx.moveTo(u1.x, u1.y);
-      ctx.lineTo(u3.x, u3.y);
-      ctx.moveTo(b1.x, b1.y);
-      ctx.lineTo(b2.x, b2.y);
+      ctx.moveTo(w1.x, w1.y);
+      ctx.lineTo(w3.x, w3.y);
+      ctx.moveTo(d1.x, d1.y);
+      ctx.lineTo(d2.x, d2.y);
       ctx.stroke();
     } else if (vc.scoutShape === 'bot_blitz') {
       const m = this.worldToPx(choreo.botDots[0].x, choreo.botDots[0].y);
@@ -369,6 +413,17 @@ export class FieldRenderer {
       ctx.moveTo(m.x, m.y);
       ctx.lineTo(blz.x, blz.y);
       ctx.stroke();
+    } else if (vc.scoutShape === 'bot_man_trap') {
+      // Highlight the narrow trapped sideline danger zone in subtle coral
+      const sideX = vc.forceSide === 'home' ? -19.5 : 13.5;
+      const tl = this.worldToPx(sideX, Math.min(104, vc.discAnchorY + 24));
+      const br = this.worldToPx(sideX + 6, Math.max(20, vc.discAnchorY - 2));
+      ctx.fillStyle = `rgba(255, 82, 104, ${0.08 + pulse * 0.06})`;
+      ctx.strokeStyle = `rgba(255, 82, 104, ${0.42 + pulse * 0.2})`;
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([5, 4]);
+      ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+      ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
     }
 
     ctx.restore();
@@ -378,16 +433,14 @@ export class FieldRenderer {
     const previewId = choreo.visualContext.ghostPreview;
     if (!previewId) return;
 
-    const { discAnchorX, discAnchorY, openSign, offenseTeam } = choreo.visualContext;
+    const { discAnchorX, discAnchorY, openSign, offenseTeam, forceSide } = choreo.visualContext;
     ctx.save();
     ctx.strokeStyle = 'rgba(0, 229, 255, 0.55)';
-    ctx.fillStyle = 'rgba(0, 229, 255, 0.12)';
+    ctx.fillStyle = 'rgba(0, 229, 255, 0.13)';
     ctx.lineWidth = 2;
     ctx.setLineDash([5, 4]);
 
     if (offenseTeam === 'bot') {
-      // Previewing a Player Defensive Scheme
-      const { botTargets } = choreo.computeBotOffenseSetup(discAnchorX, discAnchorY, 'vert_stack', previewId);
       const previewDots = choreo.computePlayerDefensePositions(
         discAnchorX,
         discAnchorY,
@@ -402,10 +455,8 @@ export class FieldRenderer {
         ctx.fill();
         ctx.stroke();
       });
-      void botTargets;
     } else {
-      // Previewing a Player Offensive Play
-      const { playerTargets } = choreo.computeBotDefenseSetup(discAnchorX, discAnchorY, 'bot_force_flick', previewId);
+      const playerTargets = choreo.computePlayerPlayExecutionTargets(discAnchorX, discAnchorY, previewId, forceSide);
       playerTargets.forEach((pt, idx) => {
         if (idx === 0) return;
         const p = this.worldToPx(pt.x, pt.y);
@@ -447,13 +498,11 @@ export class FieldRenderer {
   drawPlayers(ctx, choreo) {
     const dotRadius = Math.max(9.5, Math.min(13.5, this.metrics.fieldW * 0.033));
 
-    // Draw Bot Dots (Coral Red)
     choreo.botDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'bot' && choreo.disc.holderIdx === idx;
       this.drawSingleDot(ctx, d, dotRadius, '#FF5A6E', '#C81E3A', isHolder, choreo);
     });
 
-    // Draw Player Dots (Electric Cyan)
     choreo.playerDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'player' && choreo.disc.holderIdx === idx;
       this.drawSingleDot(ctx, d, dotRadius, '#00E5FF', '#0284C7', isHolder, choreo);
@@ -463,7 +512,6 @@ export class FieldRenderer {
   drawSingleDot(ctx, dot, radius, topColor, botColor, isHolder, choreo) {
     const p = this.worldToPx(dot.x, dot.y);
 
-    // Highlight pulse for ISO / SAG / BLZ key focal players
     if (dot.highlight) {
       const pulse = 0.5 + 0.5 * Math.sin(choreo.idleClock * 6);
       ctx.save();
@@ -475,7 +523,6 @@ export class FieldRenderer {
       ctx.restore();
     }
 
-    // Active Stall Progress Ring around the thrower
     if (isHolder && choreo.stall.active) {
       const frac = Math.min(1, choreo.stall.value / 10);
       const stallColor = frac < 0.48 ? '#34D399' : frac < 0.75 ? '#FBBF24' : '#FB7185';
@@ -497,19 +544,16 @@ export class FieldRenderer {
     ctx.save();
     ctx.translate(p.x, p.y);
 
-    // Layout dive stretch when making a horizontal layout block!
     if (dot.lungeTimer > 0) {
       ctx.rotate(dot.lungeAngle);
       ctx.scale(1.42, 0.78);
     }
 
-    // Soft turf shadow
     ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
     ctx.beginPath();
     ctx.arc(0, 3, radius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Gradient circle body
     const grad = ctx.createLinearGradient(0, -radius, 0, radius);
     grad.addColorStop(0, topColor);
     grad.addColorStop(1, botColor);
@@ -518,17 +562,15 @@ export class FieldRenderer {
     ctx.arc(0, 0, radius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Crisp white rim
     ctx.strokeStyle = isHolder ? '#FFFFFF' : 'rgba(255, 255, 255, 0.9)';
     ctx.lineWidth = isHolder ? 2.6 : 1.9;
     ctx.stroke();
 
     ctx.restore();
 
-    // Role micro-label
     ctx.save();
     ctx.fillStyle = '#FFFFFF';
-    const fontPx = dot.role && dot.role.length > 2 ? Math.max(7.5, radius * 0.62) : Math.max(8.5, radius * 0.76);
+    const fontPx = dot.role && dot.role.length > 2 ? Math.max(7.2, radius * 0.6) : Math.max(8.2, radius * 0.74);
     ctx.font = `800 ${fontPx}px "Plus Jakarta Sans", system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -542,7 +584,6 @@ export class FieldRenderer {
     const disc = choreo.disc;
     const baseR = Math.max(5.5, Math.min(7.5, this.metrics.fieldW * 0.018));
 
-    // Tapered aerodynamic motion trail during flight
     if (disc.inFlight && disc.trail.length > 1) {
       for (let i = 1; i < disc.trail.length; i++) {
         const prev = this.worldToPx(disc.trail[i - 1].x, disc.trail[i - 1].y);
@@ -561,10 +602,9 @@ export class FieldRenderer {
     }
 
     const pos = this.worldToPx(disc.x, disc.y);
-    const zLift = disc.z * 18; // Visual upward lift for 2.5D altitude illusion
+    const zLift = disc.z * 18;
     const r = baseR * (1 + disc.z * 0.48);
 
-    // Ground shadow (separates on high pulls & hucks!)
     ctx.save();
     ctx.fillStyle = `rgba(0, 0, 0, ${0.38 - disc.z * 0.16})`;
     ctx.beginPath();
@@ -572,7 +612,6 @@ export class FieldRenderer {
     ctx.fill();
     ctx.restore();
 
-    // Main White 175g Frisbee Disc
     const dy = pos.y - zLift;
     ctx.save();
     ctx.fillStyle = disc.dropped ? '#E2E8F0' : '#FFFFFF';
@@ -580,7 +619,6 @@ export class FieldRenderer {
     ctx.arc(pos.x, dy, r, 0, Math.PI * 2);
     ctx.fill();
 
-    // Outer Flight Ring & Center Stamp
     ctx.strokeStyle = '#94A3B8';
     ctx.lineWidth = 1.1;
     ctx.stroke();

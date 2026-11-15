@@ -1,7 +1,7 @@
 // Complete 7v7 Tactical Playbook & Matchup Matrices for Flatball Tactics
-// Coordinates use (dx, forwardY) relative to the disc:
-//   dx: lateral offset in yards (-20 = left sideline, +20 = right sideline)
-//   forwardY: yards in the attacking direction (+ = downfield toward target end zone, - = backfield behind disc)
+// Field Orientation:
+//   x in [-20, +20] yards: -20 = HOME Sideline (Left), +20 = AWAY Sideline (Right)
+//   y in [0, 110] yards: 0..20 = Player Defended End Zone (Bottom), 90..110 = Player Attacking End Zone (Top)
 
 export const PLAYER_DEFENSES = {
   sideline_trap: {
@@ -9,7 +9,7 @@ export const PLAYER_DEFENSES = {
     name: 'Sideline Trap',
     badge: 'TRAP',
     icon: 'trap',
-    shortDesc: 'Force toward sideline & pinch middle lanes',
+    shortDesc: 'Force toward nearest sideline & pinch middle space',
     forceType: 'trap'
   },
   deep_poach: {
@@ -55,47 +55,47 @@ export const PLAYER_DEFENSES = {
 };
 
 export const PLAYER_OFFENSES = {
-  pop_swing: {
-    id: 'pop_swing',
-    name: 'Pop & Swing',
-    badge: 'HO POP',
-    icon: 'pop',
-    shortDesc: 'Dart middle poppers into zone gaps & swing wide'
+  force_cuts: {
+    id: 'force_cuts',
+    name: 'Force-Side Cuts',
+    badge: 'OPEN LANE',
+    icon: 'vert',
+    shortDesc: 'Timed under & continuation cuts into the forced side'
   },
-  break_mark: {
-    id: 'break_mark',
-    name: 'Inside Break Cut',
+  break_swing: {
+    id: 'break_swing',
+    name: 'Break-Mark Swing',
     badge: 'IO BREAK',
     icon: 'break',
-    shortDesc: 'Jab-step & rip an Inside-Out pass past a trap'
+    shortDesc: 'Step inside the mark & swing to the wide break side'
   },
   give_go: {
     id: 'give_go',
-    name: 'Give & Go Weave',
+    name: 'Under Give & Go',
     badge: 'SMALL BALL',
     icon: 'weave',
-    shortDesc: 'Rapid short handler triangles underneath sags'
+    shortDesc: 'Quick short handler triangles underneath deep help'
   },
-  split_flood: {
-    id: 'split_flood',
-    name: 'Split Zone Flood',
-    badge: 'FLOOD',
-    icon: 'flood',
-    shortDesc: 'Overload one bracket with staggered cuts'
-  },
-  side_iso_huck: {
-    id: 'side_iso_huck',
-    name: 'Side ISO Huck',
+  deep_huck: {
+    id: 'deep_huck',
+    name: 'Deep ISO Huck',
     badge: 'DEEP BOMB',
     icon: 'huck',
-    shortDesc: 'Clear 4 cutters & bomb deep to an isolated star'
+    shortDesc: 'Clear space & bomb deep into 1-on-1 coverage'
   },
-  vert_power: {
-    id: 'vert_power',
-    name: 'Vert Power Cuts',
-    badge: '1v1 TIMING',
-    icon: 'vert',
-    shortDesc: 'Hard under cut + timed open-side continuation'
+  pop_swing: {
+    id: 'pop_swing',
+    name: 'Popper Crash & Swing',
+    badge: 'CUP BEATER',
+    icon: 'pop',
+    shortDesc: 'Crash poppers into a cup & swing to the weak side'
+  },
+  zone_flood: {
+    id: 'zone_flood',
+    name: 'Flood & Over-Top',
+    badge: 'WALL BEATER',
+    icon: 'flood',
+    shortDesc: 'Overload one zone wing & arc a pass over the wall'
   }
 };
 
@@ -106,7 +106,6 @@ export const BOT_OFFENSES = {
     tag: 'CENTER SPINE',
     hint: '5 cutters stacked down the center create wide side lanes — trap them against a sideline to choke their space!',
     scoutShape: 'vert_spine',
-    // 7 Offense offsets: [0] has disc, [1] reset handler, [2..6] cutters
     offenseOffsets: [
       { dx: 0, fy: 0, role: 'H1' },
       { dx: -7.5, fy: -5, role: 'H2' },
@@ -257,283 +256,207 @@ export const BOT_OFFENSES = {
   }
 };
 
-// Base neutral readiness formation for Player's 7 offensive players right as Bot Defense sets up first
-export const PLAYER_BASE_OFFENSE_OFFSETS = [
-  { dx: 0, fy: 0, role: 'H1' },
-  { dx: -7.5, fy: -4.8, role: 'H2' },
-  { dx: -12.5, fy: 13.5, role: '1' },
-  { dx: -4.8, fy: 15.5, role: '2' },
-  { dx: 0, fy: 19, role: '3' },
-  { dx: 5.2, fy: 15.5, role: '4' },
-  { dx: 12.5, fy: 13.5, role: '5' }
-];
-
-// Target Offensive Formations when Player selects an Offensive Play
-export const PLAYER_OFFENSE_SHAPES = {
-  pop_swing: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -9, fy: -4, role: 'H2' },
-    { dx: 9, fy: -4, role: 'H3' },
-    { dx: -14, fy: 14, role: '1' },
-    { dx: -4, fy: 11, role: '2' },
-    { dx: 4, fy: 11, role: '3' },
-    { dx: 14, fy: 14, role: '4' }
-  ],
-  break_mark: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -7, fy: -5, role: 'H2' },
-    { dx: 0, fy: 9, role: '1' },
-    { dx: 0, fy: 14, role: '2' },
-    { dx: 0, fy: 19, role: '3' },
-    { dx: 0, fy: 24, role: '4' },
-    { dx: -11, fy: 16, role: '5' }
-  ],
-  give_go: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -6.5, fy: -3, role: 'H2' },
-    { dx: 6.5, fy: -2.5, role: 'H3' },
-    { dx: 2, fy: 7, role: '4' },
-    { dx: -12, fy: 21, role: '1' },
-    { dx: 0, fy: 23, role: '2' },
-    { dx: 12, fy: 21, role: '3' }
-  ],
-  split_flood: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -7.5, fy: -4.5, role: 'H2' },
-    { dx: -10, fy: 10, role: '1' },
-    { dx: -9, fy: 19, role: '2' },
-    { dx: -13, fy: 14, role: '3' },
-    { dx: 12, fy: 14, role: '4' },
-    { dx: 12, fy: 21, role: '5' }
-  ],
-  side_iso_huck: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -7, fy: -4.8, role: 'H2' },
-    { dx: -5, fy: 16, role: 'ISO' },
-    { dx: 14.5, fy: 10, role: '2' },
-    { dx: 14.5, fy: 14, role: '3' },
-    { dx: 14.5, fy: 18, role: '4' },
-    { dx: 14.5, fy: 22, role: '5' }
-  ],
-  vert_power: [
-    { dx: 0, fy: 0, role: 'H1' },
-    { dx: -7.5, fy: -5, role: 'H2' },
-    { dx: 0, fy: 9.5, role: '1' },
-    { dx: 0, fy: 14, role: '2' },
-    { dx: 0, fy: 18.5, role: '3' },
-    { dx: 0, fy: 23, role: '4' },
-    { dx: 0, fy: 27.5, role: '5' }
-  ]
-};
-
+/**
+ * Reactive Bot Defenses when Player is on Offense!
+ * Notice how Man schemes dynamically follow whatever Base Stack ('vert' or 'ho') the Player's offense sets up in,
+ * while Zone schemes ('cup', 'wall') peel off into spaces — all paired with an explicit Force ('home' ◀ or 'away' ▶).
+ */
 export const BOT_DEFENSES = {
-  bot_cup_zone: {
-    id: 'bot_cup_zone',
-    name: '3-Person Cup Zone',
-    tag: 'ZONE SHELL',
-    hint: '3 Bot defenders have surrounded your handler in a Cup — puncture the middle with Pop & Swing!',
-    scoutShape: 'bot_cup',
-    forceType: 'cup',
-    defenseOffsets: [
-      { dx: -3.2, fy: 3.1, role: 'C1' },
-      { dx: 0, fy: 4.2, role: 'C2' },
-      { dx: 3.2, fy: 3.1, role: 'C3' },
-      { dx: -10.5, fy: 11.5, role: 'M1' },
-      { dx: 10.5, fy: 11.5, role: 'M2' },
-      { dx: -6.5, fy: 22, role: 'D1' },
-      { dx: 6.5, fy: 22, role: 'D2' }
-    ],
+  bot_man_open: {
+    id: 'bot_man_open',
+    name: 'Man-to-Man',
+    coverageType: 'man',
+    tag: 'OPEN FORCE LANE',
+    hint: 'Bot matched your stack 1v1 and is forcing toward the big open side of the field — attack that lane with Force-Side Cuts!',
+    scoutShape: 'bot_man_open',
+    forceStyle: 'directional',
     matchups: {
-      pop_swing: 'ideal',
+      force_cuts: 'ideal',
+      deep_huck: 'middle',
       give_go: 'middle',
-      split_flood: 'middle',
-      break_mark: 'middle',
-      vert_power: 'middle',
-      side_iso_huck: 'worst'
+      pop_swing: 'middle',
+      zone_flood: 'middle',
+      break_swing: 'worst'
     },
-    defaultHand: ['pop_swing', 'give_go', 'split_flood', 'side_iso_huck'],
+    defaultHand: ['force_cuts', 'deep_huck', 'give_go', 'break_swing'],
     outcomes: {
-      ideal: 'Pop & Swing darted a popper right into the heart of the Cup and swung wide for an unstoppable score!',
-      middle: 'Patient ball movement worked around the Cup shell for a solid downfield gain.',
-      worst: 'Winding up a slow Side ISO Huck right into a 3-Person Cup got point-blocked at release — Turnover!'
+      ideal: 'Force-Side Cuts attacked the wide-open forced side in stride and powered straight into the end zone!',
+      middle: 'Patient execution against 1v1 Man moved the disc 25 yards downfield.',
+      worst: 'Forcing an Inside Break throw toward the cramped short side got hand-blocked by a disciplined mark!'
     }
   },
 
-  bot_sideline_trap: {
-    id: 'bot_sideline_trap',
-    name: 'Sideline Trap Force',
-    tag: 'TRAP MARK',
-    hint: 'Bot marker is walling off the middle and trapping the sideline — break the mark inside with Inside Break Cut!',
-    scoutShape: 'bot_trap',
-    forceType: 'trap',
-    defenseOffsets: [
-      { dx: -2.2, fy: 2.3, role: 'M' },
-      { dx: -5.8, fy: -3.5, role: 'D2' },
-      { dx: -11, fy: 12, role: 'D3' },
-      { dx: -3.5, fy: 14, role: 'D4' },
-      { dx: 1.5, fy: 17.5, role: 'D5' },
-      { dx: 6.5, fy: 14, role: 'D6' },
-      { dx: 13.5, fy: 12, role: 'D7' }
-    ],
+  bot_man_trap: {
+    id: 'bot_man_trap',
+    name: 'Man-to-Man (Trap)',
+    coverageType: 'man_trap',
+    tag: 'TRAPPED ON LINE',
+    hint: 'You’re near the sideline and Bot is forcing you straight into the line! Step inside with Break-Mark Swing to hit the wide-open break side!',
+    scoutShape: 'bot_man_trap',
+    forceStyle: 'directional',
     matchups: {
-      break_mark: 'ideal',
-      vert_power: 'middle',
+      break_swing: 'ideal',
       give_go: 'middle',
-      side_iso_huck: 'middle',
-      split_flood: 'middle',
-      pop_swing: 'worst'
+      deep_huck: 'middle',
+      pop_swing: 'middle',
+      zone_flood: 'middle',
+      force_cuts: 'worst'
     },
-    defaultHand: ['break_mark', 'vert_power', 'give_go', 'pop_swing'],
+    defaultHand: ['break_swing', 'give_go', 'deep_huck', 'force_cuts'],
     outcomes: {
-      ideal: 'Inside Break Cut stepped past the trap with a laser IO break throw, unlocking the wide-open field for a score!',
-      middle: 'Good discipline protected the disc against the trap and picked up tough yards.',
-      worst: 'Swinging wide into a Sideline Trap got jumped in the passing lane for a Bot interception!'
+      ideal: 'Break-Mark Swing stepped inside the trap mark and swung to the wide-open break side for a score!',
+      middle: 'Smart ball security escaped the sideline pressure for a solid gain.',
+      worst: 'Cutting into the narrow trapped sideline lane got jumped by a poaching defender — Turnover!'
     }
   },
 
-  bot_deep_poach: {
-    id: 'bot_deep_poach',
-    name: 'Deep Poach Sag',
-    tag: 'NO-HUCK SAFETY',
-    hint: 'Bot’s 7th defender is sagging 25 yards deep to bait hucks — shred them underneath with Give & Go Weave!',
+  bot_man_poach: {
+    id: 'bot_man_poach',
+    name: 'Man + Deep Poach',
+    coverageType: 'man_poach',
+    tag: 'DEEP SAG',
+    hint: 'Bot matched your stack in Man, except their deepest defender sagged way off to bait hucks — slice underneath with Under Give & Go!',
     scoutShape: 'bot_poach',
-    forceType: 'flat',
-    defenseOffsets: [
-      { dx: 0, fy: 3.1, role: 'M' },
-      { dx: -6.2, fy: -3.8, role: 'D2' },
-      { dx: -11.5, fy: 12.5, role: 'D3' },
-      { dx: -4.2, fy: 14.5, role: 'D4' },
-      { dx: 4.8, fy: 14.5, role: 'D5' },
-      { dx: 11.5, fy: 12.5, role: 'D6' },
-      { dx: 0, fy: 26.5, role: 'SAG', highlight: true }
-    ],
+    forceStyle: 'directional',
     matchups: {
       give_go: 'ideal',
-      break_mark: 'middle',
+      force_cuts: 'middle',
+      break_swing: 'middle',
       pop_swing: 'middle',
-      split_flood: 'middle',
-      vert_power: 'middle',
-      side_iso_huck: 'worst'
+      zone_flood: 'middle',
+      deep_huck: 'worst'
     },
-    defaultHand: ['give_go', 'break_mark', 'pop_swing', 'side_iso_huck'],
+    defaultHand: ['give_go', 'force_cuts', 'break_swing', 'deep_huck'],
     outcomes: {
-      ideal: 'Give & Go Weave exploited the unguarded short space with rapid triangles all the way to the end zone!',
-      middle: 'Smart underneath throws stayed away from the deep poacher for a clean 24-yard advance.',
-      worst: 'Throwing a Side ISO Huck straight at a waiting Deep Poacher got skied cleanly — Turnover!'
+      ideal: 'Under Give & Go exploited the unguarded cutter underneath the deep poacher all the way in for the goal!',
+      middle: 'Short disciplined passes stayed safely away from the deep poacher for +25 yards.',
+      worst: 'Uncorking a Deep ISO Huck right at a waiting Deep Poacher got skied cleanly — Turnover!'
     }
   },
 
-  bot_clam_bracket: {
-    id: 'bot_clam_bracket',
-    name: 'Clam Bracket Zone',
-    tag: 'UNDER / DEEP WALLS',
-    hint: 'Downfield defenders are sharing fixed under & deep brackets — overload one side with Split Zone Flood!',
-    scoutShape: 'bot_clam',
-    forceType: 'open',
-    defenseOffsets: [
-      { dx: -1.8, fy: 2.6, role: 'M' },
-      { dx: -6.5, fy: -4, role: 'D2' },
-      { dx: -9.5, fy: 11, role: 'U1' },
-      { dx: 0, fy: 11, role: 'U2' },
-      { dx: 9.5, fy: 11, role: 'U3' },
-      { dx: -6.5, fy: 21.5, role: 'B1' },
-      { dx: 6.5, fy: 21.5, role: 'B2' }
-    ],
-    matchups: {
-      split_flood: 'ideal',
-      give_go: 'middle',
-      pop_swing: 'middle',
-      break_mark: 'middle',
-      side_iso_huck: 'middle',
-      vert_power: 'worst'
-    },
-    defaultHand: ['split_flood', 'give_go', 'pop_swing', 'vert_power'],
-    outcomes: {
-      ideal: 'Split Zone Flood sent two staggered cutters into one bracket — the deep cutter streaked wide open for the score!',
-      middle: 'Lateral swings stretched the Clam brackets enough to find a gap for solid yardage.',
-      worst: 'Single Vert Power Cuts ran straight into the waiting Clam bracket for an easy layout block!'
-    }
-  },
-
-  bot_shutdown_reset: {
-    id: 'bot_shutdown_reset',
-    name: 'Shutdown Reset Blitz',
+  bot_man_blitz: {
+    id: 'bot_man_blitz',
+    name: 'Man + Reset Deny',
+    coverageType: 'man_blitz',
     tag: 'DUMP BLITZ',
-    hint: 'Bot defenders are blitzing your backfield reset lane with zero deep help — launch a Side ISO Huck!',
+    hint: 'Tight Man across your stack with a face-guarding Reset Blitz and zero deep help — punish them with Deep ISO Huck!',
     scoutShape: 'bot_blitz',
-    forceType: 'tight',
-    defenseOffsets: [
-      { dx: -1.2, fy: 2.0, role: 'M' },
-      { dx: -4.2, fy: -2.4, role: 'BLZ', highlight: true },
-      { dx: -12, fy: 12.5, role: 'D3' },
-      { dx: -4.5, fy: 14.5, role: 'D4' },
-      { dx: 0, fy: 18, role: 'D5' },
-      { dx: 5.2, fy: 14.5, role: 'D6' },
-      { dx: 12, fy: 12.5, role: 'D7' }
-    ],
+    forceStyle: 'directional',
     matchups: {
-      side_iso_huck: 'ideal',
-      vert_power: 'middle',
-      break_mark: 'middle',
-      split_flood: 'middle',
+      deep_huck: 'ideal',
+      force_cuts: 'middle',
+      break_swing: 'middle',
       pop_swing: 'middle',
+      zone_flood: 'middle',
       give_go: 'worst'
     },
-    defaultHand: ['side_iso_huck', 'vert_power', 'break_mark', 'give_go'],
+    defaultHand: ['deep_huck', 'force_cuts', 'break_swing', 'give_go'],
     outcomes: {
-      ideal: 'With zero deep help behind the blitz, Side ISO Huck uncorked a majestic bomb caught in stride for the goal!',
-      middle: 'Looking downfield bypassed the dump blitz and moved the disc 25 yards closer to scoring.',
-      worst: 'Forcing short Give & Go resets directly into a Dump Blitz got layout-blocked in the backfield!'
+      ideal: 'With zero deep safety behind the blitz, Deep ISO Huck bombed to the open Force lane for an electric score!',
+      middle: 'Looking downfield bypassed the backfield blitz for a clean 25-yard gain.',
+      worst: 'Throwing short Give & Go resets straight into a face-guarding Dump Blitz got layout-blocked!'
     }
   },
 
-  bot_force_flick: {
-    id: 'bot_force_flick',
-    name: 'Open-Side 1v1 Person',
-    tag: 'PURE MATCHUP D',
-    hint: 'Honest 1-on-1 defense across all 7 players with no zone help — win your matchups with Vert Power Cuts!',
-    scoutShape: 'bot_person',
-    forceType: 'open',
-    defenseOffsets: [
-      { dx: -2.1, fy: 2.4, role: 'M' },
-      { dx: -6.2, fy: -3.8, role: 'D2' },
-      { dx: -11.2, fy: 12.2, role: 'D3' },
-      { dx: -3.8, fy: 14.2, role: 'D4' },
-      { dx: 1.0, fy: 17.5, role: 'D5' },
-      { dx: 6.2, fy: 14.2, role: 'D6' },
-      { dx: 11.2, fy: 12.2, role: 'D7' }
-    ],
+  bot_zone_cup: {
+    id: 'bot_zone_cup',
+    name: '3-Man Cup Zone',
+    coverageType: 'zone_cup',
+    tag: 'ZONE CUP SHELL',
+    hint: 'Notice how they didn’t follow your stack — 3 defenders formed a Cup around the disc! Crash the middle with Popper Crash & Swing!',
+    scoutShape: 'bot_cup',
+    forceStyle: 'cup',
     matchups: {
-      vert_power: 'ideal',
-      side_iso_huck: 'middle',
-      split_flood: 'middle',
+      pop_swing: 'ideal',
+      zone_flood: 'middle',
       give_go: 'middle',
-      pop_swing: 'middle',
-      break_mark: 'worst'
+      break_swing: 'middle',
+      force_cuts: 'middle',
+      deep_huck: 'worst'
     },
-    defaultHand: ['vert_power', 'side_iso_huck', 'split_flood', 'break_mark'],
+    defaultHand: ['pop_swing', 'zone_flood', 'give_go', 'deep_huck'],
     outcomes: {
-      ideal: 'Vert Power Cuts planted hard deep, won the under footrace, and hit a clinical continuation strike for the score!',
-      middle: 'Crisp cuts against 1v1 coverage earned a clean 25-yard gain downfield.',
-      worst: 'Forcing an Inside Break throw directly into a disciplined 1v1 mark got hand-blocked at the release!'
+      ideal: 'Popper Crash & Swing punctured the soft center of the Cup and swung to the weak side for the goal!',
+      middle: 'Crisp swings moved the Cup side-to-side for a 24-yard advance.',
+      worst: 'Winding up a slow Deep ISO Huck through a 3-Man Cup got point-blocked right at release!'
+    }
+  },
+
+  bot_zone_wall: {
+    id: 'bot_zone_wall',
+    name: '2-3-2 Wall Zone',
+    coverageType: 'zone_wall',
+    tag: 'MIDFIELD WALL',
+    hint: 'They peeled off your stack into a 3-across midfield Wall Zone! Overload one wing & go over the top with Flood & Over-Top!',
+    scoutShape: 'bot_wall',
+    forceStyle: 'directional',
+    matchups: {
+      zone_flood: 'ideal',
+      pop_swing: 'middle',
+      give_go: 'middle',
+      break_swing: 'middle',
+      deep_huck: 'middle',
+      force_cuts: 'worst'
+    },
+    defaultHand: ['zone_flood', 'pop_swing', 'give_go', 'force_cuts'],
+    outcomes: {
+      ideal: 'Flood & Over-Top overloaded the wing and floated a pinpoint blade over the 3-man Wall for the score!',
+      middle: 'Patient swings stretched the 2-3-2 Wall enough to slip a pass through for solid yards.',
+      worst: 'Running standard 1v1 Force-Side Cuts straight into a stationary 3-man Wall led to an easy zone pick!'
     }
   }
 };
 
 /**
+ * Selects a contextually authentic Bot Defense + Force ('home' or 'away') + Player Base Stack ('vert' or 'ho')
+ * given the current disc coordinates (discX, discY).
+ */
+export function rollBotDefenseState({ discX, prevDefId = null, prevStack = 'vert', isAdvance = false, rng = Math.random }) {
+  // Keep same base stack on a mid-field advance, or alternate between Vert & Ho on fresh possessions!
+  const baseStack = isAdvance ? prevStack : (rng() < 0.58 ? 'vert' : 'ho');
+
+  const nearSideline = Math.abs(discX) >= 5.5;
+  let defId = prevDefId;
+
+  if (!isAdvance || !prevDefId || rng() < 0.5) {
+    const candidates = Object.keys(BOT_DEFENSES).filter((id) => {
+      if (id === prevDefId) return false;
+      if (id === 'bot_man_trap' && !nearSideline) return false;
+      return true;
+    });
+    defId = candidates[Math.floor(rng() * candidates.length)];
+  } else if (defId === 'bot_man_trap' && !nearSideline) {
+    // Escaped the sideline on the previous advance -> trap naturally becomes open-side Man!
+    defId = 'bot_man_open';
+  }
+
+  // Choose Force ('home' = Left -x, 'away' = Right +x) authentically:
+  let forceSide;
+  if (defId === 'bot_man_trap') {
+    // Force toward the NEAR sideline to trap the offense!
+    forceSide = discX < 0 ? 'home' : 'away';
+  } else if (defId === 'bot_man_open') {
+    // Force toward the BIG open side of the field!
+    if (discX > 3.5) forceSide = 'home';
+    else if (discX < -3.5) forceSide = 'away';
+    else forceSide = rng() < 0.5 ? 'home' : 'away';
+  } else {
+    forceSide = rng() < 0.5 ? 'home' : 'away';
+  }
+
+  return { defId, forceSide, baseStack };
+}
+
+/**
  * Builds the 4-card hand for the current decision.
- * - On fresh read: shuffles the formation's 4 balanced cards (1 ideal, 2 middle, 1 worst) using rng().
- * - On mid-field audible (keepStrategyId provided): Card 0 is KEEP [keepStrategyId], plus 3 switch cards
- *   guaranteed to include the ideal counter (if keepStrategyId isn't already ideal) + varied options.
  */
 export function buildDecisionHand(lookObj, strategyCatalog, keepStrategyId = null, rng = Math.random) {
   const allIds = Object.keys(strategyCatalog);
   const idealId = allIds.find((id) => lookObj.matchups[id] === 'ideal');
   const worstId = allIds.find((id) => lookObj.matchups[id] === 'worst');
 
-  if (!keepStrategyId) {
+  if (!keepStrategyId || !strategyCatalog[keepStrategyId]) {
     const handIds = [...lookObj.defaultHand];
-    // Fisher-Yates shuffle so Ideal isn't in a predictable slot
     for (let i = handIds.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1));
       [handIds[i], handIds[j]] = [handIds[j], handIds[i]];
@@ -545,14 +468,10 @@ export function buildDecisionHand(lookObj, strategyCatalog, keepStrategyId = nul
     }));
   }
 
-  // Mid-field decision: Keep current + 3 Audible options
   const switchPool = [];
-  if (idealId && idealId !== keepStrategyId) {
-    switchPool.push(idealId);
-  }
-  if (worstId && worstId !== keepStrategyId && switchPool.length < 3) {
-    switchPool.push(worstId);
-  }
+  if (idealId && idealId !== keepStrategyId) switchPool.push(idealId);
+  if (worstId && worstId !== keepStrategyId && switchPool.length < 3) switchPool.push(worstId);
+
   for (const id of lookObj.defaultHand) {
     if (id !== keepStrategyId && !switchPool.includes(id) && switchPool.length < 3) {
       switchPool.push(id);
@@ -564,7 +483,6 @@ export function buildDecisionHand(lookObj, strategyCatalog, keepStrategyId = nul
     }
   }
 
-  // Shuffle the 3 switch options
   for (let i = switchPool.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
     [switchPool[i], switchPool[j]] = [switchPool[j], switchPool[i]];
