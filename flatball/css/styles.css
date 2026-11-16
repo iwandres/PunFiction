@@ -315,173 +315,335 @@ button {
   display: block;
 }
 
-/* ================= OPENING MATCHUP & WEATHER WELCOME BANNER ================= */
-.welcome-banner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(92%, 446px);
-  z-index: 12;
-  background: linear-gradient(165deg, rgba(12, 34, 54, 0.96) 0%, rgba(9, 25, 41, 0.96) 100%);
-  border: 1.5px solid rgba(56, 189, 248, 0.55);
-  box-shadow:
-    0 18px 42px rgba(2, 12, 24, 0.72),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 13px 16px;
+/* ================= UFA-STYLE DYNAMIC BROADCAST WELCOME POSTER ================= */
+.welcome-poster-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(3, 12, 22, 0.78);
+  backdrop-filter: blur(7px);
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  animation: bannerPopIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
 }
 
-@keyframes bannerPopIn {
+.welcome-poster-card {
+  width: min(100%, 428px);
+  max-height: calc(100dvh - 28px);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #041926;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 26px 65px rgba(0, 0, 0, 0.78),
+    0 0 38px rgba(0, 229, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  animation: posterPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes posterPopIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -46%) scale(0.94);
+    transform: translateY(14px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
-.welcome-banner-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+.poster-top-accent-bar {
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #00e5ff 0%, #38bdf8 45%, var(--bot-coral) 100%);
+  flex-shrink: 0;
 }
 
-.welcome-mode-pill {
+.poster-hero-panel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9.2;
+  background: #07192b;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.poster-hero-art-mount,
+.poster-hero-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.poster-floating-date {
+  position: absolute;
+  top: 10px;
+  left: 12px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.64rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 2px 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 9px;
   border-radius: 999px;
-  background: rgba(251, 191, 36, 0.18);
-  border: 1px solid rgba(251, 191, 36, 0.48);
-  color: #fde68a;
+  background: rgba(4, 18, 32, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #f8fafc;
+  backdrop-filter: blur(6px);
 }
 
-.welcome-dismiss-x {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #cbd5e1;
-  width: 24px;
-  height: 24px;
+.poster-close-btn {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
   border-radius: 999px;
-  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(4, 18, 32, 0.78);
+  color: #e2e8f0;
+  font-size: 1.15rem;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, transform 0.15s;
 }
 
-.welcome-dismiss-x:hover {
-  background: rgba(255, 255, 255, 0.18);
+.poster-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
+  transform: scale(1.06);
 }
 
-.welcome-matchup-strip {
+/* Repeating Broadcast Ticker Ribbon ("GAME OF THE DAY") */
+.poster-ribbon-bar {
+  width: 100%;
+  height: 31px;
+  background: linear-gradient(90deg, var(--bot-coral-dark, #9d174d) 0%, var(--bot-coral) 50%, var(--bot-coral-dark, #9d174d) 100%);
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 7px;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.welcome-team-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-}
-
-.welcome-you-pill {
-  background: rgba(0, 229, 255, 0.16);
-  border: 1px solid rgba(0, 229, 255, 0.5);
-  color: #cffafe;
-}
-
-.welcome-bot-pill {
-  background: var(--bot-coral-soft);
-  border: 1px solid var(--bot-coral);
-  color: #ffffff;
-}
-
-.welcome-vs-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.66rem;
-  font-weight: 800;
-  color: #94a3b8;
-}
-
-.welcome-headline {
-  margin: 0;
-  text-align: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.06rem;
-  font-weight: 700;
-  line-height: 1.24;
-  color: #ffffff;
-}
-
-.welcome-weather-line {
-  margin: 0;
-  text-align: center;
-  font-size: 0.82rem;
-  line-height: 1.36;
-  color: #e0f2fe;
-}
-
-.welcome-pull-line {
-  margin: 0;
-  text-align: center;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #fde68a;
-}
-
-.welcome-footer-row {
+.poster-ribbon-track {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(186, 230, 253, 0.15);
+  justify-content: center;
+  gap: 9px;
+  white-space: nowrap;
+  font-family: 'Space Grotesk', sans-serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
-.welcome-personality-note {
-  font-size: 0.71rem;
-  line-height: 1.26;
-  color: #cbd5e1;
+.ribbon-of-box {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.52rem;
+  line-height: 0.95;
+  padding: 1px 3px;
+  background: #ffffff;
+  color: #0b192c;
+  border-radius: 2px;
+  font-weight: 800;
+  vertical-align: 1px;
+  margin: 0 2px;
+}
+
+.ribbon-disc-oval {
+  width: 30px;
+  height: 15px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* Halftone Broadcast Matchup Stage */
+.poster-stage-panel {
+  position: relative;
+  padding: 16px 18px 17px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 229, 255, 0.3) 0%, transparent 52%),
+    radial-gradient(circle at 88% 22%, var(--bot-coral-soft) 0%, transparent 56%),
+    radial-gradient(rgba(0, 229, 255, 0.18) 1.1px, transparent 1.1px) 0 0 / 8px 8px,
+    linear-gradient(180deg, #084a5c 0%, #052b3b 56%, #041824 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.poster-vs-lockup {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.poster-team-side {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+  line-height: 1.08;
   min-width: 0;
 }
 
-.welcome-step-btn {
-  flex-shrink: 0;
-  border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
-  background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
-  color: #031521;
-  font-size: 0.74rem;
-  font-weight: 800;
-  white-space: nowrap;
-  transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.15s;
+.poster-side-left {
+  text-align: right;
 }
 
-.welcome-step-btn:hover {
-  transform: scale(1.04);
+.poster-side-right {
+  text-align: left;
+}
+
+.poster-side-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poster-side-sub {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #bae6fd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poster-side-right .poster-side-sub {
+  color: #fde68a;
+}
+
+.poster-medallions-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-crest-circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e2e8f0 100%);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.45),
+    0 0 0 2.5px rgba(255, 255, 255, 0.92);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.poster-crest-circle svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.poster-vs-circle {
+  width: 36px;
+  height: 36px;
+  margin: 0 -10px;
+  z-index: 2;
+  border-radius: 50%;
+  background: #071e33;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.poster-welcome-headline {
+  margin: 2px 0 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.14rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.poster-weather-line {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #e0f2fe;
+  max-width: 36ch;
+}
+
+.poster-personality-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(4, 20, 34, 0.68);
+  border: 1px solid var(--bot-coral);
+  color: #f8fafc;
+}
+
+.poster-pull-footer-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 1px;
+}
+
+.pull-footer-highlight {
+  color: #00e5ff;
+}
+
+.poster-step-cta-btn {
+  width: 100%;
+  margin-top: 2px;
+  height: 42px;
+  border: none;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+  color: #031521;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.36);
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.15s;
+}
+
+.poster-step-cta-btn:hover {
+  transform: translateY(-2px) scale(1.01);
   filter: brightness(1.07);
 }
 
@@ -1741,34 +1903,49 @@ body.guide-page {
     white-space: nowrap;
   }
 
-  .welcome-banner {
-    width: 94%;
-    padding: 9px 11px;
-    gap: 5px;
-    border-radius: 13px;
+  .welcome-poster-card {
+    width: min(100%, 362px);
   }
 
-  .welcome-headline {
-    font-size: 0.88rem;
+  .poster-stage-panel {
+    padding: 13px 13px 14px;
+    gap: 7px;
   }
 
-  .welcome-weather-line {
+  .poster-crest-circle {
+    width: 66px;
+    height: 66px;
+  }
+
+  .poster-vs-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.74rem;
+  }
+
+  .poster-side-title {
     font-size: 0.72rem;
-    line-height: 1.26;
   }
 
-  .welcome-pull-line {
-    font-size: 0.72rem;
+  .poster-side-sub {
+    font-size: 0.6rem;
   }
 
-  .welcome-personality-note {
-    font-size: 0.64rem;
-    line-height: 1.18;
+  .poster-welcome-headline {
+    font-size: 1.0rem;
   }
 
-  .welcome-step-btn {
-    font-size: 0.68rem;
-    padding: 5px 10px;
+  .poster-weather-line {
+    font-size: 0.75rem;
+  }
+
+  .poster-pull-footer-text {
+    font-size: 0.82rem;
+  }
+
+  .poster-step-cta-btn {
+    height: 39px;
+    font-size: 0.84rem;
   }
 
   .telemetry-row {

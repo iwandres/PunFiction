@@ -13,10 +13,16 @@ import {
   resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=12';
-import { Choreographer } from './choreographer.js?v=12';
-import { FieldRenderer } from './fieldRenderer.js?v=12';
-import { sound } from './audio.js?v=12';
+} from './playbookData.js?v=13';
+import { Choreographer } from './choreographer.js?v=13';
+import { FieldRenderer } from './fieldRenderer.js?v=13';
+import { sound } from './audio.js?v=13';
+import {
+  POSTER_RIBBON_DISC_SVG,
+  getPlayerCrestSvg,
+  getBotCrestSvg,
+  buildPosterHeroSvg
+} from './posterArt.js?v=13';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -143,6 +149,10 @@ class FlatballGame {
       feedLog: document.getElementById('play-log-list'),
 
       welcomeBanner: document.getElementById('welcome-banner'),
+      posterHeroArt: document.getElementById('poster-hero-art'),
+      posterRibbonTrack: document.getElementById('poster-ribbon-track'),
+      posterYouCrest: document.getElementById('poster-you-crest'),
+      posterBotCrest: document.getElementById('poster-bot-crest'),
       welcomeModePill: document.getElementById('welcome-mode-pill'),
       welcomeCloseBtn: document.getElementById('welcome-close-btn'),
       welcomeBotPillName: document.getElementById('welcome-bot-pill-name'),
@@ -246,6 +256,15 @@ class FlatballGame {
       });
     }
 
+    if (this.dom.welcomeBanner) {
+      this.dom.welcomeBanner.addEventListener('click', (e) => {
+        if (e.target === this.dom.welcomeBanner) {
+          sound.uiClick();
+          this.dismissWelcomeBanner();
+        }
+      });
+    }
+
     this.dom.helpBtn.addEventListener('click', () => {
       sound.uiClick();
       this.openGuideModal('basics');
@@ -309,6 +328,11 @@ class FlatballGame {
         return;
       }
       if (e.code === 'Space' || e.code === 'Enter') {
+        if (this.dom.welcomeBanner && !this.dom.welcomeBanner.classList.contains('hidden')) {
+          e.preventDefault();
+          this.dismissWelcomeBanner();
+          return;
+        }
         if (this.state.phase === 'PRE_PULL') {
           e.preventDefault();
           this.handlePullClick();
@@ -336,6 +360,7 @@ class FlatballGame {
   applyBotTeamTheme(botTeam) {
     const root = document.documentElement;
     root.style.setProperty('--bot-coral', botTeam.colorTop);
+    root.style.setProperty('--bot-coral-dark', botTeam.colorBot);
     root.style.setProperty('--bot-coral-soft', botTeam.softBg);
     if (this.dom.botTeamLabel) {
       this.dom.botTeamLabel.textContent = botTeam.shortName;
@@ -348,13 +373,40 @@ class FlatballGame {
     if (!this.dom.welcomeBanner || !this.state) return;
     const { botTeam, matchWeather } = this.state;
 
+    // 1. Dynamic Action Silhouettes + Team Sports Graphic + Daily Weather Hero SVG
+    if (this.dom.posterHeroArt) {
+      this.dom.posterHeroArt.innerHTML = buildPosterHeroSvg(botTeam, matchWeather);
+    }
+
+    // 2. Repeating UFA-style Broadcast Ticker Ribbon
+    if (this.dom.posterRibbonTrack) {
+      const label = this.mode === 'daily'
+        ? `MATCHUP <span class="ribbon-of-box">OF<br/>THE</span> DAY`
+        : `FLATBALL <span class="ribbon-of-box">VS</span> SHOWDOWN`;
+      this.dom.posterRibbonTrack.innerHTML =
+        `${label} ${POSTER_RIBBON_DISC_SVG} ${label} ${POSTER_RIBBON_DISC_SVG} ${label}`;
+    }
+
+    // 3. Twin Pro-Style Club Crest Medallions
+    if (this.dom.posterYouCrest) {
+      this.dom.posterYouCrest.innerHTML = getPlayerCrestSvg();
+    }
+    if (this.dom.posterBotCrest) {
+      this.dom.posterBotCrest.innerHTML = getBotCrestSvg(botTeam);
+    }
+
+    // 4. Split Team Name Lockup & Matchup Copy
     if (this.dom.welcomeModePill) {
       this.dom.welcomeModePill.textContent = this.mode === 'daily'
-        ? `📅 DAILY CUP • ${getTodayKey()}`
-        : '🥏 FREE PLAY MATCHUP';
+        ? `DAILY CUP • ${getTodayKey()}`
+        : 'FREE PLAY SHOWDOWN';
     }
     if (this.dom.welcomeBotPillName) {
-      this.dom.welcomeBotPillName.textContent = `${botTeam.emoji} ${botTeam.name}`;
+      const words = botTeam.name.toUpperCase().split(' ');
+      const line1 = words[0] || botTeam.shortName;
+      const line2 = words.slice(1).join(' ') || 'CLUB';
+      this.dom.welcomeBotPillName.innerHTML =
+        `<span class="poster-side-title">${line1}</span><span class="poster-side-sub">${line2}</span>`;
     }
     if (this.dom.welcomeHeadline) {
       this.dom.welcomeHeadline.textContent = `Welcome to You versus ${botTeam.name}!`;
@@ -363,11 +415,12 @@ class FlatballGame {
       this.dom.welcomeWeatherLine.textContent =
         `The weather is ${matchWeather.weatherLabel} and it’s a ${matchWeather.dayAdjective} day to play Ultimate!`;
     }
-    if (this.dom.welcomePullLine) {
-      this.dom.welcomePullLine.innerHTML = `${MINI_WHITE_DISC_SVG}Get ready, you’re pulling first!`;
-    }
     if (this.dom.welcomePersonalityNote) {
-      this.dom.welcomePersonalityNote.textContent = `${botTeam.emoji} ${botTeam.archetype}: “${botTeam.motto}”`;
+      this.dom.welcomePersonalityNote.textContent = `${botTeam.archetype.toUpperCase()} • “${botTeam.motto}”`;
+    }
+    if (this.dom.welcomePullLine) {
+      this.dom.welcomePullLine.innerHTML =
+        `<span class="pull-footer-highlight">GET READY</span> &bull; YOU’RE PULLING FIRST!`;
     }
     this.dom.welcomeBanner.classList.remove('hidden');
   }

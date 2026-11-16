@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=12" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
 </head>
 <body>
   <div class="app-shell">
@@ -113,33 +113,6 @@
 
         <div class="canvas-wrapper">
           <canvas id="field-canvas"></canvas>
-
-          <!-- Opening Matchup & Daily Weather Banner -->
-          <div id="welcome-banner" class="welcome-banner" role="region" aria-label="Matchup Welcome Banner">
-            <div class="welcome-banner-top">
-              <span id="welcome-mode-pill" class="welcome-mode-pill">📅 TODAY’S DAILY ULTIMATE</span>
-              <button type="button" id="welcome-close-btn" class="welcome-dismiss-x" aria-label="Dismiss welcome banner">&times;</button>
-            </div>
-            <div class="welcome-matchup-strip">
-              <span class="welcome-team-pill welcome-you-pill"><span class="dot-swatch swatch-you"></span> YOU</span>
-              <span class="welcome-vs-badge">VS</span>
-              <span id="welcome-bot-pill" class="welcome-team-pill welcome-bot-pill">
-                <span class="dot-swatch swatch-bot"></span>
-                <span id="welcome-bot-pill-name">Tangerine Tornados</span>
-              </span>
-            </div>
-            <h2 id="welcome-headline" class="welcome-headline">Welcome to You versus Tangerine Tornados!</h2>
-            <p id="welcome-weather-line" class="welcome-weather-line">
-              The weather is Sunny &amp; Calm (0 mph) and it’s a picture-perfect day to play Ultimate!
-            </p>
-            <p id="welcome-pull-line" class="welcome-pull-line">
-              🥏 Get ready, you’re pulling first!
-            </p>
-            <div class="welcome-footer-row">
-              <span id="welcome-personality-note" class="welcome-personality-note">🍊 Cup-Zone Spinners</span>
-              <button type="button" id="welcome-start-btn" class="welcome-step-btn">Step to the Line &rarr;</button>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -615,6 +588,62 @@
     </div>
   </div>
 
+  <!-- Dynamic UFA-Style Broadcast Matchup Welcome Poster -->
+  <div id="welcome-banner" class="welcome-poster-backdrop" role="dialog" aria-modal="true" aria-labelledby="welcome-headline">
+    <div class="welcome-poster-card">
+      <div class="poster-top-accent-bar"></div>
+
+      <!-- 1. Dynamic Athlete Silhouettes + Team Sports Graphic + Daily Weather Sky -->
+      <div class="poster-hero-panel">
+        <div id="poster-hero-art" class="poster-hero-art-mount"></div>
+        <span id="welcome-mode-pill" class="poster-floating-date">DAILY CUP</span>
+        <button type="button" id="welcome-close-btn" class="poster-close-btn" aria-label="Dismiss welcome poster">&times;</button>
+      </div>
+
+      <!-- 2. Bold Repeating Broadcast Ticker Ribbon -->
+      <div id="poster-ribbon-bar" class="poster-ribbon-bar">
+        <div id="poster-ribbon-track" class="poster-ribbon-track"></div>
+      </div>
+
+      <!-- 3. Halftone Broadcast Stage: Twin Club Crest Medallions + VS + Matchup Copy -->
+      <div class="poster-stage-panel">
+        <div class="poster-vs-lockup">
+          <div class="poster-team-side poster-side-left">
+            <span class="poster-side-title">YOU</span>
+            <span class="poster-side-sub">BLUE SKY</span>
+          </div>
+
+          <div class="poster-medallions-wrap">
+            <div id="poster-you-crest" class="poster-crest-circle"></div>
+            <div class="poster-vs-circle">VS</div>
+            <div id="poster-bot-crest" class="poster-crest-circle"></div>
+          </div>
+
+          <div id="welcome-bot-pill-name" class="poster-team-side poster-side-right">
+            <span class="poster-side-title">VIOLET</span>
+            <span class="poster-side-sub">VORTEX</span>
+          </div>
+        </div>
+
+        <h2 id="welcome-headline" class="poster-welcome-headline">Welcome to You versus Violet Vortex!</h2>
+        <p id="welcome-weather-line" class="poster-weather-line">
+          The weather is Sunny &amp; Calm (0 mph) and it’s a picture-perfect day to play Ultimate!
+        </p>
+        <div id="welcome-personality-note" class="poster-personality-badge">
+          HEXAGON FLOW PHILOSOPHERS
+        </div>
+
+        <div id="welcome-pull-line" class="poster-pull-footer-text">
+          <span class="pull-footer-highlight">GET READY</span> &bull; YOU’RE PULLING FIRST!
+        </div>
+
+        <button type="button" id="welcome-start-btn" class="poster-step-cta-btn">
+          STEP TO THE LINE &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Match Summary Modal -->
   <div id="match-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="match-modal-title">
     <div class="modal-card summary-modal-card">
@@ -645,6 +674,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/main.js?v=12"></script>
+  <script type="module" src="js/main.js?v=13"></script>
 </body>
 </html>
