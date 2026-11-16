@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=10" />
+  <link rel="stylesheet" href="css/styles.css?v=11" />
 </head>
 <body>
   <div class="app-shell">
@@ -116,20 +116,20 @@
         </div>
       </section>
 
-      <!-- Live Coach / Broadcast Ticker -->
+      <!-- Live Sideline Captain & Hype Cheer Ticker -->
       <section class="coach-box" aria-live="polite">
-        <span class="coach-label">COACH</span>
+        <button type="button" id="hype-btn" class="coach-label hype-btn" title="Tap for a Sideline Spirit Cheer!">📣 HYPE</button>
         <p id="coach-ticker-text" class="coach-text">
-          7v7 lined up on the goal lines. Click PULL DISC to launch the opening pull!
+          Hands up on the goal line! Tap PULL DISC to kick off — Spirit on 3!
         </p>
       </section>
 
       <!-- Dynamic Action Tray (1-Click Pull Button, 2x2 Playbook Cards, or Next Point CTA) -->
       <section id="action-container" class="action-tray" aria-label="Tactical Play Selection"></section>
 
-      <!-- Desktop Play-by-Play Possession Log -->
-      <section class="play-log-panel" aria-label="Possession Log">
-        <div class="play-log-header">POSSESSION LOG</div>
+      <!-- Desktop Sideline Play-by-Play Feed -->
+      <section class="play-log-panel" aria-label="Sideline Feed">
+        <div class="play-log-header">🥏 SIDELINE FEED</div>
         <ul id="play-log-list" class="play-log-list"></ul>
       </section>
     </main>
@@ -591,9 +591,10 @@
   <!-- Match Summary Modal -->
   <div id="match-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="match-modal-title">
     <div class="modal-card summary-modal-card">
+      <div id="spirit-award-pill" class="spirit-award-pill">🌟 SPIRIT AWARD: 10/10 CAPTAIN</div>
       <h2 id="match-modal-title" class="summary-title">🏆 VICTORY ON THE FIELD!</h2>
       <div id="match-modal-score" class="summary-score">YOU 3 — 1 BOT</div>
-      <p id="match-modal-subtitle" class="summary-subtitle">Clinical field reads and seamless two-way transitions!</p>
+      <p id="match-modal-subtitle" class="summary-subtitle">High-fives in the Spirit Circle and orange slices all around!</p>
 
       <div class="stats-grid">
         <div class="stat-tile">
@@ -617,6 +618,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/main.js?v=10"></script>
+  <script type="module" src="js/main.js?v=11"></script>
 </body>
 </html>

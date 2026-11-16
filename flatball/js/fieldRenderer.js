@@ -84,6 +84,7 @@ export class FieldRenderer {
     this.drawShockwavesAndParticles(ctx, choreo);
     this.drawPlayers(ctx, choreo);
     this.drawDisc(ctx, choreo);
+    this.drawCallouts(ctx, choreo);
 
     ctx.restore();
   }
@@ -143,11 +144,11 @@ export class FieldRenderer {
     const r = 12;
 
     ctx.save();
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
-    ctx.shadowBlur = 24;
+    ctx.shadowColor = 'rgba(2, 16, 28, 0.52)';
+    ctx.shadowBlur = 26;
     ctx.shadowOffsetY = 8;
     this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, r);
-    ctx.fillStyle = '#134E38';
+    ctx.fillStyle = '#1B7A48';
     ctx.fill();
     ctx.restore();
 
@@ -155,20 +156,29 @@ export class FieldRenderer {
     this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, r);
     ctx.clip();
 
+    // Sunlit Saturday tournament grass stripes!
     const bandH = fieldH / 11;
     for (let i = 0; i < 11; i++) {
-      ctx.fillStyle = i % 2 === 0 ? '#14533B' : '#175E43';
+      ctx.fillStyle = i % 2 === 0 ? '#1C7C49' : '#228D54';
       ctx.fillRect(fieldX, fieldY + i * bandH, fieldW, bandH + 0.5);
     }
 
+    // Subtle warm golden-hour sunlight sheen across the pitch
+    const sunGrad = ctx.createLinearGradient(fieldX, fieldY, fieldX + fieldW, fieldY + fieldH);
+    sunGrad.addColorStop(0, 'rgba(254, 240, 138, 0.08)');
+    sunGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.01)');
+    sunGrad.addColorStop(1, 'rgba(2, 24, 18, 0.12)');
+    ctx.fillStyle = sunGrad;
+    ctx.fillRect(fieldX, fieldY, fieldW, fieldH);
+
     const ezH = this.yardsToPxY(20);
-    ctx.fillStyle = 'rgba(0, 229, 255, 0.08)';
+    ctx.fillStyle = 'rgba(0, 229, 255, 0.1)';
     ctx.fillRect(fieldX, fieldY, fieldW, ezH);
 
-    ctx.fillStyle = 'rgba(255, 82, 104, 0.07)';
+    ctx.fillStyle = 'rgba(255, 107, 74, 0.085)';
     ctx.fillRect(fieldX, fieldY + fieldH - ezH, fieldW, ezH);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
     ctx.lineWidth = 8;
     for (let sx = -fieldH; sx < fieldW + fieldH; sx += 26) {
       ctx.beginPath();
@@ -182,19 +192,19 @@ export class FieldRenderer {
       ctx.stroke();
     }
 
-    const fontSize = Math.max(10, Math.min(14, Math.floor(fieldW * 0.042)));
+    const fontSize = Math.max(9.5, Math.min(13.5, Math.floor(fieldW * 0.04)));
     ctx.font = `800 ${fontSize}px "Plus Jakarta Sans", system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    ctx.fillStyle = 'rgba(125, 249, 255, 0.34)';
-    ctx.fillText('▲  ATTACK / SCORE ZONE  ▲', fieldX + fieldW * 0.5, fieldY + ezH * 0.5);
+    ctx.fillStyle = 'rgba(224, 247, 255, 0.44)';
+    ctx.fillText('▲  SCORE ZONE • SEND IT!  ▲', fieldX + fieldW * 0.5, fieldY + ezH * 0.5);
 
-    ctx.fillStyle = 'rgba(255, 148, 162, 0.32)';
-    ctx.fillText('▼  YOUR DEFEND ZONE  ▼', fieldX + fieldW * 0.5, fieldY + fieldH - ezH * 0.5);
+    ctx.fillStyle = 'rgba(255, 228, 230, 0.4)';
+    ctx.fillText('▼  DEFEND ZONE • HOLD STRONG!  ▼', fieldX + fieldW * 0.5, fieldY + fieldH - ezH * 0.5);
 
     const midPx = this.worldToPx(0, 55);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.26)';
     ctx.setLineDash([6, 6]);
     ctx.lineWidth = 1.4;
     ctx.beginPath();
@@ -205,8 +215,8 @@ export class FieldRenderer {
 
     const topGoal = this.worldToPx(0, 90).y;
     const botGoal = this.worldToPx(0, 20).y;
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.86)';
+    ctx.lineWidth = 2.1;
     ctx.beginPath();
     ctx.moveTo(fieldX, topGoal);
     ctx.lineTo(fieldX + fieldW, topGoal);
@@ -214,7 +224,7 @@ export class FieldRenderer {
     ctx.lineTo(fieldX + fieldW, botGoal);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.26)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.34)';
     ctx.font = '700 9px "JetBrains Mono", monospace';
     const yardMarks = [
       { y: 30, label: '10' },
@@ -231,7 +241,7 @@ export class FieldRenderer {
 
     for (const by of [40, 70]) {
       const bp = this.worldToPx(0, by);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.58)';
       ctx.lineWidth = 1.6;
       const s = 4.5;
       ctx.beginPath();
@@ -244,11 +254,12 @@ export class FieldRenderer {
 
     ctx.restore();
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.82)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.88)';
     ctx.lineWidth = 2.2;
     this.roundRect(ctx, fieldX, fieldY, fieldW, fieldH, r);
     ctx.stroke();
 
+    // 8 Blaze-Orange Tournament Cones at the End Zone Corners!
     const pylonCoords = [
       this.worldToPx(-20, 110),
       this.worldToPx(20, 110),
@@ -259,12 +270,37 @@ export class FieldRenderer {
       this.worldToPx(-20, 0),
       this.worldToPx(20, 0)
     ];
-    pylonCoords.forEach((p, idx) => {
-      ctx.fillStyle = idx < 4 ? '#00E5FF' : '#FF7A45';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 3.3, 0, Math.PI * 2);
-      ctx.fill();
+    pylonCoords.forEach((p) => {
+      this.drawTournamentCone(ctx, p.x, p.y);
     });
+  }
+
+  drawTournamentCone(ctx, x, y) {
+    ctx.save();
+    ctx.translate(x, y);
+    // Tiny shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+    ctx.beginPath();
+    ctx.ellipse(0, 2.2, 4.4, 2.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Blaze-orange cone base & body
+    ctx.fillStyle = '#FF6B1A';
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 0.9;
+    ctx.beginPath();
+    ctx.moveTo(-4.1, 1.8);
+    ctx.lineTo(4.1, 1.8);
+    ctx.lineTo(1.2, -4.6);
+    ctx.lineTo(-1.2, -4.6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Reflective white tournament cone collar
+    ctx.fillStyle = '#FFFBEB';
+    ctx.fillRect(-2.1, -2.0, 4.2, 1.4);
+    ctx.restore();
   }
 
   /**
@@ -782,29 +818,68 @@ export class FieldRenderer {
       ctx.save();
       ctx.globalAlpha = Math.max(0, pt.life / pt.maxLife);
       ctx.fillStyle = pt.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, pt.size, 0, Math.PI * 2);
-      ctx.fill();
+      if (pt.confetti) {
+        ctx.translate(p.x, p.y);
+        ctx.rotate(pt.rot || 0);
+        const w = pt.size * 1.65;
+        const h = pt.size * 0.85;
+        ctx.fillRect(-w * 0.5, -h * 0.5, w, h);
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, pt.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
       ctx.restore();
     }
   }
 
   drawPlayers(ctx, choreo) {
     const dotRadius = Math.max(9.5, Math.min(13.5, this.metrics.fieldW * 0.033));
+    const isPrePull = !choreo.stall.active && !choreo.currentBeat && !choreo.visualContext.scoutShape;
 
     choreo.botDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'bot' && choreo.disc.holderIdx === idx;
-      this.drawSingleDot(ctx, d, dotRadius, '#FF5A6E', '#C81E3A', isHolder, choreo);
+      this.drawSingleDot(ctx, d, idx, dotRadius, '#FF6B5B', '#D92648', isHolder, choreo);
     });
 
     choreo.playerDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'player' && choreo.disc.holderIdx === idx;
-      this.drawSingleDot(ctx, d, dotRadius, '#00E5FF', '#0284C7', isHolder, choreo);
+      this.drawSingleDot(ctx, d, idx + 7, dotRadius, '#00E5FF', '#0284C7', isHolder, choreo);
     });
+
+    // Classic Ultimate Etiquette: Receiving center handler raises a hand ("READY ✋") on the goal line before the pull!
+    if (isPrePull && choreo.disc.holderTeam) {
+      const recvTeam = choreo.disc.holderTeam === 'player' ? choreo.botDots : choreo.playerDots;
+      const recvCapt = recvTeam[3];
+      if (recvCapt) {
+        const rp = this.worldToPx(recvCapt.x, recvCapt.y);
+        const bob = Math.sin(choreo.idleClock * 5.2) * 2.2;
+        const badgeY = choreo.disc.holderTeam === 'player' ? rp.y - dotRadius - 12 + bob : rp.y + dotRadius + 12 + bob;
+        ctx.save();
+        ctx.font = '800 9px "Plus Jakarta Sans", system-ui, sans-serif';
+        const label = 'READY ✋';
+        const tw = ctx.measureText(label).width;
+        const bw = tw + 12;
+        const bh = 16;
+        ctx.fillStyle = 'rgba(12, 28, 44, 0.86)';
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.78)';
+        ctx.lineWidth = 1.2;
+        this.roundRect(ctx, rp.x - bw * 0.5, badgeY - bh * 0.5, bw, bh, 8);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#FEF3C7';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, rp.x, badgeY + 0.5);
+        ctx.restore();
+      }
+    }
   }
 
-  drawSingleDot(ctx, dot, radius, topColor, botColor, isHolder, choreo) {
-    const p = this.worldToPx(dot.x, dot.y);
+  drawSingleDot(ctx, dot, phaseSeed, radius, topColor, botColor, isHolder, choreo) {
+    const rawP = this.worldToPx(dot.x, dot.y);
+    const idleBob = !choreo.currentBeat ? Math.sin(choreo.idleClock * 4.1 + phaseSeed * 1.35) * 0.9 : 0;
+    const p = { x: rawP.x, y: rawP.y + idleBob };
 
     if (dot.highlight) {
       const pulse = 0.5 + 0.5 * Math.sin(choreo.idleClock * 6);
@@ -925,13 +1000,73 @@ export class FieldRenderer {
     ctx.restore();
   }
 
+  /**
+   * Renders bouncy, spirited Ultimate Frisbee field callouts ("UP!!", "CUP! CUP!", "LAYOUT D!!", "BOOKENDS!!")
+   */
+  drawCallouts(ctx, choreo) {
+    if (!choreo.callouts || choreo.callouts.length === 0) return;
+    const { fieldX, fieldY, fieldW, fieldH } = this.metrics;
+
+    const toneStyles = {
+      cyan: { bg: 'rgba(6, 36, 56, 0.92)', border: '#00E5FF', text: '#ECFEFF' },
+      emerald: { bg: 'rgba(6, 42, 34, 0.92)', border: '#34D399', text: '#ECFDF5' },
+      gold: { bg: 'rgba(42, 30, 8, 0.92)', border: '#FBBF24', text: '#FEF3C7' },
+      coral: { bg: 'rgba(52, 14, 24, 0.92)', border: '#FF6B5B', text: '#FFE4E6' }
+    };
+
+    for (const c of choreo.callouts) {
+      const progress = c.age / c.maxLife;
+      const popScale = progress < 0.14
+        ? 0.55 + (progress / 0.14) * 0.53
+        : progress < 0.24
+          ? 1.08 - ((progress - 0.14) / 0.1) * 0.08
+          : 1.0;
+      const alpha = progress > 0.72 ? Math.max(0, (1 - progress) / 0.28) : 1.0;
+
+      const rawPx = this.worldToPx(c.x, c.y);
+      ctx.save();
+      ctx.font = '800 10.5px "Plus Jakarta Sans", system-ui, sans-serif';
+      const tw = ctx.measureText(c.text).width;
+      const pillW = tw + 16;
+      const pillH = 20;
+
+      const cx = Math.max(fieldX + pillW * 0.5 + 4, Math.min(fieldX + fieldW - pillW * 0.5 - 4, rawPx.x));
+      const cy = Math.max(fieldY + pillH * 0.5 + 4, Math.min(fieldY + fieldH - pillH * 0.5 - 4, rawPx.y));
+      const st = toneStyles[c.tone] || toneStyles.gold;
+
+      ctx.globalAlpha = alpha;
+      ctx.translate(cx, cy);
+      ctx.scale(popScale, popScale);
+
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.42)';
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetY = 3;
+
+      ctx.fillStyle = st.bg;
+      ctx.strokeStyle = st.border;
+      ctx.lineWidth = 1.6;
+      this.roundRect(ctx, -pillW * 0.5, -pillH * 0.5, pillW, pillH, pillH * 0.5);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.fillStyle = st.text;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(c.text, 0, 0.5);
+      ctx.restore();
+    }
+  }
+
   roundRect(ctx, x, y, w, h, r) {
+    const rad = Math.max(0, Math.min(r, Math.abs(w) * 0.5, Math.abs(h) * 0.5));
     ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
+    ctx.moveTo(x + rad, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rad);
+    ctx.arcTo(x + w, y + h, x, y + h, rad);
+    ctx.arcTo(x, y + h, x, y, rad);
+    ctx.arcTo(x, y, x + w, y, rad);
     ctx.closePath();
   }
 }

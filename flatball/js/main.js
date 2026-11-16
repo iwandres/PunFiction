@@ -10,10 +10,10 @@ import {
   resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=10';
-import { Choreographer } from './choreographer.js?v=10';
-import { FieldRenderer } from './fieldRenderer.js?v=10';
-import { sound } from './audio.js?v=10';
+} from './playbookData.js?v=11';
+import { Choreographer } from './choreographer.js?v=11';
+import { FieldRenderer } from './fieldRenderer.js?v=11';
+import { sound } from './audio.js?v=11';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -90,6 +90,30 @@ const PULL_DISC_LOGO_SVG = `<svg class="pull-disc-svg" viewBox="0 0 56 28" fill=
   </g>
 </svg>`;
 
+const BOT_CLUB_NAMES = [
+  'Layout Llamas 🦙',
+  'Disc-o Fever 🕺',
+  'Huck Finn 🎣',
+  'Chilly Peppers 🌶️',
+  'Hammerheads 🦈',
+  'Stack Cats 🐾',
+  'Pancake Posse 🥞',
+  'Stall Nine Fine ⏱️',
+  'Breezy Bees 🐝',
+  'Sky Sharks 🌊'
+];
+
+const SIDELINE_CHEERS = [
+  { shout: 'CHILLY! CHILLY! 🧊', msg: '📣 Sideline: “Stay chilly with the disc — patience beats every zone!”' },
+  { shout: 'PANCAKE HANDS! 🥞', msg: '📣 Sideline: “Two hands on every catch — stack those pancakes!”' },
+  { shout: 'ORANGE SLICES! 🍊', msg: '📣 Sideline: “Halftime orange slices on deck — leave it all on the grass!”' },
+  { shout: 'SPIRIT 10/10! 🙌', msg: '📣 Sideline: “High-fives down the line! Best Spirit at the tournament!”' },
+  { shout: 'WHEELS!! 💨', msg: '📣 Sideline: “Put on the jets — clear hard so the next cutter eats!”' },
+  { shout: 'TOE THE LINE! ✨', msg: '📣 Sideline: “Check your feet on the cone — style points count in our hearts!”' },
+  { shout: 'LAYOUT NATION! 🦸', msg: '📣 Sideline: “Grass stains are badges of honor — bid for your crew!”' },
+  { shout: 'HYDRATE! 💧', msg: '📣 Sideline: “Quick sip from the sideline cooler — locked in for this point!”' }
+];
+
 class FlatballGame {
   constructor() {
     this.canvas = document.getElementById('field-canvas');
@@ -119,6 +143,7 @@ class FlatballGame {
       lookTag: document.getElementById('look-tag'),
       windBadge: document.getElementById('wind-badge'),
       hintBtn: document.getElementById('hint-btn'),
+      hypeBtn: document.getElementById('hype-btn'),
       tickerText: document.getElementById('coach-ticker-text'),
       actionContainer: document.getElementById('action-container'),
       feedLog: document.getElementById('play-log-list'),
@@ -138,6 +163,7 @@ class FlatballGame {
       footerDefenseLink: document.getElementById('footer-defense-link'),
 
       matchModal: document.getElementById('match-modal'),
+      spiritAwardPill: document.getElementById('spirit-award-pill'),
       matchModalTitle: document.getElementById('match-modal-title'),
       matchModalScore: document.getElementById('match-modal-score'),
       matchModalSubtitle: document.getElementById('match-modal-subtitle'),
@@ -192,6 +218,14 @@ class FlatballGame {
       sound.uiClick();
       this.revealCoachHint();
     });
+
+    if (this.dom.hypeBtn) {
+      this.dom.hypeBtn.addEventListener('click', () => {
+        sound.unlock();
+        sound.sidelineCheer();
+        this.triggerSidelineCheer();
+      });
+    }
 
     this.dom.helpBtn.addEventListener('click', () => {
       sound.uiClick();
@@ -282,9 +316,12 @@ class FlatballGame {
     this.dom.modeDailyBtn.classList.toggle('active-mode', mode === 'daily');
 
     this.rng = mode === 'daily' ? createSeededRng(`flatball-${getTodayKey()}`) : Math.random;
+    const botClub = BOT_CLUB_NAMES[Math.floor(this.rng() * BOT_CLUB_NAMES.length)];
 
     this.state = {
       phase: 'PRE_PULL',
+      botClub,
+      hypeIdx: 0,
       playerScore: 0,
       botScore: 0,
       pullingTeam: 'player',
@@ -317,8 +354,8 @@ class FlatballGame {
     }
     this.addFeedEntry(
       mode === 'daily'
-        ? `📅 Daily Tactical Cup (${getTodayKey()}) — First to ${this.targetScore}`
-        : `🥏 New Match Started — First to ${this.targetScore}`,
+        ? `📅 Daily Cup (${getTodayKey()}) vs. ${botClub} — First to ${this.targetScore}!`
+        : `🥏 Spirit Circle! Playing ${botClub} — First to ${this.targetScore}!`,
       'neutral'
     );
 
@@ -346,11 +383,11 @@ class FlatballGame {
     this.choreo.setupPullLineup(pullingTeam, pullerIdx);
     this.updateScoreboard();
     this.updateLookBanner();
-    const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air.' : `Wind: ${wb.text}.`;
+    const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air' : `Wind: ${wb.text}`;
     this.setTicker(
       pullingTeam === 'player'
-        ? `7v7 lined up (${windNote}) Click PULL DISC to launch the pull!`
-        : `Bot is ready on the goal line (${windNote}) Click RECEIVE PULL!`
+        ? `Hands up on the line vs. ${this.state.botClub}! (${windNote}) Tap PULL DISC — Spirit on 3!`
+        : `${this.state.botClub} signals ready (${windNote}). Tap RECEIVE PULL — let’s cook!`
     );
     this.renderActionTray();
   }
@@ -622,9 +659,9 @@ class FlatballGame {
             this.state.botScore += 1;
             this.state.stats.pointHistory.push('L');
             const reason = card.tier === 'worst'
-              ? resolveWorstOutcome(effBotOffObj, card.id)
-              : 'Bot marched the remaining yards across your goal line for the score.';
-            this.addFeedEntry(`⚠️ Bot Goal (${this.state.playerScore}–${this.state.botScore}): ${card.name} vs ${effBotOffObj.name}.`, 'bad');
+              ? `${resolveWorstOutcome(effBotOffObj, card.id)} Clap it up — our O-Line gets the disc next!`
+              : `${this.state.botClub} worked patient passes across the line — nice grab! Our O-Line is up!`;
+            this.addFeedEntry(`👏 ${this.state.botClub} Goal (${this.state.playerScore}–${this.state.botScore}): vs ${card.name}.`, 'bad');
             this.enterPointOver('bot', reason);
           }
         }
@@ -645,6 +682,7 @@ class FlatballGame {
         botDefState: prevDefState,
         playerOffId: card.id,
         tier: card.tier,
+        isBreakOpportunity: this.state.startedPointOnDefense,
         computeBotDefOnAdvance: (newX) => this.rollNextBotDefense(newX, true),
         computeBotOffOnTurn: (turnX, turnY) => this.pickBotOffense(turnY, false),
         onTicker: (msg) => this.setTicker(msg),
@@ -655,14 +693,16 @@ class FlatballGame {
           if (res.outcome === 'player_goal') {
             this.state.playerScore += 1;
             this.state.stats.pointHistory.push('W');
-            if (this.state.startedPointOnDefense) {
+            const wasBreak = this.state.startedPointOnDefense;
+            if (wasBreak) {
               this.state.stats.breakGoals += 1;
             }
-            const reason = card.tier === 'ideal'
+            const baseReason = card.tier === 'ideal'
               ? effBotDefObj.outcomes.ideal
-              : `${card.name} powered the remaining yards into the end zone for the goal!`;
+              : `${card.name} powered the remaining yards into the end zone for a pancake catch!`;
+            const reason = wasBreak ? `📚 BOOKENDS! ${baseReason}` : baseReason;
             this.addFeedEntry(
-              `🎉 GOAL! (${this.state.playerScore}–${this.state.botScore}) ${card.name} beat ${effBotDefObj.name}!`,
+              `${wasBreak ? '🔥 BOOKENDS BREAK!' : '🎉 GOAL!'} (${this.state.playerScore}–${this.state.botScore}) ${card.name} beat ${effBotDefObj.name}!`,
               'good'
             );
             this.enterPointOver('player', reason);
@@ -671,19 +711,35 @@ class FlatballGame {
             const didAudible = nextState.defId !== prevDefState.defId || nextState.forceSide !== prevDefState.forceSide;
             this.state.botDefState = nextState;
             this.state.botLookId = nextState.defId;
-            this.addFeedEntry(`⚡ Offense gained ${res.yardsGained} yds with ${card.name}.`, 'mid');
+            this.addFeedEntry(`⚡ Chilly +${res.yardsGained} yds with ${card.name}!`, 'mid');
             this.enterOffenseRead(true, didAudible);
           } else if (res.outcome === 'turnover_to_bot') {
             this.state.stats.turnsCommitted += 1;
             this.state.botLookId = res.nextBotOffId;
             this.state.activeStrategyId = null;
-            this.addFeedEntry(`💥 Turnover vs ${effBotDefObj.name}! Back on Defense.`, 'bad');
+            this.addFeedEntry(`🥏 Turn vs ${effBotDefObj.name} — Hustle back on D!`, 'bad');
             this.enterDefenseRead(false, false);
-            this.setTicker(`${resolveWorstOutcome(effBotDefObj, card.id)} Transitioning to Defense — stop them!`);
+            this.setTicker(`${resolveWorstOutcome(effBotDefObj, card.id)} Shake it off — let’s get that disc right back on D!`);
           }
         }
       });
     }
+  }
+
+  computeSpiritAward(iqPct, won) {
+    if (this.state.stats.breakGoals >= 2) return '📚 SPIRIT AWARD: BOOKENDS LEGEND';
+    if (this.state.stats.turnsForced >= 2) return '🦸 SPIRIT AWARD: LAYOUT ROYALTY';
+    if (iqPct >= 85) return '🧊 SPIRIT AWARD: CHILLY HANDLER';
+    if (won) return '🥞 SPIRIT AWARD: PANCAKE PLAYMAKER';
+    return '🌟 SPIRIT AWARD: 10/10 SPIRIT CAPTAIN';
+  }
+
+  triggerSidelineCheer() {
+    if (!this.state) return;
+    const item = SIDELINE_CHEERS[this.state.hypeIdx % SIDELINE_CHEERS.length];
+    this.state.hypeIdx += 1;
+    this.choreo.triggerSidelineHype(item.shout);
+    this.setTicker(item.msg);
   }
 
   enterPointOver(scoringTeam, explanation) {
@@ -717,12 +773,16 @@ class FlatballGame {
           ((this.state.stats.idealReads + this.state.stats.middleReads * 0.45) / this.state.stats.decisions) * 100
         )
       : 100;
+    const award = this.computeSpiritAward(iqPct, won);
 
-    this.dom.matchModalTitle.textContent = won ? '🏆 VICTORY ON THE FIELD!' : '🥏 HARD-FOUGHT MATCH';
+    if (this.dom.spiritAwardPill) {
+      this.dom.spiritAwardPill.textContent = award;
+    }
+    this.dom.matchModalTitle.textContent = won ? '🏆 SPIRIT CIRCLE VICTORY!' : '🙌 GREAT GAME! SPIRIT CIRCLE!';
     this.dom.matchModalScore.textContent = `YOU ${this.state.playerScore}  —  ${this.state.botScore} BOT`;
     this.dom.matchModalSubtitle.textContent = won
-      ? 'Clinical field reads and seamless two-way transitions!'
-      : 'Study the Bot’s formations and come back stronger next match!';
+      ? `High-fives down the line against ${this.state.botClub} — orange slices on us!`
+      : `Awesome hustle against ${this.state.botClub}! High-five the line and run it back!`;
 
     this.dom.statIq.textContent = `${iqPct}%`;
     this.dom.statTurns.textContent = String(this.state.stats.turnsForced);
@@ -738,11 +798,13 @@ class FlatballGame {
           ((this.state.stats.idealReads + this.state.stats.middleReads * 0.45) / this.state.stats.decisions) * 100
         )
       : 100;
-    const blocks = this.state.stats.pointHistory.map((r) => (r === 'W' ? '🥏' : '🟥')).join('');
+    const won = this.state.playerScore > this.state.botScore;
+    const award = this.computeSpiritAward(iqPct, won).replace('SPIRIT AWARD: ', '');
+    const blocks = this.state.stats.pointHistory.map((r) => (r === 'W' ? '🥏' : '👏')).join('');
     const header = this.mode === 'daily'
-      ? `Flatball Tactics Daily (${getTodayKey()})`
-      : 'Flatball Tactics Match';
-    const text = `${header}\nScore: ${this.state.playerScore}-${this.state.botScore} ${blocks}\nTurns Forced: ${this.state.stats.turnsForced} | Tactical IQ: ${iqPct}%\nhttps://punfiction.io/flatball/`;
+      ? `Flatball Tactics Daily (${getTodayKey()}) vs ${this.state.botClub}`
+      : `Flatball Tactics vs ${this.state.botClub}`;
+    const text = `${header}\nScore: ${this.state.playerScore}-${this.state.botScore} ${blocks}\n${award} | Turns Forced: ${this.state.stats.turnsForced} | IQ: ${iqPct}%\nhttps://punfiction.io/flatball/`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(() => {
@@ -926,13 +988,13 @@ class FlatballGame {
       const badge = document.createElement('div');
       badge.className = `point-result-banner ${scoringTeam === 'player' ? 'banner-win' : 'banner-loss'}`;
       badge.textContent = scoringTeam === 'player'
-        ? (isBreak ? '🔥 BREAK GOAL! YOU SCORE!' : '⚡ HOLD GOAL! YOU SCORE!')
-        : '⚠️ BOT SCORES THE POINT';
+        ? (isBreak ? '🔥 BREAK GOAL! BOOKENDS! 📚🙌' : '🥞 PANCAKE SCORE! HOLD GOAL! 🎉')
+        : '👏 NICE GRAB! OUR O-LINE IS UP NEXT!';
 
       const nextBtn = document.createElement('button');
       nextBtn.type = 'button';
       nextBtn.className = 'next-point-btn';
-      nextBtn.textContent = isMatchDone ? 'View Match Summary ➔' : 'Line Up Next Point ➔';
+      nextBtn.textContent = isMatchDone ? 'Join the Spirit Circle ➔' : 'High-Five & Next Point ➔';
       nextBtn.addEventListener('click', () => this.advanceToNextPoint());
 
       wrap.appendChild(badge);

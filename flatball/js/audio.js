@@ -186,24 +186,65 @@ class SoundEngine {
     });
   }
 
+  sidelineCheer() {
+    if (!this.enabled || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    // Two crisp sideline hand-claps + upbeat major Spirit chime!
+    [0, 0.11].forEach((offset) => {
+      const len = Math.floor(this.ctx.sampleRate * 0.045);
+      const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+      const ch = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2);
+      }
+      const src = this.ctx.createBufferSource();
+      src.buffer = buf;
+      const bp = this.ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.setValueAtTime(1350, now + offset);
+      bp.Q.value = 1.8;
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0.11, now + offset);
+      g.gain.exponentialRampToValueAtTime(0.002, now + offset + 0.045);
+      src.connect(bp);
+      bp.connect(g);
+      g.connect(this.ctx.destination);
+      src.start(now + offset);
+    });
+
+    [587.33, 783.99, 1046.5].forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      osc.type = 'triangle';
+      const t0 = now + 0.04 + idx * 0.055;
+      osc.frequency.setValueAtTime(freq, t0);
+      g.gain.setValueAtTime(0.075, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
+      osc.connect(g);
+      g.connect(this.ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + 0.24);
+    });
+  }
+
   goalCelebration(playerScored = true) {
     if (!this.enabled || !this.ctx) return;
     const now = this.ctx.currentTime;
     const chord = playerScored
-      ? [523.25, 659.25, 783.99, 1046.5] // Bright C major arpeggio
-      : [392.0, 349.23, 293.66]; // Muted descending minor-ish cadence
+      ? [523.25, 659.25, 783.99, 1046.5, 1318.51] // Joyful sunlit C-major 9th fanfare!
+      : [440.0, 523.25, 392.0]; // Sporty, upbeat "nice grab, clap it up" cadence
     chord.forEach((freq, idx) => {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = playerScored ? 'triangle' : 'sine';
-      const t0 = now + idx * 0.075;
+      const t0 = now + idx * 0.068;
       osc.frequency.setValueAtTime(freq, t0);
-      gain.gain.setValueAtTime(playerScored ? 0.11 : 0.08, t0);
-      gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.42);
+      gain.gain.setValueAtTime(playerScored ? 0.11 : 0.075, t0);
+      gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.44);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
       osc.start(t0);
-      osc.stop(t0 + 0.45);
+      osc.stop(t0 + 0.46);
     });
   }
 }

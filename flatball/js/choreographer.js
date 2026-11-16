@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=10';
-import { sound } from './audio.js?v=10';
+} from './playbookData.js?v=11';
+import { sound } from './audio.js?v=11';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -74,10 +74,60 @@ export class Choreographer {
 
     this.particles = [];
     this.shockwaves = [];
+    this.callouts = [];
     this.beats = [];
     this.currentBeat = null;
     this.beatElapsed = 0;
     this.idleClock = 0;
+  }
+
+  /**
+   * Spawns a spirited Ultimate Frisbee field callout pill ("UP!!", "CUP! CUP!", "LAYOUT D!!", "BOOKENDS!!")
+   */
+  spawnCallout(x, y, text, tone = 'gold', duration = 1.35) {
+    if (!text) return;
+    this.callouts.push({
+      x: clamp(x, -15.5, 15.5),
+      y: clamp(y, 6, 104),
+      vy: 4.6,
+      text,
+      tone,
+      age: 0,
+      maxLife: duration
+    });
+    if (this.callouts.length > 2) {
+      this.callouts.shift();
+    }
+  }
+
+  /**
+   * Triggers a sideline Spirit cheer & celebratory turf sparkles on demand!
+   */
+  triggerSidelineHype(cheerText = 'SPIRIT 10/10! 🙌') {
+    const anchor = this.disc && !this.disc.dropped
+      ? { x: this.disc.x, y: this.disc.y }
+      : { x: 0, y: 55 };
+    this.spawnCallout(anchor.x, clamp(anchor.y + 4, 12, 98), cheerText, 'gold', 1.55);
+
+    const palette = ['#00E5FF', '#FBBF24', '#34D399', '#FF7A45', '#FFFFFF'];
+    for (let i = 0; i < 18; i++) {
+      const sideX = i % 2 === 0 ? -18.5 : 18.5;
+      const py = 18 + Math.random() * 74;
+      const inward = sideX < 0 ? 1 : -1;
+      this.particles.push({
+        x: sideX,
+        y: py,
+        vx: inward * (5 + Math.random() * 11),
+        vy: (Math.random() - 0.5) * 10,
+        life: 0.55 + Math.random() * 0.35,
+        maxLife: 0.85,
+        size: 3 + Math.random() * 2.5,
+        color: palette[i % palette.length],
+        confetti: true,
+        rot: Math.random() * Math.PI * 2,
+        vRot: (Math.random() - 0.5) * 12
+      });
+    }
   }
 
   setPointWind(windObj) {
@@ -143,6 +193,21 @@ export class Choreographer {
       playerTargets,
       botTargets
     };
+
+    const defShouts = {
+      force_flick: 'MAN ON! 💪',
+      sideline_trap: 'TRAP LINE! 🔒',
+      force_middle: 'FORCE MID! ▶◀',
+      deep_poach: 'HELP DEEP! 🦅',
+      clam_bracket: 'CLAM UP! 🦪',
+      shutdown_reset: 'NO DUMP! ⚡',
+      cup_zone: 'CUP! CUP! 🧱',
+      wall_zone: 'WALL UP! 🛡️',
+      box_and_one: 'BOX + 1! 🎯'
+    };
+    const capt = playerTargets[0] || { x: discX, y: discY - 3 };
+    this.callouts = [];
+    this.spawnCallout(capt.x, capt.y - 3, defShouts[playerDefId] || 'DEFENSE READY!', 'cyan', 1.15);
   }
 
   /**
@@ -159,6 +224,20 @@ export class Choreographer {
       playerTargets,
       botTargets
     };
+
+    const offShouts = {
+      force_cuts: 'OPEN SIDE! ⚡',
+      break_swing: 'BREAK MARK! 🔥',
+      upline_strike: 'STRIKE CUT! 🚀',
+      dump_swing: 'SWING WIDE! 🔄',
+      give_go: 'GIVE & GO! 👟',
+      pop_swing: 'POPPER! 🎯',
+      zone_flood: 'FLOOD LANE! 🌊',
+      overhead_hammer: 'HAMMER LOOK! 🔨',
+      deep_huck: 'HUCK LOOK! 🚀'
+    };
+    this.callouts = [];
+    this.spawnCallout(discX, discY - 3.5, offShouts[playerOffId] || 'CLEAR HARD!', 'emerald', 1.15);
   }
 
   setupPullLineup(pullingTeam = 'player', pullerIdx = 0) {
@@ -711,8 +790,10 @@ export class Choreographer {
   animatePull({ pullingTeam, landingX, landingY, initialBotLookId, botDefState, onReadyForRead, onTicker }) {
     this.clearQueue();
     const isPlayerPull = pullingTeam === 'player';
+    const pullerStartX = this.disc.x;
+    const pullerStartY = this.disc.y;
     // Curve inward from whichever sideline position ('1' at -15 or '5' at +15) is pulling
-    const pullCurveX = this.disc.x <= 0 ? 6.0 : -6.0;
+    const pullCurveX = pullerStartX <= 0 ? 6.0 : -6.0;
 
     if (isPlayerPull) {
       const { botTargets, playerTargets, openSign } = this.computeBotOffenseSetup(landingX, landingY, initialBotLookId, null);
@@ -736,7 +817,8 @@ export class Choreographer {
         },
         onStart: () => {
           sound.pullWhoosh();
-          if (onTicker) onTicker('Pull is up! Reading the Bot’s offensive stack...');
+          this.spawnCallout(pullerStartX, pullerStartY + 5, 'UP!! 🥏', 'gold', 1.35);
+          if (onTicker) onTicker('“UP!!” — Big pull soaring downfield! Read the Bot’s stack...');
         },
         onComplete: () => {
           this.visualContext = {
@@ -793,8 +875,9 @@ export class Choreographer {
         },
         onStart: () => {
           sound.pullWhoosh();
+          this.spawnCallout(pullerStartX, pullerStartY - 5, 'UP!! 🥏', 'gold', 1.35);
           const stackLabel = botDefState.baseStack === 'ho' ? 'Horizontal Stack' : 'Vertical Stack';
-          if (onTicker) onTicker(`Bot pulls! Your offense sets ${stackLabel} — watch how Bot D matches up...`);
+          if (onTicker) onTicker(`“UP!!” — Bot pulls! Your crew sets ${stackLabel} — watch Bot D match up...`);
         }
       });
 
@@ -936,10 +1019,18 @@ export class Choreographer {
           actorIdx: heroDefIdx
         },
         onStart: () => {
-          if (onTicker) onTicker('Stall 8... Stall 9... Forced throw into tight coverage!');
+          this.spawnCallout(swingX, swingY + 3, 'STALL 8... 9!! ⏱️', 'cyan', 0.9);
+          if (onTicker) onTicker('Stall 8... Stall 9... Nowhere to throw against your D!');
         },
         onComplete: () => {
           this.stall.active = false;
+          this.spawnCallout(
+            turnX,
+            turnY + 3,
+            isInterception ? 'SKIED IT!! 🦅' : 'LAYOUT D!! 💥',
+            'cyan',
+            1.45
+          );
         }
       });
 
@@ -1034,9 +1125,11 @@ export class Choreographer {
           if (scored) {
             this.stall.active = false;
             this.spawnGoalBurst(p2X, p2Y, '#FF5268');
+            this.spawnCallout(p2X, p2Y + 4, 'NICE GRAB! 👏', 'gold', 1.45);
             sound.goalCelebration(false);
             onResult({ outcome: 'bot_goal', newDiscX: p2X, newDiscY: p2Y });
           } else {
+            this.spawnCallout(p2X, p2Y - 3, 'HOLD THE LINE! 🛡️', 'cyan', 1.15);
             this.visualContext = {
               offenseTeam: 'bot',
               discAnchorX: p2X,
@@ -1132,6 +1225,7 @@ export class Choreographer {
       onComplete: () => {
         this.stall.active = false;
         this.spawnGoalBurst(goalX, goalY, '#FF5268');
+        this.spawnCallout(goalX, goalY + 5, 'NICE BID! CLAP IT UP 👏', 'gold', 1.45);
         sound.goalCelebration(false);
         onResult({ outcome: 'bot_goal', newDiscX: goalX, newDiscY: goalY });
       }
@@ -1147,6 +1241,7 @@ export class Choreographer {
     botDefState,
     playerOffId,
     tier,
+    isBreakOpportunity = false,
     computeBotDefOnAdvance,
     computeBotOffOnTurn,
     onTicker,
@@ -1292,6 +1387,14 @@ export class Choreographer {
         onComplete: () => {
           this.stall.active = false;
           this.spawnGoalBurst(goalX, goalY, '#00E5FF');
+          const scoreShout = isBreakOpportunity
+            ? 'BOOKENDS!! 📚🔥'
+            : isHammer
+              ? 'HAMMER TIME! 🔨'
+              : isHuck
+                ? 'SKY HIGH!! 🚀'
+                : 'PANCAKE!! 🥞🎉';
+          this.spawnCallout(goalX, goalY - 3, scoreShout, 'emerald', 1.6);
           sound.goalCelebration(true);
           onResult({ outcome: 'player_goal', newDiscX: goalX, newDiscY: goalY });
         }
@@ -1359,8 +1462,11 @@ export class Choreographer {
           if (scored) {
             this.stall.active = false;
             this.spawnGoalBurst(p2X, p2Y, '#00E5FF');
+            this.spawnCallout(p2X, p2Y - 3, isBreakOpportunity ? 'BOOKENDS!! 📚🔥' : 'TOE THE LINE! ✨', 'emerald', 1.55);
             sound.goalCelebration(true);
             onResult({ outcome: 'player_goal', newDiscX: p2X, newDiscY: p2Y });
+          } else {
+            this.spawnCallout(p2X, p2Y + 3, 'CHILLY! 🧊', 'emerald', 1.15);
           }
         }
       });
@@ -1469,6 +1575,7 @@ export class Choreographer {
       },
       onComplete: () => {
         this.stall.active = false;
+        this.spawnCallout(turnX, turnY + 3, 'SHAKE IT OFF! D UP! ⚡', 'gold', 1.35);
       }
     });
 
@@ -1561,20 +1668,25 @@ export class Choreographer {
   }
 
   spawnGoalBurst(x, y, color) {
-    this.shockwaves.push({ x, y, r: 1, maxR: 15, alpha: 1.0, color });
-    this.shockwaves.push({ x, y, r: 0.2, maxR: 10, alpha: 0.85, color: '#FFFFFF' });
-    for (let i = 0; i < 34; i++) {
+    this.shockwaves.push({ x, y, r: 1, maxR: 15.5, alpha: 1.0, color });
+    this.shockwaves.push({ x, y, r: 0.2, maxR: 10.5, alpha: 0.88, color: '#FBBF24' });
+    const fiestaPalette = [color, '#FFFFFF', '#FBBF24', '#34D399', '#38BDF8', '#FF7A45'];
+    for (let i = 0; i < 42; i++) {
       const ang = Math.random() * Math.PI * 2;
-      const spd = 8 + Math.random() * 24;
+      const spd = 8 + Math.random() * 25;
+      const isConfetti = i % 2 === 0;
       this.particles.push({
         x,
         y,
         vx: Math.cos(ang) * spd,
         vy: Math.sin(ang) * spd,
-        life: 0.7 + Math.random() * 0.45,
-        maxLife: 1.1,
-        size: 3 + Math.random() * 3,
-        color: i % 3 === 0 ? '#FFFFFF' : color
+        life: 0.78 + Math.random() * 0.5,
+        maxLife: 1.2,
+        size: isConfetti ? 3.5 + Math.random() * 3 : 2.8 + Math.random() * 2.5,
+        color: fiestaPalette[i % fiestaPalette.length],
+        confetti: isConfetti,
+        rot: Math.random() * Math.PI * 2,
+        vRot: (Math.random() - 0.5) * 14
       });
     }
   }
@@ -1600,8 +1712,19 @@ export class Choreographer {
       p.y += p.vy * scaledDt;
       p.vx *= 0.92;
       p.vy *= 0.92;
+      if (p.confetti) {
+        p.rot = (p.rot || 0) + (p.vRot || 6) * scaledDt;
+      }
       p.life -= scaledDt;
       if (p.life <= 0) this.particles.splice(i, 1);
+    }
+
+    for (let i = this.callouts.length - 1; i >= 0; i--) {
+      const c = this.callouts[i];
+      c.age += scaledDt;
+      c.y = clamp(c.y + c.vy * scaledDt, 5, 106);
+      c.vy *= 0.95;
+      if (c.age >= c.maxLife) this.callouts.splice(i, 1);
     }
 
     for (let i = this.shockwaves.length - 1; i >= 0; i--) {
