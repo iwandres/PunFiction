@@ -10,10 +10,10 @@ import {
   resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=9';
-import { Choreographer } from './choreographer.js?v=9';
-import { FieldRenderer } from './fieldRenderer.js?v=9';
-import { sound } from './audio.js?v=9';
+} from './playbookData.js?v=10';
+import { Choreographer } from './choreographer.js?v=10';
+import { FieldRenderer } from './fieldRenderer.js?v=10';
+import { sound } from './audio.js?v=10';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -59,6 +59,36 @@ const CARD_ICONS = {
   swing: `<svg viewBox="0 0 28 28" fill="none"><path d="M7 16c3 6 11 6 14-3" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="7" cy="16" r="2.6" fill="#94A3B8"/><circle cx="13" cy="21" r="2.6" fill="#00E5FF"/><circle cx="21" cy="12" r="2.8" fill="#00E5FF"/></svg>`,
   hammer: `<svg viewBox="0 0 28 28" fill="none"><path d="M7 22C8 8 16 6 21 11" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/><ellipse cx="21" cy="12" rx="3.4" ry="1.8" transform="rotate(-25 21 12)" fill="#00E5FF"/></svg>`
 };
+
+const PULL_DISC_LOGO_SVG = `<svg class="pull-disc-svg" viewBox="0 0 56 28" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="pullBtnStreak" x1="2" y1="15" x2="36" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0369A1" stop-opacity="0" />
+      <stop offset="40%" stop-color="#075985" stop-opacity="0.65" />
+      <stop offset="100%" stop-color="#0C4A6E" stop-opacity="0.92" />
+    </linearGradient>
+    <linearGradient id="pullBtnCore" x1="9" y1="15" x2="35" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.92" />
+    </linearGradient>
+    <linearGradient id="pullBtnDiscTop" x1="28" y1="6" x2="48" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <path d="M2 17.6 C12 12.4, 22 8.2, 36 7.4 L38 20.6 C24 20.8, 13 19.7, 2 17.6 Z" fill="url(#pullBtnStreak)" />
+  <path d="M9 16.4 C17 13.9, 25 11.8, 35 11.2 L36 16.8 C26 17.2, 17 17.2, 9 16.4 Z" fill="url(#pullBtnCore)" />
+  <path d="M5 12.1 Q18 9.1 31 8.4" stroke="#F0F9FF" stroke-width="1.6" stroke-linecap="round" opacity="0.92" />
+  <path d="M11 21.3 Q22 21.0 33 19.8" stroke="#075985" stroke-width="1.5" stroke-linecap="round" opacity="0.88" />
+  <g transform="translate(39, 13.5) rotate(-12)">
+    <ellipse cx="0" cy="1.1" rx="14.2" ry="7.3" fill="rgba(3, 21, 33, 0.42)" />
+    <ellipse cx="0" cy="1.3" rx="13.4" ry="6.4" fill="#CBD5E1" stroke="#64748B" stroke-width="0.85" />
+    <ellipse cx="0" cy="-0.2" rx="13.4" ry="6.3" fill="url(#pullBtnDiscTop)" stroke="#FFFFFF" stroke-width="1.05" />
+    <ellipse cx="0" cy="-0.3" rx="9.5" ry="4.1" fill="none" stroke="#0284C7" stroke-width="1.4" opacity="0.9" />
+    <ellipse cx="0" cy="-0.3" rx="5.1" ry="2.0" fill="none" stroke="#38BDF8" stroke-width="1.0" opacity="0.85" />
+    <path d="M-8 -3.4 A11 4.7 0 0 1 9 -2.7" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.95" />
+  </g>
+</svg>`;
 
 class FlatballGame {
   constructor() {
@@ -871,8 +901,8 @@ class FlatballGame {
       btn.type = 'button';
       btn.className = `primary-pull-btn ${isPlayerPull ? '' : 'receive-btn'}`;
       btn.innerHTML = isPlayerPull
-        ? `<span class="pull-disc-icon">🥏</span><span>PULL DISC</span><span class="pull-sub">Kick off &amp; read Bot Offense</span>`
-        : `<span class="pull-disc-icon">⚡</span><span>RECEIVE PULL</span><span class="pull-sub">Set your stack &amp; read Bot’s Force/Zone</span>`;
+        ? `<span class="pull-disc-icon">${PULL_DISC_LOGO_SVG}</span><span>PULL DISC</span><span class="pull-sub">Kick off &amp; read Bot Offense</span>`
+        : `<span class="pull-disc-icon">${PULL_DISC_LOGO_SVG}</span><span>RECEIVE PULL</span><span class="pull-sub">Set your stack &amp; read Bot’s Force/Zone</span>`;
       btn.addEventListener('click', () => this.handlePullClick());
       wrap.appendChild(btn);
       container.appendChild(wrap);

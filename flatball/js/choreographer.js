@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=9';
-import { sound } from './audio.js?v=9';
+} from './playbookData.js?v=10';
+import { sound } from './audio.js?v=10';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
