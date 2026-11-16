@@ -10,10 +10,10 @@ import {
   resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=8';
-import { Choreographer } from './choreographer.js?v=8';
-import { FieldRenderer } from './fieldRenderer.js?v=8';
-import { sound } from './audio.js?v=8';
+} from './playbookData.js?v=9';
+import { Choreographer } from './choreographer.js?v=9';
+import { FieldRenderer } from './fieldRenderer.js?v=9';
+import { sound } from './audio.js?v=9';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -311,7 +311,9 @@ class FlatballGame {
       this.addFeedEntry(`Weather Check: ${wb.text}`, 'neutral');
     }
 
-    this.choreo.setupPullLineup(pullingTeam);
+    const pullerIdx = this.rng() < 0.5 ? 0 : 6; // Always pull from '1' (Home side) or '5' (Away side)
+    this.state.pullerIdx = pullerIdx;
+    this.choreo.setupPullLineup(pullingTeam, pullerIdx);
     this.updateScoreboard();
     this.updateLookBanner();
     const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air.' : `Wind: ${wb.text}.`;

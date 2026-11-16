@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=8';
-import { sound } from './audio.js?v=8';
+} from './playbookData.js?v=9';
+import { sound } from './audio.js?v=9';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -27,13 +27,13 @@ export class Choreographer {
     this.botDots = this.createLineup('bot', 90);
 
     this.disc = {
-      x: 0,
+      x: -15,
       y: 20,
       z: 0,
       inFlight: false,
       dropped: false,
       holderTeam: 'player',
-      holderIdx: 3,
+      holderIdx: 0,
       spinAngle: 0,
       trail: []
     };
@@ -161,8 +161,10 @@ export class Choreographer {
     };
   }
 
-  setupPullLineup(pullingTeam = 'player') {
+  setupPullLineup(pullingTeam = 'player', pullerIdx = 0) {
     this.clearQueue();
+    // Pull always launches from one of the outer sideline positions: '1' (idx 0, x = -15) or '5' (idx 6, x = +15)
+    const sideIdx = pullerIdx === 6 ? 6 : 0;
     const xs = [-15, -10, -5, 0, 5, 10, 15];
     const pRoles = ['1', '2', 'H2', 'H1', '3', '4', '5'];
     xs.forEach((x, i) => {
@@ -171,7 +173,7 @@ export class Choreographer {
       this.playerDots[i].vx = 0;
       this.playerDots[i].vy = 0;
       this.playerDots[i].role = pRoles[i];
-      this.playerDots[i].highlight = pullingTeam === 'player' && i === 3;
+      this.playerDots[i].highlight = pullingTeam === 'player' && i === sideIdx;
       this.playerDots[i].lungeTimer = 0;
 
       this.botDots[i].x = x;
@@ -179,7 +181,7 @@ export class Choreographer {
       this.botDots[i].vx = 0;
       this.botDots[i].vy = 0;
       this.botDots[i].role = pRoles[i];
-      this.botDots[i].highlight = pullingTeam === 'bot' && i === 3;
+      this.botDots[i].highlight = pullingTeam === 'bot' && i === sideIdx;
       this.botDots[i].lungeTimer = 0;
     });
 
@@ -188,13 +190,15 @@ export class Choreographer {
     this.disc.z = 0;
     this.disc.trail = [];
     this.disc.holderTeam = pullingTeam;
-    this.disc.holderIdx = 3;
-    this.disc.x = 0;
+    this.disc.holderIdx = sideIdx;
+    this.disc.x = xs[sideIdx];
     this.disc.y = pullingTeam === 'player' ? 20 : 90;
+    this.syncHeldDisc();
 
     this.stall.active = false;
     this.stall.value = 0;
     this.visualContext.scoutShape = null;
+    this.visualContext.forceType = 'open';
     this.visualContext.playerPreviewId = null;
     this.visualContext.ghostPreview = null;
   }
@@ -707,6 +711,8 @@ export class Choreographer {
   animatePull({ pullingTeam, landingX, landingY, initialBotLookId, botDefState, onReadyForRead, onTicker }) {
     this.clearQueue();
     const isPlayerPull = pullingTeam === 'player';
+    // Curve inward from whichever sideline position ('1' at -15 or '5' at +15) is pulling
+    const pullCurveX = this.disc.x <= 0 ? 6.0 : -6.0;
 
     if (isPlayerPull) {
       const { botTargets, playerTargets, openSign } = this.computeBotOffenseSetup(landingX, landingY, initialBotLookId, null);
@@ -721,7 +727,7 @@ export class Choreographer {
           catchT: 0.94,
           toX: landingX,
           toY: landingY,
-          curveX: landingX >= 0 ? -5.5 : 5.5,
+          curveX: pullCurveX,
           peakZ: 1.0,
           outcome: 'catch',
           toTeam: 'bot',
@@ -778,7 +784,7 @@ export class Choreographer {
           catchT: 0.94,
           toX: landingX,
           toY: landingY,
-          curveX: landingX >= 0 ? 5.5 : -5.5,
+          curveX: pullCurveX,
           peakZ: 1.0,
           outcome: 'catch',
           toTeam: 'player',

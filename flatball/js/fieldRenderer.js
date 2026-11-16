@@ -310,8 +310,8 @@ export class FieldRenderer {
     const vc = choreo.visualContext;
     if (!vc) return;
 
-    // 1. Physical Force Shield / Cup Wall + Force Home/Away Arrow around the thrower
-    if (!choreo.disc.inFlight && choreo.disc.holderTeam) {
+    // 1. Physical Force Shield / Cup Wall + Force Home/Away Arrow around the thrower (only during live marked play, never pre-pull)
+    if (!choreo.disc.inFlight && choreo.disc.holderTeam && (choreo.stall.active || vc.scoutShape)) {
       const holderArr = choreo.disc.holderTeam === 'player' ? choreo.playerDots : choreo.botDots;
       const defArr = choreo.disc.holderTeam === 'player' ? choreo.botDots : choreo.playerDots;
       const holder = holderArr[choreo.disc.holderIdx];
