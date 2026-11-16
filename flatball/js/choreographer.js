@@ -3,8 +3,8 @@ import {
   BOT_OFFENSES,
   BOT_DEFENSES,
   PLAYER_DEFENSES
-} from './playbookData.js?v=11';
-import { sound } from './audio.js?v=11';
+} from './playbookData.js?v=12';
+import { sound } from './audio.js?v=12';
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -72,6 +72,14 @@ export class Choreographer {
     };
     this.windWisps = [];
 
+    this.botTheme = {
+      colorTop: '#FF5263',
+      colorBot: '#B91C1C',
+      accent: '#FF5263',
+      shieldRgba: 'rgba(255, 82, 99, 0.85)',
+      scoutRgb: '255, 98, 112'
+    };
+
     this.particles = [];
     this.shockwaves = [];
     this.callouts = [];
@@ -79,6 +87,17 @@ export class Choreographer {
     this.currentBeat = null;
     this.beatElapsed = 0;
     this.idleClock = 0;
+  }
+
+  setBotTheme(botTeam) {
+    if (!botTeam) return;
+    this.botTheme = {
+      colorTop: botTeam.colorTop || '#FF5263',
+      colorBot: botTeam.colorBot || '#B91C1C',
+      accent: botTeam.accent || botTeam.colorTop || '#FF5263',
+      shieldRgba: botTeam.shieldRgba || 'rgba(255, 82, 99, 0.85)',
+      scoutRgb: botTeam.scoutRgb || '255, 98, 112'
+    };
   }
 
   /**
@@ -1124,7 +1143,7 @@ export class Choreographer {
         onComplete: () => {
           if (scored) {
             this.stall.active = false;
-            this.spawnGoalBurst(p2X, p2Y, '#FF5268');
+            this.spawnGoalBurst(p2X, p2Y, this.botTheme.accent);
             this.spawnCallout(p2X, p2Y + 4, 'NICE GRAB! 👏', 'gold', 1.45);
             sound.goalCelebration(false);
             onResult({ outcome: 'bot_goal', newDiscX: p2X, newDiscY: p2Y });
@@ -1224,7 +1243,7 @@ export class Choreographer {
       },
       onComplete: () => {
         this.stall.active = false;
-        this.spawnGoalBurst(goalX, goalY, '#FF5268');
+        this.spawnGoalBurst(goalX, goalY, this.botTheme.accent);
         this.spawnCallout(goalX, goalY + 5, 'NICE BID! CLAP IT UP 👏', 'gold', 1.45);
         sound.goalCelebration(false);
         onResult({ outcome: 'bot_goal', newDiscX: goalX, newDiscY: goalY });
@@ -1823,7 +1842,7 @@ export class Choreographer {
         } else if (da.outcome === 'intercept') {
           this.disc.holderTeam = da.actorTeam;
           this.disc.holderIdx = da.actorIdx;
-          const color = da.actorTeam === 'player' ? '#00E5FF' : '#FF5268';
+          const color = da.actorTeam === 'player' ? '#00E5FF' : this.botTheme.accent;
           this.spawnImpactBurst(da.toX, da.toY, color);
           sound.turnoverImpact(da.actorTeam === 'player');
         } else if (da.outcome === 'block') {
@@ -1837,7 +1856,7 @@ export class Choreographer {
             actor.lungeTimer = 0.45;
             actor.lungeAngle = Math.atan2(da.toY - beat._fromY, da.toX - beat._fromX);
           }
-          const color = da.actorTeam === 'player' ? '#00E5FF' : '#FF5268';
+          const color = da.actorTeam === 'player' ? '#00E5FF' : this.botTheme.accent;
           this.spawnImpactBurst(da.toX, da.toY, color);
           sound.turnoverImpact(da.actorTeam === 'player');
         }

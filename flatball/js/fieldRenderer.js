@@ -345,6 +345,12 @@ export class FieldRenderer {
   drawTacticalOverlays(ctx, choreo) {
     const vc = choreo.visualContext;
     if (!vc) return;
+    const bt = choreo.botTheme || {
+      colorTop: '#FF5263',
+      colorBot: '#B91C1C',
+      shieldRgba: 'rgba(255, 82, 99, 0.85)',
+      scoutRgb: '255, 98, 112'
+    };
 
     // 1. Physical Force Shield / Cup Wall + Force Home/Away Arrow around the thrower (only during live marked play, never pre-pull)
     if (!choreo.disc.inFlight && choreo.disc.holderTeam && (choreo.stall.active || vc.scoutShape)) {
@@ -354,8 +360,8 @@ export class FieldRenderer {
       if (holder) {
         const hp = this.worldToPx(holder.x, holder.y);
         const shieldColor = choreo.disc.holderTeam === 'player'
-          ? 'rgba(255, 82, 104, 0.8)'
-          : 'rgba(0, 229, 255, 0.75)';
+          ? bt.shieldRgba
+          : 'rgba(0, 229, 255, 0.78)';
 
         if (vc.forceType === 'cup') {
           const c0 = this.worldToPx(defArr[0].x, defArr[0].y);
@@ -474,8 +480,8 @@ export class FieldRenderer {
       ctx.strokeRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
     } else if (vc.scoutShape === 'bot_poach') {
       const sag = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.55 + pulse * 0.3})`;
-      ctx.fillStyle = 'rgba(255, 82, 104, 0.1)';
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.58 + pulse * 0.3})`;
+      ctx.fillStyle = `rgba(${bt.scoutRgb}, 0.1)`;
       ctx.lineWidth = 2;
       ctx.setLineDash([5, 4]);
       ctx.beginPath();
@@ -488,7 +494,7 @@ export class FieldRenderer {
       const w3 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
       const d1 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
       const d2 = this.worldToPx(choreo.botDots[6].x, choreo.botDots[6].y);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.52 + pulse * 0.25})`;
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.56 + pulse * 0.25})`;
       ctx.lineWidth = 2.6;
       ctx.setLineDash([6, 5]);
       ctx.beginPath();
@@ -574,12 +580,12 @@ export class FieldRenderer {
       ctx.lineTo(w2.x, w2.y);
       ctx.stroke();
     } else if (vc.scoutShape === 'bot_man_trap') {
-      // Highlight the narrow trapped sideline danger zone in subtle coral
+      // Highlight the narrow trapped sideline danger zone in bot team color
       const sideX = vc.forceSide === 'home' ? -19.5 : 13.5;
       const tl = this.worldToPx(sideX, Math.min(104, vc.discAnchorY + 24));
       const br = this.worldToPx(sideX + 6, Math.max(20, vc.discAnchorY - 2));
-      ctx.fillStyle = `rgba(255, 82, 104, ${0.08 + pulse * 0.06})`;
-      ctx.strokeStyle = `rgba(255, 82, 104, ${0.42 + pulse * 0.2})`;
+      ctx.fillStyle = `rgba(${bt.scoutRgb}, ${0.09 + pulse * 0.06})`;
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.46 + pulse * 0.2})`;
       ctx.lineWidth = 1.6;
       ctx.setLineDash([5, 4]);
       ctx.fillRect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
@@ -589,8 +595,8 @@ export class FieldRenderer {
       const lWing = this.worldToPx(-14, Math.min(104, vc.discAnchorY + 8));
       const rWing = this.worldToPx(14, Math.min(104, vc.discAnchorY + 8));
       const cTgt = this.worldToPx(0, Math.min(105, vc.discAnchorY + 18));
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.5 + pulse * 0.25})`;
-      ctx.fillStyle = 'rgba(255, 82, 104, 0.09)';
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.54 + pulse * 0.25})`;
+      ctx.fillStyle = `rgba(${bt.scoutRgb}, 0.09)`;
       ctx.lineWidth = 2;
       ctx.setLineDash([5, 4]);
       ctx.beginPath();
@@ -606,7 +612,7 @@ export class FieldRenderer {
       const pressPts = [2, 3, 4, 5, 6]
         .map((i) => this.worldToPx(choreo.botDots[i].x, choreo.botDots[i].y))
         .sort((a, b) => a.x - b.x);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.54 + pulse * 0.26})`;
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.56 + pulse * 0.26})`;
       ctx.lineWidth = 2.4;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -619,8 +625,8 @@ export class FieldRenderer {
       const b3 = this.worldToPx(choreo.botDots[4].x, choreo.botDots[4].y);
       const b4 = this.worldToPx(choreo.botDots[5].x, choreo.botDots[5].y);
       const ch1 = this.worldToPx(choreo.botDots[1].x, choreo.botDots[1].y);
-      ctx.strokeStyle = `rgba(255, 92, 114, ${0.52 + pulse * 0.25})`;
-      ctx.fillStyle = 'rgba(255, 82, 104, 0.06)';
+      ctx.strokeStyle = `rgba(${bt.scoutRgb}, ${0.56 + pulse * 0.25})`;
+      ctx.fillStyle = `rgba(${bt.scoutRgb}, 0.07)`;
       ctx.lineWidth = 2.2;
       ctx.setLineDash([6, 4]);
       ctx.beginPath();
@@ -836,12 +842,14 @@ export class FieldRenderer {
   drawPlayers(ctx, choreo) {
     const dotRadius = Math.max(9.5, Math.min(13.5, this.metrics.fieldW * 0.033));
     const isPrePull = !choreo.stall.active && !choreo.currentBeat && !choreo.visualContext.scoutShape;
+    const bt = choreo.botTheme || { colorTop: '#FF5263', colorBot: '#B91C1C' };
 
     choreo.botDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'bot' && choreo.disc.holderIdx === idx;
-      this.drawSingleDot(ctx, d, idx, dotRadius, '#FF6B5B', '#D92648', isHolder, choreo);
+      this.drawSingleDot(ctx, d, idx, dotRadius, bt.colorTop, bt.colorBot, isHolder, choreo);
     });
 
+    // Player ("YOU") is ALWAYS Blue!
     choreo.playerDots.forEach((d, idx) => {
       const isHolder = !choreo.disc.inFlight && !choreo.disc.dropped && choreo.disc.holderTeam === 'player' && choreo.disc.holderIdx === idx;
       this.drawSingleDot(ctx, d, idx + 7, dotRadius, '#00E5FF', '#0284C7', isHolder, choreo);

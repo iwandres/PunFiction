@@ -738,7 +738,207 @@ export const BOT_DEFENSES = {
   }
 };
 
-// ===================== MULTI-LEVEL WIND ENGINE =====================
+// ===================== 7 DISTINCT BOT CLUB PERSONALITIES & COLORS =====================
+// Player ("YOU") is ALWAYS Blue (#00E5FF -> #0284C7). Each of the 7 Bot Teams wears a unique non-blue jersey!
+
+export const BOT_TEAMS = [
+  {
+    id: 'crimson_huckers',
+    name: 'Crimson Huckers',
+    shortName: 'HUCKERS',
+    emoji: '🔥',
+    archetype: 'Deep-Ball Daredevils',
+    motto: 'Why throw five short passes when one 50-yard huck looks cooler?',
+    colorTop: '#FF5263',
+    colorBot: '#B91C1C',
+    accent: '#FF5263',
+    softBg: 'rgba(255, 82, 99, 0.18)',
+    shieldRgba: 'rgba(255, 82, 99, 0.85)',
+    scoutRgb: '255, 98, 112',
+    favOffenses: ['vert_stack', 'side_iso'],
+    favDefenses: ['bot_man_press', 'bot_man_poach']
+  },
+  {
+    id: 'tangerine_tornados',
+    name: 'Tangerine Tornados',
+    shortName: 'TORNADOS',
+    emoji: '🍊',
+    archetype: 'Cup-Zone Spinners',
+    motto: 'Three in the cup, wings on lock, and orange slices at halftime!',
+    colorTop: '#FF8C24',
+    colorBot: '#C2410C',
+    accent: '#FF8C24',
+    softBg: 'rgba(255, 140, 36, 0.18)',
+    shieldRgba: 'rgba(255, 140, 36, 0.88)',
+    scoutRgb: '255, 152, 56',
+    favOffenses: ['zone_spread', 'ho_stack'],
+    favDefenses: ['bot_zone_cup', 'bot_zone_wall']
+  },
+  {
+    id: 'golden_hammers',
+    name: 'Golden Hammers',
+    shortName: 'HAMMERS',
+    emoji: '🔨',
+    archetype: 'Showtime All-Stars',
+    motto: 'Clear the runway for ACE and arc upside-down hammers for style points!',
+    colorTop: '#F59E0B',
+    colorBot: '#9A3412',
+    accent: '#FBBF24',
+    softBg: 'rgba(251, 191, 36, 0.18)',
+    shieldRgba: 'rgba(251, 191, 36, 0.88)',
+    scoutRgb: '251, 191, 36',
+    favOffenses: ['star_playmaker', 'side_iso'],
+    favDefenses: ['bot_zone_box1', 'bot_man_blitz']
+  },
+  {
+    id: 'violet_vortex',
+    name: 'Violet Vortex',
+    shortName: 'VORTEX',
+    emoji: '🔮',
+    archetype: 'Hexagon Flow Philosophers',
+    motto: 'Non-stop triangle motion—every player is a handler and a cutter!',
+    colorTop: '#B56BFF',
+    colorBot: '#6B21A8',
+    accent: '#C084FC',
+    softBg: 'rgba(192, 132, 252, 0.18)',
+    shieldRgba: 'rgba(192, 132, 252, 0.88)',
+    scoutRgb: '192, 132, 252',
+    favOffenses: ['hex_flow', 'ho_stack'],
+    favDefenses: ['bot_zone_wall', 'bot_man_middle']
+  },
+  {
+    id: 'flamingo_fever',
+    name: 'Flamingo Fever',
+    shortName: 'FLAMINGOS',
+    emoji: '🦩',
+    archetype: 'Sideline Trap Sharks',
+    motto: 'High-energy sideline hype—the boundary line is our 8th defender!',
+    colorTop: '#FF5CA8',
+    colorBot: '#9D174D',
+    accent: '#F472B6',
+    softBg: 'rgba(244, 114, 182, 0.18)',
+    shieldRgba: 'rgba(244, 114, 182, 0.88)',
+    scoutRgb: '244, 114, 182',
+    favOffenses: ['split_stack', 'ho_stack'],
+    favDefenses: ['bot_man_trap', 'bot_man_blitz']
+  },
+  {
+    id: 'tuxedo_pandas',
+    name: 'Tuxedo Pandas',
+    shortName: 'PANDAS',
+    emoji: '🐼',
+    archetype: 'Chilly Small-Ball Wizards',
+    motto: 'Ice-cold patience—thirty crisp handler passes beat one risky huck!',
+    colorTop: '#64748B',
+    colorBot: '#1E293B',
+    accent: '#94A3B8',
+    softBg: 'rgba(148, 163, 184, 0.18)',
+    shieldRgba: 'rgba(203, 213, 225, 0.88)',
+    scoutRgb: '203, 213, 225',
+    favOffenses: ['handler_weave', 'zone_spread'],
+    favDefenses: ['bot_man_open', 'bot_man_poach']
+  },
+  {
+    id: 'layout_llamas',
+    name: 'Layout Llamas',
+    shortName: 'LLAMAS',
+    emoji: '🦙',
+    archetype: 'Twin-Sideline Tacticians',
+    motto: 'Grass stains, big bids, and twin sideline stacks wide open!',
+    colorTop: '#D08C55',
+    colorBot: '#78350F',
+    accent: '#E09F67',
+    softBg: 'rgba(208, 140, 85, 0.18)',
+    shieldRgba: 'rgba(224, 159, 103, 0.88)',
+    scoutRgb: '224, 159, 103',
+    favOffenses: ['split_stack', 'star_playmaker'],
+    favDefenses: ['bot_man_middle', 'bot_zone_cup']
+  }
+];
+
+/**
+ * Deterministically rotates through all 7 Bot Teams day-by-day so every day of the week has its own personality & color!
+ */
+export function getDailyBotTeam(dateKey) {
+  const parts = String(dateKey || '2026-01-01').split('-').map(Number);
+  const utcDays = Math.floor(Date.UTC(parts[0] || 2026, (parts[1] || 1) - 1, parts[2] || 1) / 86400000);
+  const idx = ((utcDays % BOT_TEAMS.length) + BOT_TEAMS.length) % BOT_TEAMS.length;
+  return BOT_TEAMS[idx];
+}
+
+// ===================== DAILY WEATHER & MULTI-LEVEL WIND ENGINE =====================
+
+/**
+ * Rolls a cohesive Match Weather Forecast (used for the Welcome Banner AND consistent point winds throughout the match!)
+ */
+export function rollMatchWeather(rng = Math.random) {
+  const baseWind = rollPointWind(rng);
+  const calmAdjectives = ['picture-perfect', 'sun-soaked', 'glorious', 'bluebird'];
+  const breezyAdjectives = ['crisp, spirited', 'refreshing, breezy', 'bright, lively', 'playful, sunlit'];
+  const stiffAdjectives = ['wild, high-flying', 'thrilling, gusty', 'bold, wind-swept', 'feisty, blustery'];
+
+  if (baseWind.strength === 'calm') {
+    const adj = calmAdjectives[Math.floor(rng() * calmAdjectives.length)];
+    return {
+      ...baseWind,
+      weatherLabel: 'Sunny & Calm (0 mph)',
+      dayAdjective: adj
+    };
+  }
+
+  const dirLabels = {
+    north: 'Upfield Wind',
+    south: 'Downfield Wind',
+    west: 'Home-Side Crosswind',
+    east: 'Away-Side Crosswind'
+  };
+  const dirText = dirLabels[baseWind.dir] || 'Breeze';
+
+  if (baseWind.strength === 'breezy') {
+    const adj = breezyAdjectives[Math.floor(rng() * breezyAdjectives.length)];
+    return {
+      ...baseWind,
+      weatherLabel: `Breezy ${baseWind.mph} mph ${dirText}`,
+      dayAdjective: adj
+    };
+  }
+
+  const adj = stiffAdjectives[Math.floor(rng() * stiffAdjectives.length)];
+  return {
+    ...baseWind,
+    weatherLabel: `Stiff ${baseWind.mph} mph ${dirText}`,
+    dayAdjective: adj
+  };
+}
+
+/**
+ * Produces the wind for each point of a match from the match's weather forecast (keeping direction & tier faithful!)
+ */
+export function nextPointWindFromForecast(forecast, rng = Math.random, isOpeningPoint = false) {
+  if (!forecast || forecast.strength === 'calm') {
+    return { strength: 'calm', dir: 'north', mph: 0, dx: 0, dy: 0 };
+  }
+  if (isOpeningPoint) {
+    return {
+      strength: forecast.strength,
+      dir: forecast.dir,
+      mph: forecast.mph,
+      dx: forecast.dx,
+      dy: forecast.dy
+    };
+  }
+  const delta = Math.floor(rng() * 3) - 1; // -1, 0, or +1 mph natural gust variation
+  const mph = forecast.strength === 'breezy'
+    ? Math.max(9, Math.min(12, forecast.mph + delta))
+    : Math.max(18, Math.min(22, forecast.mph + delta));
+  return {
+    strength: forecast.strength,
+    dir: forecast.dir,
+    mph,
+    dx: forecast.dx,
+    dy: forecast.dy
+  };
+}
 
 /**
  * Rolls wind conditions for the upcoming point:
@@ -988,7 +1188,15 @@ export function resolveWorstOutcome(effLookObj, chosenCardId) {
 /**
  * Selects a contextually authentic Bot Defense + Force ('home' or 'away') + Player Base Stack ('vert' or 'ho').
  */
-export function rollBotDefenseState({ discX, prevDefId = null, prevStack = 'vert', isAdvance = false, wind = null, rng = Math.random }) {
+export function rollBotDefenseState({
+  discX,
+  prevDefId = null,
+  prevStack = 'vert',
+  isAdvance = false,
+  wind = null,
+  botTeam = null,
+  rng = Math.random
+}) {
   const baseStack = isAdvance ? prevStack : (rng() < 0.56 ? 'vert' : 'ho');
   const nearSideline = Math.abs(discX) >= 5.5;
   let defId = prevDefId;
@@ -1000,11 +1208,18 @@ export function rollBotDefenseState({ discX, prevDefId = null, prevStack = 'vert
       return true;
     });
 
-    // If Player is going into a Stiff Headwind ('south'), Bot loves throwing Cup or Wall Zone slightly more often!
+    // 1. Stiff Headwind ('south'): Bot loves throwing Cup or Wall Zone!
     if (wind && wind.strength === 'stiff' && wind.dir === 'south' && rng() < 0.42) {
       const zoneOpts = candidates.filter((id) => id.startsWith('bot_zone_'));
       if (zoneOpts.length > 0) {
         defId = zoneOpts[Math.floor(rng() * zoneOpts.length)];
+      }
+    }
+    // 2. Bot Club Personality: favor this team's signature defensive looks ~50% of the time!
+    if ((!defId || defId === prevDefId) && botTeam && Array.isArray(botTeam.favDefenses) && rng() < 0.52) {
+      const favOpts = candidates.filter((id) => botTeam.favDefenses.includes(id));
+      if (favOpts.length > 0) {
+        defId = favOpts[Math.floor(rng() * favOpts.length)];
       }
     }
     if (!defId || defId === prevDefId) {

@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=11" />
+  <link rel="stylesheet" href="css/styles.css?v=12" />
 </head>
 <body>
   <div class="app-shell">
@@ -55,8 +55,8 @@
           <span>Flatball <span class="brand-accent brand-subword">Tactics</span></span>
         </div>
         <div class="mode-switcher" role="group" aria-label="Game Mode">
-          <button type="button" id="mode-quick-btn" class="mode-btn active-mode">Match</button>
-          <button type="button" id="mode-daily-btn" class="mode-btn">Daily Cup</button>
+          <button type="button" id="mode-daily-btn" class="mode-btn active-mode">Daily Cup</button>
+          <button type="button" id="mode-quick-btn" class="mode-btn">Free Play</button>
         </div>
       </div>
 
@@ -88,7 +88,7 @@
           <div class="team-block team-bot-block">
             <span id="score-bot" class="score-big bot-color">0</span>
             <div class="team-id">
-              <span class="team-name">BOT</span>
+              <span id="bot-team-label" class="team-name">BOT</span>
               <span class="dot-swatch swatch-bot"></span>
             </div>
           </div>
@@ -113,6 +113,33 @@
 
         <div class="canvas-wrapper">
           <canvas id="field-canvas"></canvas>
+
+          <!-- Opening Matchup & Daily Weather Banner -->
+          <div id="welcome-banner" class="welcome-banner" role="region" aria-label="Matchup Welcome Banner">
+            <div class="welcome-banner-top">
+              <span id="welcome-mode-pill" class="welcome-mode-pill">📅 TODAY’S DAILY ULTIMATE</span>
+              <button type="button" id="welcome-close-btn" class="welcome-dismiss-x" aria-label="Dismiss welcome banner">&times;</button>
+            </div>
+            <div class="welcome-matchup-strip">
+              <span class="welcome-team-pill welcome-you-pill"><span class="dot-swatch swatch-you"></span> YOU</span>
+              <span class="welcome-vs-badge">VS</span>
+              <span id="welcome-bot-pill" class="welcome-team-pill welcome-bot-pill">
+                <span class="dot-swatch swatch-bot"></span>
+                <span id="welcome-bot-pill-name">Tangerine Tornados</span>
+              </span>
+            </div>
+            <h2 id="welcome-headline" class="welcome-headline">Welcome to You versus Tangerine Tornados!</h2>
+            <p id="welcome-weather-line" class="welcome-weather-line">
+              The weather is Sunny &amp; Calm (0 mph) and it’s a picture-perfect day to play Ultimate!
+            </p>
+            <p id="welcome-pull-line" class="welcome-pull-line">
+              🥏 Get ready, you’re pulling first!
+            </p>
+            <div class="welcome-footer-row">
+              <span id="welcome-personality-note" class="welcome-personality-note">🍊 Cup-Zone Spinners</span>
+              <button type="button" id="welcome-start-btn" class="welcome-step-btn">Step to the Line &rarr;</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -172,7 +199,7 @@
         <!-- TAB 1: BASICS & QUICK LINGO -->
         <div data-guide-panel="basics">
           <p class="modal-lead">
-            Coach a <strong>7-on-7 Ultimate Frisbee</strong> team (<span class="you-inline">Cyan = YOU</span>, <span class="bot-inline">Coral = BOT</span>). Defend your <strong>Bottom End Zone (▼)</strong> and score in the <strong>Top End Zone (▲)</strong>! First team to 3 points wins.
+            Coach a <strong>7-on-7 Ultimate Frisbee</strong> team (<span class="you-inline">Blue = YOU</span> vs. <strong>7 Distinct Club Opponents</strong>). Defend your <strong>Bottom End Zone (▼)</strong> and score in the <strong>Top End Zone (▲)</strong>! First team to 3 points wins.
           </p>
 
           <div class="guide-section">
@@ -232,7 +259,7 @@
           </div>
 
           <div class="guide-tip">
-            <strong>Pre-Play Motion Trick:</strong> When you are on Offense, tap two different play cards before confirming. If the red Bot defenders follow your moving players, they are in <strong>Man-to-Man</strong>! If they stay parked in spaces, it’s a <strong>Zone</strong>!
+            <strong>Pre-Play Motion Trick:</strong> When you are on Offense, tap two different play cards before confirming. If the Bot defenders follow your moving players, they are in <strong>Man-to-Man</strong>! If they stay parked in spaces, it’s a <strong>Zone</strong>!
           </div>
         </div>
 
@@ -618,6 +645,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/main.js?v=11"></script>
+  <script type="module" src="js/main.js?v=12"></script>
 </body>
 </html>

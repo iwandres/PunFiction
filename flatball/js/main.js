@@ -4,16 +4,19 @@ import {
   PLAYER_OFFENSES,
   BOT_OFFENSES,
   BOT_DEFENSES,
-  rollPointWind,
+  BOT_TEAMS,
+  getDailyBotTeam,
+  rollMatchWeather,
+  nextPointWindFromForecast,
   formatWindBadge,
   getEffectiveLook,
   resolveWorstOutcome,
   rollBotDefenseState,
   buildDecisionHand
-} from './playbookData.js?v=11';
-import { Choreographer } from './choreographer.js?v=11';
-import { FieldRenderer } from './fieldRenderer.js?v=11';
-import { sound } from './audio.js?v=11';
+} from './playbookData.js?v=12';
+import { Choreographer } from './choreographer.js?v=12';
+import { FieldRenderer } from './fieldRenderer.js?v=12';
+import { sound } from './audio.js?v=12';
 
 function createSeededRng(seedStr) {
   let h = 2166136261 >>> 0;
@@ -60,6 +63,8 @@ const CARD_ICONS = {
   hammer: `<svg viewBox="0 0 28 28" fill="none"><path d="M7 22C8 8 16 6 21 11" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/><ellipse cx="21" cy="12" rx="3.4" ry="1.8" transform="rotate(-25 21 12)" fill="#00E5FF"/></svg>`
 };
 
+const MINI_WHITE_DISC_SVG = `<svg width="18" height="11" viewBox="0 0 24 14" fill="none" style="vertical-align:-1px;margin-right:3px;" aria-hidden="true"><ellipse cx="12" cy="7.8" rx="10.5" ry="4.8" fill="#CBD5E1"/><ellipse cx="12" cy="6.5" rx="10.5" ry="4.8" fill="#FFFFFF"/><ellipse cx="12" cy="6.4" rx="7.2" ry="3.0" stroke="#0284C7" stroke-width="1.2"/></svg>`;
+
 const PULL_DISC_LOGO_SVG = `<svg class="pull-disc-svg" viewBox="0 0 56 28" fill="none" aria-hidden="true">
   <defs>
     <linearGradient id="pullBtnStreak" x1="2" y1="15" x2="36" y2="14" gradientUnits="userSpaceOnUse">
@@ -90,19 +95,6 @@ const PULL_DISC_LOGO_SVG = `<svg class="pull-disc-svg" viewBox="0 0 56 28" fill=
   </g>
 </svg>`;
 
-const BOT_CLUB_NAMES = [
-  'Layout Llamas 🦙',
-  'Disc-o Fever 🕺',
-  'Huck Finn 🎣',
-  'Chilly Peppers 🌶️',
-  'Hammerheads 🦈',
-  'Stack Cats 🐾',
-  'Pancake Posse 🥞',
-  'Stall Nine Fine ⏱️',
-  'Breezy Bees 🐝',
-  'Sky Sharks 🌊'
-];
-
 const SIDELINE_CHEERS = [
   { shout: 'CHILLY! CHILLY! 🧊', msg: '📣 Sideline: “Stay chilly with the disc — patience beats every zone!”' },
   { shout: 'PANCAKE HANDS! 🥞', msg: '📣 Sideline: “Two hands on every catch — stack those pancakes!”' },
@@ -120,14 +112,15 @@ class FlatballGame {
     this.choreo = new Choreographer();
     this.renderer = new FieldRenderer(this.canvas);
 
-    this.mode = 'quick';
+    this.mode = 'daily';
     this.targetScore = 3;
     this.rng = Math.random;
+    this.lastMatchBotId = null;
 
     this.state = null;
     this.cacheDom();
     this.bindEvents();
-    this.startNewMatch('quick');
+    this.startNewMatch('daily');
     this.startLoop();
   }
 
@@ -135,6 +128,7 @@ class FlatballGame {
     this.dom = {
       scorePlayer: document.getElementById('score-player'),
       scoreBot: document.getElementById('score-bot'),
+      botTeamLabel: document.getElementById('bot-team-label'),
       targetLabel: document.getElementById('target-score-label'),
       possessionBadge: document.getElementById('possession-badge'),
       yardageBadge: document.getElementById('yardage-badge'),
@@ -147,6 +141,16 @@ class FlatballGame {
       tickerText: document.getElementById('coach-ticker-text'),
       actionContainer: document.getElementById('action-container'),
       feedLog: document.getElementById('play-log-list'),
+
+      welcomeBanner: document.getElementById('welcome-banner'),
+      welcomeModePill: document.getElementById('welcome-mode-pill'),
+      welcomeCloseBtn: document.getElementById('welcome-close-btn'),
+      welcomeBotPillName: document.getElementById('welcome-bot-pill-name'),
+      welcomeHeadline: document.getElementById('welcome-headline'),
+      welcomeWeatherLine: document.getElementById('welcome-weather-line'),
+      welcomePullLine: document.getElementById('welcome-pull-line'),
+      welcomePersonalityNote: document.getElementById('welcome-personality-note'),
+      welcomeStartBtn: document.getElementById('welcome-start-btn'),
 
       modeQuickBtn: document.getElementById('mode-quick-btn'),
       modeDailyBtn: document.getElementById('mode-daily-btn'),
@@ -184,7 +188,7 @@ class FlatballGame {
 
     this.dom.modeQuickBtn.addEventListener('click', () => {
       sound.uiClick();
-      if (this.mode !== 'quick') this.startNewMatch('quick');
+      this.startNewMatch('quick');
     });
 
     this.dom.modeDailyBtn.addEventListener('click', () => {
@@ -224,6 +228,21 @@ class FlatballGame {
         sound.unlock();
         sound.sidelineCheer();
         this.triggerSidelineCheer();
+      });
+    }
+
+    if (this.dom.welcomeStartBtn) {
+      this.dom.welcomeStartBtn.addEventListener('click', () => {
+        sound.unlock();
+        sound.uiClick();
+        this.dismissWelcomeBanner();
+      });
+    }
+
+    if (this.dom.welcomeCloseBtn) {
+      this.dom.welcomeCloseBtn.addEventListener('click', () => {
+        sound.uiClick();
+        this.dismissWelcomeBanner();
       });
     }
 
@@ -282,6 +301,10 @@ class FlatballGame {
         this.dom.helpModal.classList.add('hidden');
         return;
       }
+      if (e.code === 'Escape' && this.dom.welcomeBanner && !this.dom.welcomeBanner.classList.contains('hidden')) {
+        this.dismissWelcomeBanner();
+        return;
+      }
       if (!this.dom.helpModal.classList.contains('hidden') || !this.dom.matchModal.classList.contains('hidden')) {
         return;
       }
@@ -310,17 +333,80 @@ class FlatballGame {
     });
   }
 
+  applyBotTeamTheme(botTeam) {
+    const root = document.documentElement;
+    root.style.setProperty('--bot-coral', botTeam.colorTop);
+    root.style.setProperty('--bot-coral-soft', botTeam.softBg);
+    if (this.dom.botTeamLabel) {
+      this.dom.botTeamLabel.textContent = botTeam.shortName;
+      this.dom.botTeamLabel.title = `${botTeam.emoji} ${botTeam.name} — ${botTeam.archetype}`;
+    }
+    this.choreo.setBotTheme(botTeam);
+  }
+
+  showWelcomeBanner() {
+    if (!this.dom.welcomeBanner || !this.state) return;
+    const { botTeam, matchWeather } = this.state;
+
+    if (this.dom.welcomeModePill) {
+      this.dom.welcomeModePill.textContent = this.mode === 'daily'
+        ? `📅 DAILY CUP • ${getTodayKey()}`
+        : '🥏 FREE PLAY MATCHUP';
+    }
+    if (this.dom.welcomeBotPillName) {
+      this.dom.welcomeBotPillName.textContent = `${botTeam.emoji} ${botTeam.name}`;
+    }
+    if (this.dom.welcomeHeadline) {
+      this.dom.welcomeHeadline.textContent = `Welcome to You versus ${botTeam.name}!`;
+    }
+    if (this.dom.welcomeWeatherLine) {
+      this.dom.welcomeWeatherLine.textContent =
+        `The weather is ${matchWeather.weatherLabel} and it’s a ${matchWeather.dayAdjective} day to play Ultimate!`;
+    }
+    if (this.dom.welcomePullLine) {
+      this.dom.welcomePullLine.innerHTML = `${MINI_WHITE_DISC_SVG}Get ready, you’re pulling first!`;
+    }
+    if (this.dom.welcomePersonalityNote) {
+      this.dom.welcomePersonalityNote.textContent = `${botTeam.emoji} ${botTeam.archetype}: “${botTeam.motto}”`;
+    }
+    this.dom.welcomeBanner.classList.remove('hidden');
+  }
+
+  dismissWelcomeBanner() {
+    if (this.dom.welcomeBanner) {
+      this.dom.welcomeBanner.classList.add('hidden');
+    }
+  }
+
   startNewMatch(mode) {
     this.mode = mode;
     this.dom.modeQuickBtn.classList.toggle('active-mode', mode === 'quick');
     this.dom.modeDailyBtn.classList.toggle('active-mode', mode === 'daily');
 
-    this.rng = mode === 'daily' ? createSeededRng(`flatball-${getTodayKey()}`) : Math.random;
-    const botClub = BOT_CLUB_NAMES[Math.floor(this.rng() * BOT_CLUB_NAMES.length)];
+    const todayKey = getTodayKey();
+    let botTeam;
+    let matchWeather;
+
+    if (mode === 'daily') {
+      this.rng = createSeededRng(`flatball-${todayKey}`);
+      botTeam = getDailyBotTeam(todayKey);
+      matchWeather = rollMatchWeather(createSeededRng(`flatball-weather-${todayKey}`));
+    } else {
+      this.rng = Math.random;
+      const pool = BOT_TEAMS.filter((t) => t.id !== this.lastMatchBotId);
+      botTeam = pool[Math.floor(this.rng() * pool.length)];
+      matchWeather = rollMatchWeather(this.rng);
+    }
+
+    this.lastMatchBotId = botTeam.id;
+    this.applyBotTeamTheme(botTeam);
+    const botClub = `${botTeam.name} ${botTeam.emoji}`;
 
     this.state = {
       phase: 'PRE_PULL',
+      botTeam,
       botClub,
+      matchWeather,
       hypeIdx: 0,
       playerScore: 0,
       botScore: 0,
@@ -354,15 +440,17 @@ class FlatballGame {
     }
     this.addFeedEntry(
       mode === 'daily'
-        ? `📅 Daily Cup (${getTodayKey()}) vs. ${botClub} — First to ${this.targetScore}!`
-        : `🥏 Spirit Circle! Playing ${botClub} — First to ${this.targetScore}!`,
+        ? `📅 Daily Cup (${todayKey}): YOU vs. ${botClub} (${botTeam.archetype})`
+        : `🥏 Free Play: YOU vs. ${botClub} (${botTeam.archetype})`,
       'neutral'
     );
+    this.addFeedEntry(`🌤️ Forecast: ${matchWeather.weatherLabel}`, 'neutral');
 
-    this.setupNextPoint('player');
+    this.setupNextPoint('player', true);
+    this.showWelcomeBanner();
   }
 
-  setupNextPoint(pullingTeam) {
+  setupNextPoint(pullingTeam, isOpeningPoint = false) {
     this.state.phase = 'PRE_PULL';
     this.state.pullingTeam = pullingTeam;
     this.state.startedPointOnDefense = pullingTeam === 'player';
@@ -371,11 +459,15 @@ class FlatballGame {
     this.state.selectedCard = null;
     this.state.pointSummary = null;
 
-    this.state.pointWind = rollPointWind(this.rng);
+    this.state.pointWind = nextPointWindFromForecast(
+      this.state.matchWeather,
+      this.rng,
+      isOpeningPoint
+    );
     this.choreo.setPointWind(this.state.pointWind);
     const wb = formatWindBadge(this.state.pointWind, this.state.possession);
-    if (this.state.pointWind.strength !== 'calm') {
-      this.addFeedEntry(`Weather Check: ${wb.text}`, 'neutral');
+    if (!isOpeningPoint && this.state.pointWind.strength !== 'calm') {
+      this.addFeedEntry(`Wind Check: ${wb.text}`, 'neutral');
     }
 
     const pullerIdx = this.rng() < 0.5 ? 0 : 6; // Always pull from '1' (Home side) or '5' (Away side)
@@ -383,10 +475,10 @@ class FlatballGame {
     this.choreo.setupPullLineup(pullingTeam, pullerIdx);
     this.updateScoreboard();
     this.updateLookBanner();
-    const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air' : `Wind: ${wb.text}`;
+    const windNote = this.state.pointWind.strength === 'calm' ? 'Calm air' : wb.text;
     this.setTicker(
       pullingTeam === 'player'
-        ? `Hands up on the line vs. ${this.state.botClub}! (${windNote}) Tap PULL DISC — Spirit on 3!`
+        ? `Welcome to You vs. ${this.state.botTeam.name}! (${windNote}) Get ready — you’re pulling first!`
         : `${this.state.botClub} signals ready (${windNote}). Tap RECEIVE PULL — let’s cook!`
     );
     this.renderActionTray();
@@ -400,6 +492,16 @@ class FlatballGame {
     if (isMidfieldAdvance && this.state.botLookId && this.state.botLookId !== 'red_zone' && BOT_OFFENSES[this.state.botLookId]) {
       if (this.rng() < 0.52) {
         return this.state.botLookId;
+      }
+    }
+    // Personality bias: Bot club favors its signature offensive formations ~52% of the time!
+    const botTeam = this.state.botTeam;
+    if (botTeam && Array.isArray(botTeam.favOffenses) && this.rng() < 0.52) {
+      const favPool = botTeam.favOffenses.filter((id) => id !== this.state.lastBotOffId && BOT_OFFENSES[id]);
+      if (favPool.length > 0) {
+        const favChosen = favPool[Math.floor(this.rng() * favPool.length)];
+        this.state.lastBotOffId = favChosen;
+        return favChosen;
       }
     }
     const pool = [
@@ -424,6 +526,7 @@ class FlatballGame {
       prevStack: this.state.botDefState ? this.state.botDefState.baseStack : 'vert',
       isAdvance,
       wind: this.state.pointWind,
+      botTeam: this.state.botTeam,
       rng: this.rng
     });
     this.state.lastBotDefId = next.defId;
@@ -439,6 +542,7 @@ class FlatballGame {
   handlePullClick() {
     if (this.state.phase !== 'PRE_PULL') return;
     sound.unlock();
+    this.dismissWelcomeBanner();
     this.state.phase = 'ANIMATING';
     this.state.activeStrategyId = null;
 
@@ -779,7 +883,7 @@ class FlatballGame {
       this.dom.spiritAwardPill.textContent = award;
     }
     this.dom.matchModalTitle.textContent = won ? '🏆 SPIRIT CIRCLE VICTORY!' : '🙌 GREAT GAME! SPIRIT CIRCLE!';
-    this.dom.matchModalScore.textContent = `YOU ${this.state.playerScore}  —  ${this.state.botScore} BOT`;
+    this.dom.matchModalScore.textContent = `YOU ${this.state.playerScore}  —  ${this.state.botScore} ${this.state.botTeam.shortName}`;
     this.dom.matchModalSubtitle.textContent = won
       ? `High-fives down the line against ${this.state.botClub} — orange slices on us!`
       : `Awesome hustle against ${this.state.botClub}! High-five the line and run it back!`;
