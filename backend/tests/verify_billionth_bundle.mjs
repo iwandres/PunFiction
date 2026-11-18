@@ -119,6 +119,7 @@ for (const m of idMatches) {
 // 5. Check total gzipped bundle budget (< 120 KB)
 const allFrontendFiles = [
   'index.html',
+  'math.html',
   'css/styles.css',
   'data/traits-core.json',
   'data/traits-parametric.json',

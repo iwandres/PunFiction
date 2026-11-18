@@ -213,7 +213,33 @@
     recomputeAndRender({ justAdded: false });
   }
 
+  const SESSION_STACK_KEY = 'billionth_session_stack_v1';
+
+  function saveStackToSession() {
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        sessionStorage.setItem(SESSION_STACK_KEY, JSON.stringify(state.stack));
+      }
+    } catch (_) {}
+  }
+
+  function restoreStackFromSession() {
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        const raw = sessionStorage.getItem(SESSION_STACK_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            state.stack = parsed.filter((t) => t && (t.canonicalSlug || t.id) && t.label);
+            state.lastAddedTrait = state.stack[state.stack.length - 1] || null;
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
   function recomputeAndRender(meta = {}) {
+    saveStackToSession();
     const evalRes = Probability.evaluateStack(state.stack);
     state.evalResult = evalRes;
 
@@ -705,6 +731,7 @@
     initCategoryTabs();
     await resolver.loadSeedFiles('data/');
     initParametricBuilder();
+    restoreStackFromSession();
 
     // 5. Wire Hybrid Omnibox
     omnibox = new OmniboxController({

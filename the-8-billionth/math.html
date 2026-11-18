@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EV4HJ1LH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-41EV4HJ1LH', { 'game_name': 'the_83_billionth_math' });
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>How the Math Works — The 8.3 Billionth</title>
+  <meta name="description" content="Plain-English intuition and deep statistical, Bayesian, and information-theoretic math behind The 8.3 Billionth." />
+  <link rel="icon" type="image/png" href="../p_green_white_bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
+</head>
+<body class="math-page-body">
+  <!-- Top Bar -->
+  <header class="top-header math-top-header">
+    <div class="brand-block">
+      <span class="brand-kicker">METHODOLOGY &amp; STATISTICAL NOTES</span>
+      <div class="brand-title-row">
+        <a href="index.html" class="brand-home-link">
+          <h1 class="brand-title">The 8.3 Billionth</h1>
+        </a>
+        <span class="brand-subtitle">how the math works</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a href="index.html" class="hdr-btn hdr-btn-primary-link">← Back to Experience</a>
+    </div>
+  </header>
+
+  <main class="math-article-wrap">
+    <!-- ======================================================================
+         PART 1: PLAIN-ENGLISH TL;DR FOR EVERYONE (1–2 SENTENCES)
+         ====================================================================== -->
+    <section class="math-tldr-card" aria-label="Plain-English Summary">
+      <div class="math-eyebrow">IN PLAIN ENGLISH</div>
+      <p class="math-tldr-lead">
+        Every true fact you add acts like a sieve—filtering out everyone on Earth who doesn’t match until you’re the last person standing. And whenever two of your traits naturally overlap (like loving spicy food <em>and</em> making your own hot sauce), we soften the second cut so you don’t get double credit for the same quirk.
+      </p>
+
+      <div class="math-visual-strip" aria-hidden="true">
+        <div class="mv-step">
+          <span class="mv-num">8,300,000,000</span>
+          <span class="mv-lbl">Everyone alive</span>
+        </div>
+        <span class="mv-arrow">→</span>
+        <div class="mv-step">
+          <span class="mv-num">996,000,000</span>
+          <span class="mv-lbl">+ Plays volleyball (12%)</span>
+        </div>
+        <span class="mv-arrow">→</span>
+        <div class="mv-step">
+          <span class="mv-num">105,576,000</span>
+          <span class="mv-lbl">+ Left-handed (10.6%)</span>
+        </div>
+        <span class="mv-arrow">→</span>
+        <div class="mv-step mv-step-final">
+          <span class="mv-num">1</span>
+          <span class="mv-lbl">One-of-one (You)</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="math-divider-banner">
+      <span>DEEP DIVE FOR THE STATISTICAL &amp; INFORMATION-THEORY NERDS ↓</span>
+    </div>
+
+    <!-- ======================================================================
+         PART 2: DEEP MATHEMATICAL & STATISTICAL SPECIFICATION
+         ====================================================================== -->
+
+    <!-- 1. Shannon Self-Information -->
+    <article class="math-section">
+      <div class="math-sec-num">01 // INFORMATION THEORY</div>
+      <h2>Why We Measure Progress in Shannon Bits</h2>
+      <p>
+        A linear progress bar fails immediately at planetary scale. Selecting a single common trait like <em>“I play volleyball”</em> (<span class="m-inline">p = 0.12</span>) eliminates <strong>88% of humanity on click one</strong>—leaving the remaining <span class="m-inline">996,000,000</span> people squished into the final 12% of a linear bar for the rest of the session.
+      </p>
+      <p>
+        Instead, the Uniqueness Meter operates in <strong>Claude Shannon’s self-information (surprisal) space</strong>. Isolating a single individual from <span class="m-inline">N<sub>0</sub> = 8.3 × 10<sup>9</sup></span> equiprobable humans requires accumulating:
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          H<sub>max</sub> = log<sub>2</sub>(8.3 × 10<sup>9</sup>) ≈ <strong>32.95017 bits</strong>
+        </div>
+        <div class="math-eq-caption">
+          Every 50/50 coin-flip trait contributes 1.00 bit; every 10× order-of-magnitude reduction contributes log<sub>2</sub>(10) ≈ 3.322 bits.
+        </div>
+      </div>
+
+      <p>
+        After stacking <span class="m-inline">k</span> active traits with effective conditional survival rates <span class="m-inline">p<sub>eff</sub>(1), …, p<sub>eff</sub>(k)</span>, the unrounded expected headcount <span class="m-inline">E<sub>k</sub></span> and cumulative surprisal <span class="m-inline">I<sub>k</sub></span> satisfy:
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          E<sub>k</sub> = N<sub>0</sub> · <span class="m-op">∏</span><sub>i=1..k</sub> p<sub>eff</sub>(i),
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          I<sub>k</sub> = <span class="m-op">∑</span><sub>i=1..k</sub> −log<sub>2</sub> p<sub>eff</sub>(i) = log<sub>2</sub>(N<sub>0</sub> / E<sub>k</sub>)
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. The Naive Independence Trap -->
+    <article class="math-section">
+      <div class="math-sec-num">02 // JOINT PROBABILITY &amp; CORRELATION</div>
+      <h2>Defeating Naive Independence: P(A ∩ B) ≠ P(A) · P(B)</h2>
+      <p>
+        If human traits were statistically independent Bernoulli variables, narrowing humanity would just multiply unconditional global prevalences <span class="m-inline">p<sub>base</sub>(i)</span>. In reality, human behaviors cluster around shared latent factors—geography, climate, fitness, income, sensory genetics, and subculture. By the chain rule of probability:
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          P(T<sub>1</sub> ∩ T<sub>2</sub> ∩ … ∩ T<sub>k</sub>) = P(T<sub>1</sub>) · P(T<sub>2</sub> | T<sub>1</sub>) · … · P(T<sub>k</sub> | T<sub>1</sub>, …, T<sub>k−1</sub>)
+        </div>
+      </div>
+
+      <p>
+        Whenever two traits have positive covariance—say, <em>“I live above 5,000 ft”</em> (<span class="m-inline">1.1%</span>) and <em>“I backcountry ski”</em> (<span class="m-inline">0.045%</span>)—the conditional probability <span class="m-inline">P(T<sub>2</sub> | T<sub>1</sub>)</span> is substantially larger than the unconditional marginal <span class="m-inline">P(T<sub>2</sub>)</span>. Treating them as independent would hallucinate uniqueness orders of magnitude too quickly.
+      </p>
+      <p>
+        Because we cannot store a dense <span class="m-inline">6,000 × 6,000</span> empirical covariance matrix—especially when users can type <em>arbitrary</em> free-text traits—our engine approximates the conditional chain through three hierarchical rules:
+      </p>
+
+      <div class="math-rules-grid">
+        <div class="math-rule-card">
+          <span class="mr-tag">RULE A · P(A | B) = 1</span>
+          <h3>Strict Subset Subsumption</h3>
+          <p>
+            Directed parent–child links (<span class="m-inline">B ⊂ A</span>) catch 100% inclusion. Selecting <em>Vegan</em> (<span class="m-inline">1.5%</span>) alongside <em>Vegetarian</em> (<span class="m-inline">11%</span>), or <em>Marathon finisher</em> (<span class="m-inline">0.17%</span>) alongside <em>Regular runner</em> (<span class="m-inline">7.5%</span>), sets the broader parent to <span class="m-inline">p<sub>eff</sub> = 1.0</span> (<span class="m-inline">0 bits</span>) so only the narrower subset cuts the crowd.
+          </p>
+        </div>
+
+        <div class="math-rule-card">
+          <span class="mr-tag">RULE B · P(A ∩ B) = 0</span>
+          <h3>Mutually Exclusive Partitions</h3>
+          <p>
+            Single-valued biological and demographic partitions (ABO/Rh blood type, country of residence, stature bracket, eye color, birth month, birth decade) enforce partition replacement rather than multiplying incompatible events.
+          </p>
+        </div>
+
+        <div class="math-rule-card math-rule-wide">
+          <span class="mr-tag">RULE C · PARTIAL OVERLAP (γ = 0.65)</span>
+          <h3>Power-Law Cluster Dampening Across a Closed 36-Tag Latent Space</h3>
+          <p>
+            Every trait—curated, parametric, and Gemini-estimated—projects onto 1 to 3 tags in a <strong>closed 36-tag latent taxonomy</strong> <span class="m-inline">𝒞</span> (e.g., <code>spicy_palate</code>, <code>culinary_diy</code>, <code>endurance_sport</code>, <code>coding_tech</code>, <code>polyglot</code>). If active trait <span class="m-inline">i</span> shares at least one latent tag with <span class="m-inline">m<sub>i</sub></span> prior active traits in your stack, its base prevalence is dampened via a diminishing-specificity exponent <span class="m-inline">γ = 0.65</span>:
+          </p>
+          <div class="math-eq-box math-eq-compact">
+            <div class="math-eq">
+              p<sub>eff</sub>(i) = (p<sub>base</sub>(i))<sup>γ<sup>m<sub>i</sub></sup></sup>,
+              &nbsp;&nbsp;&nbsp;&nbsp;where γ = 0.65
+            </div>
+          </div>
+          <p class="mr-footnote">
+            <strong>Why a power law in probability?</strong> Take <span class="m-inline">−log<sub>2</sub></span> of both sides and a neat identity pops out:
+            <span class="m-inline">I<sub>eff</sub>(i) = γ<sup>m<sub>i</sub></sup> · I<sub>base</sub>(i)</span>.
+            Power-law probability dampening is <em>mathematically identical to geometric exponential decay in marginal Shannon information</em>: the 1st trait in a cluster yields <strong>100%</strong> of its bits, the 2nd yields <strong>65%</strong>, the 3rd yields <strong>42.25%</strong>, and the 4th yields <strong>27.46%</strong>.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Interactive Sandbox for Nerds -->
+    <article class="math-section math-sandbox-card">
+      <div class="math-sec-num">03 // INTERACTIVE SANDBOX</div>
+      <h2>Try the Correlation Dampening Curve Live</h2>
+      <p>
+        Slide a trait’s unconditional global prevalence <span class="m-inline">p<sub>base</sub></span> and the number of overlapping prior traits <span class="m-inline">m</span> to see how <span class="m-inline">p<sub>eff</sub> = p<sub>base</sub><sup>0.65<sup>m</sup></sup></span> adjusts conditional probability and Shannon bits:
+      </p>
+
+      <div class="sandbox-controls">
+        <div class="sb-control">
+          <div class="sb-label-row">
+            <label for="sb-prev-slider">Unconditional Prevalence (p<sub>base</sub>)</label>
+            <span id="sb-prev-val" class="sb-readout">0.15% (~12.5M humans)</span>
+          </div>
+          <input id="sb-prev-slider" type="range" min="-4" max="-0.3" step="0.02" value="-2.8239" />
+        </div>
+
+        <div class="sb-control">
+          <div class="sb-label-row">
+            <label for="sb-overlap-slider">Prior Overlapping Cluster Traits (m)</label>
+            <span id="sb-overlap-val" class="sb-readout">m = 1 overlap</span>
+          </div>
+          <input id="sb-overlap-slider" type="range" min="0" max="4" step="1" value="1" />
+        </div>
+      </div>
+
+      <div class="sandbox-results">
+        <div class="sb-stat">
+          <span class="sb-stat-lbl">DAMPENING EXPONENT (γ<sup>m</sup>)</span>
+          <span id="sb-exp-out" class="sb-stat-num">0.650</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-lbl">EFFECTIVE CONDITIONAL RATE (p<sub>eff</sub>)</span>
+          <span id="sb-peff-out" class="sb-stat-num sb-teal">1.45%</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-lbl">IMPLIED CONDITIONAL LIFT (p<sub>eff</sub> / p<sub>base</sub>)</span>
+          <span id="sb-lift-out" class="sb-stat-num">9.7× more likely</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-lbl">SHANNON BITS AWARDED</span>
+          <span id="sb-bits-out" class="sb-stat-num sb-gold">6.11 / 9.38 bits</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. Stopping Threshold & Poisson Clones -->
+    <article class="math-section">
+      <div class="math-sec-num">04 // DISCRETE STOPPING THRESHOLD &amp; POISSON CLONES</div>
+      <h2>The E<sub>k</sub> ≤ 1.49 Threshold (and Does “1” Guarantee Zero Clones?)</h2>
+      <p>
+        Standard integer rounding maps <span class="m-inline">1.49</span> down to <span class="m-inline">1</span>, while naive truncation or loose rounding would let someone at <span class="m-inline">E<sub>k</sub> = 1.9</span> claim victory early. Our engine enforces a strict piecewise boundary:
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          N<sub>display</sub> = 1 &nbsp;if E<sub>k</sub> ≤ 1.49,&nbsp;&nbsp;&nbsp; else max(2, round(E<sub>k</sub>))
+        </div>
+      </div>
+
+      <p>
+        <strong>A subtle distinction for probability purists:</strong> Because <em>you</em> exist and conditioned the query on your own traits, you contribute a deterministic <span class="m-inline">1</span> to the global count. Among the remaining <span class="m-inline">N<sub>0</sub> − 1</span> strangers on Earth, the number of statistical clones <span class="m-inline">K<sub>others</sub></span> follows a rare-event Binomial distribution well-approximated by <span class="m-inline">Poisson(λ = E<sub>k</sub>)</span>:
+      </p>
+
+      <ul class="math-bullet-list">
+        <li>
+          At <strong>E<sub>k</sub> = 1.00</strong> (<span class="m-inline">32.95 bits</span>): the expected number of strangers matching your list is <span class="m-inline">λ = 1</span>, giving <span class="m-inline">P(K<sub>others</sub> = 0) = e<sup>−1</sup> ≈ 36.8%</span> chance of zero clones on Earth (and a <span class="m-inline">73.6%</span> chance of at most one clone).
+        </li>
+        <li>
+          At <strong>E<sub>k</sub> = 0.10</strong> (<span class="m-inline">36.27 bits</span>): <span class="m-inline">P(K<sub>others</sub> = 0) = e<sup>−0.1</sup> ≈ 90.5%</span> confidence that not a single other human alive shares your stack.
+        </li>
+        <li>
+          At <strong>E<sub>k</sub> ≤ 0.01</strong> (<span class="m-inline">≥ 39.6 bits</span>, our <em>“Timeline Eraser”</em> badge): <span class="m-inline">P(K<sub>others</sub> = 0) ≥ 99.0%</span>.
+        </li>
+      </ul>
+    </article>
+
+    <!-- 5. Global Fermi Estimation & Anti-Cheat -->
+    <article class="math-section">
+      <div class="math-sec-num">05 // BAYESIAN FERMI PRIORS &amp; GUARDRAILS</div>
+      <h2>How Custom Free-Text Traits Are Estimated Without Western Bias</h2>
+      <p>
+        When you type an unscripted trait into the omnibox (e.g., <em>“I grow tropical pitcher plants indoors”</em>), a structured-output LLM resolver performs a <strong>two-stage Fermi decomposition</strong> anchored to global UN demographic baselines—explicitly accounting for age distribution (infants through elderly) and global regional shares (Asia ~60%, Africa ~18%, Americas ~13%, Europe ~9%):
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          N̂<sub>trait</sub> = N<sub>base pool</sub> × P(quirk | base pool),
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          p<sub>base</sub> = clamp(N̂<sub>trait</sub> / 8.3×10<sup>9</sup>, 10<sup>−7</sup>, 0.95)
+        </div>
+      </div>
+
+      <ul class="math-bullet-list">
+        <li>
+          <strong>Hard Prevalence Floor (<span class="m-inline">10<sup>−7</sup> ≈ 830 humans</span>):</strong> Custom traits are server-clamped at <span class="m-inline">p<sub>base</sub> ≥ 10<sup>−7</sup></span> unless flagged as an established extreme medical or historical cohort (e.g., lightning-strike survivor at <span class="m-inline">~3 × 10<sup>−6</sup></span>) behind an explicit confirmation step.
+        </li>
+        <li>
+          <strong>Anti-Smuggling Compound Splits:</strong> Multi-clause inputs (<em>“I’m a left-handed indie game dev who scuba dives”</em>) are intercepted and split into atomic statements so each clause undergoes independent validation and <span class="m-inline">γ = 0.65</span> tag-overlap checks.
+        </li>
+        <li>
+          <strong>Closed-Schema Tagging &amp; Cache Flywheel:</strong> Custom estimates must emit 1–3 tags from the exact same 36-tag enum used by client-side curated traits, then persist by normalized SHA-256 hash so identical traits resolve globally with deterministic consistency.
+        </li>
+      </ul>
+    </article>
+
+    <!-- 6. Multi-Scale Vogel Phyllotaxis -->
+    <article class="math-section">
+      <div class="math-sec-num">06 // VISUALIZATION GEOMETRY</div>
+      <h2>Rendering 8.3 Billion People on a 2D Canvas</h2>
+      <p>
+        Drawing <span class="m-inline">8.3 × 10<sup>9</sup></span> pixels is impossible on a screen with ~2 million pixels. The visualization uses a <strong>5-tier Powers-of-Ten camera</strong> (<span class="m-inline">10<sup>6</sup> → 10<sup>3</sup> → 1 → silhouettes → spotlight</span>) keeping active particle counts between <span class="m-inline">1</span> and <span class="m-inline">9,999</span>.
+      </p>
+      <p>
+        To pack thousands of dots into a circular field with uniform area density and zero grid Moiré artifacts, surviving particles <span class="m-inline">n ∈ [0, N − 1]</span> are arranged along <strong>Vogel’s golden-angle phyllotaxis spiral</strong> (the same packing geometry found in sunflower seed heads):
+      </p>
+
+      <div class="math-eq-box">
+        <div class="math-eq">
+          θ<sub>n</sub> = n · π(3 − √5) ≈ n · 137.508°,
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          r<sub>n</sub> = R<sub>env</sub> · √((n + 0.5) / N)
+        </div>
+      </div>
+    </article>
+
+    <div class="math-bottom-cta">
+      <a href="index.html" class="btn-share-primary math-back-cta">
+        ← Test Your Own Stack on The 8.3 Billionth
+      </a>
+    </div>
+  </main>
+
+  <!-- Tiny Interactive Dampening Sandbox Script -->
+  <script>
+    (function () {
+      var prevSlider = document.getElementById('sb-prev-slider');
+      var overSlider = document.getElementById('sb-overlap-slider');
+      var prevVal = document.getElementById('sb-prev-val');
+      var overVal = document.getElementById('sb-overlap-val');
+      var expOut = document.getElementById('sb-exp-out');
+      var peffOut = document.getElementById('sb-peff-out');
+      var liftOut = document.getElementById('sb-lift-out');
+      var bitsOut = document.getElementById('sb-bits-out');
+      var GAMMA = 0.65;
+      var WORLD = 8300000000;
+
+      function fmtPct(p) {
+        var pct = p * 100;
+        if (pct >= 10) return pct.toFixed(1) + '%';
+        if (pct >= 1) return pct.toFixed(2) + '%';
+        if (pct >= 0.1) return pct.toFixed(2) + '%';
+        return pct.toFixed(3) + '%';
+      }
+
+      function fmtHumans(n) {
+        if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+        if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+        if (n >= 1e3) return Math.round(n / 1e3).toLocaleString('en-US') + 'K';
+        return Math.round(n).toLocaleString('en-US');
+      }
+
+      function update() {
+        var logP = parseFloat(prevSlider.value);
+        var pBase = Math.pow(10, logP);
+        var m = parseInt(overSlider.value, 10);
+        var exp = Math.pow(GAMMA, m);
+        var pEff = Math.pow(pBase, exp);
+        var lift = pEff / pBase;
+        var bitsBase = -Math.log2(pBase);
+        var bitsEff = -Math.log2(pEff);
+
+        prevVal.textContent = fmtPct(pBase) + ' (~' + fmtHumans(pBase * WORLD) + ' humans)';
+        overVal.textContent =
+          m === 0 ? 'm = 0 (independent)' : 'm = ' + m + (m === 1 ? ' overlap' : ' overlaps');
+        expOut.textContent = exp.toFixed(3);
+        peffOut.textContent = fmtPct(pEff);
+        liftOut.textContent =
+          m === 0
+            ? '1.0× (unchanged)'
+            : (lift >= 100 ? Math.round(lift) : lift.toFixed(1)) + '× more likely';
+        bitsOut.textContent = bitsEff.toFixed(2) + ' / ' + bitsBase.toFixed(2) + ' bits';
+      }
+
+      if (prevSlider && overSlider) {
+        prevSlider.addEventListener('input', update);
+        overSlider.addEventListener('input', update);
+        update();
+      }
+    })();
+  </script>
+</body>
+</html>
