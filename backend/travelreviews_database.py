@@ -10,42 +10,6 @@ db = client["travelreviews_db"]
 telemetry_pool = db["PunFiction_TravelReviews"]
 user_profiles_pool = db["UserProfiles"]
 
-BOXOFFICE_DB_NAME = "movie_puzzle_db"
-BOXOFFICE_COLLECTIONS = [
-    "boss_puzzle_sets",
-    "raw_combinator_pool",
-    "PunFiction",
-    "UserProfiles"
-]
-
-def drop_boxoffice_database():
-    """
-    Removes the legacy Box Office Blunders MongoDB database ('movie_puzzle_db')
-    and its collections ('boss_puzzle_sets', 'raw_combinator_pool', 'PunFiction', 'UserProfiles')
-    while leaving 'travelreviews_db' completely untouched.
-    """
-    try:
-        bo_db = client[BOXOFFICE_DB_NAME]
-        for col_name in BOXOFFICE_COLLECTIONS:
-            try:
-                bo_db[col_name].delete_many({})
-            except Exception as del_e:
-                print(f"[DB Cleanup] Notice clearing {BOXOFFICE_DB_NAME}.{col_name}: {del_e}")
-            try:
-                bo_db.drop_collection(col_name)
-                print(f"[DB Cleanup] Dropped collection {BOXOFFICE_DB_NAME}.{col_name}")
-            except Exception as drop_col_e:
-                print(f"[DB Cleanup] Notice dropping collection {BOXOFFICE_DB_NAME}.{col_name}: {drop_col_e}")
-        try:
-            client.drop_database(BOXOFFICE_DB_NAME)
-            print(f"[DB Cleanup] Dropped database '{BOXOFFICE_DB_NAME}'")
-        except Exception as drop_db_e:
-            print(f"[DB Cleanup] Notice dropping database '{BOXOFFICE_DB_NAME}': {drop_db_e}")
-        return True
-    except Exception as e:
-        print(f"[DB Cleanup] Could not connect to drop '{BOXOFFICE_DB_NAME}': {e}")
-        return False
-
 def record_telemetry_event(puzzle_number, event_type, hints_used=0, attempts=1):
     """Records a telemetry event in the MongoDB collection using atomic increments."""
     update_query = {}

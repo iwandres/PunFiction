@@ -13,8 +13,7 @@ mock_client = MagicMock()
 mock_pymongo.MongoClient.return_value = mock_client
 sys.modules['pymongo'] = mock_pymongo
 
-# Import the database modules
-import backend.database as db_compat
+# Import the database module
 import backend.travelreviews_database as db_travelreviews
 
 class TestDatabaseHelpers(unittest.TestCase):
@@ -24,13 +23,6 @@ class TestDatabaseHelpers(unittest.TestCase):
         db_travelreviews.telemetry_pool = MagicMock()
         db_travelreviews.user_profiles_pool = MagicMock()
         db_travelreviews.client = MagicMock()
-
-    def test_database_reexports_travelreviews(self):
-        # Verify database.py re-exports travelreviews_database helpers
-        self.assertIs(db_compat.record_telemetry_event, db_travelreviews.record_telemetry_event)
-        self.assertIs(db_compat.get_telemetry_stats, db_travelreviews.get_telemetry_stats)
-        self.assertIs(db_compat.get_user_profile, db_travelreviews.get_user_profile)
-        self.assertIs(db_compat.upsert_user_profile, db_travelreviews.upsert_user_profile)
 
     def test_record_telemetry_event_start(self):
         db_travelreviews.record_telemetry_event("015", "start")
@@ -93,22 +85,6 @@ class TestDatabaseHelpers(unittest.TestCase):
         self.assertEqual(call_args[0], {"_id": "USER123"})
         self.assertEqual(call_args[1]["$set"]["solved_puzzles"], ["015"])
         self.assertEqual(call_args[1]["$set"]["max_streak"], 3)
-
-    def test_drop_boxoffice_database(self):
-        mock_legacy_db = MagicMock()
-        mock_legacy_db.list_collection_names.return_value = [
-            "boss_puzzle_sets",
-            "raw_combinator_pool",
-            "PunFiction",
-            "UserProfiles"
-        ]
-        db_travelreviews.client.__getitem__.return_value = mock_legacy_db
-
-        result = db_travelreviews.drop_boxoffice_database()
-        self.assertTrue(result)
-        db_travelreviews.client.__getitem__.assert_called_with("movie_puzzle_db")
-        self.assertEqual(mock_legacy_db.drop_collection.call_count, 4)
-        db_travelreviews.client.drop_database.assert_called_once_with("movie_puzzle_db")
 
 if __name__ == '__main__':
     unittest.main()
