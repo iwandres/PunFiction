@@ -1,5 +1,5 @@
 /**
- * The 8.3 Billionth — One-of-One Specimen Dossier Modal, Text Receipt & 1080x1350 PNG Card Generator
+ * The 8.3 Billionth — "You're One-of-One" Celebration Modal, Friend Sharing & 1080x1350 Card Generator
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -11,6 +11,7 @@
   'use strict';
 
   const SHARE_URL = 'https://punfiction.io/the-8-billionth/';
+  const WORLD_POP = 8300000000;
 
   function roundRectPath(ctx, x, y, w, h, r) {
     const radius = Math.min(r, w / 2, h / 2);
@@ -39,6 +40,18 @@
     return str.slice(0, lo) + '…';
   }
 
+  function formatOneInX(prevalence) {
+    const p = Math.max(1e-9, Number(prevalence) || 0.1);
+    const oneIn = Math.max(2, Math.round(1 / p));
+    if (oneIn >= 1000000) {
+      return '1 in ' + (oneIn / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (oneIn >= 10000) {
+      return '1 in ' + Math.round(oneIn / 1000).toLocaleString('en-US') + 'K';
+    }
+    return '1 in ' + oneIn.toLocaleString('en-US');
+  }
+
   class ReceiptModal {
     constructor(options) {
       this.modalEl = options.modalEl;
@@ -64,9 +77,23 @@
         }
       });
 
+      const shareBtn = this.modalEl.querySelector('#btn-share-friends');
+      if (shareBtn) {
+        shareBtn.addEventListener('click', () => this.shareWithFriends(shareBtn));
+      }
+
+      const copyInviteBtn = this.modalEl.querySelector('#btn-copy-invite');
+      if (copyInviteBtn) {
+        copyInviteBtn.addEventListener('click', () =>
+          this._copyToClipboard(this.buildFriendShareMessage(this.currentEval), copyInviteBtn, '✓ Copied!')
+        );
+      }
+
       const copyBtn = this.modalEl.querySelector('#btn-copy-receipt');
       if (copyBtn) {
-        copyBtn.addEventListener('click', () => this.copyTextReceipt(copyBtn));
+        copyBtn.addEventListener('click', () =>
+          this._copyToClipboard(this.buildTextReceipt(this.currentEval), copyBtn, '✓ Copied!')
+        );
       }
 
       const pngBtn = this.modalEl.querySelector('#btn-download-png');
@@ -86,6 +113,8 @@
     open(evalResult) {
       if (!this.modalEl || !evalResult) return;
       this.currentEval = evalResult;
+      const shareTray = this.modalEl.querySelector('#dossier-share-tray');
+      if (shareTray) shareTray.classList.add('hidden');
       this._populateDOM(evalResult);
       this.modalEl.classList.remove('hidden');
       this.modalEl.setAttribute('aria-hidden', 'false');
@@ -97,134 +126,243 @@
       this.modalEl.setAttribute('aria-hidden', 'true');
     }
 
-    _populateDOM(evalResult) {
-      const archetypeEl = this.modalEl.querySelector('#dossier-archetype');
-      const bitsEl = this.modalEl.querySelector('#dossier-bits');
-      const traitCountEl = this.modalEl.querySelector('#dossier-trait-count');
-      const mvpEl = this.modalEl.querySelector('#dossier-mvp');
-      const badgesWrap = this.modalEl.querySelector('#dossier-badges');
-      const funnelWrap = this.modalEl.querySelector('#dossier-funnel-list');
-
-      if (archetypeEl) archetypeEl.textContent = evalResult.archetype;
-      if (bitsEl) bitsEl.textContent = evalResult.bitsRaw.toFixed(2) + ' bits';
-      if (traitCountEl) {
-        traitCountEl.textContent =
-          evalResult.activeCount + ' trait' + (evalResult.activeCount === 1 ? '' : 's');
+    _buildHumanSummary(evalResult) {
+      const active = evalResult.items.filter((it) => !it.superseded);
+      const count = active.length;
+      if (count === 0) {
+        return 'Out of 8.3 billion people on Earth, nobody else shares this exact combination of what makes you, you.';
       }
 
-      if (mvpEl) {
-        if (evalResult.mvpItem) {
-          const m = evalResult.mvpItem;
-          mvpEl.textContent =
-            (m.trait.emoji || '⭐') +
-            ' ' +
-            (m.trait.shortBadge || m.trait.label) +
-            ' (+' +
-            m.bitsAdded.toFixed(1) +
-            ' bits)';
-        } else {
-          mvpEl.textContent = '—';
-        }
+      const rarest = active.slice().sort((a, b) => a.pBase - b.pBase)[0];
+      const rareBadge = (rarest.trait.shortBadge || rarest.trait.label).toLowerCase();
+      const oneIn = formatOneInX(rarest.pBase);
+
+      if (count === 1) {
+        return (
+          'Out of 8.3 billion living humans, this extraordinary single factor (' +
+          oneIn +
+          ' people) already puts you in truly rare company.'
+        );
+      }
+
+      return (
+        'Out of 8,300,000,000 people on Earth, nobody else blends these ' +
+        count +
+        ' unique truths—anchored by ' +
+        rareBadge +
+        ' (' +
+        oneIn +
+        ' humans).'
+      );
+    }
+
+    _populateDOM(evalResult) {
+      const summaryEl = this.modalEl.querySelector('#dossier-summary');
+      const archetypeEl = this.modalEl.querySelector('#dossier-archetype');
+      const traitCountEl = this.modalEl.querySelector('#dossier-trait-count');
+      const badgesWrap = this.modalEl.querySelector('#dossier-badges');
+      const factorsWrap = this.modalEl.querySelector('#dossier-factors-list');
+
+      if (summaryEl) summaryEl.textContent = this._buildHumanSummary(evalResult);
+      if (archetypeEl) archetypeEl.textContent = evalResult.archetype;
+      if (traitCountEl) {
+        traitCountEl.textContent =
+          evalResult.activeCount + ' unique factor' + (evalResult.activeCount === 1 ? '' : 's');
       }
 
       if (badgesWrap && this.Taxonomy) {
-        const badges = this.Taxonomy.evaluateSoloBadges(evalResult);
+        // Surface celebratory human badges (skip clinical golf labels)
+        const badges = this.Taxonomy.evaluateSoloBadges(evalResult).filter(
+          (b) => b.id !== 'golf_tier'
+        );
         badgesWrap.innerHTML = '';
-        badges.forEach((b) => {
-          const pill = document.createElement('div');
-          pill.className = 'dossier-badge';
-          pill.title = b.detail;
-          pill.innerHTML =
-            '<span class="dossier-badge-icon">' +
-            b.icon +
-            '</span><span class="dossier-badge-text">' +
-            b.label +
-            '</span>';
-          badgesWrap.appendChild(pill);
-        });
+        if (badges.length === 0) {
+          const defaultPill = document.createElement('div');
+          defaultPill.className = 'dossier-badge';
+          defaultPill.innerHTML = '<span>✨</span><span>Verified 1-of-1 Combination</span>';
+          badgesWrap.appendChild(defaultPill);
+        } else {
+          badges.forEach((b) => {
+            const pill = document.createElement('div');
+            pill.className = 'dossier-badge';
+            pill.title = b.detail;
+            pill.innerHTML =
+              '<span class="dossier-badge-icon">' +
+              b.icon +
+              '</span><span class="dossier-badge-text">' +
+              b.label +
+              '</span>';
+            badgesWrap.appendChild(pill);
+          });
+        }
       }
 
-      if (funnelWrap) {
-        funnelWrap.innerHTML = '';
+      if (factorsWrap) {
+        factorsWrap.innerHTML = '';
         const activeItems = evalResult.items.filter((it) => !it.superseded);
-        activeItems.forEach((item, idx) => {
-          const isMvp = evalResult.mvpItem === item;
-          const row = document.createElement('div');
-          row.className = 'dossier-step-row' + (isMvp ? ' is-mvp' : '');
+        // Identify rarest individual factor by base prevalence
+        let rarestItem = null;
+        for (let i = 0; i < activeItems.length; i++) {
+          if (!rarestItem || activeItems[i].pBase < rarestItem.pBase) {
+            rarestItem = activeItems[i];
+          }
+        }
+
+        activeItems.forEach((item) => {
+          const isRarest = activeItems.length > 1 && item === rarestItem;
+          const card = document.createElement('div');
+          card.className = 'factor-card' + (isRarest ? ' is-rarest' : '');
 
           const left = document.createElement('div');
-          left.className = 'dossier-step-name';
-          left.textContent =
-            idx +
-            1 +
-            '. ' +
-            (item.trait.emoji || '🔹') +
-            ' ' +
-            (item.trait.shortBadge || item.trait.label) +
-            (isMvp ? ' ★ MVP' : '');
+          left.className = 'factor-left';
 
-          const right = document.createElement('div');
-          right.className = 'dossier-step-pop';
-          right.textContent =
-            this.Probability.formatCompactCount(item.populationBefore) +
-            ' ➔ ' +
-            this.Probability.formatCompactCount(item.populationAfter);
+          const emojiSpan = document.createElement('span');
+          emojiSpan.className = 'factor-emoji';
+          emojiSpan.textContent = item.trait.emoji || '✨';
 
-          row.appendChild(left);
-          row.appendChild(right);
-          funnelWrap.appendChild(row);
+          const copyWrap = document.createElement('div');
+          copyWrap.className = 'factor-copy';
+
+          const titleLine = document.createElement('div');
+          titleLine.className = 'factor-title-line';
+
+          const titleSpan = document.createElement('span');
+          titleSpan.className = 'factor-title';
+          titleSpan.textContent = item.trait.label;
+          titleLine.appendChild(titleSpan);
+
+          if (isRarest) {
+            const tag = document.createElement('span');
+            tag.className = 'factor-rarest-tag';
+            tag.textContent = '★ Rarest Factor';
+            titleLine.appendChild(tag);
+          }
+
+          const estHumans = Math.max(8, Math.round(item.pBase * WORLD_POP));
+          const subSpan = document.createElement('span');
+          subSpan.className = 'factor-sub';
+          subSpan.textContent =
+            'Shared by ~' +
+            this.Probability.formatCompactCount(estHumans) +
+            ' people globally (' +
+            formatOneInX(item.pBase) +
+            ')';
+
+          copyWrap.appendChild(titleLine);
+          copyWrap.appendChild(subSpan);
+
+          left.appendChild(emojiSpan);
+          left.appendChild(copyWrap);
+
+          const rightPill = document.createElement('span');
+          rightPill.className = 'factor-rarity-pill';
+          rightPill.textContent = this.Probability.formatPrevalencePercent(item.pBase);
+
+          card.appendChild(left);
+          card.appendChild(rightPill);
+          factorsWrap.appendChild(card);
         });
       }
+
+      this._populateShareLinks(evalResult);
+    }
+
+    buildFriendShareMessage(evalResult) {
+      if (!evalResult) return 'Find out what makes you 1-of-1 out of 8.3 billion people: ' + SHARE_URL;
+      const active = evalResult.items.filter((it) => !it.superseded);
+      const bulletLines = active
+        .slice(0, 6)
+        .map(
+          (it) =>
+            '• ' +
+            (it.trait.emoji || '✨') +
+            ' ' +
+            (it.trait.shortBadge || it.trait.label) +
+            ' (' +
+            this.Probability.formatPrevalencePercent(it.pBase) +
+            ')'
+        )
+        .join('\n');
+
+      return [
+        'I’m officially 1-of-1 out of 8.3 billion people on Earth! ✨',
+        'My signature: ' + evalResult.archetype,
+        bulletLines,
+        '',
+        'What makes YOU one-of-one? 👉 ' + SHARE_URL
+      ].join('\n');
     }
 
     buildTextReceipt(evalResult) {
-      const active = evalResult.items.filter((it) => !it.superseded);
-      const chain = active
-        .map(
-          (it) =>
-            (it.trait.emoji || '🔹') + ' ' + this.Probability.formatPrevalencePercent(it.pEff)
-        )
-        .join(' ➔ ');
-
-      const mvpLine = evalResult.mvpItem
-        ? 'MVP Cut: ' +
-          (evalResult.mvpItem.trait.shortBadge || evalResult.mvpItem.trait.label) +
-          ' (+' +
-          evalResult.mvpItem.bitsAdded.toFixed(1) +
-          ' bits)'
-        : '';
-
-      return [
-        'THE 8.3 BILLIONTH — 1 of 1 🌍✨',
-        '"what makes you one-of-one?"',
-        '8,300,000,000 ➔ 1 in ' +
-          evalResult.activeCount +
-          ' traits (' +
-          evalResult.bitsRaw.toFixed(1) +
-          ' bits)',
-        chain,
-        'Specimen: ' + evalResult.archetype,
-        mvpLine,
-        SHARE_URL
-      ]
-        .filter(Boolean)
-        .join('\n');
+      return this.buildFriendShareMessage(evalResult);
     }
 
-    async copyTextReceipt(btnEl) {
+    _populateShareLinks(evalResult) {
+      const msg = this.buildFriendShareMessage(evalResult);
+      const encodedMsg = encodeURIComponent(msg);
+      const shortTweet = encodeURIComponent(
+        'Out of 8.3 billion people on Earth, it only took ' +
+          evalResult.activeCount +
+          ' truths to find what makes me 1-of-1 (' +
+          evalResult.archetype +
+          ') ✨\n\nWhat makes YOU one-of-one?'
+      );
+      const encodedUrl = encodeURIComponent(SHARE_URL);
+
+      const smsEl = this.modalEl.querySelector('#share-link-sms');
+      const waEl = this.modalEl.querySelector('#share-link-whatsapp');
+      const emailEl = this.modalEl.querySelector('#share-link-email');
+      const xEl = this.modalEl.querySelector('#share-link-x');
+
+      if (smsEl) smsEl.href = 'sms:?&body=' + encodedMsg;
+      if (waEl) waEl.href = 'https://wa.me/?text=' + encodedMsg;
+      if (emailEl) {
+        emailEl.href =
+          'mailto:?subject=' +
+          encodeURIComponent('What makes you one-of-one? (The 8.3 Billionth)') +
+          '&body=' +
+          encodedMsg;
+      }
+      if (xEl) {
+        xEl.href = 'https://twitter.com/intent/tweet?text=' + shortTweet + '&url=' + encodedUrl;
+      }
+    }
+
+    async shareWithFriends(btnEl) {
       if (!this.currentEval) return;
-      const text = this.buildTextReceipt(this.currentEval);
+      const shareTray = this.modalEl.querySelector('#dossier-share-tray');
+      const message = this.buildFriendShareMessage(this.currentEval);
+
+      // Prefer native OS Share Sheet on mobile / macOS / Windows when available
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        try {
+          await navigator.share({
+            title: 'The 8.3 Billionth — What makes you one-of-one?',
+            text: message
+          });
+          return;
+        } catch (err) {
+          // If user simply dismissed the OS share sheet on mobile, no error needed;
+          // still reveal quick-share options below for convenience.
+          if (err && err.name === 'AbortError') {
+            if (shareTray) shareTray.classList.remove('hidden');
+            return;
+          }
+        }
+      }
+
+      // Desktop / fallback: toggle quick-share channel tray AND copy invite message cleanly
+      if (shareTray) {
+        shareTray.classList.toggle('hidden');
+      }
+      await this._copyToClipboard(message, btnEl, '✓ Invite Copied — Pick how to share!');
+    }
+
+    async _copyToClipboard(text, btnEl, confirmText) {
+      if (!text) return;
       try {
         await navigator.clipboard.writeText(text);
-        if (btnEl) {
-          const orig = btnEl.textContent;
-          btnEl.textContent = '✓ Copied Receipt!';
-          setTimeout(() => {
-            btnEl.textContent = orig;
-          }, 2200);
-        }
       } catch (_) {
-        // Fallback textarea copy
         const ta = document.createElement('textarea');
         ta.value = text;
         document.body.appendChild(ta);
@@ -232,10 +370,17 @@
         document.execCommand('copy');
         ta.remove();
       }
+      if (btnEl) {
+        const orig = btnEl.textContent;
+        btnEl.textContent = confirmText || '✓ Copied!';
+        setTimeout(() => {
+          btnEl.textContent = orig;
+        }, 2300);
+      }
     }
 
     /**
-     * Renders a crisp 1080x1350 archival census specimen card on an offscreen HTML5 2D Canvas.
+     * Renders a crisp 1080x1350 warm archival "You're One-of-One" personal card on HTML5 2D Canvas.
      */
     renderSpecimenCanvas(evalResult) {
       const W = 1080;
@@ -249,14 +394,13 @@
       ctx.fillStyle = '#EAE3D1';
       ctx.fillRect(0, 0, W, H);
 
-      // Subtle warm sunlight wash at top
       const glow = ctx.createRadialGradient(W * 0.5, 190, 20, W * 0.5, 220, 560);
       glow.addColorStop(0, 'rgba(217, 119, 6, 0.12)');
       glow.addColorStop(1, 'rgba(217, 119, 6, 0)');
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, W, 720);
 
-      // 2. Crisp Archival Specimen Card Inner Sheet
+      // 2. Crisp Inner Card Sheet
       const cardX = 56;
       const cardY = 56;
       const cardW = W - 112;
@@ -269,156 +413,139 @@
       ctx.strokeStyle = 'rgba(194, 120, 3, 0.36)';
       ctx.stroke();
 
-      // Top Specimen Header Band
+      // Top Kicker & Hero Title ("You're one-of-one.")
       ctx.fillStyle = '#C27803';
-      ctx.font = '700 22px "JetBrains Mono", monospace';
+      ctx.font = '700 21px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('GLOBAL HUMAN CENSUS  //  VERIFIED SPECIMEN DOSSIER', cardX + 52, cardY + 64);
+      ctx.fillText('THE 8.3 BILLIONTH  ·  1 IN 8,300,000,000', cardX + 52, cardY + 64);
 
       ctx.fillStyle = '#141921';
-      ctx.font = '800 66px "Fraunces", Georgia, serif';
-      ctx.fillText('The 8.3 Billionth', cardX + 52, cardY + 142);
+      ctx.font = '800 72px "Fraunces", Georgia, serif';
+      ctx.fillText('You’re one-of-one.', cardX + 52, cardY + 148);
 
       ctx.fillStyle = '#435063';
-      ctx.font = 'italic 500 30px "Fraunces", Georgia, serif';
-      ctx.fillText('what makes you one-of-one?', cardX + 52, cardY + 186);
+      ctx.font = 'italic 500 29px "Fraunces", Georgia, serif';
+      ctx.fillText(
+        'Nobody else on Earth shares this exact combination:',
+        cardX + 52,
+        cardY + 194
+      );
 
-      // Brass/Gold 1-OF-1 Circular Ink Stamp (Top Right)
-      const stampX = cardX + cardW - 135;
-      const stampY = cardY + 132;
+      // Gold 1-OF-1 Circular Ink Stamp (Top Right)
+      const stampX = cardX + cardW - 132;
+      const stampY = cardY + 128;
       ctx.save();
       ctx.translate(stampX, stampY);
       ctx.rotate(-0.11);
       ctx.strokeStyle = '#C27803';
       ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.arc(0, 0, 74, 0, Math.PI * 2);
+      ctx.arc(0, 0, 72, 0, Math.PI * 2);
       ctx.stroke();
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(0, 0, 64, 0, Math.PI * 2);
+      ctx.arc(0, 0, 62, 0, Math.PI * 2);
       ctx.stroke();
       ctx.fillStyle = '#C27803';
-      ctx.font = '800 30px "JetBrains Mono", monospace';
+      ctx.font = '800 29px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.fillText('1 OF 1', 0, 4);
-      ctx.font = '700 15px "JetBrains Mono", monospace';
-      ctx.fillText('VERIFIED', 0, 28);
+      ctx.font = '700 14px "JetBrains Mono", monospace';
+      ctx.fillText('ONE OF A KIND', 0, 27);
       ctx.restore();
 
       // Divider rule
-      ctx.strokeStyle = 'rgba(20, 25, 33, 0.14)';
+      ctx.strokeStyle = 'rgba(20, 25, 33, 0.12)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(cardX + 52, cardY + 224);
-      ctx.lineTo(cardX + cardW - 52, cardY + 224);
+      ctx.moveTo(cardX + 52, cardY + 230);
+      ctx.lineTo(cardX + cardW - 52, cardY + 230);
       ctx.stroke();
 
-      // 3. Archetype Classification Banner
-      roundRectPath(ctx, cardX + 52, cardY + 252, cardW - 104, 132, 18);
+      // 3. Personal Signature Banner
+      roundRectPath(ctx, cardX + 52, cardY + 256, cardW - 104, 126, 18);
       ctx.fillStyle = 'rgba(194, 120, 3, 0.09)';
       ctx.fill();
       ctx.strokeStyle = 'rgba(194, 120, 3, 0.32)';
       ctx.stroke();
 
       ctx.fillStyle = '#C27803';
-      ctx.font = '700 19px "JetBrains Mono", monospace';
+      ctx.font = '700 18px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('SPECIMEN CLASSIFICATION', cardX + 80, cardY + 292);
+      ctx.fillText('MY ONE-OF-ONE SIGNATURE', cardX + 78, cardY + 294);
 
       ctx.fillStyle = '#141921';
-      ctx.font = '700 42px "Fraunces", Georgia, serif';
+      ctx.font = '800 42px "Fraunces", Georgia, serif';
       ctx.fillText(
-        truncateCanvasText(ctx, evalResult.archetype, cardW - 160),
-        cardX + 80,
+        truncateCanvasText(ctx, evalResult.archetype, cardW - 156),
+        cardX + 78,
         cardY + 350
       );
 
-      // 4. Three Telemetry Stat Tiles
-      const statsY = cardY + 412;
-      const tileGap = 20;
-      const tileW = (cardW - 104 - tileGap * 2) / 3;
-      const stats = [
-        { label: 'STARTING CROWD', value: '8.30B' },
-        { label: 'UNIQUENESS ENTROPY', value: evalResult.bitsRaw.toFixed(2) + ' bits' },
-        {
-          label: 'TRAITS STACKED',
-          value: evalResult.activeCount + (evalResult.activeCount === 1 ? ' trait' : ' traits')
-        }
-      ];
-
-      stats.forEach((st, idx) => {
-        const tx = cardX + 52 + idx * (tileW + tileGap);
-        roundRectPath(ctx, tx, statsY, tileW, 104, 14);
-        ctx.fillStyle = '#F3EFE4';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(20, 25, 33, 0.1)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.fillStyle = '#6F7C8F';
-        ctx.font = '700 16px "JetBrains Mono", monospace';
-        ctx.fillText(st.label, tx + 22, statsY + 36);
-
-        ctx.fillStyle = idx === 1 ? '#0F766E' : '#141921';
-        ctx.font = '800 32px "JetBrains Mono", monospace';
-        ctx.fillText(st.value, tx + 22, statsY + 80);
-      });
-
-      // 5. Logarithmic Funnel Sparkline + Trait Stack Rows
+      // 4. Unique Factors List ("WHAT MAKES ME SPECIAL")
       ctx.fillStyle = '#6F7C8F';
       ctx.font = '700 19px "JetBrains Mono", monospace';
-      ctx.fillText('POPULATION NARROWING STACK', cardX + 52, cardY + 566);
+      ctx.fillText('WHAT MAKES ME SPECIAL', cardX + 52, cardY + 428);
 
       const activeItems = evalResult.items.filter((it) => !it.superseded);
-      const maxRows = 8;
+      let rarestItem = null;
+      for (let i = 0; i < activeItems.length; i++) {
+        if (!rarestItem || activeItems[i].pBase < rarestItem.pBase) {
+          rarestItem = activeItems[i];
+        }
+      }
+
+      const maxRows = 7;
       const visibleItems = activeItems.slice(0, maxRows);
-      const rowStartY = cardY + 590;
-      const rowH = Math.min(68, Math.floor(470 / Math.max(1, visibleItems.length)));
+      const rowStartY = cardY + 452;
+      const rowH = Math.min(86, Math.floor(600 / Math.max(1, visibleItems.length)) - 10);
 
       visibleItems.forEach((item, idx) => {
-        const ry = rowStartY + idx * (rowH + 8);
-        const isMvp = evalResult.mvpItem === item;
+        const ry = rowStartY + idx * (rowH + 10);
+        const isRarest = activeItems.length > 1 && item === rarestItem;
 
-        roundRectPath(ctx, cardX + 52, ry, cardW - 104, rowH, 12);
-        ctx.fillStyle = isMvp ? 'rgba(15, 118, 110, 0.10)' : '#F5F1E6';
+        roundRectPath(ctx, cardX + 52, ry, cardW - 104, rowH, 14);
+        ctx.fillStyle = isRarest ? 'rgba(15, 118, 110, 0.10)' : '#F5F1E6';
         ctx.fill();
-        ctx.strokeStyle = isMvp ? 'rgba(15, 118, 110, 0.42)' : 'rgba(20, 25, 33, 0.10)';
-        ctx.lineWidth = isMvp ? 1.5 : 1;
+        ctx.strokeStyle = isRarest ? 'rgba(15, 118, 110, 0.42)' : 'rgba(20, 25, 33, 0.10)';
+        ctx.lineWidth = isRarest ? 2 : 1;
         ctx.stroke();
 
-        // Logarithmic remaining progress bar inside bottom of row
-        const logRem =
-          item.populationAfter <= 1
-            ? 0.015
-            : Math.log10(item.populationAfter) / Math.log10(8300000000);
-        const barW = Math.max(10, (cardW - 128) * logRem);
-        ctx.fillStyle = '#0F766E';
-        ctx.globalAlpha = 0.22;
-        ctx.fillRect(cardX + 64, ry + rowH - 6, barW, 4);
-        ctx.globalAlpha = 1;
-
         ctx.fillStyle = '#141921';
-        ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+        ctx.font = '700 25px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'left';
-        const titleText =
-          idx +
-          1 +
-          '. ' +
-          (item.trait.emoji || '•') +
+        const factorText =
+          (item.trait.emoji || '✨') +
           '  ' +
-          (item.trait.shortBadge || item.trait.label) +
-          (isMvp ? '  ★ MVP' : '');
-        ctx.fillText(truncateCanvasText(ctx, titleText, cardW - 380), cardX + 72, ry + rowH * 0.62);
+          item.trait.label +
+          (isRarest ? '  ★' : '');
+        ctx.fillText(
+          truncateCanvasText(ctx, factorText, cardW - 320),
+          cardX + 74,
+          ry + (rowH >= 74 ? 38 : rowH * 0.62)
+        );
 
-        ctx.fillStyle = isMvp ? '#0F766E' : '#435063';
-        ctx.font = '700 22px "JetBrains Mono", monospace';
+        if (rowH >= 74) {
+          const estHumans = Math.max(8, Math.round(item.pBase * WORLD_POP));
+          ctx.fillStyle = '#6F7C8F';
+          ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText(
+            'Shared with ~' +
+              this.Probability.formatCompactCount(estHumans) +
+              ' people (' +
+              formatOneInX(item.pBase) +
+              ')',
+            cardX + 114,
+            ry + 66
+          );
+        }
+
+        // Right rarity badge
+        const pctStr = this.Probability.formatPrevalencePercent(item.pBase);
+        ctx.fillStyle = isRarest ? '#0F766E' : '#435063';
+        ctx.font = '800 23px "JetBrains Mono", monospace';
         ctx.textAlign = 'right';
-        const transitionText =
-          this.Probability.formatCompactCount(item.populationBefore) +
-          ' → ' +
-          this.Probability.formatCompactCount(item.populationAfter);
-        ctx.fillText(transitionText, cardX + cardW - 72, ry + rowH * 0.62);
+        ctx.fillText(pctStr, cardX + cardW - 76, ry + rowH * 0.58);
       });
 
       if (activeItems.length > maxRows) {
@@ -426,49 +553,33 @@
         ctx.font = '600 20px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
         ctx.fillText(
-          '+ ' + (activeItems.length - maxRows) + ' more narrowing traits → Population: 1',
-          cardX + 72,
-          rowStartY + maxRows * (rowH + 8) + 22
+          '+ ' + (activeItems.length - maxRows) + ' more unique truths',
+          cardX + 74,
+          rowStartY + maxRows * (rowH + 10) + 22
         );
       }
 
-      // 6. Badges & Footer Callout
-      if (this.Taxonomy) {
-        const badges = this.Taxonomy.evaluateSoloBadges(evalResult).slice(0, 3);
-        let bx = cardX + 52;
-        const by = cardY + cardH - 134;
-        ctx.font = '700 19px "Plus Jakarta Sans", sans-serif';
-        ctx.textAlign = 'left';
-
-        badges.forEach((b) => {
-          const txt = b.icon + ' ' + b.label;
-          const pw = ctx.measureText(txt).width + 34;
-          if (bx + pw < cardX + cardW - 48) {
-            roundRectPath(ctx, bx, by, pw, 44, 22);
-            ctx.fillStyle = 'rgba(194, 120, 3, 0.12)';
-            ctx.fill();
-            ctx.fillStyle = '#92400E';
-            ctx.fillText(txt, bx + 17, by + 29);
-            bx += pw + 14;
-          }
-        });
-      }
-
-      // Footer rule & URL
+      // 5. Inviting Friend Prompt & Footer URL
       ctx.strokeStyle = 'rgba(20, 25, 33, 0.14)';
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(cardX + 52, cardY + cardH - 68);
-      ctx.lineTo(cardX + cardW - 52, cardY + cardH - 68);
+      ctx.moveTo(cardX + 52, cardY + cardH - 96);
+      ctx.lineTo(cardX + cardW - 52, cardY + cardH - 96);
       ctx.stroke();
 
-      ctx.fillStyle = '#6F7C8F';
-      ctx.font = '700 21px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#141921';
+      ctx.font = 'italic 700 26px "Fraunces", Georgia, serif';
       ctx.textAlign = 'left';
-      ctx.fillText('punfiction.io/the-8-billionth', cardX + 52, cardY + cardH - 28);
+      ctx.fillText('What makes you one-of-one?', cardX + 52, cardY + cardH - 54);
+
+      ctx.fillStyle = '#0F766E';
+      ctx.font = '700 21px "JetBrains Mono", monospace';
+      ctx.fillText('punfiction.io/the-8-billionth', cardX + 52, cardY + cardH - 22);
 
       ctx.fillStyle = '#C27803';
+      ctx.font = '800 22px "JetBrains Mono", monospace';
       ctx.textAlign = 'right';
-      ctx.fillText('POPULATION REMAINING: 1', cardX + cardW - 52, cardY + cardH - 28);
+      ctx.fillText('8.3B → JUST ME', cardX + cardW - 52, cardY + cardH - 36);
 
       return c;
     }
@@ -476,7 +587,7 @@
     async downloadPngSpecimen(btnEl) {
       if (!this.currentEval) return;
       const origLabel = btnEl ? btnEl.textContent : '';
-      if (btnEl) btnEl.textContent = 'Rendering Card…';
+      if (btnEl) btnEl.textContent = 'Creating Card…';
 
       try {
         if (document.fonts && document.fonts.ready) {
@@ -493,7 +604,6 @@
 
         const fileName = 'the-8-billionth-1of1.png';
 
-        // Try native Web Share sheet on mobile if supported, otherwise trigger crisp file download
         if (
           typeof navigator !== 'undefined' &&
           navigator.canShare &&
@@ -505,15 +615,15 @@
             const file = new File([blob], fileName, { type: 'image/png' });
             if (navigator.canShare({ files: [file] })) {
               await navigator.share({
-                title: 'The 8.3 Billionth — 1 of 1',
-                text: 'I narrowed 8.3 billion humans down to 1!',
+                title: 'You’re one-of-one — The 8.3 Billionth',
+                text: 'Out of 8.3 billion people on Earth, here’s what makes me 1-of-1!',
                 files: [file]
               });
               if (btnEl) btnEl.textContent = origLabel;
               return;
             }
           } catch (_) {
-            // Fall through to standard anchor download if user cancels share sheet
+            // Fall through to standard download if user cancels share sheet
           }
         }
 
@@ -527,7 +637,7 @@
         setTimeout(() => URL.revokeObjectURL(url), 4000);
 
         if (btnEl) {
-          btnEl.textContent = '✓ Saved PNG!';
+          btnEl.textContent = '✓ Card Saved!';
           setTimeout(() => {
             btnEl.textContent = origLabel;
           }, 2200);

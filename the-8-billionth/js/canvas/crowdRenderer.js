@@ -499,7 +499,7 @@
         ctx.fillStyle = p.youGold;
         ctx.font = '700 11px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('SPECIMEN 1 OF 1', cx, cy + 40);
+        ctx.fillText('YOU · ONE OF ONE', cx, cy + 40);
 
         ctx.restore();
         return;

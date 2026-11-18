@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/styles.css?v=4" />
 </head>
 <body>
   <div class="app-shell">
@@ -88,7 +88,7 @@
           <div class="counter-eyebrow-row">
             <span id="counter-eyebrow" class="counter-eyebrow">REMAINING STATISTICAL MATCHES</span>
             <button id="btn-reopen-dossier" type="button" class="btn-dossier-Trigger hidden">
-              ✨ Open 1-of-1 Dossier
+              ✨ You’re 1-of-1 · View &amp; Share
             </button>
           </div>
 
@@ -201,68 +201,75 @@
     </footer>
   </div>
 
-  <!-- One-of-One Specimen Dossier Modal -->
+  <!-- One-of-One Celebration & Share Modal -->
   <div id="dossier-modal" class="dossier-backdrop hidden" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="dossier-card">
-      <button id="btn-close-dossier" type="button" class="dossier-close" aria-label="Close dossier">×</button>
+      <button id="btn-close-dossier" type="button" class="dossier-close" aria-label="Close">×</button>
 
-      <div class="dossier-kicker">SPECIMEN #8,300,000,000 · VERIFIED 1 OF 1</div>
-      <h2 class="dossier-headline">You cleared the room.</h2>
-      <p class="dossier-sub">Out of 8.3 billion living humans, your exact stack narrows down to an audience of one.</p>
+      <div class="dossier-kicker">1 IN 8,300,000,000 · UNMISTAKABLY YOU</div>
+      <h2 class="dossier-headline">You’re one-of-one.</h2>
+      <p id="dossier-summary" class="dossier-sub">
+        Out of 8.3 billion people on Earth, nobody else shares this exact combination of what makes you, you.
+      </p>
 
       <div class="dossier-archetype-box">
-        <span class="dossier-arch-label">OFFICIAL SPECIMEN CLASSIFICATION</span>
+        <span class="dossier-arch-label">YOUR ONE-OF-ONE SIGNATURE</span>
         <div id="dossier-archetype" class="dossier-arch-title">The Outlier</div>
+        <div id="dossier-badges" class="dossier-badges"></div>
       </div>
-
-      <div class="dossier-metrics">
-        <div class="dossier-metric">
-          <span class="dm-label">UNIQUENESS</span>
-          <span id="dossier-bits" class="dm-val dm-accent">33.00 bits</span>
-        </div>
-        <div class="dossier-metric">
-          <span class="dm-label">STACK SIZE</span>
-          <span id="dossier-trait-count" class="dm-val">5 traits</span>
-        </div>
-        <div class="dossier-metric dm-wide">
-          <span class="dm-label">FERMI MVP CUT</span>
-          <span id="dossier-mvp" class="dm-val">—</span>
-        </div>
-      </div>
-
-      <div id="dossier-badges" class="dossier-badges"></div>
 
       <div class="dossier-funnel-wrap">
-        <div class="dossier-funnel-header">NARROWING FUNNEL</div>
-        <div id="dossier-funnel-list" class="dossier-funnel-list"></div>
+        <div class="dossier-funnel-header">
+          <span>WHAT MAKES YOU SPECIAL</span>
+          <span id="dossier-trait-count" class="dossier-count-pill">5 factors</span>
+        </div>
+        <div id="dossier-factors-list" class="dossier-factors-list"></div>
       </div>
 
-      <div class="dossier-cta-row">
-        <button id="btn-download-png" type="button" class="btn-primary-gold">
-          🖼️ Download Specimen PNG
+      <div class="dossier-cta-stack">
+        <button id="btn-share-friends" type="button" class="btn-share-primary">
+          📤 Share with Friends
         </button>
-        <button id="btn-copy-receipt" type="button" class="btn-secondary-outline">
-          📋 Copy Text Receipt
-        </button>
+
+        <!-- Quick-Share Channels Tray (opens automatically when native OS share sheet is unavailable or toggled) -->
+        <div id="dossier-share-tray" class="dossier-share-tray hidden">
+          <span class="share-tray-label">Send to a friend and ask what makes them 1-of-1:</span>
+          <div class="share-channel-row">
+            <a id="share-link-sms" class="share-channel-btn" href="#">💬 Text</a>
+            <a id="share-link-whatsapp" class="share-channel-btn" href="#" target="_blank" rel="noopener">🟢 WhatsApp</a>
+            <a id="share-link-email" class="share-channel-btn" href="#">✉️ Email</a>
+            <a id="share-link-x" class="share-channel-btn" href="#" target="_blank" rel="noopener">𝕏 Post</a>
+            <button id="btn-copy-invite" type="button" class="share-channel-btn">🔗 Copy Link</button>
+          </div>
+        </div>
+
+        <div class="dossier-cta-row">
+          <button id="btn-download-png" type="button" class="btn-secondary-outline">
+            🖼️ Save 1-of-1 Card
+          </button>
+          <button id="btn-copy-receipt" type="button" class="btn-secondary-outline">
+            📋 Copy Summary
+          </button>
+        </div>
       </div>
 
       <button id="btn-new-run" type="button" class="btn-ghost-bottom">
-        ↺ Try a different path to 1-of-1
+        ↺ Explore another combination
       </button>
     </div>
   </div>
 
-  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=3) -->
-  <script src="js/engine/taxonomy.js?v=3"></script>
-  <script src="js/engine/probability.js?v=3"></script>
-  <script src="js/engine/analogies.js?v=3"></script>
-  <script src="js/engine/resolver.js?v=3"></script>
-  <script src="js/engine/suggestions.js?v=3"></script>
-  <script src="js/canvas/scaleTiers.js?v=3"></script>
-  <script src="js/canvas/crowdRenderer.js?v=3"></script>
-  <script src="js/ui/soundEngine.js?v=3"></script>
-  <script src="js/ui/omnibox.js?v=3"></script>
-  <script src="js/ui/receiptModal.js?v=3"></script>
-  <script src="js/app.js?v=3"></script>
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=4) -->
+  <script src="js/engine/taxonomy.js?v=4"></script>
+  <script src="js/engine/probability.js?v=4"></script>
+  <script src="js/engine/analogies.js?v=4"></script>
+  <script src="js/engine/resolver.js?v=4"></script>
+  <script src="js/engine/suggestions.js?v=4"></script>
+  <script src="js/canvas/scaleTiers.js?v=4"></script>
+  <script src="js/canvas/crowdRenderer.js?v=4"></script>
+  <script src="js/ui/soundEngine.js?v=4"></script>
+  <script src="js/ui/omnibox.js?v=4"></script>
+  <script src="js/ui/receiptModal.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>

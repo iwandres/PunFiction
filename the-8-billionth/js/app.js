@@ -248,7 +248,7 @@
     dom.counterCard.classList.toggle('is-one-of-one', evalRes.isOneOfOne);
     dom.btnReopenDossier.classList.toggle('hidden', !evalRes.isOneOfOne);
     dom.counterEyebrow.textContent = evalRes.isOneOfOne
-      ? 'SPECIMEN ISOLATED · VERIFIED 1 OF 1'
+      ? '1 IN 8.3 BILLION · YOU’RE ONE-OF-ONE'
       : 'REMAINING STATISTICAL MATCHES';
 
     const analogy = Analogies.getAnalogy(evalRes.displayPopulation, evalRes.isOneOfOne);
