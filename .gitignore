@@ -14,3 +14,6 @@ Thumbs.db
 
 # HTML5 Game builds
 *.zip
+
+# Local dev fallback trait cache
+backend/billionth_traits_cache.json

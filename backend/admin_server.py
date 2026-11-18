@@ -18,6 +18,11 @@ try:
 except Exception as e:
     print(f"Warning importing wordvine_database: {e}")
     wordvine_database = None
+try:
+    import billionth_estimator as billionth_estimator
+except Exception as e:
+    print(f"Warning importing billionth_estimator: {e}")
+    billionth_estimator = None
 
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -473,6 +478,28 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         
         is_tt = self.is_travelreviews_context(req_path)
         
+        # --- The 8.3 Billionth POST API (/api/billionth/estimate-trait) ---
+        if req_path in ['/api/billionth/estimate-trait', '/api/estimate-trait'] and billionth_estimator:
+            try:
+                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
+                forwarded = self.headers.get('X-Forwarded-For', '')
+                client_ip = forwarded.split(',')[0].strip() if forwarded else (self.client_address[0] if self.client_address else 'anon')
+                res_obj, status_code = billionth_estimator.estimate_custom_trait(
+                    payload.get('rawInput', ''),
+                    payload.get('activeSlugs', []),
+                    client_ip=client_ip
+                )
+                self.send_response(status_code)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(res_obj).encode('utf-8'))
+            except Exception as e:
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+            return
+
         # --- Word Vine POST APIs (/api/wordvine/...) ---
         if req_path in ['/api/wordvine/vine/submit', '/api/vine/submit'] and wordvine_database:
             try:

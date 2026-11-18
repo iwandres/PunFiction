@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EV4HJ1LH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-41EV4HJ1LH', { 'game_name': 'the_83_billionth' });
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>The 8.3 Billionth — what makes you one-of-one?</title>
+  <meta name="description" content="Start with all 8,300,000,000 living humans. Stack true facts about yourself until you are statistically 1 of 1." />
+  <link rel="icon" type="image/png" href="../p_green_white_bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=1" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Observatory Header -->
+    <header class="top-header">
+      <div class="brand-block">
+        <span class="brand-kicker">GLOBAL CENSUS TERMINAL</span>
+        <div class="brand-title-row">
+          <h1 class="brand-title">The 8.3 Billionth</h1>
+          <span class="brand-subtitle">what makes you one-of-one?</span>
+        </div>
+      </div>
+
+      <div class="entropy-hud" title="Logarithmic Bits of Uniqueness: 32.95 bits narrows 8.3 billion down to 1">
+        <div class="entropy-labels">
+          <span class="entropy-title">UNIQUENESS</span>
+          <span id="bits-readout" class="entropy-value">0.00 / 32.95 bits</span>
+        </div>
+        <div class="entropy-track">
+          <div id="bits-fill" class="entropy-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-audio" type="button" class="hdr-btn" title="Toggle tactile sound">🔊 Audio</button>
+        <button id="btn-theme" type="button" class="hdr-btn" title="Switch Observatory Dark / Archival Light">☀️ Light</button>
+        <button id="btn-reset" type="button" class="hdr-btn hdr-btn-reset" title="Reset stack back to 8.3 billion">↺ Reset</button>
+      </div>
+    </header>
+
+    <!-- Main Split Workspace (Sticky Canvas on Mobile + Census Console) -->
+    <main class="workspace-grid">
+      <!-- Left / Top: Multi-Scale Crowd Canvas -->
+      <section class="canvas-stage" aria-label="Global Population Visualization">
+        <canvas id="crowd-canvas"></canvas>
+
+        <!-- Top-left Tier Badge -->
+        <div class="canvas-hud-top">
+          <div id="tier-pill" class="hud-pill">
+            <span class="hud-dot"></span>
+            <span id="tier-label">TIER 1 · PLANETARY</span>
+          </div>
+
+          <div id="hover-delta-pill" class="hud-pill hud-pill-delta hidden">
+            <span id="hover-delta-text">−7.30B people</span>
+          </div>
+        </div>
+
+        <!-- Center Scale-Zoom Flash Toast -->
+        <div id="zoom-toast" class="zoom-toast hidden" aria-live="polite">
+          <span id="zoom-toast-title">POWERS-OF-TEN ZOOM</span>
+          <span id="zoom-toast-sub">1 dot = 1,000 people</span>
+        </div>
+
+        <!-- Bottom-left Persistent Scale Legend -->
+        <div class="canvas-hud-bottom">
+          <div id="scale-legend-pill" class="scale-pill">
+            <span class="scale-dot-icon">●</span>
+            <span id="scale-legend-text">1 dot = 1,000,000 people</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right / Bottom: Interactive Census Console -->
+      <section class="console-pane">
+        <!-- Live Population Counter & Snark Card -->
+        <div class="counter-card">
+          <div class="counter-eyebrow-row">
+            <span id="counter-eyebrow" class="counter-eyebrow">REMAINING STATISTICAL MATCHES</span>
+            <button id="btn-reopen-dossier" type="button" class="btn-dossier-Trigger hidden">
+              ✨ Open 1-of-1 Dossier
+            </button>
+          </div>
+
+          <div class="counter-number-row">
+            <span id="population-counter" class="population-number">8,300,000,000</span>
+            <span id="population-unit" class="population-unit">humans</span>
+          </div>
+
+          <p id="analogy-headline" class="analogy-headline">
+            Every living human on Earth is currently in your room.
+          </p>
+          <p id="snark-subline" class="snark-subline">
+            Pick a habit, skill, or weird quirk below—or type literally anything true about yourself.
+          </p>
+        </div>
+
+        <!-- Endgame Sniper Prompt (< 5,000 remaining) -->
+        <div id="sniper-banner" class="sniper-banner hidden">
+          🎯 <strong>Sniper Range:</strong> Almost empty! Type a hyper-specific hobby, skill, or quirk into the box below to shake your final lookalikes.
+        </div>
+
+        <!-- Hybrid Omnibox (Instant L1/L2 + Custom Gemini L3) -->
+        <div class="omnibox-wrap">
+          <form id="omnibox-form" class="omnibox-form" autocomplete="off">
+            <span class="omnibox-icon" aria-hidden="true">🔍</span>
+            <input
+              id="omnibox-input"
+              type="text"
+              class="omnibox-input"
+              maxlength="210"
+              placeholder='Type ANY fact about yourself… e.g. "I grow carnivorous plants"'
+              aria-label="Type any true personal trait"
+            />
+            <div id="omnibox-spinner" class="omnibox-spinner hidden">
+              <span class="pulse-ring"></span>
+              <span>Scanning 8.3B…</span>
+            </div>
+            <button id="omnibox-submit" type="submit" class="omnibox-submit">Add ↵</button>
+          </form>
+
+          <!-- Instant Autocomplete + Custom Enter Dropdown -->
+          <div id="omnibox-dropdown" class="omnibox-dropdown hidden" role="listbox"></div>
+
+          <!-- Anti-Cheat / Compound-Split / Extreme-Rarity Feedback Tray -->
+          <div id="omnibox-feedback" class="omni-feedback hidden" aria-live="polite"></div>
+        </div>
+
+        <!-- Adaptive Suggestion Deck + Parametric Quick-Builders -->
+        <div class="suggestions-section">
+          <div class="suggestions-header">
+            <div class="suggestions-title-group">
+              <span class="suggestions-title">SUGGESTIONS</span>
+              <span id="phase-badge" class="phase-badge">Opening Splitters</span>
+            </div>
+            <button id="btn-shuffle" type="button" class="btn-shuffle" title="Deal a fresh hand of traits">
+              ↻ Shuffle
+            </button>
+          </div>
+
+          <!-- Category Filter Strip -->
+          <div id="category-tabs" class="category-tabs" role="tablist" aria-label="Trait Categories"></div>
+
+          <!-- Inline Parametric Builder Row -->
+          <div class="parametric-bar">
+            <div class="parametric-type-wrap">
+              <label for="param-generator-select" class="sr-only">Fact template</label>
+              <select id="param-generator-select" class="param-select param-gen-select"></select>
+            </div>
+            <div class="parametric-value-wrap">
+              <label for="param-option-select" class="sr-only">Choose value</label>
+              <select id="param-option-select" class="param-select param-opt-select"></select>
+            </div>
+          </div>
+
+          <!-- Dynamic Suggestion Chips Grid -->
+          <div id="suggestion-chips" class="suggestion-chips"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Active Trait Stack + Fermi & Dampening Inspector -->
+    <footer class="stack-footer">
+      <!-- Popover Inspector when clicking any active pill -->
+      <div id="trait-inspector" class="trait-inspector hidden" role="dialog" aria-label="Trait Statistical Breakdown">
+        <div class="inspector-header">
+          <div class="inspector-title-wrap">
+            <span id="insp-emoji" class="insp-emoji">🌶️</span>
+            <div>
+              <h3 id="insp-title" class="insp-title">Trait Name</h3>
+              <span id="insp-tags" class="insp-tags"></span>
+            </div>
+          </div>
+          <button id="btn-close-inspector" type="button" class="insp-close" aria-label="Close inspector">×</button>
+        </div>
+        <div id="insp-body" class="insp-body"></div>
+        <div class="inspector-actions">
+          <button id="btn-remove-inspected" type="button" class="btn-remove-trait">Remove from stack ×</button>
+        </div>
+      </div>
+
+      <div class="stack-bar-inner">
+        <div class="stack-bar-label">
+          <span>YOUR STACK</span>
+          <span id="stack-count-badge" class="stack-count-badge">0</span>
+        </div>
+        <div id="active-stack-list" class="active-stack-list">
+          <span class="stack-empty-hint">No traits stacked yet — click any chip or type a personal quirk above.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- One-of-One Specimen Dossier Modal -->
+  <div id="dossier-modal" class="dossier-backdrop hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="dossier-card">
+      <button id="btn-close-dossier" type="button" class="dossier-close" aria-label="Close dossier">×</button>
+
+      <div class="dossier-kicker">SPECIMEN #8,300,000,000 · VERIFIED 1 OF 1</div>
+      <h2 class="dossier-headline">You cleared the room.</h2>
+      <p class="dossier-sub">Out of 8.3 billion living humans, your exact stack narrows down to an audience of one.</p>
+
+      <div class="dossier-archetype-box">
+        <span class="dossier-arch-label">OFFICIAL SPECIMEN CLASSIFICATION</span>
+        <div id="dossier-archetype" class="dossier-arch-title">The Outlier</div>
+      </div>
+
+      <div class="dossier-metrics">
+        <div class="dossier-metric">
+          <span class="dm-label">UNIQUENESS</span>
+          <span id="dossier-bits" class="dm-val dm-accent">33.00 bits</span>
+        </div>
+        <div class="dossier-metric">
+          <span class="dm-label">STACK SIZE</span>
+          <span id="dossier-trait-count" class="dm-val">5 traits</span>
+        </div>
+        <div class="dossier-metric dm-wide">
+          <span class="dm-label">FERMI MVP CUT</span>
+          <span id="dossier-mvp" class="dm-val">—</span>
+        </div>
+      </div>
+
+      <div id="dossier-badges" class="dossier-badges"></div>
+
+      <div class="dossier-funnel-wrap">
+        <div class="dossier-funnel-header">NARROWING FUNNEL</div>
+        <div id="dossier-funnel-list" class="dossier-funnel-list"></div>
+      </div>
+
+      <div class="dossier-cta-row">
+        <button id="btn-download-png" type="button" class="btn-primary-gold">
+          🖼️ Download Specimen PNG
+        </button>
+        <button id="btn-copy-receipt" type="button" class="btn-secondary-outline">
+          📋 Copy Text Receipt
+        </button>
+      </div>
+
+      <button id="btn-new-run" type="button" class="btn-ghost-bottom">
+        ↺ Try a different path to 1-of-1
+      </button>
+    </div>
+  </div>
+
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=1) -->
+  <script src="js/engine/taxonomy.js?v=1"></script>
+  <script src="js/engine/probability.js?v=1"></script>
+  <script src="js/engine/analogies.js?v=1"></script>
+  <script src="js/engine/resolver.js?v=1"></script>
+  <script src="js/engine/suggestions.js?v=1"></script>
+  <script src="js/canvas/scaleTiers.js?v=1"></script>
+  <script src="js/canvas/crowdRenderer.js?v=1"></script>
+  <script src="js/ui/soundEngine.js?v=1"></script>
+  <script src="js/ui/omnibox.js?v=1"></script>
+  <script src="js/ui/receiptModal.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+</body>
+</html>
