@@ -673,7 +673,8 @@
       onResetRun: resetAll
     });
 
-    // 4. Load Static Curated + Parametric Seed JSON
+    // 4. Load Static Curated + Parametric Seed JSON & pre-warm Render custom estimator
+    resolver.prewarmApi();
     initCategoryTabs();
     await resolver.loadSeedFiles('data/');
     initParametricBuilder();

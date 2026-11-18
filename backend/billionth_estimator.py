@@ -233,7 +233,8 @@ UNIVERSAL_PARENT_ANCHORS = {
     "owns_dog", "owns_cat", "exercises_weekly", "plays_team_sport", "runs_regularly",
     "drinks_coffee_daily", "eats_spicy_daily", "vegetarian", "writes_software",
     "keeps_houseplants", "home_fermenter_pickler", "holds_passport", "skier_snowboarder",
-    "lives_above_5000ft", "lived_on_island", "daily_word_puzzle", "solves_rubiks_cube"
+    "lives_above_5000ft", "lived_on_island", "daily_word_puzzle", "solves_rubiks_cube",
+    "had_surgery"
 }
 
 

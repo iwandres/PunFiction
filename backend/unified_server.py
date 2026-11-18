@@ -15,6 +15,12 @@ import database as boxoffice_database
 import travelreviews_database as travelreviews_database
 try:
     import billionth_estimator as billionth_estimator
+except ImportError:
+    try:
+        from backend import billionth_estimator as billionth_estimator
+    except Exception as e:
+        print(f"Warning importing billionth_estimator: {e}")
+        billionth_estimator = None
 except Exception as e:
     print(f"Warning importing billionth_estimator: {e}")
     billionth_estimator = None
@@ -339,6 +345,14 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
             return
 
+        # 1B. The 8.3 Billionth prewarm/health check
+        if req_path == '/api/billionth/health':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"ok": True, "estimator": bool(billionth_estimator)}).encode('utf-8'))
+            return
+
         # 2. Unified File Router based on paths
         is_tt = self.is_travelreviews_context(req_path)
         
@@ -578,7 +592,13 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         is_tt = self.is_travelreviews_context(req_path)
         
         # --- The 8.3 Billionth POST API (/api/billionth/estimate-trait) ---
-        if req_path in ['/api/billionth/estimate-trait', '/api/estimate-trait'] and billionth_estimator:
+        if req_path in ['/api/billionth/estimate-trait', '/api/estimate-trait']:
+            if not billionth_estimator:
+                self.send_response(503)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Custom trait estimator module is unavailable on server."}).encode('utf-8'))
+                return
             try:
                 payload = json.loads(post_data.decode('utf-8')) if post_data else {}
                 forwarded = self.headers.get('X-Forwarded-For', '')

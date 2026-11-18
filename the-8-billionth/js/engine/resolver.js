@@ -20,6 +20,8 @@
       ? 'http://localhost:8000/api/billionth/estimate-trait'
       : 'https://punfiction.onrender.com/api/billionth/estimate-trait');
 
+  const HEALTH_ENDPOINT = API_ENDPOINT.replace(/\/estimate-trait$/, '/health');
+
   function normalizeSearch(str) {
     return String(str || '')
       .toLowerCase()
@@ -173,6 +175,17 @@
     }
 
     /**
+     * Silently wakes the Render Python backend on initial page load so custom lookups are warm.
+     */
+    prewarmApi() {
+      if (typeof fetch !== 'function' || typeof window === 'undefined') return;
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return;
+      }
+      fetch(HEALTH_ENDPOINT, { method: 'GET', mode: 'cors' }).catch(() => {});
+    }
+
+    /**
      * Layer 3: Calls the PunFiction Render Gemini Estimator (passing activeTraits for custom subsumption).
      */
     async estimateCustomFact(rawInput, activeSlugs = [], activeTraits = []) {
@@ -183,21 +196,41 @@
         return this.customSessionCache.get(cacheKey);
       }
 
-      const resp = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          rawInput: cleanText,
-          activeSlugs,
-          activeTraits
-        })
+      const payloadStr = JSON.stringify({
+        rawInput: cleanText,
+        activeSlugs,
+        activeTraits
       });
 
+      let resp = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payloadStr
+      });
+
+      // Automatic 1-shot retry if Render container is mid-wakeup / rolling deploy (502/503/504)
+      if (resp.status === 502 || resp.status === 503 || resp.status === 504) {
+        await new Promise((r) => setTimeout(r, 1800));
+        resp = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payloadStr
+        });
+      }
+
+      const rawBody = await resp.text();
       let data = null;
       try {
-        data = await resp.json();
+        data = JSON.parse(rawBody);
       } catch (_) {
-        throw new Error('Could not parse response from custom trait estimator.');
+        if (resp.status === 404 || resp.status >= 500) {
+          throw new Error(
+            'Custom trait server is finishing a live update (HTTP ' +
+              resp.status +
+              ') — give it ~30 seconds and press Enter again!'
+          );
+        }
+        throw new Error('Unexpected response from custom trait estimator — please try again in a moment.');
       }
 
       if (!resp.ok && data && data.error) {
