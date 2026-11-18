@@ -1,6 +1,6 @@
 """
 Flywheel Admin Utility: Previews or promotes top-hit custom cached traits from
-MongoDB Atlas / local cache into `the-83-billionth/data/traits-core.json`.
+MongoDB Atlas / local cache into `the-8-billionth/data/traits-core.json`.
 
 Usage:
   python backend/promote_billionth_traits.py --min-hits 5 [--write]
@@ -13,7 +13,7 @@ import billionth_database as bdb
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 CORE_JSON_PATH = os.path.abspath(
-    os.path.join(DIR_PATH, "..", "the-83-billionth", "data", "traits-core.json")
+    os.path.join(DIR_PATH, "..", "the-8-billionth", "data", "traits-core.json")
 )
 
 

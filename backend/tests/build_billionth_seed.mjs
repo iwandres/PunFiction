@@ -1,6 +1,6 @@
 /**
- * Builds and validates `the-83-billionth/data/traits-core.json` (320+ curated traits across all 10 domains)
- * and `the-83-billionth/data/traits-parametric.json` (195 countries, 110+ languages, 85 sports,
+ * Builds and validates `the-8-billionth/data/traits-core.json` (320+ curated traits across all 10 domains)
+ * and `the-8-billionth/data/traits-parametric.json` (195 countries, 110+ languages, 85 sports,
  * 55 instruments, blood types, stature brackets, polyglot tiers, birth months & decades).
  */
 import fs from 'node:fs';
@@ -13,9 +13,9 @@ const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..', '..');
-const DATA_DIR = path.join(ROOT, 'the-83-billionth', 'data');
+const DATA_DIR = path.join(ROOT, 'the-8-billionth', 'data');
 
-const Taxonomy = require(path.join(ROOT, 'the-83-billionth', 'js', 'engine', 'taxonomy.js'));
+const Taxonomy = require(path.join(ROOT, 'the-8-billionth', 'js', 'engine', 'taxonomy.js'));
 
 function trait(
   canonicalSlug,

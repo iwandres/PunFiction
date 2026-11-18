@@ -9,12 +9,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..', '..');
 
-const Taxonomy = require(path.join(ROOT, 'the-83-billionth', 'js', 'engine', 'taxonomy.js'));
-const Probability = require(path.join(ROOT, 'the-83-billionth', 'js', 'engine', 'probability.js'));
-const Analogies = require(path.join(ROOT, 'the-83-billionth', 'js', 'engine', 'analogies.js'));
+const Taxonomy = require(path.join(ROOT, 'the-8-billionth', 'js', 'engine', 'taxonomy.js'));
+const Probability = require(path.join(ROOT, 'the-8-billionth', 'js', 'engine', 'probability.js'));
+const Analogies = require(path.join(ROOT, 'the-8-billionth', 'js', 'engine', 'analogies.js'));
 
 const coreData = JSON.parse(
-  fs.readFileSync(path.join(ROOT, 'the-83-billionth', 'data', 'traits-core.json'), 'utf8')
+  fs.readFileSync(path.join(ROOT, 'the-8-billionth', 'data', 'traits-core.json'), 'utf8')
 );
 
 function findTrait(slug) {

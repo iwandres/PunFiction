@@ -10,7 +10,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const SHARE_URL = 'https://punfiction.io/the-83-billionth/';
+  const SHARE_URL = 'https://punfiction.io/the-8-billionth/';
 
   function roundRectPath(ctx, x, y, w, h, r) {
     const radius = Math.min(r, w / 2, h / 2);
@@ -463,7 +463,7 @@
       ctx.fillStyle = '#94a3b8';
       ctx.font = '700 21px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('punfiction.io/the-83-billionth', cardX + 52, cardY + cardH - 28);
+      ctx.fillText('punfiction.io/the-8-billionth', cardX + 52, cardY + cardH - 28);
 
       ctx.fillStyle = '#fbbf24';
       ctx.textAlign = 'right';
@@ -490,7 +490,7 @@
           return;
         }
 
-        const fileName = 'the-83-billionth-1of1.png';
+        const fileName = 'the-8-billionth-1of1.png';
 
         // Try native Web Share sheet on mobile if supported, otherwise trigger crisp file download
         if (

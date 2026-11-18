@@ -10,7 +10,7 @@ const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..', '..');
-const APP_DIR = path.join(ROOT, 'the-83-billionth');
+const APP_DIR = path.join(ROOT, 'the-8-billionth');
 
 // 1. Syntax check all JS files with `node -c`
 const jsFiles = [
@@ -111,7 +111,7 @@ for (const m of idMatches) {
   if (m[0].includes('#') || m[0].includes('getElementById')) {
     assert.ok(
       html.includes(`id="${idOrClass}"`),
-      `Missing DOM id="#${idOrClass}" in the-83-billionth/index.html`
+      `Missing DOM id="#${idOrClass}" in the-8-billionth/index.html`
     );
   }
 }
