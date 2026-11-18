@@ -1,31 +1,9 @@
 /* ==========================================================================
    THE 8.3 BILLIONTH — "what makes you one-of-one?"
-   Observatory Dark & Archival Specimen Light Design System
+   Archival Specimen Light Design System
    ========================================================================== */
 
-:root,
-html[data-theme="dark"] {
-  --bg-base: #090d14;
-  --bg-surface: #111723;
-  --bg-elevated: #172030;
-  --bg-chip: #161f2f;
-  --bg-chip-hover: #1e2b40;
-  --canvas-bg: radial-gradient(circle at 50% 48%, #111b2a 0%, #090d14 78%);
-  --text-primary: #f4f1ea;
-  --text-secondary: #9fb0c7;
-  --text-muted: #687a94;
-  --accent-teal: #5eead4;
-  --accent-teal-dim: rgba(94, 234, 212, 0.13);
-  --accent-gold: #fbbf24;
-  --accent-gold-dim: rgba(251, 191, 36, 0.14);
-  --accent-coral: #fb7185;
-  --accent-coral-dim: rgba(251, 113, 133, 0.14);
-  --border-subtle: rgba(148, 163, 184, 0.15);
-  --border-strong: rgba(148, 163, 184, 0.28);
-  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
-}
-
-html[data-theme="light"] {
+:root {
   --bg-base: #f5f1e6;
   --bg-surface: #ebe5d5;
   --bg-elevated: #ffffff;
@@ -264,10 +242,10 @@ body {
   gap: 7px;
   padding: 5px 11px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.74);
+  background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-subtle);
-  color: #f8fafc;
+  color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   font-weight: 700;
@@ -275,26 +253,17 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-html[data-theme="light"] .hud-pill {
-  background: rgba(255, 255, 255, 0.84);
-  color: var(--text-primary);
-}
-
 .hud-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--accent-teal);
-  box-shadow: 0 0 8px var(--accent-teal);
+  box-shadow: 0 0 8px rgba(15, 118, 110, 0.45);
 }
 
 .hud-pill-delta {
   border-color: var(--accent-coral);
   color: var(--accent-coral);
-  background: rgba(15, 23, 42, 0.88);
-}
-
-html[data-theme="light"] .hud-pill-delta {
   background: rgba(255, 255, 255, 0.94);
 }
 
@@ -311,19 +280,14 @@ html[data-theme="light"] .hud-pill-delta {
   gap: 7px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.78);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-subtle);
-  color: #e2e8f0;
+  color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   font-weight: 700;
   transition: transform 0.28s, border-color 0.28s;
-}
-
-html[data-theme="light"] .scale-pill {
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--text-primary);
 }
 
 .scale-pill.pulse-zoom {
@@ -347,9 +311,10 @@ html[data-theme="light"] .scale-pill {
   gap: 2px;
   padding: 8px 16px;
   border-radius: 12px;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(255, 253, 248, 0.96);
   border: 1px solid var(--accent-gold);
-  color: #fef3c7;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
   font-family: 'JetBrains Mono', monospace;
   pointer-events: none;
   animation: zoomToastPop 2.1s ease forwards;
@@ -442,7 +407,7 @@ html[data-theme="light"] .scale-pill {
 
 .btn-dossier-Trigger:hover {
   background: var(--accent-gold);
-  color: #090d14;
+  color: #ffffff;
 }
 
 .counter-number-row {
@@ -596,7 +561,7 @@ html[data-theme="light"] .scale-pill {
   border: none;
   border-radius: 10px;
   background: var(--accent-teal);
-  color: #061318;
+  color: #ffffff;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.84rem;
   font-weight: 800;
@@ -604,10 +569,6 @@ html[data-theme="light"] .scale-pill {
   cursor: pointer;
   white-space: nowrap;
   transition: opacity 0.15s, transform 0.1s;
-}
-
-html[data-theme="light"] .omnibox-submit {
-  color: #ffffff;
 }
 
 .omnibox-submit:hover {
@@ -755,12 +716,12 @@ html[data-theme="light"] .omnibox-submit {
 
 .split-chip:hover {
   background: var(--accent-teal);
-  color: #061318;
+  color: #ffffff;
 }
 
 .omni-feedback-confirm {
   background: var(--accent-gold-dim);
-  border: 1px solid rgba(251, 191, 36, 0.45);
+  border: 1px solid rgba(194, 120, 3, 0.38);
 }
 
 .rarity-confirm-msg {
@@ -787,7 +748,7 @@ html[data-theme="light"] .omnibox-submit {
 .btn-confirm-yes {
   border: none;
   background: var(--accent-gold);
-  color: #090d14;
+  color: #ffffff;
 }
 
 .btn-confirm-no {
@@ -1233,7 +1194,7 @@ html[data-theme="light"] .omnibox-submit {
 .dossier-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(5, 8, 14, 0.78);
+  background: rgba(20, 25, 33, 0.52);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -1404,7 +1365,7 @@ html[data-theme="light"] .omnibox-submit {
 }
 
 .dossier-step-row.is-mvp {
-  border: 1px solid rgba(94, 234, 212, 0.45);
+  border: 1px solid rgba(15, 118, 110, 0.42);
   background: var(--accent-teal-dim);
 }
 
@@ -1445,7 +1406,7 @@ html[data-theme="light"] .omnibox-submit {
 .btn-primary-gold {
   border: none;
   background: var(--accent-gold);
-  color: #090d14;
+  color: #ffffff;
 }
 
 .btn-secondary-outline {

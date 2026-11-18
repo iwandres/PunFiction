@@ -245,51 +245,51 @@
       c.height = H;
       const ctx = c.getContext('2d');
 
-      // 1. Deep Obsidian Outer Backdrop
-      ctx.fillStyle = '#0B0F17';
+      // 1. Warm Archival Paper Outer Mat
+      ctx.fillStyle = '#EAE3D1';
       ctx.fillRect(0, 0, W, H);
 
-      // Subtle atmospheric radial glow at top
-      const glow = ctx.createRadialGradient(W * 0.5, 190, 20, W * 0.5, 220, 520);
-      glow.addColorStop(0, 'rgba(251, 191, 36, 0.16)');
-      glow.addColorStop(1, 'rgba(251, 191, 36, 0)');
+      // Subtle warm sunlight wash at top
+      const glow = ctx.createRadialGradient(W * 0.5, 190, 20, W * 0.5, 220, 560);
+      glow.addColorStop(0, 'rgba(217, 119, 6, 0.12)');
+      glow.addColorStop(1, 'rgba(217, 119, 6, 0)');
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, W, 720);
 
-      // 2. Archival Specimen Card Inner Sheet
+      // 2. Crisp Archival Specimen Card Inner Sheet
       const cardX = 56;
       const cardY = 56;
       const cardW = W - 112;
       const cardH = H - 112;
 
       roundRectPath(ctx, cardX, cardY, cardW, cardH, 28);
-      ctx.fillStyle = '#121824';
+      ctx.fillStyle = '#FDFBF7';
       ctx.fill();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.35)';
+      ctx.strokeStyle = 'rgba(194, 120, 3, 0.36)';
       ctx.stroke();
 
       // Top Specimen Header Band
-      ctx.fillStyle = '#fbbf24';
+      ctx.fillStyle = '#C27803';
       ctx.font = '700 22px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
       ctx.fillText('GLOBAL HUMAN CENSUS  //  VERIFIED SPECIMEN DOSSIER', cardX + 52, cardY + 64);
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#141921';
       ctx.font = '800 66px "Fraunces", Georgia, serif';
       ctx.fillText('The 8.3 Billionth', cardX + 52, cardY + 142);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#435063';
       ctx.font = 'italic 500 30px "Fraunces", Georgia, serif';
       ctx.fillText('what makes you one-of-one?', cardX + 52, cardY + 186);
 
-      // Gold 1-OF-1 Circular Stamp (Top Right)
+      // Brass/Gold 1-OF-1 Circular Ink Stamp (Top Right)
       const stampX = cardX + cardW - 135;
       const stampY = cardY + 132;
       ctx.save();
       ctx.translate(stampX, stampY);
       ctx.rotate(-0.11);
-      ctx.strokeStyle = '#fbbf24';
+      ctx.strokeStyle = '#C27803';
       ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(0, 0, 74, 0, Math.PI * 2);
@@ -298,7 +298,7 @@
       ctx.beginPath();
       ctx.arc(0, 0, 64, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.fillStyle = '#fbbf24';
+      ctx.fillStyle = '#C27803';
       ctx.font = '800 30px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.fillText('1 OF 1', 0, 4);
@@ -307,7 +307,7 @@
       ctx.restore();
 
       // Divider rule
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
+      ctx.strokeStyle = 'rgba(20, 25, 33, 0.14)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(cardX + 52, cardY + 224);
@@ -316,17 +316,17 @@
 
       // 3. Archetype Classification Banner
       roundRectPath(ctx, cardX + 52, cardY + 252, cardW - 104, 132, 18);
-      ctx.fillStyle = 'rgba(251, 191, 36, 0.08)';
+      ctx.fillStyle = 'rgba(194, 120, 3, 0.09)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.28)';
+      ctx.strokeStyle = 'rgba(194, 120, 3, 0.32)';
       ctx.stroke();
 
-      ctx.fillStyle = '#fbbf24';
+      ctx.fillStyle = '#C27803';
       ctx.font = '700 19px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
       ctx.fillText('SPECIMEN CLASSIFICATION', cardX + 80, cardY + 292);
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#141921';
       ctx.font = '700 42px "Fraunces", Georgia, serif';
       ctx.fillText(
         truncateCanvasText(ctx, evalResult.archetype, cardW - 160),
@@ -350,20 +350,23 @@
       stats.forEach((st, idx) => {
         const tx = cardX + 52 + idx * (tileW + tileGap);
         roundRectPath(ctx, tx, statsY, tileW, 104, 14);
-        ctx.fillStyle = '#182132';
+        ctx.fillStyle = '#F3EFE4';
         ctx.fill();
+        ctx.strokeStyle = 'rgba(20, 25, 33, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
 
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#6F7C8F';
         ctx.font = '700 16px "JetBrains Mono", monospace';
         ctx.fillText(st.label, tx + 22, statsY + 36);
 
-        ctx.fillStyle = idx === 1 ? '#5eead4' : '#f8fafc';
+        ctx.fillStyle = idx === 1 ? '#0F766E' : '#141921';
         ctx.font = '800 32px "JetBrains Mono", monospace';
         ctx.fillText(st.value, tx + 22, statsY + 80);
       });
 
       // 5. Logarithmic Funnel Sparkline + Trait Stack Rows
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#6F7C8F';
       ctx.font = '700 19px "JetBrains Mono", monospace';
       ctx.fillText('POPULATION NARROWING STACK', cardX + 52, cardY + 566);
 
@@ -378,13 +381,11 @@
         const isMvp = evalResult.mvpItem === item;
 
         roundRectPath(ctx, cardX + 52, ry, cardW - 104, rowH, 12);
-        ctx.fillStyle = isMvp ? 'rgba(94, 234, 212, 0.11)' : 'rgba(30, 41, 59, 0.68)';
+        ctx.fillStyle = isMvp ? 'rgba(15, 118, 110, 0.10)' : '#F5F1E6';
         ctx.fill();
-        if (isMvp) {
-          ctx.strokeStyle = 'rgba(94, 234, 212, 0.45)';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-        }
+        ctx.strokeStyle = isMvp ? 'rgba(15, 118, 110, 0.42)' : 'rgba(20, 25, 33, 0.10)';
+        ctx.lineWidth = isMvp ? 1.5 : 1;
+        ctx.stroke();
 
         // Logarithmic remaining progress bar inside bottom of row
         const logRem =
@@ -392,12 +393,12 @@
             ? 0.015
             : Math.log10(item.populationAfter) / Math.log10(8300000000);
         const barW = Math.max(10, (cardW - 128) * logRem);
-        ctx.fillStyle = isMvp ? '#5eead4' : '#38bdf8';
-        ctx.globalAlpha = 0.25;
+        ctx.fillStyle = '#0F766E';
+        ctx.globalAlpha = 0.22;
         ctx.fillRect(cardX + 64, ry + rowH - 6, barW, 4);
         ctx.globalAlpha = 1;
 
-        ctx.fillStyle = '#f8fafc';
+        ctx.fillStyle = '#141921';
         ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'left';
         const titleText =
@@ -410,7 +411,7 @@
           (isMvp ? '  ★ MVP' : '');
         ctx.fillText(truncateCanvasText(ctx, titleText, cardW - 380), cardX + 72, ry + rowH * 0.62);
 
-        ctx.fillStyle = isMvp ? '#5eead4' : '#cbd5e1';
+        ctx.fillStyle = isMvp ? '#0F766E' : '#435063';
         ctx.font = '700 22px "JetBrains Mono", monospace';
         ctx.textAlign = 'right';
         const transitionText =
@@ -421,7 +422,7 @@
       });
 
       if (activeItems.length > maxRows) {
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#6F7C8F';
         ctx.font = '600 20px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
         ctx.fillText(
@@ -444,9 +445,9 @@
           const pw = ctx.measureText(txt).width + 34;
           if (bx + pw < cardX + cardW - 48) {
             roundRectPath(ctx, bx, by, pw, 44, 22);
-            ctx.fillStyle = 'rgba(251, 191, 36, 0.14)';
+            ctx.fillStyle = 'rgba(194, 120, 3, 0.12)';
             ctx.fill();
-            ctx.fillStyle = '#fde68a';
+            ctx.fillStyle = '#92400E';
             ctx.fillText(txt, bx + 17, by + 29);
             bx += pw + 14;
           }
@@ -454,18 +455,18 @@
       }
 
       // Footer rule & URL
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
+      ctx.strokeStyle = 'rgba(20, 25, 33, 0.14)';
       ctx.beginPath();
       ctx.moveTo(cardX + 52, cardY + cardH - 68);
       ctx.lineTo(cardX + cardW - 52, cardY + cardH - 68);
       ctx.stroke();
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#6F7C8F';
       ctx.font = '700 21px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
       ctx.fillText('punfiction.io/the-8-billionth', cardX + 52, cardY + cardH - 28);
 
-      ctx.fillStyle = '#fbbf24';
+      ctx.fillStyle = '#C27803';
       ctx.textAlign = 'right';
       ctx.fillText('POPULATION REMAINING: 1', cardX + cardW - 52, cardY + cardH - 28);
 

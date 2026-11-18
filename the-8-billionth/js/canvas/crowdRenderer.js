@@ -18,32 +18,18 @@
   const MAX_PARTICLES = 10000;
   const MAX_DYING_EMBERS = 2400;
 
-  const THEMES = {
-    dark: {
-      ringStroke: 'rgba(148, 163, 184, 0.08)',
-      crosshairStroke: 'rgba(148, 163, 184, 0.05)',
-      dotAlive: '#5eead4',
-      dotAliveCore: '#ecfeff',
-      dotGhost: '#fb7185',
-      dotEmber: '#fda4af',
-      youGold: '#fbbf24',
-      youGoldCore: '#fef9c3',
-      youHalo: 'rgba(251, 191, 36, 0.22)',
-      zoomFlash: 'rgba(94, 234, 212, 0.16)'
-    },
-    light: {
-      ringStroke: 'rgba(30, 41, 59, 0.08)',
-      crosshairStroke: 'rgba(30, 41, 59, 0.05)',
-      dotAlive: '#0f766e',
-      dotAliveCore: '#134e4a',
-      dotGhost: '#e11d48',
-      dotEmber: '#f43f5e',
-      youGold: '#d97706',
-      youGoldCore: '#92400e',
-      youHalo: 'rgba(217, 119, 6, 0.18)',
-      zoomFlash: 'rgba(15, 118, 110, 0.14)'
-    }
-  };
+  const PALETTE = Object.freeze({
+    ringStroke: 'rgba(30, 41, 59, 0.08)',
+    crosshairStroke: 'rgba(30, 41, 59, 0.05)',
+    dotAlive: '#0f766e',
+    dotAliveCore: '#99f6e4',
+    dotGhost: '#e11d48',
+    dotEmber: '#f43f5e',
+    youGold: '#d97706',
+    youGoldCore: '#92400e',
+    youHalo: 'rgba(217, 119, 6, 0.20)',
+    zoomFlash: 'rgba(15, 118, 110, 0.16)'
+  });
 
   class CrowdRenderer {
     constructor(canvas, options = {}) {
@@ -51,8 +37,7 @@
       this.ctx = canvas.getContext('2d', { alpha: true });
       this.onTierChange = options.onTierChange || null;
 
-      this.themeName = options.theme === 'light' ? 'light' : 'dark';
-      this.palette = THEMES[this.themeName];
+      this.palette = PALETTE;
 
       this.dpr = 1;
       this.width = 300;
@@ -119,12 +104,6 @@
         this.px[i] = this.tx[i] * 1.04;
         this.py[i] = this.ty[i] * 1.04;
       }
-    }
-
-    setTheme(themeName) {
-      this.themeName = themeName === 'light' ? 'light' : 'dark';
-      this.palette = THEMES[this.themeName];
-      this._bakeSprites();
     }
 
     resize() {

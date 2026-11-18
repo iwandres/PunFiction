@@ -21,8 +21,6 @@
   const OmniboxController = window.BillionthOmnibox;
   const ReceiptModal = window.BillionthReceiptModal;
 
-  const THEME_STORAGE_KEY = 'billionth_theme';
-
   // Application State
   const state = {
     stack: [],
@@ -33,8 +31,7 @@
     inspectedIndex: null,
     displayedCounterPop: 8300000000,
     counterRafId: null,
-    dossierTimer: null,
-    theme: 'dark'
+    dossierTimer: null
   };
 
   // DOM Elements
@@ -79,7 +76,6 @@
     btnCloseInspector: document.getElementById('btn-close-inspector'),
     btnRemoveInspected: document.getElementById('btn-remove-inspected'),
     btnAudio: document.getElementById('btn-audio'),
-    btnTheme: document.getElementById('btn-theme'),
     btnReset: document.getElementById('btn-reset'),
     dossierModal: document.getElementById('dossier-modal')
   };
@@ -89,30 +85,6 @@
   let omnibox = null;
   let receiptModal = null;
   let zoomToastTimeout = null;
-
-  function initTheme() {
-    try {
-      const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      if (saved === 'light' || saved === 'dark') {
-        state.theme = saved;
-      }
-    } catch (_) {}
-    applyTheme(state.theme);
-  }
-
-  function applyTheme(theme) {
-    state.theme = theme === 'light' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', state.theme);
-    if (dom.btnTheme) {
-      dom.btnTheme.textContent = state.theme === 'dark' ? '☀️ Light' : '🌙 Dark';
-    }
-    if (renderer) {
-      renderer.setTheme(state.theme);
-    }
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, state.theme);
-    } catch (_) {}
-  }
 
   function syncAudioButton() {
     if (!dom.btnAudio) return;
@@ -670,12 +642,10 @@
   }
 
   async function bootstrap() {
-    initTheme();
     syncAudioButton();
 
     // 1. Initialize 60fps Crowd Canvas right away so 8,300 dots are alive on frame 1
     renderer = new CrowdRenderer(dom.canvas, {
-      theme: state.theme,
       onTierChange: handleTierTransition
     });
     renderer.start();
@@ -688,10 +658,6 @@
     dom.btnAudio.addEventListener('click', () => {
       Sound.toggleMute();
       syncAudioButton();
-    });
-
-    dom.btnTheme.addEventListener('click', () => {
-      applyTheme(state.theme === 'dark' ? 'light' : 'dark');
     });
 
     dom.btnReset.addEventListener('click', () => {
