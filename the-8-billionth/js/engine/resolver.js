@@ -23,6 +23,7 @@
   function normalizeSearch(str) {
     return String(str || '')
       .toLowerCase()
+      .replace(/[\u2212\u2013\u2014]/g, '-')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9+#\-\s]/g, ' ')

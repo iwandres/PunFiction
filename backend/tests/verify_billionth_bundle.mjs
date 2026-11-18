@@ -54,6 +54,12 @@ assert.ok(searchTagalog.some((t) => t.canonicalSlug === 'speaks_tl'), 'Parametri
 const searchJapan = resolver.searchInstant('live in Japan', new Set(), 4);
 assert.ok(searchJapan.some((t) => t.canonicalSlug === 'lives_in_jp'), 'Parametric Japan must resolve');
 
+const searchCello = resolver.searchInstant('I play cello', new Set(), 4);
+assert.ok(searchCello.some((t) => t.canonicalSlug === 'instrument_cello'), 'Template I play cello must resolve');
+
+const searchAbNeg = resolver.searchInstant('My blood type is AB-', new Set(), 4);
+assert.ok(searchAbNeg.some((t) => t.canonicalSlug === 'blood_ab_neg'), 'Template My blood type is AB- must resolve');
+
 // Suggestions across Opening -> Midgame -> Sniper
 const openingDeck = Suggestions.buildSuggestionDeck({
   coreTraits: resolver.coreTraits,

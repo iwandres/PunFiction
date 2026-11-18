@@ -808,7 +808,7 @@ function buildCountryConditionals(code) {
 const PARAMETRIC_GENERATORS = [
   {
     id: 'home_country',
-    title: 'I live in [Country]...',
+    title: 'I live in [Country]',
     promptPrefix: 'I live in',
     emoji: '🌍',
     category: 'travel_geography',
@@ -836,7 +836,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'speaks_language',
-    title: 'I speak [Language]...',
+    title: 'I speak [Language]',
     promptPrefix: 'I speak',
     emoji: '🗣️',
     category: 'skills_craft',
@@ -859,7 +859,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'polyglot_count',
-    title: 'I speak [2 / 3 / 4 / 5+] languages fluently...',
+    title: 'I speak [2 / 3 / 4 / 5+] languages conversationally',
     promptPrefix: 'I speak',
     emoji: '🌐',
     category: 'skills_craft',
@@ -910,7 +910,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'blood_type',
-    title: 'My blood type is [ABO / Rh]...',
+    title: 'My blood type is [Blood Type]',
     promptPrefix: 'My blood type is',
     emoji: '🩸',
     category: 'genetics_physiology',
@@ -930,7 +930,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'plays_sport_param',
-    title: 'I play / practice [Sport]...',
+    title: 'I play [Sport]',
     promptPrefix: 'I practice',
     emoji: '🏅',
     category: 'sports_movement',
@@ -949,7 +949,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'plays_instrument',
-    title: 'I play [Musical Instrument]...',
+    title: 'I play [Musical Instrument]',
     promptPrefix: 'I play the',
     emoji: '🎸',
     category: 'skills_craft',
@@ -970,7 +970,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'height_bracket',
-    title: 'My adult height is [Bracket]...',
+    title: 'My height is [Height]',
     promptPrefix: 'My height is',
     emoji: '📏',
     category: 'genetics_physiology',
@@ -990,7 +990,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'birth_month',
-    title: 'I was born in [Month]...',
+    title: 'I was born in [Month]',
     promptPrefix: 'I was born in',
     emoji: '📅',
     category: 'life_randomness',
@@ -1017,7 +1017,7 @@ const PARAMETRIC_GENERATORS = [
   },
   {
     id: 'birth_decade',
-    title: 'I was born in the [Decade]...',
+    title: 'I was born in the [Decade]',
     promptPrefix: 'I was born in the',
     emoji: '⏳',
     category: 'life_randomness',

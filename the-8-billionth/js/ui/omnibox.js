@@ -39,11 +39,54 @@
       this.matches = [];
       this.highlightedIndex = -1; // 0..matches.length-1 = instant match, matches.length = custom AI item
       this.isEstimating = false;
+      this.activeTemplate = null;
       this.placeholderIdx = 0;
       this.placeholderTimer = null;
 
       this._bindEvents();
       this._startPlaceholderRotation();
+    }
+
+    /**
+     * Places a template like `I play [Musical Instrument]` into the search box with an active
+     * blinking cursor at `[Musical Instrument]`, replacing the bracketed placeholder as soon as
+     * the user starts typing.
+     */
+    insertTemplatePrompt(templateText) {
+      if (!this.inputEl || this.isEstimating) return;
+      const cleanTemplate = String(templateText || '').replace(/\.+$/, '').trim();
+      if (!cleanTemplate) return;
+
+      this._clearFeedback();
+      this.closeDropdown();
+      this.inputEl.value = cleanTemplate;
+
+      const openIdx = cleanTemplate.indexOf('[');
+      const closeIdx = openIdx >= 0 ? cleanTemplate.indexOf(']', openIdx) : -1;
+
+      if (openIdx >= 0 && closeIdx > openIdx) {
+        const bracketEnd = closeIdx + 1;
+        this.activeTemplate = {
+          token: cleanTemplate.slice(openIdx, bracketEnd),
+          prefix: cleanTemplate.slice(0, openIdx),
+          suffix: cleanTemplate.slice(bracketEnd),
+          openIdx,
+          bracketEnd
+        };
+        this.inputEl.focus();
+        this.inputEl.setSelectionRange(openIdx, openIdx);
+        if (typeof requestAnimationFrame === 'function') {
+          requestAnimationFrame(() => {
+            if (this.activeTemplate && document.activeElement === this.inputEl) {
+              this.inputEl.setSelectionRange(openIdx, openIdx);
+            }
+          });
+        }
+      } else {
+        this.activeTemplate = null;
+        this.inputEl.focus();
+        this.inputEl.setSelectionRange(cleanTemplate.length, cleanTemplate.length);
+      }
     }
 
     _startPlaceholderRotation() {
@@ -58,18 +101,78 @@
     }
 
     _bindEvents() {
+      // Right before first character/paste insertion, select the `[...]` token so the browser
+      // replaces `[Musical Instrument]` cleanly with whatever the user types!
+      this.inputEl.addEventListener('beforeinput', () => {
+        if (!this.activeTemplate) return;
+        const val = this.inputEl.value;
+        const tokIdx = val.indexOf(this.activeTemplate.token);
+        if (tokIdx >= 0) {
+          this.inputEl.setSelectionRange(tokIdx, tokIdx + this.activeTemplate.token.length);
+        }
+      });
+
       this.inputEl.addEventListener('input', () => {
+        if (this.activeTemplate) {
+          const tok = this.activeTemplate.token;
+          const val = this.inputEl.value;
+          const tokIdx = val.indexOf(tok);
+          if (tokIdx >= 0) {
+            const cur = this.inputEl.selectionStart || 0;
+            const nextVal = val.slice(0, tokIdx) + val.slice(tokIdx + tok.length);
+            const nextCur = cur <= tokIdx ? cur : Math.max(tokIdx, cur - tok.length);
+            this.inputEl.value = nextVal;
+            this.inputEl.setSelectionRange(nextCur, nextCur);
+          }
+          this.activeTemplate = null;
+        }
         this._clearFeedback();
         this._refreshDropdown();
       });
 
+      this.inputEl.addEventListener('click', () => {
+        if (!this.activeTemplate) return;
+        const val = this.inputEl.value;
+        const tokIdx = val.indexOf(this.activeTemplate.token);
+        if (tokIdx < 0) {
+          this.activeTemplate = null;
+          return;
+        }
+        const tokEnd = tokIdx + this.activeTemplate.token.length;
+        const start = this.inputEl.selectionStart;
+        const end = this.inputEl.selectionEnd;
+        if (start === end && start > tokIdx && start <= tokEnd) {
+          this.inputEl.setSelectionRange(tokIdx, tokIdx);
+        }
+      });
+
       this.inputEl.addEventListener('focus', () => {
-        if (this.inputEl.value.trim().length >= 2) {
+        const trimmed = this.inputEl.value.trim();
+        if (
+          trimmed.length >= 2 &&
+          !(this.activeTemplate && trimmed.includes(this.activeTemplate.token))
+        ) {
           this._refreshDropdown();
         }
       });
 
       this.inputEl.addEventListener('keydown', (e) => {
+        if (
+          this.activeTemplate &&
+          (e.key === 'Backspace' || e.key === 'Delete') &&
+          this.inputEl.value.includes(this.activeTemplate.token)
+        ) {
+          e.preventDefault();
+          const val = this.inputEl.value;
+          const tok = this.activeTemplate.token;
+          const tokIdx = val.indexOf(tok);
+          this.inputEl.value = val.slice(0, tokIdx) + val.slice(tokIdx + tok.length);
+          this.inputEl.setSelectionRange(tokIdx, tokIdx);
+          this.activeTemplate = null;
+          this._refreshDropdown();
+          return;
+        }
+
         const totalRows = this._totalDropdownRows();
         if (e.key === 'ArrowDown' && totalRows > 0) {
           e.preventDefault();
@@ -108,7 +211,11 @@
 
     _refreshDropdown() {
       const raw = this.inputEl.value.trim();
-      if (raw.length < 2 || this.isEstimating) {
+      if (
+        raw.length < 2 ||
+        this.isEstimating ||
+        (this.activeTemplate && raw.includes(this.activeTemplate.token))
+      ) {
         this.closeDropdown();
         return;
       }
@@ -241,6 +348,13 @@
       if (this.isEstimating) return;
       const raw = this.inputEl.value.trim();
       if (!raw) return;
+
+      if (this.activeTemplate && raw.includes(this.activeTemplate.token)) {
+        const tokIdx = this.inputEl.value.indexOf(this.activeTemplate.token);
+        this.inputEl.focus();
+        if (tokIdx >= 0) this.inputEl.setSelectionRange(tokIdx, tokIdx);
+        return;
+      }
 
       // If user explicitly navigated onto an instant match (or typed an exact match), pick it
       if (this.highlightedIndex >= 0 && this.highlightedIndex < this.matches.length) {

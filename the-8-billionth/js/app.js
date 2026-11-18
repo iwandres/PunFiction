@@ -63,7 +63,6 @@
     btnShuffle: document.getElementById('btn-shuffle'),
     categoryTabs: document.getElementById('category-tabs'),
     paramGenSelect: document.getElementById('param-generator-select'),
-    paramOptSelect: document.getElementById('param-option-select'),
     suggestionChips: document.getElementById('suggestion-chips'),
     stackCountBadge: document.getElementById('stack-count-badge'),
     activeStackList: document.getElementById('active-stack-list'),
@@ -281,9 +280,8 @@
         ' left):</strong> Type a hyper-specific hobby, skill, or quirk into the box below to shake your final statistical clones.';
     }
 
-    // 6. Refresh Suggestions, Parametric Select, and Active Stack Pills
+    // 6. Refresh Suggestions and Active Stack Pills
     renderSuggestions();
-    renderParametricOptions();
     renderActiveStack();
 
     // 7. Trigger One-of-One Dossier Reveal after spotlight settles
@@ -362,10 +360,17 @@
   }
 
   /**
-   * Inline Parametric Builder Selectors (Countries, Languages, Blood Type, Sports, Instruments, etc.)
+   * Inline Parametric Template Picker: places selected `I play [Musical Instrument]` prompt
+   * into the search box with an active cursor ready to replace the `[...]` placeholder.
    */
   function initParametricBuilder() {
     dom.paramGenSelect.innerHTML = '';
+
+    const defaultOpt = document.createElement('option');
+    defaultOpt.value = '';
+    defaultOpt.textContent = 'Use a fill-in template (I live in…, I speak…, I play…)…';
+    dom.paramGenSelect.appendChild(defaultOpt);
+
     resolver.generators.forEach((gen) => {
       const opt = document.createElement('option');
       opt.value = gen.id;
@@ -374,48 +379,13 @@
     });
 
     dom.paramGenSelect.addEventListener('change', () => {
-      renderParametricOptions();
-    });
-
-    dom.paramOptSelect.addEventListener('change', () => {
       const genId = dom.paramGenSelect.value;
-      const slug = dom.paramOptSelect.value;
-      if (!genId || !slug) return;
-      const trait = resolver.getTraitBySlug(slug);
-      if (trait) {
-        addTraitToStack(trait);
+      if (!genId) return;
+      const gen = resolver.getGeneratorById(genId);
+      dom.paramGenSelect.value = '';
+      if (gen && omnibox) {
+        omnibox.insertTemplatePrompt(gen.title);
       }
-      dom.paramOptSelect.value = '';
-    });
-
-    renderParametricOptions();
-  }
-
-  function renderParametricOptions() {
-    const genId = dom.paramGenSelect.value || (resolver.generators[0] && resolver.generators[0].id);
-    const gen = resolver.getGeneratorById(genId);
-    dom.paramOptSelect.innerHTML = '';
-
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = gen
-      ? 'Select from ' + gen.expandedOptions.length + ' options…'
-      : 'Select option…';
-    dom.paramOptSelect.appendChild(placeholder);
-
-    if (!gen) return;
-    const activeSet = getActiveSlugSet();
-
-    gen.expandedOptions.forEach((optTrait) => {
-      const o = document.createElement('option');
-      o.value = optTrait.canonicalSlug;
-      o.disabled = activeSet.has(optTrait.canonicalSlug);
-      o.textContent =
-        optTrait.shortBadge +
-        ' (' +
-        Probability.formatPrevalencePercent(optTrait.prevalence) +
-        ')';
-      dom.paramOptSelect.appendChild(o);
     });
   }
 

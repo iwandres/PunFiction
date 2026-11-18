@@ -850,11 +850,9 @@ body {
   border-color: var(--text-primary);
 }
 
-/* Inline Parametric Builder */
+/* Inline Parametric Template Picker */
 .parametric-bar {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 8px;
+  display: block;
 }
 
 .param-select {
