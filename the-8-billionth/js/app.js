@@ -280,12 +280,14 @@
     const analogy = Analogies.getAnalogy(evalRes.displayPopulation, evalRes.isOneOfOne);
     dom.analogyHeadline.textContent = analogy.headline;
 
+    let subText = '';
     if (state.lastAddedTrait && state.lastAddedTrait.snarkNote && state.stack.length > 0) {
-      dom.snarkSubline.textContent =
-        (state.lastAddedTrait.emoji || '•') + ' ' + state.lastAddedTrait.snarkNote;
-    } else {
-      dom.snarkSubline.textContent = analogy.sub;
+      subText = state.lastAddedTrait.snarkNote;
+    } else if (analogy.sub) {
+      subText = analogy.sub;
     }
+    dom.snarkSubline.textContent = subText;
+    dom.snarkSubline.classList.toggle('hidden', !subText);
 
     // 5. Endgame Sniper Callout (< 5,000 remaining & not yet 1 of 1)
     const showSniper = !evalRes.isOneOfOne && evalRes.displayPopulation < 5000;
@@ -356,7 +358,7 @@
     allTab.type = 'button';
     allTab.className = 'cat-tab active';
     allTab.dataset.cat = 'all';
-    allTab.textContent = '✨ All';
+    allTab.textContent = 'All';
     allTab.addEventListener('click', () => setCategoryFilter('all'));
     dom.categoryTabs.appendChild(allTab);
 
@@ -365,7 +367,7 @@
       btn.type = 'button';
       btn.className = 'cat-tab';
       btn.dataset.cat = cat.id;
-      btn.textContent = cat.emoji + ' ' + cat.shortLabel;
+      btn.textContent = cat.shortLabel;
       btn.addEventListener('click', () => setCategoryFilter(cat.id));
       dom.categoryTabs.appendChild(btn);
     });
@@ -388,7 +390,7 @@
     resolver.generators.forEach((gen) => {
       const opt = document.createElement('option');
       opt.value = gen.id;
-      opt.textContent = gen.emoji + ' ' + gen.title;
+      opt.textContent = gen.title;
       dom.paramGenSelect.appendChild(opt);
     });
 
@@ -430,8 +432,6 @@
       o.value = optTrait.canonicalSlug;
       o.disabled = activeSet.has(optTrait.canonicalSlug);
       o.textContent =
-        optTrait.emoji +
-        ' ' +
         optTrait.shortBadge +
         ' (' +
         Probability.formatPrevalencePercent(optTrait.prevalence) +
@@ -475,12 +475,7 @@
 
       const left = document.createElement('span');
       left.className = 'chip-left';
-      left.innerHTML =
-        '<span class="chip-plus">+</span>' +
-        '<span>' +
-        (trait.emoji || '🔹') +
-        '</span>' +
-        '<span class="chip-label"></span>';
+      left.innerHTML = '<span class="chip-plus">+</span><span class="chip-label"></span>';
       left.querySelector('.chip-label').textContent = trait.label;
 
       const right = document.createElement('span');
@@ -514,8 +509,7 @@
     if (items.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'stack-empty-hint';
-      empty.textContent =
-        'No traits stacked yet — click any suggestion chip or type a personal quirk above.';
+      empty.textContent = 'one of 8.3 billion — pick a suggestion or type any fact above.';
       dom.activeStackList.appendChild(empty);
       return;
     }

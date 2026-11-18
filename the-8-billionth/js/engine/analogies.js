@@ -15,8 +15,8 @@
   const SCALE_RUNGS = Object.freeze([
     {
       min: 8000000000,
-      headline: 'Every living human on Earth is currently in your room.',
-      sub: 'Pick a habit, skill, or weird quirk to start clearing the crowd.'
+      headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you unique?',
+      sub: ''
     },
     {
       min: 4500000000,

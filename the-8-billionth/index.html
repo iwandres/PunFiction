@@ -18,14 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=6" />
+  <link rel="stylesheet" href="css/styles.css?v=7" />
 </head>
 <body>
   <div class="app-shell">
     <!-- Top Observatory Header -->
     <header class="top-header">
       <div class="brand-block">
-        <span class="brand-kicker">GLOBAL CENSUS TERMINAL</span>
         <div class="brand-title-row">
           <h1 class="brand-title">The 8.3 Billionth</h1>
           <span class="brand-subtitle">what makes you one-of-one?</span>
@@ -99,11 +98,9 @@
           </div>
 
           <p id="analogy-headline" class="analogy-headline">
-            Every living human on Earth is currently in your room.
+            There are over 8,300,000,000 humans on the planet (and a few in space). What makes you unique?
           </p>
-          <p id="snark-subline" class="snark-subline">
-            Pick a habit, skill, or weird quirk below—or type literally anything true about yourself.
-          </p>
+          <p id="snark-subline" class="snark-subline hidden"></p>
         </div>
 
         <!-- Endgame Sniper Prompt (< 5,000 remaining) -->
@@ -114,7 +111,6 @@
         <!-- Hybrid Omnibox (Instant L1/L2 + Custom Gemini L3) -->
         <div class="omnibox-wrap">
           <form id="omnibox-form" class="omnibox-form" autocomplete="off">
-            <span class="omnibox-icon" aria-hidden="true">🔍</span>
             <input
               id="omnibox-input"
               type="text"
@@ -192,11 +188,11 @@
 
       <div class="stack-bar-inner">
         <div class="stack-bar-label">
-          <span>YOUR STACK</span>
+          <span>You are</span>
           <span id="stack-count-badge" class="stack-count-badge">0</span>
         </div>
         <div id="active-stack-list" class="active-stack-list">
-          <span class="stack-empty-hint">No traits stacked yet — click any chip or type a personal quirk above.</span>
+          <span class="stack-empty-hint">one of 8.3 billion — pick a suggestion or type any fact above.</span>
         </div>
       </div>
     </footer>
@@ -265,17 +261,17 @@
     </div>
   </div>
 
-  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=6) -->
-  <script src="js/engine/taxonomy.js?v=6"></script>
-  <script src="js/engine/probability.js?v=6"></script>
-  <script src="js/engine/analogies.js?v=6"></script>
-  <script src="js/engine/resolver.js?v=6"></script>
-  <script src="js/engine/suggestions.js?v=6"></script>
-  <script src="js/canvas/scaleTiers.js?v=6"></script>
-  <script src="js/canvas/crowdRenderer.js?v=6"></script>
-  <script src="js/ui/soundEngine.js?v=6"></script>
-  <script src="js/ui/omnibox.js?v=6"></script>
-  <script src="js/ui/receiptModal.js?v=6"></script>
-  <script src="js/app.js?v=6"></script>
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=7) -->
+  <script src="js/engine/taxonomy.js?v=7"></script>
+  <script src="js/engine/probability.js?v=7"></script>
+  <script src="js/engine/analogies.js?v=7"></script>
+  <script src="js/engine/resolver.js?v=7"></script>
+  <script src="js/engine/suggestions.js?v=7"></script>
+  <script src="js/canvas/scaleTiers.js?v=7"></script>
+  <script src="js/canvas/crowdRenderer.js?v=7"></script>
+  <script src="js/ui/soundEngine.js?v=7"></script>
+  <script src="js/ui/omnibox.js?v=7"></script>
+  <script src="js/ui/receiptModal.js?v=7"></script>
+  <script src="js/app.js?v=7"></script>
 </body>
 </html>

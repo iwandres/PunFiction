@@ -131,12 +131,12 @@
 
         const left = document.createElement('span');
         left.className = 'omni-opt-left';
-        left.textContent = (trait.emoji || '🔹') + ' ' + trait.label;
+        left.textContent = trait.label;
 
         const right = document.createElement('span');
         right.className = 'omni-opt-right';
         right.innerHTML =
-          '<span class="omni-instant-tag">⚡ Instant</span>' +
+          '<span class="omni-instant-tag">Instant</span>' +
           '<span class="omni-pct">' +
           this.formatPct(trait.prevalence) +
           '</span>';
@@ -170,7 +170,7 @@
 
         const left = document.createElement('span');
         left.className = 'omni-opt-left';
-        left.textContent = '✨ Estimate custom fact: "' + raw + '"';
+        left.textContent = 'Estimate custom fact: "' + raw + '"';
 
         const right = document.createElement('span');
         right.className = 'omni-opt-right';

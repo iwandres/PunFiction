@@ -116,7 +116,7 @@ assert.ok(badges.some((b) => b.id === 'pinpoint_landing'), 'Expected Pinpoint La
 assert.ok(badges.some((b) => b.id === 'orthogonal_stack'), 'Expected 100% Uncorrelated badge');
 
 // 7. Analogy ladder coverage
-assert.ok(Analogies.getAnalogy(8300000000, false).headline.includes('Earth'));
+assert.ok(Analogies.getAnalogy(8300000000, false).headline.includes('8,300,000,000'));
 assert.ok(Analogies.getAnalogy(441280, false).headline.includes('NFL stadiums'));
 assert.ok(Analogies.getAnalogy(1, true).headline.includes('Population: 1'));
 
