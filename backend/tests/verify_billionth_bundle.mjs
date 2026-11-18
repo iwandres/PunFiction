@@ -21,7 +21,6 @@ const jsFiles = [
   'js/engine/suggestions.js',
   'js/canvas/scaleTiers.js',
   'js/canvas/crowdRenderer.js',
-  'js/ui/soundEngine.js',
   'js/ui/omnibox.js',
   'js/ui/receiptModal.js',
   'js/app.js'

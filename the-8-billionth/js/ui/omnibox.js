@@ -35,7 +35,6 @@
       this.getActiveTraitsSummary = options.getActiveTraitsSummary || (() => []);
       this.onSelectTrait = options.onSelectTrait;
       this.onHoverTrait = options.onHoverTrait;
-      this.onRejectSound = options.onRejectSound;
 
       this.matches = [];
       this.highlightedIndex = -1; // 0..matches.length-1 = instant match, matches.length = custom AI item
@@ -301,14 +300,12 @@
         }
 
         // Rejected (PII, ephemeral, implausible)
-        if (this.onRejectSound) this.onRejectSound();
         this._renderRejection(
           res.rejectionReason ||
             'Could not verify that as a durable human trait — try phrasing a lasting skill, habit, or quirk!'
         );
       } catch (err) {
         this._setLoading(false);
-        if (this.onRejectSound) this.onRejectSound();
         this._renderRejection(
           err.message ||
             'Custom AI estimator could not be reached right now — pick or search any of the 5,000+ instant traits below!'

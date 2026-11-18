@@ -17,7 +17,6 @@
   const Suggestions = window.BillionthSuggestions;
   const ScaleTiers = window.BillionthScaleTiers;
   const CrowdRenderer = window.BillionthCrowdRenderer;
-  const Sound = window.BillionthSound;
   const OmniboxController = window.BillionthOmnibox;
   const ReceiptModal = window.BillionthReceiptModal;
 
@@ -75,7 +74,6 @@
     inspBody: document.getElementById('insp-body'),
     btnCloseInspector: document.getElementById('btn-close-inspector'),
     btnRemoveInspected: document.getElementById('btn-remove-inspected'),
-    btnAudio: document.getElementById('btn-audio'),
     btnReset: document.getElementById('btn-reset'),
     dossierModal: document.getElementById('dossier-modal')
   };
@@ -85,11 +83,6 @@
   let omnibox = null;
   let receiptModal = null;
   let zoomToastTimeout = null;
-
-  function syncAudioButton() {
-    if (!dom.btnAudio) return;
-    dom.btnAudio.textContent = Sound.isMuted() ? '🔇 Muted' : '🔊 Audio';
-  }
 
   function getActiveSlugSet() {
     const s = new Set();
@@ -154,7 +147,6 @@
     const preview = Probability.previewCandidate(state.stack, candidateTrait);
     if (!preview) return;
 
-    Sound.playHoverTick();
     if (renderer) {
       renderer.setHoverPreview(preview.survivalRatio);
     }
@@ -243,17 +235,7 @@
     const evalRes = Probability.evaluateStack(state.stack);
     state.evalResult = evalRes;
 
-    // 1. Sound feedback
-    if (meta.justAdded) {
-      const deltaBits = Math.max(0.5, evalRes.bitsRaw - (meta.prevBits || 0));
-      if (evalRes.isOneOfOne && !meta.wasAlreadyOneOfOne) {
-        Sound.playOneOfOneFanfare();
-      } else {
-        Sound.playCullWhoosh(deltaBits);
-      }
-    }
-
-    // 2. Canvas Crowd Engine update
+    // 1. Canvas Crowd Engine update
     if (renderer) {
       renderer.setPopulation(evalRes.displayPopulation, evalRes.isOneOfOne);
       const tierInfo = ScaleTiers.resolveTierState(evalRes.displayPopulation, evalRes.isOneOfOne).tier;
@@ -317,9 +299,6 @@
 
   function handleTierTransition(nextTier, prevTier) {
     if (!prevTier || nextTier.index === prevTier.index) return;
-    if (nextTier.index > prevTier.index && nextTier.index < 5) {
-      Sound.playTierZoom(nextTier.index);
-    }
 
     dom.scaleLegendPill.classList.add('pulse-zoom');
     setTimeout(() => dom.scaleLegendPill.classList.remove('pulse-zoom'), 900);
@@ -673,8 +652,6 @@
   }
 
   async function bootstrap() {
-    syncAudioButton();
-
     // 1. Initialize 60fps Crowd Canvas right away so 8,300 dots are alive on frame 1
     renderer = new CrowdRenderer(dom.canvas, {
       onTierChange: handleTierTransition
@@ -686,18 +663,12 @@
     });
 
     // 2. Wire Header & Footer Controls
-    dom.btnAudio.addEventListener('click', () => {
-      Sound.toggleMute();
-      syncAudioButton();
-    });
-
     dom.btnReset.addEventListener('click', () => {
       resetAll();
     });
 
     dom.btnShuffle.addEventListener('click', () => {
       state.shuffleSeed += 1;
-      Sound.playHoverTick();
       renderSuggestions();
     });
 
@@ -751,8 +722,7 @@
       getActiveTraitsSummary: () =>
         state.stack.map((t) => ({ slug: t.canonicalSlug || t.id, label: t.label })),
       onSelectTrait: addTraitToStack,
-      onHoverTrait: handleHoverCandidate,
-      onRejectSound: () => Sound.playRejectBuzz()
+      onHoverTrait: handleHoverCandidate
     });
 
     recomputeAndRender({ justAdded: false });
