@@ -68,6 +68,7 @@
             clusterTags: opt.clusterTags || gen.clusterTags || ['indoor_hobby'],
             snarkNote: opt.snarkNote || '',
             subsumes: opt.subsumes || [],
+            cond: opt.cond || null,
             exclusiveGroup: gen.exclusiveGroup || opt.exclusiveGroup || null,
             generatorId: gen.id,
             optionKey: opt.key,
@@ -171,11 +172,12 @@
     }
 
     /**
-     * Layer 3: Calls the PunFiction Render Gemini Estimator (with instant session-cache hit).
+     * Layer 3: Calls the PunFiction Render Gemini Estimator (passing activeTraits for custom subsumption).
      */
-    async estimateCustomFact(rawInput, activeSlugs = []) {
+    async estimateCustomFact(rawInput, activeSlugs = [], activeTraits = []) {
       const cleanText = String(rawInput || '').trim();
-      const cacheKey = normalizeSearch(cleanText);
+      const cacheKey =
+        normalizeSearch(cleanText) + '::' + (activeSlugs || []).slice().sort().join(',');
       if (cacheKey && this.customSessionCache.has(cacheKey)) {
         return this.customSessionCache.get(cacheKey);
       }
@@ -185,7 +187,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           rawInput: cleanText,
-          activeSlugs
+          activeSlugs,
+          activeTraits
         })
       });
 

@@ -487,7 +487,8 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 res_obj, status_code = billionth_estimator.estimate_custom_trait(
                     payload.get('rawInput', ''),
                     payload.get('activeSlugs', []),
-                    client_ip=client_ip
+                    client_ip=client_ip,
+                    active_traits=payload.get('activeTraits', [])
                 )
                 self.send_response(status_code)
                 self.send_header('Content-type', 'application/json')

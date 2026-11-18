@@ -76,21 +76,28 @@ def test_schema_clamping_and_cache_flywheel():
                 "category": "food_palate",
                 "prevalence": 1e-11,
                 "clusterTags": ["culinary_diy", "spicy_palate", "not_a_real_tag"],
+                "subsumesSlugs": ["eats_spicy_daily", "nonexistent_random_slug"],
                 "snarkNote": "Sweet heat.",
                 "isVerifiedExtremeRarity": False
             }
         }
 
-        sanitized = est._sanitize_accepted_payload(raw_llm, "I'm making homemade jalapeño relish!")
+        sanitized = est._sanitize_accepted_payload(
+            raw_llm,
+            "I'm making homemade jalapeño relish!",
+            active_slugs=["eats_spicy_daily"],
+            active_traits=[{"slug": "eats_spicy_daily", "label": "I eat spicy chili heat almost every single day"}]
+        )
         assert sanitized["trait"]["canonicalSlug"] == "makes_jalape_o_relish"
         assert sanitized["trait"]["prevalence"] >= 1e-7
         assert sanitized["fermi"]["estimatedGlobalHumans"] >= 830
         assert sanitized["trait"]["clusterTags"] == ["culinary_diy", "spicy_palate"]
+        assert "eats_spicy_daily" in sanitized["trait"]["subsumes"]
 
         # 2. Store & verify normalized cache flywheel hit
         bdb.store_cached_trait(
             "I'm making homemade jalapeño relish!",
-            sanitized["trait"],
+            sanitized["cacheableTrait"],
             sanitized["fermi"]
         )
         hit = bdb.lookup_cached_trait("  i am making homemade jalapeño relish.  ")

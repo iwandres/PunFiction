@@ -624,6 +624,187 @@ const INSTRUMENTS = [
   ['didgeridoo', 'Didgeridoo', '🎶', 0.00011]
 ];
 
+const SOUTHERN_HEMISPHERE_CODES = new Set([
+  'BR', 'ID', 'ZA', 'TZ', 'AR', 'PE', 'AO', 'MZ', 'MG', 'AU', 'MW', 'ZM', 'CL', 'ZW',
+  'RW', 'BI', 'BO', 'PG', 'PY', 'NZ', 'UY', 'NA', 'BW', 'LS', 'TL', 'MU', 'SZ', 'FJ',
+  'KM', 'SB', 'VU', 'WS', 'TO'
+]);
+
+const ISLAND_NATION_CODES = new Set([
+  'ID', 'JP', 'PH', 'GB', 'MG', 'TW', 'LK', 'CU', 'HT', 'DO', 'PG', 'HK', 'SG', 'NZ',
+  'IE', 'PR', 'JM', 'TT', 'MU', 'CY', 'FJ', 'KM', 'SB', 'CV', 'MT', 'MV', 'BS', 'IS',
+  'VU', 'BB', 'ST', 'WS', 'LC', 'KI', 'GD', 'FM', 'VC', 'TO', 'SC', 'AG', 'DM', 'MH',
+  'KN', 'PW', 'TV', 'NR'
+]);
+
+const HIGH_ALTITUDE_RATES = {
+  LS: 0.95, BO: 0.62, BT: 0.65, RW: 0.55, ET: 0.48, AM: 0.45, EC: 0.42, KG: 0.42,
+  AF: 0.38, TJ: 0.36, NP: 0.35, PE: 0.32, ZA: 0.30, MX: 0.28, KE: 0.28, CO: 0.26,
+  GT: 0.35, YE: 0.34, IR: 0.22, CH: 0.08
+};
+
+// Conditional P(Language | Country) for primary & major widely-spoken languages
+const COUNTRY_LANG_RATES = {
+  IN: { hi: 0.44, en: 0.15, bn: 0.08, mr: 0.07, te: 0.07, ta: 0.06, gu: 0.045, ur: 0.042, kn: 0.038, or: 0.032, ml: 0.029, pa: 0.028 },
+  CN: { zh: 0.81, yue: 0.055, ug: 0.009, bo: 0.005, mn: 0.004, en: 0.03 },
+  US: { en: 0.92, es: 0.135, zh: 0.011, tl: 0.006, vi: 0.005, fr: 0.006, asl: 0.002 },
+  ID: { id: 0.94, jv: 0.30, su: 0.14, en: 0.06 },
+  PK: { ur: 0.75, pa: 0.39, ps: 0.16, en: 0.12 },
+  NG: { en: 0.55, ha: 0.32, yo: 0.21, ig: 0.18 },
+  BR: { pt: 0.98, en: 0.05 },
+  BD: { bn: 0.98, en: 0.10 },
+  RU: { ru: 0.97, en: 0.06 },
+  ET: { am: 0.32, om: 0.34, so: 0.06, ti: 0.06 },
+  MX: { es: 0.94, en: 0.12, nah: 0.013 },
+  JP: { ja: 0.985, en: 0.08, jsl: 0.002 },
+  EG: { ar: 0.98, en: 0.12 },
+  PH: { tl: 0.85, en: 0.64 },
+  CD: { fr: 0.51, sw: 0.28 },
+  VN: { vi: 0.96, en: 0.08 },
+  IR: { fa: 0.88, az: 0.16, ku: 0.09 },
+  TR: { tr: 0.90, ku: 0.14, en: 0.12 },
+  DE: { de: 0.95, en: 0.56, tr: 0.025 },
+  TH: { th: 0.92, en: 0.10 },
+  GB: { en: 0.98, cy: 0.013, gd: 0.001, bsl: 0.0025 },
+  TZ: { sw: 0.90, en: 0.15 },
+  FR: { fr: 0.97, en: 0.39, ar: 0.05 },
+  ZA: { en: 0.31, zu: 0.25, xh: 0.16, af: 0.13 },
+  IT: { it: 0.97, en: 0.34 },
+  KE: { sw: 0.85, en: 0.52 },
+  MM: { my: 0.78 },
+  CO: { es: 0.98, en: 0.08 },
+  KR: { ko: 0.985, en: 0.18 },
+  SD: { ar: 0.82 },
+  UG: { en: 0.45, sw: 0.35 },
+  ES: { es: 0.98, ca: 0.18, gl: 0.05, eu: 0.018, en: 0.28 },
+  DZ: { ar: 0.85, fr: 0.33 },
+  IQ: { ar: 0.80, ku: 0.18 },
+  AR: { es: 0.98, en: 0.15 },
+  AF: { fa: 0.77, ps: 0.48, uz: 0.10 },
+  YE: { ar: 0.98 },
+  CA: { en: 0.86, fr: 0.22, zh: 0.035, pa: 0.02 },
+  PL: { pl: 0.97, en: 0.37 },
+  MA: { ar: 0.88, fr: 0.35 },
+  AO: { pt: 0.72 },
+  UA: { uk: 0.85, ru: 0.60, en: 0.18 },
+  UZ: { uz: 0.85, ru: 0.25, tg: 0.05 },
+  MY: { id: 0.80, en: 0.58, zh: 0.22, yue: 0.08, ta: 0.06 },
+  MZ: { pt: 0.55 },
+  GH: { en: 0.65 },
+  PE: { es: 0.84, qu: 0.14, ay: 0.018 },
+  SA: { ar: 0.92, en: 0.35 },
+  MG: { mg: 0.98, fr: 0.24 },
+  CI: { fr: 0.68 },
+  NP: { ne: 0.78, hi: 0.25, en: 0.15 },
+  CM: { fr: 0.62, en: 0.35 },
+  VE: { es: 0.98 },
+  AU: { en: 0.96, zh: 0.03 },
+  NE: { fr: 0.18, ha: 0.55 },
+  KP: { ko: 0.99 },
+  TW: { zh: 0.96, en: 0.20 },
+  SY: { ar: 0.92, ku: 0.08 },
+  LK: { si: 0.75, ta: 0.24, en: 0.23 },
+  MW: { ny: 0.68, en: 0.26 },
+  KZ: { kk: 0.80, ru: 0.84 },
+  CL: { es: 0.98, en: 0.12 },
+  RO: { ro: 0.94, hu: 0.06, en: 0.31 },
+  SO: { so: 0.95, ar: 0.15 },
+  SN: { wo: 0.80, fr: 0.36 },
+  NL: { nl: 0.96, en: 0.90, de: 0.55 },
+  GT: { es: 0.82 },
+  EC: { es: 0.94, qu: 0.05 },
+  KH: { km: 0.96 },
+  ZW: { sn: 0.72, en: 0.65 },
+  RW: { rw: 0.98, en: 0.18, fr: 0.12, sw: 0.15 },
+  BO: { es: 0.84, qu: 0.18, ay: 0.11 },
+  TN: { ar: 0.96, fr: 0.52 },
+  BE: { nl: 0.59, fr: 0.42, de: 0.12, en: 0.60 },
+  HT: { ht: 0.98, fr: 0.42 },
+  JO: { ar: 0.96, en: 0.35 },
+  DO: { es: 0.97 },
+  CU: { es: 0.99 },
+  SE: { sv: 0.95, en: 0.86 },
+  HN: { es: 0.97 },
+  CZ: { cs: 0.96, sk: 0.18, en: 0.32 },
+  AZ: { az: 0.92, ru: 0.30 },
+  GR: { el: 0.97, en: 0.51 },
+  PT: { pt: 0.97, en: 0.38 },
+  TJ: { tg: 0.85, ru: 0.28 },
+  HU: { hu: 0.98, en: 0.25 },
+  AE: { ar: 0.45, en: 0.78, hi: 0.30, ur: 0.22, tl: 0.08 },
+  BY: { ru: 0.88, be: 0.48 },
+  IL: { he: 0.88, ar: 0.21, en: 0.72, ru: 0.14 },
+  AT: { de: 0.96, en: 0.62 },
+  CH: { de: 0.65, fr: 0.24, it: 0.09, en: 0.55 },
+  LA: { lo: 0.75 },
+  HK: { yue: 0.90, en: 0.54, zh: 0.48 },
+  NI: { es: 0.96 },
+  RS: { sr: 0.95, en: 0.38 },
+  LY: { ar: 0.95 },
+  PY: { es: 0.90, gn: 0.78 },
+  KG: { ky: 0.78, ru: 0.45 },
+  BG: { bg: 0.92, en: 0.28 },
+  TM: { tk: 0.86, ru: 0.22 },
+  SV: { es: 0.98 },
+  SG: { en: 0.88, zh: 0.55, id: 0.12, ta: 0.05 },
+  DK: { da: 0.96, en: 0.86, de: 0.45 },
+  SK: { sk: 0.92, cs: 0.35, hu: 0.08, en: 0.28 },
+  FI: { fi: 0.91, sv: 0.06, en: 0.74 },
+  NO: { no: 0.96, en: 0.88 },
+  LB: { ar: 0.95, fr: 0.45, en: 0.45 },
+  NZ: { en: 0.96, mi: 0.04 },
+  CR: { es: 0.97, en: 0.18 },
+  IE: { en: 0.98, ga: 0.12 },
+  OM: { ar: 0.82, en: 0.40 },
+  PA: { es: 0.94, en: 0.18 },
+  KW: { ar: 0.78, en: 0.55 },
+  HR: { hr: 0.96, en: 0.49 },
+  ER: { ti: 0.60, ar: 0.35 },
+  GE: { ka: 0.88, ru: 0.35 },
+  MN: { mn: 0.96 },
+  UY: { es: 0.98 },
+  BA: { sr: 0.94, hr: 0.94 },
+  PR: { es: 0.95, en: 0.32 },
+  AM: { hy: 0.97, ru: 0.50 },
+  JM: { en: 0.97 },
+  QA: { ar: 0.45, en: 0.75, hi: 0.22 },
+  AL: { sq: 0.97, it: 0.28 },
+  LT: { lt: 0.92, ru: 0.50, en: 0.38 },
+  MK: { mk: 0.72, sq: 0.25 },
+  SI: { sl: 0.94, en: 0.59 },
+  LV: { lv: 0.86, ru: 0.55, en: 0.46 },
+  EE: { et: 0.84, ru: 0.45, en: 0.50 },
+  CY: { el: 0.78, tr: 0.18, en: 0.73 },
+  FJ: { en: 0.75, fj: 0.55, hi: 0.35 },
+  LU: { lb: 0.75, fr: 0.92, de: 0.82, en: 0.70 },
+  MT: { mt: 0.90, en: 0.88, it: 0.55 },
+  IS: { is: 0.96, en: 0.88, da: 0.45 },
+  WS: { sm: 0.92, en: 0.60 }
+};
+
+function buildCountryConditionals(code) {
+  const cond = {};
+  const langMap = COUNTRY_LANG_RATES[code];
+  if (langMap) {
+    for (const [lCode, rate] of Object.entries(langMap)) {
+      cond['speaks_' + lCode] = rate;
+    }
+  }
+  if (ISLAND_NATION_CODES.has(code)) {
+    cond['lived_on_island'] = 1.0;
+  }
+  if (SOUTHERN_HEMISPHERE_CODES.has(code)) {
+    cond['southern_hemisphere_native'] = 0.90;
+  }
+  if (HIGH_ALTITUDE_RATES[code]) {
+    cond['lives_above_5000ft'] = HIGH_ALTITUDE_RATES[code];
+  }
+  if (code === 'IN') {
+    cond['vegetarian'] = 0.32;
+  }
+  return Object.keys(cond).length > 0 ? cond : undefined;
+}
+
 const PARAMETRIC_GENERATORS = [
   {
     id: 'home_country',
@@ -634,20 +815,24 @@ const PARAMETRIC_GENERATORS = [
     exclusiveGroup: 'home_country',
     clusterTags: ['world_traveler'],
     searchTriggers: ['live in', 'from', 'country', 'citizen of', 'resident of'],
-    options: COUNTRIES.map(([code, name, flag, prev]) => ({
-      key: code.toLowerCase(),
-      canonicalSlug: 'lives_in_' + code.toLowerCase(),
-      label: 'I live in ' + name,
-      shortBadge: 'Lives in ' + name.replace(/^the\s+/i, ''),
-      emoji: flag,
-      prevalence: Math.max(1e-7, prev),
-      snarkNote:
-        prev >= 0.03
-          ? 'You share a national census box with hundreds of millions of neighbors.'
-          : prev >= 0.002
-            ? 'Solid geographic cut — down to one nation’s slice of the planet.'
-            : 'Small-nation statistical leverage unlocked.'
-    }))
+    options: COUNTRIES.map(([code, name, flag, prev]) => {
+      const cond = buildCountryConditionals(code);
+      return {
+        key: code.toLowerCase(),
+        canonicalSlug: 'lives_in_' + code.toLowerCase(),
+        label: 'I live in ' + name,
+        shortBadge: 'Lives in ' + name.replace(/^the\s+/i, ''),
+        emoji: flag,
+        prevalence: Math.max(1e-7, prev),
+        ...(cond ? { cond } : {}),
+        snarkNote:
+          prev >= 0.03
+            ? 'You share a national census box with hundreds of millions of neighbors.'
+            : prev >= 0.002
+              ? 'Solid geographic cut — down to one nation’s slice of the planet.'
+              : 'Small-nation statistical leverage unlocked.'
+      };
+    })
   },
   {
     id: 'speaks_language',

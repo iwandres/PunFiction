@@ -120,4 +120,56 @@ assert.ok(Analogies.getAnalogy(8300000000, false).headline.includes('Earth'));
 assert.ok(Analogies.getAnalogy(441280, false).headline.includes('NFL stadiums'));
 assert.ok(Analogies.getAnalogy(1, true).headline.includes('Population: 1'));
 
-console.log('[Math Test Suite] All 7 test groups passed cleanly!');
+// 8. Bidirectional Country <-> Language Bayes Symmetry & Island Geo Subsumption
+const TraitResolver = require(path.join(ROOT, 'the-8-billionth', 'js', 'engine', 'resolver.js'));
+const paramData = JSON.parse(
+  fs.readFileSync(path.join(ROOT, 'the-8-billionth', 'data', 'traits-parametric.json'), 'utf8')
+);
+const resolver = new TraitResolver();
+resolver.initFromData(coreData, paramData);
+
+const livesInJp = resolver.getTraitBySlug('lives_in_jp');
+const speaksJa = resolver.getTraitBySlug('speaks_ja');
+const livedOnIsland = resolver.getTraitBySlug('lived_on_island');
+
+const jpThenJa = Probability.evaluateStack([livesInJp, speaksJa]);
+const jaThenJp = Probability.evaluateStack([speaksJa, livesInJp]);
+assert.equal(jpThenJa.items[1].dampenMode, 'geo_bayes');
+assert.equal(jaThenJp.items[1].dampenMode, 'geo_bayes');
+assert.equal(
+  jpThenJa.displayPopulation,
+  jaThenJp.displayPopulation,
+  'Country->Language and Language->Country must converge to the exact same joint population via Bayes theorem!'
+);
+assert.ok(jpThenJa.displayPopulation > 115000000, 'Expected ~121M Japanese speakers in Japan, not 1.8M');
+
+// Island nation subsumes lived_on_island
+const islandAndJp = Probability.evaluateStack([livedOnIsland, livesInJp]);
+assert.equal(islandAndJp.items[0].superseded, true, 'Lives in Japan must subsume Island resident');
+assert.equal(islandAndJp.displayPopulation, Math.round(8300000000 * livesInJp.prevalence));
+
+// 9. Multi-language polyglot count subsumption
+const speaksEn = resolver.getTraitBySlug('speaks_en');
+const speaksEs = resolver.getTraitBySlug('speaks_es');
+const bilingual = resolver.getTraitBySlug('speaks_2plus_languages');
+const multiLang = Probability.evaluateStack([bilingual, speaksEn, speaksEs]);
+assert.equal(multiLang.items[0].superseded, true, '2 specific languages must subsume Bilingual (2+ langs)');
+
+// 10. AI Custom Trait Subsumption
+const exercisesWeekly = findTrait('exercises_weekly');
+const customSpinInstructor = {
+  canonicalSlug: 'teaches_indoor_spin',
+  label: 'I teach indoor spin cycling classes',
+  shortBadge: 'Spin instructor',
+  emoji: '🚴',
+  category: 'sports_movement',
+  prevalence: 0.00018,
+  clusterTags: ['cycling_wheeled', 'athletic'],
+  subsumes: ['exercises_weekly'],
+  isCustom: true
+};
+const spinStack = Probability.evaluateStack([exercisesWeekly, customSpinInstructor]);
+assert.equal(spinStack.items[0].superseded, true, 'Custom AI subsumes[] must supersede broader parent');
+assert.equal(spinStack.activeCount, 1);
+
+console.log('[Math Test Suite] All 10 test groups (including Bayes Geo/Language & AI Subsumption) passed cleanly!');

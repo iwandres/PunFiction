@@ -633,17 +633,28 @@
         '" — no double-counting applied.';
       dom.inspBody.appendChild(sNote);
     } else if (item.wasDampened) {
-      const overlapNames = item.sharedWith.map((s) => s.label).join(', ');
       const dNote = document.createElement('div');
       dNote.className = 'insp-dampen-note';
-      dNote.textContent =
-        '📐 Correlation Dampening (γ = 0.65): Adjusted from ' +
-        Probability.formatPrevalencePercent(item.pBase) +
-        ' to ' +
-        Probability.formatPrevalencePercent(item.pEff) +
-        ' due to cluster overlap with ' +
-        overlapNames +
-        '.';
+      if (item.dampenMode === 'geo_bayes' && item.geoSourceLabel) {
+        dNote.textContent =
+          '🌍 Geographic / Language Overlap: Adjusted from ' +
+          Probability.formatPrevalencePercent(item.pBase) +
+          ' global to ' +
+          Probability.formatPrevalencePercent(item.pEff) +
+          ' conditioned on ' +
+          item.geoSourceLabel +
+          '.';
+      } else {
+        const overlapNames = item.sharedWith.map((s) => s.label).join(', ');
+        dNote.textContent =
+          '📐 Correlation Dampening (γ = 0.65): Adjusted from ' +
+          Probability.formatPrevalencePercent(item.pBase) +
+          ' to ' +
+          Probability.formatPrevalencePercent(item.pEff) +
+          ' due to cluster overlap with ' +
+          overlapNames +
+          '.';
+      }
       dom.inspBody.appendChild(dNote);
     } else if (item.trait.snarkNote) {
       const snark = document.createElement('div');
@@ -743,6 +754,8 @@
       resolver,
       formatPct: Probability.formatPrevalencePercent,
       getActiveSlugSet,
+      getActiveTraitsSummary: () =>
+        state.stack.map((t) => ({ slug: t.canonicalSlug || t.id, label: t.label })),
       onSelectTrait: addTraitToStack,
       onHoverTrait: handleHoverCandidate,
       onRejectSound: () => Sound.playRejectBuzz()

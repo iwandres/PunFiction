@@ -32,6 +32,7 @@
       this.resolver = options.resolver;
       this.formatPct = options.formatPct;
       this.getActiveSlugSet = options.getActiveSlugSet;
+      this.getActiveTraitsSummary = options.getActiveTraitsSummary || (() => []);
       this.onSelectTrait = options.onSelectTrait;
       this.onHoverTrait = options.onHoverTrait;
       this.onRejectSound = options.onRejectSound;
@@ -274,7 +275,8 @@
 
       try {
         const activeSlugs = Array.from(this.getActiveSlugSet());
-        const res = await this.resolver.estimateCustomFact(clean, activeSlugs);
+        const activeTraits = this.getActiveTraitsSummary();
+        const res = await this.resolver.estimateCustomFact(clean, activeSlugs, activeTraits);
         this._setLoading(false);
 
         if (!res) return;
@@ -383,7 +385,8 @@
           try {
             const res = await this.resolver.estimateCustomFact(
               stmt,
-              Array.from(this.getActiveSlugSet())
+              Array.from(this.getActiveSlugSet()),
+              this.getActiveTraitsSummary()
             );
             if (res && res.status === 'accepted' && res.trait) {
               this.onSelectTrait(Object.assign({}, res.trait, { fermi: res.fermi || null }));

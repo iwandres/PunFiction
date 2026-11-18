@@ -71,10 +71,13 @@ Evaluate the user's input statement and return strict JSON matching the schema.
 - Makes homemade pickled/fermented condiments: 0.022 (~182M) | Specific niche chili relish/hot sauce maker: 0.0015 (~12.5M)
 - Struck by lightning survivor: 0.000003 (~25,000, isVerifiedExtremeRarity: true)
 
-4. CANONICAL NORMALIZATION & TONE:
+4. CANONICAL NORMALIZATION, PARENT SUBSUMPTION & TONE:
 - Normalize `canonicalSlug` in snake_case so equivalent phrasings ("I make cold-brine pickles" / "homemade refrigerator pickle maker") map to consistent slugs while preserving genuine specificity.
 - Write `label` in clean first-person ("I make homemade jalapeño relish") and `shortBadge` in 2-4 crisp words ("Jalapeño relish maker").
 - Pick 1 to 3 `clusterTags` strictly from the allowed enum.
+- `subsumesSlugs`: List any broader parent slugs that this trait STRICTLY and LOGICALLY implies (100% subset, P(Parent | ThisTrait) ≈ 1.0), checking BOTH:
+  a) Universal broad anchors: `owns_dog`, `owns_cat`, `exercises_weekly`, `plays_team_sport`, `runs_regularly`, `drinks_coffee_daily`, `eats_spicy_daily`, `vegetarian`, `writes_software`, `keeps_houseplants`, `home_fermenter_pickler`, `holds_passport`, `skier_snowboarder`, `lives_above_5000ft`, `lived_on_island`, `daily_word_puzzle`, `solves_rubiks_cube`, or `lives_in_<iso2>` if the trait inherently requires residing in that country (e.g. "I live in Tokyo" -> `["lives_in_jp"]`).
+  b) Any slug from the user's `activeTraits` context that is strictly broader than this statement (e.g. if activeTraits has `exercises_weekly` and user enters "I teach indoor spin classes", include `"exercises_weekly"`). Leave `[]` if none strictly apply.
 - Write `snarkNote` (max 150 chars) — or `rejectionReason` when rejected — in a crisp, witty, lightly sarcastic data-journalist voice referencing the estimated global headcount. Never be cruel; poke gentle fun at human habits."""
 
 RESPONSE_SCHEMA = {
@@ -117,6 +120,7 @@ RESPONSE_SCHEMA = {
                 "category",
                 "prevalence",
                 "clusterTags",
+                "subsumesSlugs",
                 "snarkNote",
                 "isVerifiedExtremeRarity"
             ],
@@ -130,6 +134,10 @@ RESPONSE_SCHEMA = {
                 "clusterTags": {
                     "type": "ARRAY",
                     "items": {"type": "STRING", "enum": CLOSED_CLUSTER_TAGS}
+                },
+                "subsumesSlugs": {
+                    "type": "ARRAY",
+                    "items": {"type": "STRING"}
                 },
                 "snarkNote": {"type": "STRING"},
                 "isVerifiedExtremeRarity": {"type": "BOOLEAN"}
@@ -221,7 +229,46 @@ def _sanitize_slug(slug, fallback_text):
     return (base[:64] or "custom_trait")
 
 
-def _sanitize_accepted_payload(parsed, raw_input):
+UNIVERSAL_PARENT_ANCHORS = {
+    "owns_dog", "owns_cat", "exercises_weekly", "plays_team_sport", "runs_regularly",
+    "drinks_coffee_daily", "eats_spicy_daily", "vegetarian", "writes_software",
+    "keeps_houseplants", "home_fermenter_pickler", "holds_passport", "skier_snowboarder",
+    "lives_above_5000ft", "lived_on_island", "daily_word_puzzle", "solves_rubiks_cube"
+}
+
+
+def _is_universal_anchor_slug(slug):
+    if slug in UNIVERSAL_PARENT_ANCHORS:
+        return True
+    if re.match(r"^lives_in_[a-z]{2}$", slug) or re.match(r"^speaks_[a-z]{2,4}$", slug):
+        return True
+    return False
+
+
+def _infer_heuristic_subsumes(label_text, active_traits):
+    """Fast deterministic fallback on warm cache hits when user has broader traits in stack."""
+    inferred = set()
+    low = str(label_text or "").lower()
+    if re.search(r"\b(?:dog|dogs|puppy|retriever|shepherd|collie|dachshund|terrier|poodle|beagle|husky|corgi|greyhound|hound)\b", low):
+        inferred.add("owns_dog")
+    if re.search(r"\b(?:cat|cats|kitten|tabby|siamese|maine coon)\b", low):
+        inferred.add("owns_cat")
+    if re.search(r"\b(?:espresso|latte|cappuccino|americano|pour[- ]?over)\b", low) and "never" not in low:
+        inferred.add("drinks_coffee_daily")
+
+    for item in (active_traits or []):
+        if not isinstance(item, dict):
+            continue
+        a_slug = str(item.get("slug") or "").strip()
+        a_label = str(item.get("label") or "").lower()
+        if a_slug.startswith("lives_in_"):
+            country_name = re.sub(r"^i\s+live\s+in\s+(?:the\s+)?", "", a_label).strip()
+            if len(country_name) >= 4 and country_name in low and ("live" in low or "commute" in low or "reside" in low):
+                inferred.add(a_slug)
+    return sorted(inferred)
+
+
+def _sanitize_accepted_payload(parsed, raw_input, active_slugs=None, active_traits=None):
     trait_in = parsed.get("trait") or {}
     fermi_in = parsed.get("fermi") or {}
 
@@ -269,7 +316,27 @@ def _sanitize_accepted_payload(parsed, raw_input):
     emoji = str(trait_in.get("emoji") or "✨").strip()[:4] or "✨"
     slug = _sanitize_slug(trait_in.get("canonicalSlug"), short_badge)
 
-    clean_trait = {
+    # Sanitize subsumesSlugs: separate globally cacheable universal anchors vs caller-active slugs
+    active_slug_set = set(str(s).strip() for s in (active_slugs or []) if str(s).strip())
+    for item in (active_traits or []):
+        if isinstance(item, dict) and item.get("slug"):
+            active_slug_set.add(str(item["slug"]).strip())
+
+    raw_subsumes = list(trait_in.get("subsumesSlugs") or trait_in.get("subsumes") or [])
+    raw_subsumes.extend(_infer_heuristic_subsumes(label, active_traits))
+
+    universal_subsumes = []
+    session_subsumes = []
+    for sub in raw_subsumes:
+        s_clean = re.sub(r"[^a-z0-9_]+", "", str(sub).lower().strip())[:64]
+        if not s_clean or s_clean == slug:
+            continue
+        if _is_universal_anchor_slug(s_clean) and s_clean not in universal_subsumes:
+            universal_subsumes.append(s_clean)
+        if (s_clean in active_slug_set or _is_universal_anchor_slug(s_clean)) and s_clean not in session_subsumes:
+            session_subsumes.append(s_clean)
+
+    cacheable_trait = {
         "id": slug,
         "canonicalSlug": slug,
         "label": label,
@@ -278,10 +345,14 @@ def _sanitize_accepted_payload(parsed, raw_input):
         "category": cat,
         "prevalence": clamped_prev,
         "clusterTags": clean_tags,
+        "subsumes": universal_subsumes[:6],
         "snarkNote": snark,
         "isCustom": True,
         "isVerifiedExtremeRarity": is_extreme
     }
+
+    response_trait = dict(cacheable_trait)
+    response_trait["subsumes"] = session_subsumes[:8]
 
     clean_fermi = {
         "baseGroup": str(fermi_in.get("baseGroup") or "Global living population (8.3B)").strip()[:160],
@@ -294,12 +365,13 @@ def _sanitize_accepted_payload(parsed, raw_input):
         "rejectionReason": None,
         "compoundSplit": [],
         "fermi": clean_fermi,
-        "trait": clean_trait,
+        "trait": response_trait,
+        "cacheableTrait": cacheable_trait,
         "cached": False
     }
 
 
-def _call_gemini_structured(raw_input, active_slugs):
+def _call_gemini_structured(raw_input, active_slugs, active_traits=None):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY environment variable is not configured on the server.")
@@ -308,9 +380,20 @@ def _call_gemini_structured(raw_input, active_slugs):
     endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
 
     context_note = ""
-    if active_slugs and isinstance(active_slugs, list):
+    if active_traits and isinstance(active_traits, list):
+        compact_active = [
+            {"slug": str(x.get("slug", ""))[:48], "label": str(x.get("label", ""))[:80]}
+            for x in active_traits[:12]
+            if isinstance(x, dict) and x.get("slug")
+        ]
+        if compact_active:
+            context_note = (
+                f"\nUser's currently active stack (estimate `prevalence` unconditionally out of 8.3B, "
+                f"and list any strictly broader parent slugs in `subsumesSlugs`): {json.dumps(compact_active)}"
+            )
+    elif active_slugs and isinstance(active_slugs, list):
         trimmed = [str(s)[:48] for s in active_slugs[:12]]
-        context_note = f"\nUser's currently active trait slugs (for canonical normalization awareness only; still estimate unconditional global prevalence out of 8.3B): {trimmed}"
+        context_note = f"\nUser's currently active trait slugs: {trimmed}"
 
     user_prompt = f'Evaluate this user statement: "{raw_input.strip()}"{context_note}'
 
@@ -354,7 +437,7 @@ def _call_gemini_structured(raw_input, active_slugs):
     return json.loads(parts[0]["text"])
 
 
-def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon"):
+def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active_traits=None):
     """
     Full Layer-3 Pipeline:
       1. Deterministic pre-guardrails (PII, exact dates, ephemeral micro-states, length)
@@ -368,7 +451,17 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon"):
 
     cached = bdb.lookup_cached_trait(raw_input)
     if cached is not None:
-        return cached, 200
+        # Enrich cached trait with any dynamic heuristic subsumptions against caller's activeTraits
+        c_trait = dict(cached.get("trait") or {})
+        existing_sub = list(c_trait.get("subsumes") or [])
+        extra_sub = _infer_heuristic_subsumes(c_trait.get("label", ""), active_traits)
+        for s in extra_sub:
+            if s not in existing_sub and s != c_trait.get("canonicalSlug"):
+                existing_sub.append(s)
+        c_trait["subsumes"] = existing_sub
+        cached_copy = dict(cached)
+        cached_copy["trait"] = c_trait
+        return cached_copy, 200
 
     if not bdb.check_rate_limit(client_ip, max_per_minute=25):
         return {
@@ -380,7 +473,7 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon"):
         }, 429
 
     try:
-        parsed = _call_gemini_structured(raw_input, active_slugs or [])
+        parsed = _call_gemini_structured(raw_input, active_slugs or [], active_traits=active_traits)
     except urllib.error.HTTPError as http_err:
         err_body = ""
         try:
@@ -424,8 +517,13 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon"):
         }, 200
 
     if status == "accepted" and parsed.get("trait"):
-        sanitized = _sanitize_accepted_payload(parsed, raw_input)
-        bdb.store_cached_trait(raw_input, sanitized["trait"], sanitized["fermi"])
+        sanitized = _sanitize_accepted_payload(
+            parsed,
+            raw_input,
+            active_slugs=active_slugs,
+            active_traits=active_traits
+        )
+        bdb.store_cached_trait(raw_input, sanitized.pop("cacheableTrait"), sanitized["fermi"])
         return sanitized, 200
 
     return {

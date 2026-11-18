@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -136,9 +136,9 @@
       <div class="math-rules-grid">
         <div class="math-rule-card">
           <span class="mr-tag">RULE A · P(A | B) = 1</span>
-          <h3>Strict Subset Subsumption</h3>
+          <h3>Strict Subset &amp; AI Custom Subsumption</h3>
           <p>
-            Directed parent–child links (<span class="m-inline">B ⊂ A</span>) catch 100% inclusion. Selecting <em>Vegan</em> (<span class="m-inline">1.5%</span>) alongside <em>Vegetarian</em> (<span class="m-inline">11%</span>), or <em>Marathon finisher</em> (<span class="m-inline">0.17%</span>) alongside <em>Regular runner</em> (<span class="m-inline">7.5%</span>), sets the broader parent to <span class="m-inline">p<sub>eff</sub> = 1.0</span> (<span class="m-inline">0 bits</span>) so only the narrower subset cuts the crowd.
+            Directed parent–child links (<span class="m-inline">B ⊂ A</span>) catch 100% inclusion across both curated and AI-estimated traits. Selecting <em>Vegan</em> alongside <em>Vegetarian</em>, <em>Lives in Japan</em> alongside <em>Island resident</em>, or typing <em>“I own two Dachshunds”</em> alongside <em>Has a dog</em> sets the broader parent to <span class="m-inline">p<sub>eff</sub> = 1.0</span> (<span class="m-inline">0 bits</span>).
           </p>
         </div>
 
@@ -151,7 +151,23 @@
         </div>
 
         <div class="math-rule-card math-rule-wide">
-          <span class="mr-tag">RULE C · PARTIAL OVERLAP (γ = 0.65)</span>
+          <span class="mr-tag">RULE C · EXACT BAYES CONDITIONING</span>
+          <h3>Bidirectional Country–Language &amp; Geographic Coupling</h3>
+          <p>
+            Lifestyle tags alone miss sharp geographic couplings—for example, only <span class="m-inline">1.5%</span> of Earth speaks Japanese, yet <span class="m-inline">~98.5%</span> of residents in Japan do. Country tables store conditional rates <span class="m-inline">r = P(L | C)</span> for spoken languages, island geography, Southern Hemisphere, and high elevation, evaluated symmetrically in <em>either</em> selection order via Bayes’ theorem:
+          </p>
+          <div class="math-eq-box math-eq-compact">
+            <div class="math-eq">
+              P(L | C) = r, &nbsp;&nbsp;&nbsp;&nbsp; P(C | L) = min(0.995,&nbsp; P(C) · r / P(L))
+            </div>
+          </div>
+          <p class="mr-footnote">
+            Result: clicking <em>Lives in Japan → Speaks Japanese</em> and <em>Speaks Japanese → Lives in Japan</em> converge to the <strong>exact same joint headcount</strong> (~121.0M humans) rather than hallucinating a 65× drop.
+          </p>
+        </div>
+
+        <div class="math-rule-card math-rule-wide">
+          <span class="mr-tag">RULE D · PARTIAL OVERLAP (γ = 0.65)</span>
           <h3>Power-Law Cluster Dampening Across a Closed 36-Tag Latent Space</h3>
           <p>
             Every trait—curated, parametric, and Gemini-estimated—projects onto 1 to 3 tags in a <strong>closed 36-tag latent taxonomy</strong> <span class="m-inline">𝒞</span> (e.g., <code>spicy_palate</code>, <code>culinary_diy</code>, <code>endurance_sport</code>, <code>coding_tech</code>, <code>polyglot</code>). If active trait <span class="m-inline">i</span> shares at least one latent tag with <span class="m-inline">m<sub>i</sub></span> prior active traits in your stack, its base prevalence is dampened via a diminishing-specificity exponent <span class="m-inline">γ = 0.65</span>:
