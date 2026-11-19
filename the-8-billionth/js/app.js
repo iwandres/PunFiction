@@ -50,7 +50,12 @@
     scaleLegendText: document.getElementById('scale-legend-text'),
     outlinePill: document.getElementById('outline-pill'),
     outlineLabel: document.getElementById('outline-label'),
+    counterRow: document.getElementById('counter-row'),
     counterCard: document.querySelector('.counter-card'),
+    funfactCard: document.getElementById('funfact-card'),
+    funfactCount: document.getElementById('funfact-count'),
+    funfactTrait: document.getElementById('funfact-trait'),
+    funfactBody: document.getElementById('funfact-body'),
     counterEyebrow: document.getElementById('counter-eyebrow'),
     btnReopenDossier: document.getElementById('btn-reopen-dossier'),
     populationCounter: document.getElementById('population-counter'),
@@ -207,6 +212,91 @@
     recomputeAndRender({ justAdded: false });
   }
 
+  function formatSpokenHumans(n) {
+    if (n >= 1000000000) {
+      return (n / 1000000000).toFixed(2).replace(/\.?0+$/, '') + ' billion';
+    }
+    if (n >= 10000000) {
+      return Math.round(n / 1000000).toLocaleString('en-US') + ' million';
+    }
+    if (n >= 1000000) {
+      return (n / 1000000).toFixed(1).replace(/\.0$/, '') + ' million';
+    }
+    return Math.round(n).toLocaleString('en-US');
+  }
+
+  /**
+   * Builds isolated worldwide headcount + fun-fact copy for the right-hand Fun Fact box
+   * so global base stats never collide with the narrowing funnel on the left.
+   */
+  function buildGlobalFunFact(trait) {
+    if (!trait) return null;
+    const rawCount =
+      (trait.fermi && Number(trait.fermi.estimatedGlobalHumans)) ||
+      Math.max(8, Math.round((Number(trait.prevalence) || 0) * Taxonomy.WORLD_POPULATION));
+    const spoken = formatSpokenHumans(rawCount);
+    const compact = Probability.formatCompactCount(rawCount);
+    const pctStr = Probability.formatPrevalencePercent(trait.prevalence);
+    const slug = String(trait.canonicalSlug || trait.id || '');
+    const label = String(trait.label || '');
+    const snark = String(trait.snarkNote || '').trim();
+
+    let body = '';
+    if (slug === 'exercises_weekly') {
+      body = 'Roughly ' + spoken + ' people in the world get in at least one workout every week.';
+    } else if (slug.startsWith('lives_in_')) {
+      const place = label.replace(/^I live in\s+/i, '').trim();
+      body = 'There are roughly ' + spoken + ' people living in ' + place + ' worldwide.';
+    } else if (slug.startsWith('speaks_') && !/^speaks_\d/.test(slug)) {
+      const lang = label.replace(/^I speak\s+/i, '').trim();
+      body = 'There are roughly ' + spoken + ' ' + lang + ' speakers across the globe.';
+    } else if (/^I play or practice\s+/i.test(label)) {
+      const sport = label.replace(/^I play or practice\s+/i, '').trim();
+      body = 'There are roughly ' + spoken + ' regular ' + sport + ' participants in the world.';
+    } else if (slug.startsWith('instrument_') && (!snark || /^Distinctive instrument/i.test(snark))) {
+      const inst = label.replace(/^I play (?:the\s+)?/i, '').trim();
+      body = 'There are roughly ' + spoken + ' ' + inst + ' players in the world.';
+    } else if (snark) {
+      body = snark;
+    } else {
+      body =
+        'Roughly ' +
+        spoken +
+        ' people in the world share "' +
+        (trait.shortBadge || label) +
+        '."';
+    }
+
+    return {
+      countHeader: '~' + compact + ' worldwide',
+      topicLine: (trait.shortBadge || label) + ' · ' + pctStr + ' of Earth',
+      body
+    };
+  }
+
+  function renderFunFactCard(focusTrait) {
+    if (!dom.funfactCard || !dom.counterRow) return;
+    const trait =
+      focusTrait ||
+      state.lastAddedTrait ||
+      (state.stack.length > 0 ? state.stack[state.stack.length - 1] : null);
+
+    if (!trait || state.stack.length === 0) {
+      dom.funfactCard.classList.add('hidden');
+      dom.counterRow.classList.remove('has-funfact');
+      return;
+    }
+
+    const fact = buildGlobalFunFact(trait);
+    if (!fact) return;
+
+    dom.funfactCount.textContent = fact.countHeader;
+    dom.funfactTrait.textContent = fact.topicLine;
+    dom.funfactBody.textContent = fact.body;
+    dom.funfactCard.classList.remove('hidden');
+    dom.counterRow.classList.add('has-funfact');
+  }
+
   /**
    * Synchronizes the bottom-right canvas outline pill AND the Counter Card headline/subline
    * directly from the active canvas outline so the words ALWAYS match the graphic on screen.
@@ -290,6 +380,7 @@
       : 'REMAINING STATISTICAL MATCHES';
 
     syncOutlineAndCopy(renderer ? renderer.getActiveOutline() : null);
+    renderFunFactCard();
 
     // 5. Refresh Suggestions and Active Stack Pills
     renderSuggestions();
@@ -514,6 +605,7 @@
     const item = state.evalResult.items[index];
     if (!item) return;
     state.inspectedIndex = index;
+    renderFunFactCard(item.trait);
 
     dom.inspEmoji.textContent = item.trait.emoji || '🔹';
     dom.inspTitle.textContent = item.trait.label;

@@ -402,11 +402,67 @@ body {
   min-height: 0;
 }
 
+.counter-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.counter-row.has-funfact {
+  grid-template-columns: minmax(0, 1.3fr) minmax(195px, 0.92fr);
+}
+
 .counter-card {
   padding: 16px 18px;
   border-radius: 16px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
+  min-width: 0;
+}
+
+.funfact-card {
+  padding: 14px 15px;
+  border-radius: 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-left: 3.5px solid var(--accent-teal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.funfact-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent-teal);
+}
+
+.funfact-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.18;
+  font-variant-numeric: tabular-nums;
+}
+
+.funfact-trait {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 1.25;
+}
+
+.funfact-body {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 .counter-card.is-one-of-one {
@@ -1689,6 +1745,13 @@ body {
     padding: 14px 14px 90px;
     overflow: visible;
   }
+}
+
+@media (max-width: 580px) {
+  .counter-row.has-funfact {
+    grid-template-columns: 1fr;
+  }
+}
 
   .parametric-bar {
     grid-template-columns: 1fr;
