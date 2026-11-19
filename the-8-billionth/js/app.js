@@ -16,6 +16,7 @@
   const TraitResolver = window.BillionthResolver;
   const Suggestions = window.BillionthSuggestions;
   const ScaleTiers = window.BillionthScaleTiers;
+  const ScaleOutlines = window.BillionthScaleOutlines;
   const CrowdRenderer = window.BillionthCrowdRenderer;
   const OmniboxController = window.BillionthOmnibox;
   const ReceiptModal = window.BillionthReceiptModal;
@@ -61,7 +62,6 @@
     omniboxDropdown: document.getElementById('omnibox-dropdown'),
     omniboxFeedback: document.getElementById('omnibox-feedback'),
     omniboxSpinner: document.getElementById('omnibox-spinner'),
-    phaseBadge: document.getElementById('phase-badge'),
     btnShuffle: document.getElementById('btn-shuffle'),
     categoryTabs: document.getElementById('category-tabs'),
     paramGenSelect: document.getElementById('param-generator-select'),
@@ -207,11 +207,29 @@
     recomputeAndRender({ justAdded: false });
   }
 
-  function updateOutlineBadge(outline) {
-    if (!outline || !dom.outlineLabel) return;
-    dom.outlineLabel.textContent = outline.capacity
-      ? outline.label + ' · ' + outline.capacity
-      : outline.label;
+  /**
+   * Synchronizes the bottom-right canvas outline pill AND the Counter Card headline/subline
+   * directly from the active canvas outline so the words ALWAYS match the graphic on screen.
+   */
+  function syncOutlineAndCopy(outline) {
+    const pop = state.evalResult ? state.evalResult.displayPopulation : 8300000000;
+    const isOneOfOne = Boolean(state.evalResult && state.evalResult.isOneOfOne);
+
+    if (outline && dom.outlineLabel) {
+      dom.outlineLabel.textContent = outline.label;
+    }
+
+    if (outline && ScaleOutlines && typeof ScaleOutlines.getCopyForOutline === 'function') {
+      const copy = ScaleOutlines.getCopyForOutline(outline, pop);
+      dom.analogyHeadline.textContent = copy.headline;
+      dom.snarkSubline.textContent = copy.sub || '';
+      dom.snarkSubline.classList.toggle('hidden', !copy.sub);
+    } else {
+      const analogy = Analogies.getAnalogy(pop, isOneOfOne);
+      dom.analogyHeadline.textContent = analogy.headline;
+      dom.snarkSubline.textContent = analogy.sub || '';
+      dom.snarkSubline.classList.toggle('hidden', !analogy.sub);
+    }
   }
 
   const SESSION_STACK_KEY = 'billionth_session_stack_v1';
@@ -254,7 +272,6 @@
       dom.tierLabel.textContent =
         'TIER ' + tierInfo.index + ' · ' + tierInfo.name.toUpperCase();
       dom.scaleLegendText.textContent = tierInfo.legendText;
-      updateOutlineBadge(renderer.getActiveOutline());
     }
     dom.hoverDeltaPill.classList.add('hidden');
 
@@ -263,7 +280,7 @@
       evalRes.bitsDisplay.toFixed(2) + ' / ' + evalRes.maxBits.toFixed(2) + ' bits';
     dom.bitsFill.style.width = (evalRes.bitsProgressRatio * 100).toFixed(2) + '%';
 
-    // 4. Counter Card, Snark & Human Scale Analogy
+    // 4. Counter Card & 1-to-1 Matched Outline Perspective Copy
     animatePopulationCounter(evalRes.displayPopulation);
     dom.populationUnit.textContent = evalRes.displayPopulation === 1 ? 'human (You!)' : 'humans';
     dom.counterCard.classList.toggle('is-one-of-one', evalRes.isOneOfOne);
@@ -272,17 +289,7 @@
       ? '1 IN 8.3 BILLION · YOU’RE ONE-OF-ONE'
       : 'REMAINING STATISTICAL MATCHES';
 
-    const analogy = Analogies.getAnalogy(evalRes.displayPopulation, evalRes.isOneOfOne);
-    dom.analogyHeadline.textContent = analogy.headline;
-
-    let subText = '';
-    if (state.lastAddedTrait && state.lastAddedTrait.snarkNote && state.stack.length > 0) {
-      subText = state.lastAddedTrait.snarkNote;
-    } else if (analogy.sub) {
-      subText = analogy.sub;
-    }
-    dom.snarkSubline.textContent = subText;
-    dom.snarkSubline.classList.toggle('hidden', !subText);
+    syncOutlineAndCopy(renderer ? renderer.getActiveOutline() : null);
 
     // 5. Refresh Suggestions and Active Stack Pills
     renderSuggestions();
@@ -407,14 +414,6 @@
       shuffleSeed: state.shuffleSeed,
       deckSize: 6
     });
-
-    const phaseLabels = {
-      opening: 'Opening Splitters',
-      midgame: 'Uncorrelated Midgame',
-      sniper: 'Endgame Snipers',
-      complete: '1-of-1 Complete'
-    };
-    dom.phaseBadge.textContent = phaseLabels[deck.phase] || 'Suggestions';
 
     dom.suggestionChips.innerHTML = '';
 
@@ -603,10 +602,6 @@
           '.';
       }
       dom.inspBody.appendChild(dNote);
-    } else if (item.trait.snarkNote) {
-      const snark = document.createElement('div');
-      snark.textContent = '"' + item.trait.snarkNote + '"';
-      dom.inspBody.appendChild(snark);
     }
 
     dom.inspector.classList.remove('hidden');
@@ -629,9 +624,9 @@
     // 1. Initialize 60fps Crowd Canvas right away so 8,300 dots are alive on frame 1
     renderer = new CrowdRenderer(dom.canvas, {
       onTierChange: handleTierTransition,
-      onOutlineChange: updateOutlineBadge
+      onOutlineChange: syncOutlineAndCopy
     });
-    updateOutlineBadge(renderer.getActiveOutline());
+    syncOutlineAndCopy(renderer.getActiveOutline());
     renderer.start();
 
     if (dom.outlinePill) {

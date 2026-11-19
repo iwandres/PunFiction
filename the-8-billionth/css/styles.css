@@ -816,16 +816,6 @@ body {
   color: var(--text-muted);
 }
 
-.phase-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent-teal-dim);
-  color: var(--accent-teal);
-}
-
 .btn-shuffle {
   appearance: none;
   border: 1px solid var(--border-subtle);

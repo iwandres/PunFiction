@@ -1,10 +1,9 @@
 /**
  * The 8.3 Billionth — Multi-Scale Architectural & Cartographic Perspective Outlines
  *
- * Provides 79 minimalist blueprint outlines across 26 logarithmic population bands
- * (8.3B down to 1 across all 5 Tiers). Rendered directly beneath the circular Vogel
- * population dots so users keep the clean circular dot pattern while gaining immediate
- * physical scale perspective — with multiple outlines per band so runs never feel repetitive.
+ * Provides 82 minimalist blueprint outlines across 27 logarithmic population bands
+ * (8.3B down to 1 across all 5 Tiers). Each outline carries its own 1-to-1 matched
+ * headline & subline so the words in the console ALWAYS match the graphic on the canvas.
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -222,8 +221,8 @@
   }
 
   // =========================================================================
-  // 79 CURATED ARCHITECTURAL, CARTOGRAPHIC & VESSEL PERSPECTIVE OUTLINES
-  // Ordered high-to-low across 26 logarithmic size bands (Tiers 1..5)
+  // 82 MATCHED GRAPHIC + COPY PERSPECTIVE OUTLINES ACROSS 27 SIZE BANDS
+  // Every item pairs its blueprint silhouette 1-to-1 with its exact headline & subline.
   // =========================================================================
   const BANDS = [
     // --- TIER 1 · PLANETARY (10M .. 8.3B) ---
@@ -234,7 +233,8 @@
         {
           id: 'earth_globe',
           label: 'Whole Earth Globe',
-          capacity: '8.3B Planet',
+          headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you unique?',
+          sub: '',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.96));
             g.inner(() => {
@@ -247,7 +247,6 @@
               g.line(-0.88, -0.38, 0.88, -0.38);
               g.line(-0.88, 0.38, 0.88, 0.38);
             }, true);
-            // Subtle orbital arc ("and a few in space")
             g.accent(() => {
               g.arc(0, 0, 1.03, -0.82, -0.24);
               g.circle(Math.cos(-0.53) * 1.03, Math.sin(-0.53) * 1.03, 0.018);
@@ -257,7 +256,8 @@
         {
           id: 'twin_hemispheres',
           label: 'Twin World Hemispheres',
-          capacity: '8.3B Map Plate',
+          headline: 'There are over 8,300,000,000 humans across Earth’s two hemispheres. What makes you unique?',
+          sub: '',
           draw(g) {
             g.wash(() => {
               g.circle(-0.46, 0, 0.52);
@@ -280,7 +280,8 @@
         {
           id: 'afro_eurasia',
           label: 'Eastern Hemisphere',
-          capacity: '~5.5B Landmass',
+          headline: 'More than half the planet is still nodding along — enough to fill the entire Eastern Hemisphere landmass.',
+          sub: 'Each dot represents one million living people.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.96), true);
             g.wash(() =>
@@ -302,7 +303,8 @@
         {
           id: 'indo_pacific_arc',
           label: 'Indo-Pacific Rim',
-          capacity: '~4.6B Basin',
+          headline: 'Everyone matching you so far could populate the entire Indo-Pacific coastal rim.',
+          sub: 'Roughly half of humanity survived your opening cut.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.94));
             g.contour(() =>
@@ -323,8 +325,9 @@
         },
         {
           id: 'azimuthal_world',
-          label: 'Polar World Projection',
-          capacity: 'Half Humanity',
+          label: 'Polar World Map',
+          headline: 'Half the globe is still raising its hand across every meridian on the map.',
+          sub: 'Add an uncorrelated fact to carve away whole continents.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.95));
             g.inner(() => {
@@ -343,7 +346,8 @@
         {
           id: 'subcontinent_cape',
           label: 'Subcontinent Peninsula',
-          capacity: '~1.45B Region',
+          headline: 'Everyone left like you could populate an entire South Asian subcontinent peninsula.',
+          sub: 'Down to roughly one-sixth of the human species.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -363,7 +367,8 @@
         {
           id: 'twin_river_basin',
           label: 'Twin-River Heartland',
-          capacity: '~1.4B Basin',
+          headline: 'Still enough statistical matches to fill an entire East Asian twin-river heartland.',
+          sub: 'You narrowed the planet, not the billion-person crowd yet.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -382,8 +387,9 @@
         },
         {
           id: 'continental_shield',
-          label: 'Continental Shield',
-          capacity: '~1.5B Continent',
+          label: 'African Continent',
+          headline: 'Everyone sharing your checklist so far could populate the entire continent of Africa.',
+          sub: 'Over a billion people still match every word.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -405,8 +411,9 @@
       items: [
         {
           id: 'european_peninsula',
-          label: 'Continental Peninsula',
-          capacity: '~750M Continent',
+          label: 'European Continent',
+          headline: 'Everyone left like you could populate the entire European continent from coast to coast.',
+          sub: 'About one in ten humans on Earth survived that cut.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -422,8 +429,9 @@
         },
         {
           id: 'cordillera_basin',
-          label: 'Continental Cordillera',
-          capacity: '~900M Hemisphere',
+          label: 'Western Americas',
+          headline: 'Everyone matching you could span the Americas from northern tundra down to the southern cape.',
+          sub: 'Hundreds of millions of people still share this combination.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -439,8 +447,9 @@
         },
         {
           id: 'archipelago_basin',
-          label: 'Maritime Sea Basin',
-          capacity: '~700M Region',
+          label: 'Southeast Asian Seas',
+          headline: 'Everyone left like you could populate the entire Southeast Asian maritime basin.',
+          sub: 'Pick a trait from a fresh category for a sharper cut.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.92), true);
             g.wash(() => {
@@ -458,8 +467,9 @@
       items: [
         {
           id: 'coast_to_coast_usa',
-          label: 'Coast-to-Coast Nation',
-          capacity: '~340M Nation',
+          label: 'Continental United States',
+          headline: 'Roughly one entire continental United States of statistical lookalikes remaining.',
+          sub: 'Coast-to-coast traffic if you all met up at once.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -478,8 +488,9 @@
         },
         {
           id: 'volcanic_archipelago',
-          label: '17,000-Island Chain',
-          capacity: '~280M Islands',
+          label: 'Indonesian Archipelago',
+          headline: 'Everyone matching your stack could populate every island of the Indonesian archipelago.',
+          sub: 'Down to a few percent of Earth’s population.',
           draw(g) {
             g.inner(() => g.ellipse(0, 0, 0.95, 0.62), true);
             g.wash(() => {
@@ -492,8 +503,9 @@
         },
         {
           id: 'continental_plains',
-          label: 'Great Plains & Coasts',
-          capacity: '~360M Heartland',
+          label: 'Continental Heartland',
+          headline: 'Everyone left like you fills an entire ocean-to-ocean continental heartland.',
+          sub: 'Still hundreds of millions strong — keep stacking.',
           draw(g) {
             g.wash(() => g.superEllipse(0.92, 0.72, 2.6));
             g.inner(() => {
@@ -510,8 +522,9 @@
       items: [
         {
           id: 'amazon_shield',
-          label: 'Atlantic River Shield',
-          capacity: '~215M Nation',
+          label: 'Brazilian Heartland',
+          headline: 'Everyone left matching you could fill all of Brazil from the Amazon basin to the Atlantic.',
+          sub: 'Down to low single-digit percentages of humanity.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -530,8 +543,9 @@
         },
         {
           id: 'four_island_arc',
-          label: 'Four-Island Archipelago',
-          capacity: '~125M Islands',
+          label: 'Japanese Archipelago',
+          headline: 'Roughly one entire Japanese four-island archipelago of people still matching your checklist.',
+          sub: 'Switch categories so correlation dampening doesn’t soften the cut.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.9), true);
             g.wash(() => {
@@ -550,8 +564,9 @@
         },
         {
           id: 'bi_oceanic_isthmus',
-          label: 'Bi-Oceanic Highlands',
-          capacity: '~130M Nation',
+          label: 'Mexican Highlands & Gulf',
+          headline: 'Everyone left like you matches the scale of Mexico from Pacific coast to Gulf peninsula.',
+          sub: 'Over 98% of the planet has already been ruled out.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -572,8 +587,9 @@
       items: [
         {
           id: 'mediterranean_boot',
-          label: 'Mediterranean Peninsula',
-          capacity: '~60M Nation',
+          label: 'Italian Peninsula',
+          headline: 'Everyone matching your profile could populate the entire Italian peninsula and Sicily.',
+          sub: 'Entering midgame territory — time to get more specific.',
           draw(g) {
             g.wash(() => {
               g.smooth(
@@ -590,8 +606,9 @@
         },
         {
           id: 'iberian_shield',
-          label: 'Coastal Peninsula',
-          capacity: '~58M Peninsula',
+          label: 'Iberian Peninsula',
+          headline: 'Everyone left like you could populate the entire Iberian peninsula.',
+          sub: 'Less than 1% of humanity still shares all your facts.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -607,8 +624,9 @@
         },
         {
           id: 'river_delta_fan',
-          label: 'Nile Valley & Fan Delta',
-          capacity: '~105M Corridor',
+          label: 'Nile River & Delta',
+          headline: 'Everyone still matching you could line the entire Nile valley and coastal fan delta.',
+          sub: 'One solid niche trait will drop you under 10 million.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.56, 1.56, 0.28));
             g.contour(() => {
@@ -629,8 +647,9 @@
       items: [
         {
           id: 'tokyo_bay_loops',
-          label: 'Megacity Bay & Ringways',
-          capacity: '~37M Metro',
+          label: 'Tokyo Bay Megacity',
+          headline: 'Everyone left like you fits inside Greater Tokyo’s bayfront expressway rings.',
+          sub: 'One more cut triggers the 10M Metropolis camera zoom.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.94));
             g.contour(() =>
@@ -651,8 +670,9 @@
         },
         {
           id: 'five_borough_harbor',
-          label: 'Harbor Estuary Metro',
-          capacity: '~20M Metro',
+          label: 'New York Harbor Metro',
+          headline: 'Everyone matching your checklist fits inside the New York Harbor metropolitan region.',
+          sub: 'Right on the doorstep of the 10M Metropolis zoom.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.94));
             g.contour(() => {
@@ -664,8 +684,9 @@
         },
         {
           id: 'river_beltway_metro',
-          label: 'River-Bisected Megacity',
-          capacity: '~25M Metro',
+          label: 'Seoul River Beltway',
+          headline: 'Everyone remaining fits inside one river-bisected megacity beltway.',
+          sub: 'Under 10 million unlocks 1-dot-equals-1,000-people.',
           draw(g) {
             g.wash(() => g.superEllipse(0.94, 0.86, 2.8));
             g.contour(() => {
@@ -689,8 +710,9 @@
       items: [
         {
           id: 'thames_orbital',
-          label: 'Orbital Beltway City',
-          capacity: '~9M Metropolis',
+          label: 'London Orbital Beltway',
+          headline: 'Everyone left like you fits inside London’s orbital beltway along the winding Thames.',
+          sub: 'Every dot on screen now represents 1,000 living humans.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -709,8 +731,9 @@
         },
         {
           id: 'twin_island_strait',
-          label: 'North & South Islands',
-          capacity: '~5.2M Nation',
+          label: 'New Zealand Twin Islands',
+          headline: 'Everyone matching your checklist could populate New Zealand’s North and South Islands.',
+          sub: 'More than 99.9% of Earth has been eliminated.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.92), true);
             g.wash(() => {
@@ -721,8 +744,9 @@
         },
         {
           id: 'alpine_republic',
-          label: 'Alpine Valley Nation',
-          capacity: '~8.8M Country',
+          label: 'Swiss Alpine Valleys',
+          headline: 'Everyone left like you fits across the mountain valleys and lakes of Switzerland.',
+          sub: 'Every dot on screen stands for 1,000 people.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -747,8 +771,9 @@
       items: [
         {
           id: 'manhattan_island',
-          label: 'Manhattan Island Grid',
-          capacity: '~1.6M Island',
+          label: 'Manhattan Island',
+          headline: 'Everyone left matching you fits onto the street grid of Manhattan Island.',
+          sub: 'Central Park included — 99.97% of humanity is gone.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.92), true);
             g.wash(() =>
@@ -768,8 +793,9 @@
         },
         {
           id: 'paris_boulevard_star',
-          label: 'Ringed Boulevard City',
-          capacity: '~2.1M City',
+          label: 'Paris Ring Boulevard',
+          headline: 'Everyone remaining fits inside the ringed boulevards of central Paris.',
+          sub: 'All twenty arrondissements along the curve of the Seine.',
           draw(g) {
             g.wash(() => g.ellipse(0, 0, 0.94, 0.78));
             g.contour(() => g.quad(-0.88, 0.24, -0.05, -0.34, 0.88, 0.28));
@@ -781,8 +807,9 @@
         },
         {
           id: 'ringstrasse_city',
-          label: 'Historic Ringed City',
-          capacity: '~1.9M City',
+          label: 'Vienna Ringstrasse',
+          headline: 'Everyone left like you fits inside a historic ringed European capital like Vienna.',
+          sub: 'You have narrowed 8.3 billion down to a single city.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.9));
             g.contour(() => {
@@ -806,8 +833,9 @@
       items: [
         {
           id: 'bay_peninsula_city',
-          label: '7×7 Bay Peninsula',
-          capacity: '~810K City',
+          label: 'San Francisco Peninsula',
+          headline: 'Everyone left like you could live inside San Francisco’s 7-by-7-mile bay peninsula.',
+          sub: 'Street parking would still be tough, though.',
           draw(g) {
             g.inner(() => g.circle(0, 0, 0.94), true);
             g.wash(() =>
@@ -828,8 +856,9 @@
         },
         {
           id: 'canal_rings_city',
-          label: 'Concentric Canal Rings',
-          capacity: '~880K City',
+          label: 'Amsterdam Canal Rings',
+          headline: 'Everyone matching your profile fits along Amsterdam’s concentric horseshoe canals.',
+          sub: 'Down to a single compact harbor city.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.92));
             g.contour(() => g.line(-0.86, -0.36, 0.86, -0.36));
@@ -843,8 +872,9 @@
         },
         {
           id: 'grand_canal_lagoon',
-          label: 'Grand Canal Lagoon',
-          capacity: '~550K Lagoon',
+          label: 'Venetian Lagoon',
+          headline: 'Everyone left like you fits across the islands and Grand Canal of a lagoon city.',
+          sub: 'Less than one ten-thousandth of humanity remains.',
           draw(g) {
             g.inner(() => g.ellipse(0, 0, 0.94, 0.78), true);
             g.wash(() =>
@@ -871,7 +901,8 @@
         {
           id: 'superspeedway_oval',
           label: 'Grand Prix Speedway',
-          capacity: '~300K Crowd',
+          headline: 'Everyone left like you fits inside the grandstands and infield of one giant superspeedway.',
+          sub: 'Roughly one Indy 500 race-day crowd.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.88, 1.24, 0.56));
             g.contour(() => g.rrect(0, 0, 1.56, 0.92, 0.42));
@@ -884,7 +915,8 @@
         {
           id: 'festival_valley',
           label: 'Music Festival Grounds',
-          capacity: '~210K Crowd',
+          headline: 'Everyone matching your checklist fits across one Glastonbury-scale music festival valley.',
+          sub: 'All camped out in front of the same pyramid main stage.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -904,8 +936,9 @@
         },
         {
           id: 'fjord_island',
-          label: 'Sub-Arctic Fjord Island',
-          capacity: '~380K Island',
+          label: 'Icelandic Fjord Island',
+          headline: 'Everyone remaining on Earth could live comfortably across the fjords of Iceland.',
+          sub: 'A sparse volcanic island’s worth of statistical twins.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -928,11 +961,11 @@
         {
           id: 'wembley_stadium',
           label: 'Olympic Stadium Bowl',
-          capacity: '~90K Seats',
+          headline: 'Everyone left like you fits inside one packed Olympic stadium bowl.',
+          sub: 'Under 10,000 triggers 1-dot-equals-1-actual-human.',
           draw(g) {
             g.wash(() => g.superEllipse(0.96, 0.80, 2.5));
             g.contour(() => g.superEllipse(0.68, 0.52, 2.6));
-            // Signature stadium arch & pitch markings
             g.accent(() => g.quad(-0.92, -0.18, 0, -0.98, 0.92, -0.18));
             g.inner(() => {
               g.rrect(0, 0, 0.88, 0.56, 0.02);
@@ -945,7 +978,8 @@
         {
           id: 'rose_bowl_stadium',
           label: 'College Football Bowl',
-          capacity: '~100K Bowl',
+          headline: 'Everyone matching your checklist fits inside one sold-out college football bowl.',
+          sub: 'From endzone to endzone, upper deck included.',
           draw(g) {
             g.wash(() => g.ellipse(0, 0, 0.96, 0.80));
             g.contour(() => g.ellipse(0, 0, 0.62, 0.46));
@@ -959,7 +993,8 @@
         {
           id: 'roman_colosseum',
           label: 'Roman Colosseum',
-          capacity: '~75K Arena',
+          headline: 'All of your remaining statistical lookalikes fit inside the Roman Colosseum.',
+          sub: 'Every stone tier filled around the arena floor.',
           draw(g) {
             g.wash(() => g.ellipse(0, 0, 0.96, 0.80));
             g.contour(() => {
@@ -975,13 +1010,14 @@
       ]
     },
     {
-      min: 10000,
+      min: 28000,
       tier: 2,
       items: [
         {
           id: 'baseball_ballpark',
           label: 'Baseball Ballpark',
-          capacity: '~42K Seats',
+          headline: 'Everyone left like you fits inside the grandstands and bleachers of one baseball ballpark.',
+          sub: 'One seventh-inning stretch of your statistical twins.',
           draw(g) {
             g.wash(() =>
               g.smooth(
@@ -1002,9 +1038,46 @@
           }
         },
         {
+          id: 'cricket_oval',
+          label: 'Cricket Oval Ground',
+          headline: 'Everyone matching your profile fits around the boundary of one classic cricket oval.',
+          sub: 'Under 10,000 unlocks individual 1-for-1 human dots.',
+          draw(g) {
+            g.wash(() => g.ellipse(0, 0, 0.90, 0.94));
+            g.contour(() => g.ellipse(0, 0, 0.68, 0.72));
+            g.inner(() => {
+              g.rrect(0, 0, 0.14, 0.44, 0.02);
+              g.ellipse(0, 0, 0.38, 0.42);
+              g.spokes(0.68, 0.90, 18);
+            });
+          }
+        },
+        {
+          id: 'marathon_corral',
+          label: 'City Marathon Start',
+          headline: 'Everyone left like you equals the starting-corral field of one major city marathon.',
+          sub: 'One more sharp trait brings every dot down to 1 actual person.',
+          draw(g) {
+            g.wash(() => g.rrect(0, 0, 1.12, 1.84, 0.18));
+            g.accent(() => g.line(-0.56, -0.62, 0.56, -0.62));
+            g.inner(() => {
+              for (let y = -0.34; y <= 0.64; y += 0.32) {
+                g.line(-0.48, y, 0.48, y);
+              }
+            }, true);
+          }
+        }
+      ]
+    },
+    {
+      min: 10000,
+      tier: 2,
+      items: [
+        {
           id: 'round_arena',
           label: 'Circular Indoor Arena',
-          capacity: '~20K Arena',
+          headline: 'Everyone left like you fits inside one circular indoor arena.',
+          sub: 'Right at the edge of the 10,000-person individual dot zoom.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.92));
             g.contour(() => g.circle(0, 0, 0.66));
@@ -1018,7 +1091,8 @@
         {
           id: 'canyon_amphitheater',
           label: 'Canyon Amphitheater',
-          capacity: '~10K Rocks',
+          headline: 'Everyone matching your checklist fits on the stone benches of one canyon amphitheater.',
+          sub: 'Carved between twin rock monoliths — almost under 10,000.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1028,7 +1102,6 @@
                 true
               )
             );
-            // Twin flanking monolith rocks
             g.contour(() => {
               g.poly([[-0.92, -0.58], [-0.74, -0.72], [-0.34, 0.72], [-0.54, 0.78]], true);
               g.poly([[0.92, -0.58], [0.74, -0.72], [0.34, 0.72], [0.54, 0.78]], true);
@@ -1039,6 +1112,23 @@
                 g.arc(0, 0.68, r, -Math.PI * 0.68, -Math.PI * 0.32);
               }
             });
+          }
+        },
+        {
+          id: 'velodrome_track',
+          label: 'Olympic Velodrome',
+          headline: 'Everyone remaining fits around the banked timber oval of an indoor velodrome.',
+          sub: 'Less than 0.0003% of Earth still matches.',
+          draw(g) {
+            g.wash(() => g.rrect(0, 0, 1.84, 1.32, 0.62));
+            g.contour(() => {
+              g.rrect(0, 0, 1.48, 0.96, 0.46);
+              g.rrect(0, 0, 1.08, 0.56, 0.26);
+            });
+            g.inner(() => {
+              g.line(0, -0.66, 0, 0.66);
+              g.line(-0.92, 0, 0.92, 0);
+            }, true);
           }
         }
       ]
@@ -1052,7 +1142,8 @@
         {
           id: 'cruise_liner',
           label: 'Ocean Cruise Ship',
-          capacity: '~6,000 Guests',
+          headline: 'Every dot is now 1 actual human — and all of you fit aboard one ocean cruise ship.',
+          sub: 'Every promenade deck and poolside lounge chair accounted for.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1063,7 +1154,7 @@
                 true
               )
             );
-            g.contour(() => g.rrect(0, -0.54, 0.94, 0.10, 0.03)); // Bridge wings
+            g.contour(() => g.rrect(0, -0.54, 0.94, 0.10, 0.03));
             g.inner(() => {
               g.sym([[0, -0.76], [0.28, -0.28], [0.30, 0.54], [0, 0.78]], false);
               g.rrect(0, -0.12, 0.22, 0.32, 0.05);
@@ -1076,7 +1167,8 @@
         {
           id: 'albert_rotunda',
           label: 'Domed Concert Rotunda',
-          capacity: '~5,300 Seats',
+          headline: 'Every dot is 1 actual human — and everyone left fits inside one domed concert rotunda.',
+          sub: 'From the standing arena floor up to the top gallery ring.',
           draw(g) {
             g.wash(() => g.ellipse(0, 0, 0.88, 0.94));
             g.contour(() => {
@@ -1091,8 +1183,9 @@
         },
         {
           id: 'aircraft_carrier',
-          label: 'Carrier Flight Deck',
-          capacity: '~5,000 Crew',
+          label: 'Aircraft Carrier Deck',
+          headline: 'Every dot is 1 human — and your entire remaining crowd equals the crew of one aircraft carrier.',
+          sub: 'Mustering shoulder-to-shoulder across the angled flight deck.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1113,7 +1206,8 @@
         {
           id: 'grand_concourse',
           label: 'Grand Train Terminal',
-          capacity: '~7,000 Hall',
+          headline: 'Every dot is 1 actual human — enough to fill the main concourse of a grand train terminal.',
+          sub: 'Gathered around the center information clock.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.76, 1.28, 0.08));
             g.contour(() => {
@@ -1137,7 +1231,8 @@
         {
           id: 'opera_shells',
           label: 'Harbor Opera House',
-          capacity: '~2,700 Seats',
+          headline: 'Everyone left like you fits beneath the vaulted shells of a harbor opera house.',
+          sub: 'One evening performance of remarkably similar biographies.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1158,7 +1253,8 @@
         {
           id: 'gothic_cathedral',
           label: 'Cathedral Floorplan',
-          capacity: '~2,400 Nave',
+          headline: 'Everyone matching your checklist fits inside the nave and transepts of one Gothic cathedral.',
+          sub: 'Every single dot on the blueprint is one living human.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1181,8 +1277,9 @@
         },
         {
           id: 'campus_quad',
-          label: 'Campus Quadrangle',
-          capacity: '~2,000 Students',
+          label: 'High School Campus Quad',
+          headline: 'Everyone remaining on Earth equals one suburban high school quadrangle.',
+          sub: 'One hyper-specific hobby or quirk could clear the courtyard.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.72, 1.72, 0.10));
             g.contour(() => g.rrect(0, 0, 1.24, 1.24, 0.06));
@@ -1202,7 +1299,8 @@
         {
           id: 'broadway_theater',
           label: 'Broadway Theater',
-          capacity: '~1,100 Seats',
+          headline: 'Everyone left like you fits inside the orchestra and balcony of a historic Broadway theater.',
+          sub: 'You could make eye contact with all of them before intermission.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1213,7 +1311,6 @@
                 true
               )
             );
-            // Stage apron + balcony arcs
             g.contour(() => g.quad(-0.62, -0.46, 0, -0.32, 0.62, -0.46));
             g.inner(() => {
               g.arc(0, -0.42, 0.58, 0.35, Math.PI - 0.35);
@@ -1224,7 +1321,8 @@
         {
           id: 'vineyard_symphony',
           label: 'Symphony Concert Hall',
-          capacity: '~1,400 Seats',
+          headline: 'Everyone matching your profile fits on the terraced tiers of one symphony concert hall.',
+          sub: 'Surrounding the center stage with barely a spare seat.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1245,7 +1343,8 @@
         {
           id: 'three_ring_tent',
           label: 'Three-Ring Big Top',
-          capacity: '~1,000 Tent',
+          headline: 'Everyone left like you fits beneath the canvas canopy of one three-ring circus tent.',
+          sub: 'Around a thousand people out of 8.3 billion.',
           draw(g) {
             g.wash(() => g.ellipse(0, 0, 0.94, 0.76));
             g.inner(() => {
@@ -1265,7 +1364,8 @@
         {
           id: 'boeing_747',
           label: 'Boeing 747 Cabin',
-          capacity: '~416 Seats',
+          headline: 'Everyone left like you fits aboard a single wide-body Boeing 747.',
+          sub: 'Everyone probably reaches for the exact same window seat.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1277,7 +1377,6 @@
                 false
               )
             );
-            // 4 underwing jet nacelles
             g.contour(() => {
               g.rrect(-0.36, -0.10, 0.08, 0.18, 0.03);
               g.rrect(0.36, -0.10, 0.08, 0.18, 0.03);
@@ -1290,7 +1389,8 @@
         {
           id: 'harbor_ferry',
           label: 'Double-Ended Ferry',
-          capacity: '~500 Deck',
+          headline: 'Everyone matching your checklist fits onto one double-ended passenger ferry.',
+          sub: 'Under 250 unlocks individual human silhouettes.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1308,7 +1408,8 @@
         {
           id: 'reading_rotunda',
           label: 'Library Reading Room',
-          capacity: '~380 Desks',
+          headline: 'Everyone remaining fits at the radial desks of one domed library reading room.',
+          sub: 'Pin-drop silence — and everyone brought the same book.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.92));
             g.contour(() => {
@@ -1321,7 +1422,8 @@
         {
           id: 'cinema_auditorium',
           label: 'Grand Cinema Hall',
-          capacity: '~320 Seats',
+          headline: 'All of your remaining matches fit inside one curved-screen cinema auditorium.',
+          sub: 'Not even a second screening room required.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1350,7 +1452,8 @@
         {
           id: 'reception_pavilion',
           label: 'Banquet Pavilion',
-          capacity: '~180 Guests',
+          headline: 'Everyone left like you fits around the tables of one garden banquet pavilion.',
+          sub: 'Every dot on screen has resolved into an individual human silhouette.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.76, 1.56, 0.18));
             g.contour(() => g.rrect(0, 0, 0.64, 0.64, 0.04));
@@ -1365,7 +1468,8 @@
         {
           id: 'lecture_hall',
           label: 'Lecture Amphitheater',
-          capacity: '~160 Seats',
+          headline: 'Everyone matching your checklist fits inside one tiered university lecture hall.',
+          sub: 'Roughly Dunbar’s number — every silhouette is one person.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1387,7 +1491,8 @@
         {
           id: 'narrowbody_jet',
           label: 'Twin-Engine Jetliner',
-          capacity: '~175 Seats',
+          headline: 'Everyone left on Earth like you fits down the single aisle of one twin-engine jetliner.',
+          sub: 'Every silhouette on the cabin blueprint is one actual match.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1414,7 +1519,8 @@
         {
           id: 'commuter_railcar',
           label: 'Commuter Train Car',
-          capacity: '~85 Riders',
+          headline: 'One commuter train car of people sharing your exact checklist.',
+          sub: 'Uncomfortably specific eye contact up and down the center aisle.',
           draw(g) {
             g.inner(() => {
               g.line(-0.36, -0.98, -0.36, 0.98);
@@ -1432,7 +1538,8 @@
         {
           id: 'planetarium_dome',
           label: 'Planetarium Star Dome',
-          capacity: '~90 Seats',
+          headline: 'Everyone left like you fits beneath the reclined ring of a neighborhood planetarium dome.',
+          sub: 'Fewer than a hundred statistical matches remain on Earth.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.92));
             g.contour(() => {
@@ -1446,7 +1553,8 @@
         {
           id: 'corner_cafe',
           label: 'Corner Coffeehouse',
-          capacity: '~65 Patrons',
+          headline: 'Everyone matching your profile fits inside one bustling corner coffeehouse.',
+          sub: 'And every barista ticket would have the exact same order.',
           draw(g) {
             g.wash(() =>
               g.poly(
@@ -1476,7 +1584,8 @@
         {
           id: 'school_bus',
           label: 'Yellow School Bus',
-          capacity: '~48 Seats',
+          headline: 'One yellow school bus of people sharing your exact profile.',
+          sub: 'Drop one last hobby, allergy, or odd habit to clear the aisles.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1487,7 +1596,6 @@
                 true
               )
             );
-            // West-coast side mirrors + windshield
             g.contour(() => {
               g.quad(-0.40, -0.58, 0, -0.68, 0.40, -0.58);
               g.line(-0.44, -0.62, -0.58, -0.56);
@@ -1500,7 +1608,8 @@
         {
           id: 'homeroom_class',
           label: 'School Classroom',
-          capacity: '~32 Desks',
+          headline: 'Everyone left like you fits at the desks of a single school classroom.',
+          sub: 'One chalkboard, a few rows of desks, and zero strangers.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.68, 1.48, 0.06));
             g.contour(() => {
@@ -1519,7 +1628,8 @@
         {
           id: 'sailing_schooner',
           label: 'Two-Masted Yacht',
-          capacity: '~40 On Deck',
+          headline: 'Everyone matching your checklist fits on the deck of a single two-masted sailing yacht.',
+          sub: 'One more specific detail trims the crew down to single digits.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1534,7 +1644,6 @@
               g.line(0, -0.88, 0, -1.00);
               g.circle(0, -0.28, 0.055);
               g.circle(0, 0.24, 0.055);
-              // Mainsail & foresail boom arcs
               g.quad(0, -0.28, 0.48, -0.14, 0.42, 0.14);
               g.quad(0, 0.24, 0.46, 0.38, 0.38, 0.68);
             });
@@ -1554,11 +1663,11 @@
         {
           id: 'freight_elevator',
           label: 'Freight Elevator Cab',
-          capacity: '~18 Riders',
+          headline: 'A single freight elevator cab of your remaining statistical lookalikes.',
+          sub: 'Nobody is reaching for the floor button first.',
           draw(g) {
             g.inner(() => g.rrect(0, 0, 1.64, 1.64, 0.06), true);
             g.wash(() => g.rrect(0, 0, 1.38, 1.38, 0.06));
-            // Sliding double doors + side guide rails
             g.contour(() => {
               g.line(-0.44, -0.69, -0.04, -0.69);
               g.line(0.04, -0.69, 0.44, -0.69);
@@ -1570,7 +1679,8 @@
         {
           id: 'boardroom_table',
           label: 'Conference Boardroom',
-          capacity: '~18 Chairs',
+          headline: 'Everyone left like you fits around a single oval conference boardroom table.',
+          sub: 'Under twenty people out of 8.3 billion — almost 1-of-1.',
           draw(g) {
             g.inner(() => g.rrect(0, 0, 1.76, 1.36, 0.10));
             g.wash(() => g.superEllipse(0.66, 0.38, 2.4));
@@ -1580,7 +1690,8 @@
         {
           id: 'campfire_ring',
           label: 'Campfire Clearing',
-          capacity: '~16 Campers',
+          headline: 'Everyone matching your stack fits on the log benches around a single campfire.',
+          sub: 'All telling remarkably identical life stories.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.88));
             g.accent(() => g.circle(0, 0, 0.16));
@@ -1601,7 +1712,8 @@
         {
           id: 'dinner_party_table',
           label: 'Dinner Party Table',
-          capacity: '~10 Guests',
+          headline: 'One round dinner party table of your statistical doubles.',
+          sub: 'At least nobody at the table will argue over the menu.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.66));
             g.contour(() => g.chairs(0.66, 0.66, 10, 0.10, 0.09));
@@ -1616,7 +1728,8 @@
         {
           id: 'crew_capsule',
           label: 'Spacecraft Capsule',
-          capacity: '~8 Crew',
+          headline: 'Everyone left like you could squeeze into a single spacecraft crew capsule.',
+          sub: 'Single-digit territory — one more fact should seal it.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.86));
             g.contour(() => {
@@ -1629,11 +1742,11 @@
         {
           id: 'living_room_rug',
           label: 'Living Room Sectional',
-          capacity: '~9 Friends',
+          headline: 'Everyone matching your checklist fits onto one living room sectional sofa.',
+          sub: 'Small enough for one unforgettable game night.',
           draw(g) {
             g.wash(() => g.rrect(0, 0.04, 1.56, 1.36, 0.08));
             g.contour(() => {
-              // U-shaped sofa around rug
               g.poly(
                 [
                   [-0.68, 0.24], [-0.68, -0.58], [0.68, -0.58], [0.68, 0.24],
@@ -1654,7 +1767,10 @@
         {
           id: 'sedan_car',
           label: 'Four-Door Sedan',
-          capacity: '4–5 Riders',
+          headline(n) {
+            return 'Just ' + n + ' of you left on Earth — enough to carpool in one four-door sedan.';
+          },
+          sub: 'One more real fact seals your 1-of-1 card.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1665,7 +1781,6 @@
                 true
               )
             );
-            // Windshields + side mirrors
             g.contour(() => {
               g.poly([[-0.34, -0.44], [0.34, -0.44], [0.30, -0.18], [-0.30, -0.18]], true);
               g.poly([[-0.30, 0.38], [0.30, 0.38], [0.34, 0.58], [-0.34, 0.58]], true);
@@ -1677,7 +1792,10 @@
         {
           id: 'wooden_rowboat',
           label: 'Wooden Rowboat',
-          capacity: '4–5 Crew',
+          headline(n) {
+            return 'Just ' + n + ' of you left on Earth — everyone fits inside one wooden rowboat.';
+          },
+          sub: 'Two oars and one final fact between you and 1-of-1.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1688,7 +1806,6 @@
                 true
               )
             );
-            // Oars & thwarts
             g.contour(() => {
               g.line(-0.34, -0.06, -0.92, 0.22);
               g.line(0.34, -0.06, 0.92, 0.22);
@@ -1703,7 +1820,10 @@
         {
           id: 'diner_booth',
           label: 'Corner Diner Booth',
-          capacity: '4–6 Booth',
+          headline(n) {
+            return 'Just ' + n + ' of you left — everyone slides into a single corner diner booth.';
+          },
+          sub: 'Add one unmistakable truth to claim the whole booth yourself.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.56, 1.32, 0.14));
             g.contour(() => {
@@ -1722,7 +1842,12 @@
         {
           id: 'park_bench',
           label: 'Park Bench for Two',
-          capacity: '2–3 Seats',
+          headline(n) {
+            return n === 2
+              ? 'Just you and ONE statistical twin sharing a single park bench.'
+              : 'Down to ' + n + ' of you across 8.3 billion — crowded onto one park bench.';
+          },
+          sub: 'One final truth makes it unmistakably you.',
           draw(g) {
             g.wash(() => g.rrect(0, 0, 1.54, 0.78, 0.12));
             g.contour(() => {
@@ -1739,7 +1864,12 @@
         {
           id: 'bistro_for_two',
           label: 'Sidewalk Bistro Table',
-          capacity: '2–3 Seats',
+          headline(n) {
+            return n === 2
+              ? 'Just you and one statistical double across a tiny sidewalk bistro table.'
+              : 'Down to ' + n + ' of you gathered around a tiny sidewalk bistro table.';
+          },
+          sub: 'One last fact settles the check.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.52));
             g.contour(() => {
@@ -1755,7 +1885,12 @@
         {
           id: 'tandem_canoe',
           label: 'Tandem Canoe',
-          capacity: '2–3 Paddlers',
+          headline(n) {
+            return n === 2
+              ? 'Just you and one statistical twin paddling a tandem canoe.'
+              : 'Down to ' + n + ' of you balanced inside a single canoe.';
+          },
+          sub: 'One more truth makes you 1-of-1.',
           draw(g) {
             g.wash(() =>
               g.sym(
@@ -1766,7 +1901,6 @@
                 true
               )
             );
-            // Twin canoe paddles + thwarts
             g.contour(() => {
               g.line(-0.22, -0.24, -0.78, 0.04);
               g.ellipse(-0.82, 0.06, 0.10, 0.045, -0.46);
@@ -1791,7 +1925,8 @@
         {
           id: 'museum_plinth',
           label: 'Specimen Plinth',
-          capacity: '1 of 1',
+          headline: 'Population: 1. Nobody else on Earth shares this exact combination.',
+          sub: 'Standing solo on the specimen plinth — verified One-of-One.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.84), true);
             g.inner(() => {
@@ -1804,7 +1939,8 @@
         {
           id: 'spotlight_iris',
           label: 'Center Stage Spotlight',
-          capacity: '1 of 1',
+          headline: 'Population: 1. Nobody else on Earth shares this exact combination.',
+          sub: 'Center stage in a solo spotlight — verified One-of-One.',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.82), true);
             g.inner(() => {
@@ -1821,7 +1957,8 @@
         {
           id: 'zenith_aperture',
           label: 'Observatory Zenith',
-          capacity: '1 of 1',
+          headline: 'Population: 1. Nobody else on Earth shares this exact combination.',
+          sub: 'Centered in the observatory zenith — verified One-of-One.',
           draw(g) {
             g.wash(() => g.superEllipse(0.82, 0.82, 3.2), true);
             g.accent(() => {
@@ -1875,18 +2012,30 @@
     const stepCount = Math.max(0, Number(o.stepCount) || 0);
     const cycleOffset = Math.max(0, Number(o.cycleOffset) || 0);
 
-    // At 8.3B initial state (stepCount === 0, cycleOffset === 0), open on Earth Globe
     let idx =
       stepCount === 0 && cycleOffset === 0 && band.min >= 8000000000
         ? runSeed % len
         : (runSeed * 3 + stepCount + cycleOffset) % len;
 
-    // Anti-repeat: if a trait was added/removed and we stayed in the same band, advance to sibling
     if (o.avoidId && len > 1 && items[idx].id === o.avoidId) {
       idx = (idx + 1) % len;
     }
 
     return items[idx];
+  }
+
+  /**
+   * Returns the 1-to-1 matched `{ headline, sub }` for `outline` at `population`.
+   */
+  function getCopyForOutline(outline, population) {
+    if (!outline) {
+      return { headline: '', sub: '' };
+    }
+    const pop = Math.max(1, Math.round(Number(population) || 1));
+    const headline =
+      typeof outline.headline === 'function' ? outline.headline(pop) : outline.headline || '';
+    const sub = typeof outline.sub === 'function' ? outline.sub(pop) : outline.sub || '';
+    return { headline, sub };
   }
 
   /**
@@ -1903,6 +2052,7 @@
     ALL_OUTLINES,
     findBand,
     resolveOutline,
+    getCopyForOutline,
     drawOutline
   };
 });

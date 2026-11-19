@@ -167,7 +167,9 @@ const mockCtx = {
 for (const outline of ScaleOutlines.ALL_OUTLINES) {
   assert.ok(!outlineIds.has(outline.id), `Duplicate outline id: ${outline.id}`);
   outlineIds.add(outline.id);
-  assert.ok(outline.label && outline.capacity, `Missing label/capacity on ${outline.id}`);
+  assert.ok(outline.label, `Missing label on ${outline.id}`);
+  const copy = ScaleOutlines.getCopyForOutline(outline, Math.max(1, outline.minPop));
+  assert.ok(copy.headline && copy.headline.length > 10, `Missing matched headline on ${outline.id}`);
   const beforeOps = mockCtx.ops;
   ScaleOutlines.drawOutline(mockCtx, outline, 200, 200, 150, 1.0);
   assert.ok(mockCtx.ops > beforeOps, `Outline ${outline.id} drew zero canvas operations`);
