@@ -75,8 +75,6 @@ let hint4Active = false; // Flag for Hint 4 (vowels populated)
 let lockedInIndices = new Set(); // indices of correct letters locked in by player attempts
 let animateVowelRush = false; // Flag to trigger Hint 4 vowel animation once on reveal
 let hintsUsed = 0; // Number of progressive hints used
-let activeRewardedEvent = null;
-let rewardedSlot = null;
 let streakAnimationPlayed = false;
 
 let isItch = false;
@@ -271,54 +269,7 @@ window.onload = async () => {
     ui.btnShowHint1.onclick = revealHint1;
     ui.btnShowHint2.onclick = revealHint2;
     ui.btnShowHint3.onclick = revealHint3;
-    ui.btnShowHint4.onclick = () => {
-        if (activeRewardedEvent) {
-            console.log("Triggering rewarded ad for Hint 4...");
-            activeRewardedEvent.makeRewardedVisible();
-        } else {
-            console.log("No active rewarded event. Triggering offline fallback Vowel Rush!");
-            revealHint4();
-        }
-    };
-
-    // Google Publisher Tag (GPT) setup and event listeners
-    window.googletag = window.googletag || { cmd: [] };
-    googletag.cmd.push(() => {
-        googletag.pubads().addEventListener('rewardedSlotReady', (event) => {
-            console.log("Rewarded slot is ready.");
-            activeRewardedEvent = event;
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotGranted', (event) => {
-            console.log("Rewarded slot reward granted. Unlocking Vowel Rush!");
-            revealHint4();
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotClosed', (event) => {
-            console.log("Rewarded slot closed.");
-            if (rewardedSlot) {
-                googletag.destroySlots([rewardedSlot]);
-                rewardedSlot = null;
-            }
-            activeRewardedEvent = null;
-            requestNextRewardedAd();
-        });
-
-        googletag.pubads().addEventListener('rewardedSlotVideoCompleted', (event) => {
-            console.log("Rewarded slot video completed.");
-        });
-
-        googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-            console.log("Slot render ended:", event.slot.getAdUnitPath(), {
-                isEmpty: event.isEmpty,
-                creativeId: event.creativeId,
-                lineItemId: event.lineItemId,
-                advertiserId: event.advertiserId
-            });
-        });
-
-        googletag.enableServices();
-    });
+    ui.btnShowHint4.onclick = revealHint4;
 
     const prevBtn = document.getElementById('btn-prev-challenge');
     if (prevBtn) prevBtn.onclick = () => navigateChallenge(-1);
@@ -1345,8 +1296,6 @@ function loadLevel() {
     hint4Active = false;
     animateVowelRush = false;
     hintsUsed = 0;
-    activeRewardedEvent = null;
-    requestNextRewardedAd();
 
     ui.guessInput.value = '';
     ui.feedbackMsg.innerText = '';
@@ -2168,7 +2117,7 @@ function triggerVictory() {
                 lobbyBtn.innerHTML = `🎮 PLAY ALL & TRACK STREAK ➔`;
                 lobbyBtn.classList.remove('hidden');
                 lobbyBtn.onclick = () => {
-                    window.open('https://iwandres.github.io/PunFiction/travelreviews/', '_blank');
+                    window.open('https://punfiction.io/travelreviews/', '_blank');
                 };
             } else {
                 const currentIndex = approved.findIndex(p => p.puzzle_number === activeChallenge.puzzle_number);
@@ -2405,7 +2354,7 @@ function shareSolvedScore() {
     const copyText = `PunFiction Daily Challenge #${activeChallenge.puzzle_number} 🗺️\n` + 
                      `Parody Solved: "${getMaskedParodyTitle(activeChallenge.boss_pun_title)}"\n` +
                      `Stats: ${hintText}\n` +
-                     `Play daily challenge at: https://iwandres.github.io/PunFiction/travelreviews/`;
+                     `Play daily challenge at: https://punfiction.io/travelreviews/`;
 
     navigator.clipboard.writeText(copyText).then(() => {
         showToast("📢 Streak Score copied to clipboard!");
@@ -2748,36 +2697,6 @@ async function sendTelemetryEvent(event, hints = 0) {
     }
 }
 
-// ================= REWARDED AD LOGIC (GOOGLE PUBLISHER TAG) =================
-
-function requestNextRewardedAd() {
-    if (typeof googletag === 'undefined') {
-        console.warn("googletag is not defined. Offline fallback active.");
-        return;
-    }
-    
-    googletag.cmd.push(() => {
-        if (rewardedSlot) {
-            console.log("Ad slot already exists and is preloading.");
-            return;
-        }
-        
-        console.log("Requesting next GPT rewarded slot with production unit...");
-        rewardedSlot = googletag.defineOutOfPageSlot(
-            '/23355087107/PunFiction_Web_Rewarded',
-            googletag.enums.OutOfPageFormat.REWARDED
-        );
-        
-        if (rewardedSlot) {
-            rewardedSlot.addService(googletag.pubads());
-            googletag.display(rewardedSlot);
-            googletag.pubads().refresh([rewardedSlot]);
-        } else {
-            console.warn("Failed to create Out-Of-Page rewarded slot.");
-        }
-    });
-}
-
 // ================= STATS & LEVEL SELECT CONTROLLER =================
 
 let liveTelemetryLoaded = false;
@@ -3077,7 +2996,7 @@ async function openStatsSelectModal(forceRefresh = false) {
                     <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-color); margin-bottom: 20px;">
                         The itch.io edition only displays today's puzzle. Visit the official portal to play all historical challenges, view leaderboards, and track your daily streak!
                     </p>
-                    <a href="https://iwandres.github.io/PunFiction/travelreviews/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
+                    <a href="https://punfiction.io/travelreviews/" target="_blank" class="btn primary-btn" style="display: inline-block; font-size: 1.1rem; padding: 10px 20px; text-decoration: none; box-shadow: 2px 2px 0px var(--border-color); color: var(--border-color); font-weight: bold;">Play All Challenges ➔</a>
                 </div>
             `;
             return;
@@ -4440,7 +4359,7 @@ function openMapPostcardOverlay(challenge) {
                 `PunFiction Daily Challenge #${challenge.puzzle_number} 🗺️\n` +
                 `Parody Solved: "${getMaskedParodyTitle(challenge.boss_pun_title)}"\n` +
                 `Stats: ${hintText}\n` +
-                `Play daily challenge at: https://iwandres.github.io/PunFiction/travelreviews/`;
+                `Play daily challenge at: https://punfiction.io/travelreviews/`;
             navigator.clipboard.writeText(copyText).then(() => {
                 showToast("📢 Postcard Score copied to clipboard!");
             }).catch(err => console.error("Clipboard error:", err));
