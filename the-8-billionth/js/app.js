@@ -27,6 +27,7 @@
     lastAddedTrait: null,
     selectedCategory: 'all',
     shuffleSeed: 1,
+    outlineRunSeed: 0,
     inspectedIndex: null,
     displayedCounterPop: 8300000000,
     counterRafId: null,
@@ -46,6 +47,8 @@
     zoomToastSub: document.getElementById('zoom-toast-sub'),
     scaleLegendPill: document.getElementById('scale-legend-pill'),
     scaleLegendText: document.getElementById('scale-legend-text'),
+    outlinePill: document.getElementById('outline-pill'),
+    outlineLabel: document.getElementById('outline-label'),
     counterCard: document.querySelector('.counter-card'),
     counterEyebrow: document.getElementById('counter-eyebrow'),
     btnReopenDossier: document.getElementById('btn-reopen-dossier'),
@@ -199,9 +202,17 @@
     state.stack = [];
     state.lastAddedTrait = null;
     state.shuffleSeed += 1;
+    state.outlineRunSeed += 1;
     closeInspector();
     if (receiptModal) receiptModal.close();
     recomputeAndRender({ justAdded: false });
+  }
+
+  function updateOutlineBadge(outline) {
+    if (!outline || !dom.outlineLabel) return;
+    dom.outlineLabel.textContent = outline.capacity
+      ? outline.label + ' · ' + outline.capacity
+      : outline.label;
   }
 
   const SESSION_STACK_KEY = 'billionth_session_stack_v1';
@@ -236,11 +247,15 @@
 
     // 1. Canvas Crowd Engine update
     if (renderer) {
-      renderer.setPopulation(evalRes.displayPopulation, evalRes.isOneOfOne);
+      renderer.setPopulation(evalRes.displayPopulation, evalRes.isOneOfOne, {
+        runSeed: state.outlineRunSeed,
+        stepCount: state.stack.length
+      });
       const tierInfo = ScaleTiers.resolveTierState(evalRes.displayPopulation, evalRes.isOneOfOne).tier;
       dom.tierLabel.textContent =
         'TIER ' + tierInfo.index + ' · ' + tierInfo.name.toUpperCase();
       dom.scaleLegendText.textContent = tierInfo.legendText;
+      updateOutlineBadge(renderer.getActiveOutline());
     }
     dom.hoverDeltaPill.classList.add('hidden');
 
@@ -624,9 +639,17 @@
   async function bootstrap() {
     // 1. Initialize 60fps Crowd Canvas right away so 8,300 dots are alive on frame 1
     renderer = new CrowdRenderer(dom.canvas, {
-      onTierChange: handleTierTransition
+      onTierChange: handleTierTransition,
+      onOutlineChange: updateOutlineBadge
     });
+    updateOutlineBadge(renderer.getActiveOutline());
     renderer.start();
+
+    if (dom.outlinePill) {
+      dom.outlinePill.addEventListener('click', () => {
+        if (renderer) renderer.cycleOutline();
+      });
+    }
 
     window.addEventListener('resize', () => {
       if (renderer) renderer.resize();

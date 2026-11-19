@@ -108,6 +108,29 @@
   }
 
   /**
+   * Returns the normalized (0..1) outer radius of the circular dot/silhouette cluster
+   * so perspective outlines can frame the circular crowd proportionally.
+   */
+  function getClusterRadiusNormalized(count, tierIndex) {
+    if (count <= 1 || tierIndex === 5) {
+      return 0.36;
+    }
+    if (tierIndex === 4) {
+      if (count === 2) return 0.30;
+      let tempPlaced = 1;
+      let totalRings = 0;
+      while (tempPlaced < count) {
+        totalRings += 1;
+        tempPlaced += 6 * totalRings;
+      }
+      return Math.min(0.86, 0.22 + totalRings * 0.11);
+    }
+    const maxCap = tierIndex === 1 ? 8300 : 9999;
+    const fillFraction = Math.max(0.008, Math.min(1, count / maxCap));
+    return 0.28 + 0.64 * Math.pow(fillFraction, 0.28);
+  }
+
+  /**
    * Computes normalized (-1..+1) target coordinates for `count` surviving entities:
    * - Tiers 1..3 (>= 250): Golden-angle Vogel spiral disk that gently tightens as count shrinks
    * - Tier 4 (2..249): Concentric amphitheater rings with crisp spacing for human silhouettes
@@ -166,9 +189,7 @@
     // Tiers 1..3: Golden-angle phyllotaxis spiral
     // Radius scales smoothly with count so culling visibly pulls the surviving cluster inward,
     // while keeping enough breathing room to distinguish individual dots.
-    const maxCap = tierIndex === 1 ? 8300 : 9999;
-    const fillFraction = Math.max(0.06, Math.min(1, count / maxCap));
-    const envelopeRadius = 0.26 + 0.66 * Math.pow(fillFraction, 0.36);
+    const envelopeRadius = getClusterRadiusNormalized(count, tierIndex);
 
     for (let i = 0; i < count; i++) {
       // Index 0 sits dead-center ("You"), higher indices spiral outward
@@ -184,6 +205,7 @@
     GOLDEN_ANGLE,
     TIERS,
     resolveTierState,
+    getClusterRadiusNormalized,
     computeTargetsNormalized
   };
 });

@@ -8,19 +8,19 @@
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./scaleTiers.js'));
+    module.exports = factory(require('./scaleTiers.js'), require('./scaleOutlines.js'));
   } else {
-    root.BillionthCrowdRenderer = factory(root.BillionthScaleTiers);
+    root.BillionthCrowdRenderer = factory(root.BillionthScaleTiers, root.BillionthScaleOutlines);
   }
-})(typeof self !== 'undefined' ? self : this, function (ScaleTiers) {
+})(typeof self !== 'undefined' ? self : this, function (ScaleTiers, ScaleOutlines) {
   'use strict';
 
   const MAX_PARTICLES = 10000;
   const MAX_DYING_EMBERS = 2400;
 
   const PALETTE = Object.freeze({
-    ringStroke: 'rgba(30, 41, 59, 0.08)',
-    crosshairStroke: 'rgba(30, 41, 59, 0.05)',
+    ringStroke: 'rgba(30, 41, 59, 0.042)',
+    crosshairStroke: 'rgba(30, 41, 59, 0.032)',
     dotAlive: '#0f766e',
     dotAliveCore: '#99f6e4',
     dotGhost: '#e11d48',
@@ -36,6 +36,7 @@
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d', { alpha: true });
       this.onTierChange = options.onTierChange || null;
+      this.onOutlineChange = options.onOutlineChange || null;
 
       this.palette = PALETTE;
 
@@ -83,12 +84,24 @@
       // Hover ghost preview ratio (null = inactive, 0..1 = fraction surviving)
       this.hoverSurvivalRatio = null;
 
-      // Camera & zoom pulse state
+      // Camera, perspective outline & zoom pulse state
       this.zoomPulse = 0;
       this.spotlightAge = 0;
       this.timeSec = 0;
       this.rafId = null;
       this.lastFrameMs = 0;
+
+      this.runSeed = 0;
+      this.stepCount = 0;
+      this.outlineCycleOffset = 0;
+      this.currentOutline = ScaleOutlines
+        ? ScaleOutlines.resolveOutline(this.population, false, { runSeed: 0, stepCount: 0, cycleOffset: 0 })
+        : null;
+      this.prevOutline = null;
+      this.outlineBlend = 1.0;
+      this.targetOutlineRadius = this._computeOutlineRadius(this.activeCount, this.currentTier.index);
+      this.outlineRadius = this.targetOutlineRadius;
+      this.prevOutlineRadius = this.targetOutlineRadius;
 
       this.sprites = {};
       this.resize();
@@ -104,6 +117,43 @@
         this.px[i] = this.tx[i] * 1.04;
         this.py[i] = this.ty[i] * 1.04;
       }
+    }
+
+    _computeOutlineRadius(count, tierIndex) {
+      if (tierIndex === 5 || count <= 1) return 0.56;
+      const clusterR = ScaleTiers.getClusterRadiusNormalized
+        ? ScaleTiers.getClusterRadiusNormalized(count, tierIndex)
+        : 0.72;
+      if (tierIndex === 4) {
+        if (count <= 3) return 0.54;
+        return Math.min(0.95, Math.max(0.62, clusterR * 1.26));
+      }
+      return Math.min(0.95, Math.max(0.65, clusterR * 1.24));
+    }
+
+    getActiveOutline() {
+      return this.currentOutline;
+    }
+
+    cycleOutline() {
+      if (!ScaleOutlines) return null;
+      this.outlineCycleOffset += 1;
+      const nextOutline = ScaleOutlines.resolveOutline(this.population, this.isOneOfOne, {
+        runSeed: this.runSeed,
+        stepCount: this.stepCount,
+        cycleOffset: this.outlineCycleOffset,
+        avoidId: this.currentOutline ? this.currentOutline.id : null
+      });
+      if (nextOutline && (!this.currentOutline || nextOutline.id !== this.currentOutline.id)) {
+        this.prevOutline = this.currentOutline;
+        this.prevOutlineRadius = this.outlineRadius;
+        this.currentOutline = nextOutline;
+        this.outlineBlend = this.reducedMotion ? 1.0 : 0.0;
+        if (typeof this.onOutlineChange === 'function') {
+          this.onOutlineChange(nextOutline);
+        }
+      }
+      return this.currentOutline;
     }
 
     resize() {
@@ -231,13 +281,23 @@
     /**
      * Transitions the crowd visualization to a new population & One-of-One state.
      */
-    setPopulation(displayPopulation, isOneOfOne = false) {
+    setPopulation(displayPopulation, isOneOfOne = false, context = {}) {
       const prevTier = this.currentTier;
       const prevCount = this.activeCount;
+      const prevPop = this.population;
+      const prevStep = this.stepCount;
 
       this.population = displayPopulation;
       this.isOneOfOne = Boolean(isOneOfOne || displayPopulation <= 1);
       this.hoverSurvivalRatio = null;
+
+      if (context.runSeed !== undefined && context.runSeed !== this.runSeed) {
+        this.runSeed = context.runSeed;
+        this.outlineCycleOffset = 0;
+      }
+      if (context.stepCount !== undefined) {
+        this.stepCount = context.stepCount;
+      }
 
       const resolved = ScaleTiers.resolveTierState(this.population, this.isOneOfOne);
       const nextTier = resolved.tier;
@@ -245,6 +305,33 @@
 
       this.currentTier = nextTier;
       this.activeCount = nextCount;
+      this.targetOutlineRadius = this._computeOutlineRadius(nextCount, nextTier.index);
+      if (this.reducedMotion) {
+        this.outlineRadius = this.targetOutlineRadius;
+      }
+
+      if (ScaleOutlines) {
+        const popChanged = prevPop !== this.population || prevStep !== this.stepCount;
+        if (popChanged) {
+          this.outlineCycleOffset = 0;
+        }
+        const nextOutline = ScaleOutlines.resolveOutline(this.population, this.isOneOfOne, {
+          runSeed: this.runSeed,
+          stepCount: this.stepCount,
+          cycleOffset: this.outlineCycleOffset,
+          avoidId:
+            popChanged && this.stepCount > 0 && this.currentOutline ? this.currentOutline.id : null
+        });
+        if (nextOutline && (!this.currentOutline || nextOutline.id !== this.currentOutline.id)) {
+          this.prevOutline = this.currentOutline;
+          this.prevOutlineRadius = this.outlineRadius;
+          this.currentOutline = nextOutline;
+          this.outlineBlend = this.reducedMotion ? 1.0 : 0.0;
+          if (typeof this.onOutlineChange === 'function') {
+            this.onOutlineChange(nextOutline);
+          }
+        }
+      }
 
       ScaleTiers.computeTargetsNormalized(nextCount, nextTier.index, this.tx, this.ty);
 
@@ -367,6 +454,11 @@
       if (this.zoomPulse > 0) {
         this.zoomPulse = Math.max(0, this.zoomPulse - dt * 1.6);
       }
+      if (this.outlineBlend < 1) {
+        this.outlineBlend = Math.min(1, this.outlineBlend + dt * 2.9);
+        if (this.outlineBlend >= 1) this.prevOutline = null;
+      }
+      this.outlineRadius += (this.targetOutlineRadius - this.outlineRadius) * Math.min(1, dt * 8.5);
       if (this.currentTier.index === 5) {
         this.spotlightAge += dt;
       }
@@ -440,6 +532,32 @@
       ctx.moveTo(cx, cy - R * 1.02);
       ctx.lineTo(cx, cy + R * 1.02);
       ctx.stroke();
+
+      // 1B. Architectural / Cartographic Scale Perspective Outline (beneath the circular dots)
+      if (ScaleOutlines) {
+        if (this.prevOutline && this.outlineBlend < 1) {
+          const prevAlpha = (1 - this.outlineBlend) * (1 - this.outlineBlend);
+          ScaleOutlines.drawOutline(
+            ctx,
+            this.prevOutline,
+            cx,
+            cy,
+            R * this.prevOutlineRadius,
+            prevAlpha
+          );
+        }
+        if (this.currentOutline) {
+          const easedIn = 1 - Math.pow(1 - this.outlineBlend, 2);
+          ScaleOutlines.drawOutline(
+            ctx,
+            this.currentOutline,
+            cx,
+            cy,
+            R * this.outlineRadius,
+            easedIn
+          );
+        }
+      }
 
       // 2. Powers-of-Ten Scale Zoom shockwave ring
       if (this.zoomPulse > 0.01 && !this.reducedMotion) {

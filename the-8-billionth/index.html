@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=10" />
+  <link rel="stylesheet" href="css/styles.css?v=11" />
 </head>
 <body>
   <div class="app-shell">
@@ -71,12 +71,23 @@
           <span id="zoom-toast-sub">1 dot = 1,000 people</span>
         </div>
 
-        <!-- Bottom-left Persistent Scale Legend -->
+        <!-- Bottom Persistent Scale Legend + Perspective Outline Badge -->
         <div class="canvas-hud-bottom">
           <div id="scale-legend-pill" class="scale-pill">
             <span class="scale-dot-icon">●</span>
             <span id="scale-legend-text">1 dot = 1,000,000 people</span>
           </div>
+
+          <button
+            id="outline-pill"
+            type="button"
+            class="scale-pill outline-pill"
+            title="Scale outline — click to view another perspective at this crowd size"
+          >
+            <span class="outline-icon">⌖</span>
+            <span id="outline-label">Whole Earth Globe · 8.3B Planet</span>
+            <span class="outline-cycle-hint" aria-hidden="true">↻</span>
+          </button>
         </div>
       </section>
 
@@ -254,16 +265,17 @@
     </div>
   </div>
 
-  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=10) -->
-  <script src="js/engine/taxonomy.js?v=10"></script>
-  <script src="js/engine/probability.js?v=10"></script>
-  <script src="js/engine/analogies.js?v=10"></script>
-  <script src="js/engine/resolver.js?v=10"></script>
-  <script src="js/engine/suggestions.js?v=10"></script>
-  <script src="js/canvas/scaleTiers.js?v=10"></script>
-  <script src="js/canvas/crowdRenderer.js?v=10"></script>
-  <script src="js/ui/omnibox.js?v=10"></script>
-  <script src="js/ui/receiptModal.js?v=10"></script>
-  <script src="js/app.js?v=10"></script>
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=11) -->
+  <script src="js/engine/taxonomy.js?v=11"></script>
+  <script src="js/engine/probability.js?v=11"></script>
+  <script src="js/engine/analogies.js?v=11"></script>
+  <script src="js/engine/resolver.js?v=11"></script>
+  <script src="js/engine/suggestions.js?v=11"></script>
+  <script src="js/canvas/scaleTiers.js?v=11"></script>
+  <script src="js/canvas/scaleOutlines.js?v=11"></script>
+  <script src="js/canvas/crowdRenderer.js?v=11"></script>
+  <script src="js/ui/omnibox.js?v=11"></script>
+  <script src="js/ui/receiptModal.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
 </body>
 </html>

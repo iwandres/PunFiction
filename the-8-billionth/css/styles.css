@@ -271,6 +271,12 @@ body {
   position: absolute;
   bottom: 14px;
   left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   pointer-events: none;
 }
 
@@ -285,9 +291,41 @@ body {
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  transition: transform 0.28s, border-color 0.28s;
+  transition: transform 0.28s, border-color 0.2s, color 0.2s;
+}
+
+.outline-pill {
+  appearance: none;
+  pointer-events: auto;
+  cursor: pointer;
+  color: var(--text-secondary);
+  max-width: 100%;
+}
+
+.outline-pill:hover {
+  border-color: var(--accent-teal);
+  color: var(--text-primary);
+}
+
+.outline-pill:active {
+  transform: scale(0.97);
+}
+
+.outline-icon {
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
+.outline-cycle-hint {
+  font-size: 0.7rem;
+  opacity: 0.55;
+}
+
+.outline-pill:hover .outline-cycle-hint {
+  opacity: 1;
+  color: var(--accent-teal);
 }
 
 .scale-pill.pulse-zoom {
@@ -1653,6 +1691,18 @@ body {
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
     z-index: 18;
+  }
+
+  .canvas-hud-bottom {
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .scale-pill {
+    padding: 4px 9px;
+    font-size: 0.66rem;
+    gap: 5px;
   }
 
   .console-pane {
