@@ -133,29 +133,6 @@ const ui = {
 // ================= INITIALIZATION & SCHEDULING =================
  
 window.onload = async () => {
-    // Migrate local storage keys from tourist_traps_* to travelreviews_*
-    const keysToMigrate = [
-        'solved_puzzles',
-        'solved_hints',
-        'attempted_puzzles',
-        'puzzle_attempts',
-        'max_streak',
-        'profile_id'
-    ];
-    try {
-        keysToMigrate.forEach(k => {
-            const oldVal = localStorage.getItem('tourist_traps_' + k);
-            if (oldVal !== null) {
-                if (localStorage.getItem('travelreviews_' + k) === null) {
-                    localStorage.setItem('travelreviews_' + k, oldVal);
-                }
-                localStorage.removeItem('tourist_traps_' + k);
-            }
-        });
-    } catch (e) {
-        console.error("Local storage migration error:", e);
-    }
-
     // Detect environment (itch.io or standard play)
     const hostname = window.location.hostname;
     const referrer = document.referrer || "";
