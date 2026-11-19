@@ -491,16 +491,6 @@ body {
   color: var(--text-secondary);
 }
 
-.sniper-banner {
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: var(--accent-gold-dim);
-  border: 1px solid rgba(251, 191, 36, 0.35);
-  color: var(--text-primary);
-  font-size: 0.83rem;
-  line-height: 1.4;
-}
-
 /* ==========================================================================
    HYBRID OMNIBOX & AUTOCOMPLETE
    ========================================================================== */

@@ -56,7 +56,6 @@
     populationUnit: document.getElementById('population-unit'),
     analogyHeadline: document.getElementById('analogy-headline'),
     snarkSubline: document.getElementById('snark-subline'),
-    sniperBanner: document.getElementById('sniper-banner'),
     omniboxForm: document.getElementById('omnibox-form'),
     omniboxInput: document.getElementById('omnibox-input'),
     omniboxDropdown: document.getElementById('omnibox-dropdown'),
@@ -285,21 +284,11 @@
     dom.snarkSubline.textContent = subText;
     dom.snarkSubline.classList.toggle('hidden', !subText);
 
-    // 5. Endgame Sniper Callout (< 5,000 remaining & not yet 1 of 1)
-    const showSniper = !evalRes.isOneOfOne && evalRes.displayPopulation < 5000;
-    dom.sniperBanner.classList.toggle('hidden', !showSniper);
-    if (showSniper) {
-      dom.sniperBanner.innerHTML =
-        '🎯 <strong>Sniper Range (' +
-        evalRes.displayPopulation.toLocaleString('en-US') +
-        ' left):</strong> Type a hyper-specific hobby, skill, or quirk into the box below to shake your final statistical clones.';
-    }
-
-    // 6. Refresh Suggestions and Active Stack Pills
+    // 5. Refresh Suggestions and Active Stack Pills
     renderSuggestions();
     renderActiveStack();
 
-    // 7. Trigger One-of-One Dossier Reveal after spotlight settles
+    // 6. Trigger One-of-One Dossier Reveal after spotlight settles
     if (meta.justAdded && evalRes.isOneOfOne && !meta.wasAlreadyOneOfOne) {
       if (state.dossierTimer) clearTimeout(state.dossierTimer);
       state.dossierTimer = setTimeout(() => {
