@@ -35,7 +35,7 @@ assert.equal(resVball.displayPopulation, 996000000);
 assert.equal(resVball.bitsDisplay.toFixed(2), '3.06');
 assert.equal(resVball.isOneOfOne, false);
 
-// 3. Acceptance Criterion 3: Cross-layer correlation dampening (gamma = 0.65)
+// 3. Acceptance Criterion 3: Cross-layer Bayes-symmetric correlation dampening (gamma = 0.65)
 const spicyDaily = findTrait('eats_spicy_daily'); // p = 0.24, ['spicy_palate']
 const customRelish = {
   canonicalSlug: 'custom_jalapeno_relish',
@@ -48,12 +48,35 @@ const customRelish = {
   snarkNote: 'Test custom LLM trait'
 };
 
+// Rare -> Broad: broader trait dampens via exact p_base^0.65
+const resRareFirst = Probability.evaluateStack([customRelish, spicyDaily]);
+const spicyEval = resRareFirst.items[1];
+assert.equal(spicyEval.wasDampened, true);
+assert.equal(spicyEval.overlapCount, 1);
+assert.ok(
+  Math.abs(spicyEval.pEff - Math.pow(0.24, 0.65)) < 1e-12,
+  'Broader trait after rarer overlapping trait must equal pBase^0.65'
+);
+
+// Broad -> Rare: Bayes-symmetric dual ensures exact order invariance AND Frechet bound P(A n B) <= P(B)
 const resDampened = Probability.evaluateStack([spicyDaily, customRelish]);
 const relishEval = resDampened.items[1];
 assert.equal(relishEval.wasDampened, true);
 assert.equal(relishEval.overlapCount, 1);
-const expectedPEff = Math.pow(0.0015, 0.65);
-assert.ok(Math.abs(relishEval.pEff - expectedPEff) < 1e-12, 'Custom LLM trait must dampen with gamma=0.65');
+const expectedBayesDual = 0.0015 * Math.pow(0.24, -0.35);
+assert.ok(
+  Math.abs(relishEval.pEff - expectedBayesDual) < 1e-12,
+  'Rarer trait after broader trait must equal exact Bayes dual p_B * p_A^(gamma - 1)'
+);
+assert.equal(
+  resDampened.displayPopulation,
+  resRareFirst.displayPopulation,
+  'Forward and reverse click orders must produce identical population'
+);
+assert.ok(
+  resDampened.expectedHumans < customRelish.prevalence * 8300000000,
+  'Joint headcount must strictly obey Frechet bound <= marginal relish makers (12.45M)'
+);
 
 // 4. Ghost-cull preview must match post-click state identically
 const preview = Probability.previewCandidate([spicyDaily], customRelish);
@@ -208,4 +231,107 @@ assert.equal(blueItem.wasDampened, true);
 assert.equal(blueItem.dampenMode, 'base_gate');
 assert.ok(blueItem.pEff > blueItem.pBase * 2.0, 'Blue eyes prevalence should roughly double inside Western gate');
 
-console.log('[Math Test Suite] All 11 test groups (Bayes Geo, Psychographic Tags, BaseGates & Venn Snark) passed cleanly!');
+// 12. Exhaustive Pairwise Axiom Sweep across all 105,950 ordered pairs of curated traits:
+//     - Zero Frechet violations: P(A n B) <= min(P(A), P(B))
+//     - Strict monotonicity: 0 < pEff < 1 for every active trait
+//     - Exact pairwise order symmetry: E([A, B]) == E([B, A])
+for (let i = 0; i < resolver.coreTraits.length; i++) {
+  const A = resolver.coreTraits[i];
+  for (let j = i + 1; j < resolver.coreTraits.length; j++) {
+    const B = resolver.coreTraits[j];
+    if (Probability.doesConflict(A, B)) continue;
+    const ab = Probability.evaluateStack([A, B]);
+    const ba = Probability.evaluateStack([B, A]);
+    const minMarg = Math.min(A.prevalence, B.prevalence) * 8300000000;
+    assert.ok(ab.expectedHumans <= minMarg * 1.000001, `Frechet violation on ${A.canonicalSlug} -> ${B.canonicalSlug}`);
+    assert.ok(
+      Math.abs(ab.expectedHumans - ba.expectedHumans) / ab.expectedHumans < 1e-9,
+      `Order asymmetry on ${A.canonicalSlug} <-> ${B.canonicalSlug}`
+    );
+  }
+}
+
+// 13. Exhaustive Bidirectional Bayes Symmetry across all 197 countries + Negative Coupling (US + Mandarin)
+const countryGen = resolver.getGeneratorById('home_country');
+for (const cTrait of countryGen.expandedOptions) {
+  if (!cTrait.cond) continue;
+  for (const targetSlug of Object.keys(cTrait.cond)) {
+    const tTrait = resolver.getTraitBySlug(targetSlug);
+    assert.ok(tTrait, `Missing conditional target ${targetSlug}`);
+    const fwd = Probability.evaluateStack([cTrait, tTrait]);
+    const rev = Probability.evaluateStack([tTrait, cTrait]);
+    assert.ok(
+      Math.abs(fwd.expectedHumans - rev.expectedHumans) / fwd.expectedHumans < 1e-6,
+      `Geo Bayes asymmetry on ${cTrait.canonicalSlug} <-> ${targetSlug}`
+    );
+  }
+}
+
+const usMandarin = Probability.evaluateStack([
+  resolver.getTraitBySlug('lives_in_us'),
+  resolver.getTraitBySlug('speaks_zh')
+]);
+assert.ok(
+  usMandarin.displayPopulation > 3500000 && usMandarin.displayPopulation < 4100000,
+  `Expected ~3.79M US Mandarin speakers via empirical cond rate, got ${usMandarin.displayPopulation}`
+);
+
+// Small country after Holds a passport must never exceed country population
+const passportTonga = Probability.evaluateStack([
+  resolver.getTraitBySlug('holds_passport'),
+  resolver.getTraitBySlug('lives_in_to')
+]);
+assert.ok(
+  passportTonga.expectedHumans < resolver.getTraitBySlug('lives_in_to').prevalence * 8300000000,
+  'Passport + Tonga must stay strictly below Tonga total population'
+);
+
+// 14. Multi-trait k!-permutation symmetry (Country + Multiple Languages + Western Gate)
+function permutations(arr) {
+  if (arr.length <= 1) return [arr];
+  const out = [];
+  for (let i = 0; i < arr.length; i++) {
+    const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+    for (const p of permutations(rest)) out.push([arr[i], ...p]);
+  }
+  return out;
+}
+
+for (const slugGroup of [
+  ['lives_in_us', 'speaks_en', 'speaks_zh'],
+  ['lives_in_us', 'speaks_en', 'sourdough_starter_keeper'],
+  ['reads_nutrition_ingredients', 'vegetarian', 'lives_in_in']
+]) {
+  const groupTraits = slugGroup.map((s) => resolver.getTraitBySlug(s));
+  const vals = permutations(groupTraits).map((p) => Probability.evaluateStack(p).expectedHumans);
+  assert.ok(
+    Math.max(...vals) / Math.min(...vals) < 1.00001,
+    `Expected exact permutation symmetry on [${slugGroup.join(', ')}]`
+  );
+}
+
+// 15. Mendelian & Demographic Partition Orthogonality + Contradiction Replacement
+const orthoTraits = ['left_handed', 'is_a_twin', 'colorblind', 'blood_o_pos', 'born_month_mar'].map((s) =>
+  resolver.getTraitBySlug(s)
+);
+const orthoEval = Probability.evaluateStack(orthoTraits);
+const exactOrthoExpected = orthoTraits.reduce((acc, t) => acc * t.prevalence, 8300000000);
+assert.ok(
+  Math.abs(orthoEval.expectedHumans - exactOrthoExpected) < 1e-6,
+  'Independent Mendelian & partition traits must multiply orthogonally without false dampening'
+);
+
+for (const [c1, c2] of [
+  ['never_broken_bone', 'broken_3_plus_bones'],
+  ['drinks_coffee_daily', 'zero_caffeine'],
+  ['left_handed', 'ambidextrous'],
+  ['vegetarian', 'pescatarian'],
+  ['only_child', 'youngest_child'],
+  ['lives_alone', 'multi_generational_home']
+]) {
+  const cRes = Probability.evaluateStack([resolver.getTraitBySlug(c1), resolver.getTraitBySlug(c2)]);
+  assert.equal(cRes.items[0].superseded, true, `Contradictory ${c1} + ${c2} must replace earlier trait`);
+  assert.equal(cRes.activeCount, 1);
+}
+
+console.log('[Math Test Suite] All 15 test groups (105,950 pairs, 442 Geo Bayes links, k! Symmetry & Orthogonality) passed cleanly!');

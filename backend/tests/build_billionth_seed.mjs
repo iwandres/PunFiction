@@ -40,6 +40,8 @@ function trait(
     snarkNote,
     aliases: extra.aliases || [],
     subsumes: extra.subsumes || [],
+    ...(extra.conflictsWith ? { conflictsWith: extra.conflictsWith } : {}),
+    ...(extra.noClusterOverlap ? { noClusterOverlap: true } : {}),
     ...(extra.exclusiveGroup ? { exclusiveGroup: extra.exclusiveGroup } : {}),
     ...(extra.icebreaker ? { icebreaker: true } : {}),
     ...(extra.isVerifiedExtremeRarity ? { isVerifiedExtremeRarity: true } : {})
@@ -87,19 +89,19 @@ const CORE_TRAITS = [
   trait('backpacker_multiday', 'I go on multi-day wilderness backpacking trips', 'Wilderness backpacker', '🎒', 'sports_movement', 0.0068, ['outdoor_mountain', 'endurance_sport'], '56 million humans weigh their toothbrushes in grams before heading off-grid.', { aliases: ['thru hiker', 'backpacking', 'ultralight'] }),
 
   // --- 2. GENETICS & PHYSIOLOGY (33) ---
-  trait('left_handed', 'I am left-handed', 'Left-handed', '✍️', 'genetics_physiology', 0.106, ['handedness', 'genetic_quirk'], 'You and 880 million fellow southpaws have smudged ink across notebooks since grade school.', { aliases: ['southpaw', 'lefty'], icebreaker: true }),
-  trait('ambidextrous', 'I am genuinely ambidextrous', 'Ambidextrous', '👐', 'genetics_physiology', 0.01, ['handedness', 'genetic_quirk'], '83 million humans treat left- and right-handed scissors with equal indifference.', { aliases: ['both hands', 'cross dominant'] }),
-  trait('photic_sun_sneezer', 'Bright sunlight makes me sneeze (ACHOO syndrome)', 'Sun sneezer', '🌞', 'genetics_physiology', 0.22, ['genetic_quirk', 'sensory_trait'], '1.8 billion photic sneezers step out of dark movie theaters and immediately salute the sun.', { aliases: ['photic sneeze', 'achoo', 'sunlight sneeze'], icebreaker: true }),
-  trait('cilantro_soapy', 'Cilantro tastes like dish soap to me', 'Cilantro = soap', '🌿', 'genetics_physiology', 0.12, ['genetic_quirk', 'sensory_trait'], 'Thank your OR6A2 olfactory receptor gene — shared with roughly a billion taco skeptics.', { aliases: ['coriander soap', 'hates cilantro'], icebreaker: true }),
+  trait('left_handed', 'I am left-handed', 'Left-handed', '✍️', 'genetics_physiology', 0.106, ['handedness', 'genetic_quirk'], 'You and 880 million fellow southpaws have smudged ink across notebooks since grade school.', { aliases: ['southpaw', 'lefty'], exclusiveGroup: 'handedness_type', icebreaker: true }),
+  trait('ambidextrous', 'I am genuinely ambidextrous', 'Ambidextrous', '👐', 'genetics_physiology', 0.01, ['handedness', 'genetic_quirk'], '83 million humans treat left- and right-handed scissors with equal indifference.', { aliases: ['both hands', 'cross dominant'], exclusiveGroup: 'handedness_type' }),
+  trait('photic_sun_sneezer', 'Bright sunlight makes me sneeze (ACHOO syndrome)', 'Sun sneezer', '🌞', 'genetics_physiology', 0.22, ['genetic_quirk'], '1.8 billion photic sneezers step out of dark movie theaters and immediately salute the sun.', { aliases: ['photic sneeze', 'achoo', 'sunlight sneeze'], icebreaker: true }),
+  trait('cilantro_soapy', 'Cilantro tastes like dish soap to me', 'Cilantro = soap', '🌿', 'genetics_physiology', 0.12, ['genetic_quirk'], 'Thank your OR6A2 olfactory receptor gene — shared with roughly a billion taco skeptics.', { aliases: ['coriander soap', 'hates cilantro'], icebreaker: true }),
   trait('green_eyes', 'I have naturally green eyes', 'Green eyes', '👁️', 'genetics_physiology', 0.02, ['genetic_quirk'], '166 million humans carry the world’s rarest major iris pigment.', { aliases: ['emerald eyes'], exclusiveGroup: 'eye_color' }),
   trait('blue_eyes', 'I have naturally blue eyes', 'Blue eyes', '👁️', 'genetics_physiology', 0.085, ['genetic_quirk'], '705 million humans trace that Rayleigh-scattering iris mutation back ~10,000 years.', { aliases: ['blue iris'], exclusiveGroup: 'eye_color' }),
   trait('hazel_amber_eyes', 'I have hazel or amber eyes', 'Hazel / amber eyes', '👁️', 'genetics_physiology', 0.05, ['genetic_quirk'], '415 million people have eyes that change color depending on the lighting and their sweater.', { aliases: ['hazel eyes', 'amber eyes'], exclusiveGroup: 'eye_color' }),
   trait('heterochromia', 'I have heterochromia (two different-colored eyes)', 'Heterochromia', '👀', 'genetics_physiology', 0.0008, ['genetic_quirk'], '6.6 million humans rolled two different iris presets on character creation.', { aliases: ['sectoral heterochromia', 'different colored eyes'], exclusiveGroup: 'eye_color' }),
   trait('natural_red_hair', 'I have natural red or auburn hair', 'Natural redhead', '🦊', 'genetics_physiology', 0.015, ['genetic_quirk'], '125 million MC1R carriers worldwide — extra sunscreen and extra anesthesia required.', { aliases: ['ginger', 'redhead', 'mc1r'] }),
-  trait('identical_twin', 'I am an identical twin', 'Identical twin', '👯', 'genetics_physiology', 0.0035, ['genetic_quirk', 'family_structure'], '29 million humans walk around knowing an actual genetic clone is already out there.', { aliases: ['monozygotic twin'], subsumes: ['is_a_twin'] }),
+  trait('identical_twin', 'I am an identical twin', 'Identical twin', '👯', 'genetics_physiology', 0.0035, ['genetic_quirk', 'family_structure'], '29 million humans walk around knowing an actual genetic clone is already out there.', { aliases: ['monozygotic twin'], subsumes: ['is_a_twin'], exclusiveGroup: 'higher_multiple_birth' }),
   trait('is_a_twin', 'I am a twin (fraternal or identical)', 'Is a twin', '👯', 'genetics_physiology', 0.012, ['genetic_quirk', 'family_structure'], '100 million twins have shared birthday cakes since day zero.', { aliases: ['fraternal twin', 'dizygotic'] }),
-  trait('triplet_or_higher', 'I am a triplet or higher-order multiple', 'Triplet+', '👶', 'genetics_physiology', 0.00015, ['genetic_quirk', 'family_structure'], '1.25 million humans arrived on Earth as a pre-packaged trio or quartet.', { aliases: ['triplet', 'quadruplet'], subsumes: ['is_a_twin'] }),
-  trait('colorblind', 'I have red-green or blue-yellow color blindness', 'Colorblind', '🎨', 'genetics_physiology', 0.045, ['genetic_quirk', 'sensory_trait'], '373 million humans stare suspiciously at Ishihara dot circles.', { aliases: ['deuteranopia', 'protanopia', 'color deficient'] }),
+  trait('triplet_or_higher', 'I am a triplet or higher-order multiple', 'Triplet+', '👶', 'genetics_physiology', 0.00015, ['genetic_quirk', 'family_structure'], '1.25 million humans arrived on Earth as a pre-packaged trio or quartet.', { aliases: ['triplet', 'quadruplet'], subsumes: ['is_a_twin'], exclusiveGroup: 'higher_multiple_birth' }),
+  trait('colorblind', 'I have red-green or blue-yellow color blindness', 'Colorblind', '🎨', 'genetics_physiology', 0.045, ['genetic_quirk'], '373 million humans stare suspiciously at Ishihara dot circles.', { aliases: ['deuteranopia', 'protanopia', 'color deficient'] }),
   trait('perfect_pitch', 'I have absolute (perfect) musical pitch', 'Perfect pitch', '🎵', 'genetics_physiology', 0.0004, ['sensory_trait', 'musical', 'genetic_quirk'], '3.3 million humans hear the microwave beep and immediately note it is a slightly flat B-natural.', { aliases: ['absolute pitch'] }),
   trait('synesthesia', 'I experience synesthesia (blended senses)', 'Synesthete', '🌈', 'genetics_physiology', 0.022, ['sensory_trait', 'genetic_quirk'], '182 million humans are quietly convinced that Thursday is purple and the number 7 is sharp.', { aliases: ['grapheme color', 'sees music'] }),
   trait('aphantasia', 'I have aphantasia (no voluntary visual mind’s eye)', 'Has aphantasia', '🧠', 'genetics_physiology', 0.028, ['sensory_trait', 'genetic_quirk'], '232 million people realized "picture a beach" wasn’t just a metaphor for everyone else.', { aliases: ['blind minds eye', 'cannot visualize'] }),
@@ -110,14 +112,14 @@ const CORE_TRAITS = [
   trait('extra_tooth_rib', 'I was born with a supernumerary tooth or cervical rib', 'Extra tooth or rib', '🦴', 'genetics_physiology', 0.015, ['genetic_quirk', 'medical_history'], '124 million humans brought spare parts straight from embryology.', { aliases: ['hyperdontia', 'extra rib'] }),
   trait('single_palmar_crease', 'I have a single transverse palmar crease on one palm', 'Single palmar crease', '🖐️', 'genetics_physiology', 0.015, ['genetic_quirk'], '124 million humans have one clean horizontal line straight across the palm.', { aliases: ['simian crease'] }),
   trait('preauricular_pit', 'I have a tiny congenital pinhole beside my outer ear', 'Preauricular ear pit', '👂', 'genetics_physiology', 0.009, ['genetic_quirk'], '75 million humans carry that harmless gill-arch souvenir right above the tragus.', { aliases: ['ear pit', 'ear sinus'] }),
-  trait('asparagus_anosmia_detector', 'I can immediately smell the asparagus metabolite', 'Smells asparagus trait', '🌱', 'genetics_physiology', 0.40, ['genetic_quirk', 'sensory_trait'], '3.3 billion noses catch methanethiol instantly; the rest blissfully think nothing happened.', { aliases: ['asparagus smell'] }),
+  trait('asparagus_anosmia_detector', 'I can immediately smell the asparagus metabolite', 'Smells asparagus trait', '🌱', 'genetics_physiology', 0.40, ['genetic_quirk'], '3.3 billion noses catch methanethiol instantly; the rest blissfully think nothing happened.', { aliases: ['asparagus smell'] }),
   trait('caffeine_fast_sleeper', 'I can drink espresso at 9 PM and fall right asleep', 'Immune to late espresso', '☕', 'genetics_physiology', 0.08, ['genetic_quirk', 'caffeine_habit', 'sleep_habit'], '660 million ultra-rapid CYP1A2 metabolizers treat nightcaps and cortados interchangeably.', { aliases: ['caffeine immunity', 'adhd coffee sleep'] }),
   trait('asian_flush_aldh2', 'Half a drink turns my face bright red (ALDH2 trait)', 'Alcohol flush trait', '🍷', 'genetics_physiology', 0.08, ['genetic_quirk'], '664 million humans carry the ALDH2 variant that turns one sip of beer into an instant blush.', { aliases: ['alcohol flush', 'asian glow'] }),
   trait('supertaster', 'I am a bitter-compound supertaster (PROP / PTC)', 'Bitter supertaster', '👅', 'genetics_physiology', 0.25, ['genetic_quirk', 'sensory_trait'], '2.1 billion dense-papillae tongues detect trace bitterness from a mile away.', { aliases: ['ptc taster', 'tas2r38'] }),
   trait('short_sleeper_natural', 'I wake up fully rested on 5.5 hours of sleep with no alarm', 'Natural short sleeper', '⏰', 'genetics_physiology', 0.012, ['sleep_habit', 'genetic_quirk'], '100 million people are quietly envied by the exhausted 98.8% majority.', { aliases: ['dec2 gene', 'sleeps 5 hours'] }),
   trait('vivid_lucid_dreamer', 'I lucid dream regularly and can steer the plot', 'Frequent lucid dreamer', '🌙', 'genetics_physiology', 0.035, ['sleep_habit', 'sensory_trait'], '290 million sleepers realize they are dreaming and immediately decide to fly.', { aliases: ['lucid dreaming'] }),
   trait('goosebumps_on_command', 'I can give myself goosebumps voluntarily (frisson control)', 'Voluntary goosebumps', '⚡', 'genetics_physiology', 0.0015, ['genetic_quirk', 'sensory_trait'], 'Only ~12.5 million humans consciously command their own autonomic piloerection.', { aliases: ['voluntary piloerection'] }),
-  trait('blood_universal_donor', 'I am an O-negative universal blood donor', 'O-Negative donor', '🩸', 'genetics_physiology', 0.014, ['genetic_quirk'], '116 million humans get polite phone calls from blood banks on cooldown.', { aliases: ['o negative', 'universal donor'], exclusiveGroup: 'blood_type' }),
+  trait('blood_universal_donor', 'I am an O-negative universal blood donor', 'O-Negative donor', '🩸', 'genetics_physiology', 0.025, ['genetic_quirk'], '207 million universal red-cell donors get polite phone calls from blood banks on cooldown.', { aliases: ['o negative', 'universal donor'], exclusiveGroup: 'blood_type', noClusterOverlap: true }),
   trait('webbed_toes', 'I have partial webbing between two toes (syndactyly)', 'Webbed toes', '🦶', 'genetics_physiology', 0.0005, ['genetic_quirk'], '4.1 million humans arrived slightly over-engineered for freestyle kick sets.', { aliases: ['syndactyly', 'twin toes'] }),
   trait('double_crown_hair', 'I have a double hair whorl (double crown)', 'Double hair crown', '🌀', 'genetics_physiology', 0.05, ['genetic_quirk'], '415 million people have frustrated barbers with opposing cowlicks since childhood.', { aliases: ['double cowlick', 'two hair whorls'] }),
 
@@ -141,7 +143,7 @@ const CORE_TRAITS = [
   trait('sews_own_clothes', 'I sew tailored clothing on a sewing machine', 'Sews own clothing', '🧵', 'skills_craft', 0.028, ['craft_maker', 'visual_arts'], '232 million humans guard their fabric scissors from paper-cutting civilians.', { aliases: ['garment sewing', 'seamstress', 'tailoring'] }),
   trait('throws_pottery_wheel', 'I center clay and throw pottery on a wheel', 'Wheel-thrown pottery', '🏺', 'skills_craft', 0.0022, ['craft_maker', 'visual_arts'], '18 million ceramicists have clay permanently lodged under at least one thumbnail.', { aliases: ['ceramics', 'potter', 'kiln'] }),
   trait('reads_sheet_music', 'I can sight-read standard musical notation', 'Sight-reads music', '🎼', 'skills_craft', 0.036, ['musical'], '300 million musicians read treble or bass clef like a second alphabet.', { aliases: ['sheet music', 'sight reading'] }),
-  trait('whistles_loud_fingers', 'I can cab-whistle piercingly loud with my fingers', 'Two-finger whistle', '😗', 'skills_craft', 0.045, ['sensory_trait'], '373 million humans can cut straight across stadium crowd noise on command.', { aliases: ['wolf whistle', 'finger whistle'] }),
+  trait('whistles_loud_fingers', 'I can cab-whistle piercingly loud with my fingers', 'Two-finger whistle', '😗', 'skills_craft', 0.045, ['musical'], '373 million humans can cut straight across stadium crowd noise on command.', { aliases: ['wolf whistle', 'finger whistle'] }),
   trait('touch_types_100wpm', 'I touch-type faster than 100 words per minute', 'Types 100+ WPM', '⚡', 'skills_craft', 0.0045, ['coding_tech'], '37 million speed typists turn quiet cafe tables into tiny percussion concerts.', { aliases: ['monkeytype', 'fast typist', '100 wpm'] }),
   trait('calligraphy_fountain_pen', 'I practice calligraphy or tune fountain pen nibs', 'Fountain pen / calligraphy', '🖋️', 'skills_craft', 0.0032, ['visual_arts', 'vintage_gear', 'collectors'], '26.5 million ink enthusiasts have strong feelings about 80gsm paper bleed-through.', { aliases: ['fountain pens', 'hand lettering'] }),
   trait('Amateur_ham_radio', 'I hold a licensed amateur (ham) radio callsign', 'Licensed ham radio op', '📻', 'skills_craft', 0.00038, ['vintage_gear', 'coding_tech'], 'About 3.1 million licensed operators can bounce HF signals off the ionosphere.', { aliases: ['ham radio', 'callsign', 'arrl'] }),
@@ -166,7 +168,7 @@ const CORE_TRAITS = [
   trait('home_fermenter_pickler', 'I ferment or pickle homemade condiments (kimchi, kraut, relish, hot sauce)', 'Home pickler / fermenter', '🥒', 'niche_hobbies', 0.022, ['culinary_diy'], '182 million kitchens worldwide keep Mason jars quietly burping on the counter.', { aliases: ['fermentation', 'pickling', 'kimchi', 'kombucha', 'sauerkraut'] }),
   trait('makes_artisan_hot_sauce', 'I make my own small-batch chili relish or hot sauce', 'Makes custom hot sauce', '🌶️', 'niche_hobbies', 0.0015, ['culinary_diy', 'spicy_palate'], '12.5 million pepper alchemists wear nitrile gloves while blending homegrown chilies.', { aliases: ['jalapeno relish', 'homemade hot sauce', 'chili relish'], subsumes: ['home_fermenter_pickler'] }),
   trait('homebrewer_beer_cider', 'I brew my own beer, cider, or mead at home', 'Homebrewer', '🍺', 'niche_hobbies', 0.0018, ['culinary_diy', 'craft_maker'], '15 million garage brewers spend 80% of brew day sanitizing buckets.', { aliases: ['homebrewing', 'mead maker', 'all grain'] }),
-  trait('roasts_own_coffee', 'I roast raw green coffee beans at home', 'Home coffee roaster', '🫘', 'niche_hobbies', 0.00028, ['culinary_diy', 'caffeine_habit'], '2.3 million humans listen closely for "first crack" while filling the porch with chaff.', { aliases: ['green coffee', 'coffee roasting'] }),
+  trait('roasts_own_coffee', 'I roast raw green coffee beans at home', 'Home coffee roaster', '🫘', 'niche_hobbies', 0.00028, ['culinary_diy', 'caffeine_habit'], '2.3 million humans listen closely for "first crack" while filling the porch with chaff.', { aliases: ['green coffee', 'coffee roasting'], subsumes: ['drinks_coffee_daily'] }),
   trait('birdwatcher_life_list', 'I keep a birding life list (eBird or notebook)', 'Life-list birder', '🔭', 'niche_hobbies', 0.0038, ['outdoor_mountain', 'collectors'], '31.5 million birders stop mid-sentence whenever an unfamiliar warbler chips overhead.', { aliases: ['birdwatching', 'birder', 'ebird'], subsumes: ['casual_birdwatcher'] }),
   trait('casual_birdwatcher', 'I own binoculars specifically for watching birds/wildlife', 'Birdwatcher', '🦉', 'niche_hobbies', 0.014, ['outdoor_mountain'], '116 million people hit a certain Tuesday afternoon and suddenly care deeply about woodpeckers.', { aliases: ['birding', 'binoculars'] }),
   trait('beekeeper', 'I keep honeybee hives', 'Beekeeper', '🐝', 'niche_hobbies', 0.00085, ['horticulture', 'outdoor_mountain'], '7 million apiarists casually inspect 40,000 stinging roommates on sunny afternoons.', { aliases: ['apiarist', 'beekeeping', 'honeybees'] }),
@@ -231,11 +233,11 @@ const CORE_TRAITS = [
   trait('drinks_coffee_daily', 'I drink coffee regularly', 'Drinks coffee', '☕', 'food_palate', 0.27, ['caffeine_habit'], 'You and 2.24 billion other mildly caffeinated humans are still crammed into the same room.', { aliases: ['coffee drinker', 'espresso'], icebreaker: true }),
   trait('drinks_black_coffee', 'I drink my coffee strictly black (zero milk, zero sugar)', 'Drinks coffee black', '☕', 'food_palate', 0.068, ['caffeine_habit'], '564 million purists want pure roasted bean water with nothing softening the blow.', { aliases: ['black coffee', 'americano', 'pour over'], subsumes: ['drinks_coffee_daily'] }),
   trait('weighs_coffee_grams', 'I weigh coffee beans to 0.1g on a scale every morning', 'Weighs coffee to 0.1g', '⚖️', 'food_palate', 0.0019, ['caffeine_habit', 'culinary_diy'], '15.8 million specialty-coffee chemists run a 1:16 pour-over lab before speaking to anyone.', { aliases: ['v60', 'chemex', 'single dose espresso'], subsumes: ['drinks_coffee_daily'] }),
-  trait('zero_caffeine', 'I consume zero caffeine (no coffee, tea, soda, or energy drinks)', '100% caffeine-free', '💧', 'food_palate', 0.14, ['caffeine_habit', 'dietary_restriction'], '1.16 billion humans run strictly on unassisted endogenous ATP.', { aliases: ['no coffee', 'caffeine free'] }),
+  trait('zero_caffeine', 'I consume zero caffeine (no coffee, tea, soda, or energy drinks)', '100% caffeine-free', '💧', 'food_palate', 0.14, ['caffeine_habit', 'dietary_restriction'], '1.16 billion humans run strictly on unassisted endogenous ATP.', { aliases: ['no coffee', 'caffeine free'], conflictsWith: ['drinks_coffee_daily', 'drinks_black_coffee', 'weighs_coffee_grams', 'roasts_own_coffee', 'caffeine_fast_sleeper', 'loose_leaf_tea'] }),
   trait('loose_leaf_tea', 'I steep loose-leaf tea at specific water temperatures', 'Temp-controlled loose tea', '🍵', 'food_palate', 0.032, ['caffeine_habit', 'culinary_diy'], '265 million tea steepers know 80°C sencha and 100°C oolong are entirely different planets.', { aliases: ['oolong', 'gongfu tea', 'matcha whisk'] }),
   trait('vegetarian', 'I follow a vegetarian diet', 'Vegetarian', '🥗', 'food_palate', 0.11, ['dietary_restriction'], '913 million vegetarians worldwide (heavily anchored in South Asia) skip meat every day.', { aliases: ['meat free', 'veggie'] }),
   trait('vegan', 'I eat a strictly 100% plant-based (vegan) diet', 'Vegan', '🌱', 'food_palate', 0.015, ['dietary_restriction'], '124 million vegans scan whey-powder traps in chip bags at warp speed.', { aliases: ['plant based'], subsumes: ['vegetarian'] }),
-  trait('pescatarian', 'I am pescatarian (seafood + plants, no land meat)', 'Pescatarian', '🐟', 'food_palate', 0.028, ['dietary_restriction'], '232 million people drew the evolutionary line right at the shoreline.', { aliases: ['eats fish no meat'] }),
+  trait('pescatarian', 'I am pescatarian (seafood + plants, no land meat)', 'Pescatarian', '🐟', 'food_palate', 0.028, ['dietary_restriction'], '232 million people drew the evolutionary line right at the shoreline.', { aliases: ['eats fish no meat'], conflictsWith: ['vegetarian', 'vegan'] }),
   trait('celiac_gluten_free', 'I eat strictly gluten-free (celiac or medical intolerance)', 'Strictly gluten-free', '🌾', 'food_palate', 0.014, ['dietary_restriction', 'medical_history'], '116 million humans treat shared restaurant fryer oil as a tactical hazard.', { aliases: ['celiac disease', 'gluten intolerance'] }),
   trait('peanut_tree_nut_allergy', 'I have a peanut or tree-nut allergy', 'Nut allergy', '🥜', 'food_palate', 0.012, ['dietary_restriction', 'medical_history'], '100 million humans ask bakery staff very pointed follow-up questions about pesto.', { aliases: ['peanut allergy', 'epipen', 'anaphylaxis'] }),
   trait('shellfish_allergy', 'I am allergic to shellfish', 'Shellfish allergy', '🦐', 'food_palate', 0.016, ['dietary_restriction', 'medical_history'], '133 million humans admire shrimp boils exclusively from across the patio.', { aliases: ['shrimp allergy'] }),
@@ -257,7 +259,7 @@ const CORE_TRAITS = [
   trait('makes_homemade_ice_cream', 'I churn homemade custard or gelato at home', 'Churns homemade ice cream', '🍨', 'food_palate', 0.0042, ['culinary_diy'], '35 million dessert engineers keep an ice-cream bowl permanently frozen in the back of the freezer.', { aliases: ['ninja creami', 'gelato maker'] }),
   trait('drinks_sparkling_water_cases', 'I go through sparkling water / seltzer daily', 'Daily sparkling water', '🫧', 'food_palate', 0.045, ['sensory_trait'], '373 million carbonation addicts enjoy water that bites back with static electricity.', { aliases: ['sodastream', 'lacroix', 'topo chico'] }),
   trait('smokes_bbq_low_slow', 'I tend 8+ hour wood/charcoal smoked brisket or ribs', 'Low-and-slow pitmaster', '🍖', 'food_palate', 0.0048, ['culinary_diy', 'outdoor_mountain'], '40 million backyard pitmasters wake up at 4 AM to stare lovingly at oak smoke.', { aliases: ['offset smoker', 'smoked brisket'] }),
-  trait('never_had_coffee', 'I have never drunk a full cup of coffee in my entire life', 'Never had a cup of coffee', '🚫', 'food_palate', 0.18, ['caffeine_habit'], 'Including tea nations and kids, 1.5 billion humans have zero idea what all the fuss is about.', { aliases: ['hates coffee'] }),
+  trait('never_had_coffee', 'I have never drunk a full cup of coffee in my entire life', 'Never had a cup of coffee', '🚫', 'food_palate', 0.18, ['caffeine_habit'], 'Including tea nations and kids, 1.5 billion humans have zero idea what all the fuss is about.', { aliases: ['hates coffee'], conflictsWith: ['drinks_coffee_daily', 'drinks_black_coffee', 'weighs_coffee_grams', 'roasts_own_coffee', 'caffeine_fast_sleeper'] }),
   trait('orders_same_meal', 'I order the exact same trusted meal 90% of the time at favorite spots', 'Signature-order loyalist', '📋', 'food_palate', 0.16, ['indoor_hobby'], '1.33 billion creatures of habit refuse to gamble when a proven 10/10 already exists.', { aliases: ['same order'] }),
   trait('forages_urban_fruit', 'I map neighborhood fig, plum, citrus, or blackberry spots for harvest', 'Neighborhood fruit mapper', '🍋', 'food_palate', 0.0065, ['horticulture', 'culinary_diy'], '54 million observant walkers know exactly which alley overhang ripens in late August.', { aliases: ['urban foraging', 'wild blackberries'] }),
 
@@ -273,15 +275,15 @@ const CORE_TRAITS = [
   trait('rides_owns_horse', 'I own or lease a horse', 'Horse owner / rider', '🐎', 'household_companions', 0.0028, ['pet_owner', 'outdoor_mountain'], '23 million equestrians smell faintly of hay, saddle soap, and veterinary invoices.', { aliases: ['equestrian', 'horseback riding'] }),
   trait('home_solar_panels', 'My home runs on rooftop solar panels', 'Home solar panels', '☀️', 'household_companions', 0.028, ['home_energy_diy'], '232 million residents check sunny afternoons against their inverter output graph.', { aliases: ['photovoltaic', 'rooftop solar'] }),
   trait('drives_full_ev', 'I drive a fully battery-electric car (BEV)', 'Drives a full EV', '🔋', 'household_companions', 0.0085, ['home_energy_diy', 'automotive_mech'], '70 million drivers judge highway rest stops strictly by kilowatt charging curves.', { aliases: ['electric vehicle', 'bev'] }),
-  trait('car_free_adult', 'I live car-free by choice (transit, bike, and foot)', 'Car-free lifestyle', '🚲', 'household_companions', 0.14, ['cycling_wheeled'], '1.16 billion adults skip car insurance, parking tickets, and check-engine lights entirely.', { aliases: ['no car', 'public transit'] }),
-  trait('only_child', 'I grew up as an only child (zero siblings)', 'Only child', '☝️', 'household_companions', 0.13, ['family_structure'], '1.08 billion humans never had to negotiate shotgun seat rights growing up.', { aliases: ['no siblings'], exclusiveGroup: 'siblings_tier' }),
+  trait('car_free_adult', 'I live car-free by choice (transit, bike, and foot)', 'Car-free lifestyle', '🚲', 'household_companions', 0.14, ['cycling_wheeled'], '1.16 billion adults skip car insurance, parking tickets, and check-engine lights entirely.', { aliases: ['no car', 'public transit'], conflictsWith: ['drives_full_ev', 'changes_own_car_oil'] }),
+  trait('only_child', 'I grew up as an only child (zero siblings)', 'Only child', '☝️', 'household_companions', 0.13, ['family_structure'], '1.08 billion humans never had to negotiate shotgun seat rights growing up.', { aliases: ['no siblings'], exclusiveGroup: 'siblings_tier', conflictsWith: ['youngest_child', 'oldest_child', 'middle_child'] }),
   trait('three_plus_siblings', 'I have 3 or more brothers/sisters (family of 4+ kids)', '3+ siblings', '👨‍👩‍👧‍👦', 'household_companions', 0.22, ['family_structure'], '1.83 billion humans learned fast dinner-table reflexes in a 4+ kid household.', { aliases: ['big family', 'four kids'], exclusiveGroup: 'siblings_tier' }),
   trait('six_plus_siblings', 'I have 6 or more siblings', '6+ siblings', '🚌', 'household_companions', 0.042, ['family_structure'], '348 million humans grew up in a household with its own internal postal code.', { aliases: ['huge family'], subsumes: ['three_plus_siblings'], exclusiveGroup: 'siblings_tier' }),
   trait('youngest_child', 'I am the youngest sibling in my family', 'Youngest sibling', '🐣', 'household_companions', 0.27, ['family_structure'], '2.24 billion youngest siblings got away with rules that were strictly enforced five years earlier.', { aliases: ['baby of the family'], exclusiveGroup: 'birth_order' }),
   trait('oldest_child', 'I am the oldest sibling in my family', 'Oldest sibling', '🫡', 'household_companions', 0.29, ['family_structure'], '2.4 billion eldest siblings served as the unpaid beta-test generation for their parents.', { aliases: ['firstborn', 'eldest'], exclusiveGroup: 'birth_order' }),
   trait('middle_child', 'I am a classic middle child', 'Middle child', '🥪', 'household_companions', 0.21, ['family_structure'], '1.74 billion diplomatic middle children mastered stealth negotiation early.', { aliases: ['middle sibling'], exclusiveGroup: 'birth_order' }),
-  trait('lives_alone', 'I currently live completely solo (one-person household)', 'Lives solo', '🔑', 'household_companions', 0.068, ['indoor_hobby'], '564 million solo dwellers find every single mug right where they left it.', { aliases: ['single household', 'no roommates'] }),
-  trait('multi_generational_home', 'I live in a 3+ generation household under one roof', '3-gen household', '🏡', 'household_companions', 0.19, ['family_structure'], '1.58 billion humans live with grandparents, parents, and kids sharing one kitchen.', { aliases: ['multigenerational'] }),
+  trait('lives_alone', 'I currently live completely solo (one-person household)', 'Lives solo', '🔑', 'household_companions', 0.068, ['indoor_hobby'], '564 million solo dwellers find every single mug right where they left it.', { aliases: ['single household', 'no roommates'], exclusiveGroup: 'household_composition' }),
+  trait('multi_generational_home', 'I live in a 3+ generation household under one roof', '3-gen household', '🏡', 'household_companions', 0.19, ['family_structure'], '1.58 billion humans live with grandparents, parents, and kids sharing one kitchen.', { aliases: ['multigenerational'], exclusiveGroup: 'household_composition' }),
   trait('rainwater_harvester', 'I collect rainwater in barrels or cisterns for home/garden use', 'Rainwater harvester', '🌧️', 'household_companions', 0.018, ['home_energy_diy', 'horticulture'], '150 million households cheer quietly every time the gutter downspouts start roaring.', { aliases: ['rain barrel', 'cistern'] }),
   trait('heats_with_wood', 'I heat my home primarily or regularly with a wood-burning stove', 'Wood-stove heated home', '🔥', 'household_companions', 0.048, ['home_energy_diy', 'outdoor_mountain'], '400 million homes smell faintly of birch or oak smoke from November to March.', { aliases: ['woodstove', 'hearth'] }),
   trait('owns_bidet', 'I installed or use a bidet at home', 'Bidet household', '🚿', 'household_companions', 0.19, ['home_energy_diy'], '1.58 billion civilized humans view dry-paper-only travel like camping in the Bronze Age.', { aliases: ['washlet', 'toto'] }),
@@ -292,10 +294,10 @@ const CORE_TRAITS = [
   trait('lived_on_boat_van', 'I have lived full-time in a campervan, RV, or sailboat for 3+ months', 'Vanlife / liveaboard alum', '🚐', 'household_companions', 0.0014, ['world_traveler', 'outdoor_mountain'], '11.6 million humans know exact water-tank capacity down to the half-liter.', { aliases: ['liveaboard', 'vanlife', 'skoolie'] }),
 
   // --- 8. TRAVEL & GEOGRAPHY (30) ---
-  trait('lives_above_5000ft', 'I live above 5,000 ft (1,500 m) elevation', 'Lives >5,000 ft / 1,500m', '🏔️', 'travel_geography', 0.011, ['high_altitude', 'outdoor_mountain'], 'About 91 million high-altitude humans boil pasta slower and bake cakes on hard mode.', { aliases: ['mile high', 'denver', 'bogota', 'high elevation'] }),
-  trait('lives_above_8000ft', 'I live above 8,000 ft (2,400 m) elevation', 'Lives >8,000 ft / 2,400m', '🏔️', 'travel_geography', 0.0024, ['high_altitude', 'outdoor_mountain'], '20 million extra-red-blood-cell residents laugh politely when flatlanders get winded on stairs.', { aliases: ['la paz', 'quito', 'leadville', 'high altitude'], subsumes: ['lives_above_5000ft'] }),
-  trait('southern_hemisphere_native', 'I was born in the Southern Hemisphere', 'Southern Hemisphere native', '🌏', 'travel_geography', 0.125, ['world_traveler'], 'Just 1 in 8 humans (~1.04 billion) grew up with December summer and Orion upside-down.', { aliases: ['south of equator'] }),
-  trait('lived_on_island', 'I live (or grew up) on an ocean island', 'Island native / resident', '🏝️', 'travel_geography', 0.092, ['world_traveler', 'water_sport'], '763 million islanders know ferry timetables and typhoon shutters intimately.', { aliases: ['island life'] }),
+  trait('lives_above_5000ft', 'I live above 5,000 ft (1,500 m) elevation', 'Lives >5,000 ft / 1,500m', '🏔️', 'travel_geography', 0.058, ['high_altitude', 'outdoor_mountain'], 'About 480 million high-altitude humans boil pasta slower and bake cakes on hard mode.', { aliases: ['mile high', 'denver', 'bogota', 'high elevation'] }),
+  trait('lives_above_8000ft', 'I live above 8,000 ft (2,400 m) elevation', 'Lives >8,000 ft / 2,400m', '🏔️', 'travel_geography', 0.010, ['high_altitude', 'outdoor_mountain'], '83 million extra-red-blood-cell residents laugh politely when flatlanders get winded on stairs.', { aliases: ['la paz', 'quito', 'leadville', 'high altitude'], subsumes: ['lives_above_5000ft'] }),
+  trait('southern_hemisphere_native', 'I was born in the Southern Hemisphere', 'Southern Hemisphere native', '🌏', 'travel_geography', 0.125, ['world_traveler'], 'Just 1 in 8 humans (~1.04 billion) grew up with December summer and Orion upside-down.', { aliases: ['south of equator'], noClusterOverlap: true }),
+  trait('lived_on_island', 'I live (or grew up) on an ocean island', 'Island native / resident', '🏝️', 'travel_geography', 0.092, ['water_sport'], '763 million islanders know ferry timetables and typhoon shutters intimately.', { aliases: ['island life'] }),
   trait('visited_10_countries', 'I have visited 10 or more countries', 'Visited 10+ countries', '🛂', 'travel_geography', 0.035, ['world_traveler'], 'Only ~290 million living humans have stamped their way into double-digit countries.', { aliases: ['10 countries', 'well traveled'], subsumes: ['holds_passport'] }),
   trait('visited_30_countries', 'I have visited 30 or more countries', 'Visited 30+ countries', '🌍', 'travel_geography', 0.0045, ['world_traveler'], '37 million global nomads know airport transit corridors better than their local mall.', { aliases: ['30 countries', 'globetrotter'], subsumes: ['visited_10_countries', 'holds_passport'] }),
   trait('visited_50_countries', 'I have visited 50 or more countries', 'Visited 50+ countries', '🌐', 'travel_geography', 0.0008, ['world_traveler'], '6.6 million humans have set foot in more than a quarter of Earth’s nations.', { aliases: ['50 countries'], subsumes: ['visited_30_countries', 'visited_10_countries', 'holds_passport'] }),
@@ -359,8 +361,8 @@ const CORE_TRAITS = [
   trait('zero_unread_podcasts', 'I finish whole podcast back-catalogs from Episode 1 in chronological order', 'Chronological podcast binger', '🎙️', 'media_games', 0.0095, ['collectors'], '79 million completionists start in 2016 just to understand one running inside joke.', { aliases: ['podcast completionist'] }),
 
   // --- 10. LIFE RANDOMNESS & MILESTONES (35) ---
-  trait('never_broken_bone', 'I have never broken a bone in my life', 'Never broken a bone', '🦴', 'life_randomness', 0.69, ['medical_history'], '5.7 billion intact skeletons nod cautiously and immediately knock on wood.', { aliases: ['unbroken bones'], icebreaker: true }),
-  trait('broken_3_plus_bones', 'I have broken 3 or more bones over my lifetime', 'Broken 3+ bones', '🩼', 'life_randomness', 0.032, ['medical_history', 'athletic'], '265 million adventurous skeletons are on a first-name basis with local radiology techs.', { aliases: ['casts', 'fractures'] }),
+  trait('never_broken_bone', 'I have never broken a bone in my life', 'Never broken a bone', '🦴', 'life_randomness', 0.69, ['medical_history'], '5.7 billion intact skeletons nod cautiously and immediately knock on wood.', { aliases: ['unbroken bones'], exclusiveGroup: 'bone_fracture_history', icebreaker: true }),
+  trait('broken_3_plus_bones', 'I have broken 3 or more bones over my lifetime', 'Broken 3+ bones', '🩼', 'life_randomness', 0.032, ['medical_history', 'athletic'], '265 million adventurous skeletons are on a first-name basis with local radiology techs.', { aliases: ['casts', 'fractures'], exclusiveGroup: 'bone_fracture_history' }),
   trait('had_surgery', 'I have had surgery', 'Had surgery', '🏥', 'life_randomness', 0.35, ['medical_history'], 'Roughly 2.9 billion living humans have gone under surgical drapes at least once.', { aliases: ['surgical operation', 'went under anesthesia', 'had an operation'] }),
   trait('appendectomy', 'I have had my appendix removed (appendectomy)', 'No appendix', '🏥', 'life_randomness', 0.07, ['medical_history'], '581 million humans parted ways with that mysterious angry little cul-de-sac.', { aliases: ['appendix surgery'], subsumes: ['had_surgery'] }),
   trait('tonsils_removed', 'I had my tonsils removed', 'No tonsils', '🍨', 'life_randomness', 0.065, ['medical_history'], '540 million humans traded pharyngeal lymphoid tissue for a week of unlimited ice cream.', { aliases: ['tonsillectomy'], subsumes: ['had_surgery'] }),
@@ -369,8 +371,8 @@ const CORE_TRAITS = [
   trait('lasik_eye_surgery', 'I have had LASIK, PRK, or ICL corrective eye surgery', 'Had LASIK / PRK', '👁️', 'life_randomness', 0.0095, ['medical_history'], '79 million former glasses-hunters can now read the shower shampoo bottle unaided.', { aliases: ['laser eye surgery'], subsumes: ['had_surgery'] }),
   trait('never_had_cavity', 'I have reached adulthood without ever having a dental cavity', 'Zero cavities ever', '🪥', 'life_randomness', 0.085, ['medical_history', 'genetic_quirk'], '705 million blessed enamel lottery winners make dentists suspiciously quiet.', { aliases: ['cavity free'] }),
   trait('struck_by_lightning', 'I have survived a direct or side-flash lightning strike', 'Lightning survivor', '⚡', 'life_randomness', 0.000003, ['medical_history'], 'Only ~25,000 living humans walked away after losing an argument with 300 million volts.', { aliases: ['hit by lightning'], isVerifiedExtremeRarity: true }),
-  trait('leap_day_birthday', 'I was born on Leap Day (February 29)', 'Born on Feb 29', '🐸', 'life_randomness', 0.00068, ['family_structure'], '5.6 million leaplings legally turn 9 while everyone else their age hits 36.', { aliases: ['leapling', 'february 29'] }),
-  trait('born_on_holiday', 'I was born on New Year’s Day, Halloween, or Dec 25', 'Major-holiday birthday', '🎂', 'life_randomness', 0.0082, ['family_structure'], '68 million humans spent childhood fighting against "combined birthday-and-holiday" gift math.', { aliases: ['christmas birthday', 'new years birthday', 'halloween birthday'] }),
+  trait('leap_day_birthday', 'I was born on Leap Day (February 29)', 'Born on Feb 29', '🐸', 'life_randomness', 0.00068, ['family_structure'], '5.6 million leaplings legally turn 9 while everyone else their age hits 36.', { aliases: ['leapling', 'february 29'], exclusiveGroup: 'special_birthday_date', noClusterOverlap: true, subsumes: ['born_month_feb'], conflictsWith: ['born_month_jan', 'born_month_mar', 'born_month_apr', 'born_month_may', 'born_month_jun', 'born_month_jul', 'born_month_aug', 'born_month_sep', 'born_month_oct', 'born_month_nov', 'born_month_dec'] }),
+  trait('born_on_holiday', 'I was born on New Year’s Day, Halloween, or Dec 25', 'Major-holiday birthday', '🎂', 'life_randomness', 0.0082, ['family_structure'], '68 million humans spent childhood fighting against "combined birthday-and-holiday" gift math.', { aliases: ['christmas birthday', 'new years birthday', 'halloween birthday'], exclusiveGroup: 'special_birthday_date', noClusterOverlap: true, conflictsWith: ['born_month_feb', 'born_month_mar', 'born_month_apr', 'born_month_may', 'born_month_jun', 'born_month_jul', 'born_month_aug', 'born_month_sep', 'born_month_nov'] }),
   trait('saved_a_life', 'I have performed Heimlich, CPR, or water rescue that saved someone', 'Saved a human life', '🛟', 'life_randomness', 0.0035, ['medical_history'], '29 million quiet heroes happened to be standing in the exact right place at the exact right second.', { aliases: ['heimlich', 'lifeguard rescue'] }),
   trait('donated_blood_5plus', 'I have donated blood or platelets 5+ times', '5+ time blood donor', '🩸', 'life_randomness', 0.014, ['medical_history'], '116 million regulars show up voluntarily for juice boxes, cookies, and saving strangers.', { aliases: ['platelet donor', 'blood bank'] }),
   trait('bone_marrow_kidney_donor', 'I have donated bone marrow / stem cells or a living kidney', 'Stem-cell / organ donor', '❤️‍🩹', 'life_randomness', 0.00014, ['medical_history'], 'About 1.16 million extraordinary humans literally gave spare biology to keep someone else here.', { aliases: ['be the match', 'living donor'] }),
@@ -473,48 +475,47 @@ const COUNTRIES = [
   ['NR', 'Nauru', '🇳🇷', 0.0000015], ['VA', 'Vatican City', '🇻🇦', 0.00000015]
 ];
 
-// 115 World Languages (Total fluent L1+L2 speakers / 8.3B)
+// 115 World Languages (Total fluent L1+L2 speakers / 8.3B — calibrated so sum_C P(C)*P(L|C) < P(L))
 const LANGUAGES = [
-  ['en', 'English', 0.181], ['zh', 'Mandarin Chinese', 0.138], ['hi', 'Hindi', 0.075],
-  ['es', 'Spanish', 0.068], ['fr', 'French', 0.038], ['ar', 'Arabic', 0.038],
-  ['bn', 'Bengali', 0.034], ['pt', 'Portuguese', 0.032], ['ru', 'Russian', 0.031],
-  ['ur', 'Urdu', 0.029], ['id', 'Indonesian', 0.025], ['de', 'German', 0.016],
-  ['ja', 'Japanese', 0.015], ['sw', 'Swahili', 0.014], ['mr', 'Marathi', 0.012],
-  ['te', 'Telugu', 0.0115], ['tr', 'Turkish', 0.011], ['ta', 'Tamil', 0.0105],
-  ['yue', 'Cantonese', 0.0105], ['vi', 'Vietnamese', 0.0104], ['ko', 'Korean', 0.010],
-  ['fa', 'Persian (Farsi)', 0.0095], ['ha', 'Hausa', 0.0095], ['it', 'Italian', 0.0082],
-  ['pa', 'Punjabi', 0.014], ['jv', 'Javanese', 0.0082], ['gu', 'Gujarati', 0.0075],
-  ['th', 'Thai', 0.0074], ['pl', 'Polish', 0.0055], ['yo', 'Yoruba', 0.0055],
-  ['uk', 'Ukrainian', 0.0048], ['ml', 'Malayalam', 0.0046], ['kn', 'Kannada', 0.0053],
-  ['or', 'Odia', 0.0045], ['my', 'Burmese', 0.0042], ['am', 'Amharic', 0.0042],
-  ['su', 'Sundanese', 0.0040], ['uz', 'Uzbek', 0.0040], ['tl', 'Tagalog (Filipino)', 0.0098],
-  ['nl', 'Dutch', 0.0031], ['ro', 'Romanian', 0.0030], ['ig', 'Igbo', 0.0038],
-  ['ps', 'Pashto', 0.0036], ['om', 'Oromo', 0.0035], ['az', 'Azerbaijani', 0.0030],
-  ['ku', 'Kurdish', 0.0028], ['ne', 'Nepali', 0.0028], ['si', 'Sinhala', 0.0023],
-  ['km', 'Khmer', 0.0022], ['so', 'Somali', 0.0024], ['el', 'Greek', 0.0016],
-  ['hu', 'Hungarian', 0.0016], ['cs', 'Czech', 0.0014], ['sv', 'Swedish', 0.0016],
-  ['zu', 'Zulu', 0.0016], ['xh', 'Xhosa', 0.0012], ['af', 'Afrikaans', 0.0011],
-  ['he', 'Hebrew', 0.00115], ['da', 'Danish', 0.00075], ['fi', 'Finnish', 0.00070],
-  ['no', 'Norwegian', 0.00068], ['sk', 'Slovak', 0.00066], ['bg', 'Bulgarian', 0.00085],
-  ['sr', 'Serbian', 0.0011], ['hr', 'Croatian', 0.00070], ['ca', 'Catalan', 0.0011],
-  ['kk', 'Kazakh', 0.0017], ['tg', 'Tajik', 0.0011], ['ka', 'Georgian', 0.00048],
-  ['hy', 'Armenian', 0.00065], ['sq', 'Albanian', 0.00075], ['lt', 'Lithuanian', 0.00036],
-  ['sl', 'Slovenian', 0.00028], ['lv', 'Latvian', 0.00022], ['et', 'Estonian', 0.00014],
-  ['mn', 'Mongolian', 0.00065], ['lo', 'Lao', 0.00060], ['bo', 'Tibetan', 0.00075],
-  ['ug', 'Uyghur', 0.0013], ['rw', 'Kinyarwanda', 0.0016], ['sn', 'Shona', 0.0014],
-  ['ny', 'Chichewa', 0.0016], ['mg', 'Malagasy', 0.0028], ['ht', 'Haitian Creole', 0.0014],
-  ['qu', 'Quechua', 0.00095], ['gn', 'Guaraní', 0.00078], ['ay', 'Aymara', 0.00030],
-  ['nah', 'Nahuatl', 0.00020], ['cy', 'Welsh', 0.00010], ['ga', 'Irish (Gaeilge)', 0.00022],
-  ['gd', 'Scottish Gaelic', 0.000012], ['eu', 'Basque (Euskara)', 0.000095], ['gl', 'Galician', 0.00030],
-  ['is', 'Icelandic', 0.000045], ['mt', 'Maltese', 0.000065], ['lb', 'Luxembourgish', 0.000050],
-  ['yi', 'Yiddish', 0.00018], ['la', 'Latin (reading fluency)', 0.00015], ['grc', 'Ancient Greek (reading)', 0.00005],
-  ['eo', 'Esperanto', 0.00012], ['asl', 'American Sign Language (ASL)', 0.00012],
-  ['bsl', 'British Sign Language (BSL)', 0.000025], ['jsl', 'Japanese Sign Language', 0.000035],
-  ['mi', 'Māori (Te Reo)', 0.000025], ['haw', 'Hawaiian (‘Ōlelo Hawai‘i)', 0.000004],
-  ['nv', 'Navajo (Diné bizaad)', 0.000020], ['iu', 'Inuktitut', 0.000005], ['sm', 'Samoan', 0.000060],
-  ['fj', 'Fijian', 0.000055], ['be', 'Belarusian', 0.00055], ['mk', 'Macedonian', 0.00024],
-  ['ky', 'Kyrgyz', 0.00062], ['tk', 'Turkmen', 0.00075], ['ti', 'Tigrinya', 0.00095],
-  ['wo', 'Wolof', 0.00095]
+  ['en', 'English', 0.195], ['zh', 'Mandarin Chinese', 0.150], ['hi', 'Hindi', 0.084],
+  ['es', 'Spanish', 0.068], ['ar', 'Arabic', 0.054], ['fr', 'French', 0.038],
+  ['id', 'Indonesian', 0.038], ['bn', 'Bengali', 0.037], ['pt', 'Portuguese', 0.035],
+  ['ur', 'Urdu', 0.032], ['ru', 'Russian', 0.031], ['sw', 'Swahili', 0.022],
+  ['pa', 'Punjabi', 0.018], ['de', 'German', 0.016], ['ja', 'Japanese', 0.0155],
+  ['fa', 'Persian (Farsi)', 0.0148], ['tl', 'Tagalog (Filipino)', 0.0132], ['mr', 'Marathi', 0.013],
+  ['te', 'Telugu', 0.013], ['vi', 'Vietnamese', 0.0126], ['ta', 'Tamil', 0.0124],
+  ['ha', 'Hausa', 0.0116], ['yue', 'Cantonese', 0.0112], ['tr', 'Turkish', 0.011],
+  ['jv', 'Javanese', 0.0108], ['ko', 'Korean', 0.010], ['gu', 'Gujarati', 0.0086],
+  ['th', 'Thai', 0.0084], ['it', 'Italian', 0.0082], ['ps', 'Pashto', 0.0078],
+  ['kn', 'Kannada', 0.0071], ['yo', 'Yoruba', 0.0065], ['or', 'Odia', 0.0060],
+  ['om', 'Oromo', 0.0057], ['pl', 'Polish', 0.0055], ['ml', 'Malayalam', 0.0055],
+  ['my', 'Burmese', 0.0055], ['am', 'Amharic', 0.0055], ['ig', 'Igbo', 0.0054],
+  ['su', 'Sundanese', 0.0050], ['uk', 'Ukrainian', 0.0048], ['uz', 'Uzbek', 0.0046],
+  ['ku', 'Kurdish', 0.0040], ['mg', 'Malagasy', 0.0039], ['ne', 'Nepali', 0.0034],
+  ['so', 'Somali', 0.0034], ['nl', 'Dutch', 0.0031], ['ro', 'Romanian', 0.0030],
+  ['az', 'Azerbaijani', 0.0030], ['si', 'Sinhala', 0.0023], ['km', 'Khmer', 0.0022],
+  ['zu', 'Zulu', 0.0021], ['kk', 'Kazakh', 0.0021], ['ny', 'Chichewa', 0.0020],
+  ['wo', 'Wolof', 0.00195], ['rw', 'Kinyarwanda', 0.00185], ['ug', 'Uyghur', 0.00165],
+  ['el', 'Greek', 0.0016], ['hu', 'Hungarian', 0.0016], ['cs', 'Czech', 0.0016],
+  ['sv', 'Swedish', 0.0016], ['sn', 'Shona', 0.0016], ['ht', 'Haitian Creole', 0.00155],
+  ['tg', 'Tajik', 0.0014], ['ti', 'Tigrinya', 0.00132], ['sr', 'Serbian', 0.0013],
+  ['xh', 'Xhosa', 0.00125], ['he', 'Hebrew', 0.00118], ['mn', 'Mongolian', 0.00115],
+  ['af', 'Afrikaans', 0.0011], ['ca', 'Catalan', 0.0011], ['qu', 'Quechua', 0.0011],
+  ['bo', 'Tibetan', 0.00092], ['sk', 'Slovak', 0.00090], ['hr', 'Croatian', 0.00090],
+  ['bg', 'Bulgarian', 0.00085], ['gn', 'Guaraní', 0.00078], ['lo', 'Lao', 0.00076],
+  ['da', 'Danish', 0.00075], ['sq', 'Albanian', 0.00075], ['tk', 'Turkmen', 0.00075],
+  ['ky', 'Kyrgyz', 0.00074], ['fi', 'Finnish', 0.00070], ['no', 'Norwegian', 0.00068],
+  ['hy', 'Armenian', 0.00065], ['be', 'Belarusian', 0.00058], ['ka', 'Georgian', 0.00048],
+  ['lt', 'Lithuanian', 0.00036], ['ay', 'Aymara', 0.00030], ['gl', 'Galician', 0.00032],
+  ['sl', 'Slovenian', 0.00028], ['mk', 'Macedonian', 0.00024], ['nah', 'Nahuatl', 0.00023],
+  ['lv', 'Latvian', 0.00022], ['ga', 'Irish (Gaeilge)', 0.00022], ['yi', 'Yiddish', 0.00018],
+  ['la', 'Latin (reading fluency)', 0.00015], ['et', 'Estonian', 0.00015], ['eo', 'Esperanto', 0.00012],
+  ['asl', 'American Sign Language (ASL)', 0.00012], ['cy', 'Welsh', 0.000118], ['eu', 'Basque (Euskara)', 0.000118],
+  ['fj', 'Fijian', 0.000068], ['lb', 'Luxembourgish', 0.000066], ['mt', 'Maltese', 0.000065],
+  ['sm', 'Samoan', 0.000060], ['grc', 'Ancient Greek (reading)', 0.000050], ['is', 'Icelandic', 0.000048],
+  ['jsl', 'Japanese Sign Language', 0.000035], ['mi', 'Māori (Te Reo)', 0.000030], ['bsl', 'British Sign Language (BSL)', 0.000025],
+  ['nv', 'Navajo (Diné bizaad)', 0.000020], ['gd', 'Scottish Gaelic', 0.000012], ['iu', 'Inuktitut', 0.000005],
+  ['haw', 'Hawaiian (‘Ōlelo Hawai‘i)', 0.000004]
 ];
 
 // 80 Sports (Active regular participants / 8.3B)
@@ -625,14 +626,16 @@ const INSTRUMENTS = [
   ['didgeridoo', 'Didgeridoo', '🎶', 0.00011]
 ];
 
-const SOUTHERN_HEMISPHERE_CODES = new Set([
-  'BR', 'ID', 'ZA', 'TZ', 'AR', 'PE', 'AO', 'MZ', 'MG', 'AU', 'MW', 'ZM', 'CL', 'ZW',
-  'RW', 'BI', 'BO', 'PG', 'PY', 'NZ', 'UY', 'NA', 'BW', 'LS', 'TL', 'MU', 'SZ', 'FJ',
-  'KM', 'SB', 'VU', 'WS', 'TO'
-]);
+const SOUTHERN_HEMISPHERE_RATES = {
+  BR: 0.88, ID: 0.56, ZA: 0.94, TZ: 0.96, AR: 0.95, PE: 0.96, AO: 0.96, MZ: 0.97,
+  MG: 0.98, AU: 0.72, MW: 0.97, ZM: 0.97, CL: 0.94, ZW: 0.97, RW: 0.97, BI: 0.98,
+  BO: 0.97, PG: 0.97, PY: 0.96, NZ: 0.75, UY: 0.95, NA: 0.96, BW: 0.95, LS: 0.98,
+  TL: 0.97, MU: 0.95, SZ: 0.97, FJ: 0.96, KM: 0.97, SB: 0.98, VU: 0.97, WS: 0.94,
+  TO: 0.95, KE: 0.75, CD: 0.62, EC: 0.78, UG: 0.25, GA: 0.65, CG: 0.55, CO: 0.04
+};
 
 const ISLAND_NATION_CODES = new Set([
-  'ID', 'JP', 'PH', 'GB', 'MG', 'TW', 'LK', 'CU', 'HT', 'DO', 'PG', 'HK', 'SG', 'NZ',
+  'ID', 'JP', 'PH', 'GB', 'MG', 'TW', 'LK', 'CU', 'HT', 'DO', 'PG', 'SG', 'NZ',
   'IE', 'PR', 'JM', 'TT', 'MU', 'CY', 'FJ', 'KM', 'SB', 'CV', 'MT', 'MV', 'BS', 'IS',
   'VU', 'BB', 'ST', 'WS', 'LC', 'KI', 'GD', 'FM', 'VC', 'TO', 'SC', 'AG', 'DM', 'MH',
   'KN', 'PW', 'TV', 'NR'
@@ -641,7 +644,7 @@ const ISLAND_NATION_CODES = new Set([
 const HIGH_ALTITUDE_RATES = {
   LS: 0.95, BO: 0.62, BT: 0.65, RW: 0.55, ET: 0.48, AM: 0.45, EC: 0.42, KG: 0.42,
   AF: 0.38, TJ: 0.36, NP: 0.35, PE: 0.32, ZA: 0.30, MX: 0.28, KE: 0.28, CO: 0.26,
-  GT: 0.35, YE: 0.34, IR: 0.22, CH: 0.08
+  GT: 0.35, YE: 0.34, IR: 0.22, CH: 0.08, CN: 0.045, US: 0.028
 };
 
 // Conditional P(Language | Country) for primary & major widely-spoken languages
@@ -793,9 +796,11 @@ function buildCountryConditionals(code) {
   }
   if (ISLAND_NATION_CODES.has(code)) {
     cond['lived_on_island'] = 1.0;
+  } else if (code === 'HK') {
+    cond['lived_on_island'] = 0.25;
   }
-  if (SOUTHERN_HEMISPHERE_CODES.has(code)) {
-    cond['southern_hemisphere_native'] = 0.90;
+  if (SOUTHERN_HEMISPHERE_RATES[code]) {
+    cond['southern_hemisphere_native'] = SOUTHERN_HEMISPHERE_RATES[code];
   }
   if (HIGH_ALTITUDE_RATES[code]) {
     cond['lives_above_5000ft'] = HIGH_ALTITUDE_RATES[code];
@@ -814,6 +819,7 @@ const PARAMETRIC_GENERATORS = [
     emoji: '🌍',
     category: 'travel_geography',
     exclusiveGroup: 'home_country',
+    noClusterOverlap: true,
     clusterTags: ['world_traveler'],
     searchTriggers: ['live in', 'from', 'country', 'citizen of', 'resident of'],
     options: COUNTRIES.map(([code, name, flag, prev]) => {
@@ -916,12 +922,13 @@ const PARAMETRIC_GENERATORS = [
     emoji: '🩸',
     category: 'genetics_physiology',
     exclusiveGroup: 'blood_type',
+    noClusterOverlap: true,
     clusterTags: ['genetic_quirk'],
     searchTriggers: ['blood type', 'o+', 'o-', 'a+', 'a-', 'b+', 'b-', 'ab+', 'ab-'],
     options: [
-      { key: 'o_pos', canonicalSlug: 'blood_o_pos', label: 'My blood type is O+', shortBadge: 'Blood type O+', emoji: '🩸', prevalence: 0.38, snarkNote: 'Earth’s default factory preset — shared with 3.15 billion humans.' },
+      { key: 'o_pos', canonicalSlug: 'blood_o_pos', label: 'My blood type is O+', shortBadge: 'Blood type O+', emoji: '🩸', prevalence: 0.385, snarkNote: 'Earth’s default factory preset — shared with 3.20 billion humans.' },
       { key: 'a_pos', canonicalSlug: 'blood_a_pos', label: 'My blood type is A+', shortBadge: 'Blood type A+', emoji: '🩸', prevalence: 0.28, snarkNote: '2.3 billion humans carry the A-positive antigen.' },
-      { key: 'b_pos', canonicalSlug: 'blood_b_pos', label: 'My blood type is B+', shortBadge: 'Blood type B+', emoji: '🩸', prevalence: 0.21, snarkNote: '1.74 billion humans — especially common across South and Central Asia.' },
+      { key: 'b_pos', canonicalSlug: 'blood_b_pos', label: 'My blood type is B+', shortBadge: 'Blood type B+', emoji: '🩸', prevalence: 0.215, snarkNote: '1.78 billion humans — especially common across South and Central Asia.' },
       { key: 'ab_pos', canonicalSlug: 'blood_ab_pos', label: 'My blood type is AB+', shortBadge: 'Blood type AB+', emoji: '🩸', prevalence: 0.05, snarkNote: 'Universal red-cell recipient — 415 million people gladly accept donations from everyone.' },
       { key: 'o_neg', canonicalSlug: 'blood_o_neg', label: 'My blood type is O−', shortBadge: 'Blood type O−', emoji: '🩸', prevalence: 0.025, snarkNote: 'Universal red-cell donor — ~207 million humans worldwide.' },
       { key: 'a_neg', canonicalSlug: 'blood_a_neg', label: 'My blood type is A−', shortBadge: 'Blood type A−', emoji: '🩸', prevalence: 0.025, snarkNote: 'Just 2.5% of the planet shares A-negative.' },
@@ -937,16 +944,22 @@ const PARAMETRIC_GENERATORS = [
     category: 'sports_movement',
     clusterTags: ['athletic'],
     searchTriggers: ['sport', 'play', 'practice', 'compete'],
-    options: SPORTS.map(([slug, name, emoji, prev, tags]) => ({
-      key: slug,
-      canonicalSlug: 'sport_param_' + slug,
-      label: 'I play or practice ' + name,
-      shortBadge: name,
-      emoji,
-      prevalence: prev,
-      clusterTags: tags,
-      snarkNote: 'Narrows the athletic pool to the ~' + Math.round(prev * 8300000000).toLocaleString('en-US') + ' regular ' + name + ' participants globally.'
-    }))
+    options: SPORTS.map(([slug, name, emoji, prev, tags]) => {
+      const sub = [];
+      if (tags.includes('team_sport')) sub.push('plays_team_sport');
+      if (slug === 'trail_running') sub.push('runs_regularly', 'exercises_weekly');
+      return {
+        key: slug,
+        canonicalSlug: 'sport_param_' + slug,
+        label: 'I play or practice ' + name,
+        shortBadge: name,
+        emoji,
+        prevalence: prev,
+        clusterTags: tags,
+        ...(sub.length > 0 ? { subsumes: sub } : {}),
+        snarkNote: 'Narrows the athletic pool to the ~' + Math.round(prev * 8300000000).toLocaleString('en-US') + ' regular ' + name + ' participants globally.'
+      };
+    })
   },
   {
     id: 'plays_instrument',
@@ -976,6 +989,7 @@ const PARAMETRIC_GENERATORS = [
     emoji: '📏',
     category: 'genetics_physiology',
     exclusiveGroup: 'height_bracket',
+    noClusterOverlap: true,
     clusterTags: ['genetic_quirk'],
     searchTriggers: ['height', 'tall', 'short', 'cm', 'feet'],
     options: [
@@ -996,6 +1010,7 @@ const PARAMETRIC_GENERATORS = [
     emoji: '📅',
     category: 'life_randomness',
     exclusiveGroup: 'birth_month',
+    noClusterOverlap: true,
     clusterTags: ['family_structure'],
     searchTriggers: ['born in', 'birthday month', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     options: [
@@ -1023,18 +1038,20 @@ const PARAMETRIC_GENERATORS = [
     emoji: '⏳',
     category: 'life_randomness',
     exclusiveGroup: 'birth_decade',
+    noClusterOverlap: true,
     clusterTags: ['family_structure'],
-    searchTriggers: ['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s', 'decade', 'age'],
+    searchTriggers: ['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s', 'decade', 'age'],
     options: [
       ['1930s', '1930s (or earlier)', 0.008, 'Part of the top 0.8% longest-running humans currently on Earth.'],
-      ['1940s', '1940s', 0.028, '232 million humans remember a world before commercial satellites.'],
-      ['1950s', '1950s', 0.068, '564 million humans arrived during the mid-century boom.'],
-      ['1960s', '1960s', 0.098, '813 million humans share the Apollo-era birth cohort.'],
-      ['1970s', '1970s', 0.122, '1.01 billion humans remember cassette tapes and No. 2 pencil rewinding.'],
-      ['1980s', '1980s', 0.148, '1.23 billion humans straddled analog childhood and dial-up adolescence.'],
-      ['1990s', '1990s', 0.162, '1.34 billion 90s babies make up one of Earth’s largest adult cohorts.'],
-      ['2000s', '2000s', 0.166, '1.38 billion humans never lived in a century starting with 19.'],
-      ['2010s', '2010s', 0.165, '1.37 billion humans grew up thinking every glass screen should swipe.']
+      ['1940s', '1940s', 0.026, '216 million humans remember a world before commercial satellites.'],
+      ['1950s', '1950s', 0.062, '515 million humans arrived during the mid-century boom.'],
+      ['1960s', '1960s', 0.094, '780 million humans share the Apollo-era birth cohort.'],
+      ['1970s', '1970s', 0.118, '979 million humans remember cassette tapes and No. 2 pencil rewinding.'],
+      ['1980s', '1980s', 0.142, '1.18 billion humans straddled analog childhood and dial-up adolescence.'],
+      ['1990s', '1990s', 0.154, '1.28 billion 90s babies make up one of Earth’s largest adult cohorts.'],
+      ['2000s', '2000s', 0.158, '1.31 billion humans never lived in a century starting with 19.'],
+      ['2010s', '2010s', 0.158, '1.31 billion humans grew up thinking every glass screen should swipe.'],
+      ['2020s', '2020s', 0.080, '664 million brand-new Earthlings arrived this decade.']
     ].map(([k, label, prev, snark]) => ({
       key: k,
       canonicalSlug: 'born_decade_' + k,
@@ -1211,16 +1228,18 @@ for (const gen of PARAMETRIC_GENERATORS) {
 }
 
 // ============================================================================
-// VALIDATE ALL CURATED & PARAMETRIC ITEMS STRICTLY AGAINST CLOSED TAXONOMY
+// VALIDATE ALL CURATED & PARAMETRIC ITEMS + COMPUTE TRANSITIVE / AXIOM CLOSURES
 // ============================================================================
 const validCategories = new Set(Taxonomy.CATEGORIES.map((c) => c.id));
 const seenSlugs = new Set();
+const bySlug = new Map();
 
 for (const t of CORE_TRAITS) {
   if (seenSlugs.has(t.canonicalSlug)) {
     throw new Error('Duplicate core canonicalSlug: ' + t.canonicalSlug);
   }
   seenSlugs.add(t.canonicalSlug);
+  bySlug.set(t.canonicalSlug, t);
 
   if (!validCategories.has(t.category)) {
     throw new Error('Invalid category on ' + t.canonicalSlug + ': ' + t.category);
@@ -1262,12 +1281,82 @@ for (const gen of PARAMETRIC_GENERATORS) {
       throw new Error('Duplicate parametric canonicalSlug: ' + opt.canonicalSlug);
     }
     seenSlugs.add(opt.canonicalSlug);
+    bySlug.set(opt.canonicalSlug, opt);
     const optTags = opt.clusterTags || gen.clusterTags;
     for (const tag of optTags) {
       if (!Taxonomy.isValidClusterTag(tag)) {
         throw new Error('Invalid option clusterTag "' + tag + '" on ' + opt.canonicalSlug);
       }
     }
+  }
+}
+
+// 1. Transitive closure on `subsumes` + strict subset prevalence assertion P(child) < P(parent)
+let subChanged = true;
+while (subChanged) {
+  subChanged = false;
+  for (const item of bySlug.values()) {
+    if (!Array.isArray(item.subsumes) || item.subsumes.length === 0) continue;
+    for (const pSlug of [...item.subsumes]) {
+      const parent = bySlug.get(pSlug);
+      if (!parent) {
+        throw new Error(`Broken subsumes target "${pSlug}" on "${item.canonicalSlug}"`);
+      }
+      if (item.prevalence >= parent.prevalence) {
+        throw new Error(
+          `Subsumption prevalence inversion: ${item.canonicalSlug} (${item.prevalence}) >= ${pSlug} (${parent.prevalence})`
+        );
+      }
+      if (Array.isArray(parent.subsumes)) {
+        for (const grand of parent.subsumes) {
+          if (grand !== item.canonicalSlug && !item.subsumes.includes(grand)) {
+            item.subsumes.push(grand);
+            subChanged = true;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 2. Symmetric closure on `conflictsWith`
+for (const item of bySlug.values()) {
+  if (!Array.isArray(item.conflictsWith)) continue;
+  for (const cSlug of item.conflictsWith) {
+    const other = bySlug.get(cSlug);
+    if (!other) {
+      throw new Error(`Broken conflictsWith target "${cSlug}" on "${item.canonicalSlug}"`);
+    }
+    if (!Array.isArray(other.conflictsWith)) other.conflictsWith = [];
+    if (!other.conflictsWith.includes(item.canonicalSlug)) {
+      other.conflictsWith.push(item.canonicalSlug);
+    }
+  }
+}
+
+// 3. Kolmogorov & Total-Law-of-Probability Assertion: sum_C P(C) * P(Target | C) <= 0.985 * P(Target)
+const homeCountryGen = PARAMETRIC_GENERATORS.find((g) => g.id === 'home_country');
+const condMarginalSums = new Map();
+for (const cOpt of homeCountryGen.options) {
+  if (!cOpt.cond) continue;
+  for (const [targetSlug, rate] of Object.entries(cOpt.cond)) {
+    const targetItem = bySlug.get(targetSlug);
+    if (!targetItem) {
+      throw new Error(`Missing conditional target "${targetSlug}" on "${cOpt.canonicalSlug}"`);
+    }
+    if (!(rate > 0 && rate <= 1.0)) {
+      throw new Error(`Invalid conditional rate ${rate} on ${cOpt.canonicalSlug} -> ${targetSlug}`);
+    }
+    const prevSum = condMarginalSums.get(targetSlug) || 0;
+    condMarginalSums.set(targetSlug, prevSum + cOpt.prevalence * rate);
+  }
+}
+for (const [targetSlug, jointSum] of condMarginalSums.entries()) {
+  const pTarget = bySlug.get(targetSlug).prevalence;
+  if (jointSum > pTarget * 0.985) {
+    throw new Error(
+      `Kolmogorov Total-Law violation on ${targetSlug}: sum_C P(C)*r = ${jointSum.toFixed(6)} > 0.985 * P(target) (${pTarget.toFixed(6)})`
+    );
   }
 }
 

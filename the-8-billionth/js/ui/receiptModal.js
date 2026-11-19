@@ -283,7 +283,7 @@
           copyWrap.appendChild(titleLine);
           copyWrap.appendChild(subSpan);
 
-          if (item.wasDampened) {
+          if (item.wasDampened || (item.dampenMode === 'geo_bayes' && item.geoSourceLabel)) {
             const overSpan = document.createElement('span');
             overSpan.className = 'factor-overlap-tag';
             if (item.dampenMode === 'geo_bayes' && item.geoSourceLabel) {

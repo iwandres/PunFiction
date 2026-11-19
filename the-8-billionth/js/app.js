@@ -611,7 +611,9 @@
       const pctSpan = document.createElement('span');
       pctSpan.className = 'stack-pill-pct';
       pctSpan.textContent = item.superseded
-        ? 'incl.'
+        ? item.supersededReason === 'replaced_exclusive'
+          ? 'repl.'
+          : 'incl.'
         : Probability.formatPrevalencePercent(item.pEff);
 
       const removeBtn = document.createElement('button');
@@ -700,14 +702,16 @@
       dom.inspBody.appendChild(fBox);
     }
 
-    // 3. Correlation Dampening or Subsumption Note
+    // 3. Correlation Dampening, Geo Calibration, or Subsumption Note
     if (item.superseded) {
       const sNote = document.createElement('div');
       sNote.className = 'insp-dampen-note';
       sNote.textContent =
-        'ℹ️ Included automatically inside "' +
-        item.supersededBy +
-        '" — no double-counting applied.';
+        item.supersededReason === 'replaced_exclusive'
+          ? 'ℹ️ Replaced by "' + item.supersededBy + '" (mutually exclusive trait).'
+          : 'ℹ️ Included automatically inside "' +
+            item.supersededBy +
+            '" — no double-counting applied.';
       dom.inspBody.appendChild(sNote);
     } else if (item.wasDampened) {
       const dNote = document.createElement('div');
@@ -722,6 +726,18 @@
       }
       dNote.textContent = '📐 ' + snarkText + detailSuffix;
       dom.inspBody.appendChild(dNote);
+    } else if (item.dampenMode === 'geo_bayes' && item.geoSourceLabel && item.pEff < item.pBase * 0.999) {
+      const gNote = document.createElement('div');
+      gNote.className = 'insp-dampen-note';
+      gNote.textContent =
+        '🌍 Geo-calibrated: ' +
+        Probability.formatPrevalencePercent(item.pEff) +
+        ' given ' +
+        item.geoSourceLabel +
+        ' (vs ' +
+        Probability.formatPrevalencePercent(item.pBase) +
+        ' globally).';
+      dom.inspBody.appendChild(gNote);
     }
 
     dom.inspector.classList.remove('hidden');

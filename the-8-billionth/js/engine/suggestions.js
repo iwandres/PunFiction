@@ -63,6 +63,12 @@
             activeSlugs.add(t.subsumes[s]);
           }
         }
+        // Avoid suggesting logically contradictory traits
+        if (!evalState.items[i].superseded && Array.isArray(t.conflictsWith)) {
+          for (let c = 0; c < t.conflictsWith.length; c++) {
+            activeSlugs.add(t.conflictsWith[c]);
+          }
+        }
       }
     }
 
@@ -98,11 +104,13 @@
       const p = t.prevalence;
       const catTapCount = catCounts[t.category] || 0;
 
-      // Count overlapping cluster tags and already-paid demographic baseGates
+      // Count overlapping cluster tags (excluding non-correlated genetic_quirk / partition flags) and already-paid baseGates
       let tagOverlap = 0;
-      const tags = t.clusterTags || [];
-      for (let k = 0; k < tags.length; k++) {
-        if (tagCounts[tags[k]]) tagOverlap += 1;
+      if (!t.noClusterOverlap) {
+        const tags = t.clusterTags || [];
+        for (let k = 0; k < tags.length; k++) {
+          if (tags[k] !== 'genetic_quirk' && tagCounts[tags[k]]) tagOverlap += 1;
+        }
       }
 
       let gateOverlap = 0;

@@ -28,6 +28,16 @@
   const DEFAULT_MIN_PREVALENCE = 1e-7; // ~830 humans globally
   const EXTREME_RARITY_MIN_PREVALENCE = 1e-9; // ~8 humans globally (verified rarities only)
 
+  // Descriptive archetype tags & pure demographic partitions that do NOT imply lifestyle covariance
+  const NON_OVERLAP_CLUSTER_TAGS = new Set(['genetic_quirk']);
+  const ORTHOGONAL_PARTITION_GENERATORS = new Set([
+    'home_country',
+    'birth_month',
+    'birth_decade',
+    'blood_type',
+    'height_bracket'
+  ]);
+
   function clampPrevalence(rawP, isVerifiedExtremeRarity) {
     const floor = isVerifiedExtremeRarity ? EXTREME_RARITY_MIN_PREVALENCE : DEFAULT_MIN_PREVALENCE;
     const num = Number(rawP);
@@ -43,11 +53,48 @@
     return keys;
   }
 
+  function isOrthogonalPartitionTrait(trait) {
+    if (!trait) return false;
+    if (trait.noClusterOverlap) return true;
+    if (trait.generatorId && ORTHOGONAL_PARTITION_GENERATORS.has(trait.generatorId)) return true;
+    const slug = String(trait.canonicalSlug || '');
+    return (
+      slug.startsWith('lives_in_') ||
+      slug.startsWith('born_month_') ||
+      slug.startsWith('born_decade_') ||
+      slug.startsWith('blood_') ||
+      slug.startsWith('height_')
+    );
+  }
+
   function isIndividualLanguageTrait(trait) {
     if (!trait) return false;
     if (trait.generatorId === 'speaks_language') return true;
     const slug = String(trait.canonicalSlug || '');
     return slug.startsWith('speaks_') && !slug.includes('plus_languages');
+  }
+
+  /**
+   * Determines whether two traits are logically contradictory (mutually exclusive).
+   */
+  function doesConflict(traitA, traitB) {
+    if (!traitA || !traitB || traitA === traitB) return false;
+    if (traitA.exclusiveGroup && traitA.exclusiveGroup === traitB.exclusiveGroup) {
+      return true;
+    }
+    const keysA = getTraitKeys(traitA);
+    const keysB = getTraitKeys(traitB);
+    if (Array.isArray(traitA.conflictsWith)) {
+      for (let i = 0; i < traitA.conflictsWith.length; i++) {
+        if (keysB.has(String(traitA.conflictsWith[i]))) return true;
+      }
+    }
+    if (Array.isArray(traitB.conflictsWith)) {
+      for (let i = 0; i < traitB.conflictsWith.length; i++) {
+        if (keysA.has(String(traitB.conflictsWith[i]))) return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -89,30 +136,41 @@
   }
 
   /**
-   * Counts how many prior active traits share >= 1 closed clusterTag with candidateTrait.
+   * Counts how many prior active traits share >= 1 lifestyle/psychographic clusterTag with candidateTrait,
+   * returning prior base bits so mutual-information overlap obeys Bayes symmetry & Frechet bounds.
    */
   function computeClusterOverlap(priorEvaluatedActive, candidateTrait) {
-    const candidateTags = new Set(
-      Taxonomy ? Taxonomy.sanitizeClusterTags(candidateTrait.clusterTags) : candidateTrait.clusterTags || []
-    );
-    if (candidateTags.size === 0 || priorEvaluatedActive.length === 0) {
-      return { overlapCount: 0, sharedWith: [] };
+    if (!candidateTrait || isOrthogonalPartitionTrait(candidateTrait) || priorEvaluatedActive.length === 0) {
+      return { overlapCount: 0, sharedWith: [], priorOverlapBits: [] };
+    }
+
+    const rawTags = Taxonomy
+      ? Taxonomy.sanitizeClusterTags(candidateTrait.clusterTags)
+      : candidateTrait.clusterTags || [];
+    const candidateTags = new Set(rawTags.filter((t) => !NON_OVERLAP_CLUSTER_TAGS.has(t)));
+
+    if (candidateTags.size === 0) {
+      return { overlapCount: 0, sharedWith: [], priorOverlapBits: [] };
     }
 
     let overlapCount = 0;
     const sharedWith = [];
+    const priorOverlapBits = [];
 
     for (let i = 0; i < priorEvaluatedActive.length; i++) {
       const prev = priorEvaluatedActive[i];
+      if (isOrthogonalPartitionTrait(prev.trait)) continue;
       const prevTags = prev.sanitizedTags || [];
       const matchingTags = [];
       for (let j = 0; j < prevTags.length; j++) {
-        if (candidateTags.has(prevTags[j])) {
-          matchingTags.push(prevTags[j]);
+        const tag = prevTags[j];
+        if (!NON_OVERLAP_CLUSTER_TAGS.has(tag) && candidateTags.has(tag)) {
+          matchingTags.push(tag);
         }
       }
       if (matchingTags.length > 0) {
         overlapCount += 1;
+        priorOverlapBits.push(-Math.log2(prev.pBase));
         sharedWith.push({
           label: prev.trait.shortBadge || prev.trait.label,
           canonicalSlug: prev.trait.canonicalSlug || prev.trait.id,
@@ -121,68 +179,150 @@
       }
     }
 
-    return { overlapCount, sharedWith };
+    priorOverlapBits.sort((a, b) => b - a);
+    return { overlapCount, sharedWith, priorOverlapBits };
+  }
+
+  /**
+   * Bayes-symmetric power-law cluster dampening (gamma = 0.65):
+   *   Delta I = b_cand - sum_{r=1..m} gamma^{r-1} * (1 - gamma) * min(b_cand, b_prior_(r))
+   * Reduces identically to p_base^(gamma^m) when candidate is at least as broad as priors,
+   * while enforcing exact k!-permutation symmetry and Frechet validity P(A n B) <= min(P(A), P(B))
+   * when a rarer trait follows a broader trait.
+   */
+  function computeEffectivePrevalence(pBase, overlapCount, priorOverlapBits) {
+    if (overlapCount <= 0) return pBase;
+    if (!Array.isArray(priorOverlapBits) || priorOverlapBits.length === 0) {
+      return Math.pow(pBase, Math.pow(GAMMA, overlapCount));
+    }
+    const bCand = -Math.log2(pBase);
+    let bitDeduction = 0;
+    for (let r = 0; r < priorOverlapBits.length; r++) {
+      const sharedCap = Math.min(bCand, priorOverlapBits[r]);
+      bitDeduction += Math.pow(GAMMA, r) * (1 - GAMMA) * sharedCap;
+    }
+    const bEff = Math.max(bCand * Math.pow(GAMMA, overlapCount), bCand - bitDeduction);
+    return Math.min(0.999, Math.pow(2, -bEff));
+  }
+
+  /**
+   * Standalone joint product of a small subset of traits (used when reverse-conditioning
+   * a country on 2+ already-selected languages/geo traits for exact Naive Bayes symmetry).
+   */
+  function computeStandaloneSubsetProduct(matchedItems) {
+    if (matchedItems.length === 0) return 1.0;
+    if (matchedItems.length === 1) return matchedItems[0].pBase;
+    let prod = 1.0;
+    const seen = [];
+    for (let i = 0; i < matchedItems.length; i++) {
+      const cur = matchedItems[i];
+      const ov = computeClusterOverlap(seen, cur.trait);
+      const pStep = computeEffectivePrevalence(cur.pBase, ov.overlapCount, ov.priorOverlapBits);
+      prod *= pStep;
+      seen.push(cur);
+    }
+    return prod;
   }
 
   /**
    * Evaluates exact bidirectional Bayes' Theorem geographic/linguistic/cultural conditioning
-   * between prior active traits and candidateTrait:
-   * - Forward: P(Candidate | Prior) = r  (from Prior.cond[Candidate.slug])
-   * - Reverse: P(Candidate | Prior) = P(Candidate) * P(Prior | Candidate) / P(Prior)  (from Candidate.cond[Prior.slug])
+   * between prior active traits and candidateTrait (for both positive r > pBase and negative r < pBase):
+   * - Forward: P(Candidate | Country) = r  (from Prior.cond[Candidate.slug])
+   * - Reverse: P(Country | Targets) = P(Country) * prod(r_j) / P(Targets)  (from Candidate.cond[Prior.slug])
    */
   function computeGeoBayesConditioning(priorEvaluatedActive, candidateTrait, candidatePBase) {
     if (!candidateTrait || priorEvaluatedActive.length === 0) {
-      return { geoRate: null, geoSourceLabel: null };
+      return {
+        geoRate: null,
+        geoSourceLabel: null,
+        geoSourceSlug: null,
+        geoSourceGates: new Set(),
+        geoMatchedItems: []
+      };
     }
 
     const candKeys = Array.from(getTraitKeys(candidateTrait));
     const candCond = candidateTrait.cond && typeof candidateTrait.cond === 'object' ? candidateTrait.cond : null;
 
-    let bestRate = null;
-    let bestSourceLabel = null;
+    // 1. Forward check: Prior.cond[candSlug] = P(Candidate | Prior)
+    let forwardRate = null;
+    let forwardLabel = null;
+    let forwardSlug = null;
+    let forwardGates = new Set();
+    let forwardMatched = [];
 
     for (let i = 0; i < priorEvaluatedActive.length; i++) {
       const prev = priorEvaluatedActive[i];
       const prevTrait = prev.trait;
-      const prevPBase = prev.pBase;
-
-      // Forward check: Prior.cond[candSlug] = P(Candidate | Prior)
       if (prevTrait.cond && typeof prevTrait.cond === 'object') {
         for (let k = 0; k < candKeys.length; k++) {
           const r = Number(prevTrait.cond[candKeys[k]]);
           if (Number.isFinite(r) && r > 0 && r < 0.999) {
-            if (bestRate === null || r > bestRate) {
-              bestRate = r;
-              bestSourceLabel = prevTrait.shortBadge || prevTrait.label;
-            }
-          }
-        }
-      }
-
-      // Reverse Bayes check: Candidate.cond[prevSlug] = P(Prior | Candidate)
-      // => P(Candidate | Prior) = (P(Candidate) * r) / P(Prior)
-      if (candCond && prevPBase > 0) {
-        const prevKeys = Array.from(getTraitKeys(prevTrait));
-        for (let k = 0; k < prevKeys.length; k++) {
-          const r = Number(candCond[prevKeys[k]]);
-          if (Number.isFinite(r) && r > 0 && r < 0.999) {
-            const bayesRate = Math.min(0.995, (candidatePBase * r) / prevPBase);
-            if (bestRate === null || bayesRate > bestRate) {
-              bestRate = bayesRate;
-              bestSourceLabel = prevTrait.shortBadge || prevTrait.label;
-            }
+            forwardRate = r;
+            forwardLabel = prevTrait.shortBadge || prevTrait.label;
+            forwardSlug = prevTrait.canonicalSlug || prevTrait.id;
+            forwardGates = new Set(prev.sanitizedGates || []);
+            forwardMatched = [prev];
+            break;
           }
         }
       }
     }
 
-    return { geoRate: bestRate, geoSourceLabel: bestSourceLabel };
-  }
+    if (forwardRate !== null) {
+      return {
+        geoRate: forwardRate,
+        geoSourceLabel: forwardLabel,
+        geoSourceSlug: forwardSlug,
+        geoSourceGates: forwardGates,
+        geoMatchedItems: forwardMatched
+      };
+    }
 
-  function computeEffectivePrevalence(pBase, overlapCount) {
-    if (overlapCount <= 0) return pBase;
-    const exponent = Math.pow(GAMMA, overlapCount);
-    return Math.pow(pBase, exponent);
+    // 2. Reverse Bayes check: Candidate.cond[prevSlug] = P(Prior_j | Candidate)
+    if (candCond) {
+      const matchedItems = [];
+      let jointGivenCand = candidatePBase;
+      const sourceLabels = [];
+      const unionGates = new Set();
+
+      for (let i = 0; i < priorEvaluatedActive.length; i++) {
+        const prev = priorEvaluatedActive[i];
+        const prevKeys = Array.from(getTraitKeys(prev.trait));
+        for (let k = 0; k < prevKeys.length; k++) {
+          const r = Number(candCond[prevKeys[k]]);
+          if (Number.isFinite(r) && r > 0 && r < 0.999) {
+            matchedItems.push(prev);
+            jointGivenCand *= r;
+            sourceLabels.push(prev.trait.shortBadge || prev.trait.label);
+            (prev.sanitizedGates || []).forEach((g) => unionGates.add(g));
+            break;
+          }
+        }
+      }
+
+      if (matchedItems.length > 0) {
+        const denomProduct = computeStandaloneSubsetProduct(matchedItems);
+        if (denomProduct > 0) {
+          const bayesRate = Math.min(0.995, Math.max(1e-9, jointGivenCand / denomProduct));
+          return {
+            geoRate: bayesRate,
+            geoSourceLabel: sourceLabels.join(' + '),
+            geoSourceSlug: candidateTrait.canonicalSlug || candidateTrait.id,
+            geoSourceGates: unionGates,
+            geoMatchedItems: matchedItems
+          };
+        }
+      }
+    }
+
+    return {
+      geoRate: null,
+      geoSourceLabel: null,
+      geoSourceSlug: null,
+      geoSourceGates: new Set(),
+      geoMatchedItems: []
+    };
   }
 
   function expectedToDisplayPopulation(expectedHumans) {
@@ -200,25 +340,46 @@
     const rawList = Array.isArray(traits) ? traits.filter(Boolean) : [];
     const n = rawList.length;
 
-    // Step 1: Mutually exclusive single-value slots (e.g., blood_type, home_country)
+    // Step 1: Mutually exclusive single-value slots & logical contradictions (later selection wins)
     const supersededInfo = new Array(n).fill(null);
     for (let i = 0; i < n; i++) {
-      const groupA = rawList[i].exclusiveGroup;
-      if (groupA) {
-        for (let j = i + 1; j < n; j++) {
-          if (rawList[j].exclusiveGroup === groupA) {
+      for (let j = i + 1; j < n; j++) {
+        if (doesConflict(rawList[i], rawList[j])) {
+          supersededInfo[i] = {
+            byLabel: rawList[j].shortBadge || rawList[j].label,
+            bySlug: rawList[j].canonicalSlug || rawList[j].id,
+            reason: 'replaced_exclusive'
+          };
+          break;
+        }
+      }
+    }
+
+    // Step 1B: Exact canonicalSlug deduplication across non-replaced traits
+    for (let i = 0; i < n; i++) {
+      if (supersededInfo[i]) continue;
+      for (let j = i + 1; j < n; j++) {
+        if (supersededInfo[j]) continue;
+        if (rawList[i].canonicalSlug && rawList[i].canonicalSlug === rawList[j].canonicalSlug) {
+          if ((rawList[j].prevalence || 1) < (rawList[i].prevalence || 1)) {
             supersededInfo[i] = {
               byLabel: rawList[j].shortBadge || rawList[j].label,
               bySlug: rawList[j].canonicalSlug || rawList[j].id,
-              reason: 'replaced_exclusive'
+              reason: 'duplicate'
             };
             break;
+          } else {
+            supersededInfo[j] = {
+              byLabel: rawList[i].shortBadge || rawList[i].label,
+              bySlug: rawList[i].canonicalSlug || rawList[i].id,
+              reason: 'duplicate'
+            };
           }
         }
       }
     }
 
-    // Step 1B: Multi-language count subsumption (e.g. picking 2+ specific languages supersedes "Bilingual 2+")
+    // Step 1C: Multi-language count subsumption (e.g. picking 2+ specific languages supersedes "Bilingual 2+")
     const spokenLangIndices = [];
     for (let i = 0; i < n; i++) {
       if (!supersededInfo[i] && isIndividualLanguageTrait(rawList[i])) {
@@ -248,22 +409,15 @@
       }
     }
 
-    // Step 2: Parent-child & 100%-geo subsumption across all non-replaced traits
+    // Step 2: Parent-child & 100%-geo subsumption across all valid (non-conflict, non-duplicate) traits
     for (let i = 0; i < n; i++) {
       if (supersededInfo[i]) continue;
       for (let j = 0; j < n; j++) {
-        if (i === j || supersededInfo[j]) continue;
+        if (i === j) continue;
         if (
-          rawList[i].canonicalSlug &&
-          rawList[i].canonicalSlug === rawList[j].canonicalSlug &&
-          i < j &&
-          (rawList[j].prevalence || 1) >= (rawList[i].prevalence || 1)
+          supersededInfo[j] &&
+          (supersededInfo[j].reason === 'replaced_exclusive' || supersededInfo[j].reason === 'duplicate')
         ) {
-          supersededInfo[j] = {
-            byLabel: rawList[i].shortBadge || rawList[i].label,
-            bySlug: rawList[i].canonicalSlug || rawList[i].id,
-            reason: 'duplicate'
-          };
           continue;
         }
         if (doesSubsume(rawList[j], rawList[i])) {
@@ -277,12 +431,12 @@
       }
     }
 
-    // Step 3: Sequential Bayesian Geo/Language + Pay-the-Gate-Once + gamma-dampened evaluation
+    // Step 3: Sequential Bayesian Geo/Language + Symmetric Pay-the-Gate-Once + Bayes-Symmetric gamma=0.65
     let cumulativeProduct = 1.0;
     let currentExpected = WORLD_POPULATION;
     let currentDisplayPop = WORLD_POPULATION;
     const priorActive = [];
-    const claimedGates = new Map(); // gateId -> first trait badge that unlocked it
+    const claimedGates = new Map(); // gateId -> { label, maxCredit }
     const items = [];
     const funnelSteps = [
       {
@@ -334,43 +488,113 @@
         continue;
       }
 
-      const { overlapCount, sharedWith } = computeClusterOverlap(priorActive, {
-        clusterTags: sanitizedTags
-      });
-      const pCluster = computeEffectivePrevalence(pBase, overlapCount);
+      const { overlapCount, sharedWith, priorOverlapBits } = computeClusterOverlap(
+        priorActive,
+        trait
+      );
+      const pCluster = computeEffectivePrevalence(pBase, overlapCount, priorOverlapBits);
       const bitsRawTrait = -Math.log2(pBase);
       const bitsCluster = -Math.log2(pCluster);
-      const { geoRate, geoSourceLabel } = computeGeoBayesConditioning(priorActive, trait, pBase);
+      const {
+        geoRate,
+        geoSourceLabel,
+        geoSourceSlug,
+        geoSourceGates,
+        geoMatchedItems
+      } = computeGeoBayesConditioning(priorActive, trait, pBase);
 
-      // Check already-claimed macro baseGates ("Pay-the-Gate-Once")
+      // Compute symmetric Pay-the-Gate-Once repeat gate deductions
+      // Cap total gate credit at max(0, 0.65*b - max(0.45, 0.22*b)) so cluster + gate never asymmetrically clips
+      const traitTotalGateCap = Math.max(
+        0,
+        GAMMA * bitsRawTrait - Math.max(0.45, 0.22 * bitsRawTrait)
+      );
+      let nominalGateSum = 0;
+      for (let g = 0; g < sanitizedGates.length; g++) {
+        const meta =
+          (Taxonomy && Taxonomy.BASE_GATE_META && Taxonomy.BASE_GATE_META[sanitizedGates[g]]) ||
+          null;
+        nominalGateSum += GATE_ALPHA * (meta ? meta.bits : 1.0);
+      }
+      const gateScale =
+        nominalGateSum > traitTotalGateCap && nominalGateSum > 0
+          ? traitTotalGateCap / nominalGateSum
+          : 1.0;
+
       const repeatGates = [];
       let gateBitsDeduction = 0;
+
       for (let g = 0; g < sanitizedGates.length; g++) {
         const gId = sanitizedGates[g];
         if (claimedGates.has(gId)) {
+          // If geo_bayes is active and the geoSource trait ALREADY carried this gate, do not double-deduct it
+          if (geoRate !== null && geoSourceGates && geoSourceGates.has(gId)) {
+            continue;
+          }
+          const priorGate = claimedGates.get(gId);
           const meta =
             (Taxonomy && Taxonomy.BASE_GATE_META && Taxonomy.BASE_GATE_META[gId]) || null;
           const gBits = meta ? meta.bits : 1.0;
-          gateBitsDeduction += GATE_ALPHA * gBits;
-          repeatGates.push({
-            id: gId,
-            label: meta ? meta.label : gId,
-            bits: gBits,
-            claimedBy: claimedGates.get(gId)
-          });
+          const myGateCredit = GATE_ALPHA * gBits * gateScale;
+          const pairDeduction = Math.min(myGateCredit, priorGate.maxCredit);
+          if (pairDeduction > 0) {
+            gateBitsDeduction += pairDeduction;
+            repeatGates.push({
+              id: gId,
+              label: meta ? meta.label : gId,
+              bits: gBits,
+              claimedBy: priorGate.label
+            });
+          }
         }
       }
 
       let pEff = pCluster;
       let dampenMode = overlapCount > 0 ? 'cluster' : null;
       let activeGeoSource = null;
+      let activeGeoSourceSlug = null;
 
-      if (geoRate !== null && geoRate > pEff) {
-        pEff = geoRate;
+      if (geoRate !== null) {
+        // Account for any cluster overlap with prior traits NOT governed by the same country/geo conditional table
+        let nonGeoClusterDeduction = 0;
+        if (overlapCount > 0) {
+          const matchedSet = new Set(geoMatchedItems || []);
+          const anchorItem = priorActive.find(
+            (pr) => (pr.trait.canonicalSlug || pr.trait.id) === geoSourceSlug
+          );
+          const anchorCond =
+            (anchorItem && anchorItem.trait && anchorItem.trait.cond) ||
+            (trait && trait.cond) ||
+            null;
+          const unconditionedPriors = priorActive.filter((pr) => {
+            if (matchedSet.has(pr)) return false;
+            const prSlug = pr.trait.canonicalSlug || pr.trait.id;
+            if (anchorCond && anchorCond[prSlug] !== undefined) return false;
+            return true;
+          });
+          if (unconditionedPriors.length > 0) {
+            const nonGeoOv = computeClusterOverlap(unconditionedPriors, trait);
+            for (let r = 0; r < nonGeoOv.priorOverlapBits.length; r++) {
+              const sharedCap = Math.min(bitsRawTrait, nonGeoOv.priorOverlapBits[r]);
+              nonGeoClusterDeduction += Math.pow(GAMMA, r) * (1 - GAMMA) * sharedCap;
+            }
+          }
+        }
+
+        // Exact empirical geo/linguistic Bayes rate (supports both positive coupling & minority-language rarity)
+        const geoBitsRaw = -Math.log2(geoRate);
+        const minGeoBits = Math.min(geoBitsRaw, Math.max(0.05, geoBitsRaw * 0.22));
+        const totalGeoDeduction = gateBitsDeduction + nonGeoClusterDeduction;
+        const geoBitsAdjusted =
+          totalGeoDeduction > 0
+            ? Math.max(minGeoBits, geoBitsRaw - totalGeoDeduction)
+            : geoBitsRaw;
+        pEff = Math.min(0.995, Math.max(1e-9, Math.pow(2, -geoBitsAdjusted)));
         dampenMode = 'geo_bayes';
         activeGeoSource = geoSourceLabel;
+        activeGeoSourceSlug = geoSourceSlug;
       } else if (gateBitsDeduction > 0) {
-        const minMarginalBits = Math.min(bitsCluster, Math.max(0.45, bitsCluster * 0.36));
+        const minMarginalBits = Math.min(bitsCluster, Math.max(0.35, bitsCluster * 0.22));
         const bitsAfterGates = Math.max(minMarginalBits, bitsCluster - gateBitsDeduction);
         const pGateAdjusted = Math.min(0.985, Math.pow(2, -bitsAfterGates));
         if (pGateAdjusted > pEff) {
@@ -379,11 +603,21 @@
         }
       }
 
-      // Register newly paid macro baseGates for subsequent traits in stack
+      // Register / upgrade unlocked macro baseGates for subsequent traits in stack
       for (let g = 0; g < sanitizedGates.length; g++) {
         const gId = sanitizedGates[g];
+        const meta =
+          (Taxonomy && Taxonomy.BASE_GATE_META && Taxonomy.BASE_GATE_META[gId]) || null;
+        const gBits = meta ? meta.bits : 1.0;
+        const myGateCredit = GATE_ALPHA * gBits * gateScale;
+        const badgeLabel = trait.shortBadge || trait.label;
         if (!claimedGates.has(gId)) {
-          claimedGates.set(gId, trait.shortBadge || trait.label);
+          claimedGates.set(gId, { label: badgeLabel, maxCredit: myGateCredit });
+        } else {
+          const existing = claimedGates.get(gId);
+          if (myGateCredit > existing.maxCredit) {
+            claimedGates.set(gId, { label: badgeLabel, maxCredit: myGateCredit });
+          }
         }
       }
 
@@ -412,6 +646,7 @@
         wasDampened,
         dampenMode,
         geoSourceLabel: activeGeoSource,
+        geoSourceSlug: activeGeoSourceSlug,
         overlapSnark: null,
         bitsAdded,
         bitsSavedFromInflation,
@@ -467,8 +702,8 @@
     }
 
     const activeGateMap = {};
-    claimedGates.forEach((byLabel, gId) => {
-      activeGateMap[gId] = byLabel;
+    claimedGates.forEach((entry, gId) => {
+      activeGateMap[gId] = entry && entry.label ? entry.label : String(entry || '');
     });
 
     return {
@@ -553,11 +788,19 @@
     const prefix = 'Raw rarity: ' + rawStr + '. Adjusted impact: ' + adjStr + ' — ';
 
     if (info.dampenMode === 'geo_bayes' && info.geoSourceLabel) {
+      if (info.pEff >= 0.55) {
+        return (
+          prefix +
+          'conditioned on ' +
+          info.geoSourceLabel +
+          ', most people in this slice already clear that bar.'
+        );
+      }
       return (
         prefix +
         'conditioned on ' +
         info.geoSourceLabel +
-        ', nearly everyone in this slice already clears that bar.'
+        ', this trait is far more concentrated here than globally.'
       );
     }
 
@@ -665,6 +908,7 @@
     DEFAULT_MIN_PREVALENCE,
     EXTREME_RARITY_MIN_PREVALENCE,
     clampPrevalence,
+    doesConflict,
     doesSubsume,
     computeClusterOverlap,
     computeGeoBayesConditioning,

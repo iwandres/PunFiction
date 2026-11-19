@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=24" />
+  <link rel="stylesheet" href="css/styles.css?v=25" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -154,11 +154,11 @@
           <span class="mr-tag">RULE C · EXACT BAYES CONDITIONING</span>
           <h3>Bidirectional Country–Language &amp; Geographic Coupling</h3>
           <p>
-            Lifestyle tags alone miss sharp geographic couplings—for example, only <span class="m-inline">1.5%</span> of Earth speaks Japanese, yet <span class="m-inline">~98.5%</span> of residents in Japan do. Country tables store conditional rates <span class="m-inline">r = P(L | C)</span> for spoken languages, island geography, Southern Hemisphere, and high elevation, evaluated symmetrically in <em>either</em> selection order via Bayes’ theorem:
+            Lifestyle tags alone miss sharp geographic couplings—both positive (only <span class="m-inline">1.55%</span> of Earth speaks Japanese, yet <span class="m-inline">~98.5%</span> of residents in Japan do) and negative (<span class="m-inline">15.0%</span> of Earth speaks Mandarin, yet only <span class="m-inline">~1.1%</span> of US residents do). Country tables store empirical conditional rates <span class="m-inline">r = P(L | C)</span> for spoken languages, island geography, Southern Hemisphere, and high elevation, calibrated against the Total Law of Probability (<span class="m-inline">∑<sub>C</sub> P(C) · r &lt; P(L)</span>) and evaluated symmetrically in <em>any</em> selection order via Bayes’ theorem:
           </p>
           <div class="math-eq-box math-eq-compact">
             <div class="math-eq">
-              P(L | C) = r, &nbsp;&nbsp;&nbsp;&nbsp; P(C | L) = min(0.995,&nbsp; P(C) · r / P(L))
+              P(L | C) = r, &nbsp;&nbsp;&nbsp;&nbsp; P(C | L<sub>1</sub>, …, L<sub>s</sub>) = min(0.995,&nbsp; P(C) · ∏<sub>j</sub> r<sub>j</sub> / P(L<sub>1</sub> ∩ … ∩ L<sub>s</sub>))
             </div>
           </div>
           <p class="mr-footnote">
@@ -167,21 +167,19 @@
         </div>
 
         <div class="math-rule-card math-rule-wide">
-          <span class="mr-tag">RULE D · PARTIAL OVERLAP (γ = 0.65)</span>
-          <h3>Power-Law Cluster Dampening Across a 40-Tag Topical &amp; Psychographic Space</h3>
+          <span class="mr-tag">RULE D · SYMMETRIC PARTIAL OVERLAP (γ = 0.65)</span>
+          <h3>Bayes-Symmetric Power-Law Dampening Across a 40-Tag Latent Space</h3>
           <p>
-            Every trait—curated, parametric, and Gemini-estimated—projects onto 1 to 4 tags in a <strong>closed 40-tag latent taxonomy</strong> <span class="m-inline">𝒞</span>: 36 topical domains plus 4 cross-topic psychographic bridges (<code>quant_systemizer</code>, <code>tactile_analog_ritual</code>, <code>gear_optimizer</code>, and <code>thrill_risk</code>). If active trait <span class="m-inline">i</span> shares at least one tag with <span class="m-inline">m<sub>i</sub></span> prior active traits in your stack, its base prevalence is dampened via <span class="m-inline">γ = 0.65</span>:
+            Every lifestyle trait—curated, parametric, and Gemini-estimated—projects onto 1 to 4 tags in a <strong>closed 40-tag latent taxonomy</strong> <span class="m-inline">𝒞</span>: 36 topical domains plus 4 cross-topic psychographic bridges (<code>quant_systemizer</code>, <code>tactile_analog_ritual</code>, <code>gear_optimizer</code>, and <code>thrill_risk</code>), while unlinked Mendelian traits and pure demographic partitions stay orthogonal. If active trait <span class="m-inline">i</span> (with base surprisal <span class="m-inline">b<sub>i</sub> = −log<sub>2</sub> p<sub>base</sub>(i)</span>) overlaps <span class="m-inline">m<sub>i</sub></span> prior traits sorted descending by base bits <span class="m-inline">b<sub>(1)</sub> ≥ … ≥ b<sub>(m<sub>i</sub>)</sub></span>, its marginal bits follow the Bayes-symmetric <span class="m-inline">γ = 0.65</span> curve:
           </p>
           <div class="math-eq-box math-eq-compact">
             <div class="math-eq">
-              p<sub>eff</sub>(i) = (p<sub>base</sub>(i))<sup>γ<sup>m<sub>i</sub></sup></sup>,
-              &nbsp;&nbsp;&nbsp;&nbsp;where γ = 0.65
+              ΔI<sub>i</sub> = b<sub>i</sub> − ∑<sub>r=1..m<sub>i</sub></sub> γ<sup>r−1</sup>(1 − γ) · min(b<sub>i</sub>,&nbsp; b<sub>(r)</sub>),
+              &nbsp;&nbsp;&nbsp;&nbsp;p<sub>eff</sub>(i) = 2<sup>−ΔI<sub>i</sub></sup>
             </div>
           </div>
           <p class="mr-footnote">
-            <strong>Why a power law in probability?</strong> Take <span class="m-inline">−log<sub>2</sub></span> of both sides and a neat identity pops out:
-            <span class="m-inline">I<sub>eff</sub>(i) = γ<sup>m<sub>i</sub></sup> · I<sub>base</sub>(i)</span>.
-            Power-law probability dampening is <em>mathematically identical to geometric exponential decay in marginal Shannon information</em>: the 1st trait in a cluster yields <strong>100%</strong> of its bits, the 2nd yields <strong>65%</strong>, the 3rd yields <strong>42.25%</strong>, and the 4th yields <strong>27.46%</strong>.
+            <strong>Why cap each overlap term at min(b<sub>i</sub>, b<sub>(r)</sub>)?</strong> When <span class="m-inline">b<sub>i</sub> ≤ b<sub>(m<sub>i</sub>)</sub></span>, this telescopes identically to <span class="m-inline">p<sub>eff</sub> = p<sub>base</sub><sup>γ<sup>m</sup></sup></span> (<span class="m-inline">ΔI<sub>i</sub> = γ<sup>m</sup> b<sub>i</sub></span>: 100%, 65%, 42.25%, 27.46% of bits). When a rare trait follows a broad trait (<span class="m-inline">b<sub>i</sub> &gt; b<sub>(r)</sub></span>), bounding shared mutual information by <span class="m-inline">min(b<sub>i</sub>, b<sub>(r)</sub>)</span> enforces <strong>exact k!-permutation invariance</strong> and guarantees Kolmogorov’s Fréchet bound <span class="m-inline">P(A ∩ B) ≤ min(P(A), P(B))</span> in every click order.
           </p>
         </div>
 
@@ -296,7 +294,7 @@
           <strong>Anti-Smuggling Compound Splits:</strong> Multi-clause inputs (<em>“I’m a left-handed indie game dev who scuba dives”</em>) are intercepted and split into atomic statements so each clause undergoes independent validation and <span class="m-inline">γ = 0.65</span> tag-overlap checks.
         </li>
         <li>
-          <strong>Closed-Schema Tagging &amp; Cache Flywheel:</strong> Custom estimates must emit 1–3 tags from the exact same 36-tag enum used by client-side curated traits, then persist by normalized SHA-256 hash so identical traits resolve globally with deterministic consistency.
+          <strong>Closed-Schema Tagging &amp; Stateless Cache Flywheel:</strong> Custom estimates emit 1–4 tags from the exact same 40-tag enum plus 0–4 macro <code>baseGates</code>, evaluated 100% statelessly (never conditioned on a caller’s active stack) and persisted by normalized SHA-256 hash so identical traits resolve globally with deterministic consistency.
         </li>
       </ul>
     </article>

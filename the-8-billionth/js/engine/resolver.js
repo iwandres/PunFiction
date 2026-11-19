@@ -72,6 +72,8 @@
             baseGates: opt.baseGates || gen.baseGates || [],
             snarkNote: opt.snarkNote || '',
             subsumes: opt.subsumes || [],
+            conflictsWith: opt.conflictsWith || gen.conflictsWith || [],
+            noClusterOverlap: Boolean(opt.noClusterOverlap || gen.noClusterOverlap),
             cond: opt.cond || null,
             exclusiveGroup: gen.exclusiveGroup || opt.exclusiveGroup || null,
             generatorId: gen.id,
@@ -107,9 +109,10 @@
     }
 
     async loadSeedFiles(baseUrl = 'data/') {
+      const seedVer = '?v=25';
       const [coreResp, paramResp] = await Promise.all([
-        fetch(baseUrl + 'traits-core.json'),
-        fetch(baseUrl + 'traits-parametric.json')
+        fetch(baseUrl + 'traits-core.json' + seedVer),
+        fetch(baseUrl + 'traits-parametric.json' + seedVer)
       ]);
       if (!coreResp.ok || !paramResp.ok) {
         throw new Error('Failed to load static trait taxonomy JSON.');
