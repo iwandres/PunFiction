@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=25" />
+  <link rel="stylesheet" href="css/styles.css?v=26" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -127,26 +127,26 @@
       </div>
 
       <p>
-        Whenever two traits have positive covariance—say, <em>“I live above 5,000 ft”</em> (<span class="m-inline">1.1%</span>) and <em>“I backcountry ski”</em> (<span class="m-inline">0.045%</span>)—the conditional probability <span class="m-inline">P(T<sub>2</sub> | T<sub>1</sub>)</span> is substantially larger than the unconditional marginal <span class="m-inline">P(T<sub>2</sub>)</span>. Treating them as independent would hallucinate uniqueness orders of magnitude too quickly.
+        Whenever two traits have positive covariance—say, <em>“I live above 5,000 ft”</em> (<span class="m-inline">5.8%</span>) and <em>“I backcountry ski”</em> (<span class="m-inline">0.045%</span>)—the conditional probability <span class="m-inline">P(T<sub>2</sub> | T<sub>1</sub>)</span> is substantially larger than the unconditional marginal <span class="m-inline">P(T<sub>2</sub>)</span>. Treating them as independent would hallucinate uniqueness orders of magnitude too quickly.
       </p>
       <p>
-        Because we cannot store a dense <span class="m-inline">6,000 × 6,000</span> empirical covariance matrix—especially when users can type <em>arbitrary</em> free-text traits—our engine approximates the conditional chain through three hierarchical rules:
+        Because we cannot store a dense <span class="m-inline">6,000 × 6,000</span> empirical covariance matrix—especially when users can type <em>arbitrary</em> free-text traits—our engine evaluates the conditional chain through <strong>five hierarchical rules</strong> that preserve exact click-order symmetry and Kolmogorov’s Fréchet bounds:
       </p>
 
       <div class="math-rules-grid">
         <div class="math-rule-card">
           <span class="mr-tag">RULE A · P(A | B) = 1</span>
-          <h3>Strict Subset &amp; AI Custom Subsumption</h3>
+          <h3>Transitive Subset &amp; AI Subsumption</h3>
           <p>
-            Directed parent–child links (<span class="m-inline">B ⊂ A</span>) catch 100% inclusion across both curated and AI-estimated traits. Selecting <em>Vegan</em> alongside <em>Vegetarian</em>, <em>Lives in Japan</em> alongside <em>Island resident</em>, or typing <em>“I own two Dachshunds”</em> alongside <em>Has a dog</em> sets the broader parent to <span class="m-inline">p<sub>eff</sub> = 1.0</span> (<span class="m-inline">0 bits</span>).
+            Transitively closed parent–child links (<span class="m-inline">C ⊂ B ⊂ A</span>) eliminate redundant ancestors across curated, parametric, and AI traits. Selecting <em>Ultramarathoner</em> supersedes both <em>Regular runner</em> and <em>Exercises weekly</em>; <em>Born on Feb 29</em> supersedes <em>February birthday</em>; <em>Lives in Japan</em> supersedes <em>Island resident</em>; and 2+ spoken languages supersede <em>Bilingual (2+)</em> (<span class="m-inline">p<sub>eff</sub> = 1.0</span>, <span class="m-inline">0 bits</span>).
           </p>
         </div>
 
         <div class="math-rule-card">
           <span class="mr-tag">RULE B · P(A ∩ B) = 0</span>
-          <h3>Mutually Exclusive Partitions</h3>
+          <h3>Partitions &amp; Contradictions</h3>
           <p>
-            Single-valued biological and demographic partitions (ABO/Rh blood type, country of residence, stature bracket, eye color, birth month, birth decade) enforce partition replacement rather than multiplying incompatible events.
+            Single-valued partitions (ABO/Rh blood type, country of residence, stature bracket, eye color, birth month, birth decade) and symmetric contradiction graphs (<em>Drinks coffee</em> vs. <em>Zero caffeine</em>, <em>Vegetarian</em> vs. <em>Pescatarian</em>, <em>Only child</em> vs. <em>Youngest/Oldest sibling</em>, <em>Never broken a bone</em> vs. <em>3+ broken bones</em>) cleanly replace incompatible prior selections.
           </p>
         </div>
 
@@ -162,7 +162,7 @@
             </div>
           </div>
           <p class="mr-footnote">
-            Result: clicking <em>Lives in Japan → Speaks Japanese</em> and <em>Speaks Japanese → Lives in Japan</em> converge to the <strong>exact same joint headcount</strong> (~121.0M humans) rather than hallucinating a 65× drop.
+            Result: <em>Lives in Japan ↔ Speaks Japanese</em> converges to <strong>~121.0M humans</strong> in either click order (instead of a 65× drop), while <em>Lives in the US ↔ Speaks Mandarin</em> converges to <strong>~3.79M Americans</strong> (instead of assuming 15% of the US speaks Mandarin).
           </p>
         </div>
 
@@ -170,7 +170,7 @@
           <span class="mr-tag">RULE D · SYMMETRIC PARTIAL OVERLAP (γ = 0.65)</span>
           <h3>Bayes-Symmetric Power-Law Dampening Across a 40-Tag Latent Space</h3>
           <p>
-            Every lifestyle trait—curated, parametric, and Gemini-estimated—projects onto 1 to 4 tags in a <strong>closed 40-tag latent taxonomy</strong> <span class="m-inline">𝒞</span>: 36 topical domains plus 4 cross-topic psychographic bridges (<code>quant_systemizer</code>, <code>tactile_analog_ritual</code>, <code>gear_optimizer</code>, and <code>thrill_risk</code>), while unlinked Mendelian traits and pure demographic partitions stay orthogonal. If active trait <span class="m-inline">i</span> (with base surprisal <span class="m-inline">b<sub>i</sub> = −log<sub>2</sub> p<sub>base</sub>(i)</span>) overlaps <span class="m-inline">m<sub>i</sub></span> prior traits sorted descending by base bits <span class="m-inline">b<sub>(1)</sub> ≥ … ≥ b<sub>(m<sub>i</sub>)</sub></span>, its marginal bits follow the Bayes-symmetric <span class="m-inline">γ = 0.65</span> curve:
+            Every lifestyle trait—curated, parametric, and Gemini-estimated—projects onto 1 to 4 tags in a <strong>closed 40-tag latent taxonomy</strong> <span class="m-inline">𝒞</span>: 36 topical domains plus 4 cross-topic psychographic bridges (<code>quant_systemizer</code>, <code>tactile_analog_ritual</code>, <code>gear_optimizer</code>, and <code>thrill_risk</code>), while unlinked Mendelian loci (handedness, twinning, colorblindness) and pure demographic partitions stay orthogonal. If active trait <span class="m-inline">i</span> (with base surprisal <span class="m-inline">b<sub>i</sub> = −log<sub>2</sub> p<sub>base</sub>(i)</span>) overlaps <span class="m-inline">m<sub>i</sub></span> prior traits sorted descending by base bits <span class="m-inline">b<sub>(1)</sub> ≥ … ≥ b<sub>(m<sub>i</sub>)</sub></span>, its marginal bits follow the Bayes-symmetric <span class="m-inline">γ = 0.65</span> curve:
           </p>
           <div class="math-eq-box math-eq-compact">
             <div class="math-eq">
@@ -179,7 +179,7 @@
             </div>
           </div>
           <p class="mr-footnote">
-            <strong>Why cap each overlap term at min(b<sub>i</sub>, b<sub>(r)</sub>)?</strong> When <span class="m-inline">b<sub>i</sub> ≤ b<sub>(m<sub>i</sub>)</sub></span>, this telescopes identically to <span class="m-inline">p<sub>eff</sub> = p<sub>base</sub><sup>γ<sup>m</sup></sup></span> (<span class="m-inline">ΔI<sub>i</sub> = γ<sup>m</sup> b<sub>i</sub></span>: 100%, 65%, 42.25%, 27.46% of bits). When a rare trait follows a broad trait (<span class="m-inline">b<sub>i</sub> &gt; b<sub>(r)</sub></span>), bounding shared mutual information by <span class="m-inline">min(b<sub>i</sub>, b<sub>(r)</sub>)</span> enforces <strong>exact k!-permutation invariance</strong> and guarantees Kolmogorov’s Fréchet bound <span class="m-inline">P(A ∩ B) ≤ min(P(A), P(B))</span> in every click order.
+            <strong>Why cap each overlap term at min(b<sub>i</sub>, b<sub>(r)</sub>)?</strong> By Shannon’s mutual-information bound, a broad event with <span class="m-inline">b<sub>(r)</sub></span> bits cannot explain more than <span class="m-inline">(1 − γ) b<sub>(r)</sub></span> bits of a rarer event. When <span class="m-inline">b<sub>i</sub> ≤ b<sub>(m<sub>i</sub>)</sub></span>, the sum telescopes identically to <span class="m-inline">p<sub>eff</sub> = p<sub>base</sub><sup>γ<sup>m</sup></sup></span> (<span class="m-inline">ΔI<sub>i</sub> = γ<sup>m</sup> b<sub>i</sub></span>: <strong>100%</strong>, <strong>65%</strong>, <strong>42.25%</strong>, <strong>27.46%</strong> of bits). When a rare trait follows a broad trait (<span class="m-inline">b<sub>i</sub> &gt; b<sub>(r)</sub></span>), bounding shared bits by <span class="m-inline">min(b<sub>i</sub>, b<sub>(r)</sub>)</span> yields the exact Bayes dual <span class="m-inline">P(B | A) = P(B) · P(A)<sup>γ−1</sup></span>—guaranteeing <strong>exact k!-permutation invariance</strong> and Kolmogorov’s Fréchet bound <span class="m-inline">P(A ∩ B) ≤ min(P(A), P(B))</span> across all 105,950 trait pairs.
           </p>
         </div>
 
@@ -187,7 +187,7 @@
           <span class="mr-tag">RULE E · PAY-THE-GATE-ONCE (α = 0.50)</span>
           <h3>De-Correlating Hidden Demographic Macro-Gates</h3>
           <p>
-            Roughly 75% of humanity lives in Asia and Africa, 26% are under age 15, and most humans live in apartments or dense towns without garages or yards. Without macro-denominator gating, stacking <em>sourdough starter</em>, <em>50+ vinyl records</em>, <em>blue eyes</em>, and <em>backyard weather station</em> would repeatedly re-eliminate global infants, non-Western populations, and apartment dwellers on every click. Each trait therefore declares its membership in 4 closed <code>baseGates</code>—<code>adult_15plus</code> (<span class="m-inline">P = 0.74</span>, <span class="m-inline">0.43b</span>), <code>connected_urban_affluent</code> (<span class="m-inline">P = 0.22</span>, <span class="m-inline">2.18b</span>), <code>euro_western_skew</code> (<span class="m-inline">P = 0.16</span>, <span class="m-inline">2.64b</span>), and <code>yard_homeowner_space</code> (<span class="m-inline">P = 0.14</span>, <span class="m-inline">2.84b</span>). The first trait claiming a gate earns full bits; subsequent traits sharing an already-paid gate subtract <span class="m-inline">α · (−log<sub>2</sub> P<sub>gate</sub>)</span> (<span class="m-inline">α = 0.5</span>, floored at a minimum marginal bit gain), while Layer-3 Gemini estimation stays 100% stateless so cached traits remain globally pure.
+            Roughly 75% of humanity lives in Asia and Africa, 26% are under age 15, and most humans live in apartments or dense towns without garages or yards. Without macro-denominator gating, stacking <em>sourdough starter</em>, <em>50+ vinyl records</em>, <em>blue eyes</em>, and <em>backyard weather station</em> would repeatedly re-eliminate global infants, non-Western populations, and apartment dwellers on every click. Each trait therefore declares its membership in 4 closed <code>baseGates</code>—<code>adult_15plus</code> (<span class="m-inline">P = 0.74</span>, <span class="m-inline">0.43b</span>), <code>connected_urban_affluent</code> (<span class="m-inline">P = 0.22</span>, <span class="m-inline">2.18b</span>), <code>euro_western_skew</code> (<span class="m-inline">P = 0.16</span>, <span class="m-inline">2.64b</span>), and <code>yard_homeowner_space</code> (<span class="m-inline">P = 0.14</span>, <span class="m-inline">2.84b</span>). Subsequent traits sharing an already-paid gate deduct <span class="m-inline">min(c<sub>i</sub>, max<sub>j&lt;i</sub> c<sub>j</sub>)</span> where <span class="m-inline">c = α · (−log<sub>2</sub> P<sub>gate</sub>)</span> (<span class="m-inline">α = 0.5</span>, proportionally capped so cluster + gate deductions always preserve positive marginal bits and full click-order symmetry), while Layer-3 Gemini estimation stays 100% stateless.
           </p>
         </div>
       </div>
@@ -196,46 +196,71 @@
     <!-- 3. Interactive Sandbox for Nerds -->
     <article class="math-section math-sandbox-card">
       <div class="math-sec-num">03 // INTERACTIVE SANDBOX</div>
-      <h2>Try the Correlation Dampening Curve Live</h2>
+      <h2>Test Bayes-Symmetric Dampening &amp; Macro-Gates Live</h2>
       <p>
-        Slide a trait’s unconditional global prevalence <span class="m-inline">p<sub>base</sub></span> and the number of overlapping prior traits <span class="m-inline">m</span> to see how <span class="m-inline">p<sub>eff</sub> = p<sub>base</sub><sup>0.65<sup>m</sup></sup></span> adjusts conditional probability and Shannon bits:
+        Slide a candidate trait’s prevalence <span class="m-inline">p<sub>base</sub></span>, the number of overlapping prior cluster traits <span class="m-inline">m</span>, and the prior trait’s prevalence <span class="m-inline">p<sub>prior</sub></span>—or toggle shared demographic <code>baseGates</code>—to inspect how the live engine computes adjusted odds and Shannon bits:
       </p>
 
       <div class="sandbox-controls">
         <div class="sb-control">
           <div class="sb-label-row">
-            <label for="sb-prev-slider">Unconditional Prevalence (p<sub>base</sub>)</label>
-            <span id="sb-prev-val" class="sb-readout">0.15% (~12.5M humans)</span>
+            <label for="sb-prev-slider">Candidate Prevalence (p<sub>base</sub>)</label>
+            <span id="sb-prev-val" class="sb-readout">0.65% (~54.0M humans)</span>
           </div>
-          <input id="sb-prev-slider" type="range" min="-4" max="-0.3" step="0.02" value="-2.8239" />
+          <input id="sb-prev-slider" type="range" min="-4" max="-0.3" step="0.02" value="-2.187" />
         </div>
 
         <div class="sb-control">
           <div class="sb-label-row">
-            <label for="sb-overlap-slider">Prior Overlapping Cluster Traits (m)</label>
+            <label for="sb-overlap-slider">Overlapping Cluster Traits (m)</label>
             <span id="sb-overlap-val" class="sb-readout">m = 1 overlap</span>
           </div>
           <input id="sb-overlap-slider" type="range" min="0" max="4" step="1" value="1" />
+        </div>
+
+        <div class="sb-control sb-control-wide" id="sb-prior-wrap">
+          <div class="sb-label-row">
+            <label for="sb-prior-slider">Prior Cluster Trait Prevalence (p<sub>prior</sub> — caps shared bits at min(b<sub>cand</sub>, b<sub>prior</sub>))</label>
+            <span id="sb-prior-val" class="sb-readout">0.80% (~66.4M humans)</span>
+          </div>
+          <input id="sb-prior-slider" type="range" min="-4" max="-0.3" step="0.02" value="-2.097" />
+        </div>
+
+        <div class="sb-control sb-control-wide">
+          <div class="sb-label-row">
+            <span>Already-Paid Demographic Macro-Gates (α = 0.50)</span>
+            <span id="sb-gate-val" class="sb-readout">0 gates shared</span>
+          </div>
+          <div class="sb-gate-pills" role="group" aria-label="Shared demographic macro-gates">
+            <button type="button" class="sb-gate-btn" data-gate="adult_15plus" data-bits="0.4344">⌖ Adult 15+ (−0.22b)</button>
+            <button type="button" class="sb-gate-btn" data-gate="connected_urban_affluent" data-bits="2.1844">⌖ Broadband / Affluent (−1.09b)</button>
+            <button type="button" class="sb-gate-btn" data-gate="euro_western_skew" data-bits="2.6439">⌖ Western Skew (−1.32b)</button>
+            <button type="button" class="sb-gate-btn" data-gate="yard_homeowner_space" data-bits="2.8365">⌖ Yard / Home Space (−1.42b)</button>
+          </div>
         </div>
       </div>
 
       <div class="sandbox-results">
         <div class="sb-stat">
-          <span class="sb-stat-lbl">DAMPENING EXPONENT (γ<sup>m</sup>)</span>
-          <span id="sb-exp-out" class="sb-stat-num">0.650</span>
+          <span class="sb-stat-lbl">BIT RETENTION (ΔI / b<sub>base</sub>)</span>
+          <span id="sb-exp-out" class="sb-stat-num">66.5% kept</span>
         </div>
         <div class="sb-stat">
           <span class="sb-stat-lbl">EFFECTIVE CONDITIONAL RATE (p<sub>eff</sub>)</span>
-          <span id="sb-peff-out" class="sb-stat-num sb-teal">1.45%</span>
+          <span id="sb-peff-out" class="sb-stat-num sb-teal">3.48%</span>
         </div>
         <div class="sb-stat">
           <span class="sb-stat-lbl">IMPLIED CONDITIONAL LIFT (p<sub>eff</sub> / p<sub>base</sub>)</span>
-          <span id="sb-lift-out" class="sb-stat-num">9.7× more likely</span>
+          <span id="sb-lift-out" class="sb-stat-num">5.4× more likely</span>
         </div>
         <div class="sb-stat">
           <span class="sb-stat-lbl">SHANNON BITS AWARDED</span>
-          <span id="sb-bits-out" class="sb-stat-num sb-gold">6.11 / 9.38 bits</span>
+          <span id="sb-bits-out" class="sb-stat-num sb-gold">4.84 / 7.27 bits</span>
         </div>
+      </div>
+
+      <div id="sb-snark-out" class="sb-snark-preview">
+        Raw rarity: 1 in 154. Adjusted impact: 1 in 29 — order-symmetric &amp; Fréchet-valid.
       </div>
     </article>
 
@@ -299,15 +324,15 @@
       </ul>
     </article>
 
-    <!-- 6. Multi-Scale Vogel Phyllotaxis -->
+    <!-- 6. Multi-Scale Vogel Phyllotaxis & Perspective Outlines -->
     <article class="math-section">
       <div class="math-sec-num">06 // VISUALIZATION GEOMETRY</div>
       <h2>Rendering 8.3 Billion People on a 2D Canvas</h2>
       <p>
-        Drawing <span class="m-inline">8.3 × 10<sup>9</sup></span> pixels is impossible on a screen with ~2 million pixels. The visualization uses a <strong>5-tier Powers-of-Ten camera</strong> (<span class="m-inline">10<sup>6</sup> → 10<sup>3</sup> → 1 → silhouettes → spotlight</span>) keeping active particle counts between <span class="m-inline">1</span> and <span class="m-inline">9,999</span>.
+        Drawing <span class="m-inline">8.3 × 10<sup>9</sup></span> pixels is impossible on a screen with ~2 million pixels. The visualization uses a <strong>5-tier Powers-of-Ten camera</strong> (<span class="m-inline">10<sup>6</sup> → 10<sup>3</sup> → 1 → concentric silhouettes → spotlight</span>) keeping active particle counts between <span class="m-inline">1</span> and <span class="m-inline">9,999</span>.
       </p>
       <p>
-        To pack thousands of dots into a circular field with uniform area density and zero grid Moiré artifacts, surviving particles <span class="m-inline">n ∈ [0, N − 1]</span> are arranged along <strong>Vogel’s golden-angle phyllotaxis spiral</strong> (the same packing geometry found in sunflower seed heads):
+        To pack thousands of dots into a circular field with uniform area density and zero grid Moiré artifacts, surviving particles <span class="m-inline">n ∈ [0, N − 1]</span> in Tiers 1–3 are arranged along <strong>Vogel’s golden-angle phyllotaxis spiral</strong> (the same packing geometry found in sunflower seed heads), transitioning in Tier 4 (<span class="m-inline">2 ≤ N ≤ 249</span>) to concentric amphitheater rings with capacity <span class="m-inline">6r</span> per ring:
       </p>
 
       <div class="math-eq-box">
@@ -317,6 +342,10 @@
           r<sub>n</sub> = R<sub>env</sub> · √((n + 0.5) / N)
         </div>
       </div>
+
+      <p>
+        Beneath the particle cluster, <strong>82 architectural, vessel, and cartographic scale outlines</strong> span <strong>27 logarithmic population bands</strong>—from a rotating orthographic Earth globe at <span class="m-inline">8.3B</span> down through stadiums, concert halls, jumbo jets, school buses, and elevators to the <span class="m-inline">1-of-1</span> spotlight—paired 1-to-1 with the narrowing funnel headline while global trait base headcounts sit isolated in a dedicated Worldwide Fun Fact card.
+      </p>
     </article>
 
     <div class="math-bottom-cta">
@@ -326,18 +355,26 @@
     </div>
   </main>
 
-  <!-- Tiny Interactive Dampening Sandbox Script -->
+  <!-- Interactive Bayes-Symmetric Dampening + Macro-Gates Sandbox Script -->
   <script>
     (function () {
       var prevSlider = document.getElementById('sb-prev-slider');
       var overSlider = document.getElementById('sb-overlap-slider');
+      var priorSlider = document.getElementById('sb-prior-slider');
+      var priorWrap = document.getElementById('sb-prior-wrap');
+      var gateBtns = document.querySelectorAll('.sb-gate-btn');
       var prevVal = document.getElementById('sb-prev-val');
       var overVal = document.getElementById('sb-overlap-val');
+      var priorVal = document.getElementById('sb-prior-val');
+      var gateVal = document.getElementById('sb-gate-val');
       var expOut = document.getElementById('sb-exp-out');
       var peffOut = document.getElementById('sb-peff-out');
       var liftOut = document.getElementById('sb-lift-out');
       var bitsOut = document.getElementById('sb-bits-out');
+      var snarkOut = document.getElementById('sb-snark-out');
+
       var GAMMA = 0.65;
+      var GATE_ALPHA = 0.5;
       var WORLD = 8300000000;
 
       function fmtPct(p) {
@@ -355,31 +392,129 @@
         return Math.round(n).toLocaleString('en-US');
       }
 
+      function fmtOneIn(p) {
+        var n = Math.max(1, Math.round(1 / Math.max(1e-9, p)));
+        if (n >= 1000000) return '1 in ' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        return '1 in ' + n.toLocaleString('en-US');
+      }
+
+      function computeTotalGateCap(bitsRaw) {
+        return Math.max(0, GAMMA * bitsRaw - Math.max(0.45, 0.22 * bitsRaw));
+      }
+
       function update() {
-        var logP = parseFloat(prevSlider.value);
-        var pBase = Math.pow(10, logP);
+        var pBase = Math.pow(10, parseFloat(prevSlider.value));
         var m = parseInt(overSlider.value, 10);
-        var exp = Math.pow(GAMMA, m);
-        var pEff = Math.pow(pBase, exp);
+        var pPrior = Math.pow(10, parseFloat(priorSlider.value));
+
+        var bCand = -Math.log2(pBase);
+        var bPrior = -Math.log2(pPrior);
+
+        if (priorWrap) {
+          priorWrap.style.opacity = m === 0 ? '0.45' : '1';
+        }
+
+        // 1. Bayes-symmetric cluster overlap deduction
+        var clusterDeduction = 0;
+        for (var r = 0; r < m; r++) {
+          var sharedCap = Math.min(bCand, bPrior);
+          clusterDeduction += Math.pow(GAMMA, r) * (1 - GAMMA) * sharedCap;
+        }
+        var bitsCluster = Math.max(bCand * Math.pow(GAMMA, m), bCand - clusterDeduction);
+
+        // 2. Symmetric Pay-the-Gate-Once deduction across toggled gates
+        var activeGates = [];
+        var nominalGateSum = 0;
+        for (var i = 0; i < gateBtns.length; i++) {
+          if (gateBtns[i].classList.contains('is-active')) {
+            var gb = parseFloat(gateBtns[i].getAttribute('data-bits')) || 1.0;
+            activeGates.push(gb);
+            nominalGateSum += GATE_ALPHA * gb;
+          }
+        }
+
+        var candGateCap = computeTotalGateCap(bCand);
+        var priorGateCap = m > 0 ? computeTotalGateCap(bPrior) : 99;
+        var candScale = nominalGateSum > candGateCap && nominalGateSum > 0 ? candGateCap / nominalGateSum : 1.0;
+        var priorScale = nominalGateSum > priorGateCap && nominalGateSum > 0 ? priorGateCap / nominalGateSum : 1.0;
+
+        var gateDeduction = 0;
+        for (var g = 0; g < activeGates.length; g++) {
+          var cCand = GATE_ALPHA * activeGates[g] * candScale;
+          var cPrior = m > 0 ? GATE_ALPHA * activeGates[g] * priorScale : GATE_ALPHA * activeGates[g];
+          gateDeduction += Math.min(cCand, cPrior);
+        }
+
+        var minMarginal = Math.min(bitsCluster, Math.max(0.35, bitsCluster * 0.22));
+        var bitsEff = gateDeduction > 0 ? Math.max(minMarginal, bitsCluster - gateDeduction) : bitsCluster;
+        var pEff = gateDeduction > 0 ? Math.min(0.985, Math.pow(2, -bitsEff)) : Math.min(0.999, Math.pow(2, -bitsEff));
+        bitsEff = -Math.log2(pEff);
+
         var lift = pEff / pBase;
-        var bitsBase = -Math.log2(pBase);
-        var bitsEff = -Math.log2(pEff);
+        var retentionPct = (bitsEff / bCand) * 100;
 
         prevVal.textContent = fmtPct(pBase) + ' (~' + fmtHumans(pBase * WORLD) + ' humans)';
         overVal.textContent =
           m === 0 ? 'm = 0 (independent)' : 'm = ' + m + (m === 1 ? ' overlap' : ' overlaps');
-        expOut.textContent = exp.toFixed(3);
+        priorVal.textContent = fmtPct(pPrior) + ' (~' + fmtHumans(pPrior * WORLD) + ' humans)';
+        gateVal.textContent =
+          activeGates.length === 0
+            ? '0 gates shared'
+            : activeGates.length + (activeGates.length === 1 ? ' gate' : ' gates') + ' (−' + gateDeduction.toFixed(2) + 'b)';
+
+        expOut.textContent = retentionPct.toFixed(1) + '% kept';
         peffOut.textContent = fmtPct(pEff);
         liftOut.textContent =
-          m === 0
+          pEff <= pBase * 1.001
             ? '1.0× (unchanged)'
             : (lift >= 100 ? Math.round(lift) : lift.toFixed(1)) + '× more likely';
-        bitsOut.textContent = bitsEff.toFixed(2) + ' / ' + bitsBase.toFixed(2) + ' bits';
+        bitsOut.textContent = bitsEff.toFixed(2) + ' / ' + bCand.toFixed(2) + ' bits';
+
+        if (snarkOut) {
+          if (pEff <= pBase * 1.001) {
+            snarkOut.textContent =
+              'Orthogonal trait: full ' +
+              bCand.toFixed(2) +
+              ' bits awarded (' +
+              fmtOneIn(pBase) +
+              '). Zero overlap penalty.';
+          } else if (m === 1 && activeGates.length === 0) {
+            var jointHumans = WORLD * pPrior * pEff;
+            var limitHumans = WORLD * Math.min(pBase, pPrior);
+            snarkOut.textContent =
+              'Raw rarity: ' +
+              fmtOneIn(pBase) +
+              '. Adjusted impact: ' +
+              fmtOneIn(pEff) +
+              ' — 2-trait joint pool: ~' +
+              fmtHumans(jointHumans) +
+              ' (≤ ' +
+              fmtHumans(limitHumans) +
+              ' Fréchet bound, identical in either click order).';
+          } else {
+            snarkOut.textContent =
+              'Raw rarity: ' +
+              fmtOneIn(pBase) +
+              '. Adjusted impact: ' +
+              fmtOneIn(pEff) +
+              ' — shaved ' +
+              (bCand - bitsEff).toFixed(2) +
+              ' duplicate bits from shared cluster/gate correlation.';
+          }
+        }
       }
 
-      if (prevSlider && overSlider) {
+      for (var b = 0; b < gateBtns.length; b++) {
+        gateBtns[b].addEventListener('click', function () {
+          this.classList.toggle('is-active');
+          update();
+        });
+      }
+
+      if (prevSlider && overSlider && priorSlider) {
         prevSlider.addEventListener('input', update);
         overSlider.addEventListener('input', update);
+        priorSlider.addEventListener('input', update);
         update();
       }
     })();

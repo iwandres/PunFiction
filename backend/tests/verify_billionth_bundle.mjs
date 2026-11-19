@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -223,6 +224,20 @@ for (const m of idMatches) {
     assert.ok(
       html.includes(`id="${idOrClass}"`),
       `Missing DOM id="#${idOrClass}" in the-8-billionth/index.html`
+    );
+  }
+}
+
+// 4A. Verify math.html inline sandbox script syntax and DOM id wiring
+const mathHtml = fs.readFileSync(path.join(APP_DIR, 'math.html'), 'utf8');
+const mathScripts = [...mathHtml.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+assert.ok(mathScripts.length >= 2, 'Expected inline sandbox <script> in math.html');
+for (const sm of mathScripts) {
+  new vm.Script(sm[1], { filename: 'math.html' });
+  for (const idm of sm[1].matchAll(/getElementById\(['"]([a-zA-Z0-9_-]+)['"]\)/g)) {
+    assert.ok(
+      mathHtml.includes(`id="${idm[1]}"`),
+      `Missing DOM id="#${idm[1]}" in the-8-billionth/math.html`
     );
   }
 }
