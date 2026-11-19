@@ -179,7 +179,7 @@
     },
     {
       min: 1,
-      headline: 'Population: 1. Every statistical lookalike on Earth has left the room.',
+      headline: 'Population: 1. Nobody else on Earth shares this exact combination.',
       sub: 'Verified One-of-One — The 8.3 Billionth.'
     }
   ]);
