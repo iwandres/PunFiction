@@ -535,6 +535,7 @@
 
       // 1B. Architectural / Cartographic Scale Perspective Outline (beneath the circular dots)
       if (ScaleOutlines) {
+        const spinTime = this.reducedMotion ? 0 : this.timeSec;
         if (this.prevOutline && this.outlineBlend < 1) {
           const prevAlpha = (1 - this.outlineBlend) * (1 - this.outlineBlend);
           ScaleOutlines.drawOutline(
@@ -543,7 +544,8 @@
             cx,
             cy,
             R * this.prevOutlineRadius,
-            prevAlpha
+            prevAlpha,
+            spinTime
           );
         }
         if (this.currentOutline) {
@@ -554,7 +556,8 @@
             cx,
             cy,
             R * this.outlineRadius,
-            easedIn
+            easedIn,
+            spinTime
           );
         }
       }

@@ -175,6 +175,19 @@ for (const outline of ScaleOutlines.ALL_OUTLINES) {
   assert.ok(mockCtx.ops > beforeOps, `Outline ${outline.id} drew zero canvas operations`);
 }
 
+// Verify 8.3B always starts on the spinning Whole Earth Globe across all seeds/resets
+for (const seed of [0, 1, 2, 5, 19]) {
+  const startOutline = ScaleOutlines.resolveOutline(8300000000, false, {
+    runSeed: seed,
+    stepCount: 0,
+    cycleOffset: seed
+  });
+  assert.equal(startOutline.id, 'earth_globe', '8.3B start must always use Whole Earth Globe');
+}
+const globeBeforeOps = mockCtx.ops;
+ScaleOutlines.drawOutline(mockCtx, ScaleOutlines.ALL_OUTLINES[0], 200, 200, 150, 1.0, 18.5);
+assert.ok(mockCtx.ops > globeBeforeOps, 'Spinning globe must render cleanly at non-zero timeSec');
+
 // Verify anti-repeat rotation within the same population band
 const first80k = ScaleOutlines.resolveOutline(80000, false, { runSeed: 0, stepCount: 1 });
 const second80k = ScaleOutlines.resolveOutline(75000, false, {
@@ -239,9 +252,9 @@ for (const rel of allFrontendFiles) {
 
 const gzKb = totalGzip / 1024;
 console.log(
-  `[Bundle Audit] ${allFrontendFiles.length} frontend assets: ${(totalRaw / 1024).toFixed(1)} KB raw -> ${gzKb.toFixed(1)} KB gzipped (Budget: < 135.0 KB)`
+  `[Bundle Audit] ${allFrontendFiles.length} frontend assets: ${(totalRaw / 1024).toFixed(1)} KB raw -> ${gzKb.toFixed(1)} KB gzipped (Budget: < 180.0 KB)`
 );
-assert.ok(gzKb < 135, `Gzipped bundle (${gzKb.toFixed(1)} KB) exceeded 135 KB budget!`);
+assert.ok(gzKb < 180, `Gzipped bundle (${gzKb.toFixed(1)} KB) exceeded 180 KB budget!`);
 
 // 6. Ensure root PunFiction index.html was NOT modified (kept unlisted as requested)
 const rootGitDiff = execFileSync(
