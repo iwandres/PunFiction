@@ -388,7 +388,9 @@
         runSeed: state.outlineRunSeed,
         stepCount: state.stack.length
       });
-      const tierInfo = ScaleTiers.resolveTierState(evalRes.displayPopulation, evalRes.isOneOfOne).tier;
+      const tierInfo =
+        renderer.getActiveTier() ||
+        ScaleTiers.resolveTierState(evalRes.displayPopulation, evalRes.isOneOfOne).tier;
       dom.tierLabel.textContent =
         'TIER ' + tierInfo.index + ' · ' + tierInfo.name.toUpperCase();
       dom.scaleLegendText.textContent = tierInfo.legendText;
@@ -739,11 +741,19 @@
   }
 
   async function bootstrap() {
-    // 1. Initialize 60fps Crowd Canvas right away so 8,300 dots are alive on frame 1
+    // 1. Initialize 60fps Crowd Canvas right away so dots are alive on frame 1
     renderer = new CrowdRenderer(dom.canvas, {
       onTierChange: handleTierTransition,
-      onOutlineChange: syncOutlineAndCopy
+      onOutlineChange: syncOutlineAndCopy,
+      onScaleChange: (tier) => {
+        if (tier && dom.scaleLegendText) {
+          dom.scaleLegendText.textContent = tier.legendText;
+        }
+      }
     });
+    if (renderer.getActiveTier() && dom.scaleLegendText) {
+      dom.scaleLegendText.textContent = renderer.getActiveTier().legendText;
+    }
     syncOutlineAndCopy(renderer.getActiveOutline());
     renderer.start();
 

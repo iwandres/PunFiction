@@ -97,13 +97,25 @@ const sniperDeck = Suggestions.buildSuggestionDeck({
 });
 assert.equal(sniperDeck.phase, 'sniper');
 
-// 3. Scale Tiers Verification across all 5 tiers
+// 3. Scale Tiers Verification across all 5 tiers (desktop, medium & mobile viewport profiles)
 assert.equal(ScaleTiers.resolveTierState(8300000000, false).tier.index, 1);
+assert.equal(ScaleTiers.resolveTierState(8300000000, false).activeDots, 8300);
 assert.equal(ScaleTiers.resolveTierState(996000000, false).activeDots, 996);
 assert.equal(ScaleTiers.resolveTierState(441280, false).tier.index, 2);
 assert.equal(ScaleTiers.resolveTierState(4200, false).tier.index, 3);
 assert.equal(ScaleTiers.resolveTierState(42, false).tier.index, 4);
 assert.equal(ScaleTiers.resolveTierState(1, true).tier.index, 5);
+
+const mobileInit = ScaleTiers.resolveTierState(8300000000, false, { fieldRadiusPx: 128 });
+assert.equal(mobileInit.activeDots, 1660, 'Mobile Tier 1 should use 1,660 separated dots (1 dot = 5M)');
+assert.equal(mobileInit.tier.legendText, '1 dot = 5,000,000 people');
+assert.ok(
+  Math.abs(ScaleTiers.getClusterRadiusNormalized(mobileInit.activeDots, 1, mobileInit.maxDots) - 0.92) < 1e-6,
+  'Mobile 8.3B dot cluster must still span full 0.92 Whole Earth Globe envelope'
+);
+const mediumInit = ScaleTiers.resolveTierState(8300000000, false, { fieldRadiusPx: 190 });
+assert.equal(mediumInit.activeDots, 3320, 'Medium viewport Tier 1 should use 3,320 dots (1 dot = 2.5M)');
+assert.equal(mediumInit.tier.legendText, '1 dot = 2,500,000 people');
 
 // 3B. Verify all 75+ Scale Perspective Outlines render finite geometry without runtime errors
 assert.ok(

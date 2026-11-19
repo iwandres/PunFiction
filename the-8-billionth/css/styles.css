@@ -1768,12 +1768,24 @@ body {
   .canvas-stage {
     position: sticky;
     top: 0;
-    height: 31vh;
-    min-height: 210px;
-    max-height: 290px;
+    height: 34vh;
+    min-height: 232px;
+    max-height: 320px;
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
     z-index: 18;
+  }
+
+  .canvas-hud-top {
+    top: 8px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .hud-pill {
+    padding: 4px 9px;
+    font-size: 0.66rem;
+    gap: 5px;
   }
 
   .canvas-hud-bottom {

@@ -37,15 +37,18 @@
       this.ctx = canvas.getContext('2d', { alpha: true });
       this.onTierChange = options.onTierChange || null;
       this.onOutlineChange = options.onOutlineChange || null;
+      this.onScaleChange = options.onScaleChange || null;
 
       this.palette = PALETTE;
 
       this.dpr = 1;
-      this.width = 300;
-      this.height = 300;
+      this.width = 0;
+      this.height = 0;
       this.centerX = 150;
       this.centerY = 150;
       this.fieldRadius = 120;
+      this.microRadius = 1.85;
+      this.fineRadius = 1.65;
 
       this.reducedMotion =
         typeof window !== 'undefined' &&
@@ -74,13 +77,6 @@
       this.elife = new Float32Array(MAX_DYING_EMBERS);
       this.emberCount = 0;
 
-      // Current logical state
-      this.population = 8300000000;
-      this.isOneOfOne = false;
-      const initial = ScaleTiers.resolveTierState(this.population, false);
-      this.currentTier = initial.tier;
-      this.activeCount = initial.activeDots;
-
       // Hover ghost preview ratio (null = inactive, 0..1 = fraction surviving)
       this.hoverSurvivalRatio = null;
 
@@ -94,24 +90,41 @@
       this.runSeed = 0;
       this.stepCount = 0;
       this.outlineCycleOffset = 0;
+      this.prevOutline = null;
+      this.outlineBlend = 1.0;
+
+      // Measure true CSS canvas dimensions & bake HiDPI sprites before resolving initial tier scale
+      this.sprites = {};
+      this.population = 0;
+      this.isOneOfOne = false;
+      this.resize();
+
+      this.population = 8300000000;
+      const initial = ScaleTiers.resolveTierState(this.population, false, {
+        fieldRadiusPx: this.fieldRadius
+      });
+      this.currentTier = initial.tier;
+      this.activeCount = initial.activeDots;
+      this.tierMaxDots = initial.maxDots;
+
       this.currentOutline = ScaleOutlines
         ? ScaleOutlines.resolveOutline(this.population, false, { runSeed: 0, stepCount: 0, cycleOffset: 0 })
         : null;
-      this.prevOutline = null;
-      this.outlineBlend = 1.0;
-      this.targetOutlineRadius = this._computeOutlineRadius(this.activeCount, this.currentTier.index);
+      this.targetOutlineRadius = this._computeOutlineRadius(
+        this.activeCount,
+        this.currentTier.index,
+        this.tierMaxDots
+      );
       this.outlineRadius = this.targetOutlineRadius;
       this.prevOutlineRadius = this.targetOutlineRadius;
-
-      this.sprites = {};
-      this.resize();
 
       // Seed initial positions cleanly on target spiral
       ScaleTiers.computeTargetsNormalized(
         this.activeCount,
         this.currentTier.index,
         this.tx,
-        this.ty
+        this.ty,
+        this.tierMaxDots
       );
       for (let i = 0; i < this.activeCount; i++) {
         this.px[i] = this.tx[i] * 1.04;
@@ -119,10 +132,10 @@
       }
     }
 
-    _computeOutlineRadius(count, tierIndex) {
+    _computeOutlineRadius(count, tierIndex, tierMaxDots) {
       if (tierIndex === 5 || count <= 1) return 0.56;
       const clusterR = ScaleTiers.getClusterRadiusNormalized
-        ? ScaleTiers.getClusterRadiusNormalized(count, tierIndex)
+        ? ScaleTiers.getClusterRadiusNormalized(count, tierIndex, tierMaxDots)
         : 0.72;
       if (tierIndex === 4) {
         if (count <= 3) return 0.54;
@@ -133,6 +146,10 @@
 
     getActiveOutline() {
       return this.currentOutline;
+    }
+
+    getActiveTier() {
+      return this.currentTier;
     }
 
     cycleOutline() {
@@ -161,7 +178,10 @@
       const rect = this.canvas.getBoundingClientRect();
       const cssW = Math.max(180, Math.floor(rect.width || 400));
       const cssH = Math.max(180, Math.floor(rect.height || 400));
-      const dpr = Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 2);
+      const rawDpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+      // Unlock full 3x Retina/OLED sharpness on mobile & tablet canvases while capping huge desktop monitors at 2x
+      const maxDpr = cssW * cssH <= 420000 ? 3 : 2;
+      const dpr = Math.min(rawDpr, maxDpr);
 
       if (this.width !== cssW || this.height !== cssH || this.dpr !== dpr) {
         this.width = cssW;
@@ -173,6 +193,49 @@
         this.centerY = cssH * 0.5;
         this.fieldRadius = Math.min(cssW, cssH) * 0.455;
         this._bakeSprites();
+        this._syncScaleForViewport();
+      }
+    }
+
+    _syncScaleForViewport() {
+      if (!this.population) return;
+      const resolved = ScaleTiers.resolveTierState(this.population, this.isOneOfOne, {
+        fieldRadiusPx: this.fieldRadius
+      });
+      const prevDots = this.activeCount;
+      const prevLegend = this.currentTier ? this.currentTier.legendText : '';
+      this.currentTier = resolved.tier;
+      this.activeCount = resolved.activeDots;
+      this.tierMaxDots = resolved.maxDots;
+      this.targetOutlineRadius = this._computeOutlineRadius(
+        this.activeCount,
+        this.currentTier.index,
+        this.tierMaxDots
+      );
+      this.outlineRadius = this.targetOutlineRadius;
+
+      if (prevDots !== this.activeCount) {
+        ScaleTiers.computeTargetsNormalized(
+          this.activeCount,
+          this.currentTier.index,
+          this.tx,
+          this.ty,
+          this.tierMaxDots
+        );
+        for (let i = 0; i < this.activeCount; i++) {
+          this.px[i] = this.tx[i];
+          this.py[i] = this.ty[i];
+          this.vx[i] = 0;
+          this.vy[i] = 0;
+          this.ghostMix[i] = 0;
+        }
+      }
+      if (
+        prevLegend &&
+        prevLegend !== this.currentTier.legendText &&
+        typeof this.onScaleChange === 'function'
+      ) {
+        this.onScaleChange(this.currentTier);
       }
     }
 
@@ -182,7 +245,7 @@
       c.width = px;
       c.height = px;
       const ctx = c.getContext('2d');
-      ctx.scale(this.dpr, this.dpr);
+      ctx.scale(px / sizeCss, px / sizeCss);
       return { canvas: c, ctx, sizeCss };
     }
 
@@ -190,19 +253,46 @@
       if (typeof document === 'undefined') return;
       const p = this.palette;
 
-      // 1. Micro dot (Tier 1 & 2)
-      const micro = this._makeOffscreen(8);
+      const profile = ScaleTiers.getScaleProfile
+        ? ScaleTiers.getScaleProfile(this.fieldRadius)
+        : { tier1MaxDots: 8300, tier2MaxDots: 9999 };
+      const clusterMaxPx = this.fieldRadius * 0.92;
+
+      // Pitch-scaled radii keep dot diameter <= ~57% of nearest-neighbor spacing (~43% clear gap)
+      const pitchT1 = (1.905 * clusterMaxPx) / Math.sqrt(profile.tier1MaxDots || 8300);
+      const pitchT2 = (1.905 * clusterMaxPx) / Math.sqrt(profile.tier2MaxDots || 9999);
+      const microR = Math.max(0.75, Math.min(1.85, pitchT1 * 0.285));
+      const fineR = Math.max(0.72, Math.min(1.80, pitchT2 * 0.285));
+      this.microRadius = microR;
+      this.fineRadius = fineR;
+
+      // 1A. Tier 1 Planetary dot
+      const microBox = Math.max(6, Math.ceil(microR * 2 + 4));
+      const microC = microBox * 0.5;
+      const micro = this._makeOffscreen(microBox);
       micro.ctx.fillStyle = p.dotAlive;
       micro.ctx.beginPath();
-      micro.ctx.arc(4, 4, 1.85, 0, Math.PI * 2);
+      micro.ctx.arc(microC, microC, microR, 0, Math.PI * 2);
       micro.ctx.fill();
 
-      // 2. Ghost culled dot (Hover preview)
-      const microGhost = this._makeOffscreen(8);
+      // 1B. Tier 2 Metropolis dot
+      const fineBox = Math.max(6, Math.ceil(fineR * 2 + 4));
+      const fineC = fineBox * 0.5;
+      const fine = this._makeOffscreen(fineBox);
+      fine.ctx.fillStyle = p.dotAlive;
+      fine.ctx.beginPath();
+      fine.ctx.arc(fineC, fineC, fineR, 0, Math.PI * 2);
+      fine.ctx.fill();
+
+      // 2. Ghost culled dot (Hover preview, pitch-scaled)
+      const ghostR = Math.max(0.68, microR * 0.9);
+      const ghostBox = Math.max(6, Math.ceil(ghostR * 2 + 4));
+      const ghostC = ghostBox * 0.5;
+      const microGhost = this._makeOffscreen(ghostBox);
       microGhost.ctx.fillStyle = p.dotGhost;
       microGhost.ctx.globalAlpha = 0.34;
       microGhost.ctx.beginPath();
-      microGhost.ctx.arc(4, 4, 1.65, 0, Math.PI * 2);
+      microGhost.ctx.arc(ghostC, ghostC, ghostR, 0, Math.PI * 2);
       microGhost.ctx.fill();
 
       // 3. Person dot (Tier 3: 1 dot = 1 human)
@@ -217,10 +307,11 @@
       personDot.ctx.fill();
 
       // 4. Ember dot (Flying eliminated dots)
+      const emberR = Math.max(0.85, Math.min(1.6, microR * 0.92));
       const ember = this._makeOffscreen(8);
       ember.ctx.fillStyle = p.dotEmber;
       ember.ctx.beginPath();
-      ember.ctx.arc(4, 4, 1.6, 0, Math.PI * 2);
+      ember.ctx.arc(4, 4, emberR, 0, Math.PI * 2);
       ember.ctx.fill();
 
       // 5. Human Silhouette Pip (Tier 4: < 250 people)
@@ -236,6 +327,7 @@
 
       this.sprites = {
         micro,
+        fine,
         microGhost,
         personDot,
         ember,
@@ -299,13 +391,20 @@
         this.stepCount = context.stepCount;
       }
 
-      const resolved = ScaleTiers.resolveTierState(this.population, this.isOneOfOne);
+      const resolved = ScaleTiers.resolveTierState(this.population, this.isOneOfOne, {
+        fieldRadiusPx: this.fieldRadius
+      });
       const nextTier = resolved.tier;
       const nextCount = resolved.activeDots;
 
       this.currentTier = nextTier;
       this.activeCount = nextCount;
-      this.targetOutlineRadius = this._computeOutlineRadius(nextCount, nextTier.index);
+      this.tierMaxDots = resolved.maxDots;
+      this.targetOutlineRadius = this._computeOutlineRadius(
+        nextCount,
+        nextTier.index,
+        this.tierMaxDots
+      );
       if (this.reducedMotion) {
         this.outlineRadius = this.targetOutlineRadius;
       }
@@ -333,7 +432,13 @@
         }
       }
 
-      ScaleTiers.computeTargetsNormalized(nextCount, nextTier.index, this.tx, this.ty);
+      ScaleTiers.computeTargetsNormalized(
+        nextCount,
+        nextTier.index,
+        this.tx,
+        this.ty,
+        this.tierMaxDots
+      );
 
       if (nextTier.index !== prevTier.index) {
         // Powers-of-Ten Scale Zoom transition!
@@ -628,14 +733,15 @@
 
       // 5. Tier 4: Minimalist Human Silhouettes (< 250 people)
       if (mode === 'silhouette' && this.sprites.pip) {
-        const pipSize = count <= 25 ? 24 : count <= 90 ? 20 : 16;
-        const scaleRatio = pipSize / 24;
+        const basePipSize = count <= 25 ? 24 : count <= 90 ? 20 : 16;
+        const compactScale = Math.min(1, Math.max(0.68, this.fieldRadius / 185));
+        const pipSize = basePipSize * compactScale;
         const half = pipSize * 0.5;
 
         for (let i = count - 1; i >= 0; i--) {
           const breathe = this.reducedMotion
             ? 0
-            : Math.sin(this.timeSec * 2.1 + this.seed[i] * Math.PI * 2) * 1.4;
+            : Math.sin(this.timeSec * 2.1 + this.seed[i] * Math.PI * 2) * 1.4 * compactScale;
           const sx = cx + this.px[i] * R;
           const sy = cy + this.py[i] * R + breathe;
 
@@ -653,13 +759,7 @@
             ctx.drawImage(this.sprites.pipGhost.canvas, sx - half, sy - half, pipSize, pipSize);
           } else {
             ctx.globalAlpha = 1 - this.ghostMix[i] * 0.72;
-            ctx.drawImage(
-              this.sprites.pip.canvas,
-              sx - half,
-              sy - half,
-              24 * scaleRatio,
-              24 * scaleRatio
-            );
+            ctx.drawImage(this.sprites.pip.canvas, sx - half, sy - half, pipSize, pipSize);
             ctx.globalAlpha = 1;
           }
         }
@@ -668,16 +768,35 @@
         return;
       }
 
-      // 6. Tiers 1..3: High-density particle field (up to 9,999 dots)
-      const aliveSprite = mode === 'person_dot' ? this.sprites.personDot : this.sprites.micro;
+      // 6. Tiers 1..3: High-density particle field (pitch-scaled so dots never fuse on mobile)
+      const aliveSprite =
+        mode === 'person_dot'
+          ? this.sprites.personDot
+          : mode === 'fine_dot'
+          ? this.sprites.fine || this.sprites.micro
+          : this.sprites.micro;
       const ghostSprite = this.sprites.microGhost;
 
       if (aliveSprite && ghostSprite) {
-        const aliveSize = aliveSprite.sizeCss;
+        let drawScale = 1;
+        if (mode === 'person_dot') {
+          const clusterNorm = ScaleTiers.getClusterRadiusNormalized
+            ? ScaleTiers.getClusterRadiusNormalized(count, 3, 9999)
+            : 0.85;
+          const dMin3 = (1.905 * (R * clusterNorm)) / Math.sqrt(Math.max(10, count));
+          const targetPersonR = Math.max(0.72, Math.min(2.7, dMin3 * 0.29));
+          drawScale = targetPersonR / 2.7;
+        }
+
+        const aliveSize = aliveSprite.sizeCss * drawScale;
         const aliveHalf = aliveSize * 0.5;
-        const ghostSize = ghostSprite.sizeCss;
+        const ghostSize = ghostSprite.sizeCss * (mode === 'person_dot' ? Math.max(0.75, drawScale) : 1);
         const ghostHalf = ghostSize * 0.5;
-        const driftAmp = this.reducedMotion ? 0 : mode === 'person_dot' ? 0.9 : 0.45;
+        const driftScale =
+          mode === 'person_dot' ? drawScale : Math.min(1, this.microRadius / 1.85);
+        const driftAmp = this.reducedMotion
+          ? 0
+          : (mode === 'person_dot' ? 0.9 : 0.45) * driftScale;
 
         for (let i = count - 1; i >= 1; i--) {
           const drift = driftAmp
@@ -696,9 +815,13 @@
         // Draw index 0 ("You") as a subtle warm golden anchor at center
         const ux = cx + this.px[0] * R;
         const uy = cy + this.py[0] * R;
+        const youR =
+          mode === 'person_dot'
+            ? Math.max(1.8, 3.5 * drawScale)
+            : Math.max(1.85, this.microRadius * 1.4);
         ctx.fillStyle = p.youGold;
         ctx.beginPath();
-        ctx.arc(ux, uy, mode === 'person_dot' ? 3.5 : 2.6, 0, Math.PI * 2);
+        ctx.arc(ux, uy, youR, 0, Math.PI * 2);
         ctx.fill();
       }
 

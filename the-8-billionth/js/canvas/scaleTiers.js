@@ -71,39 +71,108 @@
   ]);
 
   /**
+   * Determines particle scale factors based on available canvas fieldRadius (in CSS px)
+   * so lower-resolution / compact mobile viewports maintain the same crisp dot separation
+   * as large desktop monitors instead of fusing 8,300 dots into an opaque mass.
+   */
+  function getScaleProfile(fieldRadiusPx) {
+    if (!Number.isFinite(fieldRadiusPx) || fieldRadiusPx >= 235) {
+      return {
+        isDefault: true,
+        tier1Ratio: 1000000,
+        tier1MaxDots: 8300,
+        tier1Legend: '1 dot = 1,000,000 people',
+        tier1Short: '1M / dot',
+        tier2Ratio: 1000,
+        tier2MaxDots: 9999,
+        tier2Legend: '1 dot = 1,000 people',
+        tier2Short: '1,000 / dot'
+      };
+    }
+    if (fieldRadiusPx >= 165) {
+      return {
+        isDefault: false,
+        tier1Ratio: 2500000,
+        tier1MaxDots: 3320,
+        tier1Legend: '1 dot = 2,500,000 people',
+        tier1Short: '2.5M / dot',
+        tier2Ratio: 2500,
+        tier2MaxDots: 4000,
+        tier2Legend: '1 dot = 2,500 people',
+        tier2Short: '2,500 / dot'
+      };
+    }
+    return {
+      isDefault: false,
+      tier1Ratio: 5000000,
+      tier1MaxDots: 1660,
+      tier1Legend: '1 dot = 5,000,000 people',
+      tier1Short: '5M / dot',
+      tier2Ratio: 5000,
+      tier2MaxDots: 2000,
+      tier2Legend: '1 dot = 5,000 people',
+      tier2Short: '5,000 / dot'
+    };
+  }
+
+  /**
    * Resolves the active tier and exact target canvas particle count for a given display population.
    */
-  function resolveTierState(displayPopulation, isOneOfOne) {
+  function resolveTierState(displayPopulation, isOneOfOne, options = {}) {
     if (isOneOfOne || displayPopulation <= 1) {
       return {
         tier: TIERS[4],
-        activeDots: 1
+        activeDots: 1,
+        maxDots: 1
       };
     }
 
     const pop = Math.max(2, Math.round(Number(displayPopulation) || 8300000000));
+    const profile = getScaleProfile(options ? options.fieldRadiusPx : undefined);
 
     if (pop >= 10000000) {
+      const tier = profile.isDefault
+        ? TIERS[0]
+        : Object.freeze({
+            ...TIERS[0],
+            scaleRatio: profile.tier1Ratio,
+            legendText: profile.tier1Legend,
+            shortScale: profile.tier1Short
+          });
+      const minDots = profile.isDefault ? 10 : 4;
       return {
-        tier: TIERS[0],
-        activeDots: Math.min(8300, Math.max(10, Math.round(pop / 1000000)))
+        tier,
+        activeDots: Math.min(profile.tier1MaxDots, Math.max(minDots, Math.round(pop / profile.tier1Ratio))),
+        maxDots: profile.tier1MaxDots
       };
     }
     if (pop >= 10000) {
+      const tier = profile.isDefault
+        ? TIERS[1]
+        : Object.freeze({
+            ...TIERS[1],
+            scaleRatio: profile.tier2Ratio,
+            legendText: profile.tier2Legend,
+            shortScale: profile.tier2Short
+          });
+      const minDots = profile.isDefault ? 10 : 4;
       return {
-        tier: TIERS[1],
-        activeDots: Math.min(9999, Math.max(10, Math.round(pop / 1000)))
+        tier,
+        activeDots: Math.min(profile.tier2MaxDots, Math.max(minDots, Math.round(pop / profile.tier2Ratio))),
+        maxDots: profile.tier2MaxDots
       };
     }
     if (pop >= 250) {
       return {
         tier: TIERS[2],
-        activeDots: Math.min(9999, pop)
+        activeDots: Math.min(9999, pop),
+        maxDots: 9999
       };
     }
     return {
       tier: TIERS[3],
-      activeDots: Math.max(2, pop)
+      activeDots: Math.max(2, pop),
+      maxDots: 249
     };
   }
 
@@ -111,7 +180,7 @@
    * Returns the normalized (0..1) outer radius of the circular dot/silhouette cluster
    * so perspective outlines can frame the circular crowd proportionally.
    */
-  function getClusterRadiusNormalized(count, tierIndex) {
+  function getClusterRadiusNormalized(count, tierIndex, tierMaxDots) {
     if (count <= 1 || tierIndex === 5) {
       return 0.36;
     }
@@ -125,7 +194,7 @@
       }
       return Math.min(0.86, 0.22 + totalRings * 0.11);
     }
-    const maxCap = tierIndex === 1 ? 8300 : 9999;
+    const maxCap = tierMaxDots || (tierIndex === 1 ? 8300 : 9999);
     const fillFraction = Math.max(0.008, Math.min(1, count / maxCap));
     return 0.28 + 0.64 * Math.pow(fillFraction, 0.28);
   }
@@ -136,7 +205,7 @@
    * - Tier 4 (2..249): Concentric amphitheater rings with crisp spacing for human silhouettes
    * - Tier 5 (1): Dead-center spotlight (0, 0)
    */
-  function computeTargetsNormalized(count, tierIndex, outX, outY) {
+  function computeTargetsNormalized(count, tierIndex, outX, outY, tierMaxDots) {
     if (count <= 1 || tierIndex === 5) {
       outX[0] = 0;
       outY[0] = 0;
@@ -189,7 +258,7 @@
     // Tiers 1..3: Golden-angle phyllotaxis spiral
     // Radius scales smoothly with count so culling visibly pulls the surviving cluster inward,
     // while keeping enough breathing room to distinguish individual dots.
-    const envelopeRadius = getClusterRadiusNormalized(count, tierIndex);
+    const envelopeRadius = getClusterRadiusNormalized(count, tierIndex, tierMaxDots);
 
     for (let i = 0; i < count; i++) {
       // Index 0 sits dead-center ("You"), higher indices spiral outward
@@ -204,6 +273,7 @@
   return {
     GOLDEN_ANGLE,
     TIERS,
+    getScaleProfile,
     resolveTierState,
     getClusterRadiusNormalized,
     computeTargetsNormalized
