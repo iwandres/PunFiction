@@ -202,6 +202,23 @@ for (const m of idMatches) {
   }
 }
 
+// 4B. Verify CSS brace balance in styles.css (prevents broken @media blocks leaking mobile rules onto desktop)
+const cssSrc = fs
+  .readFileSync(path.join(APP_DIR, 'css/styles.css'), 'utf8')
+  .replace(/\/\*[\s\S]*?\*\//g, '');
+let cssBraceDepth = 0;
+cssSrc.split(/\r?\n/).forEach((line, idx) => {
+  for (const ch of line) {
+    if (ch === '{') cssBraceDepth++;
+    else if (ch === '}') cssBraceDepth--;
+    assert.ok(
+      cssBraceDepth >= 0,
+      `Unmatched closing '}' in css/styles.css at line ${idx + 1}`
+    );
+  }
+});
+assert.equal(cssBraceDepth, 0, `Unclosed '{' block in css/styles.css (depth=${cssBraceDepth})`);
+
 // 5. Check total gzipped bundle budget (< 120 KB)
 const allFrontendFiles = [
   'index.html',
