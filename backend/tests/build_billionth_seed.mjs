@@ -1228,6 +1228,31 @@ for (const gen of PARAMETRIC_GENERATORS) {
 }
 
 // ============================================================================
+// PRESERVE ANY COMMUNITY-PROMOTED TRAITS (`promotedFromCache: true`)
+// ============================================================================
+const existingCorePath = path.join(DATA_DIR, 'traits-core.json');
+if (fs.existsSync(existingCorePath)) {
+  try {
+    const prevDoc = JSON.parse(fs.readFileSync(existingCorePath, 'utf8'));
+    const builtinSlugs = new Set(CORE_TRAITS.map((t) => t.canonicalSlug));
+    for (const gen of PARAMETRIC_GENERATORS) {
+      for (const opt of gen.options) builtinSlugs.add(opt.canonicalSlug);
+    }
+    for (const prevTrait of prevDoc.traits || []) {
+      if (
+        prevTrait &&
+        prevTrait.promotedFromCache &&
+        prevTrait.canonicalSlug &&
+        !builtinSlugs.has(prevTrait.canonicalSlug)
+      ) {
+        CORE_TRAITS.push(prevTrait);
+        builtinSlugs.add(prevTrait.canonicalSlug);
+      }
+    }
+  } catch (_) {}
+}
+
+// ============================================================================
 // VALIDATE ALL CURATED & PARAMETRIC ITEMS + COMPUTE TRANSITIVE / AXIOM CLOSURES
 // ============================================================================
 const validCategories = new Set(Taxonomy.CATEGORIES.map((c) => c.id));
