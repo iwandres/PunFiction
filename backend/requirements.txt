@@ -1,5 +1,4 @@
-pymongo
-google-generativeai
-google-cloud-storage
-google-cloud-aiplatform
-requests
+pymongo>=4.6.0
+google-genai>=1.0.0
+Pillow>=10.0.0
+requests>=2.31.0
