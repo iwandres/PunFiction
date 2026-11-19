@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=30" />
+  <link rel="stylesheet" href="css/styles.css?v=31" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -187,6 +187,27 @@
           </li>
           <li>
             <strong>Life-Sized Scale Outlines:</strong> Behind the dots, we sketch a real-world place or vehicle built for that exact crowd size—from a spinning Earth down to a stadium, jumbo jet, school bus, or elevator—so big numbers instantly feel human-sized.
+          </li>
+        </ul>
+      </article>
+
+      <!-- Common 04: Data Sources & Caveats -->
+      <article class="math-section">
+        <div class="math-sec-num">04 // DATA SOURCES &amp; CAVEATS</div>
+        <h2>Where Do Our Numbers Come From?</h2>
+        <p>
+          Not every trait on Earth is measured the same way, so our stats blend <strong>hard census data</strong> with <strong>smart ballpark estimates</strong> where no official count exists:
+        </p>
+
+        <ul class="math-bullet-list">
+          <li>
+            <strong>Countries, Languages &amp; Biology (Hard Data):</strong> National populations, age groups, spoken languages, blood types, adult height, and major genetic traits come from real demographic and scientific benchmarks—including UN population reports, national censuses, language surveys, and medical studies.
+          </li>
+          <li>
+            <strong>Hobbies, Sports &amp; Daily Quirks (Educated Estimates):</strong> No government census knocks on doors asking who keeps a sourdough starter or eats kiwifruit with the skin on! For everyday habits and hobbies, we start from real-world clues—like scuba certifications, pilot licenses, sports federations, or survey polls—and scale them realistically across all 8.3 billion people (including kids and non-Western countries).
+          </li>
+          <li>
+            <strong>Custom Typed Facts (Two-Step Ballparks):</strong> Anything you type from scratch is estimated in two steps—finding the size of the broader global group first, then taking a realistic slice—and saved so everyone gets the exact same number. Treat hobby and quirk counts as well-grounded ballpark figures rather than exact headcounts!
           </li>
         </ul>
       </article>
@@ -470,6 +491,30 @@
         <p>
           Beneath the particle cluster, <strong>82 architectural, vessel, and cartographic scale outlines</strong> span <strong>27 logarithmic population bands</strong>—from a rotating orthographic Earth globe at <span class="m-inline">8.3B</span> down through stadiums, concert halls, jumbo jets, school buses, and elevators to the <span class="m-inline">1-of-1</span> spotlight—paired 1-to-1 with the narrowing funnel headline while global trait base headcounts sit isolated in a dedicated Worldwide Fun Fact card.
         </p>
+      </article>
+
+      <!-- 7. Data Sources & Precision Tiers -->
+      <article class="math-section">
+        <div class="math-sec-num">07 // DATA SOURCES &amp; PRECISION TIERS</div>
+        <h2>Empirical Benchmarks vs. Calibrated Fermi Priors</h2>
+        <p>
+          No live planetary registry tracks all human behaviors simultaneously. Across our static seed tables and custom estimator, trait prevalences fall into four explicit precision tiers:
+        </p>
+
+        <ul class="math-bullet-list">
+          <li>
+            <strong>Tier 1 — Demographic &amp; Geographic Baselines (High Precision):</strong> Anchored to <em>UN World Population Prospects</em> (<span class="m-inline">N<sub>0</sub> = 8.3 × 10<sup>9</sup></span>, 197 sovereign/territory shares, age structure <span class="m-inline">P(15+) ≈ 0.74</span>, regional shares ~60% Asia, ~18% Africa, ~13% Americas, ~9% Europe) and national vital-statistics birth-month seasonality.
+          </li>
+          <li>
+            <strong>Tier 2 — Linguistic, Anthropometric &amp; Genetic Priors (High–Medium Precision):</strong> Derived from SIL <em>Ethnologue</em> fluent L1+L2 totals and national censuses (US ACS, Census of India, Eurobarometer) constrained by <span class="m-inline">∑<sub>C</sub> P(C) · P(L | C) &lt; P(L)</span>; NCD-RisC global adult stature distributions; population-weighted ABO/Rh blood tables; Tremblay et al. (<em>PNAS</em> 2021) DEM human elevation demography (<span class="m-inline">5.8%</span> at <span class="m-inline">≥ 1,500 m</span>); and meta-analytic genetic/clinical prevalence studies (e.g., Papadatou-Pastou et al. 2020 on left-handedness at <span class="m-inline">10.6%</span>, Monden et al. 2021 on twinning, WHO surgical volume).
+          </li>
+          <li>
+            <strong>Tier 3 — Curated Behavioral &amp; Hobby Synthesis (Order-of-Magnitude Fermi):</strong> No global census counts vinyl collectors or sourdough keepers. Where institutional registries exist (PADI certifications, ICAO/FAA pilot licenses, IARU amateur callsigns, SlashData developer surveys, FIDE/online chess pools, FIFA/FIVB participation reports), traits are anchored to registry totals and discounted against full global age, income, and regional denominators.
+          </li>
+          <li>
+            <strong>Tier 4 — Unscripted Free-Text Traits (Stateless LLM Fermi):</strong> Custom inputs are decomposed by Gemini 2.5 Flash (<span class="m-inline">N<sub>base pool</sub> × P(quirk | base pool)</span>) against UN regional/age priors and built-in calibration anchors, clamped to <span class="m-inline">[10<sup>−7</sup>, 0.95]</span>, and cached by SHA-256 hash—designed as internally consistent order-of-magnitude priors rather than literal government headcounts.
+          </li>
+        </ul>
       </article>
 
       <div class="math-swap-banner">
