@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=21" />
+  <link rel="stylesheet" href="css/styles.css?v=22" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -168,9 +168,9 @@
 
         <div class="math-rule-card math-rule-wide">
           <span class="mr-tag">RULE D · PARTIAL OVERLAP (γ = 0.65)</span>
-          <h3>Power-Law Cluster Dampening Across a Closed 36-Tag Latent Space</h3>
+          <h3>Power-Law Cluster Dampening Across a 40-Tag Topical &amp; Psychographic Space</h3>
           <p>
-            Every trait—curated, parametric, and Gemini-estimated—projects onto 1 to 3 tags in a <strong>closed 36-tag latent taxonomy</strong> <span class="m-inline">𝒞</span> (e.g., <code>spicy_palate</code>, <code>culinary_diy</code>, <code>endurance_sport</code>, <code>coding_tech</code>, <code>polyglot</code>). If active trait <span class="m-inline">i</span> shares at least one latent tag with <span class="m-inline">m<sub>i</sub></span> prior active traits in your stack, its base prevalence is dampened via a diminishing-specificity exponent <span class="m-inline">γ = 0.65</span>:
+            Every trait—curated, parametric, and Gemini-estimated—projects onto 1 to 4 tags in a <strong>closed 40-tag latent taxonomy</strong> <span class="m-inline">𝒞</span>: 36 topical domains plus 4 cross-topic psychographic bridges (<code>quant_systemizer</code>, <code>tactile_analog_ritual</code>, <code>gear_optimizer</code>, and <code>thrill_risk</code>). If active trait <span class="m-inline">i</span> shares at least one tag with <span class="m-inline">m<sub>i</sub></span> prior active traits in your stack, its base prevalence is dampened via <span class="m-inline">γ = 0.65</span>:
           </p>
           <div class="math-eq-box math-eq-compact">
             <div class="math-eq">
@@ -182,6 +182,14 @@
             <strong>Why a power law in probability?</strong> Take <span class="m-inline">−log<sub>2</sub></span> of both sides and a neat identity pops out:
             <span class="m-inline">I<sub>eff</sub>(i) = γ<sup>m<sub>i</sub></sup> · I<sub>base</sub>(i)</span>.
             Power-law probability dampening is <em>mathematically identical to geometric exponential decay in marginal Shannon information</em>: the 1st trait in a cluster yields <strong>100%</strong> of its bits, the 2nd yields <strong>65%</strong>, the 3rd yields <strong>42.25%</strong>, and the 4th yields <strong>27.46%</strong>.
+          </p>
+        </div>
+
+        <div class="math-rule-card math-rule-wide">
+          <span class="mr-tag">RULE E · PAY-THE-GATE-ONCE (α = 0.50)</span>
+          <h3>De-Correlating Hidden Demographic Macro-Gates</h3>
+          <p>
+            Roughly 75% of humanity lives in Asia and Africa, 26% are under age 15, and most humans live in apartments or dense towns without garages or yards. Without macro-denominator gating, stacking <em>sourdough starter</em>, <em>50+ vinyl records</em>, <em>blue eyes</em>, and <em>backyard weather station</em> would repeatedly re-eliminate global infants, non-Western populations, and apartment dwellers on every click. Each trait therefore declares its membership in 4 closed <code>baseGates</code>—<code>adult_15plus</code> (<span class="m-inline">P = 0.74</span>, <span class="m-inline">0.43b</span>), <code>connected_urban_affluent</code> (<span class="m-inline">P = 0.22</span>, <span class="m-inline">2.18b</span>), <code>euro_western_skew</code> (<span class="m-inline">P = 0.16</span>, <span class="m-inline">2.64b</span>), and <code>yard_homeowner_space</code> (<span class="m-inline">P = 0.14</span>, <span class="m-inline">2.84b</span>). The first trait claiming a gate earns full bits; subsequent traits sharing an already-paid gate subtract <span class="m-inline">α · (−log<sub>2</sub> P<sub>gate</sub>)</span> (<span class="m-inline">α = 0.5</span>, floored at a minimum marginal bit gain), while Layer-3 Gemini estimation stays 100% stateless so cached traits remain globally pure.
           </p>
         </div>
       </div>

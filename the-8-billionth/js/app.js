@@ -43,6 +43,7 @@
     tierLabel: document.getElementById('tier-label'),
     hoverDeltaPill: document.getElementById('hover-delta-pill'),
     hoverDeltaText: document.getElementById('hover-delta-text'),
+    hoverDeltaSnark: document.getElementById('hover-delta-snark'),
     zoomToast: document.getElementById('zoom-toast'),
     zoomToastTitle: document.getElementById('zoom-toast-title'),
     zoomToastSub: document.getElementById('zoom-toast-sub'),
@@ -141,12 +142,15 @@
   }
 
   /**
-   * Handles Ghost-Cull Hover Preview across chips and omnibox options.
+   * Handles Ghost-Cull Hover Preview across chips and omnibox options,
+   * surfacing transparent Venn-circle snark whenever correlation dampening applies.
    */
   function handleHoverCandidate(candidateTrait) {
     if (!candidateTrait || state.evalResult.isOneOfOne) {
       if (renderer) renderer.setHoverPreview(null);
       dom.hoverDeltaPill.classList.add('hidden');
+      dom.hoverDeltaPill.classList.remove('has-snark');
+      if (dom.hoverDeltaSnark) dom.hoverDeltaSnark.classList.add('hidden');
       return;
     }
 
@@ -160,6 +164,24 @@
     const dropLabel = Probability.formatCompactCount(preview.deltaPeople);
     dom.hoverDeltaText.textContent =
       '−' + dropLabel + ' people · +' + preview.deltaBits.toFixed(1) + ' bits';
+
+    if (dom.hoverDeltaSnark) {
+      if (preview.superseded) {
+        dom.hoverDeltaSnark.textContent =
+          'Already implied by an active trait in your stack (+0.0 bits).';
+        dom.hoverDeltaSnark.classList.remove('hidden');
+        dom.hoverDeltaPill.classList.add('has-snark');
+      } else if (preview.wasDampened && preview.overlapSnark) {
+        dom.hoverDeltaSnark.textContent = preview.overlapSnark;
+        dom.hoverDeltaSnark.classList.remove('hidden');
+        dom.hoverDeltaPill.classList.add('has-snark');
+      } else {
+        dom.hoverDeltaSnark.textContent = '';
+        dom.hoverDeltaSnark.classList.add('hidden');
+        dom.hoverDeltaPill.classList.remove('has-snark');
+      }
+    }
+
     dom.hoverDeltaPill.classList.remove('hidden');
   }
 
@@ -532,8 +554,15 @@
       const right = document.createElement('span');
       right.className = 'chip-right';
       if (preview && preview.wasDampened) {
-        right.title = 'Dampened slightly due to shared category/cluster overlap';
-        right.innerHTML = '<span class="chip-dampen-dot">≈</span><span>' + pctText + '</span>';
+        right.title = preview.overlapSnark || 'Adjusted for shared lifestyle/demographic overlap';
+        const rawOne = Probability.formatOneIn(preview.pBase).replace(/^1 in /, '');
+        const adjOne = Probability.formatOneIn(preview.pEff);
+        right.innerHTML =
+          '<span class="chip-dampen-dot">≈</span><span>1/' +
+          rawOne +
+          ' → ' +
+          adjOne +
+          '</span>';
       } else {
         right.textContent = pctText;
       }
@@ -617,9 +646,9 @@
 
     dom.inspEmoji.textContent = item.trait.emoji || '🔹';
     dom.inspTitle.textContent = item.trait.label;
-    dom.inspTags.textContent = (item.sanitizedTags || [])
-      .map((t) => '#' + t)
-      .join('  ');
+    const tagTokens = (item.sanitizedTags || []).map((t) => '#' + t);
+    const gateTokens = (item.sanitizedGates || []).map((g) => '⌖' + g);
+    dom.inspTags.textContent = tagTokens.concat(gateTokens).join('  ');
 
     dom.inspBody.innerHTML = '';
 
@@ -681,26 +710,15 @@
     } else if (item.wasDampened) {
       const dNote = document.createElement('div');
       dNote.className = 'insp-dampen-note';
-      if (item.dampenMode === 'geo_bayes' && item.geoSourceLabel) {
-        dNote.textContent =
-          '🌍 Geographic / Language Overlap: Adjusted from ' +
-          Probability.formatPrevalencePercent(item.pBase) +
-          ' global to ' +
-          Probability.formatPrevalencePercent(item.pEff) +
-          ' conditioned on ' +
-          item.geoSourceLabel +
-          '.';
-      } else {
-        const overlapNames = item.sharedWith.map((s) => s.label).join(', ');
-        dNote.textContent =
-          '📐 Correlation Dampening (γ = 0.65): Adjusted from ' +
-          Probability.formatPrevalencePercent(item.pBase) +
-          ' to ' +
-          Probability.formatPrevalencePercent(item.pEff) +
-          ' due to cluster overlap with ' +
-          overlapNames +
-          '.';
+      const snarkText =
+        item.overlapSnark || Probability.buildOverlapSnark(item, item.trait) || '';
+
+      let detailSuffix = '';
+      if (item.repeatGates && item.repeatGates.length > 0) {
+        const gLabels = item.repeatGates.map((g) => g.label).join(', ');
+        detailSuffix = ' [Shared demographic gate: ' + gLabels + ']';
       }
+      dNote.textContent = '📐 ' + snarkText + detailSuffix;
       dom.inspBody.appendChild(dNote);
     }
 

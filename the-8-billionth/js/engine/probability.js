@@ -23,6 +23,7 @@
   const WORLD_POPULATION = (Taxonomy && Taxonomy.WORLD_POPULATION) || 8300000000;
   const MAX_BITS = Math.log2(WORLD_POPULATION); // ~32.95017
   const GAMMA = 0.65;
+  const GATE_ALPHA = 0.5; // Pay-the-Gate-Once repeat deduction factor
   const ONE_OF_ONE_THRESHOLD = 1.49;
   const DEFAULT_MIN_PREVALENCE = 1e-7; // ~830 humans globally
   const EXTREME_RARITY_MIN_PREVALENCE = 1e-9; // ~8 humans globally (verified rarities only)
@@ -276,11 +277,12 @@
       }
     }
 
-    // Step 3: Sequential Bayesian Geo/Language + gamma-dampened evaluation over non-superseded traits
+    // Step 3: Sequential Bayesian Geo/Language + Pay-the-Gate-Once + gamma-dampened evaluation
     let cumulativeProduct = 1.0;
     let currentExpected = WORLD_POPULATION;
     let currentDisplayPop = WORLD_POPULATION;
     const priorActive = [];
+    const claimedGates = new Map(); // gateId -> first trait badge that unlocked it
     const items = [];
     const funnelSteps = [
       {
@@ -297,7 +299,12 @@
       const trait = rawList[i];
       const sanitizedTags = Taxonomy
         ? Taxonomy.sanitizeClusterTags(trait.clusterTags)
-        : (trait.clusterTags || []).slice(0, 3);
+        : (trait.clusterTags || []).slice(0, 4);
+      const sanitizedGates = Taxonomy
+        ? Taxonomy.sanitizeBaseGates(trait.baseGates)
+        : Array.isArray(trait.baseGates)
+          ? trait.baseGates.slice()
+          : [];
       const pBase = clampPrevalence(trait.prevalence, Boolean(trait.isVerifiedExtremeRarity));
 
       if (supersededInfo[i]) {
@@ -305,6 +312,7 @@
           index: i,
           trait,
           sanitizedTags,
+          sanitizedGates,
           superseded: true,
           supersededBy: supersededInfo[i].byLabel,
           supersededReason: supersededInfo[i].reason,
@@ -312,10 +320,13 @@
           pEff: 1.0,
           overlapCount: 0,
           sharedWith: [],
+          repeatGates: [],
           wasDampened: false,
           dampenMode: null,
           geoSourceLabel: null,
+          overlapSnark: null,
           bitsAdded: 0,
+          bitsSavedFromInflation: 0,
           populationBefore: currentDisplayPop,
           populationAfter: currentDisplayPop,
           peopleEliminated: 0
@@ -327,7 +338,28 @@
         clusterTags: sanitizedTags
       });
       const pCluster = computeEffectivePrevalence(pBase, overlapCount);
+      const bitsRawTrait = -Math.log2(pBase);
+      const bitsCluster = -Math.log2(pCluster);
       const { geoRate, geoSourceLabel } = computeGeoBayesConditioning(priorActive, trait, pBase);
+
+      // Check already-claimed macro baseGates ("Pay-the-Gate-Once")
+      const repeatGates = [];
+      let gateBitsDeduction = 0;
+      for (let g = 0; g < sanitizedGates.length; g++) {
+        const gId = sanitizedGates[g];
+        if (claimedGates.has(gId)) {
+          const meta =
+            (Taxonomy && Taxonomy.BASE_GATE_META && Taxonomy.BASE_GATE_META[gId]) || null;
+          const gBits = meta ? meta.bits : 1.0;
+          gateBitsDeduction += GATE_ALPHA * gBits;
+          repeatGates.push({
+            id: gId,
+            label: meta ? meta.label : gId,
+            bits: gBits,
+            claimedBy: claimedGates.get(gId)
+          });
+        }
+      }
 
       let pEff = pCluster;
       let dampenMode = overlapCount > 0 ? 'cluster' : null;
@@ -337,10 +369,27 @@
         pEff = geoRate;
         dampenMode = 'geo_bayes';
         activeGeoSource = geoSourceLabel;
+      } else if (gateBitsDeduction > 0) {
+        const minMarginalBits = Math.min(bitsCluster, Math.max(0.45, bitsCluster * 0.36));
+        const bitsAfterGates = Math.max(minMarginalBits, bitsCluster - gateBitsDeduction);
+        const pGateAdjusted = Math.min(0.985, Math.pow(2, -bitsAfterGates));
+        if (pGateAdjusted > pEff) {
+          pEff = pGateAdjusted;
+          dampenMode = overlapCount > 0 ? 'cluster_and_gate' : 'base_gate';
+        }
+      }
+
+      // Register newly paid macro baseGates for subsequent traits in stack
+      for (let g = 0; g < sanitizedGates.length; g++) {
+        const gId = sanitizedGates[g];
+        if (!claimedGates.has(gId)) {
+          claimedGates.set(gId, trait.shortBadge || trait.label);
+        }
       }
 
       const wasDampened = pEff > pBase * 1.0001;
       const bitsAdded = -Math.log2(pEff);
+      const bitsSavedFromInflation = Math.max(0, bitsRawTrait - bitsAdded);
 
       const popBefore = currentDisplayPop;
       cumulativeProduct *= pEff;
@@ -351,6 +400,7 @@
         index: i,
         trait,
         sanitizedTags,
+        sanitizedGates,
         superseded: false,
         supersededBy: null,
         supersededReason: null,
@@ -358,14 +408,21 @@
         pEff,
         overlapCount,
         sharedWith,
+        repeatGates,
         wasDampened,
         dampenMode,
         geoSourceLabel: activeGeoSource,
+        overlapSnark: null,
         bitsAdded,
+        bitsSavedFromInflation,
         populationBefore: popBefore,
         populationAfter: popAfter,
         peopleEliminated: Math.max(0, popBefore - popAfter)
       };
+
+      if (wasDampened) {
+        evaluatedItem.overlapSnark = buildOverlapSnark(evaluatedItem, trait);
+      }
 
       items.push(evaluatedItem);
       priorActive.push(evaluatedItem);
@@ -409,6 +466,11 @@
       }
     }
 
+    const activeGateMap = {};
+    claimedGates.forEach((byLabel, gId) => {
+      activeGateMap[gId] = byLabel;
+    });
+
     return {
       worldPopulation: WORLD_POPULATION,
       maxBits: MAX_BITS,
@@ -426,6 +488,7 @@
       mvpItem,
       activeCategoryCounts,
       activeTagCounts,
+      activeGateMap,
       archetype: Taxonomy ? Taxonomy.generateArchetype(items) : 'The Outlier'
     };
   }
@@ -461,10 +524,105 @@
       wasDampened: Boolean(lastItem && lastItem.wasDampened),
       dampenMode: lastItem ? lastItem.dampenMode : null,
       geoSourceLabel: lastItem ? lastItem.geoSourceLabel : null,
+      sharedWith: lastItem ? lastItem.sharedWith : [],
+      repeatGates: lastItem ? lastItem.repeatGates : [],
+      overlapSnark: lastItem ? lastItem.overlapSnark : null,
       superseded: Boolean(lastItem && lastItem.superseded),
       overlapCount: lastItem ? lastItem.overlapCount : 0,
       wouldTriggerOneOfOne: !baseEval.isOneOfOne && nextEval.isOneOfOne
     };
+  }
+
+  function formatOneIn(p) {
+    const prob = Math.max(1e-9, Math.min(0.999, Number(p) || 0.1));
+    const oneIn = Math.max(1, Math.round(1 / prob));
+    if (oneIn >= 1000000) {
+      return '1 in ' + (oneIn / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    return '1 in ' + oneIn.toLocaleString('en-US');
+  }
+
+  /**
+   * Generates transparent, lightly snarky UI overlap commentary explaining why
+   * correlated traits or shared demographic gates yield fewer marginal Shannon bits.
+   */
+  function buildOverlapSnark(info, trait) {
+    if (!info || !info.wasDampened) return null;
+    const rawStr = formatOneIn(info.pBase);
+    const adjStr = formatOneIn(info.pEff);
+    const prefix = 'Raw rarity: ' + rawStr + '. Adjusted impact: ' + adjStr + ' — ';
+
+    if (info.dampenMode === 'geo_bayes' && info.geoSourceLabel) {
+      return (
+        prefix +
+        'conditioned on ' +
+        info.geoSourceLabel +
+        ', nearly everyone in this slice already clears that bar.'
+      );
+    }
+
+    if (info.sharedWith && info.sharedWith.length > 0) {
+      const prev = info.sharedWith[0];
+      const aName = String(prev.label || 'your earlier pick').toLowerCase();
+      const bName = String((trait && (trait.shortBadge || trait.label)) || 'this trait').toLowerCase();
+      const sharedTags = prev.tags || [];
+
+      if (
+        sharedTags.includes('tactile_analog_ritual') ||
+        sharedTags.includes('vintage_gear') ||
+        sharedTags.includes('collectors')
+      ) {
+        return prefix + 'turns out "' + aName + '" and "' + bName + '" are basically a single Venn circle.';
+      }
+      if (sharedTags.includes('quant_systemizer')) {
+        return (
+          prefix +
+          '"' +
+          aName +
+          '" and "' +
+          bName +
+          '" run on the exact same spreadsheet-brained operating system.'
+        );
+      }
+      if (sharedTags.includes('gear_optimizer')) {
+        return (
+          prefix +
+          '"' +
+          aName +
+          '" and "' +
+          bName +
+          '" shop in the exact same late-night spec-sheet rabbit hole.'
+        );
+      }
+      if (sharedTags.includes('thrill_risk')) {
+        return (
+          prefix +
+          '"' +
+          aName +
+          '" and "' +
+          bName +
+          '" are wired to the exact same adrenaline receptor.'
+        );
+      }
+      return prefix + 'turns out "' + aName + '" and "' + bName + '" overlap heavily in the wild.';
+    }
+
+    if (info.repeatGates && info.repeatGates.length > 0) {
+      const topGate = info.repeatGates.slice().sort((a, b) => b.bits - a.bits)[0];
+      const byWho = String(topGate.claimedBy || 'an earlier trait').toLowerCase();
+      if (topGate.id === 'yard_homeowner_space') {
+        return prefix + '"' + byWho + '" already filtered down to folks with backyard or garage space.';
+      }
+      if (topGate.id === 'euro_western_skew') {
+        return prefix + '"' + byWho + '" already tilted the map into Western demographics.';
+      }
+      if (topGate.id === 'connected_urban_affluent') {
+        return prefix + '"' + byWho + '" already paid the discretionary-time & Wi-Fi gate.';
+      }
+      return prefix + 'global infants and young kids were already ruled out by "' + byWho + '."';
+    }
+
+    return prefix + 'shared lifestyle overlap trimmed the duplicate bits.';
   }
 
   function formatCompactCount(n) {
@@ -502,6 +660,7 @@
     WORLD_POPULATION,
     MAX_BITS,
     GAMMA,
+    GATE_ALPHA,
     ONE_OF_ONE_THRESHOLD,
     DEFAULT_MIN_PREVALENCE,
     EXTREME_RARITY_MIN_PREVALENCE,
@@ -513,6 +672,8 @@
     expectedToDisplayPopulation,
     evaluateStack,
     previewCandidate,
+    formatOneIn,
+    buildOverlapSnark,
     formatCompactCount,
     formatExactCount,
     formatPrevalencePercent

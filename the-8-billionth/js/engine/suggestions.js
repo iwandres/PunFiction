@@ -68,6 +68,7 @@
 
     const catCounts = (evalState && evalState.activeCategoryCounts) || {};
     const tagCounts = (evalState && evalState.activeTagCounts) || {};
+    const gateMap = (evalState && evalState.activeGateMap) || {};
     const activeCount = (evalState && evalState.activeCount) || 0;
 
     // Pick 1 contextual Parametric Picker card when in 'all' or matching category
@@ -97,11 +98,19 @@
       const p = t.prevalence;
       const catTapCount = catCounts[t.category] || 0;
 
-      // Count overlapping cluster tags
+      // Count overlapping cluster tags and already-paid demographic baseGates
       let tagOverlap = 0;
       const tags = t.clusterTags || [];
       for (let k = 0; k < tags.length; k++) {
         if (tagCounts[tags[k]]) tagOverlap += 1;
+      }
+
+      let gateOverlap = 0;
+      const gates = t.baseGates || [];
+      for (let g = 0; g < gates.length; g++) {
+        if (gateMap[gates[g]] && gates[g] !== 'adult_15plus') {
+          gateOverlap += 1;
+        }
       }
 
       let score = 0;
@@ -122,6 +131,7 @@
         }
         if (catTapCount >= 1) score -= 14 * catTapCount;
         if (tagOverlap > 0) score -= 12 * tagOverlap;
+        if (gateOverlap > 0) score -= 6 * gateOverlap;
       } else if (phase === 'midgame') {
         // Hide categories tapped >= 2 times when viewing 'all'
         if (categoryFilter === 'all' && catTapCount >= 2) continue;
@@ -137,6 +147,8 @@
         if (catTapCount === 0) score += 18;
         if (tagOverlap === 0) score += 24;
         else score -= 18 * tagOverlap;
+        if (gateOverlap === 0) score += 14;
+        else score -= 10 * gateOverlap;
       } else {
         // Endgame Sniper (< 5,000 left): aim for crisp 0.02%..6% orthogonal splitters
         if (categoryFilter === 'all' && catTapCount >= 2) continue;
@@ -149,6 +161,8 @@
         }
         if (tagOverlap === 0) score += 28;
         else score -= 22 * tagOverlap;
+        if (gateOverlap === 0) score += 16;
+        else score -= 12 * gateOverlap;
       }
 
       // Add deterministic shuffle variance so clicking "Shuffle" deals a completely fresh hand

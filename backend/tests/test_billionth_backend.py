@@ -75,7 +75,8 @@ def test_schema_clamping_and_cache_flywheel():
                 "emoji": "🌶️",
                 "category": "food_palate",
                 "prevalence": 1e-11,
-                "clusterTags": ["culinary_diy", "spicy_palate", "not_a_real_tag"],
+                "clusterTags": ["culinary_diy", "spicy_palate", "tactile_analog_ritual", "not_a_real_tag"],
+                "baseGates": ["adult_15plus", "connected_urban_affluent", "fake_gate"],
                 "subsumesSlugs": ["eats_spicy_daily", "nonexistent_random_slug"],
                 "snarkNote": "Sweet heat.",
                 "isVerifiedExtremeRarity": False
@@ -88,10 +89,14 @@ def test_schema_clamping_and_cache_flywheel():
             active_slugs=["eats_spicy_daily"],
             active_traits=[{"slug": "eats_spicy_daily", "label": "I eat spicy chili heat almost every single day"}]
         )
+        assert len(est.CLOSED_CLUSTER_TAGS) == 40
+        assert len(est.CLOSED_BASE_GATES) == 4
         assert sanitized["trait"]["canonicalSlug"] == "makes_jalape_o_relish"
         assert sanitized["trait"]["prevalence"] >= 1e-7
         assert sanitized["fermi"]["estimatedGlobalHumans"] >= 830
-        assert sanitized["trait"]["clusterTags"] == ["culinary_diy", "spicy_palate"]
+        assert sanitized["trait"]["clusterTags"] == ["culinary_diy", "spicy_palate", "tactile_analog_ritual"]
+        assert sanitized["trait"]["baseGates"] == ["adult_15plus", "connected_urban_affluent"]
+        assert sanitized["cacheableTrait"]["baseGates"] == ["adult_15plus", "connected_urban_affluent"]
         assert "eats_spicy_daily" in sanitized["trait"]["subsumes"]
 
         # 2. Store & verify normalized cache flywheel hit
@@ -142,4 +147,8 @@ if __name__ == "__main__":
     test_python_syntax_all()
     test_pre_guardrails()
     test_schema_clamping_and_cache_flywheel()
-    print("[Backend Test Suite] All Python syntax, guardrail, clamping & cache flywheel tests passed!")
+    # Verify _call_gemini_structured source never injects activeSlugs/activeTraits into user_prompt
+    import inspect
+    fn_src = inspect.getsource(est._call_gemini_structured)
+    assert "context_note" not in fn_src, "LLM prompt must stay 100% stateless!"
+    print("[Backend Test Suite] All Python syntax, stateless cache, baseGates & clamping tests passed!")

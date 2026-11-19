@@ -1048,6 +1048,169 @@ const PARAMETRIC_GENERATORS = [
 ];
 
 // ============================================================================
+// ENRICH WITH 4 PSYCHOGRAPHIC BRIDGE TAGS & 4 MACRO BASE-GATES ("PAY-ONCE")
+// ============================================================================
+const PSYCHO_BRIDGE_MAP = {
+  quant_systemizer: new Set([
+    'writes_software', 'indie_game_dev', 'uses_vim_keybindings', 'linux_daily_driver',
+    'solves_rubiks_cube', 'speedcuber_sub30', 'solders_electronics', 'builds_custom_keyboards',
+    'touch_types_100wpm', 'Amateur_ham_radio', 'picks_pin_locks', 'reads_morse_code',
+    '3d_prints_cad', 'rated_chess_player', 'keeps_weather_station', 'homelab_self_hoster',
+    'inbox_zero', '24_hour_clock_phone', 'keeps_spreadsheet_life', 'backs_up_321',
+    'weighs_coffee_grams', 'uses_kitchen_thermometer', 'saturday_nyt_crossword',
+    'speedrunner_pb', 'speaks_constructed_lang', 'plays_geoguessr', 'sudoku_killer_variant',
+    'builds_crosswords_puzzles', 'memorized_pi_30', 'zero_unread_podcasts',
+    'named_on_patent', 'published_peer_reviewed'
+  ]),
+  tactile_analog_ritual: new Set([
+    'drives_manual', 'woodworker_joinery', 'knits_or_crochets', 'sews_own_clothes',
+    'throws_pottery_wheel', 'calligraphy_fountain_pen', 'sharpens_knives_whetstone',
+    'develops_film_darkroom', 'folds_origami_memory', 'grows_bonsai', 'saves_heirloom_seeds',
+    'sourdough_starter_keeper', 'home_fermenter_pickler', 'homebrewer_beer_cider',
+    'roasts_own_coffee', 'collects_vinyl_records', 'paints_miniatures',
+    'restores_vintage_watches', 'fly_ties_own_flies', 'soap_candle_maker',
+    'carries_pocket_notebook', 'weighs_coffee_grams', 'loose_leaf_tea', 'bakes_from_scratch',
+    'makes_fresh_pasta', 'owns_cast_iron_seasoned', 'smokes_bbq_low_slow', 'heats_with_wood',
+    'physical_book_purist', 'still_owns_retro_console', 'draws_sketchbook_weekly',
+    'listens_full_albums', 'writes_fiction_journal', 'collects_postcards_stamps',
+    'collects_physical_maps'
+  ]),
+  gear_optimizer: new Set([
+    'road_cyclist', 'mountain_biker', 'backpacker_multiday', 'wrenches_own_bike',
+    'builds_custom_keyboards', '3d_prints_cad', 'roasts_own_coffee', 'backyard_astronomer',
+    'aquascaper_planted_tank', 'keeps_weather_station', 'homelab_self_hoster',
+    'concert_hifi_earplugs', 'dark_mode_everything', 'backs_up_321', 'weighs_coffee_grams',
+    'uses_kitchen_thermometer', 'home_solar_panels', 'drives_full_ev', 'owns_bidet',
+    'sauna_at_home'
+  ]),
+  thrill_risk: new Set([
+    'ultramarathon_finisher', 'triathlon_finisher', 'scuba_certified', 'freediver',
+    'indoor_boulderer', 'skier_snowboarder', 'backcountry_skier', 'surfer', 'mountain_biker',
+    'skateboarder_kickflip', 'bjj_practitioner', 'private_pilot_license', 'sails_sailboat',
+    'forages_wild_mushrooms', 'cold_showers_daily', 'habanero_reaper_tolerance',
+    'lived_on_boat_van', 'crossed_arctic_circle', 'visited_antarctica', 'hiked_above_14000ft',
+    'Slept_in_desert_stars', 'broken_3_plus_bones', 'bitten_by_venomous_creature',
+    'witnessed_volcano_eruption'
+  ])
+};
+
+const BASE_GATE_SETS = {
+  euro_western_skew: new Set([
+    'blue_eyes', 'green_eyes', 'hazel_amber_eyes', 'natural_red_hair', 'blood_universal_donor',
+    'cilantro_soapy', 'loves_black_licorice', 'celiac_gluten_free', 'peanut_tree_nut_allergy',
+    'pickleball_player', 'disc_golfer', 'skier_snowboarder', 'backcountry_skier',
+    'ice_skater_backwards', 'curling_player', 'road_cyclist', 'mountain_biker', 'sails_sailboat',
+    'backs_up_trailer', 'sourdough_starter_keeper', 'homebrewer_beer_cider',
+    'collects_vinyl_records', 'dungeon_master', 'modern_board_game_shelf', 'geocacher',
+    'keeps_weather_station', 'concert_hifi_earplugs', 'sleeps_with_fan_winter',
+    'avoids_hazy_ipas', 'sets_thermostat_cold', 'drinks_sparkling_water_cases',
+    'smokes_bbq_low_slow', 'owns_golden_retriever', 'owns_sighthound_herder', 'sauna_at_home',
+    'visited_national_parks_10', 'saturday_nyt_crossword', 'logs_films_letterboxd',
+    'trivia_pub_quiz_regular', 'jury_duty_verdict'
+  ]),
+  yard_homeowner_space: new Set([
+    'changes_own_car_oil', 'woodworker_joinery', 'welds_metal', 'backs_up_trailer',
+    'splits_firewood_axe', 'saves_heirloom_seeds', 'homebrewer_beer_cider', 'beekeeper',
+    'backyard_astronomer', 'composts_worms', 'keeps_weather_station', 'homelab_self_hoster',
+    'smokes_bbq_low_slow', 'owns_golden_retriever', 'owns_sighthound_herder',
+    'keeps_backyard_chickens', 'rides_owns_horse', 'home_solar_panels', 'drives_full_ev',
+    'rainwater_harvester', 'heats_with_wood', 'sauna_at_home'
+  ]),
+  connected_urban_affluent: new Set([
+    'marathon_finisher', 'half_marathon_finisher', 'ultramarathon_finisher', 'triathlon_finisher',
+    'scuba_certified', 'freediver', 'indoor_boulderer', 'skier_snowboarder', 'backcountry_skier',
+    'pickleball_player', 'tennis_player', 'road_cyclist', 'mountain_biker', 'rower_crew',
+    'fencer', 'backpacker_multiday', 'writes_software', 'indie_game_dev', 'uses_vim_keybindings',
+    'linux_daily_driver', 'solders_electronics', 'builds_custom_keyboards',
+    'throws_pottery_wheel', 'touch_types_100wpm', 'calligraphy_fountain_pen',
+    'Amateur_ham_radio', 'private_pilot_license', 'sails_sailboat', 'develops_film_darkroom',
+    '3d_prints_cad', 'grows_carnivorous_plants', 'keeps_houseplants', 'grows_bonsai',
+    'sourdough_starter_keeper', 'makes_artisan_hot_sauce', 'homebrewer_beer_cider',
+    'roasts_own_coffee', 'birdwatcher_life_list', 'backyard_astronomer',
+    'collects_vinyl_records', 'paints_miniatures', 'dungeon_master', 'modern_board_game_shelf',
+    'rated_chess_player', 'geocacher', 'aquascaper_planted_tank', 'restores_vintage_watches',
+    'lego_adult_moc', 'keeps_weather_station', 'homelab_self_hoster', 'concert_hifi_earplugs',
+    'inbox_zero', 'podcasts_at_1_5x', 'dark_mode_everything', 'avoids_hazy_ipas',
+    'keeps_spreadsheet_life', 'bookmarks_hundreds_tabs', 'backs_up_321', 'weighs_coffee_grams',
+    'loose_leaf_tea', '90_percent_dark_choc', 'uses_kitchen_thermometer',
+    'makes_homemade_ice_cream', 'drinks_sparkling_water_cases', 'drives_full_ev', 'owns_bidet',
+    'sauna_at_home', 'lived_on_boat_van', 'visited_10_countries', 'visited_30_countries',
+    'visited_50_countries', 'holds_passport', 'crossed_arctic_circle', 'visited_antarctica',
+    'visited_all_6_inhabited_continents', 'solo_international_trip', 'visited_national_parks_10',
+    'visited_unesco_15', 'daily_word_puzzle', 'saturday_nyt_crossword', 'reads_30_books_year',
+    'attended_20_concerts', 'attended_100_concerts', 'logs_films_letterboxd',
+    'completed_soulsborne', '1000_hours_one_game', 'speedrunner_pb', 'still_owns_retro_console',
+    'speaks_constructed_lang', 'plays_geoguessr', 'sudoku_killer_variant',
+    'watches_f1_or_cycling_live', 'attends_live_theater_opera', 'builds_crosswords_puzzles',
+    'zero_unread_podcasts', 'lasik_eye_surgery', 'named_on_patent', 'published_peer_reviewed'
+  ]),
+  adult_15plus: new Set([
+    'drives_manual', 'changes_own_car_oil', 'backs_up_trailer', 'backs_into_parking',
+    'drives_full_ev', 'car_free_adult', 'never_gotten_speeding_ticket', 'private_pilot_license',
+    'welds_metal', 'writes_software', 'indie_game_dev', 'sourdough_starter_keeper',
+    'homebrewer_beer_cider', 'roasts_own_coffee', 'collects_vinyl_records',
+    'drinks_coffee_daily', 'drinks_black_coffee', 'weighs_coffee_grams', 'avoids_hazy_ipas',
+    'lives_alone', 'home_solar_panels', 'donated_blood_5plus', 'bone_marrow_kidney_donor',
+    'jury_duty_verdict', 'changed_career_3_times', 'named_on_patent', 'published_peer_reviewed',
+    'kept_same_best_friend_20yrs', 'owns_garment_15_years', 'remembers_childhood_landline',
+    'lasik_eye_surgery', 'keeps_weather_station', 'homelab_self_hoster'
+  ])
+};
+
+for (const t of CORE_TRAITS) {
+  const slug = t.canonicalSlug;
+  for (const [psyTag, slugSet] of Object.entries(PSYCHO_BRIDGE_MAP)) {
+    if (slugSet.has(slug) && !t.clusterTags.includes(psyTag) && t.clusterTags.length < 4) {
+      t.clusterTags.push(psyTag);
+    }
+  }
+  const gates = [];
+  for (const [gateId, slugSet] of Object.entries(BASE_GATE_SETS)) {
+    if (slugSet.has(slug)) gates.push(gateId);
+  }
+  t.baseGates = gates;
+}
+
+const WESTERN_COUNTRY_CODES = new Set([
+  'us', 'ca', 'gb', 'ie', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'be', 'lu',
+  'ch', 'at', 'se', 'no', 'dk', 'fi', 'is', 'pl', 'cz', 'sk', 'hu', 'si',
+  'hr', 'ee', 'lv', 'lt', 'gr', 'au', 'nz'
+]);
+
+for (const gen of PARAMETRIC_GENERATORS) {
+  if (gen.id === 'home_country') {
+    for (const opt of gen.options) {
+      opt.baseGates = WESTERN_COUNTRY_CODES.has(opt.key) ? ['euro_western_skew'] : [];
+    }
+  } else if (gen.id === 'blood_type') {
+    for (const opt of gen.options) {
+      opt.baseGates = opt.canonicalSlug.endsWith('_neg') ? ['euro_western_skew'] : [];
+    }
+  } else if (gen.id === 'height_bracket') {
+    gen.baseGates = ['adult_15plus'];
+  } else if (gen.id === 'birth_decade') {
+    for (const opt of gen.options) {
+      opt.baseGates = opt.key !== '2010s' && opt.key !== '2020s' ? ['adult_15plus'] : [];
+    }
+  } else if (gen.id === 'plays_instrument') {
+    for (const opt of gen.options) {
+      if (['modular_synth', 'theremin', 'pedal_steel'].includes(opt.key)) {
+        opt.clusterTags = ['musical', 'gear_optimizer'];
+        opt.baseGates = ['connected_urban_affluent'];
+      } else if (['pipe_organ', 'classical_harp', 'french_horn', 'oboe', 'bassoon', 'cello', 'viola'].includes(opt.key)) {
+        opt.baseGates = ['connected_urban_affluent'];
+      } else if (['bagpipes', 'banjo'].includes(opt.key)) {
+        opt.baseGates = ['euro_western_skew'];
+      } else {
+        opt.baseGates = [];
+      }
+    }
+  } else {
+    gen.baseGates = [];
+  }
+}
+
+// ============================================================================
 // VALIDATE ALL CURATED & PARAMETRIC ITEMS STRICTLY AGAINST CLOSED TAXONOMY
 // ============================================================================
 const validCategories = new Set(Taxonomy.CATEGORIES.map((c) => c.id));
@@ -1062,12 +1225,17 @@ for (const t of CORE_TRAITS) {
   if (!validCategories.has(t.category)) {
     throw new Error('Invalid category on ' + t.canonicalSlug + ': ' + t.category);
   }
-  if (!Array.isArray(t.clusterTags) || t.clusterTags.length < 1 || t.clusterTags.length > 3) {
-    throw new Error('clusterTags must have 1..3 tags on ' + t.canonicalSlug);
+  if (!Array.isArray(t.clusterTags) || t.clusterTags.length < 1 || t.clusterTags.length > 4) {
+    throw new Error('clusterTags must have 1..4 tags on ' + t.canonicalSlug);
   }
   for (const tag of t.clusterTags) {
     if (!Taxonomy.isValidClusterTag(tag)) {
       throw new Error('Invalid clusterTag "' + tag + '" on ' + t.canonicalSlug);
+    }
+  }
+  for (const g of t.baseGates || []) {
+    if (!Taxonomy.isValidBaseGate(g)) {
+      throw new Error('Invalid baseGate "' + g + '" on ' + t.canonicalSlug);
     }
   }
   if (!(t.prevalence > 0 && t.prevalence < 1)) {

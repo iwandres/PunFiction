@@ -264,7 +264,37 @@ body {
 .hud-pill-delta {
   border-color: var(--accent-coral);
   color: var(--accent-coral);
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 24px rgba(20, 25, 33, 0.12);
+}
+
+.hud-pill-delta.has-snark {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  border-radius: 14px;
+  padding: 8px 12px;
+  max-width: min(390px, calc(100% - 140px));
+}
+
+.hover-delta-snark {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 720px) {
+  .canvas-hud-top {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .hud-pill-delta.has-snark {
+    max-width: 100%;
+  }
 }
 
 .canvas-hud-bottom {

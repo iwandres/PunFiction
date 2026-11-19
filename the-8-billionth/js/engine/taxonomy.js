@@ -14,7 +14,7 @@
   const WORLD_POPULATION = 8300000000;
   const MAX_UNIQUENESS_BITS = Math.log2(WORLD_POPULATION); // ~32.95017
 
-  // Closed 36-tag clusterTags enum (shared identically with Gemini structured output schema)
+  // Closed 40-tag clusterTags enum: 36 topical domains + 4 latent psychographic bridges
   const CLUSTER_TAGS = Object.freeze([
     // Movement & Outdoors (8)
     'athletic',
@@ -56,10 +56,52 @@
     'high_altitude',
     'world_traveler',
     'home_energy_diy',
-    'family_structure'
+    'family_structure',
+    // Latent Psychographic Cross-Topic Bridges (4)
+    'quant_systemizer',
+    'tactile_analog_ritual',
+    'gear_optimizer',
+    'thrill_risk'
   ]);
 
   const CLUSTER_TAG_SET = new Set(CLUSTER_TAGS);
+
+  // Closed 4-gate macro-denominators ("Pay-the-Gate-Once")
+  const BASE_GATES = Object.freeze([
+    'adult_15plus',
+    'connected_urban_affluent',
+    'yard_homeowner_space',
+    'euro_western_skew'
+  ]);
+
+  const BASE_GATE_SET = new Set(BASE_GATES);
+
+  const BASE_GATE_META = Object.freeze({
+    adult_15plus: {
+      id: 'adult_15plus',
+      p: 0.74,
+      bits: -Math.log2(0.74), // ~0.4344 bits
+      label: 'Adult 15+ Population'
+    },
+    connected_urban_affluent: {
+      id: 'connected_urban_affluent',
+      p: 0.22,
+      bits: -Math.log2(0.22), // ~2.1844 bits
+      label: 'Discretionary Time & Broadband'
+    },
+    yard_homeowner_space: {
+      id: 'yard_homeowner_space',
+      p: 0.14,
+      bits: -Math.log2(0.14), // ~2.8365 bits
+      label: 'Yard / Garage / Home Space'
+    },
+    euro_western_skew: {
+      id: 'euro_western_skew',
+      p: 0.16,
+      bits: -Math.log2(0.16), // ~2.6439 bits
+      label: 'Western Regional Skew'
+    }
+  });
 
   const CLUSTER_TAG_LABELS = Object.freeze({
     athletic: 'Active & Athletic',
@@ -97,7 +139,11 @@
     high_altitude: 'Thin Air',
     world_traveler: 'Passport Stamps',
     home_energy_diy: 'Homestead Systems',
-    family_structure: 'Family Tree'
+    family_structure: 'Family Tree',
+    quant_systemizer: 'Quant & Systemizer',
+    tactile_analog_ritual: 'Tactile Analog Ritual',
+    gear_optimizer: 'Gear Optimizer',
+    thrill_risk: 'Thrill & Adrenaline'
   });
 
   const CATEGORIES = Object.freeze([
@@ -157,7 +203,11 @@
     high_altitude: 'Alpine',
     world_traveler: 'Jet-Lagged',
     home_energy_diy: 'Solar-Powered',
-    family_structure: 'Big-Table'
+    family_structure: 'Big-Table',
+    quant_systemizer: 'Systematic',
+    tactile_analog_ritual: 'Small-Batch',
+    gear_optimizer: 'Precision-Spec',
+    thrill_risk: 'Adrenaline-Wired'
   });
 
   const TAG_NOUNS = Object.freeze({
@@ -196,7 +246,11 @@
     high_altitude: 'Ridge-Dweller',
     world_traveler: 'Nomad',
     home_energy_diy: 'Homesteader',
-    family_structure: 'Patriarch'
+    family_structure: 'Patriarch',
+    quant_systemizer: 'Systemizer',
+    tactile_analog_ritual: 'Analogist',
+    gear_optimizer: 'Optimizer',
+    thrill_risk: 'Daredevil'
   });
 
   const CATEGORY_FALLBACK_NOUNS = Object.freeze({
@@ -225,7 +279,25 @@
       if (CLUSTER_TAG_SET.has(t) && !seen.has(t)) {
         seen.add(t);
         out.push(t);
-        if (out.length === 3) break;
+        if (out.length === 4) break;
+      }
+    }
+    return out;
+  }
+
+  function isValidBaseGate(gate) {
+    return BASE_GATE_SET.has(gate);
+  }
+
+  function sanitizeBaseGates(gates) {
+    if (!Array.isArray(gates)) return [];
+    const seen = new Set();
+    const out = [];
+    for (let i = 0; i < gates.length; i++) {
+      const g = String(gates[i] || '').trim();
+      if (BASE_GATE_SET.has(g) && !seen.has(g)) {
+        seen.add(g);
+        out.push(g);
       }
     }
     return out;
@@ -334,9 +406,12 @@
       });
     }
 
-    // Orthogonal Mind: 4+ active traits with zero cluster overlap dampening
+    // Orthogonal Mind: 4+ active traits with zero cluster or base-gate overlap dampening
     const zeroOverlap =
-      count >= 4 && activeItems.every((it) => (it.overlapCount || 0) === 0);
+      count >= 4 &&
+      activeItems.every(
+        (it) => (it.overlapCount || 0) === 0 && (!it.repeatGates || it.repeatGates.length === 0)
+      );
     if (zeroOverlap) {
       badges.push({
         id: 'orthogonal_stack',
@@ -372,10 +447,15 @@
     CLUSTER_TAGS,
     CLUSTER_TAG_SET,
     CLUSTER_TAG_LABELS,
+    BASE_GATES,
+    BASE_GATE_SET,
+    BASE_GATE_META,
     CATEGORIES,
     CATEGORY_MAP,
     isValidClusterTag,
     sanitizeClusterTags,
+    isValidBaseGate,
+    sanitizeBaseGates,
     generateArchetype,
     evaluateSoloBadges
   };

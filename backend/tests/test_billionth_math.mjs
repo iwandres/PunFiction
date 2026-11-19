@@ -23,8 +23,9 @@ function findTrait(slug) {
   return t;
 }
 
-// 1. Closed 36-tag enum check
-assert.equal(Taxonomy.CLUSTER_TAGS.length, 36, 'Must have exactly 36 closed clusterTags');
+// 1. Closed 40-tag & 4-baseGate enum check
+assert.equal(Taxonomy.CLUSTER_TAGS.length, 40, 'Must have 40 closed clusterTags (36 topical + 4 psychographic bridges)');
+assert.equal(Taxonomy.BASE_GATES.length, 4, 'Must have 4 closed Pay-the-Gate-Once baseGates');
 assert.equal(Taxonomy.CATEGORIES.length, 10, 'Must have 10 balanced domains');
 
 // 2. Acceptance Criterion 1: Volleyball baseline (8.3B -> 996,000,000, +3.06 bits)
@@ -172,4 +173,39 @@ const spinStack = Probability.evaluateStack([exercisesWeekly, customSpinInstruct
 assert.equal(spinStack.items[0].superseded, true, 'Custom AI subsumes[] must supersede broader parent');
 assert.equal(spinStack.activeCount, 1);
 
-console.log('[Math Test Suite] All 10 test groups (including Bayes Geo/Language & AI Subsumption) passed cleanly!');
+// 11. Pay-the-Gate-Once + Psychographic Bridge De-Correlation & Visible UI Snark
+const sourdough = findTrait('sourdough_starter_keeper');
+const vinyl = findTrait('collects_vinyl_records');
+const chess = findTrait('rated_chess_player');
+const weather = findTrait('keeps_weather_station');
+const blueEyes = findTrait('blue_eyes');
+
+const hipsterStack = Probability.evaluateStack([sourdough, vinyl, chess, weather, blueEyes]);
+assert.equal(
+  hipsterStack.isOneOfOne,
+  false,
+  'Stacking 5 correlated Western/hipster traits must NOT falsely declare 1-of-1!'
+);
+assert.ok(
+  hipsterStack.displayPopulation > 500,
+  `Expected >500 remaining lookalikes after correlated hipster stack, got ${hipsterStack.displayPopulation}`
+);
+
+// Verify Vinyl after Sourdough hits BOTH tactile_analog_ritual AND repeat baseGates, with Venn-circle snark
+const vinylItem = hipsterStack.items[1];
+assert.equal(vinylItem.wasDampened, true);
+assert.equal(vinylItem.dampenMode, 'cluster_and_gate');
+assert.ok(vinylItem.repeatGates.length >= 2, 'Vinyl should detect already-paid demographic gates from Sourdough');
+assert.ok(
+  vinylItem.overlapSnark && vinylItem.overlapSnark.includes('Venn circle'),
+  `Expected Venn circle snark on Sourdough+Vinyl, got: ${vinylItem.overlapSnark}`
+);
+
+// Verify Blue Eyes after Western traits deducts euro_western_skew gate even with 0 clusterTag overlap
+const blueItem = hipsterStack.items[4];
+assert.equal(blueItem.overlapCount, 0);
+assert.equal(blueItem.wasDampened, true);
+assert.equal(blueItem.dampenMode, 'base_gate');
+assert.ok(blueItem.pEff > blueItem.pBase * 2.0, 'Blue eyes prevalence should roughly double inside Western gate');
+
+console.log('[Math Test Suite] All 11 test groups (Bayes Geo, Psychographic Tags, BaseGates & Venn Snark) passed cleanly!');

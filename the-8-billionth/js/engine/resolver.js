@@ -69,6 +69,7 @@
             category: gen.category,
             prevalence: opt.prevalence,
             clusterTags: opt.clusterTags || gen.clusterTags || ['indoor_hobby'],
+            baseGates: opt.baseGates || gen.baseGates || [],
             snarkNote: opt.snarkNote || '',
             subsumes: opt.subsumes || [],
             cond: opt.cond || null,
@@ -186,19 +187,19 @@
     }
 
     /**
-     * Layer 3: Calls the PunFiction Render Gemini Estimator (passing activeTraits for custom subsumption).
+     * Layer 3: Calls the stateless PunFiction Render Gemini Estimator.
+     * Note: activeSlugs/activeTraits are NOT sent into the LLM prompt (keeping global cache 100% pure);
+     * activeTraits is used solely for post-cache deterministic parent-slug subsumption.
      */
     async estimateCustomFact(rawInput, activeSlugs = [], activeTraits = []) {
       const cleanText = String(rawInput || '').trim();
-      const cacheKey =
-        normalizeSearch(cleanText) + '::' + (activeSlugs || []).slice().sort().join(',');
+      const cacheKey = normalizeSearch(cleanText);
       if (cacheKey && this.customSessionCache.has(cacheKey)) {
         return this.customSessionCache.get(cacheKey);
       }
 
       const payloadStr = JSON.stringify({
         rawInput: cleanText,
-        activeSlugs,
         activeTraits
       });
 
