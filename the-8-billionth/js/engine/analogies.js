@@ -15,7 +15,7 @@
   const SCALE_RUNGS = Object.freeze([
     {
       min: 8000000000,
-      headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you unique?',
+      headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you truly unique?',
       sub: ''
     },
     {

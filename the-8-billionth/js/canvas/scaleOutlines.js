@@ -233,7 +233,7 @@
         {
           id: 'earth_globe',
           label: 'Whole Earth Globe',
-          headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you unique?',
+          headline: 'There are over 8,300,000,000 humans on the planet (and a few in space). What makes you truly unique?',
           sub: '',
           draw(g) {
             g.wash(() => g.circle(0, 0, 0.96));
