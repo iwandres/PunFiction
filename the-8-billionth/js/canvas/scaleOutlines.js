@@ -1,7 +1,7 @@
 /**
  * The 8.3 Billionth — Multi-Scale Architectural & Cartographic Perspective Outlines
  *
- * Provides 82 minimalist blueprint outlines across 27 logarithmic population bands
+ * Provides 81 minimalist blueprint outlines across 27 logarithmic population bands
  * (8.3B down to 1 across all 5 Tiers). Each outline carries its own 1-to-1 matched
  * headline & subline so the words in the console ALWAYS match the graphic on the canvas.
  */
@@ -221,7 +221,7 @@
   }
 
   // =========================================================================
-  // 82 MATCHED GRAPHIC + COPY PERSPECTIVE OUTLINES ACROSS 27 SIZE BANDS
+  // 81 MATCHED GRAPHIC + COPY PERSPECTIVE OUTLINES ACROSS 27 SIZE BANDS
   // Every item pairs its blueprint silhouette 1-to-1 with its exact headline & subline.
   // =========================================================================
   const BANDS = [
@@ -251,24 +251,6 @@
               g.arc(0, 0, 1.03, -0.82, -0.24);
               g.circle(Math.cos(-0.53) * 1.03, Math.sin(-0.53) * 1.03, 0.018);
             });
-          }
-        },
-        {
-          id: 'twin_hemispheres',
-          label: 'Twin World Hemispheres',
-          headline: 'There are over 8,300,000,000 humans across Earth’s two hemispheres. What makes you unique?',
-          sub: '',
-          draw(g) {
-            g.wash(() => {
-              g.circle(-0.46, 0, 0.52);
-              g.circle(0.46, 0, 0.52);
-            });
-            g.inner(() => {
-              g.line(-0.98, 0, 0.98, 0);
-              g.ellipse(-0.46, 0, 0.27, 0.52);
-              g.ellipse(0.46, 0, 0.27, 0.52);
-              g.ellipse(0, 0, 0.96, 0.86);
-            }, true);
           }
         }
       ]
@@ -1978,6 +1960,7 @@
     for (let i = 0; i < band.items.length; i++) {
       const item = band.items[i];
       item.bandIndex = bIdx;
+      item.bandSize = band.items.length;
       item.minPop = band.min;
       item.tier = band.tier;
       ALL_OUTLINES.push(item);

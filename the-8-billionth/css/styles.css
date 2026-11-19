@@ -328,6 +328,23 @@ body {
   color: var(--accent-teal);
 }
 
+.outline-pill.is-single {
+  cursor: default;
+}
+
+.outline-pill.is-single:hover {
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.outline-pill.is-single:active {
+  transform: none;
+}
+
+.outline-pill.is-single .outline-cycle-hint {
+  display: none;
+}
+
 .scale-pill.pulse-zoom {
   transform: scale(1.07);
   border-color: var(--accent-gold);

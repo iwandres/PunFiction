@@ -309,6 +309,14 @@
       dom.outlineLabel.textContent = outline.label;
     }
 
+    if (dom.outlinePill) {
+      const canCycle = Boolean(outline && (outline.bandSize || 0) > 1);
+      dom.outlinePill.classList.toggle('is-single', !canCycle);
+      dom.outlinePill.title = canCycle
+        ? 'Scale outline — click to view another perspective at this crowd size'
+        : 'Scale outline';
+    }
+
     if (outline && ScaleOutlines && typeof ScaleOutlines.getCopyForOutline === 'function') {
       const copy = ScaleOutlines.getCopyForOutline(outline, pop);
       dom.analogyHeadline.textContent = copy.headline;
@@ -723,7 +731,9 @@
 
     if (dom.outlinePill) {
       dom.outlinePill.addEventListener('click', () => {
-        if (renderer) renderer.cycleOutline();
+        if (renderer && !dom.outlinePill.classList.contains('is-single')) {
+          renderer.cycleOutline();
+        }
       });
     }
 
