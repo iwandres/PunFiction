@@ -405,17 +405,44 @@ def _call_gemini_structured(raw_input, active_slugs=None, active_traits=None):
     """
     100% stateless Gemini Fermi estimation: activeSlugs/activeTraits are intentionally
     excluded from the LLM prompt so global `traits_cache` entries are never biased
-    by a previous caller's stack.
+    by a previous caller's stack. Uses `google.genai.Client` (matching unified_server
+    and travelreviews_agent), with an `x-goog-api-key` header REST fallback if the SDK
+    is unavailable in a minimal environment.
     """
     api_key = re.sub(r"\s+", "", str(os.environ.get("GEMINI_API_KEY") or "")).strip('"').strip("'")
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY environment variable is not configured on the server.")
 
     model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip() or "gemini-2.5-flash"
-    endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-
     user_prompt = f'Evaluate this user statement unconditionally out of all 8,300,000,000 living humans: "{raw_input.strip()}"'
 
+    try:
+        from google import genai
+        from google.genai import types
+        has_genai_sdk = True
+    except ImportError:
+        has_genai_sdk = False
+
+    if has_genai_sdk:
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model=model,
+            contents=user_prompt,
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT,
+                temperature=0.1,
+                response_mime_type="application/json",
+                response_schema=RESPONSE_SCHEMA,
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
+                http_options=types.HttpOptions(timeout=10_000)
+            )
+        )
+        raw_text = getattr(response, "text", None)
+        if not raw_text:
+            raise RuntimeError("Gemini candidate contained no JSON text.")
+        return json.loads(raw_text)
+
+    endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     body = {
         "systemInstruction": {
             "parts": [{"text": SYSTEM_PROMPT}]

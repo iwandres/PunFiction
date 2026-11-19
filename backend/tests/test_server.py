@@ -367,7 +367,9 @@ class TestServerHandler(unittest.TestCase):
         self.assertTrue(bool(result[0].get("location")))
 
     def test_all_daily_games_and_landmarks_have_valid_coordinates(self):
-        from backend.unified_server import DAILY_GAMES_FILE, LANDMARKS_FILE, load_json
+        from backend.unified_server import DAILY_GAMES_FILE, LANDMARKS_FILE, CARTOONS_DIR, PROJECT_ROOT, load_json
+        self.assertTrue(os.path.abspath(DAILY_GAMES_FILE).startswith(os.path.abspath(PROJECT_ROOT)))
+        self.assertTrue(os.path.abspath(CARTOONS_DIR).startswith(os.path.abspath(PROJECT_ROOT)))
         daily_games = load_json(DAILY_GAMES_FILE, [])
         landmarks = load_json(LANDMARKS_FILE, [])
         self.assertGreater(len(daily_games), 100)

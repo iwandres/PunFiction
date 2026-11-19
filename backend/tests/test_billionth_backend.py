@@ -285,4 +285,5 @@ if __name__ == "__main__":
     import inspect
     fn_src = inspect.getsource(est._call_gemini_structured)
     assert "context_note" not in fn_src, "LLM prompt must stay 100% stateless!"
+    assert "?key=" not in fn_src, "Gemini API key must never be passed in URL query string!"
     print("[Backend Test Suite] All Python syntax, stateless cache, baseGates, promotion & clamping tests passed!")

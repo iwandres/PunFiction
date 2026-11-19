@@ -43,56 +43,18 @@ except Exception as e:
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DIR_PATH)
-PARENT_DIR = os.path.dirname(PROJECT_ROOT)
 
-
-def resolve_portal_root(project_root, parent_dir):
-    """Locate the PunFiction portal repository root dynamically."""
-    env_root = os.environ.get("PUNFICTION_PORTAL_ROOT")
-    if env_root and os.path.exists(env_root):
-        return os.path.abspath(env_root)
-    direct = os.path.abspath(os.path.join(parent_dir, "PunFiction"))
-    if os.path.exists(direct):
-        return direct
-    try:
-        for entry in sorted(os.listdir(parent_dir)):
-            cand = os.path.join(parent_dir, entry)
-            cname_file = os.path.join(cand, "CNAME")
-            if os.path.isdir(cand) and os.path.isfile(cname_file):
-                with open(cname_file, "r", encoding="utf-8", errors="ignore") as cf:
-                    if "punfiction.io" in cf.read().lower():
-                        return os.path.abspath(cand)
-    except Exception:
-        pass
-    return project_root
-
-
-# Determine paths for PunFiction portal repository (dynamic resolution)
-portal_root = resolve_portal_root(PROJECT_ROOT, PARENT_DIR)
-portal_backend = os.path.join(portal_root, 'backend')
-if not os.path.exists(portal_backend):
-    portal_backend = DIR_PATH
-
-# Determine paths for Travel Reviews repository (dynamic resolution)
-travelreviews_root = os.path.abspath(os.path.join(PARENT_DIR, 'PunFiction-TravelReviews'))
-if not os.path.exists(travelreviews_root):
-    travelreviews_root = PROJECT_ROOT
-
-travelreviews_backend = os.path.join(travelreviews_root, 'backend')
-if not os.path.exists(travelreviews_backend):
-    travelreviews_backend = DIR_PATH
-
-# Add both backend directories to sys.path to ensure imports work regardless of CWD
-if travelreviews_backend not in sys.path:
-    sys.path.insert(0, travelreviews_backend)
-if portal_backend not in sys.path:
-    sys.path.insert(0, portal_backend)
+# Single source of truth: resolve all portal and Travel Reviews paths inside this repository
+portal_root = PROJECT_ROOT
+portal_backend = DIR_PATH
+travelreviews_root = PROJECT_ROOT
+travelreviews_backend = DIR_PATH
 
 # File paths - 1-Star Travel Reviews
-CLUES_FILE = os.path.join(travelreviews_backend, 'travelreviews_clues.json')
-POSTCARDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_postcards.json')
-DAILY_GAMES_FILE = os.path.join(travelreviews_backend, 'travelreviews_daily_games.json')
-LANDMARKS_FILE = os.path.join(travelreviews_backend, 'travelreviews_landmarks.json')
+CLUES_FILE = os.path.join(DIR_PATH, 'travelreviews_clues.json')
+POSTCARDS_FILE = os.path.join(DIR_PATH, 'travelreviews_postcards.json')
+DAILY_GAMES_FILE = os.path.join(DIR_PATH, 'travelreviews_daily_games.json')
+LANDMARKS_FILE = os.path.join(DIR_PATH, 'travelreviews_landmarks.json')
 
 LANDMARK_THEME_MAPPING = {
     # Ancient Ruins & Archaeological Sites
@@ -157,13 +119,9 @@ def get_theme_for_landmark(landmark_name):
         return "historic_monuments"
     name = landmark_name.strip()
     return LANDMARK_THEME_MAPPING.get(name, "historic_monuments")
-PUNS_FILE = os.path.join(travelreviews_backend, 'travelreviews_puns.json')
-TRAVELREVIEWS_RECORDS_FILE = os.path.join(travelreviews_backend, 'travelreviews_records.json')
-
-if os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
-    CARTOONS_DIR = os.path.join(travelreviews_root, 'travelreviews', 'assets', 'cartoons')
-else:
-    CARTOONS_DIR = os.path.join(travelreviews_root, 'assets', 'cartoons')
+PUNS_FILE = os.path.join(DIR_PATH, 'travelreviews_puns.json')
+TRAVELREVIEWS_RECORDS_FILE = os.path.join(DIR_PATH, 'travelreviews_records.json')
+CARTOONS_DIR = os.path.join(PROJECT_ROOT, 'travelreviews', 'assets', 'cartoons')
 os.makedirs(CARTOONS_DIR, exist_ok=True)
 UNIFIED_HTML_FILE = os.path.join(DIR_PATH, 'unified_admin.html')
 
@@ -268,34 +226,8 @@ def sanitize_travelreviews_puzzles(puzzles):
 
 def save_json(filepath, data):
     try:
-        # Write to the primary file path first
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
-        
-        # Mirror to the other repository's backend directory if applicable
-        filename = os.path.basename(filepath)
-        primary_dir = os.path.abspath(os.path.dirname(filepath))
-        
-        # If we are saving in travelreviews_backend, mirror to portal_backend
-        if primary_dir == os.path.abspath(travelreviews_backend) and portal_backend != travelreviews_backend:
-            mirror_path = os.path.join(portal_backend, filename)
-            try:
-                with open(mirror_path, 'w', encoding='utf-8') as f:
-                    json.dump(data, f, indent=2)
-                print(f"Mirrored save of {filename} to PunFiction portal backend.")
-            except Exception as e:
-                print(f"Failed to mirror {filename} to PunFiction portal: {e}")
-                
-        # If we are saving in portal_backend, mirror to travelreviews_backend
-        elif primary_dir == os.path.abspath(portal_backend) and portal_backend != travelreviews_backend:
-            mirror_path = os.path.join(travelreviews_backend, filename)
-            try:
-                with open(mirror_path, 'w', encoding='utf-8') as f:
-                    json.dump(data, f, indent=2)
-                print(f"Mirrored save of {filename} to Travel Reviews repository backend.")
-            except Exception as e:
-                print(f"Failed to mirror {filename} to Travel Reviews: {e}")
-                
         return True
     except Exception as e:
         print(f"Error saving {filepath}: {e}")
@@ -547,31 +479,19 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
         elif req_path.startswith('/travelreviews/') or req_path.startswith('/assets/'):
             clean_path = urllib.parse.unquote(req_path.strip('/'))
             
-            # Smart asset directory check
+            # Smart asset directory check inside PROJECT_ROOT
             if req_path.startswith('/assets/'):
-                # Try 1-Star Travel Reviews folder first
-                file_path_tt = os.path.join(travelreviews_root, 'travelreviews', *clean_path.split('/'))
-                file_path_root = os.path.join(travelreviews_root, *clean_path.split('/'))
+                file_path_tt = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
+                file_path_root = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
+                file_path_backend = os.path.join(DIR_PATH, *clean_path.split('/'))
                 if os.path.exists(file_path_tt) and not os.path.isdir(file_path_tt):
                     file_path = file_path_tt
                 elif os.path.exists(file_path_root) and not os.path.isdir(file_path_root):
                     file_path = file_path_root
                 else:
-                    # Fallback to PunFiction portal assets folder
-                    file_path_portal_assets = os.path.join(portal_root, *clean_path.split('/'))
-                    file_path_portal_backend = os.path.join(portal_backend, *clean_path.split('/'))
-                    if os.path.exists(file_path_portal_assets) and not os.path.isdir(file_path_portal_assets):
-                        file_path = file_path_portal_assets
-                    elif os.path.exists(file_path_portal_backend) and not os.path.isdir(file_path_portal_backend):
-                        file_path = file_path_portal_backend
-                    else:
-                        file_path = os.path.join(DIR_PATH, *clean_path.split('/'))
+                    file_path = file_path_backend
             else:
-                # Regular travelreviews files
-                parts = clean_path.split('/')
-                if parts and parts[0] == 'travelreviews' and not os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
-                    parts = parts[1:]
-                file_path = os.path.join(travelreviews_root, *parts)
+                file_path = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
                 
             if os.path.exists(file_path) and not os.path.isdir(file_path):
                 self.send_response(200)
@@ -830,29 +750,15 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                             img_path = item.get('image_path')
                             if img_path and img_path.startswith('/assets/'):
                                 clean_path = urllib.parse.unquote(img_path.strip('/'))
-                                if os.path.exists(os.path.join(travelreviews_root, 'travelreviews')):
-                                    file_to_delete = os.path.join(travelreviews_root, 'travelreviews', *clean_path.split('/'))
-                                else:
-                                    file_to_delete = os.path.join(travelreviews_root, *clean_path.split('/'))
+                                file_to_delete = os.path.join(PROJECT_ROOT, 'travelreviews', *clean_path.split('/'))
+                                if not os.path.exists(file_to_delete):
+                                    file_to_delete = os.path.join(PROJECT_ROOT, *clean_path.split('/'))
                                 if os.path.exists(file_to_delete):
                                     try:
                                         os.remove(file_to_delete)
                                         print(f"Deleted 1-Star Travel Reviews rejected/removed image: {file_to_delete}")
                                     except Exception as delete_e:
                                         print(f"Failed to delete {file_to_delete}: {delete_e}")
-                                        
-                                # Also delete copy from PunFiction portal repository if different
-                                if portal_root != travelreviews_root:
-                                    if os.path.exists(os.path.join(portal_root, 'travelreviews')):
-                                        portal_file_to_delete = os.path.join(portal_root, 'travelreviews', *clean_path.split('/'))
-                                    else:
-                                        portal_file_to_delete = os.path.join(portal_root, *clean_path.split('/'))
-                                    if os.path.exists(portal_file_to_delete):
-                                        try:
-                                            os.remove(portal_file_to_delete)
-                                            print(f"Deleted 1-Star Travel Reviews rejected/removed image copy from portal: {portal_file_to_delete}")
-                                        except Exception as portal_delete_e:
-                                            print(f"Failed to delete portal copy {portal_file_to_delete}: {portal_delete_e}")
                 save_json(POSTCARDS_FILE, data)
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
