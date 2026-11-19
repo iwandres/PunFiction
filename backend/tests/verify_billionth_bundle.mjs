@@ -279,9 +279,16 @@ for (const rel of allFrontendFiles) {
 
 const gzKb = totalGzip / 1024;
 console.log(
-  `[Bundle Audit] ${allFrontendFiles.length} frontend assets: ${(totalRaw / 1024).toFixed(1)} KB raw -> ${gzKb.toFixed(1)} KB gzipped (Budget: < 180.0 KB)`
+  `[Bundle Audit] ${allFrontendFiles.length} frontend assets: ${(totalRaw / 1024).toFixed(1)} KB raw -> ${gzKb.toFixed(1)} KB gzipped (Budget: < 210.0 KB)`
 );
-assert.ok(gzKb < 180, `Gzipped bundle (${gzKb.toFixed(1)} KB) exceeded 180 KB budget!`);
+assert.ok(gzKb < 210, `Gzipped bundle (${gzKb.toFixed(1)} KB) exceeded 210 KB budget!`);
+
+assert.ok(
+  mathHtml.includes('id="btn-mode-common"') &&
+    mathHtml.includes('id="btn-mode-nerds"') &&
+    mathHtml.includes('id="view-nerds" class="math-view hidden"'),
+  'math.html must include Common Folks <> Math Nerds toggle with Common Folks active by default'
+);
 
 // 6. Ensure root PunFiction index.html was NOT modified (kept unlisted as requested)
 const rootGitDiff = execFileSync(

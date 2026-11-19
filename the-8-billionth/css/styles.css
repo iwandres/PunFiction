@@ -1871,10 +1871,121 @@ body {
 .math-article-wrap {
   max-width: 820px;
   margin: 0 auto;
-  padding: 32px 22px 72px;
+  padding: 26px 22px 72px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
+}
+
+.math-mode-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.math-mode-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.math-mode-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  color: var(--accent-teal);
+}
+
+.math-mode-sub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.math-mode-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--bg-base);
+  border: 1px solid var(--border-strong);
+  gap: 4px;
+}
+
+.math-mode-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.16s, color 0.16s, box-shadow 0.16s;
+}
+
+.math-mode-btn:hover {
+  color: var(--text-primary);
+}
+
+.math-mode-btn.is-active {
+  background: var(--accent-teal);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(15, 118, 110, 0.25);
+}
+
+.math-view {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.math-view.hidden {
+  display: none;
+}
+
+.math-swap-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 15px 18px;
+  border-radius: 15px;
+  background: var(--bg-elevated);
+  border: 1px dashed var(--border-strong);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.math-swap-btn {
+  appearance: none;
+  border: 1.5px solid var(--accent-teal);
+  background: var(--accent-teal-dim);
+  color: var(--accent-teal);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.math-swap-btn:hover {
+  background: var(--accent-teal);
+  color: #ffffff;
 }
 
 .math-tldr-card {
@@ -2246,7 +2357,25 @@ body {
 
 @media (max-width: 720px) {
   .math-article-wrap {
-    padding: 20px 14px 56px;
+    padding: 18px 14px 56px;
+  }
+
+  .math-mode-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 13px 14px;
+    gap: 10px;
+  }
+
+  .math-mode-switch {
+    width: 100%;
+  }
+
+  .math-mode-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 0.8rem;
   }
 
   .math-tldr-card,
