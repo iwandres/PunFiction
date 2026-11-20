@@ -15,6 +15,8 @@
   --text-muted: #6f7c8f;
   --accent-teal: #0f766e;
   --accent-teal-dim: rgba(15, 118, 110, 0.11);
+  --accent-indigo: #4338ca;
+  --accent-indigo-dim: rgba(67, 56, 202, 0.12);
   --accent-gold: #c27803;
   --accent-gold-dim: rgba(194, 120, 3, 0.12);
   --accent-coral: #e11d48;
@@ -335,7 +337,7 @@ body {
 }
 
 .outline-pill:hover {
-  border-color: var(--accent-teal);
+  border-color: var(--accent-indigo);
   color: var(--text-primary);
 }
 
@@ -344,7 +346,7 @@ body {
 }
 
 .outline-icon {
-  color: var(--accent-gold);
+  color: var(--accent-indigo);
   font-weight: 800;
 }
 
@@ -355,7 +357,7 @@ body {
 
 .outline-pill:hover .outline-cycle-hint {
   opacity: 1;
-  color: var(--accent-teal);
+  color: var(--accent-indigo);
 }
 
 .outline-pill.is-single {

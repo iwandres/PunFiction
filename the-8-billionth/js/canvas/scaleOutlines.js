@@ -339,14 +339,14 @@
         fn();
         ctx.fillStyle = warmGold
           ? `rgba(194, 120, 3, ${(0.062 * a).toFixed(4)})`
-          : `rgba(15, 118, 110, ${(0.048 * a).toFixed(4)})`;
+          : `rgba(79, 70, 229, ${(0.088 * a).toFixed(4)})`;
         ctx.fill();
-        ctx.lineWidth = 1.75;
+        ctx.lineWidth = 1.9;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = warmGold
-          ? `rgba(176, 110, 6, ${(0.42 * a).toFixed(4)})`
-          : `rgba(13, 58, 62, ${(0.36 * a).toFixed(4)})`;
+          ? `rgba(176, 110, 6, ${(0.44 * a).toFixed(4)})`
+          : `rgba(55, 48, 163, ${(0.62 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -357,7 +357,7 @@
         fn();
         ctx.fillStyle = warmGold
           ? `rgba(194, 120, 3, ${(0.045 * k * a).toFixed(4)})`
-          : `rgba(15, 118, 110, ${(0.038 * k * a).toFixed(4)})`;
+          : `rgba(79, 70, 229, ${(0.072 * k * a).toFixed(4)})`;
         ctx.fill();
         ctx.restore();
       },
@@ -365,12 +365,12 @@
         ctx.save();
         ctx.beginPath();
         fn();
-        ctx.fillStyle = `rgba(246, 242, 231, ${(0.76 * a).toFixed(4)})`;
+        ctx.fillStyle = `rgba(246, 242, 231, ${(0.80 * a).toFixed(4)})`;
         ctx.fill();
-        ctx.lineWidth = 1.15;
+        ctx.lineWidth = 1.25;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(15, 62, 66, ${(0.24 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(55, 48, 163, ${(0.42 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -378,10 +378,10 @@
         ctx.save();
         ctx.beginPath();
         fn();
-        ctx.lineWidth = 1.48;
+        ctx.lineWidth = 1.65;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(14, 60, 64, ${(0.30 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(55, 48, 163, ${(0.56 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -390,10 +390,10 @@
         ctx.beginPath();
         if (dashed) ctx.setLineDash([4, 3.5]);
         fn();
-        ctx.lineWidth = 1.12;
+        ctx.lineWidth = 1.18;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(18, 52, 58, ${(0.21 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(67, 56, 202, ${(0.38 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -402,10 +402,10 @@
         ctx.beginPath();
         if (dashed) ctx.setLineDash([3.2, 3.4]);
         fn();
-        ctx.lineWidth = 0.90;
+        ctx.lineWidth = 0.95;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(20, 35, 45, ${(0.155 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(67, 56, 202, ${(0.26 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -414,10 +414,10 @@
         ctx.beginPath();
         if (dashed) ctx.setLineDash([2.4, 3.2]);
         fn();
-        ctx.lineWidth = 0.78;
+        ctx.lineWidth = 0.80;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(20, 35, 45, ${(0.11 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(55, 48, 163, ${(0.175 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       },
@@ -426,10 +426,10 @@
         ctx.beginPath();
         if (dashed) ctx.setLineDash([4, 3.5]);
         fn();
-        ctx.lineWidth = 1.22;
+        ctx.lineWidth = 1.30;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = `rgba(180, 114, 8, ${(0.30 * a).toFixed(4)})`;
+        ctx.strokeStyle = `rgba(180, 114, 8, ${(0.40 * a).toFixed(4)})`;
         ctx.stroke();
         ctx.restore();
       }
