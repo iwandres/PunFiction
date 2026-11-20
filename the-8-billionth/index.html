@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=35" />
+  <link rel="stylesheet" href="css/styles.css?v=36" />
 </head>
 <body>
   <div class="app-shell">
@@ -31,13 +31,17 @@
         </div>
       </div>
 
-      <div class="entropy-hud" title="Logarithmic Bits of Uniqueness: 32.95 bits narrows 8.3 billion down to 1">
+      <div class="entropy-hud" tabindex="0" aria-describedby="entropy-tooltip">
         <div class="entropy-labels">
           <span class="entropy-title">UNIQUENESS</span>
           <span id="bits-readout" class="entropy-value">0.00 / 32.95 bits</span>
         </div>
         <div class="entropy-track">
           <div id="bits-fill" class="entropy-fill" style="width: 0%"></div>
+        </div>
+        <div id="entropy-tooltip" class="entropy-tooltip" role="tooltip">
+          <span>Logarithmic Bits of Uniqueness: <strong>32.95 bits</strong> narrows 8.3 billion down to 1.</span>
+          <a href="math.html" class="entropy-tooltip-link">Plain-English summary →</a>
         </div>
       </div>
 
@@ -280,17 +284,17 @@
     </div>
   </div>
 
-  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=35) -->
-  <script src="js/engine/taxonomy.js?v=35"></script>
-  <script src="js/engine/probability.js?v=35"></script>
-  <script src="js/engine/analogies.js?v=35"></script>
-  <script src="js/engine/resolver.js?v=35"></script>
-  <script src="js/engine/suggestions.js?v=35"></script>
-  <script src="js/canvas/scaleTiers.js?v=35"></script>
-  <script src="js/canvas/scaleOutlines.js?v=35"></script>
-  <script src="js/canvas/crowdRenderer.js?v=35"></script>
-  <script src="js/ui/omnibox.js?v=35"></script>
-  <script src="js/ui/receiptModal.js?v=35"></script>
-  <script src="js/app.js?v=35"></script>
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=36) -->
+  <script src="js/engine/taxonomy.js?v=36"></script>
+  <script src="js/engine/probability.js?v=36"></script>
+  <script src="js/engine/analogies.js?v=36"></script>
+  <script src="js/engine/resolver.js?v=36"></script>
+  <script src="js/engine/suggestions.js?v=36"></script>
+  <script src="js/canvas/scaleTiers.js?v=36"></script>
+  <script src="js/canvas/scaleOutlines.js?v=36"></script>
+  <script src="js/canvas/crowdRenderer.js?v=36"></script>
+  <script src="js/ui/omnibox.js?v=36"></script>
+  <script src="js/ui/receiptModal.js?v=36"></script>
+  <script src="js/app.js?v=36"></script>
 </body>
 </html>
