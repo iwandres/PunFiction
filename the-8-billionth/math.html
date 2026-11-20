@@ -45,7 +45,7 @@
     <div class="math-mode-bar" aria-label="Explanation Depth Selector">
       <div class="math-mode-meta">
         <span class="math-mode-kicker">MEASUREMENT EXPLAINED</span>
-        <span id="math-mode-subtitle" class="math-mode-sub">Plain-English summary — zero heavy formulas</span>
+        <span id="math-mode-subtitle" class="math-mode-sub">Plain-English summary</span>
       </div>
 
       <div class="math-mode-switch" role="tablist" aria-label="Measurement Explained Mode">
@@ -563,7 +563,7 @@
         if (modeSubtitle) {
           modeSubtitle.textContent = isNerds
             ? 'Information theory, Bayesian conditioning, Fréchet bounds & live sandbox'
-            : 'Plain-English summary — zero heavy formulas';
+            : 'Plain-English summary';
         }
         if (shouldScrollTop && typeof window !== 'undefined') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
