@@ -4,5 +4,5 @@
 - **Word Vine (`wordvine/`)**: Daily botanical compound word game live at `https://punfiction.io/wordvine/`.
 - **1-Star Travel Reviews (`travelreviews/`)**: Daily location wordplay game live at `https://punfiction.io/travelreviews/`, with portal pages (`index.html`, `about.html`, `how-to-play-travelreviews.html`) in the root directory.
 - **Flatball (`flatball/`)**: Daily Ultimate Frisbee tactics game live at `https://punfiction.io/flatball/`.
-- **The 8.3 Billionth (`the-8-billionth/`)**: Single-player statistical uniqueness experience at `https://punfiction.io/the-8-billionth/` (unlisted from root `index.html`).
+- **The 8.3 Billionth (`the-8-billionth/`)**: Single-player statistical uniqueness experience at `https://punfiction.io/the-8-billionth/` (featured on root `index.html`).
 - **Backend & Curation (`backend/`)**: `backend/` contains the consolidated server (`unified_server.py` / `admin_server.py`), database handlers (`travelreviews_database.py`, `wordvine_database.py`, `billionth_database.py`, `billionth_estimator.py`), and curation dashboard (`unified_admin.html`).

@@ -19,6 +19,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://punfiction.io/the-8-billionth/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://punfiction.io/the-8-billionth/math.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://punfiction.io/travelreviews/landmarks/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>

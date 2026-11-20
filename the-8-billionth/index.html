@@ -11,14 +11,14 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
   <title>The 8.3 Billionth — what makes you one-of-one?</title>
   <meta name="description" content="Start with all 8,300,000,000 living humans. Stack true facts about yourself until you are statistically 1 of 1." />
+  <link rel="canonical" href="https://punfiction.io/the-8-billionth/" />
   <link rel="icon" type="image/png" href="../p_green_white_bg.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=32" />
+  <link rel="stylesheet" href="css/styles.css?v=33" />
 </head>
 <body>
   <div class="app-shell">
@@ -171,6 +171,11 @@
           <!-- Dynamic Suggestion Chips Grid -->
           <div id="suggestion-chips" class="suggestion-chips"></div>
         </div>
+
+        <!-- Mobile Bottom Return Button to PunFiction -->
+        <div class="console-bottom-nav">
+          <a href="../" class="btn-back-punfiction">← Back to PunFiction</a>
+        </div>
       </section>
     </main>
 
@@ -202,6 +207,7 @@
         <div id="active-stack-list" class="active-stack-list">
           <span class="stack-empty-hint">one of 8.3 billion — pick a suggestion or type any fact above.</span>
         </div>
+        <a href="../" class="stack-home-btn" title="Back to PunFiction home">← Back to PunFiction</a>
       </div>
     </footer>
   </div>
@@ -263,23 +269,28 @@
         </div>
       </div>
 
-      <button id="btn-new-run" type="button" class="btn-ghost-bottom">
-        ↺ Explore another combination
-      </button>
+      <div class="dossier-bottom-links">
+        <button id="btn-new-run" type="button" class="btn-ghost-bottom">
+          ↺ Explore another combination
+        </button>
+        <a href="../" class="btn-ghost-bottom btn-dossier-home">
+          ← Back to PunFiction
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=32) -->
-  <script src="js/engine/taxonomy.js?v=32"></script>
-  <script src="js/engine/probability.js?v=32"></script>
-  <script src="js/engine/analogies.js?v=32"></script>
-  <script src="js/engine/resolver.js?v=32"></script>
-  <script src="js/engine/suggestions.js?v=32"></script>
-  <script src="js/canvas/scaleTiers.js?v=32"></script>
-  <script src="js/canvas/scaleOutlines.js?v=32"></script>
-  <script src="js/canvas/crowdRenderer.js?v=32"></script>
-  <script src="js/ui/omnibox.js?v=32"></script>
-  <script src="js/ui/receiptModal.js?v=32"></script>
-  <script src="js/app.js?v=32"></script>
+  <!-- Isomorphic Core Engine + Canvas + UI Scripts (Cache-busted via ?v=33) -->
+  <script src="js/engine/taxonomy.js?v=33"></script>
+  <script src="js/engine/probability.js?v=33"></script>
+  <script src="js/engine/analogies.js?v=33"></script>
+  <script src="js/engine/resolver.js?v=33"></script>
+  <script src="js/engine/suggestions.js?v=33"></script>
+  <script src="js/canvas/scaleTiers.js?v=33"></script>
+  <script src="js/canvas/scaleOutlines.js?v=33"></script>
+  <script src="js/canvas/crowdRenderer.js?v=33"></script>
+  <script src="js/ui/omnibox.js?v=33"></script>
+  <script src="js/ui/receiptModal.js?v=33"></script>
+  <script src="js/app.js?v=33"></script>
 </body>
 </html>
