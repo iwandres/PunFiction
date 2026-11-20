@@ -134,7 +134,7 @@
       const active = evalResult.items.filter((it) => !it.superseded);
       const count = active.length;
       if (count === 0) {
-        return 'Out of 8.3 billion people on Earth, nobody else shares this exact combination of what makes you, you.';
+        return 'Out of 8,300,000,000 people on Earth, statistically nobody else shares this exact combination of what makes you, you.';
       }
 
       const rarest = active.slice().sort((a, b) => a.pBase - b.pBase)[0];
@@ -150,7 +150,7 @@
       }
 
       return (
-        'Out of 8,300,000,000 people on Earth, nobody else blends these ' +
+        'Out of 8,300,000,000 people on Earth, statistically nobody else blends these ' +
         count +
         ' unique truths—anchored by ' +
         rareBadge +
