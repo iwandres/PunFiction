@@ -56,7 +56,7 @@ def _extract_aliases(entry, trait_obj, max_aliases=6):
             variants.append(stem)
         for v in variants:
             vk = _norm_key(v)
-            if len(vk) < 3 or len(v) > 64 or vk in seen:
+            if len(vk) < 3 or len(v) > 64 or vk in seen or est.is_blocked_text(v):
                 continue
             seen.add(vk)
             out.append(v)
@@ -84,6 +84,13 @@ def _sanitize_promoted_trait(entry, known_map):
     t = entry.get("trait") or {}
     slug = re.sub(r"[^a-z0-9_]+", "_", str(t.get("canonicalSlug") or "").lower()).strip("_")[:56]
     if not slug or not t.get("label"):
+        return None
+    if (
+        est.is_blocked_text(slug)
+        or est.is_blocked_text(t.get("label"))
+        or est.is_blocked_text(t.get("shortBadge"))
+        or est.is_blocked_text(t.get("snarkNote"))
+    ):
         return None
 
     cat = str(t.get("category") or "daily_quirks").strip()

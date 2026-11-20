@@ -105,26 +105,45 @@ def check_rate_limit(client_ip, max_per_minute=25):
         return True
 
 
-def lookup_cached_trait(raw_input):
+def _hash_client_ip(client_ip):
+    """Returns a non-reversible salted 16-hex voter fingerprint (or None when 'anon') so zero raw IPs are stored."""
+    ip_str = str(client_ip or "").strip()
+    if not ip_str or ip_str == "anon":
+        return None
+    salt = os.environ.get("BILLIONTH_VOTE_SALT", "punfiction_billionth_v1")
+    return hashlib.sha256(f"{salt}:{ip_str}".encode("utf-8")).hexdigest()[:16]
+
+
+def lookup_cached_trait(raw_input, client_ip="anon"):
     """
     Looks up a previously estimated custom trait by normalized SHA-256 hash.
+    Deduplicates hitCount increments by hashed client IP so a single user refreshing
+    cannot artificially inflate promotion hitCounts.
     Returns dict with status='accepted', trait, fermi, cached=True on hit, or None on miss.
     """
     norm = normalize_input_text(raw_input)
     if not norm:
         return None
     input_hash = hashlib.sha256(norm.encode("utf-8")).hexdigest()
+    voter_hash = _hash_client_ip(client_ip)
+    now_iso = datetime.now(timezone.utc).isoformat()
 
     # 1. Try MongoDB Atlas first
     _ensure_indexes()
     if _mongo_col is not None:
         try:
-            doc = _mongo_col.find_one_and_update(
-                {"inputHashes": input_hash},
-                {"$inc": {"hitCount": 1}, "$set": {"lastHitAt": datetime.now(timezone.utc).isoformat()}},
-                projection={"_id": 0}
-            )
+            doc = _mongo_col.find_one({"inputHashes": input_hash}, {"_id": 0})
             if doc and doc.get("trait"):
+                existing_voters = doc.get("voterHashes") or []
+                is_new_voter = (voter_hash is None) or (voter_hash not in existing_voters)
+                update_ops = {"$set": {"lastHitAt": now_iso}}
+                new_hits = int(doc.get("hitCount", 1))
+                if is_new_voter:
+                    update_ops["$inc"] = {"hitCount": 1}
+                    new_hits += 1
+                    if voter_hash is not None and len(existing_voters) < 200:
+                        update_ops["$addToSet"] = {"voterHashes": voter_hash}
+                _mongo_col.update_one({"canonicalSlug": doc.get("canonicalSlug")}, update_ops)
                 return {
                     "status": "accepted",
                     "rejectionReason": None,
@@ -132,7 +151,7 @@ def lookup_cached_trait(raw_input):
                     "fermi": doc.get("fermi"),
                     "trait": doc.get("trait"),
                     "cached": True,
-                    "hitCount": doc.get("hitCount", 1) + 1
+                    "hitCount": new_hits
                 }
         except Exception as exc:
             print(f"[Billionth DB] MongoDB read fallback ({exc})")
@@ -142,8 +161,14 @@ def lookup_cached_trait(raw_input):
         cache = _load_local_cache()
         for slug, entry in cache.items():
             if input_hash in entry.get("inputHashes", []):
-                entry["hitCount"] = int(entry.get("hitCount", 1)) + 1
-                entry["lastHitAt"] = datetime.now(timezone.utc).isoformat()
+                voters = list(entry.get("voterHashes") or [])
+                is_new_voter = (voter_hash is None) or (voter_hash not in voters)
+                if is_new_voter:
+                    entry["hitCount"] = int(entry.get("hitCount", 1)) + 1
+                    if voter_hash is not None and len(voters) < 200:
+                        voters.append(voter_hash)
+                        entry["voterHashes"] = voters
+                entry["lastHitAt"] = now_iso
                 _save_local_cache(cache)
                 return {
                     "status": "accepted",
@@ -152,45 +177,55 @@ def lookup_cached_trait(raw_input):
                     "fermi": entry.get("fermi"),
                     "trait": entry.get("trait"),
                     "cached": True,
-                    "hitCount": entry["hitCount"]
+                    "hitCount": int(entry.get("hitCount", 1))
                 }
 
     return None
 
 
-def store_cached_trait(raw_input, trait_obj, fermi_obj):
+def store_cached_trait(raw_input, trait_obj, fermi_obj, client_ip="anon", allow_sample_phrase=True):
     """
     Stores a newly estimated custom trait by canonicalSlug and adds its normalizedInputHash
-    and normalized sample phrasing, creating a permanent zero-cost flywheel for future lookups
-    and lossless alias promotion into traits-core.json.
+    and (when clean) normalized sample phrasing, deduplicating hitCount by salted IP hash.
     """
     if not trait_obj or not trait_obj.get("canonicalSlug"):
         return
     slug = str(trait_obj["canonicalSlug"]).strip()
     norm_phrase = normalize_input_text(raw_input)[:80]
     input_hash = hashlib.sha256(norm_phrase.encode("utf-8")).hexdigest()
+    voter_hash = _hash_client_ip(client_ip)
     now_iso = datetime.now(timezone.utc).isoformat()
 
     _ensure_indexes()
     if _mongo_col is not None:
         try:
+            existing_doc = _mongo_col.find_one({"canonicalSlug": slug}, {"voterHashes": 1, "_id": 0})
+            existing_voters = (existing_doc or {}).get("voterHashes") or []
+            is_new_voter = (voter_hash is None) or (existing_doc is None) or (voter_hash not in existing_voters)
+
             add_set = {"inputHashes": input_hash}
-            if norm_phrase:
+            if norm_phrase and allow_sample_phrase:
                 add_set["samplePhrasings"] = norm_phrase
+            if voter_hash is not None and len(existing_voters) < 200:
+                add_set["voterHashes"] = voter_hash
+
+            update_ops = {
+                "$setOnInsert": {
+                    "canonicalSlug": slug,
+                    "trait": trait_obj,
+                    "fermi": fermi_obj,
+                    "promotedToCore": False,
+                    "createdAt": now_iso
+                },
+                "$set": {"lastHitAt": now_iso},
+                "$addToSet": add_set
+            }
+            if is_new_voter:
+                update_ops["$inc"] = {"hitCount": 1}
+
             _mongo_col.update_one(
                 {"canonicalSlug": slug},
-                {
-                    "$setOnInsert": {
-                        "canonicalSlug": slug,
-                        "trait": trait_obj,
-                        "fermi": fermi_obj,
-                        "promotedToCore": False,
-                        "createdAt": now_iso
-                    },
-                    "$set": {"lastHitAt": now_iso},
-                    "$addToSet": add_set,
-                    "$inc": {"hitCount": 1}
-                },
+                update_ops,
                 upsert=True
             )
             return
@@ -204,18 +239,25 @@ def store_cached_trait(raw_input, trait_obj, fermi_obj):
             hashes = set(existing.get("inputHashes", []))
             hashes.add(input_hash)
             existing["inputHashes"] = sorted(hashes)
-            if norm_phrase:
+            if norm_phrase and allow_sample_phrase:
                 phrases = list(existing.get("samplePhrasings", []))
                 if norm_phrase not in phrases and len(phrases) < 12:
                     phrases.append(norm_phrase)
                 existing["samplePhrasings"] = phrases
-            existing["hitCount"] = int(existing.get("hitCount", 1)) + 1
+            voters = list(existing.get("voterHashes") or [])
+            is_new_voter = (voter_hash is None) or (voter_hash not in voters)
+            if is_new_voter:
+                existing["hitCount"] = int(existing.get("hitCount", 1)) + 1
+                if voter_hash is not None and len(voters) < 200:
+                    voters.append(voter_hash)
+                    existing["voterHashes"] = voters
             existing["lastHitAt"] = now_iso
         else:
             cache[slug] = {
                 "canonicalSlug": slug,
                 "inputHashes": [input_hash],
-                "samplePhrasings": [norm_phrase] if norm_phrase else [],
+                "samplePhrasings": [norm_phrase] if (norm_phrase and allow_sample_phrase) else [],
+                "voterHashes": [voter_hash] if voter_hash is not None else [],
                 "trait": trait_obj,
                 "fermi": fermi_obj,
                 "hitCount": 1,
