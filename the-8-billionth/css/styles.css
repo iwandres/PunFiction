@@ -137,9 +137,10 @@ body {
   position: absolute;
   top: calc(100% + 9px);
   right: 0;
-  width: min(310px, calc(100vw - 28px));
-  padding: 10px 13px;
-  border-radius: 12px;
+  width: max-content;
+  max-width: calc(100vw - 28px);
+  padding: 8px 12px;
+  border-radius: 10px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-strong);
   box-shadow: var(--shadow-lg);
@@ -147,10 +148,11 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.79rem;
   font-weight: 600;
-  line-height: 1.42;
+  line-height: 1.35;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-3px);
@@ -163,7 +165,7 @@ body {
   content: '';
   position: absolute;
   top: -12px;
-  left: 0;
+  left: -12px;
   right: 0;
   height: 12px;
 }
@@ -176,23 +178,18 @@ body {
   pointer-events: auto;
 }
 
-.entropy-tooltip strong {
-  color: var(--text-primary);
-  font-weight: 800;
-}
-
 .entropy-tooltip-link {
-  align-self: flex-start;
   color: var(--accent-teal);
   font-weight: 800;
-  text-decoration: none;
-  border-bottom: 1.5px solid rgba(15, 118, 110, 0.35);
-  padding-bottom: 1px;
-  transition: border-color 0.15s, opacity 0.15s;
+  text-decoration: underline;
+  text-decoration-color: rgba(15, 118, 110, 0.4);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s, opacity 0.15s;
 }
 
 .entropy-tooltip-link:hover {
-  border-bottom-color: var(--accent-teal);
+  text-decoration-color: var(--accent-teal);
   opacity: 0.88;
 }
 
