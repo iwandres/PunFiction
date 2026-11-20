@@ -15,5 +15,12 @@ Thumbs.db
 # HTML5 Game builds
 *.zip
 
+# Environment & local alert secrets
+.env
+.env.*
+backend/.env
+backend/.env.*
+backend/travelreviews_alert_config.json
+
 # Local dev fallback trait cache
 backend/billionth_traits_cache.json

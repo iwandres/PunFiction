@@ -269,6 +269,33 @@ def get_curation_agent():
         api_key=os.environ.get("GEMINI_API_KEY") or gemini_key
     )
 
+PUBLIC_POST_PATHS = frozenset([
+    '/api/billionth/estimate-trait',
+    '/api/estimate-trait',
+    '/api/wordvine/vine/submit',
+    '/api/vine/submit',
+    '/api/records',
+    '/api/travelreviews/records',
+    '/api/user',
+    '/api/travelreviews/user',
+])
+
+BLOCKED_STATIC_BASENAMES = frozenset([
+    'travelreviews_alert_config.json',
+    'billionth_traits_cache.json',
+])
+
+
+def is_production_runtime():
+    """True when running on Render or when PUNFICTION_ENV=production."""
+    return bool(
+        os.environ.get("RENDER")
+        or os.environ.get("RENDER_SERVICE_ID")
+        or os.environ.get("RENDER_EXTERNAL_URL")
+        or str(os.environ.get("PUNFICTION_ENV", "")).strip().lower() == "production"
+    )
+
+
 class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         sys.stderr.write("%s - - [%s] %s\n" %
@@ -276,6 +303,35 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                           self.log_date_time_string(),
                           format%args))
         sys.stderr.flush()
+
+    def _send_json(self, status_code, payload):
+        self.send_response(status_code)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(payload).encode('utf-8'))
+
+    def is_local_admin_request(self):
+        """
+        Restricts Admin Curation Hub UI, backend static files, and curation/Gemini
+        mutation endpoints strictly to genuine localhost sessions (never exposed on
+        Render, behind proxies, or via DNS-rebinding Host headers).
+        """
+        if is_production_runtime():
+            return False
+        if self.headers.get('X-Forwarded-For') or self.headers.get('X-Forwarded-Host'):
+            return False
+        client_ip = (self.client_address[0] if self.client_address else '').strip()
+        if client_ip not in ('127.0.0.1', '::1', '::ffff:127.0.0.1'):
+            return False
+        raw_host = str(self.headers.get('Host') or '').strip().lower()
+        if raw_host:
+            if raw_host.startswith('['):
+                host_only = raw_host.split(']')[0] + ']'
+            else:
+                host_only = raw_host.split(':')[0]
+            if host_only not in ('localhost', '127.0.0.1', '[::1]'):
+                return False
+        return True
 
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
@@ -299,8 +355,11 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         req_path = self.path.split('?')[0]
         
-        # 1. Admin Page
+        # 1. Root endpoint: Admin Hub on localhost; minimal JSON health status in production
         if req_path == '/':
+            if not self.is_local_admin_request():
+                self._send_json(200, {"ok": True, "service": "punfiction-api"})
+                return
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
@@ -400,12 +459,18 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     else:
                         self.wfile.write(json.dumps({"error": "Profile not found"}).encode('utf-8'))
                 except Exception as e:
-                    self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                    print(f"Error fetching user profile: {e}")
+                    self.wfile.write(json.dumps({"error": "Unable to load profile"}).encode('utf-8'))
             else:
                 self.wfile.write(json.dumps({"error": "profile_id is required"}).encode('utf-8'))
             return
 
-        # --- 1-Star Travel Reviews Curation APIs ---
+        # Block all Curation Hub GET routes and static file fallbacks outside localhost
+        if not self.is_local_admin_request():
+            self.send_error(404)
+            return
+
+        # --- 1-Star Travel Reviews Curation APIs (Localhost Only) ---
         elif req_path in ['/api/landmarks', '/api/travelreviews/landmarks']:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -519,21 +584,41 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         else:
-            # Let standard SimpleHTTPRequestHandler handle other static portal content
+            # Defense-in-depth even on localhost: never serve .env, .git, Python source, or alert config files
+            norm_rel = urllib.parse.unquote(req_path).replace('\\', '/').strip('/')
+            base_name = norm_rel.split('/')[-1].lower() if norm_rel else ''
+            if (
+                not norm_rel
+                or any(part.startswith('.') for part in norm_rel.split('/'))
+                or base_name.endswith(('.py', '.pyc', '.pyo', '.pyd'))
+                or base_name in BLOCKED_STATIC_BASENAMES
+            ):
+                self.send_error(404)
+                return
+            # Let standard SimpleHTTPRequestHandler handle other local static content
             super().do_GET()
 
     def do_POST(self):
-        content_length = int(self.headers.get('Content-Length', 0))
-        post_data = self.rfile.read(content_length)
         req_path = self.path.split('?')[0]
+        is_public_post = req_path in PUBLIC_POST_PATHS
+        if not is_public_post and not self.is_local_admin_request():
+            self._send_json(403, {"success": False, "error": "Admin endpoints are restricted to localhost."})
+            return
+
+        max_body_bytes = 65_536 if is_public_post else 10_485_760
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+        except (TypeError, ValueError):
+            content_length = 0
+        if content_length < 0 or content_length > max_body_bytes:
+            self._send_json(413, {"error": "Request payload too large."})
+            return
+        post_data = self.rfile.read(content_length) if content_length > 0 else b""
         
         # --- The 8.3 Billionth POST API (/api/billionth/estimate-trait) ---
         if req_path in ['/api/billionth/estimate-trait', '/api/estimate-trait']:
             if not billionth_estimator:
-                self.send_response(503)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": "Custom trait estimator module is unavailable on server."}).encode('utf-8'))
+                self._send_json(503, {"error": "Custom trait estimator module is unavailable on server."})
                 return
             try:
                 payload = json.loads(post_data.decode('utf-8')) if post_data else {}
@@ -545,15 +630,10 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     client_ip=client_ip,
                     active_traits=payload.get('activeTraits', [])
                 )
-                self.send_response(status_code)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps(res_obj).encode('utf-8'))
+                self._send_json(status_code, res_obj)
             except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                print(f"[Billionth POST] Invalid request error: {e}")
+                self._send_json(400, {"error": "Invalid custom trait request payload."})
             return
 
         # --- Word Vine POST APIs (/api/wordvine/...) ---
@@ -569,15 +649,10 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                     payload.get('finalWaitMs', 0)
                 )
                 status_code = 200 if res_obj.get('accepted') else 422
-                self.send_response(status_code)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps(res_obj).encode('utf-8'))
+                self._send_json(status_code, res_obj)
             except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"accepted": False, "error": str(e)}).encode('utf-8'))
+                print(f"[WordVine Submit] Error: {e}")
+                self._send_json(400, {"accepted": False, "error": "Invalid run submission payload."})
             return
         elif req_path in ['/api/wordvine/admin/vines', '/api/admin/vines'] and wordvine_database:
             try:
@@ -666,11 +741,11 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": True, "db_connected": db_success}).encode('utf-8'))
+            except ValueError as ve:
+                self._send_json(400, {"success": False, "error": str(ve)})
             except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+                print(f"[TravelReviews Records POST] Error: {e}")
+                self._send_json(400, {"success": False, "error": "Invalid telemetry payload."})
             return
             
         elif req_path in ['/api/user', '/api/travelreviews/user']:
@@ -688,15 +763,12 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 success = travelreviews_database.upsert_user_profile(
                     profile_id, solved_puzzles, solved_hints, attempted_puzzles, max_streak
                 )
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": success}).encode('utf-8'))
+                self._send_json(200, {"success": success})
+            except ValueError as ve:
+                self._send_json(400, {"success": False, "error": str(ve)})
             except Exception as e:
-                self.send_response(400)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+                print(f"[TravelReviews User POST] Error: {e}")
+                self._send_json(400, {"success": False, "error": "Invalid user profile payload."})
             return
 
         # --- 1-Star Travel Reviews Specific POST Save APIs ---
@@ -1229,7 +1301,8 @@ def runway_alert_listener():
 
 def run_server():
     socketserver.ThreadingTCPServer.allow_reuse_address = True
-    threading.Thread(target=runway_alert_listener, daemon=True).start()
+    if not is_production_runtime() or os.environ.get("ENABLE_RENDER_RUNWAY_ALERT"):
+        threading.Thread(target=runway_alert_listener, daemon=True).start()
     with socketserver.ThreadingTCPServer(("", PORT), UnifiedRequestHandler) as httpd:
         print(f"Serving PunFiction Consolidated Server at http://localhost:{PORT}")
         httpd.serve_forever()

@@ -385,5 +385,81 @@ class TestServerHandler(unittest.TestCase):
             self.assertTrue(-90 <= lm["lat"] <= 90)
             self.assertTrue(-180 <= lm["lng"] <= 180)
 
+    def test_production_locks_down_admin_and_static_files(self):
+        with patch.dict(os.environ, {"RENDER": "true"}, clear=False):
+            # 1. GET / returns minimal health JSON instead of unified_admin.html
+            h_root = self.make_handler('GET', '/')
+            h_root.do_GET()
+            h_root.send_response.assert_called_with(200)
+            root_body = json.loads(h_root.wfile.getvalue().decode('utf-8'))
+            self.assertEqual(root_body, {"ok": True, "service": "punfiction-api"})
+
+            # 2. Static backend files & curation GET routes return 404
+            for blocked_get in [
+                '/admin.html',
+                '/unified_server.py',
+                '/travelreviews_alert_config.json',
+                '/.env',
+                '/api/travelreviews/agent/guardrails',
+                '/api/landmarks'
+            ]:
+                h = self.make_handler('GET', blocked_get)
+                h.do_GET()
+                self.assertTrue(h.send_error.called, f"Expected 404 on {blocked_get}")
+                self.assertEqual(h.send_error.call_args[0][0], 404)
+
+            # 3. Admin/Gemini mutation POST routes return 403
+            for blocked_post in [
+                '/api/travelreviews/agent/run',
+                '/api/agent/discover_landmarks',
+                '/api/wordvine/admin/vines',
+                '/api/puzzles',
+                '/api/generate_puns'
+            ]:
+                hp = self.make_handler('POST', blocked_post, body=b'{}')
+                hp.do_POST()
+                hp.send_response.assert_called_with(403)
+
+            # 4. Public player APIs remain open on Render
+            h_health = self.make_handler('GET', '/api/billionth/health')
+            h_health.do_GET()
+            h_health.send_response.assert_called_with(200)
+
+            h_rec = self.make_handler(
+                'POST',
+                '/api/travelreviews/records',
+                body=json.dumps({'event': 'start', 'puzzle_number': '001'}).encode('utf-8')
+            )
+            h_rec.do_POST()
+            h_rec.send_response.assert_called_with(200)
+
+    def test_localhost_blocks_dns_rebinding_and_sensitive_files(self):
+        # Spoofed Host or X-Forwarded-For must block admin POST even without RENDER env var
+        h_rebind = self.make_handler(
+            'POST',
+            '/api/travelreviews/agent/run',
+            headers={'Host': 'evil.example.com:8000'},
+            body=b'{}'
+        )
+        h_rebind.do_POST()
+        h_rebind.send_response.assert_called_with(403)
+
+        h_proxy = self.make_handler(
+            'POST',
+            '/api/wordvine/admin/vines',
+            headers={'X-Forwarded-For': '203.0.113.9'},
+            body=b'[]'
+        )
+        h_proxy.do_POST()
+        h_proxy.send_response.assert_called_with(403)
+
+        # Even genuine localhost GET must never serve .py, .env, or alert config JSON
+        for sensitive in ['/unified_server.py', '/.env', '/travelreviews_alert_config.json']:
+            hs = self.make_handler('GET', sensitive, headers={'Host': 'localhost:8000'})
+            hs.do_GET()
+            self.assertTrue(hs.send_error.called)
+            self.assertEqual(hs.send_error.call_args[0][0], 404)
+
+
 if __name__ == '__main__':
     unittest.main()
