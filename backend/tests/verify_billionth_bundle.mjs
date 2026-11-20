@@ -431,11 +431,28 @@ async function testOmniboxFocusMode({ isMobile }) {
 await testOmniboxFocusMode({ isMobile: false });
 await testOmniboxFocusMode({ isMobile: true });
 
-// 7. Ensure root PunFiction index.html features the-8-billionth cleanly
+// 7. Ensure root PunFiction index.html, Open Graph cards, and JSON-LD structured data are valid
 const rootIndexSrc = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 assert.ok(
   rootIndexSrc.includes('the-8-billionth'),
   'Root index.html should link to the-8-billionth!'
 );
+const ogPreviewPath = path.join(APP_DIR, 'og-preview.png');
+assert.ok(fs.existsSync(ogPreviewPath) && fs.statSync(ogPreviewPath).size > 10000, 'og-preview.png must exist');
 
-console.log('[Bundle Audit] All syntax, DOM wiring, 5-tier scale, omnibox focus/blur, and gzip budget checks PASSED!');
+for (const [label, src] of [
+  ['root index.html', rootIndexSrc],
+  ['the-8-billionth/index.html', html],
+  ['the-8-billionth/math.html', mathHtml]
+]) {
+  assert.ok(src.includes('property="og:image"'), `Missing og:image in ${label}`);
+  assert.ok(src.includes('name="twitter:card"'), `Missing twitter:card in ${label}`);
+  const ldMatches = [...src.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  assert.ok(ldMatches.length >= 1, `Missing JSON-LD structured data in ${label}`);
+  for (const lm of ldMatches) {
+    const parsedLd = JSON.parse(lm[1]);
+    assert.equal(parsedLd['@context'], 'https://schema.org', `Invalid JSON-LD @context in ${label}`);
+  }
+}
+
+console.log('[Bundle Audit] All syntax, DOM wiring, 5-tier scale, omnibox focus/blur, SEO/OG, and gzip budget checks PASSED!');
