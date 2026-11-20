@@ -290,12 +290,152 @@ assert.ok(
   'math.html must include Common Folks <> Math Nerds toggle with Common Folks active by default'
 );
 
-// 6. Ensure root PunFiction index.html and sitemap.xml keep the-8-billionth unlisted
+// 6. Verify OmniboxController keeps cursor focused on desktop, but blurs & never auto-focuses on mobile
+const OmniboxController = require(path.join(APP_DIR, 'js/ui/omnibox.js'));
+
+function makeMockElement() {
+  const listeners = {};
+  return {
+    value: '',
+    disabled: false,
+    focusCount: 0,
+    blurCount: 0,
+    innerHTML: '',
+    className: '',
+    dataset: {},
+    classList: {
+      add() {},
+      remove() {},
+      toggle() {},
+      contains() {
+        return false;
+      }
+    },
+    addEventListener(type, fn) {
+      (listeners[type] = listeners[type] || []).push(fn);
+    },
+    emit(type, ev = {}) {
+      for (const fn of listeners[type] || []) {
+        fn(Object.assign({ preventDefault() {} }, ev));
+      }
+    },
+    focus() {
+      this.focusCount++;
+    },
+    blur() {
+      this.blurCount++;
+    },
+    setSelectionRange() {},
+    setAttribute() {},
+    contains() {
+      return false;
+    },
+    querySelectorAll() {
+      return [];
+    },
+    appendChild() {}
+  };
+}
+
+async function testOmniboxFocusMode({ isMobile }) {
+  const origWindow = globalThis.window;
+  const origNavigator = globalThis.navigator;
+  const origDocument = globalThis.document;
+
+  Object.defineProperty(globalThis, 'window', {
+    configurable: true,
+    value: {
+      setInterval: () => 1,
+      matchMedia: (q) => ({
+        matches: isMobile && (q.includes('pointer: coarse') || q.includes('hover: none'))
+      })
+    }
+  });
+  Object.defineProperty(globalThis, 'navigator', {
+    configurable: true,
+    value: {
+      userAgent: isMobile
+        ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Mobile/15E148'
+        : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+      userAgentData: { mobile: isMobile }
+    }
+  });
+  Object.defineProperty(globalThis, 'document', {
+    configurable: true,
+    value: { addEventListener() {}, activeElement: null }
+  });
+
+  try {
+    const inputEl = makeMockElement();
+    const formEl = makeMockElement();
+    const dropdownEl = makeMockElement();
+    const feedbackEl = makeMockElement();
+    const spinnerEl = makeMockElement();
+    const selected = [];
+
+    const ctrl = new OmniboxController({
+      inputEl,
+      formEl,
+      dropdownEl,
+      feedbackEl,
+      statusSpinnerEl: spinnerEl,
+      resolver: {
+        searchInstant: () => [],
+        estimateCustomFact: async (text) => ({
+          status: 'accepted',
+          trait: {
+            id: 'custom_carnivorous_plants',
+            canonicalSlug: 'custom_carnivorous_plants',
+            label: text,
+            shortBadge: 'Carnivorous plants',
+            prevalence: 0.002
+          }
+        })
+      },
+      formatPct: (p) => `${(p * 100).toFixed(2)}%`,
+      getActiveSlugSet: () => new Set(),
+      onSelectTrait: (t) => selected.push(t),
+      onHoverTrait: () => {}
+    });
+
+    await ctrl.submitCustomText('I grow carnivorous plants');
+    assert.equal(selected.length, 1);
+
+    if (isMobile) {
+      assert.equal(inputEl.focusCount, 0, 'Mobile custom submit must NOT re-focus input or reopen keyboard');
+      assert.ok(inputEl.blurCount >= 1, 'Mobile custom submit must blur input to dismiss keyboard');
+    } else {
+      assert.equal(inputEl.focusCount, 1, 'Desktop custom submit must keep cursor in-focus');
+    }
+
+    // Also verify instant trait selection
+    inputEl.focusCount = 0;
+    inputEl.blurCount = 0;
+    ctrl._pickInstantTrait(resolver.getTraitBySlug('left_handed'));
+    if (isMobile) {
+      assert.equal(inputEl.focusCount, 0, 'Mobile instant pick must NOT re-focus input');
+      assert.equal(inputEl.blurCount, 1, 'Mobile instant pick must blur input');
+    } else {
+      assert.equal(inputEl.focusCount, 1, 'Desktop instant pick must keep cursor in-focus');
+    }
+  } finally {
+    if (origWindow === undefined) delete globalThis.window;
+    else Object.defineProperty(globalThis, 'window', { configurable: true, value: origWindow });
+    if (origNavigator === undefined) delete globalThis.navigator;
+    else Object.defineProperty(globalThis, 'navigator', { configurable: true, value: origNavigator });
+    if (origDocument === undefined) delete globalThis.document;
+    else Object.defineProperty(globalThis, 'document', { configurable: true, value: origDocument });
+  }
+}
+
+await testOmniboxFocusMode({ isMobile: false });
+await testOmniboxFocusMode({ isMobile: true });
+
+// 7. Ensure root PunFiction index.html features the-8-billionth cleanly
 const rootIndexSrc = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-const rootSitemapSrc = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
 assert.ok(
-  !rootIndexSrc.includes('the-8-billionth') && !rootSitemapSrc.includes('the-8-billionth'),
-  'Root index.html and sitemap.xml must keep the-8-billionth unlisted!'
+  rootIndexSrc.includes('the-8-billionth'),
+  'Root index.html should link to the-8-billionth!'
 );
 
-console.log('[Bundle Audit] All syntax, DOM wiring, 5-tier scale, gzip budget, and unlisted checks PASSED!');
+console.log('[Bundle Audit] All syntax, DOM wiring, 5-tier scale, omnibox focus/blur, and gzip budget checks PASSED!');

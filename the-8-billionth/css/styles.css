@@ -1885,6 +1885,10 @@ body {
     overflow: visible;
   }
 
+  .omnibox-input {
+    font-size: 1rem;
+  }
+
   .parametric-bar {
     grid-template-columns: 1fr;
   }

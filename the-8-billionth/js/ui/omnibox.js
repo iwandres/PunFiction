@@ -329,9 +329,47 @@
       if (this.onHoverTrait) this.onHoverTrait(null);
     }
 
+    _shouldSuppressAutoFocus() {
+      if (typeof window === 'undefined') return false;
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.userAgentData &&
+        navigator.userAgentData.mobile === true
+      ) {
+        return true;
+      }
+      if (
+        typeof navigator !== 'undefined' &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(
+          navigator.userAgent || ''
+        )
+      ) {
+        return true;
+      }
+      if (typeof window.matchMedia === 'function') {
+        if (
+          window.matchMedia('(pointer: coarse)').matches ||
+          window.matchMedia('(hover: none)').matches
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    _syncPostSubmitFocus() {
+      if (!this.inputEl) return;
+      if (this._shouldSuppressAutoFocus()) {
+        this.inputEl.blur();
+      } else {
+        this.inputEl.focus();
+      }
+    }
+
     _pickInstantTrait(trait) {
       this.closeDropdown();
       this.inputEl.value = '';
+      this._syncPostSubmitFocus();
       this._maybeConfirmExtremeAndSelect(trait);
     }
 
@@ -347,7 +385,12 @@
     _handleSubmit() {
       if (this.isEstimating) return;
       const raw = this.inputEl.value.trim();
-      if (!raw) return;
+      if (!raw) {
+        if (this._shouldSuppressAutoFocus()) {
+          this.inputEl.blur();
+        }
+        return;
+      }
 
       if (this.activeTemplate && raw.includes(this.activeTemplate.token)) {
         const tokIdx = this.inputEl.value.indexOf(this.activeTemplate.token);
@@ -380,7 +423,12 @@
 
     async submitCustomText(rawText) {
       const clean = String(rawText || '').trim();
-      if (clean.length < 2 || this.isEstimating) return;
+      if (clean.length < 2 || this.isEstimating) {
+        if (!this.isEstimating && this._shouldSuppressAutoFocus()) {
+          this.inputEl.blur();
+        }
+        return;
+      }
 
       this.closeDropdown();
       this._clearFeedback();
@@ -430,12 +478,15 @@
     _setLoading(loading) {
       this.isEstimating = loading;
       this.formEl.classList.toggle('is-scanning', loading);
+      if (loading && this._shouldSuppressAutoFocus()) {
+        this.inputEl.blur();
+      }
       this.inputEl.disabled = loading;
       if (this.statusSpinnerEl) {
         this.statusSpinnerEl.classList.toggle('hidden', !loading);
       }
       if (!loading) {
-        this.inputEl.focus();
+        this._syncPostSubmitFocus();
       }
     }
 
