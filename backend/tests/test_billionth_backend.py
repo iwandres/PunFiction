@@ -268,12 +268,89 @@ def test_promote_billionth_traits_lossless():
                 os.remove(p)
 
 
+def test_model_resolution_and_error_separation():
+    from unittest import mock
+
+    # 1. Default and deprecated GEMINI_MODEL values prioritize gemini-3.8-flash first
+    with mock.patch.dict(os.environ, {"GEMINI_MODEL": ""}, clear=False):
+        cands = est._resolve_model_candidates()
+        assert cands[0] == "gemini-3.8-flash"
+        assert "gemini-flash-latest" in cands
+
+    with mock.patch.dict(os.environ, {"GEMINI_MODEL": "gemini-2.5-flash"}, clear=False):
+        cands_dep = est._resolve_model_candidates()
+        assert cands_dep[0] == "gemini-3.8-flash"
+
+    with mock.patch.dict(os.environ, {"GEMINI_MODEL": "gemini-future-flash"}, clear=False):
+        cands_custom = est._resolve_model_candidates()
+        assert cands_custom[0] == "gemini-future-flash"
+        assert cands_custom[1] == "gemini-3.8-flash"
+
+    # 2. Missing GEMINI_API_KEY vs upstream HTTP error separation in estimate_custom_trait
+    orig_cache_file = bdb.LOCAL_CACHE_FILE
+    orig_mongo = bdb._mongo_col
+    fd, temp_path = tempfile.mkstemp(suffix=".json")
+    os.close(fd)
+    os.remove(temp_path)
+    try:
+        bdb.LOCAL_CACHE_FILE = temp_path
+        bdb._mongo_col = None
+
+        with mock.patch.dict(os.environ, {"GEMINI_API_KEY": ""}, clear=False):
+            res_missing, code_missing = est.estimate_custom_trait("I collect vintage brass compasses")
+            assert code_missing == 503
+            assert "missing GEMINI_API_KEY" in res_missing["error"]
+            assert "geminiHttpStatus" not in res_missing
+
+        with mock.patch.object(
+            est,
+            "_call_gemini_structured",
+            side_effect=est.GeminiUpstreamHttpError(429, "Quota exceeded")
+        ):
+            res_http, code_http = est.estimate_custom_trait("I collect vintage brass compasses")
+            assert code_http == 503
+            assert res_http["geminiHttpStatus"] == 429
+            assert "missing GEMINI_API_KEY" not in res_http["error"]
+    finally:
+        bdb.LOCAL_CACHE_FILE = orig_cache_file
+        bdb._mongo_col = orig_mongo
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+    # 3. 404 NOT_FOUND on primary model automatically falls back to next model via google-genai SDK
+    try:
+        from google import genai
+        from google.genai import errors as genai_errors
+    except ImportError:
+        return
+
+    called_models = []
+
+    class DummyResp:
+        text = '{"status": "rejected_implausible", "rejectionReason": "Test ok", "compoundSplit": [], "fermi": null, "trait": null}'
+
+    def fake_generate_content(*, model, contents, config):
+        called_models.append(model)
+        if model == "gemini-retired-test":
+            raise genai_errors.ClientError(404, {"error": {"code": 404, "message": "Model retired", "status": "NOT_FOUND"}})
+        return DummyResp()
+
+    with mock.patch.dict(os.environ, {"GEMINI_API_KEY": "dummy_test_key", "GEMINI_MODEL": "gemini-retired-test"}, clear=False):
+        with mock.patch.object(genai.Client, "__init__", lambda self, **kw: None):
+            dummy_models = type("DummyModels", (), {"generate_content": staticmethod(fake_generate_content)})()
+            with mock.patch.object(genai.Client, "models", dummy_models, create=True):
+                parsed = est._call_gemini_structured("I live on Jupiter")
+                assert parsed["status"] == "rejected_implausible"
+                assert called_models == ["gemini-retired-test", "gemini-3.8-flash"]
+
+
 class TestBillionthBackend(unittest.TestCase):
     def test_all_billionth_suites(self):
         test_python_syntax_all()
         test_pre_guardrails()
         test_schema_clamping_and_cache_flywheel()
         test_promote_billionth_traits_lossless()
+        test_model_resolution_and_error_separation()
 
 
 if __name__ == "__main__":
@@ -281,6 +358,7 @@ if __name__ == "__main__":
     test_pre_guardrails()
     test_schema_clamping_and_cache_flywheel()
     test_promote_billionth_traits_lossless()
+    test_model_resolution_and_error_separation()
     # Verify _call_gemini_structured source never injects activeSlugs/activeTraits into user_prompt
     import inspect
     fn_src = inspect.getsource(est._call_gemini_structured)

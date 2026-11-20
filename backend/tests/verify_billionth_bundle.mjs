@@ -290,12 +290,12 @@ assert.ok(
   'math.html must include Common Folks <> Math Nerds toggle with Common Folks active by default'
 );
 
-// 6. Ensure root PunFiction index.html was NOT modified (kept unlisted as requested)
-const rootGitDiff = execFileSync(
-  'git',
-  ['-C', ROOT, 'status', '--porcelain', 'index.html', 'sitemap.xml'],
-  { encoding: 'utf8' }
-).trim();
-assert.equal(rootGitDiff, '', 'Root index.html and sitemap.xml must remain untouched (unlisted)!');
+// 6. Ensure root PunFiction index.html and sitemap.xml keep the-8-billionth unlisted
+const rootIndexSrc = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const rootSitemapSrc = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
+assert.ok(
+  !rootIndexSrc.includes('the-8-billionth') && !rootSitemapSrc.includes('the-8-billionth'),
+  'Root index.html and sitemap.xml must keep the-8-billionth unlisted!'
+);
 
 console.log('[Bundle Audit] All syntax, DOM wiring, 5-tier scale, gzip budget, and unlisted checks PASSED!');

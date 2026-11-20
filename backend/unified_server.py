@@ -316,7 +316,11 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({"ok": True, "estimator": bool(billionth_estimator)}).encode('utf-8'))
+            self.wfile.write(json.dumps({
+                "ok": True,
+                "estimator": bool(billionth_estimator),
+                "model": getattr(billionth_estimator, "DEFAULT_GEMINI_MODEL", "gemini-3.8-flash")
+            }).encode('utf-8'))
             return
 
         # --- Word Vine APIs (/api/wordvine/...) ---
@@ -1177,7 +1181,7 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 }}
                 """
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-3.8-flash',
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json"

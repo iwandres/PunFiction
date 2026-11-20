@@ -630,7 +630,7 @@ Return a JSON array of objects matching this exact schema:
 ]
 """
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
@@ -778,7 +778,7 @@ Return a JSON object matching this exact schema:
 }}
 """
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
@@ -881,7 +881,7 @@ Return a JSON object matching this exact schema:
 }}
 """
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
@@ -970,7 +970,7 @@ Return a JSON object matching this exact schema:
 }}
 """
             prompt_res = client.models.generate_content(
-                model="gemini-2.5-flash",
+                model="gemini-3.8-flash",
                 contents=prompt_gen,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json"

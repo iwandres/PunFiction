@@ -401,89 +401,161 @@ def _sanitize_accepted_payload(parsed, raw_input, active_slugs=None, active_trai
     }
 
 
+DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"
+FALLBACK_GEMINI_MODELS = (
+    "gemini-3.8-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash",
+)
+DEPRECATED_GEMINI_MODELS = {"gemini-2.5-flash", "models/gemini-2.5-flash"}
+
+
+class MissingGeminiKeyError(RuntimeError):
+    """Raised when GEMINI_API_KEY is absent from the server environment."""
+
+
+class GeminiUpstreamHttpError(RuntimeError):
+    """Normalized upstream HTTP error from either google-genai SDK or urllib fallback."""
+
+    def __init__(self, status_code, detail=""):
+        self.status_code = int(status_code or 503)
+        self.detail = str(detail or "")[:240]
+        super().__init__(f"Gemini HTTP {self.status_code}: {self.detail}")
+
+
+def _resolve_model_candidates():
+    configured = os.environ.get("GEMINI_MODEL", "").strip()
+    ordered = []
+    if configured and configured not in DEPRECATED_GEMINI_MODELS:
+        ordered.append(configured)
+    for candidate in FALLBACK_GEMINI_MODELS:
+        if candidate not in ordered:
+            ordered.append(candidate)
+    if configured and configured not in ordered:
+        ordered.append(configured)
+    return ordered
+
+
 def _call_gemini_structured(raw_input, active_slugs=None, active_traits=None):
     """
     100% stateless Gemini Fermi estimation: activeSlugs/activeTraits are intentionally
     excluded from the LLM prompt so global `traits_cache` entries are never biased
     by a previous caller's stack. Uses `google.genai.Client` (matching unified_server
-    and travelreviews_agent), with an `x-goog-api-key` header REST fallback if the SDK
-    is unavailable in a minimal environment.
+    and travelreviews_agent), with automatic model fallback if a deprecated model ID
+    returns 404 NOT_FOUND and an `x-goog-api-key` header REST fallback if the SDK is
+    unavailable in a minimal environment.
     """
     api_key = re.sub(r"\s+", "", str(os.environ.get("GEMINI_API_KEY") or "")).strip('"').strip("'")
     if not api_key:
-        raise RuntimeError("GEMINI_API_KEY environment variable is not configured on the server.")
+        raise MissingGeminiKeyError("GEMINI_API_KEY environment variable is not configured on the server.")
 
-    model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip() or "gemini-2.5-flash"
+    models_to_try = _resolve_model_candidates()
     user_prompt = f'Evaluate this user statement unconditionally out of all 8,300,000,000 living humans: "{raw_input.strip()}"'
 
     try:
         from google import genai
+        from google.genai import errors as genai_errors
         from google.genai import types
         has_genai_sdk = True
     except ImportError:
+        genai_errors = None
         has_genai_sdk = False
 
     if has_genai_sdk:
         client = genai.Client(api_key=api_key)
-        response = client.models.generate_content(
-            model=model,
-            contents=user_prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                temperature=0.1,
-                response_mime_type="application/json",
-                response_schema=RESPONSE_SCHEMA,
-                thinking_config=types.ThinkingConfig(thinking_budget=0),
-                http_options=types.HttpOptions(timeout=10_000)
-            )
-        )
-        raw_text = getattr(response, "text", None)
-        if not raw_text:
-            raise RuntimeError("Gemini candidate contained no JSON text.")
-        return json.loads(raw_text)
+        last_err = None
+        for idx, model in enumerate(models_to_try):
+            for use_thinking_zero in (True, False):
+                try:
+                    cfg_kwargs = dict(
+                        system_instruction=SYSTEM_PROMPT,
+                        temperature=0.1,
+                        response_mime_type="application/json",
+                        response_schema=RESPONSE_SCHEMA,
+                        http_options=types.HttpOptions(timeout=18_000),
+                    )
+                    if use_thinking_zero:
+                        cfg_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=0)
 
-    endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-    body = {
-        "systemInstruction": {
-            "parts": [{"text": SYSTEM_PROMPT}]
-        },
-        "contents": [
-            {
-                "role": "user",
-                "parts": [{"text": user_prompt}]
-            }
-        ],
-        "generationConfig": {
-            "temperature": 0.1,
-            "responseMimeType": "application/json",
-            "responseSchema": RESPONSE_SCHEMA,
-            "thinkingConfig": {
-                "thinkingBudget": 0
+                    response = client.models.generate_content(
+                        model=model,
+                        contents=user_prompt,
+                        config=types.GenerateContentConfig(**cfg_kwargs)
+                    )
+                    raw_text = getattr(response, "text", None)
+                    if not raw_text:
+                        raise RuntimeError("Gemini candidate contained no JSON text.")
+                    return json.loads(raw_text)
+                except genai_errors.APIError as api_err:
+                    code = int(getattr(api_err, "code", 0) or 503)
+                    msg = str(api_err)
+                    last_err = GeminiUpstreamHttpError(code, msg)
+                    # If a future model rejects thinking_budget=0 with 400, retry same model without thinking_config
+                    if use_thinking_zero and code == 400 and "thinking" in msg.lower():
+                        continue
+                    # If model ID is retired/unavailable (404) or overloaded (503), advance to next candidate model
+                    if code in (404, 503) and idx < len(models_to_try) - 1:
+                        print(f"[Billionth Estimator] Model '{model}' returned HTTP {code}; falling back to next model.")
+                        break
+                    raise last_err
+        if last_err is not None:
+            raise last_err
+
+    last_http_err = None
+    for idx, model in enumerate(models_to_try):
+        endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+        body = {
+            "systemInstruction": {
+                "parts": [{"text": SYSTEM_PROMPT}]
+            },
+            "contents": [
+                {
+                    "role": "user",
+                    "parts": [{"text": user_prompt}]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.1,
+                "responseMimeType": "application/json",
+                "responseSchema": RESPONSE_SCHEMA,
+                "thinkingConfig": {
+                    "thinkingBudget": 0
+                }
             }
         }
-    }
 
-    req = urllib.request.Request(
-        endpoint,
-        data=json.dumps(body).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "x-goog-api-key": api_key
-        },
-        method="POST"
-    )
+        req = urllib.request.Request(
+            endpoint,
+            data=json.dumps(body).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "x-goog-api-key": api_key
+            },
+            method="POST"
+        )
 
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        resp_data = json.loads(resp.read().decode("utf-8"))
+        try:
+            with urllib.request.urlopen(req, timeout=18) as resp:
+                resp_data = json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as http_err:
+            last_http_err = http_err
+            if http_err.code in (404, 503) and idx < len(models_to_try) - 1:
+                print(f"[Billionth Estimator] REST model '{model}' returned HTTP {http_err.code}; falling back.")
+                continue
+            raise
 
-    candidates = resp_data.get("candidates") or []
-    if not candidates:
-        raise RuntimeError("Gemini returned no candidates.")
-    parts = ((candidates[0].get("content") or {}).get("parts")) or []
-    if not parts or "text" not in parts[0]:
-        raise RuntimeError("Gemini candidate contained no JSON text.")
+        candidates = resp_data.get("candidates") or []
+        if not candidates:
+            raise RuntimeError("Gemini returned no candidates.")
+        parts = ((candidates[0].get("content") or {}).get("parts")) or []
+        if not parts or "text" not in parts[0]:
+            raise RuntimeError("Gemini candidate contained no JSON text.")
 
-    return json.loads(parts[0]["text"])
+        return json.loads(parts[0]["text"])
+
+    if last_http_err is not None:
+        raise last_http_err
+    raise RuntimeError("No Gemini models available to evaluate custom trait.")
 
 
 def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active_traits=None):
@@ -492,7 +564,7 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
       1. Deterministic pre-guardrails (PII, exact dates, ephemeral micro-states, length)
       2. Persistent Cache Flywheel lookup (MongoDB Atlas / Local JSON, <30ms, $0)
       3. Sliding-window IP rate limit check
-      4. Gemini 2.5 Flash structured Fermi estimation + schema clamp + persistent cache write
+      4. Gemini 3.8 Flash structured Fermi estimation + schema clamp + persistent cache write
     """
     guardrail_hit = run_pre_guardrails(raw_input)
     if guardrail_hit is not None:
@@ -523,6 +595,17 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
 
     try:
         parsed = _call_gemini_structured(raw_input, active_slugs or [], active_traits=active_traits)
+    except MissingGeminiKeyError as key_err:
+        print(f"[Billionth Estimator] Missing API key: {key_err}")
+        return {
+            "error": "Custom trait estimator is offline locally (missing GEMINI_API_KEY). Built-in & parametric traits still work at full speed!"
+        }, 503
+    except GeminiUpstreamHttpError as up_err:
+        print(f"[Billionth Estimator] {up_err}")
+        return {
+            "error": "Live custom estimator is momentarily busy. Try one of the 5,000+ instant traits or retry in a few seconds!",
+            "geminiHttpStatus": up_err.status_code
+        }, 503
     except urllib.error.HTTPError as http_err:
         err_body = ""
         try:
@@ -537,7 +620,7 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
     except Exception as exc:
         print(f"[Billionth Estimator] Error calling Gemini: {exc}")
         return {
-            "error": "Custom trait estimator is offline locally (missing GEMINI_API_KEY) or temporarily unreachable. Built-in & parametric traits still work at full speed!"
+            "error": "Custom trait estimator is temporarily unreachable — please retry in a moment or pick an instant trait below!"
         }, 503
 
     status = str(parsed.get("status") or "").strip()
