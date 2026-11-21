@@ -449,6 +449,192 @@ def test_anti_troll_guardrails_and_ip_dedup():
             os.remove(temp_path)
 
 
+def test_universal_baseline_guardrails_and_high_prevalence():
+    from unittest import mock
+
+    # 1. All 5 categories of >=99.9% sample-space universals must bounce in 0ms as rejected_universal
+    universal_inputs = [
+        # A. Species & taxonomy
+        "I am a human",
+        "I'm a human being!",
+        "I am Homo sapiens",
+        "I am a mammal",
+        "I am a primate",
+        "I am a vertebrate",
+        "I am warm-blooded",
+        "I am carbon-based",
+        # B. Planetary & cosmic constants
+        "I was born on Earth",
+        "I was born on Planet Earth.",
+        "I live on Earth",
+        "I am from Earth",
+        "I orbit the Sun",
+        "I live in the Milky Way",
+        "I experience gravity",
+        # C. Universal biology, genetics & cellular make-up
+        "I have human DNA",
+        "I have DNA",
+        "I have chromosomes",
+        "I am made of cells",
+        "I have blood",
+        "I have a brain",
+        "I have a heart",
+        "I breathe oxygen",
+        "I breathe air",
+        "I drink water",
+        "I sleep",
+        "I had biological parents",
+        # D. Existential & logical tautologies
+        "I am alive",
+        "I exist",
+        "I was born",
+        "I have a birthday",
+        "I am under 130 years old",
+        "I was born before 2027",
+        # E. Trivial negations of extreme rarities (>=99.9%)
+        "I have never been to space",
+        "I've never walked on the Moon",
+        "I am not a billionaire",
+        "I have never won a Nobel Prize",
+        "I have never been struck by lightning",
+    ]
+    for u_text in universal_inputs:
+        hit = est.run_pre_guardrails(u_text)
+        assert hit is not None and hit["status"] == "rejected_universal", f"Expected rejected_universal for: {u_text}"
+        assert "+0.00 bits" in hit["rejectionReason"]
+
+    # 2. Specific narrowing lookalikes & 95%-99.8% majorities must NEVER false-positive on pre-guardrails
+    narrowing_lookalikes = [
+        "I was born on Earth Day",
+        "I live in Earth, Texas",
+        "I have 2.8% Neanderthal DNA",
+        "I am a human rights lawyer",
+        "I have O-negative blood",
+        "I have a heart murmur",
+        "I only drink water",
+        "I sleep 4 hours a night",
+        "I breathe through my mouth when sleeping",
+        "I am not a twin",
+        "I have all 10 fingers",
+        "I have never broken a bone",
+    ]
+    for clean_text in narrowing_lookalikes:
+        assert est.run_pre_guardrails(clean_text) is None, f"Unexpected universal false positive on: {clean_text}"
+
+    # 3. Post-LLM >=99.9% safety net, 95%-99.8% majority preservation, legacy cache quarantine & promotion filter
+    orig_cache_file = bdb.LOCAL_CACHE_FILE
+    orig_mongo = bdb._mongo_col
+    fd, temp_path = tempfile.mkstemp(suffix=".json")
+    os.close(fd)
+    os.remove(temp_path)
+    try:
+        bdb.LOCAL_CACHE_FILE = temp_path
+        bdb._mongo_col = None
+
+        # 3a. Creative phrasing hitting LLM with >=99.9% headcount converts to rejected_universal & is NOT cached
+        llm_universal = {
+            "status": "accepted",
+            "rejectionReason": None,
+            "compoundSplit": [],
+            "fermi": {
+                "baseGroup": "All living humans on Earth",
+                "conditionalRate": "100%",
+                "estimatedGlobalHumans": 8_300_000_000
+            },
+            "trait": {
+                "canonicalSlug": "possesses_mitochondrial_genome",
+                "label": "I carry maternally inherited mitochondrial DNA",
+                "shortBadge": "Mitochondrial DNA",
+                "emoji": "🧬",
+                "category": "genetics_physiology",
+                "prevalence": 1.0,
+                "clusterTags": ["genetic_quirk"],
+                "baseGates": [],
+                "subsumesSlugs": [],
+                "snarkNote": "All 8.3B of us.",
+                "isVerifiedExtremeRarity": False
+            }
+        }
+        with mock.patch.object(est, "_call_gemini_structured", return_value=llm_universal):
+            res_u, code_u = est.estimate_custom_trait("I carry maternally inherited mitochondrial DNA")
+            assert code_u == 200
+            assert res_u["status"] == "rejected_universal"
+            assert res_u["trait"] is None
+            assert bdb.lookup_cached_trait("I carry maternally inherited mitochondrial DNA") is None
+
+        # 3b. Legitimate 95%..99.8% majorities ("I am not a twin" ~96.7%, "I have 10 fingers" ~99.8%) keep true prevalence!
+        llm_non_twin = {
+            "status": "accepted",
+            "rejectionReason": None,
+            "compoundSplit": [],
+            "fermi": {
+                "baseGroup": "8.3B humans minus ~274M twins/multiples",
+                "conditionalRate": "96.7%",
+                "estimatedGlobalHumans": 8_026_100_000
+            },
+            "trait": {
+                "canonicalSlug": "not_a_twin",
+                "label": "I am not a twin",
+                "shortBadge": "Singleton birth",
+                "emoji": "👤",
+                "category": "genetics_physiology",
+                "prevalence": 0.967,
+                "clusterTags": ["genetic_quirk"],
+                "baseGates": [],
+                "subsumesSlugs": [],
+                "snarkNote": "Solo womb occupant.",
+                "isVerifiedExtremeRarity": False
+            }
+        }
+        san_major = est._sanitize_accepted_payload(llm_non_twin, "I am not a twin")
+        assert san_major["status"] == "accepted"
+        assert abs(san_major["trait"]["prevalence"] - 0.967) < 1e-6, "Must preserve 0.967 instead of clamping to 0.95!"
+
+        # 3c. Compound split strips universal clauses cleanly
+        llm_split = {
+            "status": "compound_split",
+            "rejectionReason": "One at a time!",
+            "compoundSplit": ["I am a human", "I play the cello"],
+            "fermi": None,
+            "trait": None
+        }
+        with mock.patch.object(est, "_call_gemini_structured", return_value=llm_split):
+            res_sp, code_sp = est.estimate_custom_trait("I am a human who plays the cello")
+            assert code_sp == 200
+            assert res_sp["status"] == "compound_split"
+            assert res_sp["compoundSplit"] == ["I play the cello"]
+
+        # 3d. Legacy cached universal item (stored at 0.95 before fix) is quarantined on lookup & blocked from promotion
+        legacy_trait = {
+            "id": "born_on_earth",
+            "canonicalSlug": "born_on_earth",
+            "label": "I was born on Earth",
+            "shortBadge": "Earth-born",
+            "emoji": "🌍",
+            "category": "travel_geography",
+            "prevalence": 0.95,
+            "clusterTags": ["world_traveler"],
+            "baseGates": [],
+            "subsumes": [],
+            "snarkNote": "Home planet.",
+            "isVerifiedExtremeRarity": False
+        }
+        bdb.store_cached_trait(
+            "native of third rock from the sun",
+            legacy_trait,
+            {"baseGroup": "Earth", "conditionalRate": "100%", "estimatedGlobalHumans": 7_885_000_000}
+        )
+        res_leg, code_leg = est.estimate_custom_trait("native of third rock from the sun")
+        assert code_leg == 200
+        assert res_leg["status"] == "rejected_universal"
+        assert promo._sanitize_promoted_trait({"trait": legacy_trait, "fermi": {}}, {}) is None
+    finally:
+        bdb.LOCAL_CACHE_FILE = orig_cache_file
+        bdb._mongo_col = orig_mongo
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+
 class TestBillionthBackend(unittest.TestCase):
     def test_all_billionth_suites(self):
         test_python_syntax_all()
@@ -457,6 +643,7 @@ class TestBillionthBackend(unittest.TestCase):
         test_promote_billionth_traits_lossless()
         test_model_resolution_and_error_separation()
         test_anti_troll_guardrails_and_ip_dedup()
+        test_universal_baseline_guardrails_and_high_prevalence()
 
 
 if __name__ == "__main__":
@@ -466,6 +653,7 @@ if __name__ == "__main__":
     test_promote_billionth_traits_lossless()
     test_model_resolution_and_error_separation()
     test_anti_troll_guardrails_and_ip_dedup()
+    test_universal_baseline_guardrails_and_high_prevalence()
     # Verify _call_gemini_structured source never injects activeSlugs/activeTraits into user_prompt
     import inspect
     fn_src = inspect.getsource(est._call_gemini_structured)

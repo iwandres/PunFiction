@@ -92,6 +92,16 @@ def _sanitize_promoted_trait(entry, known_map):
         or est.is_blocked_text(t.get("snarkNote"))
     ):
         return None
+    fermi = entry.get("fermi") or {}
+    raw_prev = float(t.get("prevalence") or 0.001)
+    est_humans = int(fermi.get("estimatedGlobalHumans") or 0)
+    if (
+        est.is_universal_slug(slug)
+        or est.check_universal_baseline(t.get("label")) is not None
+        or raw_prev >= est.UNIVERSAL_REJECTION_PREVALENCE
+        or est_humans >= est.UNIVERSAL_MIN_HUMANS
+    ):
+        return None
 
     cat = str(t.get("category") or "daily_quirks").strip()
     if cat not in est.CLOSED_CATEGORIES:
@@ -117,7 +127,7 @@ def _sanitize_promoted_trait(entry, known_map):
 
     is_extreme = bool(t.get("isVerifiedExtremeRarity"))
     min_prev = est.EXTREME_MIN_PREVALENCE if is_extreme else est.DEFAULT_MIN_PREVALENCE
-    prev = max(min_prev, min(0.95, float(t.get("prevalence") or 0.001)))
+    prev = max(min_prev, min(est.MAX_ACCEPTED_PREVALENCE, raw_prev))
 
     # Validate subsumes against known L1+L2 items & enforce P(child) < P(parent) + transitive closure
     valid_subs = []

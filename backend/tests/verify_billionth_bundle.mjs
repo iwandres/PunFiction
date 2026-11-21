@@ -297,12 +297,14 @@ function makeMockElement() {
   const listeners = {};
   return {
     value: '',
+    textContent: '',
     disabled: false,
     focusCount: 0,
     blurCount: 0,
     innerHTML: '',
     className: '',
     dataset: {},
+    children: [],
     classList: {
       add() {},
       remove() {},
@@ -333,7 +335,9 @@ function makeMockElement() {
     querySelectorAll() {
       return [];
     },
-    appendChild() {}
+    appendChild(child) {
+      this.children.push(child);
+    }
   };
 }
 
@@ -362,7 +366,11 @@ async function testOmniboxFocusMode({ isMobile }) {
   });
   Object.defineProperty(globalThis, 'document', {
     configurable: true,
-    value: { addEventListener() {}, activeElement: null }
+    value: {
+      addEventListener() {},
+      activeElement: null,
+      createElement: () => makeMockElement()
+    }
   });
 
   try {
@@ -381,22 +389,45 @@ async function testOmniboxFocusMode({ isMobile }) {
       statusSpinnerEl: spinnerEl,
       resolver: {
         searchInstant: () => [],
-        estimateCustomFact: async (text) => ({
-          status: 'accepted',
-          trait: {
-            id: 'custom_carnivorous_plants',
-            canonicalSlug: 'custom_carnivorous_plants',
-            label: text,
-            shortBadge: 'Carnivorous plants',
-            prevalence: 0.002
+        estimateCustomFact: async (text) => {
+          if (text === 'I was born on Earth') {
+            return {
+              status: 'rejected_universal',
+              rejectionReason:
+                'Zero humans have been born off-world yet — all 8.3 billion of us share Earth as home base (+0.00 bits).',
+              compoundSplit: [],
+              fermi: null,
+              trait: null
+            };
           }
-        })
+          return {
+            status: 'accepted',
+            trait: {
+              id: 'custom_carnivorous_plants',
+              canonicalSlug: 'custom_carnivorous_plants',
+              label: text,
+              shortBadge: 'Carnivorous plants',
+              prevalence: 0.002
+            }
+          };
+        }
       },
       formatPct: (p) => `${(p * 100).toFixed(2)}%`,
       getActiveSlugSet: () => new Set(),
       onSelectTrait: (t) => selected.push(t),
       onHoverTrait: () => {}
     });
+
+    // Universal trait bounces cleanly at omnibox with 🌍 badge and never enters stack
+    await ctrl.submitCustomText('I was born on Earth');
+    assert.equal(selected.length, 0, 'Universal baseline trait must NEVER be added to active stack');
+    assert.ok(
+      feedbackEl.children.length > 0 && feedbackEl.children[0].textContent.startsWith('🌍 '),
+      'Universal rejection must display 🌍 census banner'
+    );
+    feedbackEl.children = [];
+    inputEl.focusCount = 0;
+    inputEl.blurCount = 0;
 
     await ctrl.submitCustomText('I grow carnivorous plants');
     assert.equal(selected.length, 1);

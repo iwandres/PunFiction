@@ -15,6 +15,10 @@ except ImportError:
 WORLD_POPULATION = 8_300_000_000
 DEFAULT_MIN_PREVALENCE = 1e-7
 EXTREME_MIN_PREVALENCE = 1e-9
+UNIVERSAL_REJECTION_PREVALENCE = 0.999
+UNIVERSAL_MIN_HUMANS = int(WORLD_POPULATION * UNIVERSAL_REJECTION_PREVALENCE)  # 8,291,700,000
+MAX_ACCEPTED_HUMANS = UNIVERSAL_MIN_HUMANS - 1
+MAX_ACCEPTED_PREVALENCE = MAX_ACCEPTED_HUMANS / float(WORLD_POPULATION)
 
 CLOSED_CATEGORIES = [
     "sports_movement",
@@ -57,6 +61,13 @@ Evaluate the user's input statement and return strict JSON matching the schema.
 - "rejected_inappropriate": Reject profanity, slurs, hate speech, harassment, sexually explicit/NSFW/fetish or anatomical shock content, self-harm, violent crimes or illegal acts (e.g. hard-drug use/dealing, assault, theft), or gross-out shock trolling. Keep accepted traits PG-13 and shareable on a family-friendly public census card (normal medical/biological facts like "had knee surgery", "C-section", "colorblind", or "kidney stone survivor" ARE allowed). Never repeat or quote offensive words in `rejectionReason`.
 - "rejected_pii": Reject personal names, street addresses, emails, phone numbers, license plates, SSNs, exact employer + job title pairs, usernames/handles, or exact birth dates (YYYY-MM-DD / Month Day Year). Note: Birth month alone (~8.3%) or birth decade alone (~12-16%) IS allowed.
 - "rejected_ephemeral": Reject temporary micro-states ("I am sitting down", "wearing a blue sock right now", "just sneezed", "playing this game"). Traits must be durable habits, skills, biology, possessions, geography, or life milestones.
+- "rejected_universal": Reject universal human baselines, sample-space tautologies, planetary/cosmic constants, universal human anatomy/biology/DNA, or trivial negations shared by >=99.9% (>=8,291,700,000) of all living humans — facts that move the funnel ~0 bits because virtually the entire 8.3B human pool shares them. Examples to REJECT as "rejected_universal":
+  * Species/taxonomy: "I am a human", "I am Homo sapiens", "I am a mammal/primate/vertebrate", "I am a person"
+  * Planetary/cosmic: "I was born on Earth", "I live on Earth", "I orbit the Sun", "I experience gravity"
+  * Universal biology/genetics: "I have human DNA", "I have chromosomes/genes/cells", "I am carbon-based", "I have blood/skin/bones/a brain/a heart/lungs", "I breathe oxygen/air", "I drink water", "I sleep", "I had biological parents"
+  * Existential/logical tautologies: "I am alive", "I exist", "I was born", "I have an age", "I am under 130 years old", "I was born before 2027", "I am either left-handed or not"
+  * Trivial negations of extreme rarities (>=99.9% true): "I have never walked on the Moon", "I have never been to space", "I am not a billionaire", "I have never won a Nobel Prize", "I have never been struck by lightning"
+  Note: Specific narrowing subtypes ARE allowed ("I have 2.8% Neanderthal DNA", "I have O-negative blood", "I am not a twin" ~96.7%, "I have all 10 fingers" ~99.8%).
 - "rejected_implausible": Reject physically impossible, supernatural, or fictional claims ("I live on Mars", "I am 300 years old", "I can turn invisible").
 - "compound_split": If the input bundles 2+ distinct independent traits ("I'm a left-handed indie game dev who scuba dives"), DO NOT score them together. Set status to "compound_split" and return 2 to 4 clean atomic first-person statements in compoundSplit.
 
@@ -106,6 +117,7 @@ RESPONSE_SCHEMA = {
             "enum": [
                 "accepted",
                 "compound_split",
+                "rejected_universal",
                 "rejected_pii",
                 "rejected_ephemeral",
                 "rejected_implausible",
@@ -234,6 +246,169 @@ INAPPROPRIATE_REJECTION_MSG = (
     "Keep it PG-13 for the global census — give us a shareable skill, hobby, quirk, or life milestone!"
 )
 
+UNIVERSAL_REJECTION_MESSAGES = {
+    "species": (
+        "Bold flex, fellow Homo sapiens — all 8,300,000,000 of us in this pool already clear that bar (+0.00 bits). "
+        "Give us a trait that actually narrows the crowd!"
+    ),
+    "planet": (
+        "Zero humans have been born off-world yet — all 8.3 billion of us share Earth as home base (+0.00 bits). "
+        "Try a country, climate, or travel quirk instead!"
+    ),
+    "biology": (
+        "Standard-issue factory equipment for all 8.3 billion humans (+0.00 bits). "
+        "Try a specific genetic quirk like left-handedness, blood type, or cilantro soap-taste!"
+    ),
+    "tautology": (
+        "Being alive and existing comes pre-installed for everyone in the 8.3B living census (+0.00 bits). "
+        "Give us a durable habit, skill, or milestone!"
+    ),
+    "trivial_negation": (
+        "You and 99.99%+ of humanity (~8.3 billion people, +0.00 bits). "
+        "Tell us something distinctive you DO have or do — not what virtually nobody has done!"
+    ),
+    "default": (
+        "Shared by 99.9%+ of all 8.3 billion living humans (+0.00 bits) — "
+        "give us a distinctive trait that actually thins the crowd!"
+    )
+}
+
+UNIVERSAL_SLUGS = frozenset({
+    "human", "is_human", "am_human", "i_am_human", "human_being", "living_human",
+    "homo_sapiens", "homo_sapien", "mammal", "is_mammal", "primate", "is_primate",
+    "vertebrate", "person", "living_person", "mortal", "earthling", "terran",
+    "born_on_earth", "was_born_on_earth", "lives_on_earth", "live_on_earth",
+    "from_earth", "earth_resident", "planet_earth", "orbits_the_sun", "orbit_the_sun",
+    "lives_in_solar_system", "lives_in_milky_way", "lives_in_universe", "experiences_gravity",
+    "human_dna", "has_human_dna", "have_human_dna", "has_dna", "have_dna", "dna",
+    "has_genes", "has_chromosomes", "has_rna", "has_genome", "human_genome",
+    "has_cells", "made_of_cells", "made_of_atoms", "made_of_matter", "made_of_water",
+    "carbon_based", "carbon_based_lifeform", "has_blood", "has_skin", "has_bones",
+    "has_skeleton", "has_brain", "has_human_brain", "has_heart", "has_beating_heart",
+    "has_lungs", "has_organs", "has_muscles", "has_nervous_system", "has_immune_system",
+    "breathes", "breathes_air", "breathes_oxygen", "drinks_water", "needs_water",
+    "eats_food", "needs_food", "sleeps", "needs_sleep", "is_alive", "alive", "living",
+    "exists", "i_exist", "was_born", "has_birthday", "has_age", "is_aging",
+    "has_biological_parents", "has_ancestors", "never_been_to_space", "never_walked_on_moon",
+    "never_been_to_moon", "never_been_to_mars", "not_a_billionaire", "not_an_astronaut",
+    "never_won_nobel_prize", "never_struck_by_lightning"
+})
+
+_RE_UNIV_SPECIES = re.compile(
+    r"^(?:i\s+am\s+)?(?:a\s+|an\s+)?(?:"
+    r"(?:living\s+|modern\s+|real\s+)?human(?:\s+being)?|"
+    r"homo\s+sapiens?|"
+    r"(?:living\s+|real\s+)?person|"
+    r"mortal|earthling|terran|"
+    r"(?:placental\s+|warm\s+blooded\s+)?mammal|"
+    r"primate|(?:great\s+)?ape|hominid|vertebrate|biped|"
+    r"warm\s+blooded(?:\s+animal|\s+organism)?|"
+    r"carbon\s+based(?:\s+life\s*form|\s+organism|\s+being)?|"
+    r"(?:biological|multicellular|living)\s+organism|eukaryote"
+    r")$"
+)
+
+_RE_UNIV_PLANET = re.compile(
+    r"^(?:"
+    r"(?:i\s+)?(?:was\s+born|am\s+born|born|grew\s+up|grow\s+up|live|reside|exist|am|dwell)\s+(?:on|in)\s+(?:the\s+)?(?:planet\s+)?earth|"
+    r"(?:i\s+am\s+)?from\s+(?:planet\s+)?earth|"
+    r"(?:i\s+)?(?:live|reside|exist|am)\s+in\s+(?:the\s+|this\s+)?(?:solar\s+system|milky\s+way(?:\s+galaxy)?|(?:observable\s+)?universe|cosmos|biosphere)|"
+    r"(?:i\s+)?(?:orbit|revolve\s+around)\s+the\s+sun|"
+    r"(?:i\s+)?(?:am\s+subject\s+to|experience|feel)\s+gravity"
+    r")$"
+)
+
+_RE_UNIV_BIOLOGY = re.compile(
+    r"^(?:"
+    r"(?:i\s+(?:have|possess|carry)|my\s+body\s+has)\s+(?:human\s+)?(?:"
+    r"dna|genes|chromosomes|rna|genetic\s+code|(?:a\s+)?genome|cells|eukaryotic\s+cells|mitochondria|"
+    r"atoms|molecules|proteins|amino\s+acids|organs|internal\s+organs|tissues|"
+    r"blood|red\s+blood\s+cells|white\s+blood\s+cells|plasma|hemoglobin|"
+    r"skin|epidermis|bones|a\s+skeleton|a\s+spine|a\s+skull|a\s+rib\s*cage|muscles|nerves|neurons|"
+    r"a\s+(?:human\s+)?brain|a\s+(?:beating\s+)?heart|lungs|a\s+liver|a\s+stomach|"
+    r"a\s+digestive\s+system|a\s+nervous\s+system|a\s+circulatory\s+system|an\s+immune\s+system|"
+    r"a\s+metabolism|a\s+pulse|a\s+heartbeat|body\s+heat|water\s+in\s+my\s+body"
+    r")|"
+    r"(?:i\s+am\s+)?made\s+of\s+(?:cells|atoms|molecules|matter|carbon|water|flesh\s+and\s+(?:blood|bone)|stardust)|"
+    r"(?:i\s+)?(?:breathe|inhale)(?:\s+(?:air|oxygen|earth\s+air|the\s+atmosphere))?|"
+    r"(?:i\s+)?exhale\s+carbon\s+dioxide|"
+    r"(?:i\s+)?(?:need|require|consume|drink)\s+water(?:\s+to\s+(?:live|survive))?|"
+    r"(?:i\s+)?(?:need|require|consume|eat)\s+(?:food|calories|nutrients)(?:\s+to\s+(?:live|survive))?|"
+    r"(?:i\s+)?(?:sleep|need\s+sleep)(?:\s+to\s+(?:live|survive))?|"
+    r"(?:i\s+)?(?:have|had)\s+(?:biological\s+parents|a\s+biological\s+mother(?:\s+and\s+(?:a\s+)?(?:biological\s+)?father)?|ancestors)"
+    r")$"
+)
+
+_RE_UNIV_TAUTOLOGY = re.compile(
+    r"^(?:"
+    r"i\s+am\s+(?:alive|living|not\s+dead|mortal)|"
+    r"i\s+exist|i\s+was\s+born|i\s+have\s+been\s+born|"
+    r"i\s+have\s+(?:a\s+birthday|a\s+birth\s+date|an\s+age)|"
+    r"i\s+(?:age|am\s+aging|am\s+getting\s+older|have\s+never\s+died)|"
+    r"i\s+was\s+born\s+in\s+the\s+20th\s+or\s+21st\s+century|"
+    r"i\s+was\s+born\s+before\s+20[2-9]\d|"
+    r"i\s+am\s+(?:under|less\s+than|younger\s+than)\s+(?:1[2-9]\d|[2-9]\d\d)(?:\s+years\s+old)?|"
+    r"i\s+am\s+(?:older|more)\s+than\s+0(?:\s+years\s+old)?"
+    r")$"
+)
+
+_RE_UNIV_TRIVIAL_NEGATION = re.compile(
+    r"^(?:"
+    r"i\s+(?:have\s+never|have\s+not|never)\s+(?:"
+    r"been\s+to\s+(?:outer\s+)?space|walked\s+on\s+the\s+moon|been\s+to\s+the\s+moon|been\s+to\s+mars|"
+    r"orbited\s+(?:the\s+)?earth|flown\s+in\s+space|"
+    r"won\s+a\s+nobel\s+prize|won\s+an\s+olympic\s+(?:gold\s+)?medal|won\s+an\s+oscar|won\s+an\s+academy\s+award|"
+    r"climbed\s+(?:mount\s+|mt\s+)?everest|been\s+struck\s+by\s+lightning"
+    r")|"
+    r"i\s+am\s+not\s+(?:a\s+billionaire|an\s+astronaut|an?\s+olympian|an?\s+olympic\s+medalist|a\s+nobel\s+(?:prize\s+)?(?:winner|laureate)|the\s+pope|a\s+monarch|a\s+head\s+of\s+state)"
+    r")$"
+)
+
+
+def _normalize_universal_probe(raw_text):
+    text = str(raw_text or "").strip().lower()
+    if not text:
+        return ""
+    text = re.sub(r"['’`]", "'", text)
+    text = re.sub(r"\bi'm\b", "i am", text)
+    text = re.sub(r"\bi've\b", "i have", text)
+    text = re.sub(r"\bi'd\b", "i had", text)
+    text = re.sub(r"\bdon't\b", "do not", text)
+    text = re.sub(r"\bdoesn't\b", "does not", text)
+    text = re.sub(r"\bhaven't\b", "have not", text)
+    text = re.sub(r"\bwasn't\b", "was not", text)
+    text = re.sub(r"\baren't\b", "are not", text)
+    text = re.sub(r"\bisn't\b", "is not", text)
+    text = re.sub(r"[^a-z0-9\s]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def check_universal_baseline(raw_text):
+    """
+    Deterministic 0ms detector for sample-space tautologies & >=99.9% universal human baselines
+    ('I am a human', 'I was born on Earth', 'I have human DNA', 'I have never been to space').
+    Returns a witty rejectionReason string if universal, or None if narrowing.
+    """
+    norm = _normalize_universal_probe(raw_text)
+    if not norm:
+        return None
+    if _RE_UNIV_SPECIES.match(norm):
+        return UNIVERSAL_REJECTION_MESSAGES["species"]
+    if _RE_UNIV_PLANET.match(norm):
+        return UNIVERSAL_REJECTION_MESSAGES["planet"]
+    if _RE_UNIV_BIOLOGY.match(norm):
+        return UNIVERSAL_REJECTION_MESSAGES["biology"]
+    if _RE_UNIV_TAUTOLOGY.match(norm):
+        return UNIVERSAL_REJECTION_MESSAGES["tautology"]
+    if _RE_UNIV_TRIVIAL_NEGATION.match(norm):
+        return UNIVERSAL_REJECTION_MESSAGES["trivial_negation"]
+    return None
+
+
+def is_universal_slug(slug):
+    clean = re.sub(r"[^a-z0-9_]+", "_", str(slug or "").lower()).strip("_")
+    return clean in UNIVERSAL_SLUGS
+
 
 def is_blocked_text(raw_text):
     """
@@ -320,6 +495,16 @@ def run_pre_guardrails(raw_input):
             "trait": None
         }
 
+    universal_reason = check_universal_baseline(text)
+    if universal_reason is not None:
+        return {
+            "status": "rejected_universal",
+            "rejectionReason": universal_reason,
+            "compoundSplit": [],
+            "fermi": None,
+            "trait": None
+        }
+
     return None
 
 
@@ -382,9 +567,32 @@ def _sanitize_accepted_payload(parsed, raw_input, active_slugs=None, active_trai
 
     if est_humans <= 0 and raw_prev > 0:
         est_humans = int(round(raw_prev * WORLD_POPULATION))
-    est_humans = max(min_humans, min(int(WORLD_POPULATION * 0.95), est_humans))
 
-    clamped_prev = max(min_floor, min(0.95, est_humans / float(WORLD_POPULATION)))
+    raw_label_probe = str(trait_in.get("label") or raw_input).strip()
+    raw_badge_probe = str(trait_in.get("shortBadge") or raw_label_probe).strip()
+    raw_slug_probe = _sanitize_slug(trait_in.get("canonicalSlug"), raw_badge_probe)
+    universal_hit = (
+        check_universal_baseline(raw_label_probe)
+        or check_universal_baseline(raw_input)
+        or (UNIVERSAL_REJECTION_MESSAGES["default"] if is_universal_slug(raw_slug_probe) else None)
+    )
+    if (
+        universal_hit is not None
+        or est_humans >= UNIVERSAL_MIN_HUMANS
+        or raw_prev >= UNIVERSAL_REJECTION_PREVALENCE
+    ):
+        return {
+            "status": "rejected_universal",
+            "rejectionReason": universal_hit or UNIVERSAL_REJECTION_MESSAGES["default"],
+            "compoundSplit": [],
+            "fermi": None,
+            "trait": None,
+            "cached": False
+        }
+
+    est_humans = max(min_humans, min(MAX_ACCEPTED_HUMANS, est_humans))
+
+    clamped_prev = max(min_floor, min(MAX_ACCEPTED_PREVALENCE, est_humans / float(WORLD_POPULATION)))
 
     raw_tags = trait_in.get("clusterTags") or []
     valid_tag_set = set(CLOSED_CLUSTER_TAGS)
@@ -671,6 +879,26 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
                 "fermi": None,
                 "trait": None
             }, 200
+        # Quarantine any legacy cached universal/tautological item stored before the 99.9% guardrail
+        c_fermi = cached.get("fermi") or {}
+        c_prev = float(c_trait.get("prevalence") or 0.0)
+        c_humans = int(c_fermi.get("estimatedGlobalHumans") or 0)
+        c_univ_reason = (
+            check_universal_baseline(c_trait.get("label"))
+            or (UNIVERSAL_REJECTION_MESSAGES["default"] if is_universal_slug(c_trait.get("canonicalSlug")) else None)
+        )
+        if (
+            c_univ_reason is not None
+            or c_prev >= UNIVERSAL_REJECTION_PREVALENCE
+            or c_humans >= UNIVERSAL_MIN_HUMANS
+        ):
+            return {
+                "status": "rejected_universal",
+                "rejectionReason": c_univ_reason or UNIVERSAL_REJECTION_MESSAGES["default"],
+                "compoundSplit": [],
+                "fermi": None,
+                "trait": None
+            }, 200
         # Enrich cached trait with any dynamic heuristic subsumptions against caller's activeTraits
         existing_sub = list(c_trait.get("subsumes") or [])
         extra_sub = _infer_heuristic_subsumes(c_trait.get("label", ""), active_traits)
@@ -724,15 +952,24 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
     status = str(parsed.get("status") or "").strip()
 
     if status == "compound_split":
-        splits = [
+        non_blocked = [
             str(s).strip()
             for s in (parsed.get("compoundSplit") or [])
             if str(s).strip() and not is_blocked_text(s)
-        ][:4]
-        if not splits:
+        ]
+        if not non_blocked:
             return {
                 "status": "rejected_inappropriate",
                 "rejectionReason": INAPPROPRIATE_REJECTION_MSG,
+                "compoundSplit": [],
+                "fermi": None,
+                "trait": None
+            }, 200
+        splits = [s for s in non_blocked if check_universal_baseline(s) is None][:4]
+        if not splits:
+            return {
+                "status": "rejected_universal",
+                "rejectionReason": check_universal_baseline(non_blocked[0]) or UNIVERSAL_REJECTION_MESSAGES["default"],
                 "compoundSplit": [],
                 "fermi": None,
                 "trait": None
@@ -745,8 +982,9 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
             "trait": None
         }, 200
 
-    if status in ("rejected_pii", "rejected_ephemeral", "rejected_implausible", "rejected_inappropriate"):
+    if status in ("rejected_universal", "rejected_pii", "rejected_ephemeral", "rejected_implausible", "rejected_inappropriate"):
         default_reasons = {
+            "rejected_universal": UNIVERSAL_REJECTION_MESSAGES["default"],
             "rejected_pii": "Using personal identifiers is speedrunning on easy mode. Give us durable traits, not your ID card.",
             "rejected_ephemeral": "Momentary states vanish in minutes — enter a lasting habit, skill, quirk, or milestone.",
             "rejected_implausible": "Our census strictly covers the 8.3 billion humans currently obeying the laws of physics on Earth.",
@@ -770,6 +1008,10 @@ def estimate_custom_trait(raw_input, active_slugs=None, client_ip="anon", active
             active_slugs=active_slugs,
             active_traits=active_traits
         )
+        if sanitized.get("status") != "accepted" or not sanitized.get("trait"):
+            sanitized.pop("cacheableTrait", None)
+            sanitized.pop("cached", None)
+            return sanitized, 200
         out_trait = sanitized["trait"]
         if (
             is_blocked_text(out_trait.get("label"))

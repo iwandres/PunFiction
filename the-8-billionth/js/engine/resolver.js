@@ -246,6 +246,8 @@
         if (cacheKey) {
           this.customSessionCache.set(cacheKey, data);
         }
+      } else if (data && data.status === 'rejected_universal' && cacheKey) {
+        this.customSessionCache.set(cacheKey, data);
       }
 
       return data;

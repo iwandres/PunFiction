@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=37" />
+  <link rel="stylesheet" href="css/styles.css?v=38" />
 </head>
 <body class="math-page-body">
   <!-- Top Bar -->
@@ -480,11 +480,14 @@
           <div class="math-eq">
             N̂<sub>trait</sub> = N<sub>base pool</sub> × P(quirk | base pool),
             &nbsp;&nbsp;&nbsp;&nbsp;
-            p<sub>base</sub> = clamp(N̂<sub>trait</sub> / 8.3×10<sup>9</sup>, 10<sup>−7</sup>, 0.95)
+            p<sub>base</sub> = clamp(N̂<sub>trait</sub> / 8.3×10<sup>9</sup>, 10<sup>−7</sup>, 0.999)
           </div>
         </div>
 
         <ul class="math-bullet-list">
+          <li>
+            <strong>Universal Baseline &amp; Tautology Guardrail (<span class="m-inline">≥ 99.9% ≈ 8.29B+ humans</span>):</strong> Sample-space constants shared by virtually the entire human pool—such as <em>“I am a human,”</em> <em>“I was born on Earth,”</em> <em>“I have human DNA,”</em> or trivial negations like <em>“I have never walked on the Moon”</em> (<span class="m-inline">&lt; 0.0015 bits</span>)—bounce at the omnibox with zero funnel impact rather than artificially shaving the population.
+          </li>
           <li>
             <strong>Hard Prevalence Floor (<span class="m-inline">10<sup>−7</sup> ≈ 830 humans</span>):</strong> Custom traits are server-clamped at <span class="m-inline">p<sub>base</sub> ≥ 10<sup>−7</sup></span> unless flagged as an established extreme medical or historical cohort (e.g., lightning-strike survivor at <span class="m-inline">~3 × 10<sup>−6</sup></span>) behind an explicit confirmation step.
           </li>
@@ -540,7 +543,7 @@
             <strong>Tier 3 — Curated Behavioral &amp; Hobby Synthesis (Order-of-Magnitude Fermi):</strong> No global census counts vinyl collectors or sourdough keepers. Where institutional registries exist (PADI certifications, ICAO/FAA pilot licenses, IARU amateur callsigns, SlashData developer surveys, FIDE/online chess pools, FIFA/FIVB participation reports), traits are anchored to registry totals and discounted against full global age, income, and regional denominators.
           </li>
           <li>
-            <strong>Tier 4 — Unscripted Free-Text Traits (Stateless LLM Fermi):</strong> Custom inputs are decomposed by Gemini 3.8 Flash (<span class="m-inline">N<sub>base pool</sub> × P(quirk | base pool)</span>) against UN regional/age priors and built-in calibration anchors, clamped to <span class="m-inline">[10<sup>−7</sup>, 0.95]</span>, and cached by SHA-256 hash—designed as internally consistent order-of-magnitude priors rather than literal government headcounts.
+            <strong>Tier 4 — Unscripted Free-Text Traits (Stateless LLM Fermi):</strong> Custom inputs are decomposed by Gemini 3.8 Flash (<span class="m-inline">N<sub>base pool</sub> × P(quirk | base pool)</span>) against UN regional/age priors and built-in calibration anchors, accepted across <span class="m-inline">[10<sup>−7</sup>, 0.999)</span> (with <span class="m-inline">≥ 99.9%</span> sample-space tautologies bounced at <span class="m-inline">0 bits</span>), and cached by SHA-256 hash—designed as internally consistent order-of-magnitude priors rather than literal government headcounts.
           </li>
         </ul>
       </article>

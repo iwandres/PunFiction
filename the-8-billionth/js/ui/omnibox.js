@@ -461,10 +461,12 @@
           return;
         }
 
-        // Rejected (PII, ephemeral, implausible)
+        // Rejected (universal baseline, PII, ephemeral, implausible, inappropriate)
+        const icon = res.status === 'rejected_universal' ? '🌍' : '🛡️';
         this._renderRejection(
           res.rejectionReason ||
-            'Could not verify that as a durable human trait — try phrasing a lasting skill, habit, or quirk!'
+            'Could not verify that as a durable human trait — try phrasing a lasting skill, habit, or quirk!',
+          icon
         );
       } catch (err) {
         this._setLoading(false);
@@ -496,11 +498,11 @@
       this.feedbackEl.className = 'omni-feedback hidden';
     }
 
-    _renderRejection(message) {
+    _renderRejection(message, icon) {
       if (!this.feedbackEl) return;
       this.feedbackEl.className = 'omni-feedback omni-feedback-warn';
       const span = document.createElement('span');
-      span.textContent = '🛡️ ' + message;
+      span.textContent = (icon || '🛡️') + ' ' + message;
       const closeBtn = document.createElement('button');
       closeBtn.type = 'button';
       closeBtn.className = 'omni-feedback-dismiss';
@@ -555,7 +557,8 @@
               chip.remove();
               if (chipWrap.children.length === 0) this._clearFeedback();
             } else {
-              chip.textContent = 'Skipped';
+              chip.textContent =
+                res && res.status === 'rejected_universal' ? '100% of Earth (0b)' : 'Skipped';
             }
           } catch (_) {
             chip.disabled = false;

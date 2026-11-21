@@ -42,6 +42,10 @@
 
   function formatOneInX(prevalence) {
     const p = Math.max(1e-9, Number(prevalence) || 0.1);
+    if (p > 0.55) {
+      const pct = p * 100;
+      return '~' + (pct % 1 < 0.15 ? Math.round(pct) : pct.toFixed(1)) + '% of Earth';
+    }
     const oneIn = Math.max(2, Math.round(1 / p));
     if (oneIn >= 1000000) {
       return '1 in ' + (oneIn / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
