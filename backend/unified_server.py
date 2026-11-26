@@ -40,6 +40,26 @@ except Exception as e:
     print(f"Warning importing billionth_estimator: {e}")
     billionth_estimator = None
 
+try:
+    import umwelt_data as umwelt_data
+    import umwelt_database as umwelt_database
+    import umwelt_pipeline as umwelt_pipeline
+except ImportError:
+    try:
+        from backend import umwelt_data as umwelt_data
+        from backend import umwelt_database as umwelt_database
+        from backend import umwelt_pipeline as umwelt_pipeline
+    except Exception as e:
+        print(f"Warning importing umwelt modules: {e}")
+        umwelt_data = None
+        umwelt_database = None
+        umwelt_pipeline = None
+except Exception as e:
+    print(f"Warning importing umwelt modules: {e}")
+    umwelt_data = None
+    umwelt_database = None
+    umwelt_pipeline = None
+
 PORT = int(os.environ.get("PORT", 8000))
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DIR_PATH)
@@ -272,6 +292,9 @@ def get_curation_agent():
 PUBLIC_POST_PATHS = frozenset([
     '/api/billionth/estimate-trait',
     '/api/estimate-trait',
+    '/api/umwelt/plates/resolve',
+    '/api/umwelt/journal/verify-discovery',
+    '/api/umwelt/missions/complete',
     '/api/wordvine/vine/submit',
     '/api/vine/submit',
     '/api/records',
@@ -380,6 +403,43 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "estimator": bool(billionth_estimator),
                 "model": getattr(billionth_estimator, "DEFAULT_GEMINI_MODEL", "gemini-3.8-flash")
             }).encode('utf-8'))
+            return
+
+        # 1C. Umwelt: Animal Optics GET APIs (/api/umwelt/...)
+        if req_path == '/api/umwelt/health':
+            self._send_json(200, {
+                "ok": True,
+                "mongoConnected": bool(umwelt_database and umwelt_database.is_mongo_connected()),
+                "cachedPlatesCount": umwelt_database.count_cached_plates() if umwelt_database else 0,
+                "geminiAvailable": bool(os.environ.get("GEMINI_API_KEY")),
+            })
+            return
+
+        if req_path == '/api/umwelt/biomes' and umwelt_data:
+            self._send_json(200, umwelt_data.get_full_catalog())
+            return
+
+        if req_path.startswith('/api/umwelt/plates/') and umwelt_database:
+            parts = [p for p in req_path.split('/') if p]
+            # Expected: ['api', 'umwelt', 'plates', '<plateKey>', 'rgb.webp' | 'bio.png']
+            if len(parts) == 5 and parts[4] in ('rgb.webp', 'bio.png'):
+                plate_key = parts[3]
+                asset_kind = 'rgb' if parts[4] == 'rgb.webp' else 'bio'
+                blob, content_type = umwelt_database.read_plate_binary(plate_key, asset_kind)
+                if blob:
+                    self.send_response(200)
+                    self.send_header('Content-type', content_type)
+                    self.send_header('Content-Length', str(len(blob)))
+                    self.send_header('Cache-Control', 'public, max-age=31536000, immutable')
+                    self.end_headers()
+                    self.wfile.write(blob)
+                    return
+                self._send_json(404, {"error": "Plate asset not found."})
+                return
+
+        if req_path.startswith('/api/umwelt/journal/') and umwelt_database:
+            client_uuid = req_path.rstrip('/').split('/')[-1]
+            self._send_json(200, umwelt_database.get_journal(client_uuid))
             return
 
         # --- Word Vine APIs (/api/wordvine/...) ---
@@ -634,6 +694,69 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 print(f"[Billionth POST] Invalid request error: {e}")
                 self._send_json(400, {"error": "Invalid custom trait request payload."})
+            return
+
+        # --- Umwelt: Animal Optics POST APIs (/api/umwelt/...) ---
+        if req_path == '/api/umwelt/plates/resolve':
+            if not umwelt_pipeline:
+                self._send_json(503, {"error": "Umwelt plate pipeline unavailable on server."})
+                return
+            try:
+                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
+                forwarded = self.headers.get('X-Forwarded-For', '')
+                client_ip = forwarded.split(',')[0].strip() if forwarded else (self.client_address[0] if self.client_address else 'anon')
+                force_regen = bool(payload.get('forceRegenerate', False))
+                if force_regen:
+                    admin_tok = os.environ.get('ADMIN_REGEN_TOKEN', '').strip()
+                    req_tok = str(payload.get('adminToken', '') or self.headers.get('X-Admin-Token', '')).strip()
+                    if not (self.is_local_admin_request() or (admin_tok and req_tok == admin_tok)):
+                        force_regen = False
+                status_code, res_obj = umwelt_pipeline.resolve_plate(
+                    biome_id=str(payload.get('biomeId', '')).strip(),
+                    species_slug=str(payload.get('speciesSlug', '')).strip(),
+                    lighting_preset=payload.get('lightingPreset'),
+                    force_regenerate=force_regen,
+                    client_ip=client_ip,
+                )
+                self._send_json(status_code, res_obj)
+            except Exception as e:
+                print(f"[Umwelt Resolve POST] Error: {e}")
+                self._send_json(400, {"error": "Invalid plate resolve request."})
+            return
+
+        if req_path == '/api/umwelt/journal/verify-discovery':
+            if not umwelt_pipeline:
+                self._send_json(503, {"error": "Umwelt verification unavailable on server."})
+                return
+            try:
+                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
+                status_code, res_obj = umwelt_pipeline.verify_mystery_discovery(payload)
+                self._send_json(status_code, res_obj)
+            except Exception as e:
+                print(f"[Umwelt Verify POST] Error: {e}")
+                self._send_json(400, {"error": "Invalid discovery verification payload."})
+            return
+
+        if req_path == '/api/umwelt/missions/complete':
+            if not (umwelt_data and umwelt_database):
+                self._send_json(503, {"error": "Umwelt mission store unavailable on server."})
+                return
+            try:
+                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
+                mission = umwelt_data.get_mission_by_id(str(payload.get('missionId', '')).strip())
+                if not mission:
+                    self._send_json(404, {"error": "Unknown missionId."})
+                    return
+                journal = umwelt_database.save_completed_mission(
+                    client_uuid=str(payload.get('clientUuid', 'anonymous')).strip(),
+                    mission=mission,
+                    score=int(payload.get('score', 0) or 0),
+                    elapsed_ms=int(payload.get('elapsedMs', 0) or 0),
+                )
+                self._send_json(200, {"ok": True, "missionId": mission["missionId"], "journal": journal})
+            except Exception as e:
+                print(f"[Umwelt Mission POST] Error: {e}")
+                self._send_json(400, {"error": "Invalid mission completion payload."})
             return
 
         # --- Word Vine POST APIs (/api/wordvine/...) ---

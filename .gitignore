@@ -24,3 +24,4 @@ backend/travelreviews_alert_config.json
 
 # Local dev fallback trait cache
 backend/billionth_traits_cache.json
+backend/.umwelt_local_cache/

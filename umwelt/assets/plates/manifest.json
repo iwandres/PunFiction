@@ -1,0 +1,632 @@
+{
+  "meadow_honeybee_Alpine_Noon_v1": {
+    "plateKey": "meadow_honeybee_Alpine_Noon_v1",
+    "biomeId": "meadow",
+    "speciesSlug": "honeybee",
+    "lightingPreset": "Alpine Noon",
+    "rgbPath": "assets/plates/meadow_honeybee_Alpine_Noon_v1_rgb.webp",
+    "bioPath": "assets/plates/meadow_honeybee_Alpine_Noon_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Rudbeckia UV Nectar Bullseye",
+        "x": 0.36,
+        "y": 0.61,
+        "rx": 0.1,
+        "ry": 0.1
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Scarlet Alpine Poppy",
+        "x": 0.77,
+        "y": 0.64,
+        "rx": 0.11,
+        "ry": 0.14
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Pollen Anther Cluster",
+        "x": 0.67,
+        "y": 0.5,
+        "rx": 0.06,
+        "ry": 0.06
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.45,
+        "y": 0.14,
+        "rx": 0.35,
+        "ry": 0.14
+      }
+    },
+    "generationMs": 19045
+  },
+  "meadow_human_meadow_Alpine_Noon_v1": {
+    "plateKey": "meadow_human_meadow_Alpine_Noon_v1",
+    "biomeId": "meadow",
+    "speciesSlug": "human_meadow",
+    "lightingPreset": "Alpine Noon",
+    "rgbPath": "assets/plates/meadow_human_meadow_Alpine_Noon_v1_rgb.webp",
+    "bioPath": "assets/plates/meadow_human_meadow_Alpine_Noon_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Wildflower Meadow Patch",
+        "x": 0.45,
+        "y": 0.76,
+        "rx": 0.26,
+        "ry": 0.16
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Spruce Timberline",
+        "x": 0.48,
+        "y": 0.44,
+        "rx": 0.25,
+        "ry": 0.08
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Snowmelt Creek",
+        "x": 0.6,
+        "y": 0.66,
+        "rx": 0.2,
+        "ry": 0.11
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.52,
+        "y": 0.14,
+        "rx": 0.35,
+        "ry": 0.13
+      }
+    },
+    "generationMs": 20120
+  },
+  "meadow_kestrel_Alpine_Noon_v1": {
+    "plateKey": "meadow_kestrel_Alpine_Noon_v1",
+    "biomeId": "meadow",
+    "speciesSlug": "kestrel",
+    "lightingPreset": "Alpine Noon",
+    "rgbPath": "assets/plates/meadow_kestrel_Alpine_Noon_v1_rgb.webp",
+    "bioPath": "assets/plates/meadow_kestrel_Alpine_Noon_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Camouflaged Meadow Vole",
+        "x": 0.655,
+        "y": 0.646,
+        "rx": 0.065,
+        "ry": 0.06
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "UV Scent Runway Fork",
+        "x": 0.432,
+        "y": 0.462,
+        "rx": 0.115,
+        "ry": 0.085
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Snowmelt Creek Bend",
+        "x": 0.518,
+        "y": 0.186,
+        "rx": 0.125,
+        "ry": 0.068
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.618,
+        "y": 0.212,
+        "rx": 0.215,
+        "ry": 0.065
+      }
+    },
+    "generationMs": 22054
+  },
+  "meadow_deer_Alpine_Noon_v1": {
+    "plateKey": "meadow_deer_Alpine_Noon_v1",
+    "biomeId": "meadow",
+    "speciesSlug": "deer",
+    "lightingPreset": "Alpine Noon",
+    "rgbPath": "assets/plates/meadow_deer_Alpine_Noon_v1_rgb.webp",
+    "bioPath": "assets/plates/meadow_deer_Alpine_Noon_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Stalking Bobcat at Timberline",
+        "x": 0.837,
+        "y": 0.531,
+        "rx": 0.082,
+        "ry": 0.062
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Meadow Poppy Patch",
+        "x": 0.382,
+        "y": 0.742,
+        "rx": 0.152,
+        "ry": 0.144
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Spruce Horizon Line",
+        "x": 0.536,
+        "y": 0.468,
+        "rx": 0.231,
+        "ry": 0.064
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.452,
+        "y": 0.176,
+        "rx": 0.342,
+        "ry": 0.148
+      }
+    },
+    "generationMs": 15741
+  },
+  "reef_human_reef_Tropical_Zenith_Caustics_v1": {
+    "plateKey": "reef_human_reef_Tropical_Zenith_Caustics_v1",
+    "biomeId": "reef",
+    "speciesSlug": "human_reef",
+    "lightingPreset": "Tropical Zenith Caustics",
+    "rgbPath": "assets/plates/reef_human_reef_Tropical_Zenith_Caustics_v1_rgb.webp",
+    "bioPath": "assets/plates/reef_human_reef_Tropical_Zenith_Caustics_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Acropora Coral Head",
+        "x": 0.66,
+        "y": 0.74,
+        "rx": 0.15,
+        "ry": 0.14
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Sandy Drop-Off Floor",
+        "x": 0.22,
+        "y": 0.83,
+        "rx": 0.17,
+        "ry": 0.13
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Surface Sun Caustics",
+        "x": 0.42,
+        "y": 0.13,
+        "rx": 0.22,
+        "ry": 0.11
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.16,
+        "y": 0.42,
+        "rx": 0.14,
+        "ry": 0.22
+      }
+    },
+    "generationMs": 17125
+  },
+  "meadow_rattlesnake_Alpine_Noon_v1": {
+    "plateKey": "meadow_rattlesnake_Alpine_Noon_v1",
+    "biomeId": "meadow",
+    "speciesSlug": "rattlesnake",
+    "lightingPreset": "Alpine Noon",
+    "rgbPath": "assets/plates/meadow_rattlesnake_Alpine_Noon_v1_rgb.webp",
+    "bioPath": "assets/plates/meadow_rattlesnake_Alpine_Noon_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "38.2°C Foraging Meadow Vole",
+        "x": 0.55,
+        "y": 0.63,
+        "rx": 0.08,
+        "ry": 0.07
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "28°C Sun-Baked Granite",
+        "x": 0.84,
+        "y": 0.86,
+        "rx": 0.15,
+        "ry": 0.12
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "6°C Snowmelt Creek",
+        "x": 0.9,
+        "y": 0.63,
+        "rx": 0.09,
+        "ry": 0.07
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.53,
+        "y": 0.11,
+        "rx": 0.18,
+        "ry": 0.1
+      }
+    },
+    "generationMs": 20542
+  },
+  "reef_cuttlefish_Tropical_Zenith_Caustics_v1": {
+    "plateKey": "reef_cuttlefish_Tropical_Zenith_Caustics_v1",
+    "biomeId": "reef",
+    "speciesSlug": "cuttlefish",
+    "lightingPreset": "Tropical Zenith Caustics",
+    "rgbPath": "assets/plates/reef_cuttlefish_Tropical_Zenith_Caustics_v1_rgb.webp",
+    "bioPath": "assets/plates/reef_cuttlefish_Tropical_Zenith_Caustics_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Transparent Glass Shrimp",
+        "x": 0.525,
+        "y": 0.566,
+        "rx": 0.067,
+        "ry": 0.062
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Silverside Baitfish School",
+        "x": 0.774,
+        "y": 0.522,
+        "rx": 0.178,
+        "ry": 0.158
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Acropora Staghorn Coral",
+        "x": 0.382,
+        "y": 0.208,
+        "rx": 0.264,
+        "ry": 0.175
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.816,
+        "y": 0.218,
+        "rx": 0.172,
+        "ry": 0.138
+      }
+    },
+    "generationMs": 18346
+  },
+  "reef_hammerhead_Tropical_Zenith_Caustics_v1": {
+    "plateKey": "reef_hammerhead_Tropical_Zenith_Caustics_v1",
+    "biomeId": "reef",
+    "speciesSlug": "hammerhead",
+    "lightingPreset": "Tropical Zenith Caustics",
+    "rgbPath": "assets/plates/reef_hammerhead_Tropical_Zenith_Caustics_v1_rgb.webp",
+    "bioPath": "assets/plates/reef_hammerhead_Tropical_Zenith_Caustics_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Buried Stingray (1.2 Hz Dipole)",
+        "x": 0.64,
+        "y": 0.58,
+        "rx": 0.13,
+        "ry": 0.09
+      },
+      "secondaryTarget": {
+        "present": false,
+        "label": "Secondary Buried Flounder",
+        "x": 0.34,
+        "y": 0.72,
+        "rx": 0.09,
+        "ry": 0.08
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Rippled Coral Sandflat",
+        "x": 0.52,
+        "y": 0.76,
+        "rx": 0.28,
+        "ry": 0.16
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.55,
+        "y": 0.15,
+        "rx": 0.35,
+        "ry": 0.14
+      }
+    },
+    "generationMs": 19343
+  },
+  "reef_mantis_shrimp_Tropical_Zenith_Caustics_v1": {
+    "plateKey": "reef_mantis_shrimp_Tropical_Zenith_Caustics_v1",
+    "biomeId": "reef",
+    "speciesSlug": "mantis_shrimp",
+    "lightingPreset": "Tropical Zenith Caustics",
+    "rgbPath": "assets/plates/reef_mantis_shrimp_Tropical_Zenith_Caustics_v1_rgb.webp",
+    "bioPath": "assets/plates/reef_mantis_shrimp_Tropical_Zenith_Caustics_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Rival Mantis Shrimp CPL Display",
+        "x": 0.68,
+        "y": 0.51,
+        "rx": 0.14,
+        "ry": 0.18
+      },
+      "secondaryTarget": {
+        "present": false,
+        "label": "Armored Reef Crab",
+        "x": 0.3,
+        "y": 0.68,
+        "rx": 0.1,
+        "ry": 0.09
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Coral Rubble Terrace",
+        "x": 0.42,
+        "y": 0.74,
+        "rx": 0.22,
+        "ry": 0.16
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.42,
+        "y": 0.17,
+        "rx": 0.22,
+        "ry": 0.15
+      }
+    },
+    "generationMs": 29919
+  },
+  "cloudforest_human_forest_Moonlit_Mist_v1": {
+    "plateKey": "cloudforest_human_forest_Moonlit_Mist_v1",
+    "biomeId": "cloudforest",
+    "speciesSlug": "human_forest",
+    "lightingPreset": "Moonlit Mist",
+    "rgbPath": "assets/plates/cloudforest_human_forest_Moonlit_Mist_v1_rgb.webp",
+    "bioPath": "assets/plates/cloudforest_human_forest_Moonlit_Mist_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Crimson Epiphyte Bromeliad",
+        "x": 0.38,
+        "y": 0.28,
+        "rx": 0.08,
+        "ry": 0.1
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Emerald Leaf Treefrog",
+        "x": 0.2,
+        "y": 0.77,
+        "rx": 0.08,
+        "ry": 0.07
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Mossy Cloud Forest Trail",
+        "x": 0.6,
+        "y": 0.8,
+        "rx": 0.11,
+        "ry": 0.16
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.44,
+        "y": 0.13,
+        "rx": 0.18,
+        "ry": 0.11
+      }
+    },
+    "generationMs": 17969
+  },
+  "reef_sea_turtle_Tropical_Zenith_Caustics_v1": {
+    "plateKey": "reef_sea_turtle_Tropical_Zenith_Caustics_v1",
+    "biomeId": "reef",
+    "speciesSlug": "sea_turtle",
+    "lightingPreset": "Tropical Zenith Caustics",
+    "rgbPath": "assets/plates/reef_sea_turtle_Tropical_Zenith_Caustics_v1_rgb.webp",
+    "bioPath": "assets/plates/reef_sea_turtle_Tropical_Zenith_Caustics_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Biofluorescent Cryptic Frogfish",
+        "x": 0.4141,
+        "y": 0.5073,
+        "rx": 0.1124,
+        "ry": 0.1287
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "515 nm Fluorescent Sponge Colony",
+        "x": 0.0805,
+        "y": 0.3789,
+        "rx": 0.0743,
+        "ry": 0.0628
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Vertical Coral Reef Wall",
+        "x": 0.5826,
+        "y": 0.5524,
+        "rx": 0.1245,
+        "ry": 0.2482
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.8267,
+        "y": 0.4215,
+        "rx": 0.1652,
+        "ry": 0.2847
+      }
+    },
+    "generationMs": 21527
+  },
+  "cloudforest_gecko_Moonlit_Mist_v1": {
+    "plateKey": "cloudforest_gecko_Moonlit_Mist_v1",
+    "biomeId": "cloudforest",
+    "speciesSlug": "gecko",
+    "lightingPreset": "Moonlit Mist",
+    "rgbPath": "assets/plates/cloudforest_gecko_Moonlit_Mist_v1_rgb.webp",
+    "bioPath": "assets/plates/cloudforest_gecko_Moonlit_Mist_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Iridescent Nocturnal Moth",
+        "x": 0.66,
+        "y": 0.46,
+        "rx": 0.12,
+        "ry": 0.09
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Ruby Bromeliad Rosette",
+        "x": 0.43,
+        "y": 0.44,
+        "rx": 0.11,
+        "ry": 0.13
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Lichen & Moss Bark",
+        "x": 0.71,
+        "y": 0.28,
+        "rx": 0.18,
+        "ry": 0.18
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.2,
+        "y": 0.22,
+        "rx": 0.18,
+        "ry": 0.18
+      }
+    },
+    "generationMs": 18590
+  },
+  "cloudforest_thrush_Moonlit_Mist_v1": {
+    "plateKey": "cloudforest_thrush_Moonlit_Mist_v1",
+    "biomeId": "cloudforest",
+    "speciesSlug": "thrush",
+    "lightingPreset": "Moonlit Mist",
+    "rgbPath": "assets/plates/cloudforest_thrush_Moonlit_Mist_v1_rgb.webp",
+    "bioPath": "assets/plates/cloudforest_thrush_Moonlit_Mist_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Geomagnetic Inclination Node (62°)",
+        "x": 0.551,
+        "y": 0.147,
+        "rx": 0.092,
+        "ry": 0.076
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Emergent Canopy Ridge",
+        "x": 0.518,
+        "y": 0.822,
+        "rx": 0.224,
+        "ry": 0.138
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Cloud-Veiled Valley Mist",
+        "x": 0.412,
+        "y": 0.564,
+        "rx": 0.278,
+        "ry": 0.089
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.481,
+        "y": 0.232,
+        "rx": 0.35,
+        "ry": 0.205
+      }
+    },
+    "generationMs": 16411
+  },
+  "cloudforest_jumping_spider_Moonlit_Mist_v1": {
+    "plateKey": "cloudforest_jumping_spider_Moonlit_Mist_v1",
+    "biomeId": "cloudforest",
+    "speciesSlug": "jumping_spider",
+    "lightingPreset": "Moonlit Mist",
+    "rgbPath": "assets/plates/cloudforest_jumping_spider_Moonlit_Mist_v1_rgb.webp",
+    "bioPath": "assets/plates/cloudforest_jumping_spider_Moonlit_Mist_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Orb-Weaver Prey Spider",
+        "x": 0.365,
+        "y": 0.505,
+        "rx": 0.06,
+        "ry": 0.08
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Dew-Laden Silk Anchor",
+        "x": 0.19,
+        "y": 0.345,
+        "rx": 0.07,
+        "ry": 0.07
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Bromeliad Frond Edge",
+        "x": 0.585,
+        "y": 0.46,
+        "rx": 0.22,
+        "ry": 0.14
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.42,
+        "y": 0.135,
+        "rx": 0.22,
+        "ry": 0.12
+      }
+    },
+    "generationMs": 18609
+  },
+  "cloudforest_vampire_bat_Moonlit_Mist_v1": {
+    "plateKey": "cloudforest_vampire_bat_Moonlit_Mist_v1",
+    "biomeId": "cloudforest",
+    "speciesSlug": "vampire_bat",
+    "lightingPreset": "Moonlit Mist",
+    "rgbPath": "assets/plates/cloudforest_vampire_bat_Moonlit_Mist_v1_rgb.webp",
+    "bioPath": "assets/plates/cloudforest_vampire_bat_Moonlit_Mist_v1_bio.png",
+    "semantics": {
+      "primaryTarget": {
+        "present": true,
+        "label": "Resting Tapir TRPV1 Warm Capillaries",
+        "x": 0.602,
+        "y": 0.635,
+        "rx": 0.151,
+        "ry": 0.114
+      },
+      "secondaryTarget": {
+        "present": true,
+        "label": "Ceiba Buttress Hollow",
+        "x": 0.682,
+        "y": 0.446,
+        "rx": 0.138,
+        "ry": 0.182
+      },
+      "environmentFeature": {
+        "present": true,
+        "label": "Hanging Liana Vines",
+        "x": 0.281,
+        "y": 0.342,
+        "rx": 0.135,
+        "ry": 0.224
+      },
+      "skyOrWaterRegion": {
+        "present": true,
+        "x": 0.465,
+        "y": 0.126,
+        "rx": 0.178,
+        "ry": 0.098
+      }
+    },
+    "generationMs": 19425
+  }
+}

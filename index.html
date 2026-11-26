@@ -17,19 +17,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="p_green_white_bg.png">
     <title>PunFiction: Daily Wordplay Games &amp; Interactive Experiences</title>
-    <meta name="description" content="Play clever daily wordplay games and interactive experiences on PunFiction: 1-Star Travel Reviews, Word Vine, and The 8.3 Billionth (what makes you one-of-one out of 8.3 billion humans).">
+    <meta name="description" content="Play clever daily wordplay games and interactive experiences on PunFiction: 1-Star Travel Reviews, Word Vine, The 8.3 Billionth, and UMWELT: Animal Optics.">
     <link rel="canonical" href="https://punfiction.io/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="PunFiction">
     <meta property="og:title" content="PunFiction — Daily Wordplay Games &amp; Interactive Experiences">
-    <meta property="og:description" content="Play 1-Star Travel Reviews, Word Vine, and The 8.3 Billionth — start with all 8,300,000,000 living humans and find out what makes you statistically 1-of-1.">
+    <meta property="og:description" content="Play 1-Star Travel Reviews, Word Vine, The 8.3 Billionth, and UMWELT: Animal Optics — explore 3 ecosystems through 15 animal sensory POVs.">
     <meta property="og:url" content="https://punfiction.io/">
     <meta property="og:image" content="https://punfiction.io/the-8-billionth/og-preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="PunFiction — Daily Wordplay Games &amp; Interactive Experiences">
-    <meta name="twitter:description" content="Play 1-Star Travel Reviews, Word Vine, and The 8.3 Billionth — what makes you statistically 1-of-1 out of 8.3 billion humans?">
+    <meta name="twitter:description" content="Play 1-Star Travel Reviews, Word Vine, The 8.3 Billionth, and UMWELT: Animal Optics.">
     <meta name="twitter:image" content="https://punfiction.io/the-8-billionth/og-preview.png">
     <script type="application/ld+json">
     {
@@ -37,7 +37,7 @@
       "@type": "WebSite",
       "name": "PunFiction",
       "url": "https://punfiction.io/",
-      "description": "Clever daily wordplay games and interactive statistical experiences including 1-Star Travel Reviews, Word Vine, and The 8.3 Billionth.",
+      "description": "Clever daily wordplay games and interactive scientific & statistical experiences including 1-Star Travel Reviews, Word Vine, The 8.3 Billionth, and UMWELT: Animal Optics.",
       "hasPart": [
         {
           "@type": "WebApplication",
@@ -53,11 +53,16 @@
           "@type": "WebApplication",
           "name": "The 8.3 Billionth",
           "url": "https://punfiction.io/the-8-billionth/"
+        },
+        {
+          "@type": "WebApplication",
+          "name": "UMWELT: Animal Optics",
+          "url": "https://punfiction.io/umwelt/"
         }
       ]
     }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Nunito:wght@400;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fraunces:opsz,wght@9..144,700;9..144,800&family=JetBrains+Mono:wght@600;700;800&family=Nunito:wght@400;700;800;900&family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f0f16;
@@ -115,7 +120,7 @@
         main {
             flex: 1;
             width: 100%;
-            max-width: 1340px;
+            max-width: 1120px;
             padding: 0 22px 40px 22px;
             box-sizing: border-box;
             display: flex;
@@ -125,9 +130,9 @@
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             column-gap: 24px;
-            row-gap: 24px;
+            row-gap: 26px;
             align-items: stretch;
             margin-bottom: 25px;
         }
@@ -137,7 +142,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 26px 22px;
+            padding: 26px 24px;
         }
 
         .games-grid .game-description {
@@ -166,60 +171,10 @@
             user-select: none;
         }
 
-        @supports (grid-template-rows: subgrid) {
-            @media (min-width: 1101px) {
-                .games-grid {
-                    row-gap: 0;
-                }
-
-                .games-grid > .game-card {
-                    grid-row: span 6;
-                    display: grid;
-                    grid-template-rows: subgrid;
-                    justify-items: center;
-                    align-items: start;
-                }
-
-                .games-grid > .game-card > .play-btn,
-                .games-grid > .game-card > .card-sublinks {
-                    align-self: center;
-                }
-
-                .games-grid > .game-card > .features-list {
-                    align-self: stretch;
-                    margin-top: 0;
-                }
-            }
-        }
-
-        @media (max-width: 1100px) {
-            main {
-                max-width: 1040px;
-            }
-
-            .games-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                column-gap: 22px;
-                row-gap: 24px;
-            }
-
-            .games-grid .billionth-card {
-                grid-column: 1 / -1;
-                width: 100%;
-                max-width: calc(50% - 11px);
-                justify-self: center;
-            }
-        }
-
-        @media (max-width: 760px) {
+        @media (max-width: 820px) {
             .games-grid {
                 grid-template-columns: 1fr;
                 row-gap: 24px;
-            }
-
-            .games-grid .billionth-card {
-                grid-column: auto;
-                max-width: none;
             }
         }
 
@@ -646,6 +601,109 @@
             font-weight: 800;
         }
 
+        /* UMWELT: Animal Optics — Submersible Optical Field Instrument Styling */
+        .game-card.umwelt-card {
+            font-family: 'Plus Jakarta Sans', 'Nunito', sans-serif;
+            background: radial-gradient(circle at 18% 12%, rgba(168, 85, 247, 0.22) 0%, transparent 45%),
+                        radial-gradient(circle at 86% 24%, rgba(16, 185, 129, 0.18) 0%, transparent 48%),
+                        linear-gradient(165deg, #070d18 0%, #0b1322 55%, #060a12 100%);
+            color: #f1f5f9;
+            border: 1.5px solid rgba(52, 211, 153, 0.38);
+            border-radius: 22px;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.56), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .game-card.umwelt-card:hover {
+            transform: translate(-2px, -2px);
+            border-color: rgba(52, 211, 153, 0.72);
+            box-shadow: 0 22px 52px rgba(0, 0, 0, 0.65), 0 0 28px rgba(52, 211, 153, 0.18);
+        }
+
+        .umwelt-card .umwelt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(7, 15, 26, 0.85);
+            color: #6ee7b7;
+            border: 1px solid rgba(52, 211, 153, 0.42);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        .umwelt-card .umwelt-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.9);
+        }
+
+        .umwelt-card .game-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 800;
+            font-size: clamp(1.85rem, 2.2vw, 2.15rem);
+            letter-spacing: 0.02em;
+            color: #ffffff;
+            text-shadow: 0 2px 18px rgba(52, 211, 153, 0.25);
+            margin-bottom: 12px;
+        }
+
+        .umwelt-card .game-description {
+            color: #cbd5e1;
+            font-weight: 500;
+            font-size: 1.03rem;
+            line-height: 1.6;
+        }
+
+        .umwelt-card .play-btn {
+            font-family: 'Plus Jakarta Sans', 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.12rem;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 58%, #8b5cf6 100%);
+            color: #031014;
+            padding: 13px 34px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 999px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.34);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+        }
+
+        .umwelt-card .play-btn:hover {
+            filter: brightness(1.08);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(34, 211, 238, 0.42);
+        }
+
+        .umwelt-card .umwelt-subnote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: #a7f3d0;
+            letter-spacing: 0.03em;
+        }
+
+        .umwelt-card .features-list {
+            background: rgba(4, 9, 18, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-left: 4px solid #a855f7;
+            border-radius: 14px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .umwelt-card .feature-text {
+            color: #cbd5e1;
+        }
+
+        .umwelt-card .feature-text strong {
+            color: #6ee7b7;
+        }
+
         footer {
             width: 100%;
             text-align: center;
@@ -771,6 +829,35 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Card 4: UMWELT: Animal Optics -->
+            <div class="game-card umwelt-card">
+                <div class="umwelt-badge"><span class="umwelt-dot"></span> WebGL2 Sensory Sim &amp; Game</div>
+                <h2 class="game-title">UMWELT: Animal Optics 🦅</h2>
+                <p class="game-description">
+                    Step out of human eyes and into 15 photorealistic wildlife vantage points across an Alpine Meadow, Coral Reef, and Nocturnal Cloud Forest—recomputing UV, thermal IR, polarization, electroreception &amp; sonar in real time.
+                </p>
+                <a href="./umwelt/" class="play-btn">Enter the Umwelt ➔</a>
+
+                <div class="card-sublinks">
+                    <span class="umwelt-subnote">3 Biomes · 15 POVs · 12 Mysteries · 12 Missions</span>
+                </div>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔬</span>
+                        <div class="feature-text"><strong>Real Sensory Physics:</strong> Aim a Kestrel’s 2.2× UV loupe, rotate a Cuttlefish’s Malus polarization dial, pulse Vampire Bat sonar, or sweep a Hammerhead’s dipole scanner.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📓</span>
+                        <div class="feature-text"><strong>12 Ecological Field Mysteries:</strong> Uncover camouflaged prey, UV nectar bullseyes, buried stingrays &amp; quantum sky compasses hidden in plain sight.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎮</span>
+                        <div class="feature-text"><strong>12 Playable Survival Missions:</strong> Move as each species on desktop or mobile—hunt by thermal IR as a Rattlesnake, evade a red-blind wasp on scarlet poppies as a Honeybee, and more.</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Dedicated About Section -->
@@ -793,7 +880,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 PunFiction. All rights reserved. | <a href="./">Home</a> | <a href="./travelreviews/">Play Travel Reviews</a> | <a href="./wordvine/">Play Word Vine</a> | <a href="./the-8-billionth/">The 8.3 Billionth</a> | <a href="./travelreviews/landmarks/">Landmark Archive</a> | <a href="./about.html">About Us</a> | <a href="./how-to-play-travelreviews.html">How to Play Travel Reviews</a> | <a href="./how-to-play-wordvine.html">How to Play Word Vine</a> | <a href="./privacy.html">Privacy Policy</a> | <a href="./terms.html">Terms of Service</a></p>
+        <p>&copy; 2026 PunFiction. All rights reserved. | <a href="./">Home</a> | <a href="./travelreviews/">Play Travel Reviews</a> | <a href="./wordvine/">Play Word Vine</a> | <a href="./the-8-billionth/">The 8.3 Billionth</a> | <a href="./umwelt/">UMWELT: Animal Optics</a> | <a href="./travelreviews/landmarks/">Landmark Archive</a> | <a href="./about.html">About Us</a> | <a href="./how-to-play-travelreviews.html">How to Play Travel Reviews</a> | <a href="./how-to-play-wordvine.html">How to Play Word Vine</a> | <a href="./privacy.html">Privacy Policy</a> | <a href="./terms.html">Terms of Service</a></p>
     </footer>
 </body>
 </html>
