@@ -371,38 +371,6 @@ def save_solved_mystery(client_uuid, mystery, time_to_solve_ms=0):
     return journal
 
 
-def save_completed_mission(client_uuid, mission, score=0, elapsed_ms=0):
-    clean_id = re.sub(r"[^a-zA-Z0-9_\-]", "", str(client_uuid or ""))[:64] or "anonymous"
-    now_iso = datetime.now(timezone.utc).isoformat()
-    journal = get_journal(clean_id)
-
-    missions_list = journal.setdefault("completedMissions", [])
-    existing = next((m for m in missions_list if m.get("missionId") == mission["missionId"]), None)
-    if existing:
-        existing["bestScore"] = max(int(existing.get("bestScore", 0)), int(score))
-        if elapsed_ms > 0:
-            prev_best = int(existing.get("bestTimeMs", 0))
-            existing["bestTimeMs"] = int(elapsed_ms) if prev_best <= 0 else min(prev_best, int(elapsed_ms))
-        existing["completions"] = int(existing.get("completions", 1)) + 1
-        existing["lastCompletedAt"] = now_iso
-    else:
-        missions_list.append({
-            "missionId": mission["missionId"],
-            "biomeId": mission["biomeId"],
-            "speciesSlug": mission["speciesSlug"],
-            "bestScore": int(score),
-            "bestTimeMs": int(max(0, elapsed_ms)),
-            "completions": 1,
-            "firstCompletedAt": now_iso,
-            "lastCompletedAt": now_iso,
-        })
-        journal["totalPoints"] = int(journal.get("totalPoints", 0)) + 200
-
-    journal["updatedAt"] = now_iso
-    _persist_journal(clean_id, journal)
-    return journal
-
-
 def _persist_journal(client_uuid, journal):
     if is_mongo_connected() and _journals_col is not None:
         try:

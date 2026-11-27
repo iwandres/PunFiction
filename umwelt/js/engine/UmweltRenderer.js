@@ -6,7 +6,7 @@
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
 import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=1';
-import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=3';
+import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=4';
 
 const IDB_NAME = 'umwelt_plates_l1';
 const IDB_STORE = 'plates';

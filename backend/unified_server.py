@@ -294,7 +294,6 @@ PUBLIC_POST_PATHS = frozenset([
     '/api/estimate-trait',
     '/api/umwelt/plates/resolve',
     '/api/umwelt/journal/verify-discovery',
-    '/api/umwelt/missions/complete',
     '/api/wordvine/vine/submit',
     '/api/vine/submit',
     '/api/records',
@@ -735,28 +734,6 @@ class UnifiedRequestHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 print(f"[Umwelt Verify POST] Error: {e}")
                 self._send_json(400, {"error": "Invalid discovery verification payload."})
-            return
-
-        if req_path == '/api/umwelt/missions/complete':
-            if not (umwelt_data and umwelt_database):
-                self._send_json(503, {"error": "Umwelt mission store unavailable on server."})
-                return
-            try:
-                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
-                mission = umwelt_data.get_mission_by_id(str(payload.get('missionId', '')).strip())
-                if not mission:
-                    self._send_json(404, {"error": "Unknown missionId."})
-                    return
-                journal = umwelt_database.save_completed_mission(
-                    client_uuid=str(payload.get('clientUuid', 'anonymous')).strip(),
-                    mission=mission,
-                    score=int(payload.get('score', 0) or 0),
-                    elapsed_ms=int(payload.get('elapsedMs', 0) or 0),
-                )
-                self._send_json(200, {"ok": True, "missionId": mission["missionId"], "journal": journal})
-            except Exception as e:
-                print(f"[Umwelt Mission POST] Error: {e}")
-                self._send_json(400, {"error": "Invalid mission completion payload."})
             return
 
         # --- Word Vine POST APIs (/api/wordvine/...) ---

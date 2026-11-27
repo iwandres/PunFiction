@@ -1,7 +1,7 @@
 /**
  * UMWELT: Animal Optics — Unified Desktop & Mobile Accessibility InputController
- * Pairs Desktop WASD/Arrows + Mouse + Wheel + Hotkeys with Mobile virtual thumbstick,
- * right-side touch look, 64px context action button, haptics, and optional gyroscope tilt.
+ * Handles mouse/touch pointer look, click-to-discover, scroll polarization wheel,
+ * keyboard shortcuts (1-5, Space/Tab, Q/E, M, Esc), haptics, and optional mobile gyroscope.
  */
 
 export class InputController {

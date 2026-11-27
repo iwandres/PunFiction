@@ -466,24 +466,6 @@ html.landmark-locked .landmark-locked-notice {
     }
 }
 </style>
-    <script>
-    (function(){
-        try {
-            var p = parseInt(document.documentElement.getAttribute("data-puzzle-num"), 10);
-            if (!p) return;
-            var parts = new Intl.DateTimeFormat("en-US", {
-                timeZone: "America/Los_Angeles",
-                year: "numeric", month: "numeric", day: "numeric",
-                hour: "numeric", minute: "numeric", second: "numeric", hour12: false
-            }).formatToParts(new Date());
-            var v = function(t){ return parseInt(parts.find(function(x){return x.type===t;}).value, 10); };
-            var days = Math.max(0, Math.floor((Date.UTC(v("year"), v("month")-1, v("day"), v("hour")%24, v("minute"), v("second")) - Date.UTC(2026, 6, 4, 2, 0, 0)) / 86400000));
-            var live = Math.max(1, days + 1);
-            if (p > live) document.documentElement.classList.add("landmark-locked");
-            else document.documentElement.classList.remove("landmark-locked");
-        } catch (e) {}
-    })();
-    </script>
 </head>
 <body>
     <header class="site-header">
@@ -492,7 +474,7 @@ html.landmark-locked .landmark-locked-notice {
             <span class="brand-sub">Landmark Field Guides</span>
         </a>
         <nav class="header-nav" aria-label="Primary Navigation">
-            <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
+            <a href="./" class="nav-pill">📚 Browse Landmark Guides</a>
             <a href="../?challenge=137" class="nav-pill primary landmark-live-content">🎮 Play Challenge #137</a>
         </nav>
     </header>
@@ -500,26 +482,11 @@ html.landmark-locked .landmark-locked-notice {
     <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="../../">Home</a> &rsaquo;
         <a href="../">1-Star Travel Reviews</a> &rsaquo;
-        <a href="./index.html">Landmark Field Guides</a> &rsaquo;
+        <a href="./">Landmark Field Guides</a> &rsaquo;
         <span class="landmark-live-content">La Boca (Caminito) (Challenge #137)</span>
-        <span class="landmark-locked-notice" style="padding:0; display:none;">Challenge #137 (Unlocks Soon)</span>
     </nav>
 
     <main class="container">
-        <section class="neo-card landmark-locked-notice" aria-live="polite">
-            <div class="meta-row" style="justify-content:center;">
-                <span class="badge badge-challenge">🔒 Upcoming Daily Landmark • Challenge #137</span>
-            </div>
-            <h2 class="page-title">This Landmark Unlocks With Challenge #137!</h2>
-            <p class="page-deck" style="max-width:620px; margin:0 auto 18px auto;">
-                Each Landmark Field Guide releases on the exact same day its daily puzzle goes live (<strong>November 17, 2026 at 2:00 AM PT</strong>), so there are always the same number of landmarks to explore as puzzles available.
-            </p>
-            <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:20px;">
-                <a href="../" class="nav-pill primary">🎮 Play Today&rsquo;s Live Challenge</a>
-                <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
-            </div>
-        </section>
-
         <div class="landmark-live-content">
             <article class="neo-card">
                 <div class="meta-row">
@@ -604,7 +571,7 @@ html.landmark-locked .landmark-locked-notice {
 
             <nav class="pagination-row" aria-label="Challenge Pagination">
                 <a id="nav-prev-landmark" href="./challenge-136-walls-of-dubrovnik.html" class="nav-pill">&larr; Prev: #136 Walls of Dubrovnik</a>
-                <a href="./index.html" class="nav-pill">🗂️ Browse Landmark Guides</a>
+                <a href="./" class="nav-pill">🗂️ Browse Landmark Guides</a>
                 <a id="nav-next-landmark" href="./challenge-138-pinnacles-desert.html" class="nav-pill">Next: #138 Pinnacles Desert &rarr;</a>
             </nav>
 
@@ -641,46 +608,6 @@ html.landmark-locked .landmark-locked-notice {
                 <span class="related-card-title">Parliament Hill</span>
                 <span class="related-card-sub">📍 Ottawa, Ontario, Canada — &ldquo;A Grate Disappointment!&rdquo;</span>
             </a>
-<a href="./challenge-141-the-strip-las-vegas.html" class="related-card peer-overflow" data-puzzle="141">
-                <span class="related-card-num">Challenge #141 • Hard</span>
-                <span class="related-card-title">The Strip, Las Vegas</span>
-                <span class="related-card-sub">📍 Las Vegas, Nevada, USA — &ldquo;Where&#x27;s the crunch?!&rdquo;</span>
-            </a>
-<a href="./challenge-144-quebec-city-old-town.html" class="related-card peer-overflow" data-puzzle="144">
-                <span class="related-card-num">Challenge #144 • Hard</span>
-                <span class="related-card-title">Quebec City Old Town</span>
-                <span class="related-card-sub">📍 Quebec City, Canada — &ldquo;Zero Ketchup!&rdquo;</span>
-            </a>
-<a href="./challenge-155-arenal-volcano.html" class="related-card future-locked" data-puzzle="155">
-                <span class="related-card-num">Challenge #155 • Medium</span>
-                <span class="related-card-title">Arenal Volcano</span>
-                <span class="related-card-sub">📍 Alajuela Province, Costa Rica — &ldquo;Not the breakfast I ordered!&rdquo;</span>
-            </a>
-<a href="./challenge-161-lake-titicaca.html" class="related-card future-locked" data-puzzle="161">
-                <span class="related-card-num">Challenge #161 • Medium</span>
-                <span class="related-card-title">Lake Titicaca</span>
-                <span class="related-card-sub">📍 Puno, Peru — &ldquo;Where&#x27;s the Titi-CAKE?!&rdquo;</span>
-            </a>
-<a href="./challenge-162-dunn-s-river-falls.html" class="related-card future-locked" data-puzzle="162">
-                <span class="related-card-num">Challenge #162 • Medium</span>
-                <span class="related-card-title">Dunn&#x27;s River Falls</span>
-                <span class="related-card-sub">📍 Ocho Rios, Jamaica — &ldquo;Where Are The Sprinkles?!&rdquo;</span>
-            </a>
-<a href="./challenge-167-mount-rainier.html" class="related-card future-locked" data-puzzle="167">
-                <span class="related-card-num">Challenge #167 • Medium</span>
-                <span class="related-card-title">Mount Rainier</span>
-                <span class="related-card-sub">📍 Washington, USA — &ldquo;False advertising on the flying sleighs!&rdquo;</span>
-            </a>
-<a href="./challenge-168-deception-island.html" class="related-card future-locked" data-puzzle="168">
-                <span class="related-card-num">Challenge #168 • Hard</span>
-                <span class="related-card-title">Deception Island</span>
-                <span class="related-card-sub">📍 South Shetland Islands, Antarctica — &ldquo;My vision for this trip was shattered!&rdquo;</span>
-            </a>
-<a href="./challenge-170-gros-morne-national-park.html" class="related-card future-locked" data-puzzle="170">
-                <span class="related-card-num">Challenge #170 • Hard</span>
-                <span class="related-card-title">Gros Morne National Park</span>
-                <span class="related-card-sub">📍 Newfoundland and Labrador, Canada — &ldquo;Horn-dously Misleading!&rdquo;</span>
-            </a>
                 </div>
             </section>
         </div>
@@ -690,7 +617,7 @@ html.landmark-locked .landmark-locked-notice {
         <p>&copy; 2026 Golden Pineapple Games (PunFiction). All rights reserved. |
             <a href="../../">Home</a> |
             <a href="../">Travel Reviews</a> |
-            <a href="./index.html">Landmark Guides</a> |
+            <a href="./">Landmark Guides</a> |
             <a href="../../wordvine/">Word Vine</a> |
             <a href="../../the-8-billionth/">The 8.3 Billionth</a> |
             <a href="../../umwelt/guide.html">UMWELT Guide</a> |
@@ -701,6 +628,6 @@ html.landmark-locked .landmark-locked-notice {
             <a href="../../terms.html">Terms of Service</a>
         </p>
     </footer>
-    <script src="./landmark-schedule.js?v=4"></script>
+    <script src="./landmark-schedule.js?v=5"></script>
 </body>
 </html>

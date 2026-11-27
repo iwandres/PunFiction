@@ -165,16 +165,7 @@ window.onload = async () => {
         document.body.classList.add('itch-env');
     }
 
-    // AdSense kept on rich editorial pages & landmark guides rather than sparse interactive game canvas during review.
-    /*
-    if (hostname === 'iwandres.github.io' || hostname === 'punfiction.io') {
-        const adsenseScript = document.createElement('script');
-        adsenseScript.async = true;
-        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1900802133351015';
-        adsenseScript.crossOrigin = 'anonymous';
-        document.head.appendChild(adsenseScript);
-    }
-    */
+    // AdSense runs on PunFiction's editorial guides and landmark archive pages rather than the interactive game screen.
 
     // 0. Wake up the Render container in the background as early as possible
     prewarmBackend();

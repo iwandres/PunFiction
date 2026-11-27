@@ -51,7 +51,9 @@
             box-sizing: border-box;
         }
 
-        h1.brand {
+        .brand {
+            display: inline-block;
+            text-decoration: none;
             font-family: 'Bangers', cursive;
             font-size: 3.5rem;
             letter-spacing: 3px;
@@ -60,11 +62,11 @@
             text-shadow: 4px 4px 0px var(--border-color);
         }
 
-        h1.brand span.accent {
+        .brand span.accent {
             color: var(--accent);
         }
 
-        .tagline {
+        h1.tagline {
             font-size: 1.2rem;
             font-weight: 800;
             color: var(--text-muted);
@@ -195,8 +197,8 @@
 </head>
 <body>
     <header>
-        <h1 class="brand">Pun<span class="accent">Fiction</span></h1>
-        <div class="tagline">How to Play Word Vine 🌿</div>
+        <a href="./" class="brand">Pun<span class="accent">Fiction</span></a>
+        <h1 class="tagline">How to Play Word Vine 🌿</h1>
     </header>
 
     <main>
@@ -228,21 +230,29 @@
                 <li><strong>⚡ Zone 3: The Canopy (Nodes 29–40 — Terminal Velocity Sprints):</strong> High in the canopy, the camera approaches terminal velocity. Chain rapid-fire particle compounds and punchy two-word idioms (e.g., <em>BACK &rarr; FIRE &rarr; WORK &rarr; BENCH</em>) all the way to Node 40 to crown the canopy!</li>
             </ol>
 
-            <h2>⚡ Physics, Altitude Lead &amp; Scoring</h2>
-            <p>Your score on each node rewards both climbing higher into the zones and staying comfortably ahead of the rising viewport camera:</p>
+            <h2>🌦️ Special Twists: Reverse Loops, Speed Boosts &amp; Weather</h2>
+            <p>As your daily vine climbs higher into the canopy, dynamic botanical twists test both your vocabulary intuition and your reaction speed:</p>
             <ul>
-                <li><strong>Zone Base Points:</strong> Earn <strong>100 pts</strong> per node in Zone 1, <strong>200 pts</strong> per node in Zone 2, and <strong>300 pts</strong> per node in Zone 3.</li>
-                <li><strong>Altitude Lead Bonus:</strong> The higher your active vine tip sits above the bottom of the screen when you lock in a choice, the larger your Lead Bonus (up to <strong>+75 pts</strong> per node).</li>
-                <li><strong>🌸 Triple-Bloom Bonus:</strong> Completing the 3rd link of any Zone 1 triplet grants an instant <strong>+250 pts</strong> and a 1.5&times; upward growth spurt.</li>
-                <li><strong>120ms Input Buffer:</strong> Playing fast? You can queue your next Left/Right keystroke during the 180ms growth spurt animation so your rhythm never drops a beat.</li>
+                <li><strong>⬅ Reverse Mode (Put Word in Front):</strong> When the vine curls into a ringed loop and displays the <strong>⬅ PUT WORD IN FRONT</strong> banner, flip your mental reading direction—choose the leaf word that goes <em>before</em> the bottom stem word (for example, choosing <strong>PAN</strong> to go in front of <strong>CAKE</strong> to form <em>PANCAKE</em>).</li>
+                <li><strong>⚡ Speed Boost Rings:</strong> Passing through a golden ring launches a rapid-fire streak of brisk word pairs that reward quick, rhythmic left/right picks with huge extra altitude.</li>
+                <li><strong>🌬️ Wind Gusts:</strong> During windy stretches, candidate letters blow in and settle left-to-right across the leaves, rewarding sharp pattern recognition before the full word lands.</li>
+                <li><strong>🌧️ Rain Showers:</strong> Raindrops slide down the viewport glass and briefly distort letters as they pass—stay calm, track the stem context, and lock in your pick before the rising floor catches up.</li>
             </ul>
 
-            <h2>🏆 Official Daily Runs, Practice &amp; Leaderboards</h2>
-            <p>Word Vine is designed for high-stakes daily competition with zero sign-in friction:</p>
+            <h2>⚡ Physics, Height &amp; Scoring</h2>
+            <p>Every climb is ranked first by <strong>Nodes Chained (out of 40)</strong> and second by total <strong>Vine Height (in meters)</strong>:</p>
             <ul>
-                <li><strong>🌿 First Attempt Counts:</strong> Your very first run each day is recorded as your <strong>Official Daily Climb</strong> on the Global Canopy Rankings and generates a spoiler-free <strong>Botanical Receipt</strong> you can copy and share with friends.</li>
-                <li><strong>🌱 Unlimited Practice Replays:</strong> Once your official daily score is locked, you can replay the daily vine as many times as you like in <strong>Practice Mode</strong> to explore missed compounds or test speedrun lines.</li>
-                <li><strong>👑 3-Tier Global Rankings:</strong> Compete across <strong>Daily (1st Run)</strong>, <strong>Weekly (Best 5 of 7 days)</strong>, and <strong>Monthly (Top 20 days)</strong> leaderboards!</li>
+                <li><strong>Faster Picks Grow Taller Vines:</strong> Locking in valid compound links rapidly keeps your vine tip soaring above the rising camera floor and generates more vertical Height per node.</li>
+                <li><strong>🌸 Triple-Bloom Growth Spurts:</strong> Completing the 3rd link of a 3-node triplet sparks a Triple-Bloom boost that launches your vine upward with extra impulse.</li>
+                <li><strong>120ms Input Buffer:</strong> Playing at high tempo? You can queue your next Left/Right keystroke during the growth animation so your flow never stutters.</li>
+            </ul>
+
+            <h2>🏆 Daily Attempts &amp; Global Canopy Rankings</h2>
+            <p>Word Vine is built for daily replayability with zero login friction:</p>
+            <ul>
+                <li><strong>🌿 3 Daily Climbs:</strong> Each daily theme gives you <strong>3 official attempts</strong> to learn the canopy twists, dial in your speed, and post your best Nodes Chained and Height to the global leaderboard.</li>
+                <li><strong>🎯 Daily Top 5 Target Board:</strong> Right on the start card, you can see today's Top 5 climbers and the #1 height to beat before launching your run.</li>
+                <li><strong>👑 3-Tier Global Rankings:</strong> Compete across <strong>Daily</strong>, <strong>Weekly (#1 by Day)</strong>, and <strong>Monthly (Top 20)</strong> leaderboards using any climber handle you choose!</li>
             </ul>
 
             <div style="text-align: center; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">

@@ -466,24 +466,6 @@ html.landmark-locked .landmark-locked-notice {
     }
 }
 </style>
-    <script>
-    (function(){
-        try {
-            var p = parseInt(document.documentElement.getAttribute("data-puzzle-num"), 10);
-            if (!p) return;
-            var parts = new Intl.DateTimeFormat("en-US", {
-                timeZone: "America/Los_Angeles",
-                year: "numeric", month: "numeric", day: "numeric",
-                hour: "numeric", minute: "numeric", second: "numeric", hour12: false
-            }).formatToParts(new Date());
-            var v = function(t){ return parseInt(parts.find(function(x){return x.type===t;}).value, 10); };
-            var days = Math.max(0, Math.floor((Date.UTC(v("year"), v("month")-1, v("day"), v("hour")%24, v("minute"), v("second")) - Date.UTC(2026, 6, 4, 2, 0, 0)) / 86400000));
-            var live = Math.max(1, days + 1);
-            if (p > live) document.documentElement.classList.add("landmark-locked");
-            else document.documentElement.classList.remove("landmark-locked");
-        } catch (e) {}
-    })();
-    </script>
 </head>
 <body>
     <header class="site-header">
@@ -492,7 +474,7 @@ html.landmark-locked .landmark-locked-notice {
             <span class="brand-sub">Landmark Field Guides</span>
         </a>
         <nav class="header-nav" aria-label="Primary Navigation">
-            <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
+            <a href="./" class="nav-pill">📚 Browse Landmark Guides</a>
             <a href="../?challenge=070" class="nav-pill primary landmark-live-content">🎮 Play Challenge #070</a>
         </nav>
     </header>
@@ -500,26 +482,11 @@ html.landmark-locked .landmark-locked-notice {
     <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="../../">Home</a> &rsaquo;
         <a href="../">1-Star Travel Reviews</a> &rsaquo;
-        <a href="./index.html">Landmark Field Guides</a> &rsaquo;
+        <a href="./">Landmark Field Guides</a> &rsaquo;
         <span class="landmark-live-content">Eiffel Tower (Challenge #070)</span>
-        <span class="landmark-locked-notice" style="padding:0; display:none;">Challenge #070 (Unlocks Soon)</span>
     </nav>
 
     <main class="container">
-        <section class="neo-card landmark-locked-notice" aria-live="polite">
-            <div class="meta-row" style="justify-content:center;">
-                <span class="badge badge-challenge">🔒 Upcoming Daily Landmark • Challenge #070</span>
-            </div>
-            <h2 class="page-title">This Landmark Unlocks With Challenge #070!</h2>
-            <p class="page-deck" style="max-width:620px; margin:0 auto 18px auto;">
-                Each Landmark Field Guide releases on the exact same day its daily puzzle goes live (<strong>September 11, 2026 at 2:00 AM PT</strong>), so there are always the same number of landmarks to explore as puzzles available.
-            </p>
-            <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:20px;">
-                <a href="../" class="nav-pill primary">🎮 Play Today&rsquo;s Live Challenge</a>
-                <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
-            </div>
-        </section>
-
         <div class="landmark-live-content">
             <div class="canonical-notice-banner">
                 <span>📚 This challenge is part of our consolidated <strong>Eiffel Tower</strong> Field Guide featuring all parody reviews &amp; postcards in one dossier.</span>
@@ -608,7 +575,7 @@ html.landmark-locked .landmark-locked-notice {
 
             <nav class="pagination-row" aria-label="Challenge Pagination">
                 <a id="nav-prev-landmark" href="./challenge-146-osaka-castle.html" class="nav-pill">&larr; Prev: #146 Osaka Castle</a>
-                <a href="./index.html" class="nav-pill">🗂️ Browse Landmark Guides</a>
+                <a href="./" class="nav-pill">🗂️ Browse Landmark Guides</a>
                 <a id="nav-next-landmark" href="./challenge-002-great-wall-of-china.html" class="nav-pill">Next: #002 Great Wall of China &rarr;</a>
             </nav>
 
@@ -645,46 +612,6 @@ html.landmark-locked .landmark-locked-notice {
                 <span class="related-card-title">Grand Canal</span>
                 <span class="related-card-sub">📍 Venice, Italy — &ldquo;All Grit, No Glamour!&rdquo;</span>
             </a>
-<a href="./challenge-025-spanish-steps.html" class="related-card peer-overflow" data-puzzle="25">
-                <span class="related-card-num">Challenge #025 • Medium</span>
-                <span class="related-card-title">Spanish Steps</span>
-                <span class="related-card-sub">📍 Rome, Italy — &ldquo;Flatter Than My Soufflé!&rdquo;</span>
-            </a>
-<a href="./challenge-026-loch-ness.html" class="related-card peer-overflow" data-puzzle="26">
-                <span class="related-card-num">Challenge #026 • Easy</span>
-                <span class="related-card-title">Loch Ness</span>
-                <span class="related-card-sub">📍 Scottish Highlands, Scotland — &ldquo;Absolute Filth! Avoid!&rdquo;</span>
-            </a>
-<a href="./challenge-178-the-london-eye.html" class="related-card future-locked" data-puzzle="178">
-                <span class="related-card-num">Challenge #178 • Medium</span>
-                <span class="related-card-title">The London Eye</span>
-                <span class="related-card-sub">📍 London, United Kingdom — &ldquo;Worst &quot;pie&quot; in London!&rdquo;</span>
-            </a>
-<a href="./challenge-181-westminster-abbey.html" class="related-card future-locked" data-puzzle="181">
-                <span class="related-card-num">Challenge #181 • Medium</span>
-                <span class="related-card-title">Westminster Abbey</span>
-                <span class="related-card-sub">📍 London, England — &ldquo;Worst. Apple. Ever!&rdquo;</span>
-            </a>
-<a href="./challenge-148-hallstatt.html" class="related-card future-locked" data-puzzle="148">
-                <span class="related-card-num">Challenge #148 • Medium</span>
-                <span class="related-card-title">Hallstatt</span>
-                <span class="related-card-sub">📍 Hallstatt, Austria — &ldquo;No Filling, Just Hills!&rdquo;</span>
-            </a>
-<a href="./challenge-149-plitvice-lakes-national-park.html" class="related-card future-locked" data-puzzle="149">
-                <span class="related-card-num">Challenge #149 • Hard</span>
-                <span class="related-card-title">Plitvice Lakes National Park</span>
-                <span class="related-card-sub">📍 Plitvice Lakes, Croatia — &ldquo;Where are the pastries?!&rdquo;</span>
-            </a>
-<a href="./challenge-157-fisherman-s-bastion.html" class="related-card future-locked" data-puzzle="157">
-                <span class="related-card-num">Challenge #157 • Hard</span>
-                <span class="related-card-title">Fisherman&#x27;s Bastion</span>
-                <span class="related-card-sub">📍 Budapest, Hungary — &ldquo;Zero Stars for Fish Storage!&rdquo;</span>
-            </a>
-<a href="./challenge-158-geirangerfjord.html" class="related-card future-locked" data-puzzle="158">
-                <span class="related-card-num">Challenge #158 • Medium</span>
-                <span class="related-card-title">Geirangerfjord</span>
-                <span class="related-card-sub">📍 Møre og Romsdal, Norway — &ldquo;Utterly Fork-gotten!&rdquo;</span>
-            </a>
                 </div>
             </section>
         </div>
@@ -694,7 +621,7 @@ html.landmark-locked .landmark-locked-notice {
         <p>&copy; 2026 Golden Pineapple Games (PunFiction). All rights reserved. |
             <a href="../../">Home</a> |
             <a href="../">Travel Reviews</a> |
-            <a href="./index.html">Landmark Guides</a> |
+            <a href="./">Landmark Guides</a> |
             <a href="../../wordvine/">Word Vine</a> |
             <a href="../../the-8-billionth/">The 8.3 Billionth</a> |
             <a href="../../umwelt/guide.html">UMWELT Guide</a> |
@@ -705,6 +632,6 @@ html.landmark-locked .landmark-locked-notice {
             <a href="../../terms.html">Terms of Service</a>
         </p>
     </footer>
-    <script src="./landmark-schedule.js?v=4"></script>
+    <script src="./landmark-schedule.js?v=5"></script>
 </body>
 </html>

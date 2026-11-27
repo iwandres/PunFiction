@@ -1,24 +1,21 @@
 /**
  * UMWELT: Animal Optics — Main Interactive Controller
- * Connects WebGL2 Multi-Pass Engine, 12 Playable Survival Micro-Missions, Field Journal,
- * Optical Cursor Reticles, Photoreceptor Chart, Binaural Audio & Render/MongoDB Atlas API.
+ * Connects WebGL2 Multi-Pass Engine, Field Journal Discovery Loop, Optical Cursor Reticles,
+ * Photoreceptor Chart, Synchronized Split-Screen Curtain, Binaural Audio & Render/MongoDB Atlas API.
  */
 import {
   BIOMES,
   MYSTERIES,
-  MISSIONS,
   getBiome,
   getSpecies,
   getMysteryForSpecies,
-  getMissionForSpecies,
-} from '../data/biomes.js?v=3';
-import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=3';
+} from '../data/biomes.js?v=4';
+import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=4';
 import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=1';
 import { InputController } from '../engine/InputController.js?v=1';
-import { MissionEngine } from '../engine/MissionEngine.js?v=3';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';
 import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=1';
-import { FieldJournalDrawer } from './FieldJournal.js?v=3';
+import { FieldJournalDrawer } from './FieldJournal.js?v=4';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_BASE = window.UMWELT_API_URL
@@ -49,7 +46,6 @@ function loadLocalJournal(clientUuid) {
   return {
     clientUuid,
     solvedMysteries: [],
-    completedMissions: [],
     unlockedCodexEntries: [],
     totalPoints: 0,
   };
@@ -69,20 +65,11 @@ function mergeJournals(localJ, remoteJ) {
   for (const item of [...(localJ.solvedMysteries || []), ...(remoteJ.solvedMysteries || [])]) {
     if (item?.mysteryId) solvedMap.set(item.mysteryId, item);
   }
-  const missionMap = new Map();
-  for (const item of [...(localJ.completedMissions || []), ...(remoteJ.completedMissions || [])]) {
-    if (!item?.missionId) continue;
-    const prev = missionMap.get(item.missionId);
-    if (!prev || (item.bestScore || 0) > (prev.bestScore || 0)) {
-      missionMap.set(item.missionId, item);
-    }
-  }
   const codex = Array.from(new Set([...(localJ.unlockedCodexEntries || []), ...(remoteJ.unlockedCodexEntries || [])]));
   return {
     ...localJ,
     ...remoteJ,
     solvedMysteries: Array.from(solvedMap.values()),
-    completedMissions: Array.from(missionMap.values()),
     unlockedCodexEntries: codex,
     totalPoints: Math.max(localJ.totalPoints || 0, remoteJ.totalPoints || 0),
   };
@@ -108,13 +95,11 @@ class UmweltApp {
     this.el = {
       viewport: document.getElementById('viewport'),
       glCanvas: document.getElementById('gl-canvas'),
-      missionCanvas: document.getElementById('mission-canvas'),
       webglFallback: document.getElementById('webgl-fallback'),
       biomeTabs: document.getElementById('biome-tabs'),
       lightingSelect: document.getElementById('lighting-select'),
       plateStatusPill: document.getElementById('plate-status-pill'),
       btnSplit: document.getElementById('btn-split'),
-      btnMission: document.getElementById('btn-mission'),
       btnJournal: document.getElementById('btn-journal'),
       journalCountBadge: document.getElementById('journal-count-badge'),
       btnAudio: document.getElementById('btn-audio'),
@@ -135,7 +120,6 @@ class UmweltApp {
       splitHandle: document.getElementById('split-handle'),
       splitLabelLeft: document.getElementById('split-label-left'),
       splitLabelRight: document.getElementById('split-label-right'),
-      mechanicBar: document.getElementById('mechanic-bar'),
       polControl: document.getElementById('pol-control'),
       polSlider: document.getElementById('pol-slider'),
       polDegLabel: document.getElementById('pol-deg-label'),
@@ -144,11 +128,6 @@ class UmweltApp {
       objectiveStrip: document.getElementById('objective-strip'),
       hintPulseEl: document.getElementById('hint-pulse'),
       toastHost: document.getElementById('toast-host'),
-      missionHud: document.getElementById('mission-hud'),
-      missionControls: document.getElementById('mission-controls'),
-      stickZone: document.getElementById('virtual-stick-zone'),
-      stickKnob: document.getElementById('virtual-stick-knob'),
-      actionBtn: document.getElementById('mission-action-btn'),
       modalOverlay: document.getElementById('modal-overlay'),
       modalCard: document.getElementById('modal-card'),
     };
@@ -167,14 +146,12 @@ class UmweltApp {
     this.journalDrawer = new FieldJournalDrawer(this.el.journalDrawer, {
       onJumpToSpecies: (bId, spSlug) => this.selectBiomeAndSpecies(bId, spSlug),
       onPulseHint: (mysteryId) => this.pulseMysteryHint(mysteryId),
-      onLaunchMission: (bId, spSlug) => this.launchMissionFor(bId, spSlug),
     });
 
     this.input = new InputController(this.el.viewport, {
       onSlotKey: (slot) => this._onSlotKey(slot),
-      onSpaceKey: () => this._onSpaceKey(),
+      onSpaceKey: () => this.toggleSplitCompare(),
       onKeyE: () => this._onKeyE(),
-      onKeyQ: () => this._onKeyQ(),
       onToggleSplit: () => this.toggleSplitCompare(),
       onToggleAudio: () => this.toggleAudio(),
       onEscape: () => this._onEscape(),
@@ -182,20 +159,6 @@ class UmweltApp {
       onViewportClick: (nx, ny) => this._onViewportClick(nx, ny),
       onWheel: (deltaY) => this._onWheel(deltaY),
     });
-    this.input.bindVirtualThumbstick(this.el.stickZone, this.el.stickKnob);
-
-    this.missions = new MissionEngine(
-      this.el.missionCanvas,
-      this.renderer,
-      this.audio,
-      this.input,
-      {
-        onStateChange: (snap) => this._renderMissionHud(snap),
-        onHudTick: (snap) => this._renderMissionHud(snap),
-        onMissionEnd: (result) => this._handleMissionEnd(result),
-        onPolarizationChanged: (deg) => this._syncPolarizationUI(deg),
-      }
-    );
 
     this.renderer.onPlateStatus = (info) => this._onPlateStatus(info);
     this.renderer.onFrame = (dt, timeSec) => this._onFrame(dt, timeSec);
@@ -205,23 +168,18 @@ class UmweltApp {
     this._renderBiomeTabs();
     this._applyPhotoreceptorCollapse();
 
-    // Respect OS reduced-motion preference on first load
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
       this.renderer.state.reducedMotion = true;
       this.el.btnReducedMotion?.classList.add('active');
     }
 
-    // Load initial Alpine Meadow view (start directly on American Kestrel or Human? Spec says observe in Human Baseline!)
     await this.selectBiomeAndSpecies('meadow', 'human_meadow', 'Alpine Noon', false);
-    this.missions.resize();
     this.renderer.start();
 
     window.addEventListener('resize', () => {
       this.renderer.resize();
-      this.missions.resize();
     });
 
-    // Sync journal asynchronously with Render + MongoDB Atlas
     this._syncJournalFromBackend();
   }
 
@@ -233,13 +191,6 @@ class UmweltApp {
     });
 
     this.el.btnSplit.addEventListener('click', () => this.toggleSplitCompare());
-    this.el.btnMission.addEventListener('click', () => {
-      if (this.missions.active) {
-        this.missions.stopMission();
-      } else {
-        this.launchMissionFor(this.biomeId, this.speciesSlug);
-      }
-    });
     this.el.btnJournal.addEventListener('click', () => this.journalDrawer.toggle());
     this.el.btnAudio.addEventListener('click', () => this.toggleAudio());
     this.el.btnReducedMotion.addEventListener('click', () => {
@@ -271,12 +222,6 @@ class UmweltApp {
       this._triggerBatSonar(this.renderer.state.cursorX, this.renderer.state.cursorY);
     });
 
-    this.el.actionBtn.addEventListener('pointerdown', (e) => {
-      e.stopPropagation();
-      this.missions.triggerAction();
-    });
-
-    // Draggable Split-Screen Curtain Handle
     this.el.splitHandle.addEventListener('pointerdown', (e) => {
       e.stopPropagation();
       this.draggingSplit = true;
@@ -339,9 +284,6 @@ class UmweltApp {
   }
 
   async selectBiomeAndSpecies(biomeId, speciesSlug, lightingPreset = null, triggerSwoop = true) {
-    if (this.missions.active) {
-      this.missions.stopMission();
-    }
     const biome = getBiome(biomeId);
     const species = getSpecies(biome.id, speciesSlug);
     const preset = lightingPreset || (biome.id === this.biomeId ? this.lightingPreset : biome.lightingPresets[0].id);
@@ -350,7 +292,7 @@ class UmweltApp {
     this.speciesSlug = species.slug;
     this.lightingPreset = preset;
     this.speciesEnteredAt = performance.now();
-    this.sonarPingedForCurrent = species.slug === 'vampire_bat'; // Auto-pings on entry!
+    this.sonarPingedForCurrent = species.slug === 'vampire_bat';
 
     this._renderBiomeTabs();
     this._renderLightingSelect(biome);
@@ -359,14 +301,12 @@ class UmweltApp {
     this._renderPhotoreceptorPanel(species);
     this._renderObjectiveStrip(biome, species);
     this._renderMechanicControls(species);
-    this._updateMissionButton(biome, species);
 
     this.cursorHud.setSpecies(species);
     this.audio.setSpecies(biome.id, species.slug);
     this.el.splitLabelRight.textContent = `${species.shortName.toUpperCase()} UMWELT`;
     this.el.splitLabelLeft.textContent = biome.id === 'reef' ? 'HUMAN DIVER' : biome.id === 'cloudforest' ? 'HUMAN NIGHT' : 'HUMAN RGB';
 
-    // Update Field Journal if open
     this._refreshJournalUI();
 
     await this.renderer.setView(biome.id, species.slug, preset, triggerSwoop);
@@ -381,7 +321,6 @@ class UmweltApp {
     if (sc.mode === 'depth') {
       const depthM = Math.abs(val);
       const atm = (1 + depthM / 10).toFixed(2);
-      // Beer-Lambert attenuation of 650nm red light: 1 - exp(-0.38 * depth)
       const redLoss = Math.min(99, Math.round((1 - Math.exp(-0.38 * depthM)) * 100));
       reefExtra = `
         <div class="gauge-metric"><span>PRESS</span><strong>${atm} atm</strong></div>
@@ -412,15 +351,12 @@ class UmweltApp {
   _renderSpeciesDock() {
     const biome = getBiome(this.biomeId);
     const solvedSet = new Set((this.journal.solvedMysteries || []).map((m) => m.mysteryId));
-    const missionSet = new Set((this.journal.completedMissions || []).map((m) => m.missionId));
 
     this.el.speciesDock.innerHTML = biome.species.map((sp) => {
       const active = sp.slug === this.speciesSlug;
       const ready = this.renderer.isPlateReady(biome.id, sp.slug, this.lightingPreset);
       const mystery = getMysteryForSpecies(biome.id, sp.slug);
-      const mission = getMissionForSpecies(biome.id, sp.slug);
       const mystSolved = mystery && solvedSet.has(mystery.mysteryId);
-      const missDone = mission && missionSet.has(mission.missionId);
 
       return `
         <button type="button" class="species-btn ${active ? 'active' : ''}" data-species="${sp.slug}" style="--sp-accent:${sp.accentColor}">
@@ -434,7 +370,6 @@ class UmweltApp {
           <div class="sb-meta">
             <span class="sb-elev">${sp.elevationM}m</span>
             ${mystSolved ? '<span class="sb-badge done" title="Field Mystery Logged">✓</span>' : ''}
-            ${missDone ? '<span class="sb-badge medal" title="Survival Mission Complete">🏅</span>' : ''}
           </div>
         </button>
       `;
@@ -468,13 +403,12 @@ class UmweltApp {
 
   _renderObjectiveStrip(biome, species) {
     const mystery = getMysteryForSpecies(biome.id, species.slug);
-    const mission = getMissionForSpecies(biome.id, species.slug);
     const solved = mystery && (this.journal.solvedMysteries || []).some((m) => m.mysteryId === mystery.mysteryId);
 
-    if (!mystery && !mission) {
+    if (!mystery) {
       this.el.objectiveStrip.innerHTML = `
         <span class="obj-tag">BASELINE POV</span>
-        <span class="obj-text">Observe how humans perceive ${biome.shortName}, then select species <strong>[2–5]</strong> below to unlock hidden ecological realities &amp; playable survival missions.</span>
+        <span class="obj-text">Observe how humans perceive ${biome.shortName}, then select species <strong>[2–5]</strong> below to step into their ecological vantage points &amp; uncover hidden phenomena.</span>
       `;
       return;
     }
@@ -482,169 +416,14 @@ class UmweltApp {
     if (solved) {
       this.el.objectiveStrip.innerHTML = `
         <span class="obj-tag solved">✓ CODEX LOGGED</span>
-        <span class="obj-text"><strong>${mystery.title}</strong> discovered! Ready for embodied locomotion?</span>
-        ${mission ? `<button type="button" class="obj-cta" id="obj-play-mission">▶ Play: ${mission.title}</button>` : ''}
+        <span class="obj-text"><strong>${mystery.title}</strong> discovered! Toggle <strong>Split Compare (Space)</strong> to see Human vs. ${species.shortName} side-by-side.</span>
       `;
-    } else if (mystery) {
+    } else {
       this.el.objectiveStrip.innerHTML = `
         <span class="obj-tag">🔬 FIELD MYSTERY</span>
         <span class="obj-text"><strong>${mystery.title}:</strong> ${species.mechanic?.hint || mystery.cluePrompt} — <em>Click the hidden subject to log it!</em></span>
-        ${mission ? `<button type="button" class="obj-cta" id="obj-play-mission">▶ Play Mission</button>` : ''}
       `;
     }
-
-    this.el.objectiveStrip.querySelector('#obj-play-mission')?.addEventListener('click', () => {
-      this.launchMissionFor(biome.id, species.slug);
-    });
-  }
-
-  _updateMissionButton(biome, species) {
-    const mission = getMissionForSpecies(biome.id, species.slug);
-    if (this.missions.active) {
-      this.el.btnMission.textContent = '✕ Exit Mission';
-      this.el.btnMission.classList.add('active');
-      this.el.btnMission.disabled = false;
-      return;
-    }
-    this.el.btnMission.classList.remove('active');
-    if (mission) {
-      this.el.btnMission.textContent = `▶ Play: ${species.shortName}`;
-      this.el.btnMission.disabled = false;
-      this.el.btnMission.title = `Launch playable survival micro-mission: ${mission.title}`;
-    } else {
-      const firstAnimal = biome.species[1];
-      this.el.btnMission.textContent = `▶ Play Mission`;
-      this.el.btnMission.disabled = false;
-      this.el.btnMission.title = `Switch to ${firstAnimal.name} and start survival mission`;
-    }
-  }
-
-  async launchMissionFor(biomeId, speciesSlug) {
-    const biome = getBiome(biomeId);
-    let targetSlug = speciesSlug;
-    if (!getMissionForSpecies(biome.id, targetSlug)) {
-      targetSlug = biome.species[1].slug; // Default to slot 2 animal if currently on Human baseline
-    }
-    if (this.biomeId !== biome.id || this.speciesSlug !== targetSlug) {
-      await this.selectBiomeAndSpecies(biome.id, targetSlug, this.lightingPreset, true);
-    }
-    if (this.renderer.state.splitEnabled) {
-      this.toggleSplitCompare(false);
-    }
-    const ok = this.missions.startMission(this.biomeId, this.speciesSlug);
-    if (ok) {
-      this._preMissionCollapsed = this.photoreceptorCollapsed;
-      this.photoreceptorCollapsed = true;
-      this._applyPhotoreceptorCollapse();
-      this.el.objectiveStrip.classList.add('hidden');
-      this.el.missionHud.classList.remove('hidden');
-      this.el.missionControls.classList.remove('hidden');
-      this.el.actionBtn.textContent = this.missions.mission.actionLabel;
-      this._updateMissionButton(biome, getSpecies(biome.id, targetSlug));
-    }
-  }
-
-  _renderMissionHud(snap) {
-    if (!snap || !snap.active) {
-      this.el.missionHud.classList.add('hidden');
-      this.el.missionControls.classList.add('hidden');
-      this.el.objectiveStrip.classList.remove('hidden');
-      if (typeof this._preMissionCollapsed === 'boolean') {
-        this.photoreceptorCollapsed = this._preMissionCollapsed;
-        this._preMissionCollapsed = undefined;
-        this._applyPhotoreceptorCollapse();
-      }
-      const biome = getBiome(this.biomeId);
-      const sp = getSpecies(this.biomeId, this.speciesSlug);
-      this._updateMissionButton(biome, sp);
-      return;
-    }
-    const hearts = '♥'.repeat(Math.max(0, snap.health)) + '♡'.repeat(Math.max(0, 3 - snap.health));
-    const meterPct = Math.round(Math.max(0, Math.min(1, snap.meterValue)) * 100);
-    this.el.missionHud.innerHTML = `
-      <div class="mh-title">${this.missions.species.icon} ${snap.title}</div>
-      <div class="mh-metrics">
-        <span class="mh-pill">GOAL <strong>${snap.progress}/${snap.goalCount}</strong></span>
-        <span class="mh-pill">TIME <strong>${snap.timeLeft}s</strong></span>
-        <span class="mh-pill">SCORE <strong>${snap.score}</strong></span>
-        <span class="mh-pill hearts">${hearts}</span>
-        <span class="mh-meter ${snap.stealth ? 'stealth' : ''}">
-          <em>${snap.meterLabel}</em>
-          <i class="mh-bar"><b style="width:${meterPct}%"></b></i>
-        </span>
-      </div>
-      <div class="mh-tip">Move: <strong>WASD / Arrows / Thumbstick</strong> · Action: <strong>Space / ${snap.actionLabel}</strong>${this.speciesSlug === 'cuttlefish' ? ' · Dial: <strong>Q/E or Wheel</strong>' : ''}</div>
-    `;
-  }
-
-  async _handleMissionEnd(result) {
-    this._renderMissionHud({ active: false });
-    const ms = result.mission;
-    const sp = getSpecies(ms.biomeId, ms.speciesSlug);
-
-    if (result.won) {
-      // Save locally right away
-      const list = this.journal.completedMissions || [];
-      const existing = list.find((m) => m.missionId === ms.missionId);
-      if (existing) {
-        existing.bestScore = Math.max(existing.bestScore || 0, result.score);
-        existing.bestTimeMs = existing.bestTimeMs ? Math.min(existing.bestTimeMs, result.elapsedMs) : result.elapsedMs;
-      } else {
-        list.push({
-          missionId: ms.missionId,
-          biomeId: ms.biomeId,
-          speciesSlug: ms.speciesSlug,
-          bestScore: result.score,
-          bestTimeMs: result.elapsedMs,
-        });
-        this.journal.totalPoints = (this.journal.totalPoints || 0) + 200;
-      }
-      this.journal.completedMissions = list;
-      saveLocalJournal(this.journal);
-      this._refreshJournalUI();
-      this._renderSpeciesDock();
-
-      // Persist asynchronously to Render + MongoDB Atlas
-      fetch(`${API_BASE}/missions/complete`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          clientUuid: this.clientUuid,
-          missionId: ms.missionId,
-          score: result.score,
-          elapsedMs: result.elapsedMs,
-        }),
-      }).then((r) => (r.ok ? r.json() : null)).then((data) => {
-        if (data?.journal) {
-          this.journal = mergeJournals(this.journal, data.journal);
-          saveLocalJournal(this.journal);
-          this._refreshJournalUI();
-        }
-      }).catch(() => {});
-    }
-
-    const secStr = (result.elapsedMs / 1000).toFixed(1);
-    this._openModal(`
-      <div class="modal-eyebrow">${result.won ? '🏅 SURVIVAL MISSION COMPLETE' : '⚠️ MISSION INTERRUPTED'}</div>
-      <h3>${sp.icon} ${ms.title}</h3>
-      <p class="modal-desc">${result.won ? `Masterful ${sp.name} sensory navigation! You completed the ecological challenge in <strong>${secStr}s</strong>.` : result.reason}</p>
-      <div class="modal-stats">
-        <div><span>SCORE</span><strong>${result.score}</strong></div>
-        <div><span>TIME</span><strong>${secStr}s</strong></div>
-        <div><span>MISSIONS</span><strong>${(this.journal.completedMissions || []).length} / ${MISSIONS.length}</strong></div>
-      </div>
-      <p class="modal-tip"><strong>Ecological Insight:</strong> ${ms.mechanicTip}</p>
-      <div class="modal-actions">
-        <button type="button" class="m-btn primary" id="modal-replay">↻ Replay Mission</button>
-        <button type="button" class="m-btn" id="modal-continue">Return to Observation</button>
-      </div>
-    `);
-
-    this.el.modalCard.querySelector('#modal-replay')?.addEventListener('click', () => {
-      this._closeModal();
-      this.launchMissionFor(ms.biomeId, ms.speciesSlug);
-    });
-    this.el.modalCard.querySelector('#modal-continue')?.addEventListener('click', () => this._closeModal());
   }
 
   _onPlateStatus({ status, label }) {
@@ -662,43 +441,35 @@ class UmweltApp {
     }
   }
 
-  _onFrame(dt, timeSec) {
-    if (this.missions.active) {
-      this.missions.update(dt, timeSec);
-    } else {
-      const inp = this.input.sampleMovement();
-      // Continuous Q/E polarization tuning in Observation mode
-      if (this.speciesSlug === 'cuttlefish' && inp.rotPol !== 0) {
-        const next = (this.renderer.state.polAngleRad + inp.rotPol * dt * 1.45 + Math.PI) % Math.PI;
-        this.renderer.state.polAngleRad = next;
-        this._syncPolarizationUI(Math.round((next * 180) / Math.PI));
-      }
-      // Subtle look parallax from mouse OR mobile gyroscope
-      if (this.input.gyroEnabled) {
-        this.renderer.state.targetParallaxX = inp.gyroX;
-        this.renderer.state.targetParallaxY = inp.gyroY;
-      }
+  _onFrame(dt) {
+    const inp = this.input.sampleMovement();
+    if (this.speciesSlug === 'cuttlefish' && inp.rotPol !== 0) {
+      const next = (this.renderer.state.polAngleRad + inp.rotPol * dt * 1.45 + Math.PI) % Math.PI;
+      this.renderer.state.polAngleRad = next;
+      this._syncPolarizationUI(Math.round((next * 180) / Math.PI));
+    }
+    if (this.input.gyroEnabled) {
+      this.renderer.state.targetParallaxX = inp.gyroX;
+      this.renderer.state.targetParallaxY = inp.gyroY;
     }
 
-    // Update live species optical cursor reticle readouts
     const st = this.renderer.state;
     const sem = st.semantics || {};
     const primary = sem.primaryTarget || { x: 0.5, y: 0.5 };
     const distToPrimary = Math.hypot(st.cursorX - primary.x, st.cursorY - primary.y);
 
     this.cursorHud.update(st.cursorX, st.cursorY, {
-      hide: this.missions.active || this.input.isTouchDevice,
+      hide: this.input.isTouchDevice,
       polAngleRad: st.polAngleRad,
       depthAtCursor: this.renderer.sampleDepthAt(st.cursorX, st.cursorY),
       targetDepth: this.renderer.sampleDepthAt(primary.x, primary.y),
       dipoleStrength: Math.max(4, Math.round(145 * Math.exp(-distToPrimary * 5.2))),
       estimatedTempC: 18.0 + 20.2 * Math.exp(-Math.pow(distToPrimary / 0.16, 2)),
-      radarBlips: this.missions.active ? this.missions.radarBlips : null,
+      radarBlips: null,
     });
   }
 
   _onPointerMove(nx, ny) {
-    if (this.missions.active) return;
     this.renderer.state.cursorX = nx;
     this.renderer.state.cursorY = ny;
     if (!this.input.gyroEnabled) {
@@ -724,30 +495,15 @@ class UmweltApp {
     if (sp) this.selectBiomeAndSpecies(biome.id, sp.slug, this.lightingPreset);
   }
 
-  _onSpaceKey() {
-    if (this.missions.active) {
-      this.missions.triggerAction();
-    } else {
-      this.toggleSplitCompare();
-    }
-  }
-
   _onKeyE() {
     if (this.speciesSlug === 'vampire_bat') {
-      if (this.missions.active) this.missions.triggerAction();
-      else this._triggerBatSonar(this.renderer.state.cursorX, this.renderer.state.cursorY);
+      this._triggerBatSonar(this.renderer.state.cursorX, this.renderer.state.cursorY);
     }
-  }
-
-  _onKeyQ() {
-    // Handled smoothly in _onFrame for Cuttlefish
   }
 
   _onEscape() {
     if (!this.el.modalOverlay.classList.contains('hidden')) {
       this._closeModal();
-    } else if (this.missions.active) {
-      this.missions.stopMission();
     } else if (this.journalDrawer.open) {
       this.journalDrawer.toggle(false);
     }
@@ -761,16 +517,10 @@ class UmweltApp {
   }
 
   async _onViewportClick(nx, ny) {
-    if (this.missions.active) {
-      // In mission mode, tapping right half / canvas triggers action cleanly
-      this.missions.triggerAction();
-      return;
-    }
     if (this.speciesSlug === 'vampire_bat') {
       this._triggerBatSonar(nx, ny);
     }
 
-    // Attempt Field Mystery Discovery verification on active species!
     const mystery = getMysteryForSpecies(this.biomeId, this.speciesSlug);
     if (!mystery) return;
     const alreadySolved = (this.journal.solvedMysteries || []).some((m) => m.mysteryId === mystery.mysteryId);
@@ -793,7 +543,6 @@ class UmweltApp {
       timeToSolveMs: Math.round(performance.now() - this.speciesEnteredAt),
     };
 
-    // Instant client-side check + Render API authoritative confirmation
     const localResult = this._verifyDiscoveryLocally(mystery, payload);
 
     try {
@@ -808,7 +557,7 @@ class UmweltApp {
         return;
       }
     } catch {
-      // Offline / Render cold start fallback -> use localResult seamlessly!
+      // Offline / Render cold start fallback -> use localResult seamlessly
     }
     this._handleDiscoveryResponse(mystery, localResult);
   }
@@ -860,7 +609,6 @@ class UmweltApp {
       return;
     }
 
-    // Celebrate discovery & save to journal!
     this.audio.playDiscoveryUnlock();
     this.input.haptic([20, 40, 28]);
 
@@ -885,7 +633,6 @@ class UmweltApp {
 
     const biome = getBiome(this.biomeId);
     const sp = getSpecies(this.biomeId, this.speciesSlug);
-    const mission = getMissionForSpecies(this.biomeId, this.speciesSlug);
     this._renderObjectiveStrip(biome, sp);
 
     const ratePct = res.globalSolveRate ? `${Math.round(res.globalSolveRate * 100)}%` : '—';
@@ -899,14 +646,9 @@ class UmweltApp {
         <div><span>SOLVE RATE</span><strong>${ratePct}</strong></div>
       </div>
       <div class="modal-actions">
-        ${mission ? `<button type="button" class="m-btn primary" id="modal-launch-mission">▶ Play Mission: ${mission.title}</button>` : ''}
-        <button type="button" class="m-btn" id="modal-close-ok">Continue Exploring</button>
+        <button type="button" class="m-btn primary" id="modal-close-ok">Continue Exploring</button>
       </div>
     `);
-    this.el.modalCard.querySelector('#modal-launch-mission')?.addEventListener('click', () => {
-      this._closeModal();
-      this.launchMissionFor(this.biomeId, this.speciesSlug);
-    });
     this.el.modalCard.querySelector('#modal-close-ok')?.addEventListener('click', () => this._closeModal());
   }
 

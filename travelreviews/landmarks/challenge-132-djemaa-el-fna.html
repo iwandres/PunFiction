@@ -466,24 +466,6 @@ html.landmark-locked .landmark-locked-notice {
     }
 }
 </style>
-    <script>
-    (function(){
-        try {
-            var p = parseInt(document.documentElement.getAttribute("data-puzzle-num"), 10);
-            if (!p) return;
-            var parts = new Intl.DateTimeFormat("en-US", {
-                timeZone: "America/Los_Angeles",
-                year: "numeric", month: "numeric", day: "numeric",
-                hour: "numeric", minute: "numeric", second: "numeric", hour12: false
-            }).formatToParts(new Date());
-            var v = function(t){ return parseInt(parts.find(function(x){return x.type===t;}).value, 10); };
-            var days = Math.max(0, Math.floor((Date.UTC(v("year"), v("month")-1, v("day"), v("hour")%24, v("minute"), v("second")) - Date.UTC(2026, 6, 4, 2, 0, 0)) / 86400000));
-            var live = Math.max(1, days + 1);
-            if (p > live) document.documentElement.classList.add("landmark-locked");
-            else document.documentElement.classList.remove("landmark-locked");
-        } catch (e) {}
-    })();
-    </script>
 </head>
 <body>
     <header class="site-header">
@@ -492,7 +474,7 @@ html.landmark-locked .landmark-locked-notice {
             <span class="brand-sub">Landmark Field Guides</span>
         </a>
         <nav class="header-nav" aria-label="Primary Navigation">
-            <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
+            <a href="./" class="nav-pill">📚 Browse Landmark Guides</a>
             <a href="../?challenge=132" class="nav-pill primary landmark-live-content">🎮 Play Challenge #132</a>
         </nav>
     </header>
@@ -500,26 +482,11 @@ html.landmark-locked .landmark-locked-notice {
     <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="../../">Home</a> &rsaquo;
         <a href="../">1-Star Travel Reviews</a> &rsaquo;
-        <a href="./index.html">Landmark Field Guides</a> &rsaquo;
+        <a href="./">Landmark Field Guides</a> &rsaquo;
         <span class="landmark-live-content">Djemaa el-Fna (Challenge #132)</span>
-        <span class="landmark-locked-notice" style="padding:0; display:none;">Challenge #132 (Unlocks Soon)</span>
     </nav>
 
     <main class="container">
-        <section class="neo-card landmark-locked-notice" aria-live="polite">
-            <div class="meta-row" style="justify-content:center;">
-                <span class="badge badge-challenge">🔒 Upcoming Daily Landmark • Challenge #132</span>
-            </div>
-            <h2 class="page-title">This Landmark Unlocks With Challenge #132!</h2>
-            <p class="page-deck" style="max-width:620px; margin:0 auto 18px auto;">
-                Each Landmark Field Guide releases on the exact same day its daily puzzle goes live (<strong>November 12, 2026 at 2:00 AM PT</strong>), so there are always the same number of landmarks to explore as puzzles available.
-            </p>
-            <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:20px;">
-                <a href="../" class="nav-pill primary">🎮 Play Today&rsquo;s Live Challenge</a>
-                <a href="./index.html" class="nav-pill">📚 Browse Landmark Guides</a>
-            </div>
-        </section>
-
         <div class="landmark-live-content">
             <article class="neo-card">
                 <div class="meta-row">
@@ -601,45 +568,10 @@ html.landmark-locked .landmark-locked-notice {
                     </div>
                 </details>
             </section>
-            <section id="companion-parodies-section" class="neo-card" aria-labelledby="heading-more-parodies" style="display:none;">
-                <h2 id="heading-more-parodies" class="section-heading">🎭 More 1-Star Parody Reviews of Djemaa el-Fna</h2>
-                <p style="margin-top:0; font-weight:700; color:var(--text-secondary);">Some landmarks inspire more than one spectacular tourist misunderstanding. Explore every unlocked PunFiction parody challenge for Djemaa el-Fna right here:</p>
-                <div class="companion-parody-card future-locked" data-puzzle="150">
-                    <div class="meta-row" style="justify-content: space-between;">
-                        <span class="badge badge-challenge">Challenge #150 • Medium</span>
-                        <a href="../?challenge=150" class="nav-pill primary" style="padding:5px 12px; font-size:0.8rem;">🎯 Play Challenge #150 &rarr;</a>
-                    </div>
-                    <div class="review-box" style="margin-bottom:12px;">
-                        <div class="stars-row" aria-label="1 out of 5 stars">★☆☆☆☆</div>
-                        <h3 class="review-headline">&ldquo;Flan-tastic FAIL!&rdquo;</h3>
-                        <div class="reviewer-byline">Reviewed by CustardCritic • Verified Misguided Visitor</div>
-                        <blockquote class="review-quote">&ldquo;Expected sweet, wobbly perfection in this North African market... Nope!&rdquo;</blockquote>
-                        <div class="followup-clues">
-                            <h3>Additional Clues</h3>
-                            <ul>
-                                <li>&ldquo;Tried to spoon up some deliciousness; only found snake charmers and dust!&rdquo;</li>
-                                <li>&ldquo;My brochure promised creamy *flan*... not THIS chaotic open square!&rdquo;</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p style="margin: 0 0 12px 0; font-size: 0.98rem; line-height: 1.68;">Nine hundred years of North African street theater failed to wobble to the satisfaction of @CustardCritic, who stood in the middle of the medina brandishing a dessert spoon and filed a one-star pan titled &#x27;Flan-tastic FAIL!&#x27;. Having booked passage to Morocco on the promise of Jemaa el-Flan, our caramel devotee expected acres of sweet, jiggly vanilla-egg perfection and instead scooped up nothing but motorbike exhaust, red Sahara dust, and passing snake charmers. Discovering that your travel brochure promised a medieval Almohad public square rather than a ten-hectare ramekin of chilled Spanish crème caramel is a brutal awakening before dinner.</p>
-                    <details class="spoiler-details">
-                        <summary>🔓 Reveal Challenge #150 Parody Answer, Postcard &amp; Owner Reply</summary>
-                        <div class="spoiler-body">
-                            <p class="parody-answer-banner">Parody Landmark: Jemaa el-Flan</p>
-                            <img src="../assets/cartoons/jemaa_el_flan_1793484023_63.webp" alt="Jemaa el-Flan parody postcard of Djemaa el-Fna" class="postcard-img" loading="lazy">
-                            <div class="owner-reply-box">
-                                <strong>Official Response from Management (Djemaa el-Fna):</strong><br>
-                                &ldquo;Dear @CustardCritic, this bustling, UNESCO-listed public square offers history, stories, and snake charmers. We&#x27;ve never served gelatinous desserts!&rdquo;
-                            </div>
-                        </div>
-                    </details>
-                </div>
-            </section>
 
             <nav class="pagination-row" aria-label="Challenge Pagination">
                 <a id="nav-prev-landmark" href="./challenge-131-lord-howe-island-group.html" class="nav-pill">&larr; Prev: #131 Lord Howe Island Group</a>
-                <a href="./index.html" class="nav-pill">🗂️ Browse Landmark Guides</a>
+                <a href="./" class="nav-pill">🗂️ Browse Landmark Guides</a>
                 <a id="nav-next-landmark" href="./challenge-133-charles-bridge.html" class="nav-pill">Next: #133 Charles Bridge &rarr;</a>
             </nav>
 
@@ -676,46 +608,6 @@ html.landmark-locked .landmark-locked-notice {
                 <span class="related-card-title">Burj Khalifa</span>
                 <span class="related-card-sub">📍 Dubai, UAE — &ldquo;More Grease Than Glamour!&rdquo;</span>
             </a>
-<a href="./challenge-101-victoria-falls.html" class="related-card peer-overflow" data-puzzle="101">
-                <span class="related-card-num">Challenge #101 • Medium</span>
-                <span class="related-card-title">Victoria Falls</span>
-                <span class="related-card-sub">📍 Livingstone, Zambia — &ldquo;Total Bird-en!&rdquo;</span>
-            </a>
-<a href="./challenge-102-valley-of-the-kings.html" class="related-card peer-overflow" data-puzzle="102">
-                <span class="related-card-num">Challenge #102 • Easy</span>
-                <span class="related-card-title">Valley of the Kings</span>
-                <span class="related-card-sub">📍 Luxor, Egypt — &ldquo;More like Valley of the Crings!&rdquo;</span>
-            </a>
-<a href="./challenge-176-burj-al-arab-jumeirah.html" class="related-card future-locked" data-puzzle="176">
-                <span class="related-card-num">Challenge #176 • Hard</span>
-                <span class="related-card-title">Burj Al Arab Jumeirah</span>
-                <span class="related-card-sub">📍 Dubai, UAE — &ldquo;False Advertising: No Purses!&rdquo;</span>
-            </a>
-<a href="./challenge-179-great-zimbabwe-ruins.html" class="related-card future-locked" data-puzzle="179">
-                <span class="related-card-num">Challenge #179 • Hard</span>
-                <span class="related-card-title">Great Zimbabwe Ruins</span>
-                <span class="related-card-sub">📍 Masvingo Province, Zimbabwe — &ldquo;Where are the Noodles?! Total Scam!&rdquo;</span>
-            </a>
-<a href="./challenge-152-mount-kenya.html" class="related-card future-locked" data-puzzle="152">
-                <span class="related-card-num">Challenge #152 • Medium</span>
-                <span class="related-card-title">Mount Kenya</span>
-                <span class="related-card-sub">📍 Kenya — &ldquo;No Cheese, No Charm, No CHIRP!&rdquo;</span>
-            </a>
-<a href="./challenge-165-babylon.html" class="related-card future-locked" data-puzzle="165">
-                <span class="related-card-num">Challenge #165 • Medium</span>
-                <span class="related-card-title">Babylon</span>
-                <span class="related-card-sub">📍 Hillah, Iraq — &ldquo;No Melons Here. Total Scam!&rdquo;</span>
-            </a>
-<a href="./challenge-166-fish-river-canyon.html" class="related-card future-locked" data-puzzle="166">
-                <span class="related-card-num">Challenge #166 • Medium</span>
-                <span class="related-card-title">Fish River Canyon</span>
-                <span class="related-card-sub">📍 Karas Region, Namibia — &ldquo;Where&#x27;s the protein?!&rdquo;</span>
-            </a>
-<a href="./challenge-169-jeita-grotto.html" class="related-card future-locked" data-puzzle="169">
-                <span class="related-card-num">Challenge #169 • Hard</span>
-                <span class="related-card-title">Jeita Grotto</span>
-                <span class="related-card-sub">📍 Nahr al-Kalb, Lebanon — &ldquo;Where&#x27;s the wobbly dessert?!&rdquo;</span>
-            </a>
                 </div>
             </section>
         </div>
@@ -725,7 +617,7 @@ html.landmark-locked .landmark-locked-notice {
         <p>&copy; 2026 Golden Pineapple Games (PunFiction). All rights reserved. |
             <a href="../../">Home</a> |
             <a href="../">Travel Reviews</a> |
-            <a href="./index.html">Landmark Guides</a> |
+            <a href="./">Landmark Guides</a> |
             <a href="../../wordvine/">Word Vine</a> |
             <a href="../../the-8-billionth/">The 8.3 Billionth</a> |
             <a href="../../umwelt/guide.html">UMWELT Guide</a> |
@@ -736,6 +628,6 @@ html.landmark-locked .landmark-locked-notice {
             <a href="../../terms.html">Terms of Service</a>
         </p>
     </footer>
-    <script src="./landmark-schedule.js?v=4"></script>
+    <script src="./landmark-schedule.js?v=5"></script>
 </body>
 </html>

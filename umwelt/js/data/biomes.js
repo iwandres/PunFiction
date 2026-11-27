@@ -1,6 +1,6 @@
 /**
  * UMWELT: Animal Optics — Client Biological Registry
- * 3 Ecosystems · 15 Playable Ecological POVs · 12 Field Mysteries · 12 Survival Micro-Missions
+ * 3 Ecosystems · 15 Ecological POVs · 12 Field Mysteries
  */
 
 export const BIOMES = [
@@ -625,153 +625,6 @@ export const MYSTERIES = [
   },
 ];
 
-export const MISSIONS = [
-  {
-    missionId: 'mission_kestrel_stoop',
-    biomeId: 'meadow',
-    speciesSlug: 'kestrel',
-    title: 'Thermal Updraft Stoop',
-    gait: 'glide_stoop',
-    actionLabel: 'STOOP',
-    goalCount: 3,
-    timeLimitSec: 45,
-    brief: 'Glide across alpine thermals (WASD / Thumbstick). Follow glowing UV vole scent tracks with your 2.2× fovea lock and press STOOP (Space / Button) over 3 scurrying meadow voles!',
-    mechanicTip: 'Center a vole inside your 2.2× fovea reticle for an instant stoop capture.',
-  },
-  {
-    missionId: 'mission_honeybee_wasp',
-    biomeId: 'meadow',
-    speciesSlug: 'honeybee',
-    title: 'Wasp Evasion & UV Nectar Run',
-    gait: 'hover_dash',
-    actionLabel: 'DASH',
-    goalCount: 5,
-    timeLimitSec: 50,
-    brief: 'Hover & DASH to harvest 5 glowing UV Rudbeckia bullseyes while evading a hunting paper wasp! Duck onto charcoal-black scarlet poppies to drop wasp aggro (both species are red-blind).',
-    mechanicTip: 'Hide on dark charcoal red poppies—the red-blind wasp loses track of you!',
-  },
-  {
-    missionId: 'mission_rattlesnake_ambush',
-    biomeId: 'meadow',
-    speciesSlug: 'rattlesnake',
-    title: 'Ectothermic Thermal Ambush',
-    gait: 'slither_strike',
-    actionLabel: 'STRIKE',
-    goalCount: 3,
-    timeLimitSec: 50,
-    brief: 'Slither sinusoidally toward blazing 38.2°C magenta-white voles and STRIKE at ambush distance! Recharge strike energy on warm 28°C amber rocks; avoid icy 6°C indigo creek water.',
-    mechanicTip: 'Stay out of the freezing indigo stream so your muscles stay warm enough to strike.',
-  },
-  {
-    missionId: 'mission_deer_vigilance',
-    biomeId: 'meadow',
-    speciesSlug: 'deer',
-    title: 'Timberline Motion Vigilance',
-    gait: 'patrol_flag',
-    actionLabel: 'ALARM',
-    goalCount: 3,
-    timeLimitSec: 45,
-    brief: 'Patrol along your sharp horizontal visual streak. Spot 3 cyan-white motion shimmer spikes from stalking bobcats before they pounce, center on the shimmer, and stomp ALARM!',
-    mechanicTip: 'Predators shimmer brightly inside your horizontal treeline streak—act before they close in.',
-  },
-  {
-    missionId: 'mission_mantis_duel',
-    biomeId: 'reef',
-    speciesSlug: 'mantis_shrimp',
-    title: 'CPL Burrow Defense',
-    gait: 'dart_punch',
-    actionLabel: 'STRIKE',
-    goalCount: 4,
-    timeLimitSec: 45,
-    brief: 'Dart across coral rubble and sweep your tilted 12-band midband strip to unmask armored crabs vs. circularly polarized rival flashes, then unleash cavitation STRIKES on 4 targets!',
-    mechanicTip: 'Sweep your midband over silhouettes first—strike emerald-gold crabs, avoid decoy flashes.',
-  },
-  {
-    missionId: 'mission_cuttlefish_shrimp',
-    biomeId: 'reef',
-    speciesSlug: 'cuttlefish',
-    title: 'Polarized Glass Hunt',
-    gait: 'jet_snatch',
-    actionLabel: 'SNATCH',
-    goalCount: 4,
-    timeLimitSec: 55,
-    brief: 'Hover silently & rotate your polarization dial (Wheel / Q & E / Slider) until transparent glass shrimp flash bright white via Malus\'s Law, then fire tentacles to SNATCH 4 shrimp!',
-    mechanicTip: 'Match analyzer angle θ° to each shrimp\'s polarization axis to break its cloaking.',
-  },
-  {
-    missionId: 'mission_hammerhead_rays',
-    biomeId: 'reef',
-    speciesSlug: 'hammerhead',
-    title: 'Sandflat Bioelectric Sweep',
-    gait: 'cruise_pin',
-    actionLabel: 'PIN',
-    goalCount: 3,
-    timeLimitSec: 50,
-    brief: 'Cruise in wide S-sweeps over bare sand. Follow 1.2 Hz cyan-violet E-dipole streamlines radiating through empty sand to uncover and PIN 3 buried stingrays!',
-    mechanicTip: 'Dipole rings intensify as your cephalofoil sweeps directly over a hidden ray.',
-  },
-  {
-    missionId: 'mission_turtle_sponges',
-    biomeId: 'reef',
-    speciesSlug: 'sea_turtle',
-    title: 'Biofluorescent Sponge Glide',
-    gait: 'glide_graze',
-    actionLabel: 'GRAZE',
-    goalCount: 5,
-    timeLimitSec: 45,
-    brief: 'Glide along the vertical reef wall using your carotenoid oil filter to GRAZE 5 glowing emerald (515 nm) biofluorescent sponges while steering clear of pulsing crimson venomous scorpionfish!',
-    mechanicTip: 'Emerald 515 nm glow = edible sponge. Pulsing crimson 585 nm spines = danger!',
-  },
-  {
-    missionId: 'mission_gecko_moths',
-    biomeId: 'cloudforest',
-    speciesSlug: 'gecko',
-    title: 'Nocturnal Jewel Ambush',
-    gait: 'scamper_snap',
-    actionLabel: 'SNAP',
-    goalCount: 4,
-    timeLimitSec: 45,
-    brief: 'Scamper across dark mossy bark using 350× nocturnal color clarity. SNAP 4 iridescent emerald moths while steering clear of ruby-spotted toxic blister beetles!',
-    mechanicTip: 'Full color in darkness lets you distinguish jewel-green moths from ruby toxic beetles.',
-  },
-  {
-    missionId: 'mission_spider_leap',
-    biomeId: 'cloudforest',
-    speciesSlug: 'jumping_spider',
-    title: 'Defocus Silk Ambush',
-    gait: 'stalk_leap',
-    actionLabel: 'LEAP',
-    goalCount: 3,
-    timeLimitSec: 50,
-    brief: 'Stalk along bromeliad fronds while watching your top 360° peripheral radar to sidestep predatory assassin bugs. Converge green-magenta defocus lock over 3 prey spiders and LEAP!',
-    mechanicTip: 'Keep moving out of red radar blips behind you while holding green-magenta focus lock.',
-  },
-  {
-    missionId: 'mission_thrush_migration',
-    biomeId: 'cloudforest',
-    speciesSlug: 'thrush',
-    title: 'Quantum Corridor Flight',
-    gait: 'soar_pulse',
-    actionLabel: 'SURGE',
-    goalCount: 6,
-    timeLimitSec: 50,
-    brief: 'Soar through dense cloud-forest mist. Follow the glowing violet-gold Cryptochrome-4 magnetic inclination heading to pass 6 migratory waypoints while dodging nocturnal owl silhouettes!',
-    mechanicTip: 'Press SURGE inside the golden magnetic corridor for speed bursts through mist.',
-  },
-  {
-    missionId: 'mission_bat_canyon',
-    biomeId: 'cloudforest',
-    speciesSlug: 'vampire_bat',
-    title: 'Echolocation Canyon Glide',
-    gait: 'swoop_sonar',
-    actionLabel: 'SONAR',
-    goalCount: 3,
-    timeLimitSec: 55,
-    brief: 'Swoop through pitch-dark Ceiba buttress canyons. Pulse 60–90 kHz SONAR (Space / E / Button) to reveal dark vines in glowing echo rings and collect 3 warm TRPV1 thermal beacons!',
-    mechanicTip: 'Echoes fade after 2.4 s—ping rhythmically to weave between dark branches.',
-  },
-];
-
 export function getBiome(biomeId) {
   return BIOMES.find((b) => b.id === biomeId) || BIOMES[0];
 }
@@ -783,10 +636,6 @@ export function getSpecies(biomeId, speciesSlug) {
 
 export function getMysteryForSpecies(biomeId, speciesSlug) {
   return MYSTERIES.find((m) => m.biomeId === biomeId && m.requiredSpeciesSlug === speciesSlug) || null;
-}
-
-export function getMissionForSpecies(biomeId, speciesSlug) {
-  return MISSIONS.find((m) => m.biomeId === biomeId && m.speciesSlug === speciesSlug) || null;
 }
 
 export function sanitizePlateKey(biomeId, speciesSlug, lightingPreset, version = 1) {

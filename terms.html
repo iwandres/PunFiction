@@ -12,7 +12,6 @@
           'game_name': 'portal'
       });
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1900802133351015" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="p_green_white_bg.png">
@@ -48,7 +47,9 @@
             padding: 40px 20px 20px 20px;
             box-sizing: border-box;
         }
-        h1.brand {
+        .brand {
+            display: inline-block;
+            text-decoration: none;
             font-family: 'Bangers', cursive;
             font-size: 3.5rem;
             letter-spacing: 3px;
@@ -56,10 +57,10 @@
             color: var(--text-color);
             text-shadow: 4px 4px 0px var(--border-color);
         }
-        h1.brand span.accent {
+        .brand span.accent {
             color: var(--accent);
         }
-        .tagline {
+        h1.tagline {
             font-size: 1.15rem;
             font-weight: 800;
             color: var(--text-muted);
@@ -146,8 +147,8 @@
 </head>
 <body>
     <header>
-        <h1 class="brand">Pun<span class="accent">Fiction</span></h1>
-        <div class="tagline">Terms of Service</div>
+        <a href="./" class="brand">Pun<span class="accent">Fiction</span></a>
+        <h1 class="tagline">Terms of Service</h1>
     </header>
     <main>
         <div class="content-card">

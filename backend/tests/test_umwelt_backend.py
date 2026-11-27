@@ -42,15 +42,10 @@ class TestUmweltBackend(unittest.TestCase):
         total_species = sum(len(b["species"]) for b in catalog["biomes"])
         self.assertEqual(total_species, 15)
         self.assertEqual(len(catalog["mysteries"]), 12)
-        self.assertEqual(len(catalog["missions"]), 12)
 
-        # Verify every mystery & mission points to a valid biome + species
+        # Verify every mystery points to a valid biome + species
         for m in catalog["mysteries"]:
             biome, sp = umwelt_data.get_species_config(m["biomeId"], m["requiredSpeciesSlug"])
-            self.assertIsNotNone(biome)
-            self.assertIsNotNone(sp)
-        for ms in catalog["missions"]:
-            biome, sp = umwelt_data.get_species_config(ms["biomeId"], ms["speciesSlug"])
             self.assertIsNotNone(biome)
             self.assertIsNotNone(sp)
 
@@ -132,16 +127,6 @@ class TestUmweltBackend(unittest.TestCase):
             self.assertEqual(code, 200)
             self.assertTrue(payload["cacheHit"])
             synth_mock.assert_not_called()
-
-    def test_mission_completion_persistence(self):
-        mission = umwelt_data.get_mission_by_id("mission_honeybee_wasp")
-        j1 = udb.save_completed_mission("tester-2", mission, score=850, elapsed_ms=28000)
-        self.assertEqual(len(j1["completedMissions"]), 1)
-        self.assertEqual(j1["completedMissions"][0]["bestScore"], 850)
-        j2 = udb.save_completed_mission("tester-2", mission, score=1120, elapsed_ms=22500)
-        self.assertEqual(j2["completedMissions"][0]["bestScore"], 1120)
-        self.assertEqual(j2["completedMissions"][0]["bestTimeMs"], 22500)
-        self.assertEqual(j2["completedMissions"][0]["completions"], 2)
 
 
 if __name__ == "__main__":

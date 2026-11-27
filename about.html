@@ -73,7 +73,9 @@
             box-sizing: border-box;
         }
 
-        h1.brand {
+        .brand {
+            display: inline-block;
+            text-decoration: none;
             font-family: 'Bangers', cursive;
             font-size: 3.5rem;
             letter-spacing: 3px;
@@ -82,11 +84,11 @@
             text-shadow: 4px 4px 0px var(--border-color);
         }
 
-        h1.brand span.accent {
+        .brand span.accent {
             color: var(--accent);
         }
 
-        .tagline {
+        h1.tagline {
             font-size: 1.15rem;
             font-weight: 800;
             color: var(--text-muted);
@@ -208,8 +210,8 @@
 </head>
 <body>
     <header>
-        <h1 class="brand">Pun<span class="accent">Fiction</span></h1>
-        <div class="tagline">Published by Golden Pineapple Games</div>
+        <a href="./" class="brand">Pun<span class="accent">Fiction</span></a>
+        <h1 class="tagline">About Golden Pineapple Games &amp; PunFiction</h1>
     </header>
 
     <main>
@@ -223,7 +225,7 @@
                 <li><strong><a href="./travelreviews/" style="color: var(--accent);">1-Star Travel Reviews</a> &amp; <a href="./travelreviews/landmarks/">Landmark Field Guides</a>:</strong> A daily phonetic wordplay game where confused tourists leave scathing 1-star complaints about world landmarks they misread by a single syllable. Each monument is paired with a <a href="./travelreviews/landmarks/">historical field guide</a>, illustrated parody postcards, sarcastic owner responses, and a progressive 4-step hint system.</li>
                 <li><strong><a href="./wordvine/" style="color: var(--accent);">Word Vine</a> &amp; <a href="./how-to-play-wordvine.html">Botanical Sprint Guide</a>:</strong> A fast-paced 40-node compound-word climb across three difficulty zones, reverse-compound loops, weather hazards, and Triple-Bloom growth spurts, with daily, weekly, and monthly global rankings.</li>
                 <li><strong><a href="./the-8-billionth/" style="color: var(--accent);">The 8.3 Billionth</a> &amp; <a href="./the-8-billionth/math.html">How the Math Works</a>:</strong> An interactive population &amp; information-theory observatory that starts with all 8,300,000,000 living humans on Earth and narrows the crowd across five powers-of-ten visual scales using overlap-dampened Bayesian conditioning and Shannon bits until statistically nobody else matches your trait combination.</li>
-                <li><strong><a href="./umwelt/" style="color: var(--accent);">UMWELT: Animal Optics</a> &amp; <a href="./umwelt/guide.html">Sensory Biology Field Guide</a>:</strong> A real-time WebGL2 multi-pass shader simulation spanning 3 ecosystems and 15 species vantage points—modeling ultraviolet reflectance, 8–12 &mu;m thermal infrared pits, linear and circular polarization, 5 nV/cm shark electroreception, retinal biofluorescence filtering, chromatic defocus ranging, Cryptochrome-4 quantum magnetoreception, and 60–90 kHz ultrasonic sonar alongside 12 field mysteries and 12 survival missions.</li>
+                <li><strong><a href="./umwelt/" style="color: var(--accent);">UMWELT: Animal Optics</a> &amp; <a href="./umwelt/guide.html">Sensory Biology Field Guide</a>:</strong> A real-time WebGL2 multi-pass shader simulation spanning 3 ecosystems and 15 species vantage points—modeling ultraviolet reflectance, 8–12 &mu;m thermal infrared pits, linear and circular polarization, 5 nV/cm shark electroreception, retinal biofluorescence filtering, chromatic defocus ranging, Cryptochrome-4 quantum magnetoreception, and 60–90 kHz ultrasonic sonar alongside 12 ecological field mysteries.</li>
                 <li><strong><a href="./flatball/" style="color: var(--accent);">Flatball Tactics</a> &amp; <a href="./flatball/offense-tactics.html">Offense</a> / <a href="./flatball/defense-tactics.html">Defense Playbooks</a>:</strong> A 7v7 Ultimate Frisbee tactical simulator built around reading Vertical, Horizontal, Side ISO, Split, and Hexagon stacks, calling Man, Poach, Trap, Cup, Wall, and Box-and-1 counters, and adapting throws to live calm, breezy, and stiff headwind, tailwind, and crosswind physics.</li>
             </ul>
 
