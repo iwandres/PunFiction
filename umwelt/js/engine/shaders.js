@@ -396,14 +396,16 @@ vec3 computeHumanBaseline(vec2 uv, vec3 baseCol, float t) {
     float y = luma(atten);
     return mix(vec3(y * 0.42, y * 0.78, y * 0.94), atten, 0.72);
   } else {
-    // Human Scotopic Night Hiker (498nm Purkinje shift + rod photon shot noise)
-    float y = luma(baseCol);
-    // Purkinje shift suppresses reds strongly, favors blue-green rods
-    float rodY = clamp(baseCol.r * 0.08 + baseCol.g * 0.56 + baseCol.b * 0.36, 0.0, 1.0);
-    vec3 scotopic = vec3(rodY * 0.44, rodY * 0.54, rodY * 0.68) * 0.68;
-    float grainT = floor(t * 24.0);
-    float snow = (hash21(floor(uv * uResolution * 0.55) + grainT) - 0.5) * 0.14 * mix(1.0, 0.35, uReducedMotion);
-    return clamp(scotopic + snow, 0.0, 1.0);
+    // Human Twilight / Mesopic Dusk Vision (498nm Purkinje shift — clean & crisp, zero static snow)
+    // At dusk, long-wavelength reds fade first while blue-green rods preserve cool twilight depth
+    float rodY = clamp(baseCol.r * 0.14 + baseCol.g * 0.56 + baseCol.b * 0.30, 0.0, 1.0);
+    vec3 mutedDusk = vec3(baseCol.r * 0.56, baseCol.g * 0.90, baseCol.b * 1.08);
+    vec3 purkinjeTone = vec3(rodY * 0.62, rodY * 0.80, rodY * 1.02);
+    vec3 twilight = mix(purkinjeTone, mutedDusk, 0.50);
+    // Deep blue-hour dusk atmosphere with rich readable shadow detail
+    twilight = pow(max(twilight, vec3(0.0)), vec3(1.04)) * vec3(0.78, 0.88, 1.04);
+    twilight += vec3(0.015, 0.028, 0.065) * (1.0 - rodY);
+    return clamp(twilight, 0.0, 1.0);
   }
 }
 

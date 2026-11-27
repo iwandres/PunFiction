@@ -9,13 +9,13 @@ import {
   getBiome,
   getSpecies,
   getMysteryForSpecies,
-} from '../data/biomes.js?v=8';
-import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=9';
+} from '../data/biomes.js?v=10';
+import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=10';
 import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=8';
 import { InputController } from '../engine/InputController.js?v=8';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';
 import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=8';
-import { FieldJournalDrawer } from './FieldJournal.js?v=8';
+import { FieldJournalDrawer } from './FieldJournal.js?v=10';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_BASE = window.UMWELT_API_URL
@@ -314,7 +314,7 @@ class UmweltApp {
     this.cursorHud.setSpecies(species);
     this.audio.setSpecies(biome.id, species.slug);
     this.el.splitLabelRight.textContent = `${species.shortName.toUpperCase()} UMWELT`;
-    this.el.splitLabelLeft.textContent = biome.id === 'reef' ? 'HUMAN DIVER' : biome.id === 'cloudforest' ? 'HUMAN NIGHT' : 'HUMAN RGB';
+    this.el.splitLabelLeft.textContent = biome.id === 'reef' ? 'HUMAN DIVER' : biome.id === 'cloudforest' ? 'HUMAN TWILIGHT' : 'HUMAN RGB';
 
     this._refreshJournalUI();
 

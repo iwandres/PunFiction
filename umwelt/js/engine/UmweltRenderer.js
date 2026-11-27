@@ -5,8 +5,8 @@
  *   Pass 2   -> Screen    (15 Species Biological Perception Shaders + Synchronized Split Curtain)
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
-import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=9';
-import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=8';
+import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=10';
+import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=10';
 
 const IDB_NAME = 'umwelt_plates_l1';
 const IDB_STORE = 'plates';
