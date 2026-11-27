@@ -14,7 +14,7 @@ import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=10';
 import { InputController } from '../engine/InputController.js?v=11';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=11';
 import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=11';
-import { FieldJournalDrawer } from './FieldJournal.js?v=10';
+import { FieldJournalDrawer } from './FieldJournal.js?v=12';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_BASE = window.UMWELT_API_URL
@@ -596,18 +596,12 @@ class UmweltApp {
     const sp = getSpecies(this.biomeId, this.speciesSlug);
     this._renderObjectiveStrip(biome, sp);
 
-    const ratePct = res.globalSolveRate ? `${Math.round(res.globalSolveRate * 100)}%` : '—';
     this._openModal(`
-      <div class="modal-eyebrow">🔬 ECOLOGICAL DISCOVERY LOGGED · +${mystery.points} PTS</div>
+      <div class="modal-eyebrow">✓ LOGGED · ${this.journal.solvedMysteries.length} OF ${MYSTERIES.length}</div>
       <h3>${sp.icon} ${mystery.title}</h3>
       <p class="modal-desc">${res.codexEntry || mystery.scientificReveal}</p>
-      <div class="modal-stats">
-        <div><span>DISCOVERIES</span><strong>${this.journal.solvedMysteries.length} / ${MYSTERIES.length}</strong></div>
-        <div><span>SPECIES</span><strong>${sp.shortName}</strong></div>
-        <div><span>SOLVE RATE</span><strong>${ratePct}</strong></div>
-      </div>
       <div class="modal-actions">
-        <button type="button" class="m-btn primary" id="modal-close-ok">Continue Exploring</button>
+        <button type="button" class="m-btn primary" id="modal-close-ok">Continue</button>
       </div>
     `);
     this.el.modalCard.querySelector('#modal-close-ok')?.addEventListener('click', () => this._closeModal());

@@ -743,52 +743,56 @@ html, body {
 /* ---------- Right Collapsible Ecological Field Journal Drawer ---------- */
 .field-journal-drawer {
   position: absolute;
-  top: calc(var(--topbar-h, 52px) + 22px);
+  top: calc(var(--topbar-h, 52px) + 18px);
   right: 12px;
-  bottom: 92px;
-  width: min(390px, calc(100vw - 24px));
+  bottom: 88px;
+  width: min(344px, calc(100vw - 24px));
   z-index: 30;
-  border-radius: 18px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transform: translateX(calc(100% + 24px));
   visibility: hidden;
   pointer-events: none;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.28s;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.26s;
 }
 .field-journal-drawer.open {
   transform: translateX(0);
   visibility: visible;
   pointer-events: auto;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
 }
 
 .drawer-header {
-  padding: 15px 16px 10px;
+  padding: 13px 14px 11px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: 1px solid var(--glass-border);
 }
-.drawer-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  color: var(--emerald);
+.drawer-head-left {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
 }
 .drawer-title {
-  margin: 2px 0 0;
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.12rem;
   color: #fff;
+}
+.drawer-progress {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--emerald);
 }
 .icon-close-btn {
   border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-dim);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -796,130 +800,176 @@ html, body {
   color: #fff;
 }
 
-.drawer-stats-bar {
+.j-tabs {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  padding: 10px 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 8px 10px;
   border-bottom: 1px solid var(--glass-border);
 }
-.ds-pill {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  padding: 6px 8px;
-  text-align: center;
-}
-.ds-pill span {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
+.j-tab {
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text-dim);
+  padding: 6px 6px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background 0.14s, color 0.14s;
 }
-.ds-pill strong {
+.j-tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+.j-tab.active {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.38);
+  color: #ecfdf5;
+}
+.j-tab-count {
   font-family: var(--font-mono);
-  font-size: 0.84rem;
-  color: #f8fafc;
+  font-size: 0.62rem;
+  opacity: 0.8;
 }
 
 .drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 14px 16px;
+  padding: 10px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
   touch-action: pan-y;
 }
 
-.journal-group {
-  margin-bottom: 14px;
+.j-item {
+  width: 100%;
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  text-align: left;
+  font-family: var(--font-sans);
 }
-.jg-head {
+.j-jump {
   display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-dim);
-  margin-bottom: 8px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 11px;
+  cursor: pointer;
+  transition: background 0.14s, border-color 0.14s;
 }
-.journal-group.is-active-biome .jg-head {
-  color: var(--emerald);
+.j-jump:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
-.mystery-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
+.j-item.active-mystery {
   padding: 11px 12px;
-  margin-bottom: 9px;
-}
-.mystery-card.current {
-  border-color: rgba(168, 85, 247, 0.52);
+  border-color: rgba(168, 85, 247, 0.45);
   background: rgba(168, 85, 247, 0.09);
 }
-.mystery-card.solved {
-  border-color: rgba(52, 211, 153, 0.42);
-  background: rgba(16, 185, 129, 0.08);
+.j-item.solved {
+  border-color: rgba(52, 211, 153, 0.28);
+  background: rgba(16, 185, 129, 0.06);
 }
 
-.mc-top {
+.j-row,
+.j-summary {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
+  gap: 10px;
+}
+.j-summary {
+  padding: 10px 11px;
+  cursor: pointer;
+  list-style: none;
+}
+.j-summary::-webkit-details-marker {
+  display: none;
+}
+
+.j-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.j-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.j-main strong {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.j-main small {
+  font-size: 0.69rem;
   color: var(--text-dim);
 }
-.mc-badge {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
+.j-arrow {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+.j-check {
   color: var(--emerald);
+  font-weight: 800;
+  font-size: 0.82rem;
 }
-.mystery-card h4 {
-  margin: 4px 0 5px;
-  font-family: var(--font-serif);
-  font-size: 0.96rem;
-  color: #fff;
-}
-.mc-clue {
-  margin: 0 0 8px;
+
+.j-clue {
+  margin: 8px 0 9px;
   font-size: 0.75rem;
   line-height: 1.48;
   color: #cbd5e1;
 }
-.mc-codex {
-  padding: 8px 10px;
-  border-radius: 9px;
-  background: rgba(4, 7, 13, 0.65);
-  border-left: 3px solid var(--emerald);
-  font-size: 0.73rem;
-  line-height: 1.48;
+.j-detail {
+  padding: 0 12px 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.j-codex {
+  margin: 9px 0 0;
+  font-size: 0.74rem;
+  line-height: 1.5;
   color: #d1fae5;
 }
-.mc-actions {
+.j-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
-.mc-btn {
-  border: 1px solid var(--glass-border-hi);
-  background: rgba(255, 255, 255, 0.08);
-  color: #f8fafc;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.72rem;
+.j-link {
+  margin-top: 8px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 0.71rem;
   font-weight: 600;
   cursor: pointer;
 }
-.mc-btn.primary {
-  background: rgba(16, 185, 129, 0.28);
-  border-color: rgba(52, 211, 153, 0.6);
-  color: #ecfdf5;
+.j-link:hover {
+  border-color: var(--glass-border-hi);
+  color: #fff;
 }
-.mc-btn.ghost {
-  background: transparent;
-  color: #c4b5fd;
-  border-color: rgba(168, 85, 247, 0.45);
+.j-link.accent {
+  margin-top: 0;
+  color: #d8b4fe;
+  border-color: rgba(168, 85, 247, 0.42);
+  background: rgba(168, 85, 247, 0.14);
 }
 
 /* ---------- Toasts & Modals ---------- */
