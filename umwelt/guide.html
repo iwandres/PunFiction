@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EV4HJ1LH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-41EV4HJ1LH', { 'game_name': 'umwelt_science_guide' });
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1900802133351015" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animal Vision &amp; Sensory Biology Field Guide — UMWELT: Animal Optics | PunFiction</title>
+  <meta name="description" content="Explore the real optical physics and sensory biology behind UMWELT: Animal Optics—covering ultraviolet cones, thermal infrared pits, linear and circular polarization, shark electroreception, biofluorescence, chromatic defocus depth, quantum magnetoreception, and ultrasonic sonar across 15 species POVs." />
+  <link rel="canonical" href="https://punfiction.io/umwelt/guide.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PunFiction" />
+  <meta property="og:title" content="Animal Vision &amp; Sensory Biology Field Guide — UMWELT: Animal Optics" />
+  <meta property="og:description" content="A deep-dive field guide to the 15 biological vantage points, photoreceptor peak wavelengths, and sensory physics simulated in UMWELT: Animal Optics." />
+  <meta property="og:url" content="https://punfiction.io/umwelt/guide.html" />
+  <meta property="og:image" content="https://punfiction.io/umwelt/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Animal Vision &amp; Sensory Biology Field Guide — UMWELT: Animal Optics" />
+  <meta name="twitter:description" content="Photoreceptors, UV nectar guides, Malus polarization, TRPA1 thermal pits, Cryptochrome-4 magnetoreception &amp; more across 3 ecosystems." />
+  <meta name="twitter:image" content="https://punfiction.io/umwelt/og-preview.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Animal Vision & Sensory Biology Field Guide — UMWELT: Animal Optics",
+    "description": "An illustrated scientific field guide explaining photoreceptor tuning, ultraviolet optics, thermal infrared pits, linear and circular polarization, electroreception, biofluorescence, quantum magnetoreception, and echolocation across 3 biomes and 15 species POVs.",
+    "url": "https://punfiction.io/umwelt/guide.html",
+    "image": "https://punfiction.io/umwelt/og-preview.png",
+    "datePublished": "2026-11-26",
+    "dateModified": "2026-11-27",
+    "author": {
+      "@type": "Organization",
+      "name": "Golden Pineapple Games",
+      "url": "https://punfiction.io/about.html"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Golden Pineapple Games",
+      "alternateName": "PunFiction",
+      "url": "https://punfiction.io/"
+    }
+  }
+  </script>
+  <link rel="icon" type="image/png" href="../p_green_white_bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep: #060a12;
+      --bg-panel: #0c1424;
+      --bg-card: #111c30;
+      --border: rgba(148, 163, 184, 0.2);
+      --border-accent: rgba(52, 211, 153, 0.36);
+      --text-main: #f1f5f9;
+      --text-body: #cbd5e1;
+      --text-muted: #94a3b8;
+      --emerald: #34d399;
+      --cyan: #22d3ee;
+      --violet: #a855f7;
+      --amber: #f59e0b;
+      --coral: #fb7185;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(168, 85, 247, 0.14) 0%, transparent 42%),
+        radial-gradient(circle at 86% 12%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.72;
+      min-height: 100vh;
+    }
+
+    a { color: var(--emerald); }
+    a:hover { color: #a7f3d0; }
+
+    .site-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 10, 18, 0.86);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .back-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-body);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .back-pill:hover {
+      border-color: var(--emerald);
+      color: #ffffff;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .brand-title span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--emerald);
+      margin-left: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .launch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 58%, #8b5cf6 100%);
+      color: #031014;
+      padding: 9px 20px;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
+    }
+
+    .launch-btn:hover {
+      color: #031014;
+      filter: brightness(1.08);
+    }
+
+    .page-wrap {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 36px 20px 64px 20px;
+    }
+
+    .breadcrumbs {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumbs a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .hero-card {
+      background: linear-gradient(160deg, rgba(17, 28, 48, 0.94) 0%, rgba(10, 17, 30, 0.96) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: 22px;
+      padding: 36px 34px;
+      margin-bottom: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.95rem);
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    .hero-deck {
+      font-size: 1.12rem;
+      color: var(--text-body);
+      margin: 0 0 22px 0;
+      max-width: 78ch;
+    }
+
+    .toc-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .toc-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      text-decoration: none;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .toc-link:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .section-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.85rem;
+      line-height: 1.25;
+      margin: 0 0 14px 0;
+      color: #ffffff;
+    }
+
+    .biome-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      color: #ffffff;
+    }
+
+    p {
+      color: var(--text-body);
+      margin: 0 0 16px 0;
+      font-size: 1.02rem;
+    }
+
+    .species-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .species-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid var(--emerald);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .species-card.baseline { border-top-color: #64748b; }
+    .species-card.violet { border-top-color: #a855f7; }
+    .species-card.amber { border-top-color: #facc15; }
+    .species-card.coral { border-top-color: #f43f5e; }
+    .species-card.cyan { border-top-color: #22d3ee; }
+    .species-card.pink { border-top-color: #ec4899; }
+    .species-card.indigo { border-top-color: #818cf8; }
+    .species-card.magenta { border-top-color: #d946ef; }
+
+    .species-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .sci-name {
+      display: block;
+      font-style: italic;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .sense-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .vantage-line {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: #a7f3d0;
+      margin-bottom: 10px;
+    }
+
+    .receptor-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 12px 0;
+    }
+
+    .receptor-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(6, 10, 18, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f8fafc;
+    }
+
+    .science-note {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #dbeafe;
+      background: rgba(34, 211, 238, 0.07);
+      border-left: 3px solid var(--cyan);
+      padding: 10px 13px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 10px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 680px;
+    }
+
+    thead th {
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--emerald);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      color: var(--text-body);
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    tbody td strong {
+      color: #ffffff;
+    }
+
+    .refs-list {
+      padding-left: 20px;
+      margin: 12px 0 0 0;
+    }
+
+    .refs-list li {
+      color: var(--text-body);
+      font-size: 0.94rem;
+      margin-bottom: 10px;
+    }
+
+    .cta-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(139, 92, 246, 0.16) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-top: 28px;
+    }
+
+    .cta-box p {
+      margin: 4px 0 0 0;
+      font-size: 0.98rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: rgba(4, 7, 13, 0.85);
+      text-align: center;
+      padding: 26px 20px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    footer a {
+      color: var(--cyan);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 780px) {
+      .hero-card, .section-card { padding: 22px 18px; }
+      .species-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-topbar">
+    <div class="topbar-inner">
+      <div class="brand-group">
+        <a href="../" class="back-pill">← PunFiction</a>
+        <a href="./" class="brand-title">UMWELT <span>Sensory Field Guide</span></a>
+      </div>
+      <a href="./" class="launch-btn">🦅 Launch WebGL2 Simulator →</a>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="../">Home</a> &rsaquo;
+      <a href="./">UMWELT: Animal Optics</a> &rsaquo;
+      <span>Sensory Biology &amp; Field Guide</span>
+    </nav>
+
+    <article class="hero-card">
+      <div class="kicker">🔬 Comparative Sensory Biology &amp; Optical Physics</div>
+      <h1>Through Their Eyes: The Real Science Behind UMWELT</h1>
+      <p class="hero-deck">
+        Every animal inhabits its own private sensory slice of reality—what biologist Jakob von Uexküll termed its <strong>Umwelt</strong>. Human trichromatic vision samples only a narrow band of electromagnetic wavelengths (roughly 400–700 nanometers) through three cone opsins peaking at 420 nm, 534 nm, and 564 nm. Yet across mountain meadows, coral reefs, and nocturnal rainforests, other species navigate by ultraviolet scent trails, thermal infrared radiation, linear and circular light polarization, nanovolt bioelectric fields, optical defocus blur, ultrasonic echoes, and quantum electron spins aligned to Earth's magnetic field.
+      </p>
+      <p class="hero-deck" style="margin-bottom: 18px;">
+        This field guide documents the real photobiology, physics, and peer-reviewed studies modeled across the <strong>3 ecosystems, 15 species vantage points, 12 ecological mysteries, and 12 survival missions</strong> in <a href="./">UMWELT: Animal Optics</a>.
+      </p>
+      <nav class="toc-bar" aria-label="Guide sections">
+        <a href="#spectrum-matrix" class="toc-link">📊 15-Species Matrix</a>
+        <a href="#biome-meadow" class="toc-link">🏔️ Alpine Meadow</a>
+        <a href="#biome-reef" class="toc-link">🪸 Coral Reef Lagoon</a>
+        <a href="#biome-forest" class="toc-link">🌙 Cloud Forest</a>
+        <a href="#simulation-physics" class="toc-link">⚙️ WebGL2 Shader Physics</a>
+        <a href="#references" class="toc-link">📚 Citations</a>
+      </nav>
+    </article>
+
+    <!-- QUICK REFERENCE MATRIX -->
+    <section id="spectrum-matrix" class="section-card">
+      <h2>📊 Spectral &amp; Sensory Reference Matrix (All 15 Vantage Points)</h2>
+      <p>
+        Rather than applying a flat color filter to a single human photograph, UMWELT pairs each species with its true <strong>ecological vantage point</strong> (from 0.10 m inside a boulder crevice to 18.0 m above a cloud-forest canopy) and recomputes photoreceptor responses and non-visual sensory channels in real time.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Species</th>
+              <th>Ecosystem &amp; Vantage</th>
+              <th>Photoreceptor Peaks (nm)</th>
+              <th>Specialized Sensory Modality</th>
+              <th>Ecological Superpower</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Human Observer</strong><br><em>Homo sapiens</em></td>
+              <td>Alpine Meadow · 1.75 m<br>Reef · -4.0 m · Forest · 1.70 m</td>
+              <td>420 (S), 534 (M), 564 (L); 498 nm rods at night</td>
+              <td>Trichromatic RGB baseline; scotopic Purkinje shift &lt;0.01 cd/m²</td>
+              <td>Spots scarlet poppies in daylight, but loses red underwater and color at night</td>
+            </tr>
+            <tr>
+              <td><strong>American Kestrel</strong><br><em>Falco sparverius</em></td>
+              <td>Alpine Meadow · 13.5 m perch</td>
+              <td>370 (UV), 450 (S), 510 (M), 565 (L)</td>
+              <td>Deep central fovea (2.2× optical magnification, 2.6× human acuity)</td>
+              <td>Traces UV-fluorescent vole urine runways from treetop snags</td>
+            </tr>
+            <tr>
+              <td><strong>Western Honeybee</strong><br><em>Apis mellifera</em></td>
+              <td>Alpine Meadow · 0.48 m macro</td>
+              <td>344 (UV), 436 (Blue), 544 (Green)</td>
+              <td>Dorsal rim sky Rayleigh polarization compass (e-vector arcs)</td>
+              <td>Sees UV flavonol nectar bullseyes; red poppies collapse to dark charcoal</td>
+            </tr>
+            <tr>
+              <td><strong>Prairie Rattlesnake</strong><br><em>Crotalus viridis</em></td>
+              <td>Alpine Meadow · 0.10 m crevice</td>
+              <td>430 (S), 545 (M)</td>
+              <td>Loreal pit organs (TRPA1 channels, 8–12 μm IR, ΔT 0.003°C)</td>
+              <td>Fuses thermal silhouette of 38.2°C prey against 6°C creeks &amp; 28°C stone</td>
+            </tr>
+            <tr>
+              <td><strong>Whitetail Deer</strong><br><em>Odocoileus virginianus</em></td>
+              <td>Alpine Meadow · 1.25 m treeline</td>
+              <td>455 (S), 537 (M)</td>
+              <td>310° panoramic horizontal visual streak + high-speed rod motion ΔI</td>
+              <td>Flags micro-twitches of stalking predators along the spruce horizon</td>
+            </tr>
+            <tr>
+              <td><strong>Peacock Mantis Shrimp</strong><br><em>Odontodactylus scyllarus</em></td>
+              <td>Coral Reef · -3.8 m burrow</td>
+              <td>12 narrowband channels (300–720 nm)</td>
+              <td>Equatorial midband + LH/RH circular polarization (CPL) retarders</td>
+              <td>Breaks crustacean armor camouflage across coral rubble</td>
+            </tr>
+            <tr>
+              <td><strong>Broadclub Cuttlefish</strong><br><em>Sepia latimanus</em></td>
+              <td>Coral Reef · -1.2 m overhang</td>
+              <td>492 nm single opsin (monochromat)</td>
+              <td>W-shaped pupil + orthogonal microvilli Malus linear polarization (θ°)</td>
+              <td>Makes transparent birefringent glass shrimp flash bright white</td>
+            </tr>
+            <tr>
+              <td><strong>Scalloped Hammerhead</strong><br><em>Sphyrna lewini</em></td>
+              <td>Coral Reef · -3.5 m sandflat</td>
+              <td>500 (Rod), 525 (Cone)</td>
+              <td>Ampullae of Lorenzini across cephalofoil (5 nV/cm, 1.2 Hz dipoles)</td>
+              <td>Maps bioelectric gill &amp; heart dipoles of stingrays buried under sand</td>
+            </tr>
+            <tr>
+              <td><strong>Hawksbill Sea Turtle</strong><br><em>Eretmochelys imbricata</em></td>
+              <td>Coral Reef · -2.2 m coral wall</td>
+              <td>385, 458, 518, 595 nm (with oil droplets)</td>
+              <td>Orange-red carotenoid retinal oil long-pass filtering (&gt;500 nm)</td>
+              <td>Strips ambient blue scatter to ignite 515 nm / 585 nm reef biofluorescence</td>
+            </tr>
+            <tr>
+              <td><strong>Leaf-Tailed Gecko</strong><br><em>Uroplatus sikorae</em></td>
+              <td>Cloud Forest · 1.85 m trunk</td>
+              <td>364 (UV), 467 (Blue), 521 (Green)</td>
+              <td>Pure-cone nocturnal retina (350× human cone sensitivity) + multifocal slit pupil</td>
+              <td>Distinguishes emerald moths from toxic ruby beetles in near-total darkness</td>
+            </tr>
+            <tr>
+              <td><strong>Portia Jumping Spider</strong><br><em>Portia fimbriata</em></td>
+              <td>Cloud Forest · 0.35 m leaf edge</td>
+              <td>360 (UV Tier 4), 530 &amp; 532 nm stacked tiers</td>
+              <td>Chromatic image-defocus monocular ranging (±2 mm) + 360° secondary eyes</td>
+              <td>Computes exact ballistic leap distance while monitoring rear threats</td>
+            </tr>
+            <tr>
+              <td><strong>Swainson's Thrush</strong><br><em>Catharus ustulatus</em></td>
+              <td>Cloud Forest · 18.0 m canopy</td>
+              <td>405 (Cry4), 460, 515, 570 nm</td>
+              <td>Cryptochrome-4 radical-pair quantum inclination compass (γ = 62°)</td>
+              <td>Visualizes Earth's magnetic dip angle across cloud-veiled night skies</td>
+            </tr>
+            <tr>
+              <td><strong>Common Vampire Bat</strong><br><em>Desmodus rotundus</em></td>
+              <td>Cloud Forest · 2.6 m hollow</td>
+              <td>496 nm dim rods</td>
+              <td>60–90 kHz ultrasonic echolocation + 30°C TRPV1 nasal heat pits</td>
+              <td>Maps dark liana corridors by echo and pinpoints warm superficial veins</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BIOME 1: ALPINE MEADOW -->
+    <section id="biome-meadow" class="section-card">
+      <div class="biome-meta">Ecosystem 01 · High-Altitude Terrestrial · 2,840 m ASL</div>
+      <h2>🏔️ Rocky Mountain Alpine Meadow</h2>
+      <p>
+        High-altitude mountain sunlight is unusually rich in short-wavelength ultraviolet radiation because thinner atmosphere scatters less UV-A light (315–400 nm). To a <strong>Human Observer</strong> standing at 1.75 m, scarlet alpine poppies steal the show against cool green sedge, while small prey disappear into uniform grass blades. Shift into four co-inhabitants of the same meadow, however, and completely different layers of biological information snap into focus.
+      </p>
+
+      <div class="species-grid">
+        <div class="species-card violet">
+          <div class="species-head">
+            <div>
+              <h3>🦅 American Kestrel</h3>
+              <span class="sci-name">Falco sparverius</span>
+            </div>
+            <span class="sense-badge">UV · 2.2× Fovea</span>
+          </div>
+          <div class="vantage-line">Vantage: 13.5 m Pine Snag Perch · 42° Steep Telephoto</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV 370 nm</span>
+            <span class="receptor-pill">S 450 nm</span>
+            <span class="receptor-pill">M 510 nm</span>
+            <span class="receptor-pill">L 565 nm</span>
+          </div>
+          <p>
+            Unlike humans, raptors possess four color cone classes including a 370 nm ultraviolet receptor, paired with a steep, convexiclivate central fovea that acts like a biological telephoto lens magnifying central detail roughly 2.2× at ~2.6× human visual acuity.
+          </p>
+          <div class="science-note">
+            <strong>Ecological Mystery — Ultraviolet Highway:</strong> Meadow voles mark their grass runways with urine and feces that strongly reflect 320–400 nm UV light. From a 13.5 m pine snag, kestrels read fresh vole trails like glowing neon highways to locate active hunting patches without wasting flight energy (Viitala et al., <em>Nature</em> 1995).
+          </div>
+        </div>
+
+        <div class="species-card amber">
+          <div class="species-head">
+            <div>
+              <h3>🐝 Western Honeybee</h3>
+              <span class="sci-name">Apis mellifera</span>
+            </div>
+            <span class="sense-badge">UV · Red-Blind</span>
+          </div>
+          <div class="vantage-line">Vantage: 0.48 m Blossom Cluster · 85° Upward Macro</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV 344 nm</span>
+            <span class="receptor-pill">Blue 436 nm</span>
+            <span class="receptor-pill">Green 544 nm</span>
+          </div>
+          <p>
+            Honeybee trichromacy is shifted roughly 100 nanometers shorter than human sight. Because bees lack a long-wavelength red L-cone, bright scarlet poppies appear nearly charcoal-black. Meanwhile, flowers that look uniformly yellow to humans—such as alpine <em>Rudbeckia</em>—concentrate UV-absorbing flavonol pigments at their centers to paint luminous "bee's purple" landing bullseyes.
+          </p>
+          <div class="science-note">
+            <strong>Survival Twist — Wasp Evasion:</strong> Because hunting paper wasps share the same red-blind spectral gap, honeybees ducking onto dark scarlet petals vanish from visual contrast—while specialized ommatidia along the bee's dorsal rim read concentric sky Rayleigh polarization arcs to navigate home even when the sun hides behind clouds.
+          </div>
+        </div>
+
+        <div class="species-card coral">
+          <div class="species-head">
+            <div>
+              <h3>🐍 Prairie Rattlesnake</h3>
+              <span class="sci-name">Crotalus viridis</span>
+            </div>
+            <span class="sense-badge">8–12 μm Thermal IR</span>
+          </div>
+          <div class="vantage-line">Vantage: 0.10 m Boulder Crevice · 75° Ground Macro</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">S 430 nm</span>
+            <span class="receptor-pill">M 545 nm</span>
+            <span class="receptor-pill">TRPA1 Pit 8–12 μm</span>
+          </div>
+          <p>
+            Between each eye and nostril sits a hollow loreal pit stretched with a micrometer-thin membrane packed with heat-gated <strong>TRPA1</strong> ion channels. Functioning like a low-resolution pinhole thermal camera, the pit detects radiant long-wave infrared differences as tiny as 0.003°C—then fuses that heat map directly onto the visual map inside the snake's optic tectum.
+          </p>
+          <div class="science-note">
+            <strong>Ectothermic Contrast:</strong> In the alpine crevice, 6°C snowmelt water registers as icy indigo and sun-warmed 28°C granite glows dull amber, making a foraging 38.2°C endothermic vole blaze like a beacon through dense shadow.
+          </div>
+        </div>
+
+        <div class="species-card cyan">
+          <div class="species-head">
+            <div>
+              <h3>🦌 Whitetail Deer</h3>
+              <span class="sci-name">Odocoileus virginianus</span>
+            </div>
+            <span class="sense-badge">Visual Streak · ΔI</span>
+          </div>
+          <div class="vantage-line">Vantage: 1.25 m Spruce Timberline · 98° Panoramic</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">S 455 nm</span>
+            <span class="receptor-pill">M 537 nm</span>
+            <span class="receptor-pill">310° Streak</span>
+          </div>
+          <p>
+            Instead of packing high-acuity neurons into a tiny circular fovea like primates or raptors, grazing ungulates arrange retinal ganglion cells into a horizontal <strong>visual streak</strong> aligned with the horizon. Paired with laterally placed eyes (~310° field of view) and dense, fast-refreshing rod pathways, deer trade red-green hue discrimination for razor-sharp motion detection across the entire treeline.
+          </p>
+          <div class="science-note">
+            <strong>Why Blaze Orange Works:</strong> Because whitetail deer lack red L-cones (dichromatic 455/537 nm vision), vivid orange hunting vests blend into muted brownish-olive foliage—yet a tiny twitch of a bobcat's ear along the spruce horizon lights up instant temporal contrast.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIOME 2: CORAL REEF -->
+    <section id="biome-reef" class="section-card">
+      <div class="biome-meta">Ecosystem 02 · Photic Marine Lagoon · -0.1 m to -6.0 m</div>
+      <h2>🪸 Indo-Pacific Coral Reef Lagoon</h2>
+      <p>
+        Water transforms light dramatically via the <strong>Beer-Lambert attenuation law</strong>: seawater rapidly absorbs long-wavelength red photons (&gt;600 nm), stripping roughly 78% of red light by just 4 meters depth. To a <strong>Human Scuba Diver</strong> at -4.0 m, vibrant coral washes into monochromatic cyan-blue, transparent pelagic shrimp turn practically invisible, and sand-buried predators disappear completely. Reef inhabitants evolved radically different physical channels to pierce that optical veil.
+      </p>
+
+      <div class="species-grid">
+        <div class="species-card pink">
+          <div class="species-head">
+            <div>
+              <h3>🦐 Peacock Mantis Shrimp</h3>
+              <span class="sci-name">Odontodactylus scyllarus</span>
+            </div>
+            <span class="sense-badge">12-Channel · CPL</span>
+          </div>
+          <div class="vantage-line">Vantage: -3.8 m Rubble Burrow Lip · 80° Macro</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV 1–4 (335 nm)</span>
+            <span class="receptor-pill">Blue 5–7 (445 nm)</span>
+            <span class="receptor-pill">Green 8–10 (555 nm)</span>
+            <span class="receptor-pill">Red 11–12 (665 nm)</span>
+            <span class="receptor-pill">LH/RH CPL</span>
+          </div>
+          <p>
+            Each stalked compound eye houses three pseudo-pupils (granting monocular trinocular depth perception) divided by a six-row equatorial <strong>midband</strong>. Rather than smoothly blending hues in a heavy visual cortex, stomatopods sweep 12 narrowband spectral detectors (300–720 nm) across targets like a barcode scanner for ultra-fast color recognition.
+          </p>
+          <div class="science-note">
+            <strong>Circular Polarization (CPL):</strong> Mantis shrimp are the only known animals with biological quarter-wave retarders capable of distinguishing left-handed from right-handed circularly polarized light—decoding armored crab shells and private territorial flashes invisible to every other reef predator (Chiou et al., <em>Current Biology</em> 2008).
+          </div>
+        </div>
+
+        <div class="species-card cyan">
+          <div class="species-head">
+            <div>
+              <h3>🦑 Broadclub Cuttlefish</h3>
+              <span class="sci-name">Sepia latimanus</span>
+            </div>
+            <span class="sense-badge">492 nm + Malus θ°</span>
+          </div>
+          <div class="vantage-line">Vantage: -1.2 m Acropora Overhang · 90° W-Pupil</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">492 nm Single Opsin</span>
+            <span class="receptor-pill">e-Vector θ ∈ [0°, 180°]</span>
+          </div>
+          <p>
+            Paradoxically, one of the ocean's greatest camouflage masters is functionally colorblind in the conventional sense—carrying only a single 492 nm blue-green opsin! Its secret lies in orthogonal rhabdomeric microvilli that measure the <strong>angle of linear polarization (e-vector)</strong> according to Malus's Law, <em>I</em>(&theta;) = <em>I</em><sub>0</sub> cos<sup>2</sup>(&theta; &minus; &theta;<sub>0</sub>), alongside a W-shaped pupil that balances downwelling sunlight glare.
+          </p>
+          <div class="science-note">
+            <strong>Breaking Transparency Camouflage:</strong> Transparent glass shrimp let ambient light pass right through their bodies, rendering them invisible to divers. Yet their birefringent muscle tissues twist the polarization plane of transmitted light—making them flash bright white against depolarized coral as soon as the cuttlefish aligns its polarization contrast.
+          </div>
+        </div>
+
+        <div class="species-card indigo">
+          <div class="species-head">
+            <div>
+              <h3>🦈 Scalloped Hammerhead</h3>
+              <span class="sci-name">Sphyrna lewini</span>
+            </div>
+            <span class="sense-badge">Electroreception · nV/cm</span>
+          </div>
+          <div class="vantage-line">Vantage: -3.5 m Sandy Drop-Off · 105° Cephalofoil</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">500 nm Rod</span>
+            <span class="receptor-pill">525 nm Cone</span>
+            <span class="receptor-pill">5 nV/cm E-Dipole</span>
+          </div>
+          <p>
+            Every living marine organism leaks faint DC and low-frequency AC bioelectric potentials from gill ion exchange and rhythmic heartbeat contractions. The hammerhead's wide flattened cephalofoil acts as a stretched electromagnetic sensor bar dotted with hundreds of gel-filled pores—the <strong>Ampullae of Lorenzini</strong>—capable of resolving voltage gradients down to <strong>5 nanovolts per centimeter</strong>.
+          </p>
+          <div class="science-note">
+            <strong>Hunting Through Solid Sand:</strong> Sweeping its head in wide S-curves millimeters above barren coral sand, a hammerhead traces the 1.2 Hz bioelectric dipole field radiating straight through sediment to pinpoint a completely buried stingray without ever seeing it.
+          </div>
+        </div>
+
+        <div class="species-card">
+          <div class="species-head">
+            <div>
+              <h3>🐢 Hawksbill Sea Turtle</h3>
+              <span class="sci-name">Eretmochelys imbricata</span>
+            </div>
+            <span class="sense-badge">Carotenoid Biofluor</span>
+          </div>
+          <div class="vantage-line">Vantage: -2.2 m Vertical Coral Wall · 72° Reef Glide</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV/V 385 nm</span>
+            <span class="receptor-pill">S 458 nm</span>
+            <span class="receptor-pill">M 518 nm</span>
+            <span class="receptor-pill">L-Oil 595 nm</span>
+          </div>
+          <p>
+            Many reef corals, sponges, sea turtles, and cryptic reef fish absorb abundant high-energy blue light (~450–480 nm) and re-emit it at longer green (~515 nm) and red (~585 nm) wavelengths—a phenomenon called <strong>biofluorescence</strong>. Hawksbill turtles carry dense orange-red carotenoid oil droplets inside their retinal cones that act as built-in long-pass optical filters.
+          </p>
+          <div class="science-note">
+            <strong>Neon Reef Signals:</strong> By suppressing overwhelming blue water scatter below 500 nm, those retinal oil droplets allow edible 515 nm biofluorescent sponges and camouflaged 585 nm frogfish to glow starkly against deep cobalt coral walls.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIOME 3: CLOUD FOREST -->
+    <section id="biome-forest" class="section-card">
+      <div class="biome-meta">Ecosystem 03 · Crepuscular &amp; Nocturnal Canopy · Costa Rica</div>
+      <h2>🌙 Neotropical Cloud Forest at Dusk</h2>
+      <p>
+        Beneath a triple-layered rainforest canopy after sunset, ambient luminance plummets below 0.01 cd/m². For a <strong>Human Night Hiker</strong>, cones drop offline completely, leaving only photon-starved rods peaking at 498 nm (the <strong>Purkinje shift</strong>). The jungle flattens into noisy, colorless blue-grey silhouettes. Yet nocturnal forest specialists turn pitch blackness into color, millimeter depth maps, quantum compass headings, and acoustic 3D geometry.
+      </p>
+
+      <div class="species-grid">
+        <div class="species-card">
+          <div class="species-head">
+            <div>
+              <h3>🦎 Leaf-Tailed Gecko</h3>
+              <span class="sci-name">Uroplatus sikorae</span>
+            </div>
+            <span class="sense-badge">350× Night Color</span>
+          </div>
+          <div class="vantage-line">Vantage: 1.85 m Vertical Mossy Trunk · 82° Bark Macro</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV 364 nm (350×)</span>
+            <span class="receptor-pill">Blue 467 nm (350×)</span>
+            <span class="receptor-pill">Green 521 nm (350×)</span>
+          </div>
+          <p>
+            Because nocturnal geckos descended from diurnal ancestors that lost their rod cells entirely, evolution forced their remaining cones to grow massive and ultra-sensitive—achieving roughly <strong>350× the light sensitivity of human cones</strong>. Their vertical slit pupils contract into multiple pinhole apertures paired with a multifocal crystalline lens that keeps UV, blue, and green wavelengths sharp simultaneously.
+          </p>
+          <div class="science-note">
+            <strong>Full Color Under Starlight:</strong> Where human rods see muddy monochrome bark, nocturnal geckos retain vivid chromatic discrimination—crucial for spotting emerald moths while avoiding warningly colored ruby-red toxic beetles.
+          </div>
+        </div>
+
+        <div class="species-card magenta">
+          <div class="species-head">
+            <div>
+              <h3>🕷️ Portia Jumping Spider</h3>
+              <span class="sci-name">Portia fimbriata</span>
+            </div>
+            <span class="sense-badge">Defocus Depth · 360°</span>
+          </div>
+          <div class="vantage-line">Vantage: 0.35 m Bromeliad Leaf Edge · 68° Anterior Macro</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">UV Tier 4 (360 nm)</span>
+            <span class="receptor-pill">Green Tier 1 (530 nm)</span>
+            <span class="receptor-pill">Defocus Tier 2 (532 nm)</span>
+          </div>
+          <p>
+            Jumping spiders have tiny heads—too narrow for primate-style stereo triangulation at leaping distances. Instead, their two enormous forward-facing principal eyes stack four photoreceptor layers along the optical axis. Because green light focuses crisply onto Tier 1 while deliberately arriving out-of-focus on Tier 2, comparing the degree of optical <strong>chromatic defocus blur</strong> yields exact monocular jump range within ±2 mm (Nagata et al., <em>Science</em> 2012).
+          </p>
+          <div class="science-note">
+            <strong>360° Secondary-Eye Radar:</strong> Six smaller secondary eyes wrap completely around the carapace like a panoramic low-resolution motion detector—automatically swiveling the high-resolution principal tubes whenever a predator approaches from behind.
+          </div>
+        </div>
+
+        <div class="species-card amber">
+          <div class="species-head">
+            <div>
+              <h3>🐦 Swainson's Thrush</h3>
+              <span class="sci-name">Catharus ustulatus</span>
+            </div>
+            <span class="sense-badge">Cry4 Quantum Compass</span>
+          </div>
+          <div class="vantage-line">Vantage: 18.0 m Emergent Canopy Crown · 88° Sky View</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">Cry4 405 nm</span>
+            <span class="receptor-pill">Blue 460 nm</span>
+            <span class="receptor-pill">Green 515 nm</span>
+            <span class="receptor-pill">Red 570 nm</span>
+          </div>
+          <p>
+            Nocturnal migratory songbirds cross continents even under dense cloud cover when stars are invisible. Inside their retinal double cones sits a light-sensitive flavoprotein called <strong>Cryptochrome-4 (Cry4)</strong>. When blue-violet photons strike Cry4, they create pairs of quantum-entangled radical electrons whose singlet-vs-triplet spin yield shifts depending on the protein's angle relative to Earth's geomagnetic inclination lines.
+          </p>
+          <div class="science-note">
+            <strong>Seeing the Magnetic Field:</strong> Rather than sensing north vs. south polarity like a bar magnet, songbirds use an <strong>inclination compass</strong>—literally seeing a glowing rotational band across the sky aligned with Earth's magnetic dip angle (γ ≈ 62° at mid-latitudes) to steer poleward or equatorward through mist.
+          </div>
+        </div>
+
+        <div class="species-card cyan">
+          <div class="species-head">
+            <div>
+              <h3>🦇 Common Vampire Bat</h3>
+              <span class="sci-name">Desmodus rotundus</span>
+            </div>
+            <span class="sense-badge">60–90 kHz Sonar + IR</span>
+          </div>
+          <div class="vantage-line">Vantage: 2.6 m Ceiba Buttress Hollow · 85° Gliding</div>
+          <div class="receptor-pills">
+            <span class="receptor-pill">496 nm Dim Rods</span>
+            <span class="receptor-pill">60–90 kHz Echolocation</span>
+            <span class="receptor-pill">TRPV1 30°C Pit</span>
+          </div>
+          <p>
+            Gliding through pitch-black rainforest hollows, vampire bats emit rapid frequency-modulated ultrasonic chirps (60–90 kHz) and reconstruct 3D branch geometry from returning echo delays and Doppler shifts. Once close to a resting mammal, a second specialized sense takes over: three infrared-sensitive pits around the nose leaf.
+          </p>
+          <div class="science-note">
+            <strong>Molecular Splicing for Warm Veins:</strong> Vampire bats evolved a truncated splice variant of the mammalian pain/heat receptor <strong>TRPV1</strong> that lowers its activation threshold from ~43°C down to ~30°C—allowing them to sense warm superficial blood vessels directly beneath fur from up to 20 cm away (Gracheva et al., <em>Nature</em> 2011).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW THE SIMULATION WORKS -->
+    <section id="simulation-physics" class="section-card">
+      <h2>⚙️ How UMWELT Simulates Sensory Worlds in Real-Time WebGL2</h2>
+      <p>
+        Built by <strong>Golden Pineapple Games</strong> as a zero-download browser experience, <a href="./">UMWELT: Animal Optics</a> runs a multi-pass <strong>WebGL2 fragment-shader pipeline</strong> directly on your GPU. Each ecological scene combines a photorealistic vantage plate with auxiliary semantic and physical channel maps—separating sky polarization regions, UV reflectance masks, endothermic temperature zones, birefringent silhouettes, and depth gradients.
+      </p>
+      <p>
+        When you switch species, press <strong>Split Mode</strong> (comparing Human RGB directly against the active animal's sensory field), rotate the Cuttlefish's linear polarization analyzer angle θ°, sweep the Kestrel's 2.2× optical loupe, or fire an expanding 60–90 kHz Vampire Bat sonar wavefront, the shader recalculates pixel responses frame-by-frame—paired with a live photoreceptor spectral sensitivity curve and procedural binaural audio. Every species also includes a playable <strong>Ecological Field Mystery</strong> and an embodied <strong>Survival Mission</strong> designed so you experience <em>why</em> each sensory adaptation exists under real predator-prey pressure.
+      </p>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="references" class="section-card">
+      <h2>📚 Key Scientific References &amp; Further Reading</h2>
+      <p>The biological mechanics represented in UMWELT draw from comparative vision and sensory-ecology literature, including:</p>
+      <ul class="refs-list">
+        <li><strong>Viitala, J., Korpimäki, E., Palokangas, P., &amp; Koivula, M. (1995).</strong> Attraction of kestrels to vole scent marks visible in ultraviolet light. <em>Nature</em>, 373, 425–427.</li>
+        <li><strong>Chiou, T.-H., Kleinlogel, S., Cronin, T., Caldwell, R., Loeffler, B., Siddiqi, A., Goldizen, A., &amp; Marshall, J. (2008).</strong> Circular polarization vision in a stomatopod crustacean. <em>Current Biology</em>, 18(6), 429–434.</li>
+        <li><strong>Gracheva, E. O., Cordero-Morales, J. F., González-Carcacía, J. A., et al. (2011).</strong> Ganglion-specific splicing of TRPV1 underlies infrared sensation in vampire bats. <em>Nature</em>, 476, 88–91.</li>
+        <li><strong>Nagata, T., Koyanagi, M., Tsukamoto, H., et al. (2012).</strong> Depth perception from image defocus in a jumping spider. <em>Science</em>, 335(6067), 469–471.</li>
+        <li><strong>Xu, J., Jarocha, L. E., Zollitsch, T., et al. (2021).</strong> Magnetic sensitivity of cryptochrome 4 from a migratory songbird. <em>Nature</em>, 594, 535–540.</li>
+        <li><strong>Roth, L. S. V., Lundström, L., Kelber, A., Kröger, R. H. H., &amp; Unsbo, P. (2009).</strong> The pupils and optical systems of gecko eyes. <em>Journal of Vision</em>, 9(3), 27.</li>
+        <li><strong>Kajiura, S. M., &amp; Holland, K. N. (2002).</strong> Electroreception in juvenile scalloped hammerhead and sandbar sharks. <em>Journal of Experimental Biology</em>, 205(23), 3609–3621.</li>
+      </ul>
+
+      <div class="cta-box">
+        <div>
+          <h3 style="margin: 0;">Ready to step outside human sight?</h3>
+          <p>Switch seamlessly across all 15 vantage points, split-screen compare Human RGB vs. Animal Umwelt, and solve all 12 ecological mysteries.</p>
+        </div>
+        <a href="./" class="launch-btn">🦅 Enter UMWELT: Animal Optics →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Golden Pineapple Games (PunFiction). All rights reserved. | <a href="../">Home</a> | <a href="./">Launch UMWELT</a> | <a href="../travelreviews/">Travel Reviews</a> | <a href="../travelreviews/landmarks/">Landmark Guides</a> | <a href="../wordvine/">Word Vine</a> | <a href="../the-8-billionth/">The 8.3 Billionth</a> | <a href="../the-8-billionth/math.html">The Math</a> | <a href="../flatball/">Flatball Tactics</a> | <a href="../about.html">About</a> | <a href="../contact.html">Contact</a> | <a href="../privacy.html">Privacy Policy</a> | <a href="../terms.html">Terms of Service</a></p>
+  </footer>
+</body>
+</html>

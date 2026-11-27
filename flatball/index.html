@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EV4HJ1LH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-41EV4HJ1LH', { 'game_name': 'flatball_tactics' });
+  </script>
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Flatball Tactics — 7v7 Ultimate Frisbee Offense &amp; Defense Simulator</title>
-  <meta name="description" content="Read 7v7 Ultimate Frisbee formations, call the ideal defense to force a turnover, and counter the Bot's defensive shells to score in Flatball Tactics." />
+  <title>Flatball Tactics — 7v7 Ultimate Frisbee Offense &amp; Defense Simulator | PunFiction</title>
+  <meta name="description" content="Read 7v7 Ultimate Frisbee formations, call the ideal defense to force a turnover, and counter the Bot's defensive shells to score in Flatball Tactics by Golden Pineapple Games." />
+  <link rel="canonical" href="https://punfiction.io/flatball/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PunFiction" />
+  <meta property="og:title" content="Flatball Tactics — 7v7 Ultimate Frisbee Simulator | PunFiction" />
+  <meta property="og:description" content="Scout 9 Ultimate Frisbee formations, call Man, Zone, Cup, and Junk defenses, and read live wind vectors in Flatball Tactics." />
+  <meta property="og:url" content="https://punfiction.io/flatball/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Flatball Tactics",
+    "url": "https://punfiction.io/flatball/",
+    "description": "7v7 Ultimate Frisbee offense and defense tactics simulator with live wind physics, Daily Cup matchups, and scouting guides.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Golden Pineapple Games", "url": "https://punfiction.io/" }
+  }
+  </script>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'%3E%3Crect width='64' height='40' rx='10' fill='%23091017'/%3E%3Cpath d='M4 25 C16 18 28 12 44 11 L46 29 C30 29 17 28 4 25 Z' fill='%2300E5FF' opacity='0.85'/%3E%3Cpath d='M8 18 Q22 14 38 13' stroke='%2338BDF8' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cg transform='translate(44 20) rotate(-12)'%3E%3Cellipse cx='0' cy='1.8' rx='16' ry='8' fill='%23CBD5E1'/%3E%3Cellipse cx='0' cy='0' rx='16' ry='7.8' fill='%23FFFFFF'/%3E%3Cellipse cx='0' cy='0' rx='11' ry='4.8' fill='none' stroke='%230284C7' stroke-width='1.8'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,7 +79,7 @@
               <path d="M-8 -3.4 A11 4.7 0 0 1 9 -2.7" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.92" />
             </g>
           </svg>
-          <span>Flatball <span class="brand-accent brand-subword">Tactics</span></span>
+          <h1 style="margin:0; font-size:inherit; font-weight:inherit; line-height:inherit;">Flatball <span class="brand-accent brand-subword">Tactics</span></h1>
         </div>
         <div class="mode-switcher" role="group" aria-label="Game Mode">
           <button type="button" id="mode-daily-btn" class="mode-btn active-mode">Daily Cup</button>
@@ -311,7 +338,7 @@
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Force Middle Man (outflanks the crowded middle!).</span>
-                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Reset Deny (`BLZ`) &amp; Box-and-1 (`CH1` jumps the dump pass!).</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Reset Deny (<code>BLZ</code>) &amp; Box-and-1 (<code>CH1</code> jumps the dump pass!).</span>
               </div>
             </article>
 
@@ -379,7 +406,7 @@
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Box-and-1 Junk (arcs right over the 4-defender Box!).</span>
-                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Deep Poach (`SAG` tracks high throws) &amp; Breezy/Stiff Headwinds!</span>
+                <span class="matchup-risk"><strong>🔴 Watch out:</strong> Man + Deep Poach (<code>SAG</code> tracks high throws) &amp; Breezy/Stiff Headwinds!</span>
               </div>
             </article>
 
@@ -415,7 +442,7 @@
           <div class="scout-cheat-list">
             <div class="scout-cheat-item"><strong>Vertical / Horizontal Stack:</strong> Center line (&rarr; <em>Deep Poach</em>) or 4-wide spread (&rarr; <em>3-Person Cup</em>).</div>
             <div class="scout-cheat-item"><strong>Side ISO / Split Stack:</strong> 1 isolated star (&rarr; <em>Clam Bracket</em>) or twin sideline stacks (&rarr; <em>Force Middle</em>).</div>
-            <div class="scout-cheat-item"><strong>Hexagon Spread / Star Playmaker:</strong> Triangles with a hub (&rarr; <em>2-3-2 Wall</em>) or `ACE` QB (&rarr; <em>Box-and-1</em>).</div>
+            <div class="scout-cheat-item"><strong>Hexagon Spread / Star Playmaker:</strong> Triangles with a hub (&rarr; <em>2-3-2 Wall</em>) or <code>ACE</code> QB (&rarr; <em>Box-and-1</em>).</div>
             <div class="scout-cheat-item"><strong>Popper-Wing Spread:</strong> 3-2-2 Zone-Buster (&rarr; <em>Force Open-Side</em> 1v1!).</div>
             <div class="scout-cheat-item"><strong>Handler Weave / Red Zone:</strong> Handler triangle (&rarr; <em>Shutdown Reset</em>) or goal-line set (&rarr; <em>Sideline Trap</em>).</div>
           </div>
@@ -464,7 +491,7 @@
                 <span class="role-chip">FORCE MID</span>
               </div>
               <p class="tactic-explain">
-                Instead of picking one sideline, your marker always forces throws back toward the center of the field—right where your `MID` help defender is waiting!
+                Instead of picking one sideline, your marker always forces throws back toward the center of the field—right where your <code>MID</code> help defender is waiting!
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Split Stack (shuts off sideline hucks on both sides!).</span>
@@ -481,7 +508,7 @@
                 <span class="role-chip">HELP DEEP</span>
               </div>
               <p class="tactic-explain">
-                Six defenders guard 1-on-1 while your 7th defender (`SAG`) drops deep like a center fielder in baseball to sky long throws toward your end zone!
+                Six defenders guard 1-on-1 while your 7th defender (<code>SAG</code>) drops deep like a center fielder in baseball to sky long throws toward your end zone!
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Vertical Stack—plus Horizontal &amp; Split Stacks when Bot has a Stiff Tailwind!</span>
@@ -498,7 +525,7 @@
                 <span class="role-chip">BRACKET</span>
               </div>
               <p class="tactic-explain">
-                Teamwork coverage! Defenders sandwich cutters from both sides—three guard short underneath passes (`U1–U3`) while two protect deep (`B1–B2`).
+                Teamwork coverage! Defenders sandwich cutters from both sides—three guard short underneath passes (<code>U1–U3</code>) while two protect deep (<code>B1–B2</code>).
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Side Stack ISO (double-teams the isolated star short and deep!).</span>
@@ -515,7 +542,7 @@
                 <span class="role-chip">NO DUMP</span>
               </div>
               <p class="tactic-explain">
-                Your `BLZ` defender jumps right into the lane between the thrower and their backup handler, taking away their easy safety-valve reset pass!
+                Your <code>BLZ</code> defender jumps right into the lane between the thrower and their backup handler, taking away their easy safety-valve reset pass!
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Handler Weave (breaks small-ball rhythm and drives stall to 9!).</span>
@@ -532,7 +559,7 @@
                 <span class="role-chip">3-3-1 CUP</span>
               </div>
               <p class="tactic-explain">
-                Three defenders (`C1–C3`) form a curved wall around the thrower to block forward lanes and force 15+ short passes. Ultimate’s #1 wind weapon!
+                Three defenders (<code>C1–C3</code>) form a curved wall around the thrower to block forward lanes and force 15+ short passes. Ultimate’s #1 wind weapon!
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Horizontal Stack—plus Vertical, Side ISO, &amp; Split Stacks in a Stiff Headwind!</span>
@@ -549,7 +576,7 @@
                 <span class="role-chip">WALL ZONE</span>
               </div>
               <p class="tactic-explain">
-                Two front chasers hassle handlers while a 3-player flat Wall (`W1–W3`) parks across midfield to intercept medium diagonal passes!
+                Two front chasers hassle handlers while a 3-player flat Wall (<code>W1–W3</code>) parks across midfield to intercept medium diagonal passes!
               </p>
               <div class="tactic-matchups">
                 <span class="matchup-good"><strong>🟢 Best vs:</strong> Hexagon Spread (sits right in their diagonal passing triangles!).</span>
@@ -566,10 +593,10 @@
                 <span class="role-chip">BOX + 1</span>
               </div>
               <p class="tactic-explain">
-                Borrowed straight from basketball! One lockdown chaser (`CH1`) glues 1-on-1 onto their best player while four teammates guard a midfield Zone Box (`B1–B4`).
+                Borrowed straight from basketball! One lockdown chaser (<code>CH1</code>) glues 1-on-1 onto their best player while four teammates guard a midfield Zone Box (<code>B1–B4</code>).
               </p>
               <div class="tactic-matchups">
-                <span class="matchup-good"><strong>🟢 Best vs:</strong> Star Playmaker Hub (erases their `ACE` quarterback!).</span>
+                <span class="matchup-good"><strong>🟢 Best vs:</strong> Star Playmaker Hub (erases their <code>ACE</code> quarterback!).</span>
                 <span class="matchup-risk"><strong>🔴 Watch out:</strong> Split Stack (central Box guards empty grass while twin sidelines run free!).</span>
               </div>
             </article>
@@ -581,6 +608,7 @@
           <a href="offense-tactics.html" target="_blank" rel="noopener" class="footer-text-link">Offense Guide Page ↗</a>
           <a href="defense-tactics.html" target="_blank" rel="noopener" class="footer-text-link">Defense Guide Page ↗</a>
           <a href="https://punfiction.io/about.html" class="footer-text-link">About</a>
+          <a href="https://punfiction.io/contact.html" class="footer-text-link">Contact</a>
           <a href="https://punfiction.io/privacy.html" class="footer-text-link">Privacy</a>
           <a href="https://punfiction.io/terms.html" class="footer-text-link">Terms</a>
         </div>

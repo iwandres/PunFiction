@@ -64,8 +64,17 @@
     <!-- WebGL2 Fallback Notice -->
     <div id="webgl-fallback" class="webgl-fallback hidden">
       <h2>WebGL2 Required</h2>
-      <p>UMWELT: Animal Optics uses real-time WebGL2 multi-pass shaders to simulate animal sensory physics. Please enable hardware acceleration or use a modern browser.</p>
-      <a href="../" class="fb-link">← Back to PunFiction</a>
+      <p>UMWELT: Animal Optics uses real-time WebGL2 multi-pass shaders to simulate animal sensory physics. Please enable hardware acceleration or use a modern browser, or read our full comparative sensory biology guide below.</p>
+      <p style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+        <a href="guide.html" class="fb-link">🔬 Read the Sensory Science Guide</a>
+        <a href="../" class="fb-link">← Back to PunFiction</a>
+      </p>
+      <p style="font-size:0.85rem; margin-top:12px;">
+        <a href="../about.html" style="color:#94a3b8; margin:0 6px;">About</a> ·
+        <a href="../contact.html" style="color:#94a3b8; margin:0 6px;">Contact</a> ·
+        <a href="../privacy.html" style="color:#94a3b8; margin:0 6px;">Privacy</a> ·
+        <a href="../terms.html" style="color:#94a3b8; margin:0 6px;">Terms</a>
+      </p>
     </div>
 
     <!-- Split-Screen Curtain Controls -->
@@ -113,6 +122,7 @@
         <button type="button" id="btn-journal" class="hud-btn" title="Open Ecological Field Journal & Survival Missions">
           📓 Journal <span id="journal-count-badge" class="count-badge">0/12</span>
         </button>
+        <a href="guide.html" class="hud-btn" style="text-decoration: none;" title="Read the Animal Vision &amp; Sensory Biology Field Guide">🔬 Science Guide</a>
         <button type="button" id="btn-audio" class="hud-btn icon-text" title="Toggle procedural binaural species audio (M)">🔇 Sound</button>
         <button type="button" id="btn-reduced-motion" class="hud-btn icon-only" title="Toggle Reduced Motion (vestibular-safe)">◎</button>
         <button type="button" id="btn-gyro" class="hud-btn icon-only touch-only" title="Toggle mobile gyroscope tilt look">🧭</button>

@@ -165,7 +165,8 @@ window.onload = async () => {
         document.body.classList.add('itch-env');
     }
 
-    // Load Google AdSense only on the production GitHub Pages domain or custom domain
+    // AdSense kept on rich editorial pages & landmark guides rather than sparse interactive game canvas during review.
+    /*
     if (hostname === 'iwandres.github.io' || hostname === 'punfiction.io') {
         const adsenseScript = document.createElement('script');
         adsenseScript.async = true;
@@ -173,6 +174,7 @@ window.onload = async () => {
         adsenseScript.crossOrigin = 'anonymous';
         document.head.appendChild(adsenseScript);
     }
+    */
 
     // 0. Wake up the Render container in the background as early as possible
     prewarmBackend();
