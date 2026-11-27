@@ -234,8 +234,9 @@ void main() {
   float motionScale = mix(1.0, 0.22, uReducedMotion);
   float t = uTime * motionScale;
 
-  // Apply locomotion zoom/offset around screen center (clamped softly within frame)
-  vec2 centered = (vUv - 0.5) / max(1.0, uCamZoom) + 0.5 + uCamOffset;
+  // Apply 4.5% edge overscan so 2.5D relief parallax NEVER hits CLAMP_TO_EDGE smear strips
+  float overscan = 1.045;
+  vec2 centered = (vUv - 0.5) / (max(1.0, uCamZoom) * overscan) + 0.5 + uCamOffset;
   centered.y += uGaitBob * 0.008 * motionScale;
 
   // Sample bio map at base UV (Note: textures uploaded with UNPACK_FLIP_Y_WEBGL = true, so vUv.y=1 is top)
@@ -250,25 +251,24 @@ void main() {
   float d1 = mix(0.5, bio1.r, uPlateMix);
   vec2 uvPar = clamp(safeUv - uParallax * (d1 - 0.35) * vec2(0.024, -0.016) * motionScale, 0.004, 0.996);
 
-  // Biome-specific living micro-animation UV sway
+  // Biome-specific living micro-animation (Human baselines & solid reef/forest geometry stay rock-steady, zero wavy warp)
   vec4 bio = texture(uPlateBio, uvPar);
   float windMask = bio.b * uPlateMix;
-  float medMask = bio.a * uPlateMix;
+  bool isHumanPov = (uSpeciesId == 0 || uSpeciesId == 5 || uSpeciesId == 10);
 
   vec2 animUv = uvPar;
-  if (uBiomeId == 0) {
-    // Keep Human Observer in Alpine Meadow crisp and distortion-free (no wavy warp)
-    if (uSpeciesId != 0) {
-      float gust = sin(t * 1.8 + uvPar.x * 7.0 + uvPar.y * 3.0) * 0.0014;
-      animUv.x += gust * windMask * motionScale;
+  if (!isHumanPov) {
+    if (uBiomeId == 0 && uSpeciesId == 4) {
+      // Gentle grass breeze for Whitetail Deer rod motion-differencing
+      animUv.x += sin(t * 1.9 + uvPar.x * 7.0 + uvPar.y * 3.0) * 0.0014 * windMask * motionScale;
+    } else if (uBiomeId == 0) {
+      // Ultra-subtle alpine breeze on animal foliage only
+      animUv.x += sin(t * 1.5 + uvPar.x * 5.0) * 0.0007 * windMask * motionScale;
+    } else if (uBiomeId == 2) {
+      // Whisper-soft hanging frond drift in cloud forest
+      animUv.x += sin(t * 1.1 + uvPar.y * 5.0) * 0.0006 * windMask * motionScale;
     }
-  } else if (uBiomeId == 1) {
-    // Underwater surge sway
-    animUv.x += sin(t * 1.4 + uvPar.y * 10.0) * 0.0035 * windMask * motionScale;
-    animUv.y += cos(t * 1.2 + uvPar.x * 9.0) * 0.0022 * windMask * motionScale;
-  } else {
-    // Subtle cloud forest canopy breeze
-    animUv.x += sin(t * 1.3 + uvPar.y * 8.0 + uvPar.x * 5.0) * 0.0025 * windMask * motionScale;
+    // Reef (uBiomeId == 1): zero UV waviness so coral, sand, and marine life remain razor-sharp
   }
   animUv = clamp(animUv, 0.002, 0.998);
 
@@ -276,31 +276,25 @@ void main() {
   vec3 plateCol = texture(uPlateRGB, animUv).rgb;
   vec3 sceneCol = mix(procCol, plateCol, uPlateMix);
 
-  // Living atmospheric overlays (pollen / underwater Voronoi caustics / mist & rain)
-  if (uBiomeId == 0) {
-    if (uSpeciesId != 0) {
-      // Subtle sunlit pollen motes for non-human meadow vantage points
-      vec2 mUv = uvPar * vec2(18.0, 11.0) + vec2(-t * 0.25, sin(t * 0.6 + uvPar.x * 6.0) * 0.3);
-      float pollen = smoothstep(0.972, 0.996, noise2(mUv));
-      sceneCol += vec3(1.0, 0.95, 0.72) * pollen * 0.18 * motionScale;
+  // Subtle physically grounded atmospheric overlays (never wavy, never obscuring Human baselines)
+  if (uBiomeId == 1) {
+    // Soft underwater caustic shimmer on illuminated lower reef/sand surfaces (subtle & crisp, zero wavy distortion)
+    if (!isHumanPov && uLightIndex == 0) {
+      float caust = voronoiCaustic(uvPar * vec2(7.5, 4.8) + vec2(t * 0.11, t * 0.06), t * 0.9);
+      float surfaceMask = smoothstep(0.75, 0.30, uvPar.y) * (0.25 + 0.75 * bio.r);
+      sceneCol += vec3(0.08, 0.24, 0.28) * caust * surfaceMask * 0.14 * motionScale;
     }
-  } else if (uBiomeId == 1) {
-    // Animated Voronoi solar caustics projected across depth
-    float caust = voronoiCaustic(uvPar * vec2(8.5, 5.5) + vec2(t * 0.16, t * 0.09), t * 1.15);
-    float depthAtten = 0.35 + 0.65 * bio.r;
-    sceneCol += vec3(0.14, 0.42, 0.48) * caust * depthAtten * 0.28 * motionScale;
-    // Rising marine snow
-    float snow = smoothstep(0.972, 0.996, noise2(uvPar * 36.0 + vec2(sin(t * 0.4) * 0.5, -t * 0.35)));
-    sceneCol += vec3(0.65, 0.90, 0.95) * snow * 0.22 * motionScale;
-  } else {
-    // Drifting cloud forest mist + rain streaks + bioluminescent spores
-    float mist = fbm(vec2(uvPar.x * 3.8 + t * 0.06, uvPar.y * 4.5));
-    sceneCol = mix(sceneCol, vec3(0.16, 0.26, 0.32), smoothstep(0.55, 0.90, mist) * 0.18 * (1.0 - bio.r * 0.5));
+  } else if (uBiomeId == 2) {
+    // Soft cloud forest mist drift & optional bioluminescent rain
+    if (!isHumanPov) {
+      float mist = fbm(vec2(uvPar.x * 3.2 + t * 0.04, uvPar.y * 3.8));
+      sceneCol = mix(sceneCol, vec3(0.14, 0.22, 0.28), smoothstep(0.62, 0.92, mist) * 0.12 * (1.0 - bio.r * 0.6));
+    }
     if (uLightIndex == 1) {
-      float rain = smoothstep(0.96, 0.995, noise2(vec2(uvPar.x * 95.0 + uvPar.y * 12.0, uvPar.y * 12.0 + t * 8.0)));
-      sceneCol += vec3(0.45, 0.75, 0.85) * rain * 0.25 * motionScale;
-      float mycena = smoothstep(0.965, 0.995, noise2(uvPar * 28.0 + vec2(0.0, -t * 0.12)));
-      sceneCol += vec3(0.12, 0.95, 0.58) * mycena * 0.38 * motionScale;
+      float rain = smoothstep(0.965, 0.995, noise2(vec2(uvPar.x * 95.0 + uvPar.y * 12.0, uvPar.y * 12.0 + t * 8.0)));
+      sceneCol += vec3(0.45, 0.75, 0.85) * rain * 0.22 * motionScale;
+      float mycena = smoothstep(0.968, 0.995, noise2(uvPar * 28.0 + vec2(0.0, -t * 0.12)));
+      sceneCol += vec3(0.12, 0.95, 0.58) * mycena * 0.32 * motionScale;
     }
   }
 
@@ -345,6 +339,25 @@ float hash21(vec2 p) {
   p = fract(p * vec2(234.34, 435.345));
   p += dot(p, p + 34.23);
   return fract(p.x * p.y);
+}
+
+float pNoise2(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(hash21(i), hash21(i + vec2(1.0, 0.0)), u.x),
+    mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
+float capillaryNet(vec2 p) {
+  float n1 = abs(pNoise2(p * 14.0) * 2.0 - 1.0);
+  float n2 = abs(pNoise2(p * 29.0 + vec2(4.7, 9.2)) * 2.0 - 1.0);
+  float ridge1 = pow(clamp(1.0 - n1, 0.0, 1.0), 6.0);
+  float ridge2 = pow(clamp(1.0 - n2, 0.0, 1.0), 7.0);
+  return clamp(ridge1 * 0.85 + ridge2 * 0.65, 0.0, 1.0);
 }
 
 // Ironbow thermal palette for Rattlesnake / Vampire Bat IR
@@ -424,23 +437,33 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
     );
     col = clamp(col + (col - blur) * (0.45 + 0.65 * inLoupe), 0.0, 1.0);
 
-    // Winding grass-occluded UV vole urine scent runway leading right into uTargetPrimary!
-    vec2 target = uTargetPrimary.xy;
-    float along = clamp((sampleUv.y - 0.14) / max(0.15, target.y - 0.14), 0.0, 1.0);
-    float trailX = mix(target.x - 0.24, target.x, smoothstep(0.0, 1.0, along))
-                 + sin(sampleUv.y * 19.0 + 0.9) * 0.055 * (1.0 - along * 0.7);
-    float distTrail = abs(sampleUv.x - trailX);
-    float trailRange = smoothstep(0.08, 0.18, sampleUv.y) * smoothstep(target.y + 0.05, target.y - 0.01, sampleUv.y);
-    float uvTrail = exp(-pow(distTrail / 0.016, 2.0)) * trailRange * (0.55 + 0.45 * sin(sampleUv.y * 85.0 - t * 2.2));
-    // Grass blade occlusion shimmer
-    float grassOccl = smoothstep(0.22, 0.75, sBio.b + 0.35);
+    // Winding grass-occluded UV vole urine scent runway connecting uTargetSecondary (runway fork) -> uTargetPrimary (vole)
+    vec2 pA = (uTargetSecondary.z > 0.001) ? uTargetSecondary.xy : vec2(uTargetPrimary.x - 0.22, uTargetPrimary.y + 0.18);
+    vec2 pB = uTargetPrimary.xy;
+    vec2 ab = pB - pA;
+    float abLen2 = max(0.0001, dot(ab, ab));
+    float segT = clamp(dot(sampleUv - pA, ab) / abLen2, 0.0, 1.0);
+    vec2 perp = normalize(vec2(-ab.y, ab.x));
+    vec2 curvePt = mix(pA, pB, segT) + perp * sin(segT * 6.2831) * 0.022;
+    float distTrail = length((sampleUv - curvePt) * vec2(aspect, 1.0));
+    float endFade = smoothstep(0.0, 0.08, segT) * smoothstep(1.05, 0.92, segT);
+    float uvTrail = exp(-pow(distTrail / 0.020, 2.0)) * endFade * (0.68 + 0.32 * sin(segT * 28.0 - t * 2.0));
+
+    // Secondary upstream fork feeding into pA from upper-left meadow track
+    vec2 p0 = vec2(max(0.12, pA.x - 0.24), min(0.84, pA.y + 0.16));
+    vec2 d01 = pA - p0;
+    float s0 = clamp(dot(sampleUv - p0, d01) / max(0.0001, dot(d01, d01)), 0.0, 1.0);
+    float distFork = length((sampleUv - mix(p0, pA, s0)) * vec2(aspect, 1.0));
+    float uvFork = exp(-pow(distFork / 0.016, 2.0)) * smoothstep(0.0, 0.15, s0) * 0.62;
+
+    float grassOccl = smoothstep(0.16, 0.68, sBio.b + 0.38);
     float voleGlow = ellipseMask(sampleUv, uTargetPrimary, 1.15);
 
-    vec3 uvViolet = vec3(0.72, 0.22, 1.0);
-    col = mix(col, col * vec3(0.92, 0.96, 1.10), 0.32);
-    col += uvViolet * (uvTrail * grassOccl * (0.65 + 0.55 * inLoupe) + voleGlow * (0.45 + 0.55 * inLoupe));
-    // Subtle secondary UV fluorescence on wildflowers
-    col += vec3(0.45, 0.15, 0.85) * sBio.g * 0.18;
+    vec3 uvViolet = vec3(0.72, 0.24, 1.0);
+    col = mix(col, col * vec3(0.92, 0.96, 1.10), 0.28);
+    col += uvViolet * ((uvTrail + uvFork) * grassOccl * (0.58 + 0.52 * inLoupe) + voleGlow * (0.38 + 0.50 * inLoupe));
+    // Subtle secondary UV fluorescence on bright wildflowers
+    col += vec3(0.45, 0.15, 0.85) * sBio.g * 0.14;
 
     // Subtle optical fovea rim
     float rim = smoothstep(loupeRadius + 0.004, loupeRadius, dist) - smoothstep(loupeRadius, loupeRadius - 0.005, dist);
@@ -450,33 +473,41 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
 
   // --- [2] WESTERN HONEYBEE: UV/B/G Red-Blind + UV Bullseyes + Sky Rayleigh Polarization ---
   if (uSpeciesId == 2) {
-    // Red-blind cone matrix: L-cone absent! Scarlet poppies crush to velvety charcoal black
-    float redExcess = max(0.0, base.r - max(base.g, base.b) * 1.18);
-    float yellowFloral = clamp((base.r + base.g - 1.45 * base.b) * 1.25, 0.0, 1.0);
+    // Red-blind cone matrix (344/436/544 nm): L-cone absent!
+    // Scarlet red poppies have high R, low G & B -> crush cleanly to velvety charcoal black
+    float redExcess = max(0.0, base.r - max(base.g, base.b) * 1.15);
+    // Strict yellow petal classifier: BOTH R & G high AND R/G >= 0.85 so green grass stays natural bee green-teal!
+    float rgRatio = base.r / max(0.02, base.g);
+    float trueYellowPetal = smoothstep(0.45, 0.72, base.r)
+                          * smoothstep(0.36, 0.65, base.g)
+                          * smoothstep(0.42, 0.16, base.b)
+                          * smoothstep(0.84, 1.05, rgRatio);
+    // Natural blue-violet lupine/aster blossoms also carry mild UV reflectance
+    float violetPetal = smoothstep(0.28, 0.56, base.b) * smoothstep(0.18, 0.45, base.r) * smoothstep(0.95, 0.72, base.g / max(0.02, base.b));
 
-    // Map G->yellow-green, B->cyan-blue, UV(bio.g + yellow floral)->electric "bee's purple" magenta-violet
-    float gResp = base.g * 0.88 + base.r * 0.06;
-    float bResp = base.b * 0.95 + base.g * 0.15;
-    float uvResp = clamp(bio.g * 0.85 + yellowFloral * 0.55, 0.0, 1.0);
+    // Accurate honeybee color mapping:
+    // Green foliage -> calm muted olive-teal (stimulating Green receptor only)
+    // Sky -> crisp azure-blue | Yellow Rudbeckia -> electric UV "bee's purple" & cyan bullseyes
+    float gResp = base.g * 0.82;
+    float bResp = base.b * 0.96 + base.g * 0.14;
+    float uvResp = clamp(trueYellowPetal * 0.95 + violetPetal * 0.50, 0.0, 1.0);
 
     vec3 col = vec3(
-      uvResp * 0.78 + gResp * 0.12,
-      gResp * 0.94 + bResp * 0.18,
-      bResp * 1.05 + uvResp * 0.92
+      gResp * 0.14 + uvResp * 0.82,
+      gResp * 0.78 + bResp * 0.16 + uvResp * 0.14,
+      bResp * 0.98 + gResp * 0.24 + uvResp * 0.86
     );
 
     // Crush scarlet red poppies into dark velvet charcoal!
-    float poppyCrush = smoothstep(0.10, 0.42, redExcess);
-    col = mix(col, vec3(0.04, 0.045, 0.065), poppyCrush * 0.90);
+    float poppyCrush = smoothstep(0.10, 0.38, redExcess);
+    col = mix(col, vec3(0.032, 0.036, 0.052), poppyCrush * 0.94);
 
     // Ignite UV bullseye concentric landing rings on primary Rudbeckia blossom!
-    float bullM = ellipseMask(uv, uTargetPrimary, 1.35);
     float dTarget = length((uv - uTargetPrimary.xy) / max(vec2(0.03), uTargetPrimary.zw));
     float bullCore = smoothstep(0.55, 0.10, dTarget);
-    float bullRing = smoothstep(0.95, 0.52, dTarget) * smoothstep(0.28, 0.55, dTarget);
+    float bullRing = smoothstep(1.05, 0.55, dTarget) * smoothstep(0.28, 0.58, dTarget);
     col += vec3(0.72, 0.18, 1.0) * bullCore * 0.72;
-    col += vec3(0.18, 0.96, 0.92) * bullRing * (0.42 + 0.18 * sin(t * 2.5 - dTarget * 10.0));
-    col += vec3(0.65, 0.15, 0.95) * bio.g * 0.25 * (1.0 - poppyCrush);
+    col += vec3(0.18, 0.96, 0.92) * bullRing * (0.42 + 0.16 * sin(t * 2.4 - dTarget * 10.0));
 
     // Sky Rayleigh polarization compass arcs in upper sky
     float skyMask = smoothstep(0.52, 0.80, uv.y) * smoothstep(0.18, 0.55, bio.a + max(0.0, base.b - base.r));
@@ -511,133 +542,140 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
     vec3 visualBase = vec3(blur.g * 0.28, blur.g * 0.58, blur.b * 0.74) * 0.55;
 
     // Compute temperature field T in [0..1]:
-    // Cold 6C snowmelt stream (bio.a + blue) -> 0.05..0.15 indigo
-    float coldWater = clamp(bio.a * 0.85 + max(0.0, base.b - base.r) * 1.4, 0.0, 1.0);
-    // Warm 28C sun-baked granite rocks (bright, low-sat, low-green foreground) -> 0.55..0.70 amber
-    float graniteWarm = clamp((luma(base) * 0.85 + (1.0 - bio.b) * 0.45) * (1.0 - coldWater) * (0.35 + 0.65 * bio.r), 0.0, 0.72);
+    // Cold 6C snowmelt stream (explicit grounded stream ellipse + sky/blue coolness) -> deep indigo
+    float creekMask = (uEnvFeature.z > 0.001) ? ellipseMask(uv, uEnvFeature, 1.65) : 0.0;
+    float coldWater = clamp(bio.a * 0.75 + max(0.0, base.b - base.r) * 1.3 + creekMask * 0.92, 0.0, 1.0);
+    // Warm 28C sun-baked granite rocks -> amber
+    float rockMask = (uTargetSecondary.z > 0.001) ? ellipseMask(uv, uTargetSecondary, 1.4) : 0.0;
+    float graniteWarm = clamp((luma(base) * 0.75 + (1.0 - bio.b) * 0.40 + rockMask * 0.35) * (1.0 - coldWater) * (0.35 + 0.65 * bio.r), 0.0, 0.68);
     // Blazing 38.2C endothermic meadow vole at uTargetPrimary!
-    float voleHeat = ellipseMask(uv, uTargetPrimary, 1.25);
-    float volePulse = 0.92 + 0.08 * sin(t * 5.2);
-    float temp = clamp(0.24 + graniteWarm * 0.46 - coldWater * 0.34 + voleHeat * 0.82 * volePulse, 0.0, 1.0);
+    float voleHeat = ellipseMask(uv, uTargetPrimary, 1.2);
+    float volePulse = 0.93 + 0.07 * sin(t * 4.8);
+    float temp = clamp(0.24 + graniteWarm * 0.44 - coldWater * 0.38 + voleHeat * 0.84 * volePulse, 0.0, 1.0);
 
     vec3 irCol = ironbow(temp);
-    // Optic tectum bimodal fusion (stronger thermal bloom around cursor & endothermic heat)
-    float thermalWeight = clamp(0.66 + voleHeat * 0.32 + coldWater * 0.16, 0.0, 0.96);
+    float thermalWeight = clamp(0.66 + voleHeat * 0.32 + coldWater * 0.20, 0.0, 0.96);
     vec3 col = mix(visualBase, irCol, thermalWeight);
-    // Radiant heat plume shimmer rising slightly above warm prey
-    float plume = ellipseMask(uv - vec2(0.0, 0.025 + 0.008 * sin(t * 4.0)), uTargetPrimary, 1.55);
-    col += vec3(1.0, 0.35, 0.78) * plume * 0.25;
+    // Subtle radiant thermal halo above warm vole
+    float plume = ellipseMask(uv - vec2(0.0, 0.022 + 0.006 * sin(t * 3.6)), uTargetPrimary, 1.45);
+    col += vec3(1.0, 0.38, 0.76) * plume * 0.22;
     return clamp(col, 0.0, 1.0);
   }
 
   // --- [4] WHITETAIL DEER: Dichromat + Horizontal Visual Streak + Rod Motion Shimmer ---
   if (uSpeciesId == 4) {
-    // Horizon streak centered around y = 0.50 (treeline)
-    float vDist = abs(uv.y - 0.50);
-    float blurAmt = smoothstep(0.11, 0.38, vDist) * 0.008;
+    // Horizon streak centered dynamically on the spruce horizon line
+    float streakY = (uEnvFeature.z > 0.001) ? uEnvFeature.y : 0.50;
+    float vDist = abs(uv.y - streakY);
+    float blurAmt = smoothstep(0.11, 0.38, vDist) * 0.0075;
     vec3 col = (
       texture(uLivingTex, uv).rgb * 0.4 +
       texture(uLivingTex, clamp(uv + vec2(0.0, blurAmt), 0.002, 0.998)).rgb * 0.3 +
       texture(uLivingTex, clamp(uv - vec2(0.0, blurAmt), 0.002, 0.998)).rgb * 0.3
     );
 
-    // S (455nm) + M (537nm) Red-Green Dichromacy: red collapses into muted olive-gold
+    // S (455nm) + M (537nm) Red-Green Dichromacy: red wildflowers flatten into olive-gold grass
     float blueC = col.b * 0.94 + col.g * 0.08;
-    float oliveC = col.r * 0.48 + col.g * 0.52;
-    vec3 dichrom = vec3(oliveC * 0.88, oliveC * 0.96, blueC * 1.06);
+    float oliveC = col.r * 0.46 + col.g * 0.54;
+    vec3 dichrom = vec3(oliveC * 0.88, oliveC * 0.96, blueC * 1.05);
 
-    // Temporal frame differencing from ping-pong previous frame
+    // Temporal frame differencing damped so mouse parallax doesn't wash the screen in cyan
     vec3 prev = texture(uPrevTex, uv).rgb;
-    float deltaI = abs(luma(base) - luma(prev)) * 18.0;
+    float deltaI = smoothstep(0.025, 0.14, abs(luma(base) - luma(prev))) * 0.55;
 
     // Stalking bobcat micro-ear-twitch motion shimmer along timberline
     float bobcatMask = ellipseMask(uv, uTargetPrimary, 1.15);
-    float twitch = pow(max(0.0, sin(t * 3.8) * sin(t * 1.7 + 0.4)), 4.0);
-    float bobcatShimmer = bobcatMask * (0.35 + 0.85 * twitch);
+    float twitch = pow(max(0.0, sin(t * 3.6) * sin(t * 1.5 + 0.4)), 3.0);
+    float bobcatShimmer = bobcatMask * (0.34 + 0.82 * twitch) * smoothstep(0.12, 0.55, luma(base) + 0.25);
 
     float streakBoost = 1.0 - smoothstep(0.08, 0.26, vDist);
-    vec3 motionGlow = vec3(0.55, 0.94, 1.0) * clamp(deltaI * (0.45 + 0.9 * streakBoost) + bobcatShimmer, 0.0, 1.15);
+    vec3 motionGlow = vec3(0.55, 0.94, 1.0) * clamp(deltaI * (0.35 + 0.65 * streakBoost) + bobcatShimmer, 0.0, 1.05);
 
-    vec3 outCol = dichrom + motionGlow * 0.78;
-    // Subtle dark peripheral vignette top/bottom emphasizing horizontal visual streak
-    outCol *= 1.0 - smoothstep(0.28, 0.52, vDist) * 0.24;
+    vec3 outCol = dichrom + motionGlow * 0.72;
+    outCol *= 1.0 - smoothstep(0.28, 0.54, vDist) * 0.22;
     return clamp(outCol, 0.0, 1.0);
   }
 
   // --- [6] PEACOCK MANTIS SHRIMP: 12-Channel Tilted Midband Scanline + Circular Polarization ---
   if (uSpeciesId == 6) {
-    // Slightly muted peripheral compound-eye field outside tilted equatorial midband
-    float angle = -0.26; // tilted equatorial midband strip
+    float angle = -0.26;
     vec2 rel = (uv - uCursor) * vec2(aspect, 1.0);
     float bandPerp = abs(-rel.x * sin(angle) + rel.y * cos(angle));
     float inBand = smoothstep(0.115, 0.065, bandPerp);
     float bandEdge = smoothstep(0.122, 0.112, bandPerp) - smoothstep(0.112, 0.102, bandPerp);
 
-    // 12 narrowband hyperspectral quantization inside the midband
+    // 12 narrowband hyperspectral quantization inside the tilted midband
     vec3 peripheral = mix(vec3(luma(base) * 0.85), base, 0.58) * vec3(0.84, 0.96, 1.02);
     vec3 hyper = floor(base * 6.0 + 0.5) / 6.0;
-    hyper = clamp(mix(base, hyper, 0.45) * 1.18, 0.0, 1.0);
-    // Hue-separated hyper-vivid channel punch
-    float maxC = max(hyper.r, max(hyper.g, hyper.b));
-    float minC = min(hyper.r, min(hyper.g, hyper.b));
-    hyper = clamp(mix(vec3(luma(hyper)), hyper, 1.75), 0.0, 1.0);
-    hyper += vec3(0.32, 0.08, 0.48) * bio.g * 0.35;
+    hyper = clamp(mix(base, hyper, 0.42) * 1.15, 0.0, 1.0);
+    hyper = clamp(mix(vec3(luma(hyper)), hyper, 1.72), 0.0, 1.0);
+    hyper += vec3(0.28, 0.08, 0.42) * bio.g * 0.28;
 
     vec3 col = mix(peripheral, hyper, inBand);
 
-    // Circularly Polarized (CPL) rival mantis shrimp maxilliped display blazes neon gold-crimson!
-    float cplTarget = ellipseMask(uv, uTargetPrimary, 1.2);
-    float cplSpiral = 0.5 + 0.5 * sin(atan(uv.y - uTargetPrimary.y, uv.x - uTargetPrimary.x) * 3.0 - t * 4.5 + length(uv - uTargetPrimary.xy) * 65.0);
-    vec3 cplNeon = mix(vec3(1.0, 0.16, 0.52), vec3(1.0, 0.84, 0.14), cplSpiral);
-    col += cplNeon * cplTarget * (0.40 + 0.85 * inBand);
+    // Circularly Polarized (CPL) armored crab shell & iridescent clam mantle conform to real shell luminance
+    float shellTex = smoothstep(0.14, 0.62, luma(base));
+    float cplTarget = ellipseMask(uv, uTargetPrimary, 1.15) * shellTex;
+    float cplWave = 0.5 + 0.5 * sin(length((uv - uTargetPrimary.xy) * vec2(aspect, 1.0)) * 55.0 - t * 3.2);
+    vec3 cplNeon = mix(vec3(1.0, 0.20, 0.56), vec3(1.0, 0.84, 0.18), cplWave);
+    col += cplNeon * cplTarget * (0.28 + 0.82 * inBand);
 
-    // Midband scanline border shimmer
-    col = mix(col, vec3(1.0, 0.42, 0.82), bandEdge * 0.65);
+    if (uTargetSecondary.z > 0.001) {
+      float clamMask = ellipseMask(uv, uTargetSecondary, 1.2) * shellTex;
+      col += vec3(0.20, 0.95, 1.0) * clamMask * (0.22 + 0.55 * inBand);
+    }
+
+    col = mix(col, vec3(1.0, 0.42, 0.82), bandEdge * 0.62);
     return clamp(col, 0.0, 1.0);
   }
 
   // --- [7] BROADCLUB CUTTLEFISH: 492nm Monochromat + W-Pupil + Malus's Law Linear Polarization ---
   if (uSpeciesId == 7) {
-    // Single visual opsin peaking at 492nm (blue-green monochrome)
+    // Single visual opsin peaking at 492nm (crisp blue-green monochrome)
     float iMono = clamp(base.r * 0.10 + base.g * 0.62 + base.b * 0.28, 0.0, 1.0);
 
-    // Subtle W-pupil off-axis chromatic dispersion edge hint (how cephalopods infer hue from focus blur!)
-    float wShift = 0.0022;
+    // Subtle W-pupil chromatic edge sheen
+    float wShift = 0.0018;
     float edgeR = luma(texture(uLivingTex, clamp(uv + vec2(wShift, 0.0), 0.002, 0.998)).rgb);
     float edgeB = luma(texture(uLivingTex, clamp(uv - vec2(wShift, 0.0), 0.002, 0.998)).rgb);
-    float wHalo = (edgeR - edgeB) * 1.4;
+    float wHalo = (edgeR - edgeB) * 1.1;
 
-    // Malus's Law polarization contrast: I_pol = I_mono * (1 + P * cos(2*(psi - theta)))
-    float shrimpMask = ellipseMask(uv, uTargetPrimary, 1.15);
-    float fishMask = ellipseMask(uv, uTargetSecondary, 1.25);
+    // Fine structural detail of translucent shrimp & silverside scales (preserves real photo sharpness!)
+    vec2 pxC = vec2(1.0) / max(vec2(320.0), uResolution * 0.6);
+    float cL = luma(texture(uLivingTex, uv - vec2(pxC.x, 0.0)).rgb);
+    float cR = luma(texture(uLivingTex, uv + vec2(pxC.x, 0.0)).rgb);
+    float cD = luma(texture(uLivingTex, uv - vec2(0.0, pxC.y)).rgb);
+    float cU = luma(texture(uLivingTex, uv + vec2(0.0, pxC.y)).rgb);
+    float microEdge = clamp(length(vec2(cR - cL, cU - cD)) * 6.5, 0.0, 1.0);
 
-    float psiShrimp = 0.733; // ~42 deg polarization angle of transparent glass shrimp
+    float shrimpMask = ellipseMask(uv, uTargetPrimary, 1.25);
+    float fishMask = (uTargetSecondary.z > 0.001) ? ellipseMask(uv, uTargetSecondary, 1.2) : 0.0;
+
+    float psiShrimp = 0.733; // ~42 deg linear polarization angle of glass shrimp
     float psiFish = 1.92;    // ~110 deg specular silverside scales
-    float psiWater = 0.0;    // horizontal background water skylight polarization
+    float psiWater = 0.0;
 
     float polShrimp = cos(2.0 * (psiShrimp - uPolAngle));
     float polFish = cos(2.0 * (psiFish - uPolAngle));
-    float polWater = cos(2.0 * (psiWater - uPolAngle)) * 0.22 * bio.a;
+    float polWater = cos(2.0 * (psiWater - uPolAngle)) * 0.20 * bio.a;
 
     float iPol = iMono * (1.0 + polWater);
-    // Transparent glass shrimp erupts in electric polarization contrast when analyzer aligns!
     float shrimpPop = clamp(0.5 + 0.5 * polShrimp, 0.0, 1.0);
     float fishPop = clamp(0.5 + 0.5 * polFish, 0.0, 1.0);
 
-    // High-contrast monochrome cephalopod luminance + iridescent e-vector electric highlights
-    vec3 monoCol = vec3(iPol * 0.88, iPol * 0.95, iPol * 0.98);
-    // Subtle polarization angle interference texture on birefringent shrimp carapace
-    float stripe = 0.5 + 0.5 * sin((uv.x * cos(uPolAngle) + uv.y * sin(uPolAngle)) * 120.0);
-    vec3 shrimpElectric = mix(vec3(0.08, 0.14, 0.18), vec3(0.65, 0.98, 1.0), shrimpPop);
-    monoCol = mix(monoCol, shrimpElectric * (0.75 + 0.35 * stripe), shrimpMask * (0.28 + 0.72 * pow(shrimpPop, 1.6)));
-    monoCol += vec3(0.45, 0.92, 0.98) * fishMask * pow(fishPop, 2.0) * 0.55;
-    monoCol += vec3(0.08, 0.18, 0.22) * wHalo;
+    // Crisp monochrome baseline; when analyzer aligns with shrimp's e-vector, shrimp body & edges erupt in high-contrast electric cyan-white!
+    vec3 monoCol = vec3(iPol * 0.86, iPol * 0.94, iPol * 0.97);
+    float shrimpBody = clamp(microEdge * 0.95 + smoothstep(0.32, 0.78, iMono) * 0.65, 0.0, 1.0);
+    // Slight darkening of water right behind shrimp when aligned boosts true polarization figure-ground separation
+    monoCol *= 1.0 - shrimpMask * (1.0 - shrimpBody) * pow(shrimpPop, 1.6) * 0.38;
+    monoCol += vec3(0.55, 0.98, 1.0) * shrimpMask * shrimpBody * pow(shrimpPop, 1.5) * 0.95;
+    monoCol += vec3(0.42, 0.92, 0.98) * fishMask * smoothstep(0.45, 0.85, iMono) * pow(fishPop, 2.0) * 0.52;
+    monoCol += vec3(0.06, 0.14, 0.18) * wHalo;
     return clamp(monoCol, 0.0, 1.0);
   }
 
   // --- [8] SCALLOPED HAMMERHEAD: Green-Blue Rod Vision + Ampullae of Lorenzini E-Dipole ---
   if (uSpeciesId == 8) {
-    // Rod-rich cool green-blue wide vision
     float gb = base.g * 0.64 + base.b * 0.36;
     vec3 col = vec3(gb * 0.26, gb * 0.72, gb * 0.84) * 0.88;
 
@@ -648,74 +686,70 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
     float rLen = sqrt(r2 + 0.0018);
     vec2 rHat = rVec / rLen;
 
-    // 1.2 Hz stingray respiratory gill heartbeat!
+    // 1.2 Hz stingray respiratory gill heartbeat
     float gillPulse = 0.62 + 0.38 * sin(t * 2.0 * 3.1415926 * 1.2);
     vec2 mu = vec2(0.85, 0.52) * gillPulse;
     vec2 Evec = (3.0 * dot(mu, rHat) * rHat - mu) / pow(r2 + 0.012, 1.35);
     float Emag = length(Evec);
 
-    // Cephalofoil sensor detection proximity boost around cursor
     float headDist = length((uCursor - r0) * vec2(aspect, 1.0));
     float senseGain = 0.42 + 0.85 * smoothstep(0.55, 0.08, headDist);
 
-    // Dipole field streamlines (potential + angular lobes)
     float ang = atan(rVec.y, rVec.x);
     float fieldLine = pow(abs(sin(ang * 2.0 + 0.55)), 1.5) * exp(-rLen * 5.2);
     float rings = 0.5 + 0.5 * sin(rLen * 58.0 - t * 2.0 * 3.1415926 * 1.2);
     float core = exp(-r2 / 0.0055) * gillPulse;
 
-    // Secondary weaker dipole
-    vec2 r1 = (uv - uTargetSecondary.xy) * vec2(aspect, 1.0);
-    float secGlow = exp(-dot(r1, r1) / 0.004) * (0.45 + 0.35 * sin(t * 5.5));
-
     vec3 dipoleCol = mix(vec3(0.32, 0.28, 1.0), vec3(0.18, 0.96, 0.98), clamp(Emag * 0.025 + core, 0.0, 1.0));
     float intensity = clamp((fieldLine * (0.45 + 0.55 * rings) + core * 1.15) * senseGain, 0.0, 1.25);
-    col += dipoleCol * intensity * 0.92;
-    col += vec3(0.38, 0.65, 1.0) * secGlow * 0.32;
+    col += dipoleCol * intensity * 0.90;
+
+    // Only draw secondary dipole if a secondary prey is actually present in the plate!
+    if (uTargetSecondary.z > 0.001) {
+      vec2 r1 = (uv - uTargetSecondary.xy) * vec2(aspect, 1.0);
+      float secGlow = exp(-dot(r1, r1) / 0.004) * (0.45 + 0.35 * sin(t * 5.5));
+      col += vec3(0.38, 0.65, 1.0) * secGlow * 0.32;
+    }
     return clamp(col, 0.0, 1.0);
   }
 
   // --- [9] HAWKSBILL SEA TURTLE: Carotenoid Oil-Droplet Biofluorescence Filter ---
   if (uSpeciesId == 9) {
     // Suppress ambient <500nm blue scatter into deep dark cobalt
-    vec3 darkCobalt = vec3(base.r * 0.18, base.g * 0.24, base.b * 0.42) * 0.55;
+    vec3 darkCobalt = vec3(base.r * 0.16, base.g * 0.22, base.b * 0.40) * 0.52;
 
-    // Extract 515nm biofluorescent green & 585nm biofluorescent red/orange channels
-    float greenFluor = clamp((base.g - base.b * 0.72) * 2.6 + bio.g * 0.45, 0.0, 1.0);
-    float redFluor = clamp((base.r - base.b * 0.68) * 2.8, 0.0, 1.0);
+    // Organic pigment-driven 515nm green & 585nm red-orange biofluorescence (preserves real coral & frogfish texture!)
+    float greenFluor = clamp((base.g - base.b * 0.78) * 2.7, 0.0, 1.0);
+    float redFluor = clamp((base.r - base.b * 0.65) * 2.9, 0.0, 1.0);
+    float detail = smoothstep(0.12, 0.65, luma(base));
 
-    // Cryptic frogfish & fluorescent sponge colony blaze vividly!
-    float frogMask = ellipseMask(uv, uTargetPrimary, 1.25);
-    float spongeMask = ellipseMask(uv, uTargetSecondary, 1.35);
-    float pulse = 0.88 + 0.12 * sin(t * 2.4);
+    float frogMask = ellipseMask(uv, uTargetPrimary, 1.22) * detail;
+    float spongeMask = (uTargetSecondary.z > 0.001) ? ellipseMask(uv, uTargetSecondary, 1.35) * detail : 0.0;
+    float pulse = 0.90 + 0.10 * sin(t * 2.2);
 
-    vec3 neonGreen = vec3(0.10, 1.0, 0.52);
-    vec3 neonRed = vec3(1.0, 0.24, 0.18);
+    vec3 neonGreen = vec3(0.10, 1.0, 0.50);
+    vec3 neonRed = vec3(1.0, 0.26, 0.14);
 
     vec3 col = darkCobalt
-      + neonGreen * (pow(greenFluor, 1.2) * 0.88 + spongeMask * 0.55 * pulse)
-      + neonRed * (pow(redFluor, 1.15) * 0.95 + frogMask * 0.78 * pulse);
-    // Subtle glowing mottled biofluorescent spots on cryptic frogfish
-    float mottle = 0.5 + 0.5 * sin(uv.x * 75.0) * cos(uv.y * 75.0);
-    col += mix(neonGreen, neonRed, mottle) * frogMask * 0.32;
+      + neonGreen * (pow(greenFluor, 1.25) * 0.88 + spongeMask * 0.45 * pulse)
+      + neonRed * (pow(redFluor, 1.15) * 0.95 + frogMask * 0.52 * pulse);
     return clamp(col, 0.0, 1.0);
   }
 
   // --- [11] LEAF-TAILED GECKO: 350x Nocturnal Full-Color Cone Retina + Pinhole Slit Bokeh ---
   if (uSpeciesId == 11) {
-    // Massive nocturnal cone gain restoring vivid emerald, ruby, and moth iridescence
-    vec3 boosted = pow(max(base, vec3(0.001)), vec3(0.76)) * 1.32;
+    vec3 boosted = pow(max(base, vec3(0.001)), vec3(0.76)) * 1.30;
     float y = luma(boosted);
-    vec3 vivid = mix(vec3(y), boosted, 1.52);
-    // Vertical multifocal slit-pupil subtle vertical bokeh sheen on bright speculars
+    vec3 vivid = mix(vec3(y), boosted, 1.50);
+    // Vertical multifocal slit-pupil vertical bokeh sheen on bright specular highlights
     vec3 upS = texture(uLivingTex, clamp(uv + vec2(0.0, 0.006), 0.002, 0.998)).rgb;
     vec3 dnS = texture(uLivingTex, clamp(uv - vec2(0.0, 0.006), 0.002, 0.998)).rgb;
-    vec3 slitGlow = max(vec3(0.0), (upS + dnS) * 0.5 - 0.58) * 0.55;
+    vec3 slitGlow = max(vec3(0.0), (upS + dnS) * 0.5 - 0.58) * 0.50;
 
-    // Iridescent nocturnal emerald-gold moth pops sharply against dark bark
-    float mothMask = ellipseMask(uv, uTargetPrimary, 1.2);
-    vec3 mothShimmer = mix(vec3(0.14, 1.0, 0.62), vec3(0.96, 0.88, 0.34), 0.5 + 0.5 * sin(t * 2.2 + uv.x * 24.0));
-    vec3 col = vivid + slitGlow + mothShimmer * mothMask * 0.42;
+    // Wing-scale-modulated nocturnal iridescence on moth (keeps wing markings tack sharp!)
+    float mothMask = ellipseMask(uv, uTargetPrimary, 1.15) * smoothstep(0.15, 0.65, luma(base));
+    vec3 mothShimmer = mix(vec3(0.12, 0.95, 0.58), vec3(0.96, 0.86, 0.30), 0.5 + 0.5 * sin(t * 2.0 + uv.x * 20.0));
+    vec3 col = vivid + slitGlow + mothShimmer * mothMask * 0.34;
     return clamp(col, 0.0, 1.0);
   }
 
@@ -732,54 +766,50 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
 
     vec3 col = vec3(rDefocus * 0.92, gSharp * 1.12, bDefocus * 1.05);
 
-    // Highlight depth lock around cursor & prey spider
     float cDist = length((uv - uCursor) * vec2(aspect, 1.0));
     float ringZone = smoothstep(0.24, 0.05, cDist);
     float lockScore = clamp(1.0 - depthErr * 4.5, 0.0, 1.0);
     vec3 rangeTint = mix(vec3(0.95, 0.25, 0.88), vec3(0.22, 1.0, 0.56), lockScore);
-    col = mix(col, col * 0.85 + rangeTint * 0.28, ringZone * 0.35);
+    col = mix(col, col * 0.88 + rangeTint * 0.24, ringZone * 0.30);
 
-    // Subtle crisp prey silhouette highlight when focused near target
-    float preyMask = ellipseMask(uv, uTargetPrimary, 1.2);
+    // Subtle crisp focus lock highlight conforming to katydid silhouette when aimed near prey
+    float preyMask = ellipseMask(uv, uTargetPrimary, 1.15) * smoothstep(0.14, 0.60, luma(base));
     float cursorOnPrey = ellipseMask(uCursor, uTargetPrimary, 2.2);
-    col += vec3(0.24, 1.0, 0.58) * preyMask * (0.18 + 0.45 * cursorOnPrey);
+    col += vec3(0.22, 1.0, 0.56) * preyMask * (0.12 + 0.38 * cursorOnPrey);
 
-    // Narrow anterior principal-eye boomerang vignette
-    float vig = smoothstep(0.72, 0.32, length((uv - 0.5) * vec2(aspect * 0.72, 1.05)));
-    col *= (0.48 + 0.52 * vig);
+    float vig = smoothstep(0.74, 0.32, length((uv - 0.5) * vec2(aspect * 0.72, 1.05)));
+    col *= (0.50 + 0.50 * vig);
     return clamp(col, 0.0, 1.0);
   }
 
   // --- [13] SWAINSON'S THRUSH: Twilight Vision + Cryptochrome-4 Quantum Magnetoreception Dome ---
   if (uSpeciesId == 13) {
-    // Crisp avian twilight clarity
-    vec3 col = pow(max(base, vec3(0.001)), vec3(0.84)) * 1.14;
+    // Rich dusk contrast: deepen bright twilight clouds slightly so quantum radical-pair bands read unmistakably
+    float skyWeight = smoothstep(0.36, 0.62, uv.y) * (0.45 + 0.55 * bio.a);
+    vec3 col = mix(base * 1.05, base * vec3(0.42, 0.48, 0.72), skyWeight * 0.64);
 
-    // Viewing ray v(u) and geomagnetic field vector B (inclination dip gamma = 62 deg)
+    // Viewing ray v(u) and geomagnetic vector B aligned identically to uTargetPrimary (62 deg inclination dip node)
     vec3 viewRay = normalize(vec3((uv.x - 0.5) * aspect * 1.35, (uv.y - 0.35) * 1.25, 1.0));
-    float gamma = radians(62.0);
-    // Align geomagnetic dip node over uTargetPrimary in sky
     vec2 magCenter = uTargetPrimary.xy;
-    vec3 Bvec = normalize(vec3((magCenter.x - 0.5) * aspect * 1.2, sin(gamma) * 0.52 + (magCenter.y - 0.65), cos(gamma)));
+    vec3 Bvec = normalize(vec3((magCenter.x - 0.5) * aspect * 1.35, (magCenter.y - 0.35) * 1.25, 1.0));
 
-    float vDotB = dot(viewRay, Bvec);
-    // Spin-correlated radical-pair yield modulation: Phi_mag = 1 + kappa * (3(v.B)^2 - 1)^2
-    float quadTerm = 3.0 * vDotB * vDotB - 1.0;
-    float spinBand = exp(-pow(quadTerm * 1.85, 2.0));
-    float dipNode = exp(-pow(1.0 - abs(vDotB), 2.0) * 65.0);
+    float vDotB = clamp(dot(viewRay, Bvec), -1.0, 1.0);
+    float angFromB = acos(vDotB); // 0 at dip node
 
-    float skyWeight = smoothstep(0.25, 0.62, uv.y) * (0.45 + 0.55 * bio.a);
-    float quantumShimmer = 0.85 + 0.15 * sin(t * 2.2 + uv.x * 12.0 - uv.y * 8.0);
+    // Cryptochrome-4 radical-pair modulation creates a dark-violet shadowed annulus + glowing golden inclination node!
+    float darkShadowRing = exp(-pow((angFromB - 0.34) / 0.14, 2.0));
+    float violetRing = exp(-pow((angFromB - 0.24) / 0.085, 2.0));
+    float goldenRim = exp(-pow((angFromB - 0.13) / 0.032, 2.0));
+    float dipCore = exp(-pow(angFromB / 0.068, 2.0));
+    float meridians = pow(0.5 + 0.5 * sin(angFromB * 34.0 - t * 1.1), 5.0) * smoothstep(0.75, 0.18, angFromB);
 
-    vec3 magViolet = vec3(0.56, 0.30, 1.0);
-    vec3 magGold = vec3(1.0, 0.78, 0.24);
-    vec3 domeGlow = (magViolet * spinBand * 0.55 + magGold * dipNode * 0.95) * skyWeight * quantumShimmer;
+    float quantumShimmer = 0.88 + 0.12 * sin(t * 2.2 + angFromB * 14.0);
 
-    // Subtle concentric inclination meridian arcs
-    float meridians = pow(0.5 + 0.5 * sin(acos(clamp(vDotB, -1.0, 1.0)) * 24.0 - t * 0.9), 5.0);
-    domeGlow += magGold * meridians * skyWeight * 0.22;
-
-    col += domeGlow;
+    // First apply Cry4 dark spin-singlet modulation so it pops even over bright twilight clouds
+    col = mix(col, vec3(0.08, 0.05, 0.24), darkShadowRing * skyWeight * 0.68);
+    // Layer ethereal violet triplet ring & luminous golden 62-degree inclination dip node
+    col = mix(col, vec3(0.54, 0.26, 0.98), violetRing * skyWeight * 0.62 * quantumShimmer);
+    col = mix(col, vec3(1.0, 0.78, 0.24), clamp((goldenRim * 0.80 + dipCore * 0.92 + meridians * 0.28) * skyWeight * quantumShimmer, 0.0, 0.95));
     return clamp(col, 0.0, 1.0);
   }
 
@@ -816,13 +846,17 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
   col += sonarCyan * structEdge * (waveEnv * 1.35 + trailMem * 0.45) * sonarActive;
   col += vec3(0.04, 0.22, 0.34) * waveEnv * 0.35 * sonarActive;
 
-  // Close-range TRPV1 nasal-pit thermal signature on resting tapir's warm blood vessels
-  float tapirMask = ellipseMask(uv, uTargetPrimary, 1.25);
-  float cursorNear = 0.48 + 0.52 * smoothstep(0.42, 0.06, length((uCursor - uTargetPrimary.xy) * vec2(aspect, 1.0)));
-  float veinPattern = pow(0.5 + 0.5 * sin(uv.x * 95.0 + sin(uv.y * 60.0) * 2.5), 3.0);
-  float heartbeat = 0.82 + 0.18 * sin(t * 4.2);
-  vec3 capillaryIR = mix(vec3(0.88, 0.08, 0.18), vec3(1.0, 0.74, 0.42), veinPattern);
-  col += capillaryIR * tapirMask * cursorNear * heartbeat * (0.55 + 0.45 * clamp(trailMem + waveEnv, 0.0, 1.0));
+  // Close-range TRPV1 nasal-pit organic thermal signature on resting tapir's warm superficial blood vessels
+  float tapirMask = ellipseMask(uv, uTargetPrimary, 1.15);
+  float tapirCore = ellipseMask(uv, uTargetPrimary, 0.72);
+  float cursorNear = 0.52 + 0.48 * smoothstep(0.44, 0.06, length((uCursor - uTargetPrimary.xy) * vec2(aspect, 1.0)));
+  // Organic branching micro-capillary ridge network (replaces synthetic zig-zags!)
+  float veins = capillaryNet((uv - uTargetPrimary.xy) * vec2(aspect, 1.0) * 1.6);
+  float heartbeat = 0.86 + 0.14 * sin(t * 4.4);
+  float bodyWarmth = tapirMask * 0.42 + tapirCore * 0.35 + veins * tapirMask * 0.55;
+  vec3 thermalTint = mix(vec3(0.58, 0.05, 0.14), vec3(1.0, 0.46, 0.22), clamp(tapirCore * 0.55 + veins * 0.85, 0.0, 1.0));
+  thermalTint = mix(thermalTint, vec3(1.0, 0.86, 0.68), veins * tapirCore * 0.75);
+  col += thermalTint * bodyWarmth * cursorNear * heartbeat * (0.62 + 0.38 * clamp(trailMem + waveEnv, 0.0, 1.0));
 
   return clamp(col, 0.0, 1.0);
 }

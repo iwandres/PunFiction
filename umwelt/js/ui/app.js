@@ -10,7 +10,7 @@ import {
   getSpecies,
   getMysteryForSpecies,
 } from '../data/biomes.js?v=4';
-import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=5';
+import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=7';
 import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=1';
 import { InputController } from '../engine/InputController.js?v=1';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';

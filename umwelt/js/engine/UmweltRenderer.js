@@ -5,7 +5,7 @@
  *   Pass 2   -> Screen    (15 Species Biological Perception Shaders + Synchronized Split Curtain)
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
-import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=5';
+import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=7';
 import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=4';
 
 const IDB_NAME = 'umwelt_plates_l1';
@@ -522,8 +522,18 @@ export class UmweltRenderer {
   }
 
   _toGlEllipse(obj, fallback) {
-    const src = obj || fallback || { x: 0.5, y: 0.5, rx: 0.1, ry: 0.1 };
-    return [src.x, 1.0 - src.y, src.rx || 0.1, src.ry || 0.1];
+    if (obj && obj.present === false) {
+      return [0.0, 0.0, 0.0, 0.0];
+    }
+    const src = obj || fallback;
+    if (!src || src.present === false) {
+      return [0.0, 0.0, 0.0, 0.0];
+    }
+    // Match 4.5% edge overscan in LIVING_SCENE_FS so grounded overlays lock sub-pixel tight
+    const overscan = 1.045;
+    const sx = (src.x - 0.5) * overscan + 0.5;
+    const sy = ((1.0 - src.y) - 0.5) * overscan + 0.5;
+    return [sx, sy, (src.rx || 0.1) * overscan, (src.ry || 0.1) * overscan];
   }
 
   start() {

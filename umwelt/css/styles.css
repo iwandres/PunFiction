@@ -1077,7 +1077,7 @@ html, body {
 /* ---------- Toasts & Modals ---------- */
 .toast-host {
   position: absolute;
-  top: calc(var(--topbar-h, 52px) + 22px);
+  top: calc(var(--topbar-h, 52px) + 58px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 45;
