@@ -5,7 +5,7 @@
  *   Pass 2   -> Screen    (15 Species Biological Perception Shaders + Synchronized Split Curtain)
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
-import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=1';
+import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=5';
 import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=4';
 
 const IDB_NAME = 'umwelt_plates_l1';
@@ -149,7 +149,7 @@ export class UmweltRenderer {
     this.progCopy = this._buildProgram(FULLSCREEN_VS, COPY_FS, 'TemporalCopy');
 
     this.uLiving = this._cacheUniforms(this.progLiving, [
-      'uPlateRGB', 'uPlateBio', 'uTime', 'uPlateMix', 'uBiomeId', 'uLightIndex',
+      'uPlateRGB', 'uPlateBio', 'uTime', 'uPlateMix', 'uBiomeId', 'uSpeciesId', 'uLightIndex',
       'uParallax', 'uCamOffset', 'uCamZoom', 'uGaitBob', 'uReducedMotion', 'uResolution',
     ]);
     this.uPercept = this._cacheUniforms(this.progPercept, [
@@ -583,6 +583,7 @@ export class UmweltRenderer {
     gl.uniform1f(this.uLiving.uTime, timeSec);
     gl.uniform1f(this.uLiving.uPlateMix, st.plateMix);
     gl.uniform1i(this.uLiving.uBiomeId, st.biomeIndex);
+    gl.uniform1i(this.uLiving.uSpeciesId, st.speciesShaderId);
     gl.uniform1i(this.uLiving.uLightIndex, st.lightIndex);
     gl.uniform2f(this.uLiving.uParallax, st.parallaxX, st.parallaxY);
     gl.uniform2f(this.uLiving.uCamOffset, st.camOffsetX, st.camOffsetY);

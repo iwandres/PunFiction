@@ -34,6 +34,7 @@ uniform sampler2D uPlateBio;
 uniform float uTime;
 uniform float uPlateMix;
 uniform int uBiomeId;       // 0 = meadow, 1 = reef, 2 = cloudforest
+uniform int uSpeciesId;     // 0..14 active species shader ID
 uniform int uLightIndex;    // 0 = default, 1 = alt1, 2 = alt2
 uniform vec2 uParallax;     // [-1, 1] look tilt
 uniform vec2 uCamOffset;    // navigable locomotion offset
@@ -256,11 +257,11 @@ void main() {
 
   vec2 animUv = uvPar;
   if (uBiomeId == 0) {
-    // Wind-gust grass/petal sway + snowmelt ripple
-    float gust = sin(t * 2.1 + uvPar.x * 11.0 + uvPar.y * 5.0) * 0.0032
-               + sin(t * 3.7 + uvPar.x * 23.0) * 0.0014;
-    animUv.x += gust * windMask * motionScale;
-    animUv.y += sin(t * 4.5 + uvPar.y * 42.0) * 0.0012 * medMask * step(uvPar.y, 0.58) * motionScale;
+    // Keep Human Observer in Alpine Meadow crisp and distortion-free (no wavy warp)
+    if (uSpeciesId != 0) {
+      float gust = sin(t * 1.8 + uvPar.x * 7.0 + uvPar.y * 3.0) * 0.0014;
+      animUv.x += gust * windMask * motionScale;
+    }
   } else if (uBiomeId == 1) {
     // Underwater surge sway
     animUv.x += sin(t * 1.4 + uvPar.y * 10.0) * 0.0035 * windMask * motionScale;
@@ -277,10 +278,12 @@ void main() {
 
   // Living atmospheric overlays (pollen / underwater Voronoi caustics / mist & rain)
   if (uBiomeId == 0) {
-    // Drifting sunlit pollen motes
-    vec2 mUv = uvPar * vec2(18.0, 11.0) + vec2(-t * 0.25, sin(t * 0.6 + uvPar.x * 6.0) * 0.3);
-    float pollen = smoothstep(0.965, 0.995, noise2(mUv));
-    sceneCol += vec3(1.0, 0.95, 0.72) * pollen * 0.28 * motionScale;
+    if (uSpeciesId != 0) {
+      // Subtle sunlit pollen motes for non-human meadow vantage points
+      vec2 mUv = uvPar * vec2(18.0, 11.0) + vec2(-t * 0.25, sin(t * 0.6 + uvPar.x * 6.0) * 0.3);
+      float pollen = smoothstep(0.972, 0.996, noise2(mUv));
+      sceneCol += vec3(1.0, 0.95, 0.72) * pollen * 0.18 * motionScale;
+    }
   } else if (uBiomeId == 1) {
     // Animated Voronoi solar caustics projected across depth
     float caust = voronoiCaustic(uvPar * vec2(8.5, 5.5) + vec2(t * 0.16, t * 0.09), t * 1.15);
