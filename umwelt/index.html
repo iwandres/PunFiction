@@ -12,12 +12,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>UMWELT: Animal Optics — Through Their Eyes | PunFiction</title>
-  <meta name="description" content="Explore 3 living ecosystems through 15 photorealistic ecological POVs: UV trails, thermal IR, linear & circular polarization, shark electroreception, quantum magnetoreception, ultrasonic sonar & 12 ecological field mysteries." />
+  <meta name="description" content="Explore 3 living ecosystems through 24 photorealistic ecological POVs: UV trails, Snell's Window, non-spectral UV+Red, lensless pinhole optics, thermal IR, linear & circular polarization, crystal mirrors, binaural sound maps, shark electroreception, quantum magnetoreception, ultrasonic sonar & 21 ecological field mysteries." />
   <link rel="canonical" href="https://punfiction.io/umwelt/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PunFiction" />
   <meta property="og:title" content="UMWELT: Animal Optics — Through Their Eyes" />
-  <meta property="og:description" content="Step into 15 biological vantage points across Alpine Meadow, Coral Reef & Cloud Forest. Experience UV, thermal IR, polarization, electroreception, sonar & hidden field mysteries." />
+  <meta property="og:description" content="Step into 24 biological vantage points across Alpine Meadow, Coral Reef & Cloud Forest. Experience UV, Snell's Window, pinhole eyes, crystal mirrors, f/0.58 night scopes, thermal IR, polarization, electroreception & sonar." />
   <meta property="og:url" content="https://punfiction.io/umwelt/" />
   <meta property="og:image" content="https://punfiction.io/umwelt/og-preview.png" />
   <meta property="og:image:width" content="1200" />
@@ -33,7 +33,7 @@
     "name": "UMWELT: Animal Optics",
     "url": "https://punfiction.io/umwelt/",
     "image": "https://punfiction.io/umwelt/og-preview.png",
-    "description": "Photorealistic 2.5D WebGL2 animal vision simulator and sensory field discovery experience across 3 biomes and 15 species POVs.",
+    "description": "Photorealistic 2.5D WebGL2 animal vision simulator and sensory field discovery experience across 3 biomes and 24 species POVs.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "offers": {
@@ -52,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <link rel="stylesheet" href="css/styles.css?v=9" />
 </head>
 <body>
   <div id="viewport" class="viewport">
@@ -117,7 +117,7 @@
       <div class="top-right">
         <button type="button" id="btn-split" class="hud-btn accent" title="Compare Human baseline vs Animal perception (Tab / Space)">◫ Split</button>
         <button type="button" id="btn-journal" class="hud-btn" title="Open Ecological Field Journal">
-          📓 Journal <span id="journal-count-badge" class="count-badge">0/12</span>
+          📓 Journal <span id="journal-count-badge" class="count-badge">0/21</span>
         </button>
         <a href="guide.html" class="hud-btn" style="text-decoration: none;" title="Read the Animal Vision &amp; Sensory Biology Field Guide">🔬 Science Guide</a>
         <button type="button" id="btn-audio" class="hud-btn icon-text" title="Toggle procedural binaural species audio (M)">🔇 Sound</button>
@@ -152,6 +152,11 @@
           <input id="pol-slider" type="range" min="0" max="180" value="42" aria-label="Rotate linear polarization angle" />
           <strong id="pol-deg-label" class="mech-val">42°</strong>
         </div>
+        <div id="aperture-control" class="mech-pill glass-panel hidden">
+          <span class="mech-label">PINHOLE APERTURE Ø</span>
+          <input id="aperture-slider" type="range" min="0.4" max="2.8" step="0.05" value="1.30" aria-label="Adjust Nautilus seawater pinhole pupil diameter" />
+          <strong id="aperture-mm-label" class="mech-val wide">1.30 mm · Sweet Spot</strong>
+        </div>
         <div id="sonar-control" class="mech-pill glass-panel hidden">
           <button type="button" id="btn-sonar-ping" class="sonar-btn">📡 Emit Ultrasonic Sonar (E)</button>
         </div>
@@ -161,7 +166,7 @@
       <div id="objective-strip" class="objective-strip glass-panel" aria-live="polite"></div>
     </div>
 
-    <!-- BOTTOM 5-SLOT SPECIES DOCK -->
+    <!-- BOTTOM 8-SLOT SPECIES DOCK -->
     <nav id="species-dock" class="species-dock glass-panel" aria-label="Select ecological species POV"></nav>
 
     <!-- RIGHT COLLAPSIBLE ECOLOGICAL FIELD JOURNAL DRAWER -->
@@ -179,9 +184,9 @@
   <noscript>
     <div style="max-width:720px;margin:40px auto;padding:24px;background:#0c1424;color:#f1f5f9;border-radius:14px;font-family:sans-serif;line-height:1.6;">
       <h2>UMWELT: Animal Optics — Interactive WebGL2 Simulator</h2>
-      <p>UMWELT requires JavaScript and WebGL2 to render its 15 animal sensory perspectives across an Alpine Meadow, Coral Reef Lagoon, and Cloud Forest. You can still read our complete illustrated <a href="guide.html" style="color:#34d399;">Animal Vision &amp; Sensory Biology Field Guide</a> or return to <a href="../" style="color:#34d399;">PunFiction</a>.</p>
+      <p>UMWELT requires JavaScript and WebGL2 to render its 24 animal sensory perspectives across an Alpine Meadow, Coral Reef Lagoon, and Cloud Forest. You can still read our complete illustrated <a href="guide.html" style="color:#34d399;">Animal Vision &amp; Sensory Biology Field Guide</a> or return to <a href="../" style="color:#34d399;">PunFiction</a>.</p>
     </div>
   </noscript>
-  <script type="module" src="js/ui/app.js?v=7"></script>
+  <script type="module" src="js/ui/app.js?v=9"></script>
 </body>
 </html>

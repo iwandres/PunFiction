@@ -36,7 +36,7 @@ export class InputController {
       const code = e.code;
       this.keys.add(code);
 
-      if (code >= 'Digit1' && code <= 'Digit5') {
+      if (code >= 'Digit1' && code <= 'Digit8') {
         const slot = parseInt(code.replace('Digit', ''), 10);
         this.callbacks.onSlotKey?.(slot);
       } else if (code === 'Space') {

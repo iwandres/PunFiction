@@ -40,8 +40,8 @@ class TestUmweltBackend(unittest.TestCase):
         catalog = umwelt_data.get_full_catalog()
         self.assertEqual(len(catalog["biomes"]), 3)
         total_species = sum(len(b["species"]) for b in catalog["biomes"])
-        self.assertEqual(total_species, 15)
-        self.assertEqual(len(catalog["mysteries"]), 12)
+        self.assertEqual(total_species, 24)
+        self.assertEqual(len(catalog["mysteries"]), 21)
 
         # Verify every mystery points to a valid biome + species
         for m in catalog["mysteries"]:
@@ -110,6 +110,36 @@ class TestUmweltBackend(unittest.TestCase):
         journal = udb.get_journal("tester-1")
         self.assertEqual(len(journal["solvedMysteries"]), 1)
         self.assertEqual(journal["totalPoints"], 200)
+
+    def test_verify_mystery_discovery_nautilus_pinhole_aperture(self):
+        # Extreme dim pinhole (0.45mm) should prompt player to tune aperture
+        code1, res1 = upipe.verify_mystery_discovery({
+            "clientUuid": "tester-2",
+            "mysteryId": "reef_nautilus_pinhole",
+            "biomeId": "reef",
+            "speciesSlug": "nautilus",
+            "clickX": 0.62,
+            "clickY": 0.56,
+            "mechanicState": {"apertureMm": 0.45},
+        })
+        self.assertEqual(code1, 200)
+        self.assertFalse(res1["solved"])
+        self.assertEqual(res1["reason"], "mechanic_unaligned")
+
+        # Sweet-spot aperture (1.35mm) should solve cleanly
+        code2, res2 = upipe.verify_mystery_discovery({
+            "clientUuid": "tester-2",
+            "mysteryId": "reef_nautilus_pinhole",
+            "biomeId": "reef",
+            "speciesSlug": "nautilus",
+            "clickX": 0.62,
+            "clickY": 0.56,
+            "mechanicState": {"apertureMm": 1.35},
+            "timeToSolveMs": 8500,
+        })
+        self.assertEqual(code2, 200)
+        self.assertTrue(res2["solved"])
+        self.assertIn("pinhole", res2["codexEntry"].lower())
 
     def test_resolve_plate_cache_hit_skips_gemini(self):
         pk = udb.sanitize_plate_key("meadow", "kestrel", "Alpine Noon", 1)

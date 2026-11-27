@@ -5,8 +5,8 @@
  *   Pass 2   -> Screen    (15 Species Biological Perception Shaders + Synchronized Split Curtain)
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
-import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=7';
-import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=4';
+import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=9';
+import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=8';
 
 const IDB_NAME = 'umwelt_plates_l1';
 const IDB_STORE = 'plates';
@@ -101,6 +101,7 @@ export class UmweltRenderer {
       camZoom: 1.0,
       gaitBob: 0,
       polAngleRad: (42 * Math.PI) / 180,
+      apertureMm: 1.3,
       sonarTriggerTime: -10,
       sonarOriginX: 0.5,
       sonarOriginY: 0.5,
@@ -154,7 +155,7 @@ export class UmweltRenderer {
     ]);
     this.uPercept = this._cacheUniforms(this.progPercept, [
       'uLivingTex', 'uPrevTex', 'uBioTex', 'uBiomeId', 'uSpeciesId', 'uTime',
-      'uResolution', 'uCursor', 'uPolAngle', 'uSonarAge', 'uSonarOrigin',
+      'uResolution', 'uCursor', 'uPolAngle', 'uApertureMm', 'uSonarAge', 'uSonarOrigin',
       'uSplitEnabled', 'uSplitX', 'uTransition', 'uReducedMotion',
       'uTargetPrimary', 'uTargetSecondary', 'uEnvFeature',
     ]);
@@ -170,9 +171,9 @@ export class UmweltRenderer {
     this._setupFBOs();
     this.resize();
 
-    // Load pre-baked static launch plate manifest (15 default-lighting plates on GitHub Pages CDN)
+    // Load pre-baked static launch plate manifest (24 default-lighting plates on GitHub Pages CDN)
     try {
-      const resp = await fetch('assets/plates/manifest.json?v=3');
+      const resp = await fetch('assets/plates/manifest.json?v=8');
       if (resp.ok) {
         this.staticManifest = await resp.json();
         for (const pk of Object.keys(this.staticManifest)) {
@@ -462,8 +463,8 @@ export class UmweltRenderer {
     if (this.memoryPlates.has(plateKey)) return this.memoryPlates.get(plateKey);
     try {
       const [rgbResp, bioResp] = await Promise.all([
-        fetch(`${manifestEntry.rgbPath}?v=3`),
-        fetch(`${manifestEntry.bioPath}?v=3`),
+        fetch(`${manifestEntry.rgbPath}?v=8`),
+        fetch(`${manifestEntry.bioPath}?v=8`),
       ]);
       if (!rgbResp.ok || !bioResp.ok) return null;
       const [rgbBlob, bioBlob] = await Promise.all([rgbResp.blob(), bioResp.blob()]);
@@ -631,6 +632,7 @@ export class UmweltRenderer {
     gl.uniform2f(this.uPercept.uResolution, w, h);
     gl.uniform2f(this.uPercept.uCursor, st.cursorX, 1.0 - st.cursorY);
     gl.uniform1f(this.uPercept.uPolAngle, st.polAngleRad);
+    gl.uniform1f(this.uPercept.uApertureMm, st.apertureMm);
     gl.uniform1f(this.uPercept.uSonarAge, Math.max(0, timeSec - st.sonarTriggerTime));
     gl.uniform2f(this.uPercept.uSonarOrigin, st.sonarOriginX, st.sonarOriginY);
     gl.uniform1f(this.uPercept.uSplitEnabled, st.splitEnabled ? 1.0 : 0.0);

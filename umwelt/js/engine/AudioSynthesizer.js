@@ -172,6 +172,55 @@ export class AudioSynthesizer {
       freq = 1850;
       q = 1.8;
       ambLevel = 0.16;
+    } else if (sp === 'dragonfly') {
+      filterType = 'bandpass';
+      freq = 1480;
+      q = 1.4;
+      droneWave = 'triangle';
+      droneFreq = 96; // Quiet rapid wing hum
+      droneVol = 0.022;
+    } else if (sp === 'cutthroat_trout') {
+      filterType = 'lowpass';
+      freq = 240; // Submerged stream rush beneath surface film
+      q = 1.2;
+      ambLevel = 0.34;
+    } else if (sp === 'hummingbird') {
+      filterType = 'bandpass';
+      freq = 1100;
+      q = 1.1;
+      droneWave = 'sine';
+      droneFreq = 164; // ~55-70 Hz harmonic wing hover hum
+      droneVol = 0.028;
+    } else if (sp === 'nautilus') {
+      filterType = 'lowpass';
+      freq = 145; // Deep drop-off quiet abyssal swell
+      q = 0.8;
+      ambLevel = 0.32;
+    } else if (sp === 'archerfish') {
+      filterType = 'lowpass';
+      freq = 360; // Shallow air-water interface lapping
+      q = 0.9;
+      ambLevel = 0.30;
+    } else if (sp === 'scallop') {
+      filterType = 'lowpass';
+      freq = 220;
+      q = 1.2;
+      ambLevel = 0.32;
+    } else if (sp === 'spectacled_owl') {
+      filterType = 'highpass';
+      freq = 1650; // Hyper-acute silent leaf-rustle listening band
+      q = 1.2;
+      ambLevel = 0.18;
+    } else if (sp === 'treefrog') {
+      filterType = 'bandpass';
+      freq = 1320; // Humid nocturnal cloud-forest insect chorus band
+      q = 0.9;
+      ambLevel = 0.24;
+    } else if (sp === 'ogre_spider') {
+      filterType = 'bandpass';
+      freq = 1050; // Quiet suspended silk floor-rustle awareness
+      q = 1.3;
+      ambLevel = 0.20;
     }
 
     this.filter.type = filterType;

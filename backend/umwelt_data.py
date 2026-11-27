@@ -18,9 +18,9 @@ BIOMES = [
         "scale": {
             "mode": "elevation",
             "unit": "m",
-            "min": 0.0,
+            "min": -0.5,
             "max": 15.0,
-            "minLabel": "0.0 m Ground Litter",
+            "minLabel": "-0.5 m Creek Bed",
             "maxLabel": "15.0 m Pine Canopy",
         },
         "species": [
@@ -188,6 +188,112 @@ BIOMES = [
                     "secondaryTarget": {"present": True, "label": "Meadow Poppy Patch", "x": 0.28, "y": 0.76, "rx": 0.16, "ry": 0.12},
                     "environmentFeature": {"present": True, "label": "Spruce Horizon Line", "x": 0.50, "y": 0.48, "rx": 0.48, "ry": 0.10},
                     "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.18, "rx": 0.50, "ry": 0.20},
+                },
+            },
+            {
+                "slot": 6,
+                "slug": "dragonfly",
+                "shaderId": 15,
+                "name": "Green Darner Dragonfly",
+                "scientificName": "Anax junius",
+                "icon": "🪰",
+                "elevationM": 1.60,
+                "vantageLabel": "1.60 m Creek Hover · 140° Split Compound",
+                "fovDeg": 140,
+                "sensoryTag": "200 Hz Split-Eye",
+                "accentColor": "#0ea5e9",
+                "summary": "Splits its compound eye at the horizon: dorsal UV/blue-only ommatidia isolate dark flying insects against blue sky while ventral 11+ opsin facets decode foliage at 200 Hz bullet-time.",
+                "photoreceptors": [
+                    {"label": "Dorsal UV", "peakNm": 355, "color": "#a855f7", "width": 24},
+                    {"label": "Dorsal Blue", "peakNm": 440, "color": "#0ea5e9", "width": 28},
+                    {"label": "Ventral Green", "peakNm": 525, "color": "#22c55e", "width": 30},
+                    {"label": "Ventral Orange", "peakNm": 605, "color": "#f97316", "width": 32},
+                ],
+                "nonVisualBand": {"label": "200 Hz Flicker Fusion + STMD", "range": "4× human temporal speed"},
+                "mechanic": {"id": "dorsal_intercept", "hint": "Scan the UV/blue dorsal sky above the horizon to spot the dark flying horsefly & its intercept vector"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 wide aerial insect-eye photograph hovering 1.6 meters "
+                    "above a sunlit Rocky Mountain alpine creek bank looking forward. Bright clear azure blue mountain sky fills the upper "
+                    "half of the frame, snow-dusted mountain ridges sit along the horizon midline, and lush green sedge, yellow wildflowers, "
+                    "and glistening creek water fill the lower half. Suspended clearly in mid-air against the open blue sky in the upper-right "
+                    "quadrant is a small dark-bodied alpine horsefly in sharp mid-flight. NO dragonflies anywhere in the frame, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Airborne Alpine Horsefly", "x": 0.68, "y": 0.28, "rx": 0.08, "ry": 0.08},
+                    "secondaryTarget": {"present": True, "label": "Sunlit Sedge Bank", "x": 0.36, "y": 0.72, "rx": 0.22, "ry": 0.14},
+                    "environmentFeature": {"present": True, "label": "Mountain Horizon Line", "x": 0.50, "y": 0.50, "rx": 0.48, "ry": 0.08},
+                    "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.24, "rx": 0.50, "ry": 0.24},
+                },
+            },
+            {
+                "slot": 7,
+                "slug": "cutthroat_trout",
+                "shaderId": 16,
+                "name": "Cutthroat Trout",
+                "scientificName": "Oncorhynchus clarkii",
+                "icon": "🐟",
+                "elevationM": -0.25,
+                "vantageLabel": "-0.25 m Snowmelt Stream · 130° Snell's Window",
+                "fovDeg": 130,
+                "sensoryTag": "97.2° Snell's Window",
+                "accentColor": "#2dd4bf",
+                "summary": "Underwater air-water refraction compresses the entire 180° world above the creek into a 97.2° rainbow-rimmed overhead portal surrounded by a liquid silver Total Internal Reflection mirror.",
+                "photoreceptors": [
+                    {"label": "UV-Cone", "peakNm": 365, "color": "#a855f7", "width": 26},
+                    {"label": "S-Cone", "peakNm": 434, "color": "#3b82f6", "width": 32},
+                    {"label": "M-Cone", "peakNm": 531, "color": "#10b981", "width": 36},
+                    {"label": "L-Cone", "peakNm": 576, "color": "#f97316", "width": 38},
+                ],
+                "nonVisualBand": {"label": "Snell's Law (n=1.333) + TIR", "range": "48.6° critical angle mirror"},
+                "mechanic": {"id": "snell_window", "hint": "Look straight up through the 97.2° refracted aerial portal to spot the surface mayfly dimple"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 submerged underwater upward-looking photograph from "
+                    "25 cm beneath the surface of a crystal-clear Rocky Mountain snowmelt stream looking steeply upward toward the sunlit "
+                    "water surface. Towering green spruce tree crowns and bright sapphire alpine sky are visible directly overhead through "
+                    "the clear water window, with a delicate winged mayfly resting clearly on the water surface film near upper-center-right, "
+                    "framed by smooth river cobbles and dark underwater creek bank edges along the bottom perimeter. NO fish or trout anywhere "
+                    "in the frame, crisp natural underwater clarity, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Surface-Film Mayfly Dimple", "x": 0.58, "y": 0.36, "rx": 0.09, "ry": 0.09},
+                    "secondaryTarget": {"present": True, "label": "Overhanging Pine Canopy", "x": 0.34, "y": 0.28, "rx": 0.16, "ry": 0.14},
+                    "environmentFeature": {"present": True, "label": "Stream Surface Window", "x": 0.50, "y": 0.44, "rx": 0.30, "ry": 0.30},
+                    "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.38, "rx": 0.36, "ry": 0.34},
+                },
+            },
+            {
+                "slot": 8,
+                "slug": "hummingbird",
+                "shaderId": 17,
+                "name": "Rufous Hummingbird",
+                "scientificName": "Selasphorus rufus",
+                "icon": "🐦‍🔥",
+                "elevationM": 0.90,
+                "vantageLabel": "0.90 m Paintbrush Patch · 78° Hover Macro",
+                "fovDeg": 78,
+                "sensoryTag": "Non-Spectral UV+Red",
+                "accentColor": "#f472b6",
+                "summary": "True tetrachromat perceiving non-spectral colors (UV+Red, UV+Green) humans cannot imagine—separating shimmering fresh nectar-rich alpine blooms from drained red flowers.",
+                "photoreceptors": [
+                    {"label": "UV-Cone", "peakNm": 370, "color": "#a855f7", "width": 26},
+                    {"label": "S-Cone", "peakNm": 440, "color": "#3b82f6", "width": 30},
+                    {"label": "M-Cone", "peakNm": 508, "color": "#22c55e", "width": 32},
+                    {"label": "L-Cone (Red)", "peakNm": 560, "color": "#ef4444", "width": 34},
+                ],
+                "nonVisualBand": {"label": "Non-Spectral UV+Red Perception", "range": "Optokinetic hover lock"},
+                "mechanic": {"id": "nonspectral_inspect", "hint": "Distinguish the shimmering UV+Red nectar-full blossom from drained matte scarlet flowers"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 close-up macro wildlife photograph hovering 0.9 meters "
+                    "in front of sunlit tubular scarlet-red Indian paintbrush and crimson alpine penstemon wildflowers in a Rocky Mountain "
+                    "meadow. One lush, fresh dew-glistening scarlet tubular blossom cluster stands crisp and prominent center-left, while "
+                    "older slightly wilted red flowers sit to the right against soft-focus alpine grass and distant peaks. NO hummingbirds "
+                    "or birds anywhere in the frame, tack-sharp botanical detail, natural sunlight, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Nectar-Rich UV+Red Blossom", "x": 0.38, "y": 0.52, "rx": 0.12, "ry": 0.14},
+                    "secondaryTarget": {"present": True, "label": "Drained Scarlet Bloom", "x": 0.72, "y": 0.56, "rx": 0.11, "ry": 0.13},
+                    "environmentFeature": {"present": True, "label": "Alpine Wildflower Stem", "x": 0.50, "y": 0.74, "rx": 0.28, "ry": 0.16},
+                    "skyOrWaterRegion": {"present": True, "x": 0.52, "y": 0.14, "rx": 0.44, "ry": 0.14},
                 },
             },
         ],
@@ -378,6 +484,105 @@ BIOMES = [
                     "skyOrWaterRegion": {"present": True, "x": 0.80, "y": 0.42, "rx": 0.22, "ry": 0.42},
                 },
             },
+            {
+                "slot": 6,
+                "slug": "nautilus",
+                "shaderId": 18,
+                "name": "Chambered Nautilus",
+                "scientificName": "Nautilus pompilius",
+                "icon": "🐚",
+                "elevationM": -5.6,
+                "vantageLabel": "-5.6 m Deep Reef Drop-Off · 70° Lensless Pinhole",
+                "fovDeg": 70,
+                "sensoryTag": "Lensless Pinhole Eye",
+                "accentColor": "#cbd5e1",
+                "summary": "The only cephalopod without a lens: an open seawater-filled pinhole pupil (0.4–2.8 mm) forces a real-time optical trade-off between sharp dim focus and bright blurry vision.",
+                "photoreceptors": [
+                    {"label": "Single Deep Opsin", "peakNm": 467, "color": "#60a5fa", "width": 44},
+                ],
+                "nonVisualBand": {"label": "Variable Seawater Pinhole", "range": "0.4 mm sharp ↔ 2.8 mm bright"},
+                "mechanic": {"id": "pinhole_aperture", "hint": "Scroll wheel / Q & E / drag the Aperture slider (0.4–2.8 mm) to balance brightness & focus, then click the shrimp"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic underwater photorealistic 16:9 twilight photograph at 5.6 meters depth "
+                    "gliding along a steep dark Indo-Pacific coral reef drop-off wall in deep cobalt-blue ambient water. Craggy limestone "
+                    "reef ledges, delicate gorgonian sea fans, and a pale white-and-red banded cleaner shrimp foraging clearly on a dark "
+                    "coral ledge right-of-center, with dark open ocean drop-off to the left. NO nautilus, squid, or octopus anywhere in "
+                    "the frame, natural deep-reef marine documentary photo, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Deep-Reef Banded Shrimp", "x": 0.62, "y": 0.56, "rx": 0.10, "ry": 0.10},
+                    "secondaryTarget": {"present": True, "label": "Gorgonian Sea Fan", "x": 0.34, "y": 0.44, "rx": 0.14, "ry": 0.16},
+                    "environmentFeature": {"present": True, "label": "Limestone Reef Drop-Off", "x": 0.64, "y": 0.62, "rx": 0.30, "ry": 0.32},
+                    "skyOrWaterRegion": {"present": True, "x": 0.18, "y": 0.36, "rx": 0.22, "ry": 0.36},
+                },
+            },
+            {
+                "slot": 7,
+                "slug": "archerfish",
+                "shaderId": 19,
+                "name": "Banded Archerfish",
+                "scientificName": "Toxotes jaculatrix",
+                "icon": "🎯",
+                "elevationM": -0.15,
+                "vantageLabel": "-0.15 m Lagoon Mangrove Edge · 95° Sub-Surface",
+                "fovDeg": 95,
+                "sensoryTag": "Snell Ballistic Aim",
+                "accentColor": "#38bdf8",
+                "summary": "Hovers centimeters beneath the clear lagoon surface, looking up through Snell's Window and neurally un-bending the n=1.333 air-water refraction shift to spit jets at overhanging insects.",
+                "photoreceptors": [
+                    {"label": "S-Cone (Aerial)", "peakNm": 455, "color": "#3b82f6", "width": 32},
+                    {"label": "M-Cone (Green)", "peakNm": 530, "color": "#22c55e", "width": 36},
+                    {"label": "L-Cone (Ventral)", "peakNm": 570, "color": "#f97316", "width": 38},
+                ],
+                "nonVisualBand": {"label": "Neural Snell Refraction Solver", "range": "n = 1.333 ballistic compensation"},
+                "mechanic": {"id": "refraction_aim", "hint": "Sweep the refraction compensator over the bent overhanging twig to lock true coordinates & click the beetle"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 upward photograph from just 15 cm beneath the glass-clear "
+                    "surface of a tropical Indo-Pacific coastal lagoon looking up through the water surface toward overhanging sunlit green "
+                    "mangrove tree branches against bright tropical sky. Perched clearly on a low overhanging green mangrove twig in the "
+                    "upper-left-of-center is a shiny metallic emerald-green rainforest beetle. Subtle surface ripples frame the outer edges. "
+                    "NO fish or archerfish anywhere in the frame, razor-sharp natural wildlife photography, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Overhanging Mangrove Beetle", "x": 0.42, "y": 0.34, "rx": 0.09, "ry": 0.09},
+                    "secondaryTarget": {"present": True, "label": "Mangrove Canopy Foliage", "x": 0.68, "y": 0.30, "rx": 0.20, "ry": 0.16},
+                    "environmentFeature": {"present": True, "label": "Air-Water Surface Film", "x": 0.50, "y": 0.50, "rx": 0.42, "ry": 0.38},
+                    "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.24, "rx": 0.46, "ry": 0.24},
+                },
+            },
+            {
+                "slot": 8,
+                "slug": "scallop",
+                "shaderId": 20,
+                "name": "Reef Scallop",
+                "scientificName": "Pecten maximus",
+                "icon": "🦪",
+                "elevationM": -4.8,
+                "vantageLabel": "-4.8 m Seabed Sand Floor · 110° Mirror Array",
+                "fovDeg": 110,
+                "sensoryTag": "200 Crystal Mirrors",
+                "accentColor": "#e2e8f0",
+                "summary": "Instead of lenses, ~200 concave guanine-crystal biological mirrors focus light onto dual stacked retinas—a spatial ON-layer and a distal OFF-layer that flashes stark white on looming shadows.",
+                "photoreceptors": [
+                    {"label": "Proximal Spatial", "peakNm": 485, "color": "#38bdf8", "width": 36},
+                    {"label": "Distal Looming OFF", "peakNm": 505, "color": "#e2e8f0", "width": 38},
+                ],
+                "nonVisualBand": {"label": "Concave Guanine Crystal Mirrors", "range": "~200 dual-retina telescopes"},
+                "mechanic": {"id": "mirror_looming", "hint": "Scan across the multi-mirror array to pinpoint the dark looming reef predator triggering OFF-flashes"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic underwater photorealistic 16:9 ultra-low seabed photograph from 5 cm off "
+                    "a sunlit Indo-Pacific white coral sand lagoon floor looking horizontally across sparse green seagrass blades and coral "
+                    "rubble toward distant reef mounds. Swimming into view across the midground right-of-center is a dark-patterned reef "
+                    "triggerfish predator cruising just above the sand. Bright blue reef water above, NO scallops, clams, or bivalves "
+                    "anywhere in the frame, realistic marine documentary photography, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Looming Reef Triggerfish", "x": 0.64, "y": 0.48, "rx": 0.11, "ry": 0.09},
+                    "secondaryTarget": {"present": True, "label": "Seagrass Sand Meadow", "x": 0.30, "y": 0.72, "rx": 0.22, "ry": 0.14},
+                    "environmentFeature": {"present": True, "label": "Distant Reef Horizon", "x": 0.45, "y": 0.46, "rx": 0.34, "ry": 0.14},
+                    "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.20, "rx": 0.48, "ry": 0.20},
+                },
+            },
         ],
     },
     {
@@ -563,6 +768,104 @@ BIOMES = [
                     "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.12, "rx": 0.44, "ry": 0.12},
                 },
             },
+            {
+                "slot": 6,
+                "slug": "spectacled_owl",
+                "shaderId": 21,
+                "name": "Spectacled Owl",
+                "scientificName": "Pulsatrix perspicillata",
+                "icon": "🦉",
+                "elevationM": 6.5,
+                "vantageLabel": "6.5 m Understory Perch · 70° Tubular Binocular",
+                "fovDeg": 70,
+                "sensoryTag": "Passive Binaural Map",
+                "accentColor": "#fbbf24",
+                "summary": "Dead-silent passive hunter: vertically asymmetric ear openings compute microsecond timing and volume differences, projecting glowing 3D sound contours of prey rustling beneath opaque ferns.",
+                "photoreceptors": [
+                    {"label": "Hyper-Dense Rods", "peakNm": 503, "color": "#94a3b8", "width": 44},
+                    {"label": "Dim Cones", "peakNm": 555, "color": "#fbbf24", "width": 40},
+                ],
+                "nonVisualBand": {"label": "Asymmetric Ear ITD + ILD", "range": "±1° silent 3D sound map"},
+                "mechanic": {"id": "binaural_listen", "hint": "Sweep your silent binaural focus across the dark fern floor to sharpen passive rustle contours"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 nocturnal wildlife photograph looking obliquely downward "
+                    "from a 6.5-meter mossy cloud-forest branch onto a shadowy rainforest floor carpeted in broad wet dark green ferns, "
+                    "fallen damp leaves, and mossy buttress roots in dim silver moonlight. Tucked partially underneath a dense cluster of "
+                    "broad ferns near lower-center-left is the subtle barely visible snout and ear silhouette of a tiny nocturnal forest "
+                    "spiny mouse foraging in leaf litter. NO owls or birds anywhere in the frame, atmospheric moonlight depth, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Rustling Forest Mouse Under Ferns", "x": 0.38, "y": 0.64, "rx": 0.11, "ry": 0.10},
+                    "secondaryTarget": {"present": True, "label": "Mossy Understory Roots", "x": 0.72, "y": 0.56, "rx": 0.18, "ry": 0.16},
+                    "environmentFeature": {"present": True, "label": "Damp Fern Carpet", "x": 0.46, "y": 0.68, "rx": 0.34, "ry": 0.22},
+                    "skyOrWaterRegion": {"present": True, "x": 0.52, "y": 0.14, "rx": 0.40, "ry": 0.14},
+                },
+            },
+            {
+                "slot": 7,
+                "slug": "treefrog",
+                "shaderId": 22,
+                "name": "Red-Eyed Treefrog",
+                "scientificName": "Agalychnis callidryas",
+                "icon": "🐸",
+                "elevationM": 1.4,
+                "vantageLabel": "1.4 m Heliconia Leaf Perch · 95° Wide Nocturnal",
+                "fovDeg": 95,
+                "sensoryTag": "Dual-Rod Color + Bug Det.",
+                "accentColor": "#84cc16",
+                "summary": "The only vertebrates with starlight color vision powered by two distinct rod types (435 nm blue + 502 nm green rods), paired with retinal 'bug-detector' ganglion cells that flash on small dark fluttering prey.",
+                "photoreceptors": [
+                    {"label": "Blue Rod (435 nm)", "peakNm": 435, "color": "#38bdf8", "width": 38},
+                    {"label": "Green Rod (502 nm)", "peakNm": 502, "color": "#4ade80", "width": 42},
+                ],
+                "nonVisualBand": {"label": "Retinal Bug-Detector Ganglia", "range": "Convex moving-prey edge flash"},
+                "mechanic": {"id": "bug_detector", "hint": "Peer through dual-rod starlight color to spot the fluttering insect firing the retinal bug-detector"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 nocturnal macro wildlife photograph from 1.4 meters "
+                    "perched on the slick glossy wet surface of a broad green tropical Heliconia leaf in a misty Costa Rican cloud forest "
+                    "at night. Raindrops bead along dark green foliage in soft blue-green starlight; hovering sharply near a damp leaf edge "
+                    "right-of-center is a delicate dark-bodied nocturnal crane-fly mosquito in mid-air. NO frogs, toads, or amphibians "
+                    "anywhere in the frame, moody rainforest bokeh, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Fluttering Nocturnal Crane-Fly", "x": 0.64, "y": 0.46, "rx": 0.09, "ry": 0.09},
+                    "secondaryTarget": {"present": True, "label": "Wet Heliconia Leaf Blade", "x": 0.34, "y": 0.70, "rx": 0.22, "ry": 0.16},
+                    "environmentFeature": {"present": True, "label": "Misty Night Foliage", "x": 0.48, "y": 0.40, "rx": 0.34, "ry": 0.24},
+                    "skyOrWaterRegion": {"present": True, "x": 0.46, "y": 0.16, "rx": 0.36, "ry": 0.16},
+                },
+            },
+            {
+                "slot": 8,
+                "slug": "ogre_spider",
+                "shaderId": 23,
+                "name": "Ogre-Faced Spider",
+                "scientificName": "Deinopis spinosa",
+                "icon": "🕸️",
+                "elevationM": 0.65,
+                "vantageLabel": "0.65 m Silk Suspend · 100° Downward f/0.58",
+                "fovDeg": 100,
+                "sensoryTag": "f/0.58 · 2000× Gain",
+                "accentColor": "#f59e0b",
+                "summary": "Enormous f/0.58 simple lenses (2,000× human light sensitivity, whose retinas dissolve every dawn and regrow every dusk) illuminate pitch-black leaf litter with razor-thin bokeh focus.",
+                "photoreceptors": [
+                    {"label": "Giant f/0.58 Retina", "peakNm": 516, "color": "#f59e0b", "width": 46},
+                ],
+                "nonVisualBand": {"label": "f/0.58 Ultra-Wide Aperture", "range": "2,000× light gain · razor DoF"},
+                "mechanic": {"id": "f058_focus", "hint": "Sweep your razor-thin f/0.58 focal plane over the dark forest floor to snap the walking cricket into focus"},
+                "imagePrompt": (
+                    "Strictly first-person POV National Geographic photorealistic 16:9 straight-downward nocturnal macro photograph from "
+                    "65 cm above a shadowy damp Neotropical cloud-forest floor at night. Wet fallen brown leaves, mossy twigs, and faint "
+                    "dew-beaded foreground foliage frame a dark glossy rainforest cricket walking clearly across a damp leaf right near "
+                    "center-of-frame. Rich micro-texture in dim nocturnal light (for high-gain night-vision shading), NO spiders or webs "
+                    "blocking the center, zero text."
+                ),
+                "defaultSemantics": {
+                    "primaryTarget": {"present": True, "label": "Foraging Forest Floor Cricket", "x": 0.50, "y": 0.52, "rx": 0.10, "ry": 0.09},
+                    "secondaryTarget": {"present": True, "label": "Wet Fallen Leaf Litter", "x": 0.28, "y": 0.64, "rx": 0.18, "ry": 0.16},
+                    "environmentFeature": {"present": True, "label": "Mossy Forest Floor", "x": 0.68, "y": 0.36, "rx": 0.20, "ry": 0.18},
+                    "skyOrWaterRegion": {"present": False, "x": 0.50, "y": 0.08, "rx": 0.20, "ry": 0.08},
+                },
+            },
         ],
     },
 ]
@@ -701,6 +1004,108 @@ MYSTERIES = [
         "targetSemanticKey": "primaryTarget",
         "requiredMechanic": "sonar_ping",
         "scientificReveal": "Vampire bats combine 60–90 kHz frequency-modulated ultrasonic echolocation for obstacle navigation with a uniquely tuned nasal-pit splice variant of TRPV1 (activated at 30°C instead of 43°C) that pinpoints blood-rich capillaries beneath fur (Gracheva et al., Nature 2011).",
+        "points": 225,
+    },
+    # --- NEW MEADOW MYSTERIES (6–8) ---
+    {
+        "mysteryId": "meadow_dragonfly_intercept",
+        "biomeId": "meadow",
+        "requiredSpeciesSlug": "dragonfly",
+        "title": "Dorsal Sky Hunter",
+        "cluePrompt": "Fast-darting flies vanish in human peripheral blur. Switch to the Green Darner Dragonfly's split-hemisphere 200 Hz eye and click the airborne horsefly locked in the UV/blue dorsal sky zone.",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "dorsal_intercept",
+        "scientificReveal": "Dragonfly compound eyes divide sharply at the horizon: dorsal ommatidia contain solely UV/blue opsins to maximize dark-prey contrast against open sky, feeding predictive STMD/TSDN intercept neurons operating at ~200 Hz flicker fusion (Mischiati et al., Nature 2015).",
+        "points": 175,
+    },
+    {
+        "mysteryId": "meadow_trout_snells_window",
+        "biomeId": "meadow",
+        "requiredSpeciesSlug": "cutthroat_trout",
+        "title": "Through Snell's Window",
+        "cluePrompt": "Beneath the snowmelt creek, the water surface becomes a silver mirror outside 97.2°. Peer upward through the Cutthroat Trout's rainbow-rimmed Snell's Window and click the floating mayfly.",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "snell_window",
+        "scientificReveal": "Because water's refractive index is 1.333, light entering from the entire 180° sky compresses into an overhead 97.2° cone (critical angle 48.6°). Beyond that cone, Total Internal Reflection turns the surface into a bright mirror while surface-tension insect dimples gleam at the boundary.",
+        "points": 175,
+    },
+    {
+        "mysteryId": "meadow_hummingbird_nonspectral",
+        "biomeId": "meadow",
+        "requiredSpeciesSlug": "hummingbird",
+        "title": "Colors Humans Cannot Name",
+        "cluePrompt": "To human eyes, all scarlet alpine blossoms look nearly identical red. Switch to the Rufous Hummingbird's non-spectral UV+Red tetrachromacy and click the shimmering fresh nectar bloom.",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "nonspectral_inspect",
+        "scientificReveal": "Field experiments on wild broad-tailed and rufous hummingbirds proved they perceive non-spectral color blends (UV+Red, UV+Green, UV+Yellow) inaccessible to trichromatic humans—rapidly flagging UV-reflecting nectar-rich blossoms (Stoddard et al., PNAS 2020).",
+        "points": 175,
+    },
+    # --- NEW REEF MYSTERIES (6–8) ---
+    {
+        "mysteryId": "reef_nautilus_pinhole",
+        "biomeId": "reef",
+        "requiredSpeciesSlug": "nautilus",
+        "title": "The Lensless Eye",
+        "cluePrompt": "With no lens at all, the Chambered Nautilus trades sharpness for light. Tune its seawater pinhole aperture (0.4–2.8 mm) to reveal the foraging banded shrimp on the dark drop-off wall and click it!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "pinhole_aperture",
+        "scientificReveal": "Chambered nautiluses retain an evolutionarily ancient open pinhole camera eye filled directly with seawater (Muntz & Raj, 1984). Narrowing the pupil sharpens focus at the cost of photon starvations; widening it gathers deep-reef light at the cost of geometric blur.",
+        "points": 200,
+    },
+    {
+        "mysteryId": "reef_archerfish_refraction",
+        "biomeId": "reef",
+        "requiredSpeciesSlug": "archerfish",
+        "title": "Bending Light to Strike",
+        "cluePrompt": "Air-water refraction bends overhanging twigs far from their true positions. Sweep the Banded Archerfish's neural Snell's Law compensator across the mangrove branch and click the perched beetle!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "refraction_aim",
+        "scientificReveal": "Archerfish spit accurate water jets from beneath the surface by neurally compensating for Snell's Law refraction (n = 1.333) and gravity drop across arbitrary viewing angles—even adjusting jet velocity for target height (Schuster et al., Current Biology 2004).",
+        "points": 200,
+    },
+    {
+        "mysteryId": "reef_scallop_mirrors",
+        "biomeId": "reef",
+        "requiredSpeciesSlug": "scallop",
+        "title": "Two Hundred Crystal Mirrors",
+        "cluePrompt": "Instead of lenses, a Reef Scallop bounces light off ~200 concave guanine-crystal mirrors. Scan the tiled mirror horizon and click the looming triggerfish predator setting off OFF-motion alarms!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "mirror_looming",
+        "scientificReveal": "Each scallop eye houses a multilayered concave mirror tiled with nanoscale square guanine crystals focusing light onto two stacked retinas—a proximal spatial retina and a distal OFF-layer tuned specifically to looming predator shadows (Palmer et al., Science 2017).",
+        "points": 200,
+    },
+    # --- NEW CLOUD FOREST MYSTERIES (6–8) ---
+    {
+        "mysteryId": "forest_owl_binaural",
+        "biomeId": "cloudforest",
+        "requiredSpeciesSlug": "spectacled_owl",
+        "title": "Silent Triangulation",
+        "cluePrompt": "Opaque wet ferns hide the forest floor completely. Sweep the Spectacled Owl's silent asymmetric binaural focus across the undergrowth to lock onto passive rustle contours and click the hidden mouse!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "binaural_listen",
+        "scientificReveal": "Unlike active-sonar bats, nocturnal owls hunt in total silence: vertically offset ear apertures compute sub-millisecond interaural time (azimuth) and level (elevation) differences, fusing an auditory space map directly onto visual neurons in the optic tectum (Knudsen, 1982).",
+        "points": 200,
+    },
+    {
+        "mysteryId": "forest_treefrog_bugdetector",
+        "biomeId": "cloudforest",
+        "requiredSpeciesSlug": "treefrog",
+        "title": "Starlight Dual-Rod Detector",
+        "cluePrompt": "Where human rods go greyscale, frogs retain starlight color. Peer through the Red-Eyed Treefrog's blue+green dual-rod retina and click the fluttering crane-fly triggering its retinal bug-detector!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "bug_detector",
+        "scientificReveal": "Amphibians are the only vertebrates confirmed to discriminate color at absolute starlight thresholds using two distinct rod classes (435 nm blue + 502 nm green rods; Yovanovich et al., 2017), coupled to classic retinal 'bug-detector' ganglion cells (Lettvin et al., 1959).",
+        "points": 200,
+    },
+    {
+        "mysteryId": "forest_ogrespider_f058",
+        "biomeId": "cloudforest",
+        "requiredSpeciesSlug": "ogre_spider",
+        "title": "The f/0.58 Night Scope",
+        "cluePrompt": "Pitch-black leaf litter glows bright through f/0.58 lenses—at the cost of razor-thin depth of field. Sweep the Ogre-Faced Spider's focal plane over the forest floor to snap the walking cricket sharp and click it!",
+        "targetSemanticKey": "primaryTarget",
+        "requiredMechanic": "f058_focus",
+        "scientificReveal": "Deinopis net-casting spiders grow enormous posterior median eyes with f/0.58 optics—2,000× more light-sensitive than human eyes—literally dissolving their light-sensitive rhabdom membranes every dawn and synthesizing a fresh hypersensitive retina every dusk (Blest, 1978).",
         "points": 225,
     },
 ]

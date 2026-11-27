@@ -100,9 +100,10 @@ def build_bio_depth_map(rgb_image, biome_id, species_slug):
     bio_img = Image.new("RGBA", (BIO_WIDTH, BIO_HEIGHT))
     px_out = bio_img.load()
 
-    steep_down = species_slug in ("kestrel", "hammerhead")
-    vertical_bark = species_slug in ("gecko", "sea_turtle")
-    sky_heavy = species_slug in ("honeybee", "thrush", "human_meadow", "deer")
+    steep_down = species_slug in ("kestrel", "hammerhead", "ogre_spider", "spectacled_owl")
+    vertical_bark = species_slug in ("gecko", "sea_turtle", "nautilus")
+    sky_heavy = species_slug in ("honeybee", "thrush", "human_meadow", "deer", "dragonfly")
+    upward_window = species_slug in ("cutthroat_trout", "archerfish")
 
     for y in range(BIO_HEIGHT):
         ny = y / float(BIO_HEIGHT - 1)  # 0 top, 1 bottom
@@ -136,13 +137,23 @@ def build_bio_depth_map(rgb_image, biome_id, species_slug):
                 medium = mist_sky
 
             # --- Channel R: Inverse Depth (1.0 close foreground -> 0.0 sky/far) ---
-            if steep_down:
+            if upward_window:
+                # Overhead Snell's window portal is far (center-upper); submerged cobbles/rim closer
+                radial_win = math.hypot((nx - 0.5) * 1.35, (ny - 0.40) * 1.15)
+                base_d = max(0.08, min(0.92, radial_win * 0.85 + ny * 0.25))
+                depth = base_d * 0.76 + edge_val * 0.24
+            elif steep_down:
                 # Center-bottom closer, upper edge farther, modulated by local structure
                 base_d = 0.28 + 0.58 * ny + 0.12 * (1.0 - abs(nx - 0.5) * 1.6)
                 depth = base_d * 0.78 + edge_val * 0.22
             elif vertical_bark:
                 # Left/center coral wall or mossy trunk foreground vs right open space
-                side_bias = (1.0 - nx * 0.55) if species_slug == "sea_turtle" else (0.55 + 0.35 * (1.0 - abs(nx - 0.46)))
+                if species_slug == "nautilus":
+                    side_bias = 0.25 + nx * 0.65
+                elif species_slug == "sea_turtle":
+                    side_bias = 1.0 - nx * 0.55
+                else:
+                    side_bias = 0.55 + 0.35 * (1.0 - abs(nx - 0.46))
                 depth = side_bias * 0.68 + edge_val * 0.22 + (1.0 - luma) * 0.12
             else:
                 # Standard natural perspective: bottom close, top far, sky pushed to 0
@@ -516,6 +527,15 @@ def verify_mystery_discovery(payload):
                 "solved": False,
                 "reason": "mechanic_unaligned",
                 "hint": "Emit an ultrasonic sonar ping (Key E or Sonar button) first to illuminate the resting tapir's silhouette and warm capillaries!",
+            }
+    elif req_mech == "pinhole_aperture":
+        aperture_mm = float(mechanic_state.get("apertureMm", 1.3))
+        if (aperture_mm < 0.72 or aperture_mm > 2.05) and elliptic_dist <= 1.25:
+            diag = "Too dim at that tiny pinhole!" if aperture_mm < 0.72 else "Too blurry at that wide open pinhole!"
+            return 200, {
+                "solved": False,
+                "reason": "mechanic_unaligned",
+                "hint": f"{diag} Tune the Nautilus pinhole aperture (scroll / Q & E / slider) near 1.0–1.7 mm to resolve the shrimp, then click it.",
             }
 
     if elliptic_dist <= 1.0:

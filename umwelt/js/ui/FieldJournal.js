@@ -1,7 +1,7 @@
 /**
  * UMWELT: Animal Optics — Collapsible Right Ecological Field Journal Drawer
  */
-import { BIOMES, MYSTERIES, getSpecies } from '../data/biomes.js?v=4';
+import { BIOMES, MYSTERIES, getSpecies } from '../data/biomes.js?v=8';
 
 export class FieldJournalDrawer {
   constructor(drawerEl, callbacks = {}) {

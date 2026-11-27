@@ -73,6 +73,66 @@ export class OpticalCursorHUD {
         <circle cx="55" cy="55" r="30" fill="none" stroke="#f43f5e" stroke-width="1.6" stroke-dasharray="5 3"/>
         <circle cx="55" cy="55" r="3" fill="#fde047"/>
       </svg><span class="reticle-tag" id="reticle-readout">IR 8–12 μm</span>`;
+    } else if (slug === 'dragonfly') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <path d="M 18 60 A 42 42 0 0 1 102 60" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+        <path d="M 18 60 A 42 42 0 0 0 102 60" fill="none" stroke="#4ade80" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <line x1="12" y1="60" x2="108" y2="60" stroke="#7dd3fc" stroke-width="1" opacity="0.8"/>
+        <circle cx="60" cy="60" r="3" fill="#22d3ee"/>
+      </svg><span class="reticle-tag" id="reticle-readout">200 Hz · STMD</span>`;
+    } else if (slug === 'cutthroat_trout') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#2dd4bf" stroke-width="1.6"/>
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#f97316" stroke-width="1" stroke-dasharray="6 4" opacity="0.8"/>
+        <circle cx="60" cy="60" r="3" fill="#a7f3d0"/>
+      </svg><span class="reticle-tag" id="reticle-readout">SNELL 97.2° · TIR</span>`;
+    } else if (slug === 'hummingbird') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="34" fill="none" stroke="#f472b6" stroke-width="1.6"/>
+        <circle cx="60" cy="60" r="24" fill="none" stroke="#a855f7" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <circle cx="60" cy="60" r="3" fill="#fde047"/>
+      </svg><span class="reticle-tag" id="reticle-readout">UV+RED TETRA</span>`;
+    } else if (slug === 'nautilus') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="46" fill="none" stroke="#94a3b8" stroke-width="1.4" opacity="0.75"/>
+        <circle class="pinhole-iris" cx="60" cy="60" r="20" fill="none" stroke="#7dd3fc" stroke-width="2"/>
+        <circle cx="60" cy="60" r="2.5" fill="#e2e8f0"/>
+      </svg><span class="reticle-tag" id="reticle-readout">PINHOLE 1.30 mm</span>`;
+    } else if (slug === 'archerfish') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="#38bdf8" stroke-width="1.6"/>
+        <line x1="60" y1="8" x2="60" y2="26" stroke="#34d399" stroke-width="1.6"/>
+        <line x1="60" y1="94" x2="60" y2="112" stroke="#34d399" stroke-width="1.6"/>
+        <line x1="8" y1="60" x2="26" y2="60" stroke="#34d399" stroke-width="1.6"/>
+        <line x1="94" y1="60" x2="112" y2="60" stroke="#34d399" stroke-width="1.6"/>
+        <circle cx="60" cy="60" r="4" fill="none" stroke="#fde047" stroke-width="1.5"/>
+      </svg><span class="reticle-tag" id="reticle-readout">n=1.333 · LOCK</span>`;
+    } else if (slug === 'scallop') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="36" fill="none" stroke="#e2e8f0" stroke-width="1.4" stroke-dasharray="3 4"/>
+        <circle cx="44" cy="52" r="9" fill="none" stroke="#38bdf8" stroke-width="1.2"/>
+        <circle cx="76" cy="52" r="9" fill="none" stroke="#38bdf8" stroke-width="1.2"/>
+        <circle cx="60" cy="74" r="9" fill="none" stroke="#38bdf8" stroke-width="1.2"/>
+      </svg><span class="reticle-tag" id="reticle-readout">200 MIRRORS · OFF</span>`;
+    } else if (slug === 'spectacled_owl') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="8 4"/>
+        <path d="M 24 44 A 38 38 0 0 0 24 76" fill="none" stroke="#22d3ee" stroke-width="1.8"/>
+        <path d="M 96 44 A 38 38 0 0 1 96 76" fill="none" stroke="#fbbf24" stroke-width="1.8"/>
+        <circle cx="60" cy="60" r="3" fill="#fde68a"/>
+      </svg><span class="reticle-tag" id="reticle-readout">ITD·ILD SILENT</span>`;
+    } else if (slug === 'treefrog') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="36" fill="none" stroke="#84cc16" stroke-width="1.6"/>
+        <circle cx="60" cy="60" r="24" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <circle cx="60" cy="60" r="3" fill="#bef264"/>
+      </svg><span class="reticle-tag" id="reticle-readout">435+502nm · BUG DET</span>`;
+    } else if (slug === 'ogre_spider') {
+      svg = `<svg viewBox="0 0 120 120" class="reticle-svg">
+        <circle cx="60" cy="60" r="46" fill="none" stroke="#f59e0b" stroke-width="1.8"/>
+        <circle cx="60" cy="60" r="14" fill="none" stroke="#fef3c7" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <circle cx="60" cy="60" r="2.5" fill="#fde68a"/>
+      </svg><span class="reticle-tag" id="reticle-readout">f/0.58 · 2000×</span>`;
     } else {
       svg = `<svg viewBox="0 0 90 90" class="reticle-svg small">
         <circle cx="45" cy="45" r="20" fill="none" stroke="${accent}" stroke-width="1.4" opacity="0.75"/>
@@ -113,6 +173,24 @@ export class OpticalCursorHUD {
     } else if (this.speciesSlug === 'rattlesnake' && readout) {
       const tempC = (state.estimatedTempC ?? 24.5).toFixed(1);
       readout.textContent = `${tempC}°C · IR`;
+    } else if (this.speciesSlug === 'nautilus') {
+      const ap = state.apertureMm ?? 1.3;
+      const iris = this.reticleEl.querySelector('.pinhole-iris');
+      if (iris) {
+        const r = 7 + ((ap - 0.4) / 2.4) * 32;
+        iris.setAttribute('r', r.toFixed(1));
+      }
+      if (readout) {
+        const note = ap < 0.72 ? 'DIM·SHARP' : ap > 2.05 ? 'BRIGHT·BLUR' : 'BALANCED';
+        readout.textContent = `Ø ${ap.toFixed(2)} mm · ${note}`;
+      }
+    } else if (this.speciesSlug === 'spectacled_owl' && readout) {
+      const db = Math.round(state.binauralDb ?? 18);
+      readout.textContent = `ITD LOCK · ${db} dB`;
+    } else if (this.speciesSlug === 'ogre_spider' && readout) {
+      const depth = state.depthAtCursor ?? 0.5;
+      const cm = Math.round((1.05 - depth) * 48 + 18);
+      readout.textContent = `f/0.58 · ${cm} cm`;
     }
 
     // Update Portia 360-degree peripheral motion radar strip

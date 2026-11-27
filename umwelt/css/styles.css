@@ -30,6 +30,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overflow: clip;
   background: #04070d;
   color: var(--text-main);
   font-family: var(--font-sans);
@@ -56,6 +57,7 @@ html, body {
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
+  overflow: clip;
   background: #04070d;
   cursor: crosshair;
 }
@@ -400,10 +402,10 @@ html, body {
 /* ---------- Collapsible Photoreceptor Card ---------- */
 .photoreceptor-card {
   position: absolute;
-  left: 92px;
+  left: 112px;
   top: calc(var(--topbar-h, 52px) + 22px);
   z-index: 18;
-  width: 310px;
+  width: 306px;
   border-radius: 16px;
   padding: 13px 15px;
   transition: width 0.2s;
@@ -570,6 +572,11 @@ html, body {
   color: #ecfeff;
   min-width: 38px;
   text-align: right;
+  white-space: nowrap;
+}
+.mech-val.wide {
+  min-width: 124px;
+  font-size: 0.75rem;
 }
 
 .sonar-btn {
@@ -633,29 +640,32 @@ html, body {
   background: rgba(16, 185, 129, 0.42);
 }
 
-/* ---------- Bottom 5-Slot Species Dock ---------- */
+/* ---------- Bottom 8-Slot Species Dock ---------- */
 .species-dock {
   position: absolute;
   left: 50%;
   bottom: 14px;
   transform: translateX(-50%);
   z-index: 22;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   align-items: stretch;
-  gap: 8px;
-  padding: 7px;
+  gap: 6px;
+  padding: 6px;
   border-radius: 18px;
+  width: min(1416px, calc(100vw - 24px));
   max-width: calc(100vw - 24px);
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .species-btn {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
-  min-width: 158px;
-  padding: 8px 11px;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+  padding: 7px 8px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -698,16 +708,17 @@ html, body {
 }
 
 .sb-icon {
-  font-size: 1.45rem;
+  font-size: 1.25rem;
   line-height: 1;
-  margin-left: 6px;
+  margin-left: 5px;
+  flex-shrink: 0;
 }
 .sb-info {
   flex: 1;
   min-width: 0;
 }
 .sb-name {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -715,7 +726,7 @@ html, body {
 }
 .sb-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   color: var(--text-dim);
   white-space: nowrap;
   overflow: hidden;
@@ -726,10 +737,11 @@ html, body {
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
+  flex-shrink: 0;
 }
 .sb-elev {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   color: #94a3b8;
 }
 .sb-badge {
@@ -1198,6 +1210,21 @@ html, body {
 }
 
 /* ---------- Mobile & Tablet Responsiveness ---------- */
+@media (max-width: 1120px) {
+  .species-dock {
+    display: flex;
+    width: auto;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+  }
+  .species-btn {
+    min-width: 132px;
+    width: auto;
+    flex-shrink: 0;
+  }
+}
+
 @media (max-width: 960px) {
   .brand-lockup,
   .plate-status {

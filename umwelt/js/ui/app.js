@@ -9,13 +9,13 @@ import {
   getBiome,
   getSpecies,
   getMysteryForSpecies,
-} from '../data/biomes.js?v=4';
-import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=7';
-import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=1';
-import { InputController } from '../engine/InputController.js?v=1';
+} from '../data/biomes.js?v=8';
+import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=9';
+import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=8';
+import { InputController } from '../engine/InputController.js?v=8';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';
-import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=1';
-import { FieldJournalDrawer } from './FieldJournal.js?v=4';
+import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=8';
+import { FieldJournalDrawer } from './FieldJournal.js?v=8';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_BASE = window.UMWELT_API_URL
@@ -123,6 +123,9 @@ class UmweltApp {
       polControl: document.getElementById('pol-control'),
       polSlider: document.getElementById('pol-slider'),
       polDegLabel: document.getElementById('pol-deg-label'),
+      apertureControl: document.getElementById('aperture-control'),
+      apertureSlider: document.getElementById('aperture-slider'),
+      apertureMmLabel: document.getElementById('aperture-mm-label'),
       sonarControl: document.getElementById('sonar-control'),
       btnSonarPing: document.getElementById('btn-sonar-ping'),
       objectiveStrip: document.getElementById('objective-strip'),
@@ -216,6 +219,12 @@ class UmweltApp {
       const deg = Number(this.el.polSlider.value);
       this.renderer.state.polAngleRad = (deg * Math.PI) / 180;
       this.el.polDegLabel.textContent = `${deg}°`;
+    });
+
+    this.el.apertureSlider?.addEventListener('input', () => {
+      const mm = Math.max(0.4, Math.min(2.8, Number(this.el.apertureSlider.value)));
+      this.renderer.state.apertureMm = mm;
+      this._syncApertureUI(mm);
     });
 
     this.el.btnSonarPing.addEventListener('click', () => {
@@ -391,14 +400,25 @@ class UmweltApp {
 
   _renderMechanicControls(species) {
     this.el.polControl.classList.toggle('hidden', species.slug !== 'cuttlefish');
+    this.el.apertureControl?.classList.toggle('hidden', species.slug !== 'nautilus');
     this.el.sonarControl.classList.toggle('hidden', species.slug !== 'vampire_bat');
     this._syncPolarizationUI(Math.round((this.renderer.state.polAngleRad * 180) / Math.PI));
+    this._syncApertureUI(this.renderer.state.apertureMm);
   }
 
   _syncPolarizationUI(deg) {
     const clean = ((Math.round(deg) % 180) + 180) % 180;
     if (this.el.polSlider) this.el.polSlider.value = String(clean);
     if (this.el.polDegLabel) this.el.polDegLabel.textContent = `${clean}°`;
+  }
+
+  _syncApertureUI(mm) {
+    const clamped = Math.max(0.4, Math.min(2.8, Number(mm) || 1.3));
+    if (this.el.apertureSlider) this.el.apertureSlider.value = clamped.toFixed(2);
+    if (this.el.apertureMmLabel) {
+      const tag = clamped < 0.72 ? 'Dim·Sharp' : clamped > 2.05 ? 'Bright·Blur' : 'Sweet Spot';
+      this.el.apertureMmLabel.textContent = `${clamped.toFixed(2)} mm · ${tag}`;
+    }
   }
 
   _renderObjectiveStrip(biome, species) {
@@ -408,7 +428,7 @@ class UmweltApp {
     if (!mystery) {
       this.el.objectiveStrip.innerHTML = `
         <span class="obj-tag">BASELINE POV</span>
-        <span class="obj-text">Observe how humans perceive ${biome.shortName}, then select species <strong>[2–5]</strong> below to step into their ecological vantage points &amp; uncover hidden phenomena.</span>
+        <span class="obj-text">Observe how humans perceive ${biome.shortName}, then select species <strong>[2–8]</strong> below to step into their ecological vantage points &amp; uncover hidden phenomena.</span>
       `;
       return;
     }
@@ -447,6 +467,10 @@ class UmweltApp {
       const next = (this.renderer.state.polAngleRad + inp.rotPol * dt * 1.45 + Math.PI) % Math.PI;
       this.renderer.state.polAngleRad = next;
       this._syncPolarizationUI(Math.round((next * 180) / Math.PI));
+    } else if (this.speciesSlug === 'nautilus' && inp.rotPol !== 0) {
+      const nextMm = Math.max(0.4, Math.min(2.8, this.renderer.state.apertureMm + inp.rotPol * dt * 1.1));
+      this.renderer.state.apertureMm = nextMm;
+      this._syncApertureUI(nextMm);
     }
     if (this.input.gyroEnabled) {
       this.renderer.state.targetParallaxX = inp.gyroX;
@@ -461,6 +485,8 @@ class UmweltApp {
     this.cursorHud.update(st.cursorX, st.cursorY, {
       hide: this.input.isTouchDevice,
       polAngleRad: st.polAngleRad,
+      apertureMm: st.apertureMm,
+      binauralDb: Math.max(6, Math.round(38 * Math.exp(-distToPrimary * 4.5))),
       depthAtCursor: this.renderer.sampleDepthAt(st.cursorX, st.cursorY),
       targetDepth: this.renderer.sampleDepthAt(primary.x, primary.y),
       dipoleStrength: Math.max(4, Math.round(145 * Math.exp(-distToPrimary * 5.2))),
@@ -484,6 +510,13 @@ class UmweltApp {
       const next = (this.renderer.state.polAngleRad + step + Math.PI) % Math.PI;
       this.renderer.state.polAngleRad = next;
       this._syncPolarizationUI(Math.round((next * 180) / Math.PI));
+      return true;
+    }
+    if (this.speciesSlug === 'nautilus') {
+      const step = deltaY > 0 ? -0.1 : 0.1;
+      const nextMm = Math.max(0.4, Math.min(2.8, this.renderer.state.apertureMm + step));
+      this.renderer.state.apertureMm = nextMm;
+      this._syncApertureUI(nextMm);
       return true;
     }
     return false;
@@ -538,6 +571,7 @@ class UmweltApp {
       semantics: this.renderer.state.semantics,
       mechanicState: {
         polarizationDeg: polDeg,
+        apertureMm: Number(this.renderer.state.apertureMm.toFixed(2)),
         sonarPinged: this.sonarPingedForCurrent,
       },
       timeToSolveMs: Math.round(performance.now() - this.speciesEnteredAt),
@@ -578,6 +612,16 @@ class UmweltApp {
           solved: false,
           reason: 'mechanic_unaligned',
           hint: 'Almost! Dial your linear polarization analyzer closer to ~42° until the glass shrimp pops in electric contrast!',
+        };
+      }
+    } else if (mystery.requiredMechanic === 'pinhole_aperture') {
+      const mm = Number(payload.mechanicState.apertureMm ?? 1.3);
+      if ((mm < 0.72 || mm > 2.05) && distEl <= 1.25) {
+        const diag = mm < 0.72 ? 'Too dim at that tiny pinhole!' : 'Too blurry at that wide open pinhole!';
+        return {
+          solved: false,
+          reason: 'mechanic_unaligned',
+          hint: `${diag} Tune the Nautilus pinhole aperture (scroll / Q & E / slider) near 1.0–1.7 mm to resolve the shrimp, then click it.`,
         };
       }
     }

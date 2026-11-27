@@ -1,7 +1,7 @@
 /**
  * UMWELT: Animal Optics — 4-Pass WebGL2 GLSL ES 3.00 Shader Suite
  * Pass 0+1: Procedural Zero-Wait 3-Biome Landscapes + 2.5D Depth Relief Parallax + Living Micro-Animation
- * Pass 2:   15 Species Biological Perception Shaders + Synchronized Split-Screen Curtain
+ * Pass 2:   24 Species Biological Perception Shaders + Synchronized Split-Screen Curtain
  * Pass 3:   Temporal History Copy for Ping-Pong Rod Motion Differencing
  */
 
@@ -34,7 +34,7 @@ uniform sampler2D uPlateBio;
 uniform float uTime;
 uniform float uPlateMix;
 uniform int uBiomeId;       // 0 = meadow, 1 = reef, 2 = cloudforest
-uniform int uSpeciesId;     // 0..14 active species shader ID
+uniform int uSpeciesId;     // 0..23 active species shader ID
 uniform int uLightIndex;    // 0 = default, 1 = alt1, 2 = alt2
 uniform vec2 uParallax;     // [-1, 1] look tilt
 uniform vec2 uCamOffset;    // navigable locomotion offset
@@ -261,11 +261,11 @@ void main() {
     if (uBiomeId == 0 && uSpeciesId == 4) {
       // Gentle grass breeze for Whitetail Deer rod motion-differencing
       animUv.x += sin(t * 1.9 + uvPar.x * 7.0 + uvPar.y * 3.0) * 0.0014 * windMask * motionScale;
-    } else if (uBiomeId == 0) {
-      // Ultra-subtle alpine breeze on animal foliage only
+    } else if (uBiomeId == 0 && uSpeciesId != 16) {
+      // Ultra-subtle alpine breeze on terrestrial animal foliage (excluding submerged Trout Snell's Window)
       animUv.x += sin(t * 1.5 + uvPar.x * 5.0) * 0.0007 * windMask * motionScale;
-    } else if (uBiomeId == 2) {
-      // Whisper-soft hanging frond drift in cloud forest
+    } else if (uBiomeId == 2 && uSpeciesId != 23) {
+      // Whisper-soft hanging frond drift in cloud forest (excluding downward Ogre-Faced Spider floor focus)
       animUv.x += sin(t * 1.1 + uvPar.y * 5.0) * 0.0006 * windMask * motionScale;
     }
     // Reef (uBiomeId == 1): zero UV waviness so coral, sand, and marine life remain razor-sharp
@@ -312,11 +312,12 @@ uniform sampler2D uPrevTex;
 uniform sampler2D uBioTex;
 
 uniform int uBiomeId;
-uniform int uSpeciesId;      // 0..14
+uniform int uSpeciesId;      // 0..23
 uniform float uTime;
 uniform vec2 uResolution;
 uniform vec2 uCursor;        // normalized [0..1], y=0 bottom .. y=1 top (WebGL coords)
 uniform float uPolAngle;     // radians [0..PI] for Cuttlefish
+uniform float uApertureMm;   // pinhole pupil diameter [0.4..2.8 mm] for Chambered Nautilus
 uniform float uSonarAge;     // seconds since last bat sonar ping (large = inactive)
 uniform vec2 uSonarOrigin;   // normalized WebGL UV of sonar emission
 uniform float uSplitEnabled; // 0 or 1
@@ -814,51 +815,475 @@ vec3 computeSpeciesVision(vec2 uv, float aspect) {
   }
 
   // --- [14] COMMON VAMPIRE BAT: 60-90 kHz 3D Ultrasonic Sonar Wavefront + TRPV1 Capillary Heat ---
-  // Near-total dim rod darkness baseline
-  float rodDim = luma(base) * 0.14;
-  vec3 col = vec3(rodDim * 0.45, rodDim * 0.55, rodDim * 0.72);
+  if (uSpeciesId == 14) {
+    // Near-total dim rod darkness baseline
+    float rodDim = luma(base) * 0.14;
+    vec3 col = vec3(rodDim * 0.45, rodDim * 0.55, rodDim * 0.72);
 
-  // Compute depth gradient ||grad d|| for acoustic edge reflection
-  vec2 px = vec2(1.0) / max(vec2(320.0), uResolution * 0.5);
-  float dL = texture(uBioTex, uv - vec2(px.x * 2.0, 0.0)).r;
-  float dR = texture(uBioTex, uv + vec2(px.x * 2.0, 0.0)).r;
-  float dD = texture(uBioTex, uv - vec2(0.0, px.y * 2.0)).r;
-  float dU = texture(uBioTex, uv + vec2(0.0, px.y * 2.0)).r;
-  float gradD = length(vec2(dR - dL, dU - dD)) * 7.5;
+    // Compute depth gradient ||grad d|| for acoustic edge reflection
+    vec2 px = vec2(1.0) / max(vec2(320.0), uResolution * 0.5);
+    float dL = texture(uBioTex, uv - vec2(px.x * 2.0, 0.0)).r;
+    float dR = texture(uBioTex, uv + vec2(px.x * 2.0, 0.0)).r;
+    float dD = texture(uBioTex, uv - vec2(0.0, px.y * 2.0)).r;
+    float dU = texture(uBioTex, uv + vec2(0.0, px.y * 2.0)).r;
+    float gradD = length(vec2(dR - dL, dU - dD)) * 7.5;
 
-  // Luminance fine structural edges (tree bark, vines, tapir contour)
-  float lL = luma(texture(uLivingTex, uv - vec2(px.x * 1.5, 0.0)).rgb);
-  float lR = luma(texture(uLivingTex, uv + vec2(px.x * 1.5, 0.0)).rgb);
-  float lD = luma(texture(uLivingTex, uv - vec2(0.0, px.y * 1.5)).rgb);
-  float lU = luma(texture(uLivingTex, uv + vec2(0.0, px.y * 1.5)).rgb);
-  float structEdge = clamp(length(vec2(lR - lL, lU - lD)) * 4.2 + gradD, 0.0, 1.5);
+    // Luminance fine structural edges (tree bark, vines, tapir contour)
+    float lL = luma(texture(uLivingTex, uv - vec2(px.x * 1.5, 0.0)).rgb);
+    float lR = luma(texture(uLivingTex, uv + vec2(px.x * 1.5, 0.0)).rgb);
+    float lD = luma(texture(uLivingTex, uv - vec2(0.0, px.y * 1.5)).rgb);
+    float lU = luma(texture(uLivingTex, uv + vec2(0.0, px.y * 1.5)).rgb);
+    float structEdge = clamp(length(vec2(lR - lL, lU - lD)) * 4.2 + gradD, 0.0, 1.5);
 
-  // Expanding 3D pseudo-distance ultrasonic sonar wavefront: D(u) blends radial + inverse depth
-  float radial = length((uv - uSonarOrigin) * vec2(aspect, 1.0));
-  float pseudoD = radial * 0.65 + (1.0 - bio.r) * 0.45;
-  float waveFront = uSonarAge * 0.68;
-  float waveEnv = exp(-pow((pseudoD - waveFront) / 0.095, 2.0));
-  // Soft lingering acoustic memory trail behind the wavefront
-  float trailMem = smoothstep(waveFront + 0.02, waveFront - 0.25, pseudoD) * exp(-uSonarAge * 0.72);
-  float sonarActive = step(uSonarAge, 4.5);
+    // Expanding 3D pseudo-distance ultrasonic sonar wavefront: D(u) blends radial + inverse depth
+    float radial = length((uv - uSonarOrigin) * vec2(aspect, 1.0));
+    float pseudoD = radial * 0.65 + (1.0 - bio.r) * 0.45;
+    float waveFront = uSonarAge * 0.68;
+    float waveEnv = exp(-pow((pseudoD - waveFront) / 0.095, 2.0));
+    // Soft lingering acoustic memory trail behind the wavefront
+    float trailMem = smoothstep(waveFront + 0.02, waveFront - 0.25, pseudoD) * exp(-uSonarAge * 0.72);
+    float sonarActive = step(uSonarAge, 4.5);
 
-  vec3 sonarCyan = mix(vec3(0.06, 0.62, 0.96), vec3(0.45, 1.0, 0.98), waveEnv);
-  col += sonarCyan * structEdge * (waveEnv * 1.35 + trailMem * 0.45) * sonarActive;
-  col += vec3(0.04, 0.22, 0.34) * waveEnv * 0.35 * sonarActive;
+    vec3 sonarCyan = mix(vec3(0.06, 0.62, 0.96), vec3(0.45, 1.0, 0.98), waveEnv);
+    col += sonarCyan * structEdge * (waveEnv * 1.35 + trailMem * 0.45) * sonarActive;
+    col += vec3(0.04, 0.22, 0.34) * waveEnv * 0.35 * sonarActive;
 
-  // Close-range TRPV1 nasal-pit organic thermal signature on resting tapir's warm superficial blood vessels
-  float tapirMask = ellipseMask(uv, uTargetPrimary, 1.15);
-  float tapirCore = ellipseMask(uv, uTargetPrimary, 0.72);
-  float cursorNear = 0.52 + 0.48 * smoothstep(0.44, 0.06, length((uCursor - uTargetPrimary.xy) * vec2(aspect, 1.0)));
-  // Organic branching micro-capillary ridge network (replaces synthetic zig-zags!)
-  float veins = capillaryNet((uv - uTargetPrimary.xy) * vec2(aspect, 1.0) * 1.6);
-  float heartbeat = 0.86 + 0.14 * sin(t * 4.4);
-  float bodyWarmth = tapirMask * 0.42 + tapirCore * 0.35 + veins * tapirMask * 0.55;
-  vec3 thermalTint = mix(vec3(0.58, 0.05, 0.14), vec3(1.0, 0.46, 0.22), clamp(tapirCore * 0.55 + veins * 0.85, 0.0, 1.0));
-  thermalTint = mix(thermalTint, vec3(1.0, 0.86, 0.68), veins * tapirCore * 0.75);
-  col += thermalTint * bodyWarmth * cursorNear * heartbeat * (0.62 + 0.38 * clamp(trailMem + waveEnv, 0.0, 1.0));
+    // Close-range TRPV1 nasal-pit organic thermal signature on resting tapir's warm superficial blood vessels
+    float tapirMask = ellipseMask(uv, uTargetPrimary, 1.15);
+    float tapirCore = ellipseMask(uv, uTargetPrimary, 0.72);
+    float cursorNear = 0.52 + 0.48 * smoothstep(0.44, 0.06, length((uCursor - uTargetPrimary.xy) * vec2(aspect, 1.0)));
+    // Organic branching micro-capillary ridge network (replaces synthetic zig-zags!)
+    float veins = capillaryNet((uv - uTargetPrimary.xy) * vec2(aspect, 1.0) * 1.6);
+    float heartbeat = 0.86 + 0.14 * sin(t * 4.4);
+    float bodyWarmth = tapirMask * 0.42 + tapirCore * 0.35 + veins * tapirMask * 0.55;
+    vec3 thermalTint = mix(vec3(0.58, 0.05, 0.14), vec3(1.0, 0.46, 0.22), clamp(tapirCore * 0.55 + veins * 0.85, 0.0, 1.0));
+    thermalTint = mix(thermalTint, vec3(1.0, 0.86, 0.68), veins * tapirCore * 0.75);
+    col += thermalTint * bodyWarmth * cursorNear * heartbeat * (0.62 + 0.38 * clamp(trailMem + waveEnv, 0.0, 1.0));
 
-  return clamp(col, 0.0, 1.0);
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [15] GREEN DARNER DRAGONFLY: Horizon-Split Compound Eye + 200 Hz STMD Intercept ---
+  if (uSpeciesId == 15) {
+    float horizonY = (uEnvFeature.z > 0.001) ? uEnvFeature.y : 0.50;
+    float dorsalMask = smoothstep(horizonY - 0.032, horizonY + 0.032, uv.y);
+
+    // Dorsal hemisphere: UV (355nm) + Blue (440nm) ONLY — bright sky glows intense cyan-violet so dark flies stand out starkly!
+    float dorsalBlue = clamp(base.b * 0.78 + base.g * 0.22, 0.0, 1.0);
+    float darkSilhouette = smoothstep(0.52, 0.18, luma(base));
+    vec3 dorsalCol = vec3(
+      pow(dorsalBlue, 1.25) * 0.40,
+      pow(dorsalBlue, 1.05) * 0.68,
+      pow(dorsalBlue, 0.85) * 1.15
+    );
+    dorsalCol = mix(dorsalCol, vec3(0.02, 0.03, 0.09), darkSilhouette * 0.85);
+
+    // Ventral hemisphere: 11+ opsin rich hyper-vivid multicolor alpine meadow foliage
+    float vLum = luma(base);
+    vec3 ventralCol = clamp(mix(vec3(vLum), base, 1.42) * vec3(1.04, 1.06, 0.96), 0.0, 1.0);
+
+    vec3 col = mix(ventralCol, dorsalCol, dorsalMask);
+
+    // Subtle biological horizon optical seam indicator
+    float seam = exp(-pow((uv.y - horizonY) / 0.0045, 2.0));
+    col = mix(col, vec3(0.45, 0.88, 1.0), seam * 0.36);
+
+    // 200 Hz STMD Predictive Intercept: subtle slow-motion wingbeat trails & glowing cyan lead-trajectory arc on airborne horsefly
+    vec2 pFly = uTargetPrimary.xy;
+    float flyProx = ellipseMask(uv, uTargetPrimary, 1.45);
+    vec2 pxD = vec2(1.0) / max(vec2(320.0), uResolution * 0.6);
+    float eX = luma(texture(uLivingTex, uv + vec2(pxD.x, 0.0)).rgb) - luma(texture(uLivingTex, uv - vec2(pxD.x, 0.0)).rgb);
+    float eY = luma(texture(uLivingTex, uv + vec2(0.0, pxD.y)).rgb) - luma(texture(uLivingTex, uv - vec2(0.0, pxD.y)).rgb);
+    float flyEdge = clamp(length(vec2(eX, eY)) * 6.5, 0.0, 1.0);
+
+    // Crisp cyan STMD target lock silhouette edge & subtle pulsing predictive intercept flight path
+    col += vec3(0.18, 0.96, 1.0) * flyEdge * flyProx * 0.95;
+
+    // 3 faint 200 Hz ghosted motion-echo rings trailing down-right -> up-left flight vector
+    for (int k = 1; k <= 3; k++) {
+      float fk = float(k);
+      vec2 echoPos = pFly + vec2(0.028 * fk, -0.012 * fk + 0.004 * sin(t * 9.0 - fk));
+      float echoD = length((uv - echoPos) * vec2(aspect, 1.0));
+      float echoRing = exp(-pow(echoD / (0.032 - 0.005 * fk), 2.0));
+      col += vec3(0.55, 0.35, 1.0) * echoRing * (0.30 / fk) * dorsalMask;
+    }
+
+    // Predictive lead intercept trajectory arc extending ahead of the horsefly
+    vec2 leadEnd = pFly + vec2(-0.16, 0.055);
+    vec2 seg = leadEnd - pFly;
+    float segT = clamp(dot(uv - pFly, seg) / max(0.0001, dot(seg, seg)), 0.0, 1.0);
+    vec2 curvePt = mix(pFly, leadEnd, segT) + vec2(0.0, sin(segT * 3.14159) * 0.018);
+    float dArc = length((uv - curvePt) * vec2(aspect, 1.0));
+    float dash = smoothstep(0.1, 0.6, sin(segT * 26.0 - t * 8.0));
+    float arcLine = exp(-pow(dArc / 0.0042, 2.0)) * smoothstep(0.08, 0.22, segT) * (1.0 - segT * 0.65) * (0.45 + 0.55 * dash);
+    col += vec3(0.22, 0.98, 1.0) * arcLine * 0.85;
+
+    // Subtle dorsal fovea ommatidia micro-facets near cursor when scanning sky
+    float cDist = length((uv - uCursor) * vec2(aspect, 1.0));
+    float hexZone = smoothstep(0.18, 0.03, cDist) * dorsalMask;
+    vec2 hexUv = uv * vec2(aspect, 1.0) * 74.0;
+    vec2 hr = vec2(1.0, 1.73205);
+    vec2 hh = hr * 0.5;
+    vec2 ha = mod(hexUv, hr) - hh;
+    vec2 hb = mod(hexUv - hh, hr) - hh;
+    vec2 hgv = (dot(ha, ha) < dot(hb, hb)) ? ha : hb;
+    float hEdge = smoothstep(0.45, 0.50, hexEdge(hgv));
+    col = mix(col, col * 0.82 + vec3(0.18, 0.34, 0.52), hEdge * hexZone * 0.34);
+
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [16] CUTTHROAT TROUT: 97.2 deg Snell's Window Aerial Portal + TIR Silver Surface Mirror ---
+  if (uSpeciesId == 16) {
+    // Center Snell's Window on the natural overhead aerial portal so floating mayfly sits clearly inside
+    vec2 winCenter = vec2(0.50, 0.64) + (uCursor - 0.5) * vec2(0.04, 0.03);
+    vec2 rel = (uv - winCenter) * vec2(aspect, 1.0);
+    float r = length(rel);
+    float rCrit = 0.58; // 48.6 deg half-angle critical boundary (97.2 deg full cone)
+
+    // Subtle optical fisheye barrel compression inside Snell's Window
+    float inWin = smoothstep(rCrit + 0.035, rCrit - 0.045, r);
+    vec2 radialDir = rel / max(0.0001, r);
+
+    // Physically authentic chromatic dispersion rainbow fringe right along the 48.6 deg critical angle rim!
+    float rimBand = exp(-pow((r - rCrit) / 0.048, 2.0));
+    float dispAmt = rimBand * 0.011;
+    vec2 rOff = radialDir * vec2(dispAmt / aspect, dispAmt);
+    float cR = texture(uLivingTex, clamp(uv + rOff, 0.002, 0.998)).r;
+    float cG = texture(uLivingTex, uv).g;
+    float cB = texture(uLivingTex, clamp(uv - rOff, 0.002, 0.998)).b;
+    vec3 windowCol = vec3(cR, cG, cB);
+
+    // Trout tetrachromatic UV + crisp aerial sky contrast inside window
+    windowCol = clamp(mix(vec3(luma(windowCol)), windowCol, 1.18) * vec3(0.96, 1.03, 1.08), 0.0, 1.0);
+    // Subtle prismatic spectrum glint right on the critical angle edge
+    vec3 prismGlow = mix(vec3(0.20, 0.88, 1.0), vec3(1.0, 0.52, 0.18), smoothstep(rCrit - 0.04, rCrit + 0.04, r));
+    windowCol += prismGlow * rimBand * 0.24;
+
+    // Outside critical angle: Total Internal Reflection (TIR) silver-slate water mirror reflecting stream bottom!
+    vec2 mirUv = clamp(vec2(uv.x, 1.0 - uv.y * 0.72), 0.004, 0.996);
+    vec3 reflectedBottom = texture(uLivingTex, mirUv).rgb;
+    float rippleSpec = pow(0.5 + 0.5 * sin(uv.x * 26.0 + uv.y * 14.0 + t * 1.4), 3.0);
+    float mirLum = luma(mix(base, reflectedBottom, 0.45));
+    vec3 tirMirror = mix(vec3(0.06, 0.17, 0.22), vec3(0.46, 0.64, 0.70), mirLum * 0.88 + rippleSpec * 0.14);
+    // Preserve actual submerged river cobbles at bottom of frame
+    float cobbleZone = smoothstep(0.28, 0.08, uv.y);
+    vec3 outerCol = mix(tirMirror, base * vec3(0.84, 0.96, 0.98), cobbleZone * 0.82);
+
+    vec3 col = mix(outerCol, windowCol, inWin);
+
+    // Sparkling surface-tension meniscus dimple rings around the floating mayfly at uTargetPrimary
+    float flyD = length((uv - uTargetPrimary.xy) * vec2(aspect, 1.0));
+    float dimpleRing1 = exp(-pow((flyD - 0.042) / 0.009, 2.0));
+    float dimpleRing2 = exp(-pow((flyD - 0.072 - 0.006 * sin(t * 2.5)) / 0.011, 2.0));
+    float dimpleCore = exp(-pow(flyD / 0.030, 2.0));
+    col += vec3(0.62, 1.0, 0.96) * (dimpleRing1 * 0.55 + dimpleRing2 * 0.30) + vec3(0.75, 0.48, 1.0) * dimpleCore * 0.24;
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [17] RUFOUS HUMMINGBIRD: Non-Spectral UV+Red Tetrachromacy + Optokinetic Hover Clarity ---
+  if (uSpeciesId == 17) {
+    // Optokinetic hover stabilization micro-sharpness
+    vec2 pxH = vec2(1.0) / max(vec2(320.0), uResolution * 0.6);
+    vec3 hBlur = 0.25 * (
+      texture(uLivingTex, uv + vec2(pxH.x, 0.0)).rgb +
+      texture(uLivingTex, uv - vec2(pxH.x, 0.0)).rgb +
+      texture(uLivingTex, uv + vec2(0.0, pxH.y)).rgb +
+      texture(uLivingTex, uv - vec2(0.0, pxH.y)).rgb
+    );
+    vec3 sharp = clamp(base + (base - hBlur) * 0.72, 0.0, 1.0);
+
+    // Preserve vivid scarlet red (L-cone 560nm) AND add subtle tetrachromatic UV-green brilliance on fresh sunlit flora
+    float yLum = luma(sharp);
+    vec3 col = clamp(mix(vec3(yLum), sharp, 1.24), 0.0, 1.0);
+
+    // Identify scarlet blossom petals (R strongly dominant over G & B)
+    float redPetal = smoothstep(0.28, 0.56, sharp.r) * smoothstep(0.06, 0.26, sharp.r - max(sharp.g, sharp.b));
+
+    // Fresh nectar-rich blossom (uTargetPrimary) reflects BOTH UV (370nm) + Scarlet Red (560nm) -> Non-Spectral UV+Red shimmer!
+    float nectarZone = ellipseMask(uv, uTargetPrimary, 1.50);
+    float petalVeins = clamp(length(sharp - hBlur) * 9.0, 0.0, 1.0);
+    float iridWave = 0.5 + 0.5 * sin((uv.x * 22.0 + uv.y * 18.0) - t * 2.4);
+    // Impossible non-spectral hyper-hue: electric ultraviolet-magenta fused with blazing crimson-gold sheen
+    vec3 nonSpectralUvRed = mix(vec3(0.95, 0.14, 0.98), vec3(1.0, 0.36, 0.62), iridWave);
+    nonSpectralUvRed = mix(nonSpectralUvRed, vec3(0.68, 0.35, 1.0), 0.38 * (1.0 - iridWave));
+
+    float freshMask = clamp(nectarZone * (0.28 + 0.92 * redPetal), 0.0, 1.0);
+    col = mix(col, nonSpectralUvRed * (0.68 + 0.52 * sharp.r), freshMask * 0.64);
+    col += vec3(0.88, 0.45, 1.0) * freshMask * (0.24 + 0.48 * petalVeins);
+
+    // Older drained blooms (uTargetSecondary) stay noticeably matte flat red (UV-depleted -> skip!)
+    if (uTargetSecondary.z > 0.001) {
+      float drainedMask = ellipseMask(uv, uTargetSecondary, 1.30) * redPetal;
+      col = mix(col, vec3(sharp.r * 0.62, sharp.g * 0.50, sharp.b * 0.48), drainedMask * 0.42);
+    }
+
+    // Subtle UV-green glint on dew-glistening stems near cursor
+    float cNear = smoothstep(0.22, 0.02, length((uv - uCursor) * vec2(aspect, 1.0)));
+    float greenLeaf = smoothstep(0.10, 0.28, sharp.g - sharp.r);
+    col += vec3(0.28, 0.95, 0.84) * greenLeaf * cNear * 0.10;
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [18] CHAMBERED NAUTILUS: Lensless Seawater Pinhole Eye (Live Aperture uApertureMm 0.4..2.8 mm) ---
+  if (uSpeciesId == 18) {
+    float ap = clamp(uApertureMm, 0.4, 2.8);
+    // Normalized aperture fraction tAp in [0..1]
+    float tAp = (ap - 0.4) / 2.4;
+
+    // Circle of confusion grows linearly with pinhole diameter (0.4mm = razor-sharp, 2.8mm = wide soft blur)
+    float blurRad = max(0.0, (ap - 0.52) / 2.28) * 0.0175;
+
+    // 16-tap Vogel spiral pinhole disk PSF with interleaved gradient noise rotation (zero stipple/lattice!)
+    vec3 acc = texture(uLivingTex, uv).rgb;
+    if (blurRad > 0.0004) {
+      vec2 aspScale = vec2(1.0 / aspect, 1.0);
+      float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
+      float baseAng = ign * 6.2831853;
+      for (int i = 0; i < 16; i++) {
+        float fi = float(i);
+        float r = sqrt((fi + 0.5) / 16.0);
+        float ang = fi * 2.3999632 + baseAng;
+        vec2 ofs = vec2(cos(ang), sin(ang)) * aspScale * (blurRad * r);
+        acc += texture(uLivingTex, clamp(uv + ofs, 0.002, 0.998)).rgb;
+      }
+      acc /= 17.0;
+    }
+
+    // Single deep-sea opsin peaking at 467 nm (monochromatic abyssal blue-silver)
+    float opsin = clamp(acc.r * 0.08 + acc.g * 0.38 + acc.b * 0.54, 0.0, 1.0);
+
+    // Photon flux scales with pinhole area (~ap^2): 0.4mm is photon-starved dim; 2.8mm is bright & washed out
+    float lightGain = 0.22 + 2.05 * pow(tAp, 1.32);
+    float exposed = clamp(pow(max(opsin, 0.001), 0.90) * lightGain, 0.0, 1.0);
+
+    // Subtle photon shot noise when pinhole is stopped down tiny (<0.8mm)
+    float dimNoiseAmt = smoothstep(0.95, 0.40, ap) * 0.085 * mix(1.0, 0.3, uReducedMotion);
+    float shotNoise = (hash21(floor(uv * uResolution * 0.6) + floor(t * 20.0)) - 0.5) * dimNoiseAmt;
+
+    // Crisp monochrome abyssal tint (silver-cyan highlights over deep marine slate)
+    vec3 col = vec3(exposed * 0.62, exposed * 0.84, exposed * 1.02) + shotNoise;
+
+    // In the optical sweet spot (~0.95..1.75 mm), crisp structural highlights on the banded shrimp pop cleanly!
+    float sweetSpot = exp(-pow((ap - 1.32) / 0.46, 2.0));
+    float shrimpMask = ellipseMask(uv, uTargetPrimary, 1.25);
+    float shrimpBright = smoothstep(0.32, 0.78, luma(base));
+    col += vec3(0.50, 0.88, 1.0) * shrimpMask * shrimpBright * sweetSpot * 0.28;
+
+    // Natural open pinhole camera circular vignette
+    float pVig = smoothstep(0.92, 0.34, length((uv - 0.5) * vec2(aspect * 0.64, 1.05)));
+    col *= (0.46 + 0.54 * pVig);
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [19] BANDED ARCHERFISH: Sub-Surface Air-Water Refraction + Neural n=1.333 Compensator ---
+  if (uSpeciesId == 19) {
+    // Water surface sits near environmentFeature.y (~0.37 GL y = 0.63 top y)
+    float surfY = (uEnvFeature.z > 0.001) ? uEnvFeature.y : 0.38;
+    float aboveWater = smoothstep(surfY - 0.03, surfY + 0.04, uv.y);
+
+    // Cursor neural refraction compensator circle (un-bends Snell's Law inside!)
+    float compR = 0.21;
+    float cDist = length((uv - uCursor) * vec2(aspect, 1.0));
+    float inComp = smoothstep(compR + 0.012, compR - 0.014, cDist);
+
+    // Apparent Snell refraction bending outside compensator above water surface
+    vec2 bendVec = (uv - vec2(0.5, surfY)) * vec2(0.042, 0.055) * aboveWater * (1.0 - inComp);
+    vec2 bentUv = clamp(uv - bendVec, 0.003, 0.997);
+
+    // Subtle chromatic dispersion on uncompensated air-water interface
+    float ca = 0.0038 * aboveWater * (1.0 - inComp);
+    float rBent = texture(uLivingTex, clamp(bentUv + vec2(ca, 0.0), 0.002, 0.998)).r;
+    float gBent = texture(uLivingTex, bentUv).g;
+    float bBent = texture(uLivingTex, clamp(bentUv - vec2(ca, 0.0), 0.002, 0.998)).b;
+    vec3 bentCol = vec3(rBent, gBent, bBent) * mix(vec3(0.86, 0.98, 1.04), vec3(0.90, 0.95, 1.04), aboveWater);
+
+    // Inside compensator: true un-bent crisp ballistic coordinates with high contrast!
+    vec2 pxA = vec2(1.0) / max(vec2(320.0), uResolution * 0.6);
+    vec3 blurA = 0.25 * (
+      texture(uLivingTex, uv + vec2(pxA.x, 0.0)).rgb +
+      texture(uLivingTex, uv - vec2(pxA.x, 0.0)).rgb +
+      texture(uLivingTex, uv + vec2(0.0, pxA.y)).rgb +
+      texture(uLivingTex, uv - vec2(0.0, pxA.y)).rgb
+    );
+    vec3 trueCol = clamp(base + (base - blurA) * 0.70, 0.0, 1.0);
+    trueCol = clamp(mix(vec3(luma(trueCol)), trueCol, 1.18), 0.0, 1.0);
+
+    vec3 col = mix(bentCol, trueCol, inComp);
+
+    // Subtle ballistic aim shimmer on overhanging emerald beetle when compensator overlaps it
+    float beetleMask = ellipseMask(uv, uTargetPrimary, 1.20) * smoothstep(0.12, 0.65, luma(base) + 0.15);
+    col += vec3(0.22, 1.0, 0.78) * beetleMask * (0.14 + 0.42 * inComp);
+
+    // Crisp optical compensator lens rim
+    float compRim = smoothstep(compR + 0.004, compR, cDist) - smoothstep(compR, compR - 0.005, cDist);
+    col = mix(col, vec3(0.24, 0.88, 1.0), compRim * 0.72);
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [20] REEF SCALLOP: ~200 Concave Guanine-Crystal Mirrors + Dual-Retina OFF-Looming Flash ---
+  if (uSpeciesId == 20) {
+    // Subtly tiled concave guanine-crystal mirror array (~13x7 overlapping curved crystal facets)
+    vec2 gridScale = vec2(13.0, 7.5);
+    vec2 cellUv = fract(uv * gridScale) - 0.5;
+    vec2 cellId = floor(uv * gridScale);
+    float cellR = length(cellUv * vec2(1.0, 1.05));
+
+    // Gentle concave mirror spherical focus curve within each facet (keeps seabed scene cleanly readable!)
+    vec2 mirrorSample = clamp(uv + cellUv * 0.0085 * smoothstep(0.15, 0.52, cellR), 0.002, 0.998);
+    vec3 mBase = texture(uLivingTex, mirrorSample).rgb;
+
+    // Proximal spatial ON-retina (485/505 nm cool silver-turquoise reflection)
+    float mLum = clamp(mBase.r * 0.12 + mBase.g * 0.56 + mBase.b * 0.32, 0.0, 1.0);
+    vec3 spatialCol = mix(vec3(mLum * 0.58, mLum * 0.88, mLum * 0.98), mBase * vec3(0.68, 0.98, 1.06), 0.42);
+
+    // Delicate silver-cyan concave crystal mirror rim glint
+    float facetRim = smoothstep(0.41, 0.50, cellR);
+    float crystalGlint = 0.06 + 0.08 * sin(cellId.x * 2.1 + cellId.y * 3.7 + t * 1.4);
+    vec3 col = mix(spatialCol, spatialCol * 0.78 + vec3(0.32, 0.62, 0.72) * (0.4 + crystalGlint), facetRim * 0.52);
+
+    // Distal OFF-Motion Predator Alarm Retina: flashes stark silver-white on dark looming predator silhouette!
+    vec2 pxS = vec2(1.0) / max(vec2(320.0), uResolution * 0.55);
+    float lL = luma(texture(uLivingTex, uv - vec2(pxS.x, 0.0)).rgb);
+    float lR = luma(texture(uLivingTex, uv + vec2(pxS.x, 0.0)).rgb);
+    float lD = luma(texture(uLivingTex, uv - vec2(0.0, pxS.y)).rgb);
+    float lU = luma(texture(uLivingTex, uv + vec2(0.0, pxS.y)).rgb);
+    float silEdge = clamp(length(vec2(lR - lL, lU - lD)) * 6.0, 0.0, 1.0);
+
+    float predMask = ellipseMask(uv, uTargetPrimary, 1.30);
+    float darkBody = smoothstep(0.52, 0.16, luma(base));
+    float loomPulse = 0.55 + 0.45 * sin(t * 5.2);
+    float loomDist = length((uv - uTargetPrimary.xy) * vec2(aspect, 1.0));
+    float loomWave = exp(-pow(fract(loomDist * 4.5 - t * 0.85) - 0.5, 2.0) / 0.03) * exp(-loomDist * 6.5);
+    float cursorGain = 0.55 + 0.45 * smoothstep(0.42, 0.08, length((uCursor - uTargetPrimary.xy) * vec2(aspect, 1.0)));
+
+    col += vec3(0.92, 0.98, 1.0) * ((silEdge * predMask * 0.92 + darkBody * predMask * 0.34) * loomPulse + loomWave * 0.52) * cursorGain;
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [21] SPECTACLED OWL: Tubular Binocular Night Vision + Silent Passive Binaural ITD/ILD Map ---
+  if (uSpeciesId == 21) {
+    // High-sensitivity clean owl rod vision (vastly brighter & cleaner than human scotopic snow!)
+    vec3 boosted = pow(max(base, vec3(0.001)), vec3(0.74)) * 1.24;
+    float yOwl = luma(boosted);
+    vec3 col = mix(vec3(yOwl * 0.78, yOwl * 0.88, yOwl * 0.96), boosted, 0.46);
+
+    // Passive Binaural ITD + ILD 3D Sound Space Map radiating silently from rustling mouse under wet ferns!
+    vec2 mPos = uTargetPrimary.xy;
+    vec2 mRel = (uv - mPos) * vec2(aspect, 1.0);
+    float mDist = length(mRel);
+
+    // Sharpening: as owl turns gaze (uCursor) toward the rustling fern patch, acoustic uncertainty tightens razor-sharp!
+    float aimDist = length((uCursor - mPos) * vec2(aspect, 1.0));
+    float focusLock = smoothstep(0.55, 0.06, aimDist);
+    float spread = mix(0.18, 0.075, focusLock);
+
+    // Organic rustling acoustic probability cloud + concentric passive sound contour rings piercing opaque ferns
+    float rustlePulse = 0.65 + 0.35 * sin(t * 3.4) * sin(t * 1.9 + 0.6);
+    float soundCloud = exp(-pow(mDist / spread, 2.0));
+    float soundRing1 = exp(-pow((mDist - spread * 0.55) / 0.012, 2.0));
+    float soundRing2 = exp(-pow((mDist - spread * 1.05 - 0.012 * sin(t * 2.6)) / 0.016, 2.0));
+    // Micro-azimuth/elevation cross-wave interference representing asymmetric left/right ear ITD+ILD phase
+    float itdPhase = 0.5 + 0.5 * cos(mRel.x * 42.0 - mRel.y * 28.0 + t * 2.2);
+
+    vec3 amberWave = mix(vec3(0.18, 0.84, 0.96), vec3(1.0, 0.74, 0.24), clamp(soundCloud * 0.8 + focusLock * 0.4, 0.0, 1.0));
+    col += amberWave * (soundCloud * (0.34 + 0.36 * focusLock) + soundRing1 * 0.52 + soundRing2 * 0.26 * itdPhase) * rustlePulse;
+
+    // Gentle warm highlight on the hidden mouse snout when locked tight
+    float mouseCore = ellipseMask(uv, uTargetPrimary, 0.85);
+    col += vec3(1.0, 0.88, 0.52) * mouseCore * focusLock * 0.38;
+
+    // Subtle dark tubular binocular peripheral frame (owl fixed-tube eye socket)
+    float tubeVig = smoothstep(0.86, 0.38, length((uv - 0.5) * vec2(aspect * 0.62, 1.0)));
+    col *= (0.42 + 0.58 * tubeVig);
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [22] RED-EYED TREEFROG: Dual-Rod Starlight Color (435nm Blue + 502nm Green) + Bug-Detector ---
+  if (uSpeciesId == 22) {
+    // Dual-rod amphibian starlight color vision: ZERO red channel; vivid separation between 435nm blue mist & 502nm emerald leaves!
+    float blueRod = pow(clamp(base.b * 0.92 + base.g * 0.14, 0.0, 1.0), 0.78) * 1.18;
+    float greenRod = pow(clamp(base.g * 0.96 + base.b * 0.08, 0.0, 1.0), 0.76) * 1.24;
+    // Slight suppression of static large background foliage (amphibian ganglion filtering)
+    vec3 col = vec3(
+      greenRod * 0.10,
+      greenRod * 0.86 + blueRod * 0.14,
+      blueRod * 0.96 + greenRod * 0.20
+    ) * 0.86;
+
+    // Retinal "Bug-Detector" Ganglion Cells (Lettvin et al. 1959): fire intensely on small dark moving convex insect prey!
+    vec2 pxF = vec2(1.0) / max(vec2(320.0), uResolution * 0.6);
+    float bL = luma(texture(uLivingTex, uv - vec2(pxF.x, 0.0)).rgb);
+    float bR = luma(texture(uLivingTex, uv + vec2(pxF.x, 0.0)).rgb);
+    float bD = luma(texture(uLivingTex, uv - vec2(0.0, pxF.y)).rgb);
+    float bU = luma(texture(uLivingTex, uv + vec2(0.0, pxF.y)).rgb);
+    float bugEdge = clamp(length(vec2(bR - bL, bU - bD)) * 7.2, 0.0, 1.0);
+
+    float bugMask = ellipseMask(uv, uTargetPrimary, 1.35);
+    float bugDark = smoothstep(0.45, 0.12, luma(base));
+    float wingFlutter = 0.62 + 0.38 * sin(t * 14.0);
+    float bugDist = length((uv - uTargetPrimary.xy) * vec2(aspect, 1.0));
+    float flutterRing = exp(-pow((bugDist - 0.055 - 0.008 * sin(t * 11.0)) / 0.010, 2.0));
+
+    // Electric chartreuse-lime & white neural spike around fluttering crane-fly
+    col += vec3(0.66, 1.0, 0.24) * (bugEdge * bugMask * 1.05 + bugDark * bugMask * 0.26 + flutterRing * 0.58) * wingFlutter;
+    col += vec3(0.95, 1.0, 0.82) * bugEdge * bugMask * 0.45;
+    return clamp(col, 0.0, 1.0);
+  }
+
+  // --- [23] OGRE-FACED SPIDER: f/0.58 Ultra-Wide Aperture (2,000x Light Gain) + Razor-Thin Bokeh ---
+  if (uSpeciesId == 23) {
+    // Razor-thin f/0.58 focal plane tracks cursor depth + focal distance!
+    float focusDepth = texture(uBioTex, uCursor).r;
+    float depthErr = abs(bio.r - focusDepth);
+    float focalDist = length((uv - uCursor) * vec2(aspect, 1.0));
+    // Combine real depth difference + narrow focal plane envelope so sweeping cursor pulls lush creamy bokeh across the floor!
+    float coc = clamp(depthErr * 3.0 + smoothstep(0.11, 0.40, focalDist) * 0.85, 0.0, 1.0);
+    float bokehRad = coc * 0.0155;
+
+    // 16-tap Vogel spiral f/0.58 circular bokeh disc with interleaved gradient noise rotation (silky optical bokeh!)
+    vec3 bokehCol = base;
+    if (bokehRad > 0.0005) {
+      vec2 aspS = vec2(1.0 / aspect, 1.0);
+      float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
+      float baseAng = ign * 6.2831853;
+      vec3 sum = base;
+      float wSum = 1.0;
+      for (int i = 0; i < 16; i++) {
+        float fi = float(i);
+        float r = sqrt((fi + 0.5) / 16.0);
+        float ang = fi * 2.3999632 + baseAng;
+        vec2 ofs = vec2(cos(ang), sin(ang)) * aspS * (bokehRad * r);
+        vec3 s = texture(uLivingTex, clamp(uv + ofs, 0.002, 0.998)).rgb;
+        // Bright highlights bloom into creamy f/0.58 bokeh disks
+        float w = 1.0 + smoothstep(0.42, 0.85, luma(s)) * 1.35;
+        sum += s * w;
+        wSum += w;
+      }
+      bokehCol = sum / wSum;
+    }
+
+    // 2,000x light gain: 516nm single-opsin high-gain monochrome lunar silver-amber night vision scope!
+    float gainLum = pow(clamp(bokehCol.r * 0.24 + bokehCol.g * 0.64 + bokehCol.b * 0.12, 0.001, 1.0), 0.58) * 1.38;
+    // Local unsharp clarity right inside the razor-thin focal plane
+    float inFocus = 1.0 - smoothstep(0.04, 0.28, coc);
+    float sharpDetail = (luma(base) - luma(bokehCol)) * 0.55;
+    float finalLum = clamp(gainLum + sharpDetail * inFocus, 0.0, 1.0);
+
+    vec3 col = vec3(finalLum * 1.02, finalLum * 0.92, finalLum * 0.72);
+
+    // Subtle crisp nocturnal chitin sheen when focal plane snaps tight onto the walking cricket
+    float cricketMask = ellipseMask(uv, uTargetPrimary, 1.15);
+    float cricketEdge = clamp(abs(luma(base) - luma(texture(uLivingTex, uv + vec2(0.002, 0.002)).rgb)) * 8.0, 0.0, 1.0);
+    col += vec3(1.0, 0.84, 0.42) * cricketMask * (0.14 + cricketEdge * 0.55) * inFocus;
+
+    // Gentle giant posterior-median lens peripheral falloff
+    float lensVig = smoothstep(0.95, 0.36, length((uv - 0.5) * vec2(aspect * 0.65, 1.0)));
+    col *= (0.55 + 0.45 * lensVig);
+    return clamp(col, 0.0, 1.0);
+  }
+
+  return base;
 }
 
 void main() {
