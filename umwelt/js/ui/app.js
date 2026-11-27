@@ -11,14 +11,14 @@ import {
   getSpecies,
   getMysteryForSpecies,
   getMissionForSpecies,
-} from '../data/biomes.js?v=1';
-import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=2';
+} from '../data/biomes.js?v=3';
+import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=3';
 import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=1';
 import { InputController } from '../engine/InputController.js?v=1';
-import { MissionEngine } from '../engine/MissionEngine.js?v=1';
+import { MissionEngine } from '../engine/MissionEngine.js?v=3';
 import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';
 import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=1';
-import { FieldJournalDrawer } from './FieldJournal.js?v=2';
+import { FieldJournalDrawer } from './FieldJournal.js?v=3';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_BASE = window.UMWELT_API_URL

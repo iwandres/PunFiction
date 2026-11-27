@@ -257,7 +257,7 @@ BIOMES = [
                 "fovDeg": 80,
                 "sensoryTag": "12-Band + Circular Pol.",
                 "accentColor": "#ec4899",
-                "summary": "12 narrowband spectral channels (300–720 nm) plus circular polarization receptors mounted in a sweeping equatorial midband strip decode covert rival crustacean signals.",
+                "summary": "12 narrowband spectral channels (300–720 nm) plus circular polarization receptors mounted in a sweeping equatorial midband strip decode armored crustacean shell signals.",
                 "photoreceptors": [
                     {"label": "UV 1–4", "peakNm": 335, "color": "#a855f7", "width": 22},
                     {"label": "Violet/Blue 5–7", "peakNm": 445, "color": "#3b82f6", "width": 24},
@@ -265,16 +265,17 @@ BIOMES = [
                     {"label": "Red/Far-Red 11–12", "peakNm": 665, "color": "#f43f5e", "width": 26},
                 ],
                 "nonVisualBand": {"label": "Circular Polarization (CPL) Midband", "range": "Left & Right-handed CPL"},
-                "mechanic": {"id": "midband_sweep", "hint": "Sweep cursor to aim the tilted trinocular 12-band + CPL scanline across the rubble entrance"},
+                "mechanic": {"id": "midband_sweep", "hint": "Sweep cursor to aim the tilted trinocular 12-band + CPL scanline across the coral rubble"},
                 "imagePrompt": (
-                    "National Geographic underwater photorealistic 16:9 low-angle reef-floor macro photograph from 8 cm above a coral rubble "
-                    "seabed looking outward from a burrow entrance. Textural dead coral rubble, encrusting coralline algae, and a rival peacock "
-                    "mantis shrimp emerging defensively from an adjacent coral crevice on the right-of-center displaying its iridescent armored "
-                    "antennal scales and raptorial appendages, with sunlit reef water above. Ultra-crisp underwater macro photography, no text."
+                    "Strictly first-person POV underwater National Geographic photorealistic 16:9 low-angle reef-floor macro photograph "
+                    "looking outward from 8 cm above a coral rubble seabed peering out of a dark burrow lip. Textural dead coral rubble, "
+                    "encrusting pink coralline algae, and an armored camouflaged mottled reef crab (Xanthidae) tucked inside a sunlit coral "
+                    "crevice right-of-center beside an iridescent bivalve shell, with sunlit turquoise reef water above. NO mantis shrimp "
+                    "anywhere in the frame—pure first-person vantage looking out at crab prey. Ultra-crisp macro photography, no text."
                 ),
                 "defaultSemantics": {
-                    "primaryTarget": {"present": True, "label": "Rival Mantis Shrimp CPL Display", "x": 0.62, "y": 0.56, "rx": 0.11, "ry": 0.11},
-                    "secondaryTarget": {"present": True, "label": "Armored Reef Crab", "x": 0.30, "y": 0.68, "rx": 0.10, "ry": 0.09},
+                    "primaryTarget": {"present": True, "label": "Armored Reef Crab (CPL Shell)", "x": 0.62, "y": 0.56, "rx": 0.11, "ry": 0.11},
+                    "secondaryTarget": {"present": True, "label": "Iridescent Giant Clam Mantle", "x": 0.30, "y": 0.68, "rx": 0.10, "ry": 0.09},
                     "environmentFeature": {"present": True, "label": "Coral Rubble Terrace", "x": 0.48, "y": 0.78, "rx": 0.36, "ry": 0.16},
                     "skyOrWaterRegion": {"present": True, "x": 0.50, "y": 0.18, "rx": 0.50, "ry": 0.22},
                 },
@@ -482,16 +483,17 @@ BIOMES = [
                     {"label": "Green-Defocus Tier 2", "peakNm": 532, "color": "#e879f9", "width": 36},
                 ],
                 "nonVisualBand": {"label": "Image-Defocus Depth + 360° Radar", "range": "±2 mm ballistic rangefinding"},
-                "mechanic": {"id": "defocus_lock", "hint": "Aim the green-magenta defocus rangefinder over the prey spider on the bromeliad leaf to lock range"},
+                "mechanic": {"id": "defocus_lock", "hint": "Aim the green-magenta defocus rangefinder over the rainforest leaf katydid on the bromeliad frond to lock jump range"},
                 "imagePrompt": (
-                    "National Geographic photorealistic 16:9 extreme macro photograph from 0.35m right along the glistening curving edge of a "
-                    "tropical rainforest bromeliad leaf at dusk. Dewdrops bead along the serrated green leaf blade leading toward a delicate "
-                    "silk web suspended between damp fronds just center-left where a small spotted orb-weaver spider sits poised in twilight mist. "
-                    "Rich shallow depth of field, atmospheric misty cloud forest bokeh behind, zero text, no watermark."
+                    "Strictly first-person POV National Geographic photorealistic 16:9 extreme macro photograph from 0.35m peering directly "
+                    "along the glistening curving edge of a tropical rainforest bromeliad leaf at dusk. Dewdrops bead along the serrated green "
+                    "leaf blade leading toward a small camouflaged emerald-and-tan rainforest katydid cricket perched delicately on an adjacent "
+                    "frond tip just center-left in twilight mist. NO spiders anywhere in the frame—pure first-person predator POV looking at "
+                    "insect prey. Rich shallow depth of field, atmospheric misty cloud forest bokeh behind, zero text, no watermark."
                 ),
                 "defaultSemantics": {
-                    "primaryTarget": {"present": True, "label": "Orb-Weaver Prey Spider", "x": 0.44, "y": 0.50, "rx": 0.10, "ry": 0.10},
-                    "secondaryTarget": {"present": True, "label": "Dew-Laden Silk Anchor", "x": 0.68, "y": 0.60, "rx": 0.12, "ry": 0.12},
+                    "primaryTarget": {"present": True, "label": "Rainforest Leaf Katydid Prey", "x": 0.44, "y": 0.50, "rx": 0.10, "ry": 0.10},
+                    "secondaryTarget": {"present": True, "label": "Dew-Laden Bromeliad Tip", "x": 0.68, "y": 0.60, "rx": 0.12, "ry": 0.12},
                     "environmentFeature": {"present": True, "label": "Bromeliad Frond Edge", "x": 0.42, "y": 0.72, "rx": 0.36, "ry": 0.18},
                     "skyOrWaterRegion": {"present": True, "x": 0.52, "y": 0.16, "rx": 0.46, "ry": 0.18},
                 },
@@ -616,11 +618,11 @@ MYSTERIES = [
         "mysteryId": "reef_mantis_cpl_signal",
         "biomeId": "reef",
         "requiredSpeciesSlug": "mantis_shrimp",
-        "title": "Circular Polarization Threat",
-        "cluePrompt": "Coral rubble looks drab at the burrow lip. Sweep the Peacock Mantis Shrimp's tilted 12-channel trinocular midband strip to uncover and click the rival's blazing circularly polarized maxilliped signal.",
+        "title": "Circular Polarization Armor",
+        "cluePrompt": "Coral rubble hides armored prey in drab shadows. Sweep the Peacock Mantis Shrimp's tilted 12-channel midband strip to unmask and click the reef crab blazing in hyperspectral & CPL contrast.",
         "targetSemanticKey": "primaryTarget",
         "requiredMechanic": "midband_sweep",
-        "scientificReveal": "Stomatopods are the only known animals with biological quarter-wave retarders in their R8 rhabdomeres capable of distinguishing left- and right-handed circularly polarized light—creating a covert, predator-proof communication channel (Chiou et al., Current Biology 2008).",
+        "scientificReveal": "Stomatopods pack 12 narrowband spectral photoreceptors (300–720 nm) plus biological quarter-wave retarders distinguishing left- and right-handed circularly polarized light—breaking crustacean shell camouflage across sunlit coral rubble (Chiou et al., Current Biology 2008).",
         "points": 200,
     },
     {
@@ -673,7 +675,7 @@ MYSTERIES = [
         "biomeId": "cloudforest",
         "requiredSpeciesSlug": "jumping_spider",
         "title": "Chromatic Depth Lock",
-        "cluePrompt": "From the bromeliad leaf tip, aim the Portia Jumping Spider's green-magenta chromatic defocus rangefinder to calibrate exact jump distance and click the lurking orb-weaver spider.",
+        "cluePrompt": "From the bromeliad leaf tip, aim the Portia Jumping Spider's green-magenta chromatic defocus rangefinder to calibrate exact jump distance and click the camouflaged rainforest katydid.",
         "targetSemanticKey": "primaryTarget",
         "requiredMechanic": "defocus_lock",
         "scientificReveal": "Jumping spider principal eyes stack four photoreceptor tiers along the optical axis. Green light focuses sharply on Tier 1 while forming a distance-dependent blur circle on Tier 2, allowing monocular ballistic depth calculation without stereo disparity (Nagata et al., Science 2012).",

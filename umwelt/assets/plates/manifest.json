@@ -345,37 +345,37 @@
     "semantics": {
       "primaryTarget": {
         "present": true,
-        "label": "Rival Mantis Shrimp CPL Display",
-        "x": 0.68,
-        "y": 0.51,
-        "rx": 0.14,
-        "ry": 0.18
+        "label": "Armored Reef Crab (CPL Shell)",
+        "x": 0.655,
+        "y": 0.53,
+        "rx": 0.1,
+        "ry": 0.08
       },
       "secondaryTarget": {
-        "present": false,
-        "label": "Armored Reef Crab",
-        "x": 0.3,
-        "y": 0.68,
-        "rx": 0.1,
-        "ry": 0.09
+        "present": true,
+        "label": "Iridescent Giant Clam Mantle",
+        "x": 0.765,
+        "y": 0.62,
+        "rx": 0.06,
+        "ry": 0.06
       },
       "environmentFeature": {
         "present": true,
         "label": "Coral Rubble Terrace",
-        "x": 0.42,
-        "y": 0.74,
-        "rx": 0.22,
-        "ry": 0.16
+        "x": 0.45,
+        "y": 0.72,
+        "rx": 0.2,
+        "ry": 0.15
       },
       "skyOrWaterRegion": {
         "present": true,
-        "x": 0.42,
+        "x": 0.43,
         "y": 0.17,
-        "rx": 0.22,
-        "ry": 0.15
+        "rx": 0.18,
+        "ry": 0.11
       }
     },
-    "generationMs": 29919
+    "generationMs": 16787
   },
   "cloudforest_human_forest_Moonlit_Mist_v1": {
     "plateKey": "cloudforest_human_forest_Moonlit_Mist_v1",
@@ -555,37 +555,37 @@
     "semantics": {
       "primaryTarget": {
         "present": true,
-        "label": "Orb-Weaver Prey Spider",
-        "x": 0.365,
-        "y": 0.505,
-        "rx": 0.06,
-        "ry": 0.08
+        "label": "Rainforest Leaf Katydid Prey",
+        "x": 0.45,
+        "y": 0.43,
+        "rx": 0.08,
+        "ry": 0.07
       },
       "secondaryTarget": {
         "present": true,
-        "label": "Dew-Laden Silk Anchor",
-        "x": 0.19,
-        "y": 0.345,
+        "label": "Dew-Laden Bromeliad Tip",
+        "x": 0.35,
+        "y": 0.48,
         "rx": 0.07,
-        "ry": 0.07
+        "ry": 0.06
       },
       "environmentFeature": {
         "present": true,
         "label": "Bromeliad Frond Edge",
-        "x": 0.585,
-        "y": 0.46,
-        "rx": 0.22,
-        "ry": 0.14
+        "x": 0.65,
+        "y": 0.55,
+        "rx": 0.2,
+        "ry": 0.22
       },
       "skyOrWaterRegion": {
         "present": true,
-        "x": 0.42,
-        "y": 0.135,
-        "rx": 0.22,
-        "ry": 0.12
+        "x": 0.38,
+        "y": 0.16,
+        "rx": 0.28,
+        "ry": 0.15
       }
     },
-    "generationMs": 18609
+    "generationMs": 16165
   },
   "cloudforest_vampire_bat_Moonlit_Mist_v1": {
     "plateKey": "cloudforest_vampire_bat_Moonlit_Mist_v1",

@@ -290,7 +290,10 @@ def synthesize_wildlife_plate(biome, species, lighting_preset):
 
     lighting_desc = LIGHTING_MODIFIERS.get(lighting_preset, f"{lighting_preset} natural lighting.")
     full_prompt = (
-        f"{species['imagePrompt']} Lighting & Atmosphere: {lighting_desc} "
+        f"{species['imagePrompt']} "
+        f"STRICT FIRST-PERSON POV RULE: This camera is positioned inside the eyes of the {species['name']} looking outward at the habitat; "
+        f"NEVER depict a {species['name']} (or any member of {species['scientificName']}) anywhere inside the photograph. "
+        f"Lighting & Atmosphere: {lighting_desc} "
         f"Compose strictly in widescreen 16:9 cinematic aspect ratio. Pure documentary photography—no frames, no borders, no captions, no text."
     )
 

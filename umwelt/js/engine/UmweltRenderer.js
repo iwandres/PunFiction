@@ -6,7 +6,7 @@
  *   Pass 3   -> fboPrev   (Half-Res Ping-Pong History for Rod Motion Differencing)
  */
 import { FULLSCREEN_VS, LIVING_SCENE_FS, UMWELT_PERCEPTION_FS, COPY_FS } from './shaders.js?v=1';
-import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=1';
+import { getBiome, getSpecies, sanitizePlateKey } from '../data/biomes.js?v=3';
 
 const IDB_NAME = 'umwelt_plates_l1';
 const IDB_STORE = 'plates';
@@ -172,7 +172,7 @@ export class UmweltRenderer {
 
     // Load pre-baked static launch plate manifest (15 default-lighting plates on GitHub Pages CDN)
     try {
-      const resp = await fetch('assets/plates/manifest.json?v=1');
+      const resp = await fetch('assets/plates/manifest.json?v=3');
       if (resp.ok) {
         this.staticManifest = await resp.json();
         for (const pk of Object.keys(this.staticManifest)) {
@@ -462,8 +462,8 @@ export class UmweltRenderer {
     if (this.memoryPlates.has(plateKey)) return this.memoryPlates.get(plateKey);
     try {
       const [rgbResp, bioResp] = await Promise.all([
-        fetch(`${manifestEntry.rgbPath}?v=1`),
-        fetch(`${manifestEntry.bioPath}?v=1`),
+        fetch(`${manifestEntry.rgbPath}?v=3`),
+        fetch(`${manifestEntry.bioPath}?v=3`),
       ]);
       if (!rgbResp.ok || !bioResp.ok) return null;
       const [rgbBlob, bioBlob] = await Promise.all([rgbResp.blob(), bioResp.blob()]);

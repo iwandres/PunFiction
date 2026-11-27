@@ -3,7 +3,7 @@
  * Renders sensory-faithful prey, hazards, stealth shelters, and animal locomotion feedback
  * synchronized directly atop the WebGL2 perception canvas.
  */
-import { getMissionForSpecies, getSpecies } from '../data/biomes.js?v=1';
+import { getMissionForSpecies, getSpecies } from '../data/biomes.js?v=3';
 
 function clamp(v, lo, hi) {
   return Math.max(lo, Math.min(hi, v));
@@ -613,14 +613,15 @@ export class MissionEngine {
       p.heading = Math.atan2(p.vy, p.vx);
     }
 
-    // Drive WebGL2 2.5D navigable camera offset, zoom, cursor, and gait bob!
+    // Drive WebGL2 2.5D first-person navigable camera offset, zoom lunge, cursor, and gait bob!
     const st = this.renderer.state;
     st.cursorX = p.x;
     st.cursorY = p.y;
-    st.camOffsetX = (p.x - 0.5) * 0.14;
-    st.camOffsetY = -(p.y - 0.5) * 0.12;
-    st.camZoom = p.dashTimer > 0 ? 1.18 : 1.12;
-    st.gaitBob = Math.sin(p.gaitPhase) * (speedMag > 0.02 ? 1.0 : 0.25);
+    st.camOffsetX = (p.x - 0.5) * 0.22;
+    st.camOffsetY = -(p.y - 0.5) * 0.18;
+    const actionLunge = p.cooldown > 0.22 ? 0.08 : 0;
+    st.camZoom = (p.dashTimer > 0 ? 1.28 : 1.18) + actionLunge;
+    st.gaitBob = Math.sin(p.gaitPhase) * (speedMag > 0.02 ? 1.15 : 0.28);
 
     // Cuttlefish continuous Q/E polarization rotation
     if (slug === 'cuttlefish' && inp.rotPol !== 0) {
@@ -1129,19 +1130,73 @@ export class MissionEngine {
       ctx.restore();
     }
 
-    // 5. Embodied Player Animal Marker & Reticle
+    // 5. Pure First-Person Optical Sensory Sight (NEVER render the POV animal itself!)
     const px = p.x * w;
     const py = p.y * h;
+    const rMain = minDim * 0.052;
     ctx.save();
     ctx.strokeStyle = p.stealth ? '#34d399' : this.species.accentColor;
-    ctx.lineWidth = 2.5;
+    ctx.lineWidth = 2.2;
     ctx.beginPath();
-    ctx.arc(px, py, minDim * 0.045, 0, Math.PI * 2);
+    ctx.arc(px, py, rMain, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.font = `${Math.round(minDim * 0.036)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(this.species.icon, px, py);
+
+    // Precision optical tick marks at N/S/E/W
+    const tickIn = rMain * 0.65;
+    const tickOut = rMain * 1.28;
+    ctx.beginPath();
+    ctx.moveTo(px - tickOut, py); ctx.lineTo(px - tickIn, py);
+    ctx.moveTo(px + tickIn, py); ctx.lineTo(px + tickOut, py);
+    ctx.moveTo(px, py - tickOut); ctx.lineTo(px, py - tickIn);
+    ctx.moveTo(px, py + tickIn); ctx.lineTo(px, py + tickOut);
+    ctx.stroke();
+
+    // Species-specific first-person HUD cue inside reticle
+    if (slug === 'cuttlefish') {
+      const ang = this.renderer.state.polAngleRad;
+      const ax = Math.cos(ang) * rMain * 0.85;
+      const ay = Math.sin(ang) * rMain * 0.85;
+      ctx.strokeStyle = '#cffafe';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(px - ax, py - ay);
+      ctx.lineTo(px + ax, py + ay);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    } else if (slug === 'hammerhead') {
+      // Wide cephalofoil electroreception horizon sweep bar
+      ctx.strokeStyle = 'rgba(129, 140, 248, 0.85)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px - rMain * 2.1, py);
+      ctx.lineTo(px - rMain * 0.9, py);
+      ctx.moveTo(px + rMain * 0.9, py);
+      ctx.lineTo(px + rMain * 2.1, py);
+      ctx.stroke();
+    } else if (slug === 'jumping_spider') {
+      // Dual green/magenta focal crosshair rings
+      ctx.strokeStyle = '#34d399';
+      ctx.beginPath();
+      ctx.arc(px - 3, py, rMain * 0.55, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeStyle = '#e879f9';
+      ctx.beginPath();
+      ctx.arc(px + 3, py, rMain * 0.55, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Center pinpoint dot
+    ctx.fillStyle = p.stealth ? '#6ee7b7' : '#ffffff';
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (p.stealth) {
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = `700 ${Math.round(minDim * 0.016)}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.fillText('HIDDEN (RED-BLIND COVER)', px, py + rMain + 16);
+    }
     ctx.restore();
 
     // 6. Action / Capture Ring FX
