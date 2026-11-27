@@ -1099,12 +1099,21 @@ function startGame(challenge) {
 function getCorrectPosterUrl(urlPath) {
     if (!urlPath) return "https://placehold.co/140x210/111625/f8fafc?text=No+Poster";
     
-    // Normalize urlPath to remove leading slash for subfolder-relative resolves
-    const cleanPath = urlPath.startsWith('/') ? urlPath.substring(1) : urlPath;
-    
+    // Normalize urlPath to remove leading slash or redundant travelreviews/ prefix
+    let cleanPath = urlPath.startsWith('/') ? urlPath.substring(1) : urlPath;
+    if (cleanPath.startsWith('travelreviews/')) {
+        cleanPath = cleanPath.substring('travelreviews/'.length);
+    }
+
+    // Serve first-party assets directly on punfiction.io / GitHub Pages (faster & avoids cross-origin ORB issues)
+    const host = window.location.hostname;
+    if (host === 'punfiction.io' || host === 'www.punfiction.io' || host === 'iwandres.github.io') {
+        return cleanPath;
+    }
+
     if (activeFetchedFromCDN) {
-        // Load poster illustration from raw public GitHub CDN under the travelreviews subfolder
-        const rawRepoUrl = "https://raw.githubusercontent.com/iwandres/travelreviews/main/travelreviews";
+        // Load poster illustration from raw public GitHub CDN under PunFiction/travelreviews
+        const rawRepoUrl = "https://raw.githubusercontent.com/iwandres/PunFiction/main/travelreviews";
         return `${rawRepoUrl}/${cleanPath}`;
     }
     // Sandbox local wrapper load
