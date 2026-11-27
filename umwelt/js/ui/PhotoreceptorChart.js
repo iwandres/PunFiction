@@ -6,12 +6,12 @@
 
 export function renderPhotoreceptorChart(containerEl, species) {
   if (!containerEl || !species) return;
-  const W = 276;
-  const H = 118;
-  const padL = 22;
-  const padR = 10;
+  const W = 248;
+  const H = 94;
+  const padL = 18;
+  const padR = 8;
   const padT = 14;
-  const padB = 26;
+  const padB = 22;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
   const minNm = 300;
@@ -26,7 +26,7 @@ export function renderPhotoreceptorChart(containerEl, species) {
       const z = (nm - pr.peakNm) / (pr.width || 35);
       const val = Math.exp(-0.5 * z * z);
       const x = xOf(nm);
-      const y = padT + plotH * (1 - val * 0.92);
+      const y = padT + plotH * (1 - val * 0.90);
       pts.push(`${nm === minNm ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
       fillPts.push(`L ${x.toFixed(1)} ${y.toFixed(1)}`);
     }
@@ -34,8 +34,8 @@ export function renderPhotoreceptorChart(containerEl, species) {
     const peakX = xOf(Math.max(minNm + 12, Math.min(maxNm - 12, pr.peakNm)));
     return `
       <path d="${fillPts.join(' ')}" fill="${pr.color}" fill-opacity="0.16" />
-      <path d="${pts.join(' ')}" fill="none" stroke="${pr.color}" stroke-width="2" stroke-linecap="round" />
-      <text x="${peakX.toFixed(1)}" y="${(padT - 3 + (idx % 2) * 8).toFixed(1)}" fill="${pr.color}" font-size="8.5" font-family="JetBrains Mono, monospace" text-anchor="middle">${pr.peakNm}nm</text>
+      <path d="${pts.join(' ')}" fill="none" stroke="${pr.color}" stroke-width="1.9" stroke-linecap="round" />
+      <text x="${peakX.toFixed(1)}" y="${(padT - 3 + (idx % 2) * 8).toFixed(1)}" fill="${pr.color}" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">${pr.peakNm}nm</text>
     `;
   }).join('');
 
@@ -43,22 +43,15 @@ export function renderPhotoreceptorChart(containerEl, species) {
   const ticks = [300, 400, 500, 600, 700].map((nm) => {
     const x = xOf(nm);
     return `
-      <line x1="${x.toFixed(1)}" y1="${padT}" x2="${x.toFixed(1)}" y2="${padT + plotH}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 2" />
-      <text x="${x.toFixed(1)}" y="${H - 4}" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono, monospace" text-anchor="middle">${nm}</text>
+      <line x1="${x.toFixed(1)}" y1="${padT}" x2="${x.toFixed(1)}" y2="${padT + plotH}" stroke="rgba(255,255,255,0.07)" stroke-dasharray="2 2" />
+      <text x="${x.toFixed(1)}" y="${H - 3}" fill="#94a3b8" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">${nm}</text>
     `;
   }).join('');
 
-  const legendChips = (species.photoreceptors || []).map((pr) =>
-    `<span class="spec-chip"><i style="background:${pr.color}"></i>${pr.label} (${pr.peakNm} nm)</span>`
-  ).join('');
-
   const nonVisHtml = species.nonVisualBand
     ? `<div class="nonvisual-band">
-         <span class="nv-badge">${species.nonVisualBand.badge || 'EXTRA-OPTICAL'}</span>
-         <div class="nv-info">
-           <strong>${species.nonVisualBand.label}</strong>
-           <span>${species.nonVisualBand.range}</span>
-         </div>
+         <span class="nv-badge">${species.nonVisualBand.badge || 'OPTICS'}</span>
+         <span class="nv-inline">${species.nonVisualBand.label}</span>
        </div>`
     : '';
 
@@ -76,14 +69,13 @@ export function renderPhotoreceptorChart(containerEl, species) {
         </linearGradient>
       </defs>
       <rect x="${padL}" y="${padT}" width="${(uvEnd - padL).toFixed(1)}" height="${plotH}" fill="rgba(168, 85, 247, 0.08)" />
-      <text x="${((padL + uvEnd) / 2).toFixed(1)}" y="${padT + plotH - 5}" fill="rgba(192,132,252,0.75)" font-size="7.5" font-family="JetBrains Mono, monospace" text-anchor="middle">UV</text>
+      <text x="${((padL + uvEnd) / 2).toFixed(1)}" y="${padT + plotH - 4}" fill="rgba(192,132,252,0.75)" font-size="7" font-family="JetBrains Mono, monospace" text-anchor="middle">UV</text>
       ${ticks}
-      <rect x="${uvEnd.toFixed(1)}" y="${padT + plotH + 2}" width="${(xOf(700) - uvEnd).toFixed(1)}" height="3.5" rx="1.5" fill="url(#visSpecGrad)" opacity="0.88" />
-      <rect x="${padL}" y="${padT + plotH + 2}" width="${(uvEnd - padL).toFixed(1)}" height="3.5" rx="1.5" fill="#9333ea" opacity="0.7" />
+      <rect x="${uvEnd.toFixed(1)}" y="${padT + plotH + 2}" width="${(xOf(700) - uvEnd).toFixed(1)}" height="3" rx="1.5" fill="url(#visSpecGrad)" opacity="0.88" />
+      <rect x="${padL}" y="${padT + plotH + 2}" width="${(uvEnd - padL).toFixed(1)}" height="3" rx="1.5" fill="#9333ea" opacity="0.7" />
       ${curvePaths}
       <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="rgba(255,255,255,0.22)" />
     </svg>
-    <div class="spec-chips">${legendChips}</div>
     ${nonVisHtml}
   `;
 }

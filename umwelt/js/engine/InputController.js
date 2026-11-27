@@ -49,8 +49,6 @@ export class InputController {
       } else if (code === 'Tab') {
         e.preventDefault();
         this.callbacks.onToggleSplit?.();
-      } else if (code === 'KeyM') {
-        this.callbacks.onToggleAudio?.();
       } else if (code === 'Escape') {
         this.callbacks.onEscape?.();
       }

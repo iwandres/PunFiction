@@ -224,25 +224,6 @@ html, body {
   color: #f8fafc;
 }
 
-.plate-status {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
-.plate-status[data-state='ready'] {
-  color: #6ee7b7;
-  border-color: rgba(52, 211, 153, 0.32);
-}
-.plate-status[data-state='loading'] {
-  color: #fde68a;
-  border-color: rgba(245, 158, 11, 0.35);
-}
-
 .hud-btn {
   display: inline-flex;
   align-items: center;
@@ -305,110 +286,22 @@ html, body {
   }
 }
 
-/* ---------- Left Vertical Elevation / Depth Gauge ---------- */
-.elevation-gauge {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 16;
-  width: 64px;
-  padding: 10px 7px;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.gauge-cap {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  color: var(--text-dim);
-  text-align: center;
-  line-height: 1.25;
-}
-
-.gauge-track {
-  position: relative;
-  width: 6px;
-  height: 170px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.gauge-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 999px;
-  background: linear-gradient(to top, rgba(56, 189, 248, 0.8), rgba(52, 211, 153, 0.95));
-  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.gauge-tick {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  display: flex;
-  align-items: center;
-}
-
-.gt-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(148, 163, 184, 0.65);
-  border: 1.5px solid #04070d;
-}
-.gauge-tick.active .gt-dot {
-  width: 12px;
-  height: 12px;
-  background: var(--emerald);
-  box-shadow: 0 0 12px rgba(52, 211, 153, 0.85);
-}
-.gt-val {
-  position: absolute;
-  left: 18px;
-  padding: 2px 6px;
-  border-radius: 6px;
-  background: var(--glass-bg-strong);
-  border: 1px solid rgba(52, 211, 153, 0.4);
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  color: #a7f3d0;
-  white-space: nowrap;
-}
-
-.gauge-metric {
-  width: 100%;
-  padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--font-mono);
-}
-.gauge-metric span {
-  font-size: 0.52rem;
-  color: var(--text-dim);
-}
-.gauge-metric strong {
-  font-size: 0.68rem;
-  color: var(--cyan);
-}
-
 /* ---------- Collapsible Photoreceptor Card ---------- */
 .photoreceptor-card {
   position: absolute;
-  left: 112px;
-  top: calc(var(--topbar-h, 52px) + 22px);
+  left: 12px;
+  top: calc(var(--topbar-h, 52px) + 18px);
   z-index: 18;
-  width: 306px;
-  border-radius: 16px;
-  padding: 13px 15px;
+  width: 268px;
+  border-radius: 15px;
+  padding: 11px 13px;
+  background: rgba(7, 11, 18, 0.66);
   transition: width 0.2s;
+}
+
+.photoreceptor-card.collapsed {
+  width: auto;
+  min-width: 196px;
 }
 
 .photoreceptor-card.collapsed .spec-body {
@@ -417,7 +310,7 @@ html, body {
 
 .spec-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
@@ -425,7 +318,7 @@ html, body {
 .spec-title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
   line-height: 1.2;
@@ -433,21 +326,27 @@ html, body {
 
 .spec-sci {
   margin-top: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 0.7rem;
   color: var(--text-dim);
 }
 
 .spec-toggle-btn {
   border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text-dim);
   border-radius: 7px;
-  padding: 4px 8px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1;
   cursor: pointer;
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 .spec-toggle-btn:hover {
   color: #fff;
@@ -455,9 +354,9 @@ html, body {
 }
 
 .spec-summary {
-  margin: 9px 0 10px;
-  font-size: 0.77rem;
-  line-height: 1.48;
+  margin: 8px 0 8px;
+  font-size: 0.74rem;
+  line-height: 1.44;
   color: #cbd5e1;
 }
 
@@ -467,63 +366,33 @@ html, body {
   display: block;
 }
 
-.spec-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 6px;
-}
-
-.spec-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: #e2e8f0;
-}
-.spec-chip i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
 .nonvisual-band {
-  margin-top: 9px;
-  padding: 7px 9px;
-  border-radius: 10px;
+  margin-top: 7px;
+  padding: 5px 8px;
+  border-radius: 9px;
   background: rgba(168, 85, 247, 0.12);
-  border: 1px solid rgba(168, 85, 247, 0.34);
+  border: 1px solid rgba(168, 85, 247, 0.30);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 .nv-badge {
-  padding: 3px 6px;
-  border-radius: 6px;
+  padding: 2px 6px;
+  border-radius: 5px;
   background: rgba(168, 85, 247, 0.28);
   color: #e9d5ff;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   white-space: nowrap;
 }
-.nv-info {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.7rem;
-}
-.nv-info strong {
-  color: #f8fafc;
-}
-.nv-info span {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: #cbd5e1;
+.nv-inline {
+  font-size: 0.69rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ---------- Stacked Bottom Mechanic Bar & Objective Strip (Zero Overlap) ---------- */
@@ -662,10 +531,10 @@ html, body {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
   width: 100%;
-  padding: 7px 8px;
+  padding: 8px 10px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -685,32 +554,9 @@ html, body {
   box-shadow: 0 0 0 1px var(--sp-accent, var(--emerald)), 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
-.sb-key {
-  position: absolute;
-  top: 5px;
-  left: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  color: var(--text-dim);
-}
-.sb-ready {
-  position: absolute;
-  top: 6px;
-  right: 7px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(245, 158, 11, 0.55);
-}
-.sb-ready.ready {
-  background: var(--emerald);
-  box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
-}
-
 .sb-icon {
-  font-size: 1.25rem;
+  font-size: 1.32rem;
   line-height: 1;
-  margin-left: 5px;
   flex-shrink: 0;
 }
 .sb-info {
@@ -718,7 +564,7 @@ html, body {
   min-width: 0;
 }
 .sb-name {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -726,26 +572,15 @@ html, body {
 }
 .sb-tag {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.61rem;
   color: var(--text-dim);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sb-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-  flex-shrink: 0;
-}
-.sb-elev {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  color: #94a3b8;
-}
 .sb-badge {
-  font-size: 0.66rem;
+  font-size: 0.72rem;
+  flex-shrink: 0;
 }
 .sb-badge.done {
   color: var(--emerald);
@@ -864,24 +699,25 @@ html, body {
 }
 .split-pill {
   position: absolute;
-  top: calc(var(--topbar-h, 52px) + 22px);
-  z-index: 17;
-  padding: 5px 11px;
+  top: calc(var(--topbar-h, 52px) + 18px);
+  z-index: 19;
+  padding: 4px 10px;
   border-radius: 999px;
   background: rgba(7, 11, 18, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.22);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  white-space: nowrap;
   pointer-events: none;
 }
 .split-pill.left {
-  left: 16px;
+  right: 26px;
   color: #cbd5e1;
 }
 .split-pill.right {
-  right: 16px;
+  left: 26px;
   color: var(--emerald);
   border-color: rgba(52, 211, 153, 0.45);
 }
@@ -1226,16 +1062,12 @@ html, body {
 }
 
 @media (max-width: 960px) {
-  .brand-lockup,
-  .plate-status {
-    display: none;
-  }
-  .elevation-gauge {
+  .brand-lockup {
     display: none;
   }
   .photoreceptor-card {
     left: 12px;
-    width: min(290px, calc(100vw - 24px));
+    width: min(268px, calc(100vw - 24px));
   }
   .bottom-hud-stack {
     max-width: calc(100vw - 24px);
@@ -1246,11 +1078,8 @@ html, body {
     font-size: 0.72rem;
   }
   .species-btn {
-    min-width: 124px;
+    min-width: 128px;
     padding: 7px 9px;
-  }
-  .sb-elev {
-    display: none;
   }
 }
 

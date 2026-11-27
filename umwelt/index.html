@@ -52,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=9" />
+  <link rel="stylesheet" href="css/styles.css?v=11" />
 </head>
 <body>
   <div id="viewport" class="viewport">
@@ -75,10 +75,10 @@
       </p>
     </div>
 
-    <!-- Split-Screen Curtain Controls -->
-    <div id="split-label-left" class="split-pill left hidden">HUMAN RGB</div>
-    <div id="split-label-right" class="split-pill right hidden">ANIMAL UMWELT</div>
+    <!-- Split-Screen Curtain Controls (labels track divider cleanly) -->
     <div id="split-handle" class="split-handle hidden" role="slider" aria-label="Drag split comparison curtain" tabindex="0">
+      <div id="split-label-left" class="split-pill left">HUMAN RGB</div>
+      <div id="split-label-right" class="split-pill right">ANIMAL UMWELT</div>
       <div class="split-knob">⇆</div>
     </div>
 
@@ -86,7 +86,7 @@
     <div id="spider-radar" class="spider-radar hidden" aria-label="360-degree peripheral motion radar">
       <span class="radar-cap">−180°</span>
       <span class="radar-cap">−90°</span>
-      <span class="radar-cap center">0° FWD · 360° SECONDARY-EYE RADAR</span>
+      <span class="radar-cap center">0° FWD · 360° RADAR</span>
       <span class="radar-cap">+90°</span>
       <span class="radar-cap">+180°</span>
       <div class="radar-blips"></div>
@@ -104,14 +104,12 @@
         <a href="../" class="portal-back" title="Return to PunFiction.io">← PunFiction</a>
         <div class="brand-lockup">
           <span class="brand-title">UMWELT</span>
-          <span class="brand-sub">ANIMAL OPTICS</span>
         </div>
         <nav id="biome-tabs" class="biome-tabs" aria-label="Select Biome"></nav>
         <div class="lighting-wrap">
           <label for="lighting-select" class="sr-only">Lighting preset</label>
           <select id="lighting-select" class="lighting-select" title="Switch environmental lighting preset"></select>
         </div>
-        <span id="plate-status-pill" class="plate-status" data-state="loading">◌ Initializing...</span>
       </div>
 
       <div class="top-right">
@@ -119,15 +117,10 @@
         <button type="button" id="btn-journal" class="hud-btn" title="Open Ecological Field Journal">
           📓 Journal <span id="journal-count-badge" class="count-badge">0/21</span>
         </button>
-        <a href="guide.html" class="hud-btn" style="text-decoration: none;" title="Read the Animal Vision &amp; Sensory Biology Field Guide">🔬 Science Guide</a>
-        <button type="button" id="btn-audio" class="hud-btn icon-text" title="Toggle procedural binaural species audio (M)">🔇 Sound</button>
-        <button type="button" id="btn-reduced-motion" class="hud-btn icon-only" title="Toggle Reduced Motion (vestibular-safe)">◎</button>
+        <a href="guide.html" class="hud-btn" style="text-decoration: none;" title="Read the Animal Vision &amp; Sensory Biology Field Guide">🔬 Guide</a>
         <button type="button" id="btn-gyro" class="hud-btn icon-only touch-only" title="Toggle mobile gyroscope tilt look">🧭</button>
       </div>
     </header>
-
-    <!-- LEFT VERTICAL ECOLOGICAL ELEVATION / DEPTH GAUGE -->
-    <aside id="elevation-gauge" class="elevation-gauge glass-panel" aria-label="Ecological elevation and depth gauge"></aside>
 
     <!-- COLLAPSIBLE PHOTORECEPTOR & SPECTRAL SENSITIVITY CARD -->
     <section id="photoreceptor-card" class="photoreceptor-card glass-panel" aria-label="Species photoreceptor spectral sensitivity">
@@ -136,7 +129,7 @@
           <h1 id="spec-species-name" class="spec-title">Human Observer</h1>
           <div id="spec-sci-name" class="spec-sci">Homo sapiens</div>
         </div>
-        <button type="button" id="btn-toggle-spec" class="spec-toggle-btn">Collapse ▴</button>
+        <button type="button" id="btn-toggle-spec" class="spec-toggle-btn" aria-label="Collapse info card">−</button>
       </div>
       <div id="photoreceptor-body" class="spec-body">
         <p id="spec-summary" class="spec-summary"></p>
@@ -148,22 +141,22 @@
     <div id="bottom-hud-stack" class="bottom-hud-stack">
       <div id="mechanic-bar" class="mechanic-bar">
         <div id="pol-control" class="mech-pill glass-panel hidden">
-          <span class="mech-label">LINEAR POLARIZATION θ</span>
+          <span class="mech-label">POLARIZATION θ</span>
           <input id="pol-slider" type="range" min="0" max="180" value="42" aria-label="Rotate linear polarization angle" />
           <strong id="pol-deg-label" class="mech-val">42°</strong>
         </div>
         <div id="aperture-control" class="mech-pill glass-panel hidden">
-          <span class="mech-label">PINHOLE APERTURE Ø</span>
+          <span class="mech-label">PINHOLE Ø</span>
           <input id="aperture-slider" type="range" min="0.4" max="2.8" step="0.05" value="1.30" aria-label="Adjust Nautilus seawater pinhole pupil diameter" />
           <strong id="aperture-mm-label" class="mech-val wide">1.30 mm · Sweet Spot</strong>
         </div>
         <div id="sonar-control" class="mech-pill glass-panel hidden">
-          <button type="button" id="btn-sonar-ping" class="sonar-btn">📡 Emit Ultrasonic Sonar (E)</button>
+          <button type="button" id="btn-sonar-ping" class="sonar-btn">📡 Sonar Ping (E)</button>
         </div>
       </div>
 
-      <!-- OBSERVATION MODE OBJECTIVE STRIP -->
-      <div id="objective-strip" class="objective-strip glass-panel" aria-live="polite"></div>
+      <!-- OBSERVATION MODE OBJECTIVE STRIP (Active unsolved mystery only) -->
+      <div id="objective-strip" class="objective-strip glass-panel hidden" aria-live="polite"></div>
     </div>
 
     <!-- BOTTOM 8-SLOT SPECIES DOCK -->
@@ -187,6 +180,6 @@
       <p>UMWELT requires JavaScript and WebGL2 to render its 24 animal sensory perspectives across an Alpine Meadow, Coral Reef Lagoon, and Cloud Forest. You can still read our complete illustrated <a href="guide.html" style="color:#34d399;">Animal Vision &amp; Sensory Biology Field Guide</a> or return to <a href="../" style="color:#34d399;">PunFiction</a>.</p>
     </div>
   </noscript>
-  <script type="module" src="js/ui/app.js?v=10"></script>
+  <script type="module" src="js/ui/app.js?v=11"></script>
 </body>
 </html>

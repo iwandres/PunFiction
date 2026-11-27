@@ -1,7 +1,7 @@
 /**
  * UMWELT: Animal Optics — Main Interactive Controller
  * Connects WebGL2 Multi-Pass Engine, Field Journal Discovery Loop, Optical Cursor Reticles,
- * Photoreceptor Chart, Synchronized Split-Screen Curtain, Binaural Audio & Render/MongoDB Atlas API.
+ * Photoreceptor Chart, Synchronized Split-Screen Curtain & Render/MongoDB Atlas API.
  */
 import {
   BIOMES,
@@ -11,10 +11,9 @@ import {
   getMysteryForSpecies,
 } from '../data/biomes.js?v=10';
 import { UmweltRenderer } from '../engine/UmweltRenderer.js?v=10';
-import { AudioSynthesizer } from '../engine/AudioSynthesizer.js?v=8';
-import { InputController } from '../engine/InputController.js?v=8';
-import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=1';
-import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=8';
+import { InputController } from '../engine/InputController.js?v=11';
+import { renderPhotoreceptorChart } from './PhotoreceptorChart.js?v=11';
+import { OpticalCursorHUD } from './OpticalCursorHUD.js?v=11';
 import { FieldJournalDrawer } from './FieldJournal.js?v=10';
 
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
@@ -98,14 +97,10 @@ class UmweltApp {
       webglFallback: document.getElementById('webgl-fallback'),
       biomeTabs: document.getElementById('biome-tabs'),
       lightingSelect: document.getElementById('lighting-select'),
-      plateStatusPill: document.getElementById('plate-status-pill'),
       btnSplit: document.getElementById('btn-split'),
       btnJournal: document.getElementById('btn-journal'),
       journalCountBadge: document.getElementById('journal-count-badge'),
-      btnAudio: document.getElementById('btn-audio'),
-      btnReducedMotion: document.getElementById('btn-reduced-motion'),
       btnGyro: document.getElementById('btn-gyro'),
-      elevationGauge: document.getElementById('elevation-gauge'),
       specCard: document.getElementById('photoreceptor-card'),
       specToggle: document.getElementById('btn-toggle-spec'),
       specBody: document.getElementById('photoreceptor-body'),
@@ -137,7 +132,6 @@ class UmweltApp {
   }
 
   async init() {
-    this.audio = new AudioSynthesizer();
     this.renderer = new UmweltRenderer(this.el.glCanvas, API_BASE);
     const glOk = await this.renderer.init();
     if (!glOk) {
@@ -156,14 +150,12 @@ class UmweltApp {
       onSpaceKey: () => this.toggleSplitCompare(),
       onKeyE: () => this._onKeyE(),
       onToggleSplit: () => this.toggleSplitCompare(),
-      onToggleAudio: () => this.toggleAudio(),
       onEscape: () => this._onEscape(),
       onPointerMove: (nx, ny) => this._onPointerMove(nx, ny),
       onViewportClick: (nx, ny) => this._onViewportClick(nx, ny),
       onWheel: (deltaY) => this._onWheel(deltaY),
     });
 
-    this.renderer.onPlateStatus = (info) => this._onPlateStatus(info);
     this.renderer.onFrame = (dt, timeSec) => this._onFrame(dt, timeSec);
 
     this._bindUIEvents();
@@ -173,7 +165,6 @@ class UmweltApp {
 
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
       this.renderer.state.reducedMotion = true;
-      this.el.btnReducedMotion?.classList.add('active');
     }
 
     await this.selectBiomeAndSpecies('meadow', 'human_meadow', 'Alpine Noon', false);
@@ -190,17 +181,10 @@ class UmweltApp {
     this.el.lightingSelect.addEventListener('change', () => {
       this.lightingPreset = this.el.lightingSelect.value;
       this.renderer.setView(this.biomeId, this.speciesSlug, this.lightingPreset, false);
-      this._renderSpeciesDock();
     });
 
     this.el.btnSplit.addEventListener('click', () => this.toggleSplitCompare());
     this.el.btnJournal.addEventListener('click', () => this.journalDrawer.toggle());
-    this.el.btnAudio.addEventListener('click', () => this.toggleAudio());
-    this.el.btnReducedMotion.addEventListener('click', () => {
-      this.renderer.state.reducedMotion = !this.renderer.state.reducedMotion;
-      this.el.btnReducedMotion.classList.toggle('active', this.renderer.state.reducedMotion);
-      this.showToast(this.renderer.state.reducedMotion ? 'Reduced Motion enabled (vestibular-safe)' : 'Full 2.5D parallax motion active');
-    });
 
     if (this.el.btnGyro) {
       this.el.btnGyro.addEventListener('click', async () => {
@@ -268,7 +252,8 @@ class UmweltApp {
 
   _applyPhotoreceptorCollapse() {
     this.el.specCard.classList.toggle('collapsed', this.photoreceptorCollapsed);
-    this.el.specToggle.textContent = this.photoreceptorCollapsed ? 'Expand ▾' : 'Collapse ▴';
+    this.el.specToggle.textContent = this.photoreceptorCollapsed ? '+' : '−';
+    this.el.specToggle.setAttribute('aria-label', this.photoreceptorCollapsed ? 'Expand info card' : 'Collapse info card');
   }
 
   _renderBiomeTabs() {
@@ -305,56 +290,18 @@ class UmweltApp {
 
     this._renderBiomeTabs();
     this._renderLightingSelect(biome);
-    this._renderElevationGauge(biome, species);
     this._renderSpeciesDock();
     this._renderPhotoreceptorPanel(species);
     this._renderObjectiveStrip(biome, species);
     this._renderMechanicControls(species);
 
     this.cursorHud.setSpecies(species);
-    this.audio.setSpecies(biome.id, species.slug);
-    this.el.splitLabelRight.textContent = `${species.shortName.toUpperCase()} UMWELT`;
-    this.el.splitLabelLeft.textContent = biome.id === 'reef' ? 'HUMAN DIVER' : biome.id === 'cloudforest' ? 'HUMAN TWILIGHT' : 'HUMAN RGB';
+    this.el.splitLabelRight.textContent = species.shortName.toUpperCase();
+    this.el.splitLabelLeft.textContent = biome.id === 'reef' ? 'DIVER' : biome.id === 'cloudforest' ? 'TWILIGHT' : 'HUMAN';
 
     this._refreshJournalUI();
 
     await this.renderer.setView(biome.id, species.slug, preset, triggerSwoop);
-  }
-
-  _renderElevationGauge(biome, species) {
-    const sc = biome.scale;
-    const val = species.elevationM;
-    const pct = Math.max(4, Math.min(96, ((val - sc.min) / (sc.max - sc.min)) * 100));
-
-    let reefExtra = '';
-    if (sc.mode === 'depth') {
-      const depthM = Math.abs(val);
-      const atm = (1 + depthM / 10).toFixed(2);
-      const redLoss = Math.min(99, Math.round((1 - Math.exp(-0.38 * depthM)) * 100));
-      reefExtra = `
-        <div class="gauge-metric"><span>PRESS</span><strong>${atm} atm</strong></div>
-        <div class="gauge-metric"><span>RED LOSS</span><strong>${redLoss}%</strong></div>
-      `;
-    }
-
-    const ticks = biome.species.map((sp) => {
-      const tPct = Math.max(4, Math.min(96, ((sp.elevationM - sc.min) / (sc.max - sc.min)) * 100));
-      const active = sp.slug === species.slug;
-      return `<div class="gauge-tick ${active ? 'active' : ''}" style="bottom:${tPct.toFixed(1)}%" title="${sp.name}: ${sp.elevationM}m">
-        <span class="gt-dot"></span>
-        ${active ? `<span class="gt-val">${sp.elevationM > 0 && sc.mode === 'elevation' ? '+' : ''}${sp.elevationM.toFixed(2).replace(/\.00$/, '')}m</span>` : ''}
-      </div>`;
-    }).join('');
-
-    this.el.elevationGauge.innerHTML = `
-      <div class="gauge-cap">${sc.maxLabel}</div>
-      <div class="gauge-track">
-        <div class="gauge-fill" style="height:${pct.toFixed(1)}%"></div>
-        ${ticks}
-      </div>
-      <div class="gauge-cap">${sc.minLabel}</div>
-      ${reefExtra}
-    `;
   }
 
   _renderSpeciesDock() {
@@ -363,23 +310,17 @@ class UmweltApp {
 
     this.el.speciesDock.innerHTML = biome.species.map((sp) => {
       const active = sp.slug === this.speciesSlug;
-      const ready = this.renderer.isPlateReady(biome.id, sp.slug, this.lightingPreset);
       const mystery = getMysteryForSpecies(biome.id, sp.slug);
       const mystSolved = mystery && solvedSet.has(mystery.mysteryId);
 
       return `
         <button type="button" class="species-btn ${active ? 'active' : ''}" data-species="${sp.slug}" style="--sp-accent:${sp.accentColor}">
-          <span class="sb-key">${sp.slot}</span>
-          <span class="sb-ready ${ready ? 'ready' : ''}" title="${ready ? 'Plate Ready' : 'Procedural / On-Demand'}"></span>
           <div class="sb-icon">${sp.icon}</div>
           <div class="sb-info">
             <div class="sb-name">${sp.shortName}</div>
             <div class="sb-tag">${sp.sensoryTag}</div>
           </div>
-          <div class="sb-meta">
-            <span class="sb-elev">${sp.elevationM}m</span>
-            ${mystSolved ? '<span class="sb-badge done" title="Field Mystery Logged">✓</span>' : ''}
-          </div>
+          ${mystSolved ? '<span class="sb-badge done" title="Field Mystery Logged">✓</span>' : ''}
         </button>
       `;
     }).join('');
@@ -393,7 +334,7 @@ class UmweltApp {
 
   _renderPhotoreceptorPanel(species) {
     this.el.specTitle.textContent = `${species.icon} ${species.name}`;
-    this.el.specSci.textContent = `${species.scientificName} · ${species.vantageLabel}`;
+    this.el.specSci.textContent = species.scientificName;
     this.el.specSummary.textContent = species.summary;
     renderPhotoreceptorChart(this.el.specChart, species);
   }
@@ -425,40 +366,18 @@ class UmweltApp {
     const mystery = getMysteryForSpecies(biome.id, species.slug);
     const solved = mystery && (this.journal.solvedMysteries || []).some((m) => m.mysteryId === mystery.mysteryId);
 
-    if (!mystery) {
-      this.el.objectiveStrip.innerHTML = `
-        <span class="obj-tag">BASELINE POV</span>
-        <span class="obj-text">Observe how humans perceive ${biome.shortName}, then select species <strong>[2–8]</strong> below to step into their ecological vantage points &amp; uncover hidden phenomena.</span>
-      `;
+    // Keep Human baselines and already-logged views completely unobstructed
+    if (!mystery || solved) {
+      this.el.objectiveStrip.classList.add('hidden');
+      this.el.objectiveStrip.innerHTML = '';
       return;
     }
 
-    if (solved) {
-      this.el.objectiveStrip.innerHTML = `
-        <span class="obj-tag solved">✓ CODEX LOGGED</span>
-        <span class="obj-text"><strong>${mystery.title}</strong> discovered! Toggle <strong>Split Compare (Space)</strong> to see Human vs. ${species.shortName} side-by-side.</span>
-      `;
-    } else {
-      this.el.objectiveStrip.innerHTML = `
-        <span class="obj-tag">🔬 FIELD MYSTERY</span>
-        <span class="obj-text"><strong>${mystery.title}:</strong> ${species.mechanic?.hint || mystery.cluePrompt} — <em>Click the hidden subject to log it!</em></span>
-      `;
-    }
-  }
-
-  _onPlateStatus({ status, label }) {
-    this._renderSpeciesDock();
-    if (!this.el.plateStatusPill) return;
-    if (status === 'ready') {
-      this.el.plateStatusPill.textContent = `● ${label}`;
-      this.el.plateStatusPill.dataset.state = 'ready';
-    } else if (status === 'synthesizing' || status === 'loading') {
-      this.el.plateStatusPill.textContent = `◌ ${label}`;
-      this.el.plateStatusPill.dataset.state = 'loading';
-    } else if (status === 'procedural') {
-      this.el.plateStatusPill.textContent = `◐ ${label}`;
-      this.el.plateStatusPill.dataset.state = 'procedural';
-    }
+    this.el.objectiveStrip.classList.remove('hidden');
+    this.el.objectiveStrip.innerHTML = `
+      <span class="obj-tag">MYSTERY</span>
+      <span class="obj-text"><strong>${mystery.title}:</strong> ${species.mechanic?.hint || mystery.cluePrompt}</span>
+    `;
   }
 
   _onFrame(dt) {
@@ -545,7 +464,6 @@ class UmweltApp {
   _triggerBatSonar(nx, ny) {
     this.sonarPingedForCurrent = true;
     this.renderer.triggerSonar(nx, ny);
-    this.audio.playSonarPing();
     this.input.haptic(16);
   }
 
@@ -653,7 +571,6 @@ class UmweltApp {
       return;
     }
 
-    this.audio.playDiscoveryUnlock();
     this.input.haptic([20, 40, 28]);
 
     if (res.journal) {
@@ -718,21 +635,12 @@ class UmweltApp {
     this.renderer.state.splitEnabled = next;
     this.el.btnSplit.classList.toggle('active', next);
     this.el.splitHandle.classList.toggle('hidden', !next);
-    this.el.splitLabelLeft.classList.toggle('hidden', !next);
-    this.el.splitLabelRight.classList.toggle('hidden', !next);
     this._positionSplitHandle();
   }
 
   _positionSplitHandle() {
     const pct = `${(this.renderer.state.splitX * 100).toFixed(2)}%`;
     this.el.splitHandle.style.left = pct;
-  }
-
-  toggleAudio() {
-    const active = this.audio.toggleMute();
-    this.el.btnAudio.classList.toggle('active', active);
-    this.el.btnAudio.textContent = active ? '🔊 Sound On' : '🔇 Sound';
-    this.showToast(active ? 'Binaural species soundscape enabled' : 'Sound muted');
   }
 
   _refreshJournalUI() {

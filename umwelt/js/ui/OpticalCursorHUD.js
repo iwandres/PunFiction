@@ -144,7 +144,8 @@ export class OpticalCursorHUD {
 
   update(normX, normY, state = {}) {
     if (!this.reticleEl) return;
-    if (state.hide) {
+    const isHuman = this.speciesSlug === 'human_meadow' || this.speciesSlug === 'human_reef' || this.speciesSlug === 'human_forest';
+    if (state.hide || isHuman) {
       this.reticleEl.classList.add('hidden');
       return;
     }
